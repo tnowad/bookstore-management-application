@@ -8,38 +8,42 @@
   - Author
   - Publisher
   - Publication date
-  -
+  - genre
 - Customer
   - Name
   - Address
   - email
   - Phone Number
-  -
+  - Contact Information
+  - Purchase History
 - Order
-  - Customer
+  - Customer Information
   - Order date
   - Order total
-  - Shipping information
-  -
+  - Shipping Information
+  - Book details
 - Employee
   - Position
   - Salary
-  -
-- Inventory
-  - Book
-  - Quantity in stock
-  - Restock date
-  -
-- Invoice
-  - Order
-  - Invoice date
-  - Total Amount Due
-  -
+  - Role
+  - Contact Information
+  - Work Schedule
 - Payment
   - Order
   - Payment date
   - Payment method
-  -
+  - Payment amount
+- Inventory
+  - Book
+  - Quantity in stock
+  - Restock date
+  - Book prices
+- Invoice
+  - Order
+  - Invoice date
+  - Total Amount Due
+  - Customer information
+  - Payment status
 - Book Reservation
   - Customer
   - Book
@@ -49,11 +53,13 @@
   - Start date
   - End date
   - Discount amount
-  -
+  - Promotion type
+  - Eligibility criteria
 - Gift Card
   - Card number
   - Value
   - Expiration date
+  - Redemption history
 - Author
   - Name
   - Nationality
@@ -82,9 +88,32 @@
 
 ## Relationship
 
-| Name     | Name    | Relationships |
-| -------- | ------- | ------------- |
-| Book     | Order   | One-to-Many   |
-| Customer | Order   | One-to-Many   |
-| Order    | Payment | One-to-One    |
-| Employee | Order   | One-to-Many   |
+| Name      | Name                     | Relationships |
+| --------- | ------------------------ | ------------- |
+| Book      | Author                   | One-to-Many   |
+| Book      | Publisher                | One-to-Many   |
+| Book      | Book Category            | Many-to-Many  |
+| Book      | Book Review              | One-to-Many   |
+| Book      | Book Reservation         | One-to-Many   |
+| Book      | Book Rental              | One-to-Many   |
+| Book      | Promotions               | Many-to-Many  |
+| Book      | Gift Card                | Many-to-Many  |
+| Customer  | Order                    | One-to-Many   |
+| Customer  | Payment                  | One-to-Many   |
+| Customer  | Invoice                  | One-to-Many   |
+| Customer  | Book Reservation         | One-to-Many   |
+| Customer  | Customer Loyalty Program | One-to-One    |
+| Customer  | Promotions               | Many-to-Many  |
+| Customer  | Gift Card                | Many-to-Many  |
+| Customer  | Newsletter               | One-to-Many   |
+| Order     | Employee                 | One-to-Many   |
+| Order     | Payment                  | One-to-Many   |
+| Order     | Invoice                  | One-to-One    |
+| Order     | Book Reservation         | One-to-Many   |
+| Order     | Book Rental              | One-to-Many   |
+| Employee  | Employee Task            | Many-to-Many  |
+| Employee  | Newsletter               | One-to-Many   |
+| Inventory | Book                     | One-to-Many   |
+| Invoice   | Payment                  | One-to-One    |
+| Payment   | Gift Card                | Many-to-One   |
+| Payment   | Promotions               | Many-to-Many  |
