@@ -39,21 +39,39 @@
   - Book Purchase
   - Book Pricing
   - Book Reservations
+    - Book Availability
+    - Reservation Management
+    - Customer Tracking
   - Book Rental
+    - Book Availability
+    - Rental Management
+    - Customer Tracking
+    - Billing and Invoicing
 - Customer Management
   - Customer Information
   - Customer Segmentation
   - Customer Relationship Management
   - Customer Loyalty Program
+    - Points Management
+    - Rewards Management
+    - Customer Tracking
   - Customer Feedback Management
     - Comments
     - Ratings
     - Reviews
 - Employee Management
   - Employee Task Management
+    - Task Assignment
+    - Task Tracking
+    - Employee Performance
+    - Task Management
 - Sale Management
   - Sales Order
   - Payment Processing
+    - Payment Collection
+    - Payment Security
+    - Payment Tracking
+    - Payment Reconciliation
   - Point of Sale (POS)
   - Inventory
   - Sales Reporting
@@ -61,6 +79,7 @@
 - Order Management
   - Order Processing
   - Inventory Management
+  - Delivery Coordination
   - Order History
 - Billing and Invoicing
   - Invoice Generation
@@ -83,10 +102,15 @@
   - Summary Reports
   - Alert History
   - Newsletter
+    - Customer Segmentation
+    - Email Sending
+    - Analytics
 - Search and Advanced Search
   - Basic Search
   - Advanced Search
     - Search Results Filtering
     - Search Results Sorting
-- Promotions
-- Gift Cards
+- Promotions, Gift Cards
+  - Promotions Management
+  - Gift Card Management
+  - Customer Segmentation

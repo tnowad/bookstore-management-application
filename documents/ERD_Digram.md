@@ -60,7 +60,7 @@
 - Publisher
   - Name
   - Location
-- Book Category: Fiction, non-Fiction, Children's books
+- Book Category: Fiction, non-Fiction, Children's books...
 - Book Review
   - Customer
   - Book
