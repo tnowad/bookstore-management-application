@@ -4,21 +4,74 @@
 
 - Dashboard
   - Data Analysis
+    - Sales
+      - Total sales
+      - Sales by product
+      - Sales by customer
+      - Sales by employee
+    - Inventory
+      - Stock levels
+      - Turnover
+      - Product profitability
+    - Customer
+      - Behavior
+      - Demographics
+      - Loyalty
+    - Employee
+      - Performance
+      - Productivity
+      - Scheduling
+    - Financial
+      - Revenue
+      - Expenses
+      - Profits
+    - Marketing
+      - The effectiveness of marketing campaigns
+      - Customer engagement
+      - Customer acquisition cost
+    - Performance Metrics
+      - Customer satisfaction
+      - Employee satisfaction
+      - Product quality
 - Book Management
+  - Book Information
+  - Book Inventory
+  - Book Purchase
+  - Book Pricing
   - Book Reservations
   - Book Rental
 - Customer Management
+  - Customer Information
+  - Customer Segmentation
+  - Customer Relationship Management
   - Customer Loyalty Program
+  - Customer Feedback Management
+    - Comments
+    - Ratings
+    - Reviews
 - Employee Management
   - Employee Task Management
 - Sale Management
+  - Sales Order
   - Payment Processing
+  - Point of Sale (POS)
+  - Inventory
+  - Sales Reporting
+  - Customer Management
 - Order Management
 - Billing and Invoicing
 - User Management
+  - User Account Management
+    - Password Management
+    - Role-Based Access Control
+  - User Activity Logging
 - Inventory Management
 - Notifications
   - Newsletter
 - Search and Advanced Search
+  - Basic Search
+  - Advanced Search
+    - Search Results Filtering
+    - Search Results Sorting
 - Promotions
 - Gift Cards
