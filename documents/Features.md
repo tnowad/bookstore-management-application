@@ -59,14 +59,29 @@
   - Sales Reporting
   - Customer Management
 - Order Management
+  - Order Processing
+  - Inventory Management
+  - Order History
 - Billing and Invoicing
+  - Invoice Generation
+  - Customer Billing Information
+  - Invoice History
+  - Payment Tracking
 - User Management
   - User Account Management
     - Password Management
     - Role-Based Access Control
   - User Activity Logging
 - Inventory Management
+  - Product Tracking
+  - Inventory Counting
+  - Stock Reordering
+  - Product Management
 - Notifications
+  - Real-Time Alerts
+  - Customizable Notifications
+  - Summary Reports
+  - Alert History
   - Newsletter
 - Search and Advanced Search
   - Basic Search
