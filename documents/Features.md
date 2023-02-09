@@ -2,15 +2,23 @@
 
 ## Features
 
-- Inventory Management
-- Books Management
-- Order Management
-- Sales Management
-- Employee Management
-- Stock Management
-- User Management
+- Dashboard
+  - Data Analysis
+- Book Management
+  - Book Reservations
+  - Book Rental
 - Customer Management
-- User Interface
-- Data Storage
-- Reporting
-- Import/Export
+  - Customer Loyalty Program
+- Employee Management
+  - Employee Task Management
+- Sale Management
+  - Payment Processing
+- Order Management
+- Billing and Invoicing
+- User Management
+- Inventory Management
+- Notifications
+  - Newsletter
+- Search and Advanced Search
+- Promotions
+- Gift Cards
