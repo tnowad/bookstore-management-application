@@ -27,7 +27,7 @@ Before you begin, make sure you have the following installed:
 
   ```shell
   git clone https://github.com/tnowad/bookstore-management-application.git
-  ```
+  ```           
 
 - Change into the project directory
 
