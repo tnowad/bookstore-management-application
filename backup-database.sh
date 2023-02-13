@@ -1,0 +1,1 @@
+docker exec bookstore-database sh -c 'exec mysqldump --databases test -uroot -padmin123' > ./database/init/backup.sql
