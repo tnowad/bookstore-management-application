@@ -1,0 +1,1 @@
+docker exec db cmd /c "powershell -Command Invoke-Expression ('& { mysqldump --databases test -uroot -padmin123 } | Out-File -Encoding Ascii ./init/backup.sql')"
