@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="FWp0LGkRE8JFmX-_dE24" name="Page-1">
-        <mxGraphModel dx="983" dy="474" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+        <mxGraphModel dx="1507" dy="727" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -135,6 +135,9 @@
                         <mxPoint x="330" y="640" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
+                <mxCell id="80" style="edgeStyle=none;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#df3323;" edge="1" parent="1" source="32" target="71">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
                 <mxCell id="32" value="Add to Cart" style="rounded=1;whiteSpace=wrap;html=1;arcSize=40;fontColor=#000000;fillColor=#ffffc0;strokeColor=#ff0000;" parent="1" vertex="1">
                     <mxGeometry x="240" y="560" width="120" height="40" as="geometry"/>
                 </mxCell>
@@ -242,6 +245,24 @@
                             <mxPoint x="1400" y="735"/>
                         </Array>
                     </mxGeometry>
+                </mxCell>
+                <mxCell id="71" value="Bought" style="rhombus;whiteSpace=wrap;html=1;fillColor=#ffffc0;strokeColor=#ff0000;" vertex="1" parent="1">
+                    <mxGeometry x="120" y="560" width="80" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="73" value="yes" style="edgeStyle=orthogonalEdgeStyle;html=1;align=left;verticalAlign=top;endArrow=open;endSize=8;strokeColor=#ff0000;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="71" parent="1" target="76">
+                    <mxGeometry x="-1" relative="1" as="geometry">
+                        <mxPoint x="300" y="740" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="79" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#df3323;" edge="1" parent="1" source="76" target="48">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="160" y="735"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="76" value="Review" style="rounded=1;whiteSpace=wrap;html=1;arcSize=40;fontColor=#000000;fillColor=#ffffc0;strokeColor=#ff0000;" vertex="1" parent="1">
+                    <mxGeometry x="100" y="640" width="120" height="40" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>
