@@ -20,4 +20,7 @@ public class ConnectDatabase {
       e.printStackTrace();
     }
   }
+
+  public void connect() {
+  }
 }
