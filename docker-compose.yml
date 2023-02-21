@@ -13,6 +13,7 @@ services:
       - ./database/init:/docker-entrypoint-initdb.d/:ro
   phpmyadmin:
     image: phpmyadmin:latest
+    container_name: bookstore-phpmyadmin
     restart: always
     environment:
       PMA_HOST: database
