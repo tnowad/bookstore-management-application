@@ -52,20 +52,21 @@ CREATE TABLE
     );
 
 CREATE TABLE
-    roles (
-        role_id INT PRIMARY KEY,
-        role_title VARCHAR(50)
+    accounts (
+        account_id INT NOT NULL AUTO_INCREMENT,
+        account_username VARCHAR(255) NOT NULL,
+        account_password VARCHAR(255) NOT NULL,
+        account_type ENUM(
+            'customer',
+            'employee',
+            'administrator'
+        ),
+        PRIMARY KEY (account_id),
     );
 
 CREATE TABLE
-    accounts (
-        account_id INT NOT NULL AUTO_INCREMENT,
-        account_name VARCHAR(255) NOT NULL,
-        account_password VARCHAR(255) NOT NULL,
-        account_email VARCHAR(255) NOT NULL,
-        account_phone VARCHAR(255) NOT NULL,
-        account_address VARCHAR(255) NOT NULL,
-        role_id INT NOT NULL,
-        PRIMARY KEY (account_id),
-        FOREIGN KEY (role_id) REFERENCES roles(role_id)
-    );
+    employees (
+        employee_id INT NOT NULL,
+        employee_type ENUM('employee_sales', 'manager'),
+        Foreign Key (account_id) REFERENCES accounts(account_id)
+    )
