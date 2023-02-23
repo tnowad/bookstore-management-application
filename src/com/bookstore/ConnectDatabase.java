@@ -3,24 +3,47 @@ package com.bookstore;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.Statement;
+import java.util.ResourceBundle;
 
 public class ConnectDatabase {
-  public static void main(String[] args) {
-    try {
-      Class.forName("com.mysql.cj.jdbc.Driver");
-      Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/bookstore", "root", "admin123");
-      Statement statement = connection.createStatement();
-      ResultSet resultSet = statement.executeQuery("SELECT * FROM books");
-      while (resultSet.next()) {
-        System.out.println(resultSet.getString("name"));
+  private static Connection connection = null;
+  // get from .properties file
+  private static ResourceBundle rb = ResourceBundle.getBundle("com.bookstore.database");
+  private static String driver = rb.getString("driver");
+  private static String url = rb.getString("url");
+  private static String user = rb.getString("user");
+  private static String password = rb.getString("password");
+
+  public static Connection getConnection() {
+    if (connection == null) {
+      try {
+        Class.forName(driver);
+        connection = DriverManager.getConnection(url, user, password);
+      } catch (Exception e) {
+        e.printStackTrace();
       }
-      connection.close();
+    }
+    return connection;
+  }
+
+  public static ResultSet getResultSet(String sql) {
+    ResultSet rs = null;
+    try {
+      rs = getConnection().createStatement().executeQuery(sql);
     } catch (Exception e) {
       e.printStackTrace();
     }
+    return rs;
   }
 
-  public void connect() {
+  public static void main(String[] args) {
+    ResultSet rs = getResultSet("select * from books");
+    try {
+      while (rs.next()) {
+        System.out.println(rs.getString("book_name"));
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 }

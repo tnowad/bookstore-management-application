@@ -114,3 +114,9 @@
   - Promotions Management
   - Gift Card Management
   - Customer Segmentation
+
+Salary:
+Base salary = [Regular pay amount per payment period] x [# of payment periods in a year]
+Base pay = [# of hours worked in a week] x [# of weeks in a year] x [Hourly wage]
+Base pay = ([Total compensation in a year] – [Bonuses, Commissions, Overtime, etc.]) ÷ [# of hours worked in a year]
+=> save base salary

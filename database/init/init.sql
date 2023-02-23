@@ -19,8 +19,15 @@ CREATE TABLE
     );
 
 CREATE TABLE
+    producers (
+        producer_id INT NOT NULL AUTO_INCREMENT,
+        producer_name VARCHAR(255) NOT NULL,
+        producer_description VARCHAR(255) NOT NULL,
+        PRIMARY KEY (producer_id)
+    );
+
+CREATE TABLE
     books (
-        book_id INT NOT NULL AUTO_INCREMENT,
         book_name VARCHAR(255) NOT NULL,
         book_description VARCHAR(255) NOT NULL,
         book_price DECIMAL(10, 2) NOT NULL,
@@ -28,11 +35,49 @@ CREATE TABLE
         book_isbn VARCHAR(255) NOT NULL,
         book_pages INT NOT NULL,
         book_year INT NOT NULL,
-        publisher_id INT NOT NULL,
-        author_id INT NOT NULL,
-        PRIMARY KEY (book_id),
+        publisher_id INT,
+        author_id INT,
+        PRIMARY KEY (book_isbn),
         FOREIGN KEY (publisher_id) REFERENCES publishers(publisher_id),
         FOREIGN KEY (author_id) REFERENCES authors(author_id)
+    );
+
+/* insert one book */
+
+INSERT INTO
+    `books` (
+        `book_name`,
+        `book_description`,
+        `book_price`,
+        `book_image`,
+        `book_isbn`,
+        `book_pages`,
+        `book_year`,
+        `publisher_id`,
+        `author_id`
+    )
+VALUES (
+        'Book name',
+        'Book description',
+        '10',
+        'url',
+        '1234',
+        '123',
+        '123',
+        NULL,
+        NULL
+    );
+
+CREATE TABLE
+    products (
+        product_id INT NOT NULL,
+        product_name VARCHAR(255) NOT NULL,
+        product_price DECIMAL(10, 2) NOT NULL,
+        product_image VARCHAR(255) NOT NULL,
+        product_year INT NOT NULL,
+        producer_id INT NOT NULL,
+        PRIMARY KEY (product_id),
+        Foreign Key (producer_id) REFERENCES producers(producer_id)
     );
 
 CREATE TABLE
@@ -67,6 +112,12 @@ CREATE TABLE
 CREATE TABLE
     employees (
         employee_id INT NOT NULL,
-        employee_type ENUM('employee_sales', 'manager'),
+        employee_type ENUM(
+            'employee_sales',
+            'employee_inventory',
+            'employee_',
+            'manager'
+        ),
+        employee_salary INT NOT NULL,
         Foreign Key (account_id) REFERENCES accounts(account_id)
-    )
+    );
