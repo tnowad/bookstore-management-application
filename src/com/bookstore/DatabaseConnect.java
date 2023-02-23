@@ -3,11 +3,12 @@ package com.bookstore;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ResourceBundle;
 
-public class ConnectDatabase {
+public class DatabaseConnect {
   private static Connection connection = null;
-  // get from .properties file
   private static ResourceBundle rb = ResourceBundle.getBundle("com.bookstore.database");
   private static String driver = rb.getString("driver");
   private static String url = rb.getString("url");
@@ -27,23 +28,14 @@ public class ConnectDatabase {
   }
 
   public static ResultSet getResultSet(String sql) {
-    ResultSet rs = null;
+    Statement statement = null;
+    ResultSet resultSet = null;
     try {
-      rs = getConnection().createStatement().executeQuery(sql);
-    } catch (Exception e) {
-      e.printStackTrace();
+      statement = getConnection().createStatement();
+      resultSet = statement.executeQuery(sql);
+    } catch (SQLException e) {
+      System.out.println(e);
     }
-    return rs;
-  }
-
-  public static void main(String[] args) {
-    ResultSet rs = getResultSet("select * from books");
-    try {
-      while (rs.next()) {
-        System.out.println(rs.getString("book_name"));
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
+    return resultSet;
   }
 }
