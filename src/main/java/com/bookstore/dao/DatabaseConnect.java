@@ -1,6 +1,5 @@
 package com.bookstore.dao;
 
-import java.io.Console;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -10,7 +9,7 @@ import java.util.ResourceBundle;
 
 public class DatabaseConnect {
   private static Connection connection = null;
-  private static ResourceBundle rb = ResourceBundle.getBundle("com.bookstore.database");
+  private static ResourceBundle rb = ResourceBundle.getBundle("resources.config.database");
   private static String driver = rb.getString("driver");
   private static String url = rb.getString("url");
   private static String user = rb.getString("user");
