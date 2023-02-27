@@ -3,60 +3,70 @@
 ## Entities
 
 - Book
-  + Title
-  + ISBN
-  + Author
-  + Publisher
-  + Publication date
+
+  - Title
+  - ISBN
+  - Author
+  - Publisher
+  - Publication date
+  - Status
+  - Quantity
 
 - genre
-  + id
-  + name genre
+
+  - id
+  - name genre
 
 - Customer (khách không có thông tin là khách vãng lai)
-  + căn cước
-  + Name
-  + Address
-  + email
-  + Phone Number
-  + Purchase History
+
+  - căn cước
+  - Name
+  - Address
+  - email
+  - Phone Number
+  - Purchase History
 
 - Order
-  + Customer Information
-  + Order date
-  + Order total
-  + Shipping Information
-  + Book details
+
+  - Customer Information
+  - Order date
+  - Order total
+  - Shipping Information
+  - Book details
 
 - Invoice
-  + invoice id
-  + Order
-  + Invoice date
-  + Total Amount Due
-  + Payment status
+
+  - invoice id
+  - Order
+  - Invoice date
+  - Total Amount Due
+  - Payment status
 
 - Payment
-  + Order
-  + Payment date
-  + Payment method
-  + Payment amount
-  +
 
-- Employee
-  + Position
-  + Salary
-  + Role
-  + Contact Information
-  + Work Schedule
-
-- warehouse
-  - Book
-  - Quantity in stock
-  - Restock date
-  - Book prices
+  - Order
+  - Payment date
+  - Payment method
+  - Payment amount
   -
 
+- Employee
+
+  - Position
+  - Salary
+  - Role
+  - Contact Information
+  - Work Schedule
+
+- warehouse
+
+  - Book
+  - Quantity in stock
+  - Purchase date
+  - Book prices
+
 - Book Reservation
+
   - Customer
   - Book
   - Reservation date
