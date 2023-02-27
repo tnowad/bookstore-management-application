@@ -1,32 +1,34 @@
 package com.bookstore.gui;
 
-import java.awt.*;
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 import javax.swing.border.*;
 
-public class LoginUI {
-
+public class RegisterUI {
     JFrame frame = new JFrame();
     private JPanel groupAccount;
     private JPanel groupContent;
     private JPanel groupLogo;
+    private JLabel titleLogin;
     private ImageIcon icon;
-    private JPanel groupPassword;
     private JPanel groupUsername;
+    private JLabel usernameLabel;
+    private JTextField usernameTextField;
+    private JPanel groupPassword;
+    private JLabel passwordLabel;
+    private JPasswordField passwordField;
+    private JPanel groupPasswordAgain;
+    private JLabel passwordLabelAgain;
+    private JPasswordField passwordFieldAgain;
     private JPanel groupButton;
     private JButton loginButton;
     private JButton cancelButton;
     private JButton registerButton;
-    private JPasswordField passwordField;
-    private JLabel passwordLabel;
-    private JLabel titleLogin;
-    private JLabel usernameLabel;
-    private JTextField usernameTextField;
     private JLabel iconLabel;
     private JLabel nameStoreLabel;
 
-    public LoginUI() {
+    public RegisterUI() {
         initComponent();
         handleEvent();
         initFrame();
@@ -43,6 +45,9 @@ public class LoginUI {
         groupPassword = new JPanel();
         passwordLabel = new JLabel();
         passwordField = new JPasswordField();
+        groupPasswordAgain = new JPanel();
+        passwordLabelAgain = new JLabel();
+        passwordFieldAgain = new JPasswordField();
         groupButton = new JPanel();
         loginButton = new JButton();
         cancelButton = new JButton();
@@ -78,9 +83,9 @@ public class LoginUI {
     private void initGroupContent() {
         groupContent.setLayout(new BorderLayout());
 
-        titleLogin.setFont(new Font("sansserif", 0, 48));
+        titleLogin.setFont(new Font("sansserif", 0, 48)); // NOI18N
         titleLogin.setHorizontalAlignment(SwingConstants.CENTER);
-        titleLogin.setText("Login");
+        titleLogin.setText("Register");
         titleLogin.setForeground(Color.BLUE);
         titleLogin.setPreferredSize(new Dimension(100, 100));
         groupContent.add(titleLogin, BorderLayout.PAGE_START);
@@ -89,12 +94,12 @@ public class LoginUI {
 
         groupUsername.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 50));
 
-        usernameLabel.setFont(new Font("sansserif", 0, 24));
+        usernameLabel.setFont(new Font("sansserif", 0, 24)); // NOI18N
         usernameLabel.setText("Username");
-        usernameLabel.setPreferredSize(new Dimension(120, 50));
+        usernameLabel.setPreferredSize(new Dimension(250, 50));
         groupUsername.add(usernameLabel);
 
-        usernameTextField.setFont(new Font("sansserif", 0, 24));
+        usernameTextField.setFont(new Font("sansserif", 0, 24)); // NOI18N
         usernameTextField.setPreferredSize(new Dimension(300, 50));
         Border borderUsernameTextField = BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLUE);
         usernameTextField.setBorder(borderUsernameTextField);
@@ -102,11 +107,12 @@ public class LoginUI {
 
         groupAccount.add(groupUsername);
 
+        // group password
         groupPassword.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));
 
         passwordLabel.setFont(new Font("sansserif", 0, 24));
         passwordLabel.setText("Password");
-        passwordLabel.setPreferredSize(new Dimension(120, 50));
+        passwordLabel.setPreferredSize(new Dimension(250, 50));
         groupPassword.add(passwordLabel);
 
         passwordField.setFont(new Font("sansserif", 0, 24));
@@ -115,23 +121,37 @@ public class LoginUI {
         passwordField.setBorder(borderPasswordField);
         groupPassword.add(passwordField);
 
+        groupPasswordAgain.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));
+
+        passwordLabelAgain.setFont(new Font("sansserif", 0, 24));
+        passwordLabelAgain.setText("Enter Password Again");
+        passwordLabelAgain.setPreferredSize(new Dimension(250, 50));
+        groupPasswordAgain.add(passwordLabelAgain);
+
+        passwordFieldAgain.setFont(new Font("sansserif", 0, 24));
+        passwordFieldAgain.setPreferredSize(new Dimension(300, 50));
+        Border borderPasswordFieldAgain = BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLUE);
+        passwordFieldAgain.setBorder(borderPasswordFieldAgain);
+        groupPasswordAgain.add(passwordFieldAgain);
+
         groupAccount.add(groupPassword);
+        groupAccount.add(groupPasswordAgain);
 
         groupContent.add(groupAccount, BorderLayout.CENTER);
 
         groupButton.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 50));
 
-        loginButton.setText("Login");
-        loginButton.setPreferredSize(new Dimension(100, 50));
-        groupButton.add(loginButton);
+        registerButton.setText("Register");
+        registerButton.setPreferredSize(new Dimension(100, 50));
+        groupButton.add(registerButton);
 
         cancelButton.setText("Cancel");
         cancelButton.setPreferredSize(new Dimension(100, 50));
         groupButton.add(cancelButton);
 
-        registerButton.setText("Don't have account? Register");
-        registerButton.setPreferredSize(new Dimension(300, 50));
-        groupButton.add(registerButton);
+        loginButton.setText("Do you have account? Login");
+        loginButton.setPreferredSize(new Dimension(300, 50));
+        groupButton.add(loginButton);
 
         groupContent.add(groupButton, BorderLayout.PAGE_END);
 
@@ -145,6 +165,7 @@ public class LoginUI {
         groupAccount.setBackground(Color.white);
         groupUsername.setBackground(Color.white);
         groupPassword.setBackground(Color.white);
+        groupPasswordAgain.setBackground(Color.white);
         groupButton.setBackground(Color.white);
         loginButton.setBackground(Color.white);
         cancelButton.setBackground(Color.white);
@@ -180,7 +201,7 @@ public class LoginUI {
     }
 
     private void initFrame() {
-        frame.setPreferredSize(new Dimension(1100, 550));
+        frame.setPreferredSize(new Dimension(1100, 600));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setLocationRelativeTo(null);
@@ -188,6 +209,6 @@ public class LoginUI {
     }
 
     public static void main(String[] args) {
-        new LoginUI();
+        new RegisterUI();
     }
 }
