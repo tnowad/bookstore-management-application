@@ -1,4 +1,4 @@
-package com.bookstore;
+package com.bookstore.util;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
