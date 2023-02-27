@@ -5,7 +5,7 @@ import javax.swing.*;
 import java.awt.event.*;
 import javax.swing.border.*;
 
-public class Login {
+public class LoginUI {
 
     JFrame frame = new JFrame();
     private JPanel groupAccount;
@@ -25,9 +25,8 @@ public class Login {
     private JTextField usernameTextField;
     private JLabel iconLabel;
     private JLabel nameStoreLabel;
-    private Border roundBorder;
 
-    public Login() {
+    public LoginUI() {
         initComponent();
         handleEvent();
         initFrame();
@@ -79,7 +78,7 @@ public class Login {
     private void initGroupContent() {
         groupContent.setLayout(new BorderLayout());
 
-        titleLogin.setFont(new Font("sansserif", 0, 48)); // NOI18N
+        titleLogin.setFont(new Font("sansserif", 0, 48));
         titleLogin.setHorizontalAlignment(SwingConstants.CENTER);
         titleLogin.setText("Login");
         titleLogin.setForeground(Color.BLUE);
@@ -90,12 +89,12 @@ public class Login {
 
         groupUsername.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 50));
 
-        usernameLabel.setFont(new Font("sansserif", 0, 24)); // NOI18N
+        usernameLabel.setFont(new Font("sansserif", 0, 24));
         usernameLabel.setText("Username");
         usernameLabel.setPreferredSize(new Dimension(120, 50));
         groupUsername.add(usernameLabel);
 
-        usernameTextField.setFont(new Font("sansserif", 0, 24)); // NOI18N
+        usernameTextField.setFont(new Font("sansserif", 0, 24));
         usernameTextField.setPreferredSize(new Dimension(300, 50));
         Border borderUsernameTextField = BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLUE);
         usernameTextField.setBorder(borderUsernameTextField);
@@ -105,14 +104,13 @@ public class Login {
 
         groupPassword.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));
 
-        passwordLabel.setFont(new Font("sansserif", 0, 24)); // NOI18N
+        passwordLabel.setFont(new Font("sansserif", 0, 24));
         passwordLabel.setText("Password");
         passwordLabel.setPreferredSize(new Dimension(120, 50));
         groupPassword.add(passwordLabel);
 
-        passwordField.setFont(new Font("sansserif", 0, 24)); // NOI18N
+        passwordField.setFont(new Font("sansserif", 0, 24));
         passwordField.setPreferredSize(new Dimension(300, 50));
-        usernameTextField.setPreferredSize(new Dimension(300, 50));
         Border borderPasswordField = BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLUE);
         passwordField.setBorder(borderPasswordField);
         groupPassword.add(passwordField);
@@ -190,6 +188,6 @@ public class Login {
     }
 
     public static void main(String[] args) {
-        new Login();
+        new LoginUI();
     }
 }
