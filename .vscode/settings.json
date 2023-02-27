@@ -1,22 +1,3 @@
 {
-    "java.project.sourcePaths": [
-        "src",
-        "test"
-    ],
-    "java.project.outputPath": "bin",
-    "java.project.referencedLibraries": [
-        "lib/**/*.jar"
-    ],
-    "java.test.config": {
-        "name": "JUnit Jupiter",
-        "workingDirectory": "${workspaceFolder}",
-        "classpath": [
-            "${workspaceFolder}/lib/*.jar"
-        ],
-        "args": [
-            "--class-path",
-            "${workspaceFolder}/bin",
-            "--scan-class-path"
-        ]
-    }
+    "java.configuration.updateBuildConfiguration": "interactive"
 }
