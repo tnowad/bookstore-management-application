@@ -51,7 +51,7 @@ public class LoginUI {
         iconLabel = new JLabel(icon);
         nameStoreLabel = new JLabel("Bookstore Management Application");
         nameStoreLabel.setForeground(Color.BLUE);
-        iconLabel.setIcon(new ImageIcon(getClass().getResource("/test/icon/book-logo.png")));
+        iconLabel.setIcon(new ImageIcon(getClass().getResource("/com/bookstore/Resources/book-logo.png")));
 
         frame.getContentPane().setLayout(new FlowLayout());
 
