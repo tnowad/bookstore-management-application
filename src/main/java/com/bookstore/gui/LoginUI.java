@@ -58,7 +58,7 @@ public class LoginUI {
     iconLabel = new JLabel(icon);
     nameStoreLabel = new JLabel("Bookstore Management Application");
     nameStoreLabel.setForeground(Color.BLUE);
-    iconLabel.setIcon(new ImageIcon(getClass().getResource("/resources/book-logo.png")));
+    iconLabel.setIcon(new ImageIcon(getClass().getResource("/resources/book_logo.png")));
 
     frame.getContentPane().setLayout(new FlowLayout());
 
@@ -188,6 +188,8 @@ public class LoginUI {
 
   private void initFrame() {
     frame.setPreferredSize(new Dimension(1100, 550));
+    frame.setMinimumSize(new Dimension(1000, 550));
+    frame.setMaximumSize(new Dimension(1200, 600));
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.pack();
     frame.setLocationRelativeTo(null);
