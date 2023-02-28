@@ -58,7 +58,6 @@ public class LoginUI {
     iconLabel = new JLabel(icon);
     nameStoreLabel = new JLabel("Bookstore Management Application");
     nameStoreLabel.setForeground(Color.BLUE);
-    iconLabel.setIcon(new ImageIcon(getClass().getResource("/resources/book_logo.png")));
 
     frame.getContentPane().setLayout(new FlowLayout());
 
@@ -71,6 +70,7 @@ public class LoginUI {
   private void initGroupLogo() {
     groupLogo.setLayout(new BorderLayout());
 
+    iconLabel.setIcon(new ImageIcon(getClass().getResource("/resources/book_logo.png")));
     groupLogo.setPreferredSize(new Dimension(400, 450));
 
     nameStoreLabel.setFont(new Font("sansserif", 0, 24));
@@ -184,12 +184,53 @@ public class LoginUI {
         frame.dispose();
       }
     });
+
+    frame.addComponentListener(new ComponentAdapter() {
+      public void componentResized(ComponentEvent e) {
+        int width = frame.getContentPane().getWidth();
+        if (width < 1020) {
+          groupLogo.setPreferredSize(new Dimension(500, 200));
+
+          nameStoreLabel.setFont(new Font("sansserif", 0, 16));
+          titleLogin.setFont(new Font("sansserif", 0, 24));
+          nameStoreLabel.setPreferredSize(new Dimension(100, 20));
+          iconLabel.setIcon(new ImageIcon(getClass().getResource("/resources/book_logo_responsive.png")));
+
+          groupUsername.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
+
+          usernameLabel.setFont(new Font("sansserif", 0, 16));
+          usernameLabel.setPreferredSize(new Dimension(100, 50));
+
+          usernameTextField.setFont(new Font("sansserif", 0, 16));
+          usernameTextField.setPreferredSize(new Dimension(150, 50));
+
+          groupPassword.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
+
+          passwordLabel.setFont(new Font("sansserif", 0, 16));
+          passwordLabel.setPreferredSize(new Dimension(100, 50));
+
+          passwordField.setFont(new Font("sansserif", 0, 16));
+          passwordField.setPreferredSize(new Dimension(150, 50));
+
+          cancelButton.setPreferredSize(new Dimension(100, 35));
+          registerButton.setPreferredSize(new Dimension(100, 35));
+          loginButton.setPreferredSize(new Dimension(300, 35));
+
+        } else {
+          initGroupContent();
+          initGroupLogo();
+        }
+        frame.revalidate();
+        frame.repaint();
+      }
+    });
+
   }
 
   private void initFrame() {
     frame.setPreferredSize(new Dimension(1100, 550));
-    frame.setMinimumSize(new Dimension(1000, 550));
-    frame.setMaximumSize(new Dimension(1200, 600));
+    frame.setMinimumSize(new Dimension(700, 600));
+    // frame.setMaximumSize(new Dimension(1200, 650));
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.pack();
     frame.setLocationRelativeTo(null);
