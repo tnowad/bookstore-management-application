@@ -2,7 +2,7 @@ version: "3.8"
 services:
   database:
     image: mysql:8.0.32-debian
-    container_name: bookstore-database
+    container_name: bookstore-management-database
     restart: always
     environment:
       - MYSQL_DATABASE=root
@@ -13,7 +13,7 @@ services:
       - ./database/init:/docker-entrypoint-initdb.d/:ro
   phpmyadmin:
     image: phpmyadmin:5.2.1-apache
-    container_name: bookstore-phpmyadmin
+    container_name: bookstore-management-phpmyadmin
     restart: always
     environment:
       PMA_HOST: database
