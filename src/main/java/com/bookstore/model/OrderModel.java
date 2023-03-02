@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class OrderModel {
     private String ShippingInformation;
-    private BookModel bookInformation;
+    private BookModel bookDetails;
     private CustomerModel customerInformation;
     private Date orderDate;
     private Integer orderTotal;
@@ -12,11 +12,10 @@ public class OrderModel {
     public OrderModel() {
     }
 
-    public OrderModel(String ShippingInformation, BookModel bookInformation, CustomerModel customerInformation,
-            Date orderDate,
-            Integer orderTotal) {
+    public OrderModel(String ShippingInformation, BookModel bookDetails, CustomerModel customerInformation,
+            Date orderDate, Integer orderTotal) {
         this.ShippingInformation = ShippingInformation;
-        this.bookInformation = bookInformation;
+        this.bookDetails = bookDetails;
         this.customerInformation = customerInformation;
         this.orderDate = orderDate;
         this.orderTotal = orderTotal;
@@ -30,12 +29,12 @@ public class OrderModel {
         this.ShippingInformation = ShippingInformation;
     }
 
-    public BookModel getBookInformation() {
-        return this.bookInformation;
+    public BookModel getBookDetails() {
+        return this.bookDetails;
     }
 
-    public void setBookInformation(BookModel bookInformation) {
-        this.bookInformation = bookInformation;
+    public void setBookDetails(BookModel bookDetails) {
+        this.bookDetails = bookDetails;
     }
 
     public CustomerModel getCustomerInformation() {
@@ -67,8 +66,8 @@ public class OrderModel {
         return this;
     }
 
-    public OrderModel bookInformation(BookModel bookInformation) {
-        setBookInformation(bookInformation);
+    public OrderModel bookDetails(BookModel bookDetails) {
+        setBookDetails(bookDetails);
         return this;
     }
 
@@ -91,7 +90,7 @@ public class OrderModel {
     public String toString() {
         return "{" +
                 " ShippingInformation='" + getShippingInformation() + "'" +
-                ", bookInformation='" + getBookInformation() + "'" +
+                ", bookDetails='" + getBookDetails() + "'" +
                 ", customerInformation='" + getCustomerInformation() + "'" +
                 ", orderDate='" + getOrderDate() + "'" +
                 ", orderTotal='" + getOrderTotal() + "'" +

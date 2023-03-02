@@ -1,25 +1,17 @@
 package com.bookstore.model;
 
+import java.sql.Date;
+
 public class CustomerModel {
-    private String ID, Email, Address, Name, PhoneNumber;
+    private String Email;
+    private Date PurchaseHistory;
 
     public CustomerModel() {
     }
 
-    public CustomerModel(String ID, String Email, String Address, String Name, String PhoneNumber) {
-        this.ID = ID;
+    public CustomerModel(String Email, Date PurchaseHistory) {
         this.Email = Email;
-        this.Address = Address;
-        this.Name = Name;
-        this.PhoneNumber = PhoneNumber;
-    }
-
-    public String getID() {
-        return this.ID;
-    }
-
-    public void setID(String ID) {
-        this.ID = ID;
+        this.PurchaseHistory = PurchaseHistory;
     }
 
     public String getEmail() {
@@ -30,28 +22,30 @@ public class CustomerModel {
         this.Email = Email;
     }
 
-    public String getAddress() {
-        return this.Address;
+    public Date getPurchaseHistory() {
+        return this.PurchaseHistory;
     }
 
-    public void setAddress(String Address) {
-        this.Address = Address;
+    public void setPurchaseHistory(Date PurchaseHistory) {
+        this.PurchaseHistory = PurchaseHistory;
     }
 
-    public String getName() {
-        return this.Name;
+    public CustomerModel Email(String Email) {
+        setEmail(Email);
+        return this;
     }
 
-    public void setName(String Name) {
-        this.Name = Name;
+    public CustomerModel PurchaseHistory(Date PurchaseHistory) {
+        setPurchaseHistory(PurchaseHistory);
+        return this;
     }
 
-    public String getPhoneNumber() {
-        return this.PhoneNumber;
-    }
-
-    public void setPhoneNumber(String PhoneNumber) {
-        this.PhoneNumber = PhoneNumber;
+    @Override
+    public String toString() {
+        return "{" +
+                " Email='" + getEmail() + "'" +
+                ", PurchaseHistory='" + getPurchaseHistory() + "'" +
+                "}";
     }
 
 }

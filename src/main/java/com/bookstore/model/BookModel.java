@@ -3,22 +3,24 @@ package com.bookstore.model;
 import java.sql.Date;
 
 public class BookModel {
-    private String Title, ISBN, Description;
+    private String Title, ISBN;
     private boolean Status;
     private Date PublicationDate;
-    private Integer Quantity;
+    private Integer Quantity, QuantityinStock;
+    private float price;
 
     public BookModel() {
     }
 
-    public BookModel(String Title, String ISBN, String Description, boolean Status, Date PublicationDate,
-            Integer Quantity) {
+    public BookModel(String Title, String ISBN, boolean Status, Date PublicationDate, Integer Quantity,
+            Integer QuantityinStock, float price) {
         this.Title = Title;
         this.ISBN = ISBN;
-        this.Description = Description;
         this.Status = Status;
         this.PublicationDate = PublicationDate;
         this.Quantity = Quantity;
+        this.QuantityinStock = QuantityinStock;
+        this.price = price;
     }
 
     public String getTitle() {
@@ -35,14 +37,6 @@ public class BookModel {
 
     public void setISBN(String ISBN) {
         this.ISBN = ISBN;
-    }
-
-    public String getDescription() {
-        return this.Description;
-    }
-
-    public void setDescription(String Description) {
-        this.Description = Description;
     }
 
     public boolean isStatus() {
@@ -73,6 +67,22 @@ public class BookModel {
         this.Quantity = Quantity;
     }
 
+    public Integer getQuantityinStock() {
+        return this.QuantityinStock;
+    }
+
+    public void setQuantityinStock(Integer QuantityinStock) {
+        this.QuantityinStock = QuantityinStock;
+    }
+
+    public float getPrice() {
+        return this.price;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
+    }
+
     public BookModel Title(String Title) {
         setTitle(Title);
         return this;
@@ -80,11 +90,6 @@ public class BookModel {
 
     public BookModel ISBN(String ISBN) {
         setISBN(ISBN);
-        return this;
-    }
-
-    public BookModel Description(String Description) {
-        setDescription(Description);
         return this;
     }
 
@@ -103,15 +108,26 @@ public class BookModel {
         return this;
     }
 
+    public BookModel QuantityinStock(Integer QuantityinStock) {
+        setQuantityinStock(QuantityinStock);
+        return this;
+    }
+
+    public BookModel price(float price) {
+        setPrice(price);
+        return this;
+    }
+
     @Override
     public String toString() {
         return "{" +
                 " Title='" + getTitle() + "'" +
                 ", ISBN='" + getISBN() + "'" +
-                ", Description='" + getDescription() + "'" +
                 ", Status='" + isStatus() + "'" +
                 ", PublicationDate='" + getPublicationDate() + "'" +
                 ", Quantity='" + getQuantity() + "'" +
+                ", QuantityinStock='" + getQuantityinStock() + "'" +
+                ", price='" + getPrice() + "'" +
                 "}";
     }
 

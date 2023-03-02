@@ -7,15 +7,18 @@ public class InvoiceModel {
     private Date InvoiceDate;
     private Boolean PaymentStatus;
     private int TotalAmountDue;
+    private String invoiceID;
 
     public InvoiceModel() {
     }
 
-    public InvoiceModel(OrderModel order, Date InvoiceDate, Boolean PaymentStatus, int TotalAmountDue) {
+    public InvoiceModel(OrderModel order, Date InvoiceDate, Boolean PaymentStatus, int TotalAmountDue,
+            String invoiceID) {
         this.order = order;
         this.InvoiceDate = InvoiceDate;
         this.PaymentStatus = PaymentStatus;
         this.TotalAmountDue = TotalAmountDue;
+        this.invoiceID = invoiceID;
     }
 
     public OrderModel getOrder() {
@@ -54,6 +57,14 @@ public class InvoiceModel {
         this.TotalAmountDue = TotalAmountDue;
     }
 
+    public String getInvoiceID() {
+        return this.invoiceID;
+    }
+
+    public void setInvoiceID(String invoiceID) {
+        this.invoiceID = invoiceID;
+    }
+
     public InvoiceModel order(OrderModel order) {
         setOrder(order);
         return this;
@@ -69,8 +80,13 @@ public class InvoiceModel {
         return this;
     }
 
-    public InvoiceModel TotalAmountDue(Integer TotalAmountDue) {
+    public InvoiceModel TotalAmountDue(int TotalAmountDue) {
         setTotalAmountDue(TotalAmountDue);
+        return this;
+    }
+
+    public InvoiceModel invoiceID(String invoiceID) {
+        setInvoiceID(invoiceID);
         return this;
     }
 
@@ -81,7 +97,7 @@ public class InvoiceModel {
                 ", InvoiceDate='" + getInvoiceDate() + "'" +
                 ", PaymentStatus='" + isPaymentStatus() + "'" +
                 ", TotalAmountDue='" + getTotalAmountDue() + "'" +
+                ", invoiceID='" + getInvoiceID() + "'" +
                 "}";
     }
-
 }
