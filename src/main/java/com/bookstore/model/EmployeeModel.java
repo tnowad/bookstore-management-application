@@ -2,7 +2,7 @@ package com.bookstore.model;
 
 import java.sql.Date;
 
-public class EmployeeModel extends UserModel {
+public class EmployeeModel {
     private Date WorkSchedule;
     private float Salary;
     private String employeeType, contactInformation;

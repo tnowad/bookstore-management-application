@@ -1,55 +1,67 @@
 package com.bookstore.dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.bookstore.model.CustomerModel;
+import com.bookstore.model.UserModel;
+import com.mysql.cj.protocol.Resultset;
 
 public class CustomerDAO<CustomerModel> implements DAOInterface {
     public static CustomerDAO getInstance() {
         return new CustomerDAO();
     }
 
+    private CustomerModel createCustomerModelFromResultSet(Resultset rs) throws SQLException {
+    }
+
     @Override
     public int insert(Object e) throws SQLException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'insert'");
+
     }
 
     @Override
     public int update(Object e) throws SQLException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+
     }
 
     @Override
     public int delete(int id) throws SQLException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+
     }
 
     @Override
     public ArrayList selectAll() throws SQLException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'selectAll'");
+
     }
 
     @Override
     public ArrayList searchByCondition(String condition) throws SQLException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'searchByCondition'");
+
     }
 
     @Override
     public ArrayList searchByCondition(String condition, String columnName) throws SQLException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'searchByCondition'");
+
     }
 
     @Override
-    public ArrayList readDatabase() throws SQLException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'readDatabase'");
+    public ArrayList<CustomerModel> readDatabase() throws SQLException {
+        ArrayList<CustomerModel> cus = new ArrayList<>();
+        try (Connection con = DatabaseConnect.getConnection();
+                PreparedStatement pst = con.prepareStatement("SELECT * FROM `Customer`");
+                ResultSet rs = pst.executeQuery()) {
+            while (rs.next()) {
+                CustomerModel customerModel = createCustomerModelFromResultSet(customerModel);
+                users.add(user);
+            }
+        } catch (SQLException e) {
+            throw e;
+        }
+        return users;
     }
 
 }

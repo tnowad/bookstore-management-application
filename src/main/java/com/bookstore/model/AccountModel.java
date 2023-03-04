@@ -1,6 +1,6 @@
 package com.bookstore.model;
 
-public class AccountModel extends UserModel {
+public class AccountModel {
     private String Username, Password, Status;
 
     public AccountModel() {
