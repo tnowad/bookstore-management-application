@@ -7,9 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.bookstore.model.EmployeeModel;
-import com.bookstore.model.UserModel;
 
-public class EmployeeDAO implements DAOInterface<EmployeeModel, UserModel> {
+public class EmployeeDAO implements DAOInterface<EmployeeModel> {
 
   @Override
   public int insert(EmployeeModel employee) throws SQLException {

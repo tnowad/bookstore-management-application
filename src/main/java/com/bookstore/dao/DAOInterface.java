@@ -3,7 +3,7 @@ package com.bookstore.dao;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public interface DAOInterface<Entity, UserTable> {
+public interface DAOInterface<Entity> {
   public int insert(Entity e) throws SQLException;
 
   public int update(Entity e) throws SQLException;
