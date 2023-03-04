@@ -38,4 +38,14 @@ public class DatabaseConnect {
     }
     return resultSet;
   }
+
+  public static void closeConnection(Connection c) {
+    try {
+      if (c != null) {
+        c.close();
+      }
+    } catch (Exception err) {
+      err.printStackTrace();
+    }
+  }
 }

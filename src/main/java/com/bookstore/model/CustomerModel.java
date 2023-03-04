@@ -2,7 +2,7 @@ package com.bookstore.model;
 
 import java.sql.Date;
 
-public class CustomerModel {
+public class CustomerModel extends UserModel {
     private String Email;
     private Date PurchaseHistory;
 

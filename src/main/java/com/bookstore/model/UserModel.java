@@ -1,28 +1,18 @@
 package com.bookstore.model;
 
 public class UserModel {
-    private String Address, Email, PhoneNumber, ID, Name, Role, AccountType;
+    private String Email, PhoneNumber, ID, Name, Role, AccountType;
 
     public UserModel() {
     }
 
-    public UserModel(String Address, String Email, String PhoneNumber, String ID, String Name, String Role,
-            String AccountType) {
-        this.Address = Address;
+    public UserModel(String Email, String PhoneNumber, String ID, String Name, String Role, String AccountType) {
         this.Email = Email;
         this.PhoneNumber = PhoneNumber;
         this.ID = ID;
         this.Name = Name;
         this.Role = Role;
         this.AccountType = AccountType;
-    }
-
-    public String getAddress() {
-        return this.Address;
-    }
-
-    public void setAddress(String Address) {
-        this.Address = Address;
     }
 
     public String getEmail() {
@@ -73,11 +63,6 @@ public class UserModel {
         this.AccountType = AccountType;
     }
 
-    public UserModel Address(String Address) {
-        setAddress(Address);
-        return this;
-    }
-
     public UserModel Email(String Email) {
         setEmail(Email);
         return this;
@@ -111,8 +96,7 @@ public class UserModel {
     @Override
     public String toString() {
         return "{" +
-                " Address='" + getAddress() + "'" +
-                ", Email='" + getEmail() + "'" +
+                " Email='" + getEmail() + "'" +
                 ", PhoneNumber='" + getPhoneNumber() + "'" +
                 ", ID='" + getID() + "'" +
                 ", Name='" + getName() + "'" +
