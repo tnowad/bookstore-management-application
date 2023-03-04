@@ -5,14 +5,14 @@ import java.sql.Date;
 public class EmployeeModel {
   private String employeeId;
   private Date workSchedule;
-  private float salary;
+  private Double salary;
   private String employeeType;
   private String contactInformation;
 
   public EmployeeModel() {
   }
 
-  public EmployeeModel(String employeeId, Date workSchedule, float salary, String employeeType,
+  public EmployeeModel(String employeeId, Date workSchedule, Double salary, String employeeType,
       String contactInformation) {
     this.employeeId = employeeId;
     this.workSchedule = workSchedule;
@@ -37,11 +37,11 @@ public class EmployeeModel {
     this.workSchedule = workSchedule;
   }
 
-  public float getSalary() {
+  public Double getSalary() {
     return this.salary;
   }
 
-  public void setSalary(float salary) {
+  public void setSalary(Double salary) {
     this.salary = salary;
   }
 
@@ -66,7 +66,7 @@ public class EmployeeModel {
     return this;
   }
 
-  public EmployeeModel salary(float salary) {
+  public EmployeeModel salary(Double salary) {
     setSalary(salary);
     return this;
   }
