@@ -4,11 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import com.bookstore.model.*;
 
-public class CustomerDAO implements DAOInterface<CustomerModel> {
+public class CustomerDAO implements DAOInterface<CustomerModel, UserModel> {
   public static CustomerDAO getInstance() {
     return new CustomerDAO();
   }
@@ -113,44 +112,55 @@ public class CustomerDAO implements DAOInterface<CustomerModel> {
   }
 
   @Override
-  public int insert(CustomerModel cus) throws SQLException {
-    Connection con = DatabaseConnect.getConnection();
+  public int insert(CustomerModel customer) throws SQLException {
+    Connection conn = null;
     try {
-      // First, insert the user data into the User table
-      String userInsertSql = "INSERT INTO `User` (`Email`) VALUES (?)";
-      PreparedStatement userPst = con.prepareStatement(userInsertSql, Statement.RETURN_GENERATED_KEYS);
-      userPst.setString(1, cus.getEmail());
-      userPst.executeUpdate();
-
-      ResultSet generatedKeys = userPst.getGeneratedKeys();
-      int userId;
-      if (generatedKeys.next()) {
-        userId = generatedKeys.getInt(1);
-      } else {
-        throw new SQLException("Creating user failed, no ID obtained.");
-      }
-
-      // Second, insert the customer data with the foreign key referencing the newly
-      // inserted user id
-      String customerInsertSql = "INSERT INTO `Customer` (`User_ID`, `Name`, `Address`, `Phone_Number`) VALUES (?, ?, ?, ?)";
-      PreparedStatement customerPst = con.prepareStatement(customerInsertSql);
-      customerPst.setInt(1, userId);
-      customerPst.setString(2, cus.getName());
-      customerPst.setString(3, cus.getAddress());
-      customerPst.setString(4, cus.getPhoneNumber());
-
-      return customerPst.executeUpdate();
+      conn = DatabaseConnect.getConnection();
+      conn.setAutoCommit(false);
+      UserDAO userDAO = new UserDAO();
+      int userID = userDAO.insert(new UserModel());
+      // Insert customer data into Customer table with foreign key referencing User ID
+      String insertCustomerQuery = "INSERT INTO `Customer` (`Purchase`, `Invoice_ID`, `User_ID`, `Payment_ID`) VALUES (?, ?, ?, ?)";
+      PreparedStatement customerPs = conn.prepareStatement(insertCustomerQuery);
+      customerPs.setDate(1, customer.getPurchaseHistory());
+      customerPs.setString(2, customer.getInvoiceID());
+      customerPs.setString(3, String.valueOf(userID));
+      customerPs.setString(4, customer.getPaymentID());
+      int rowsInserted = customerPs.executeUpdate();
+      // Commit transaction on success
+      conn.commit();
+      return rowsInserted;
     } catch (SQLException e) {
+      // Rollback transaction on error
+      if (conn != null) {
+        conn.rollback();
+      }
       throw e;
     } finally {
-      con.close();
+      // Close resources and connection
+      if (conn != null) {
+        conn.close();
+      }
     }
   }
 
-  @Override
-  public int update(CustomerModel e) throws SQLException {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'update'");
+  public int update(CustomerModel customer) throws SQLException {
+    try (Connection conn = DatabaseConnect.getConnection();
+        PreparedStatement ps = conn.prepareStatement(
+            "UPDATE `Customer` SET `Purchase` = ?, `Invoice_ID` = ?, `Payment_ID` = ? WHERE `User_ID` = ?");) {
+      // Update customer data in Customer table
+      ps.setDate(1, customer.getPurchaseHistory());
+      ps.setString(2, customer.getInvoiceID());
+      ps.setString(3, customer.getPaymentID());
+      ps.setString(4, customer.getUserID());
+      ps.executeUpdate();
+      // Update user data in User table using UserDAO
+      UserDAO userDAO = new UserDAO();
+      int userID = userDAO.update(new UserModel());
+      return 1; // Return 1 because only one row was updated
+    } catch (SQLException ex) {
+      throw ex;
+    }
   }
 
 }
