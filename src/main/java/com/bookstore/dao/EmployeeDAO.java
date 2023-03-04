@@ -17,7 +17,7 @@ public class EmployeeDAO implements DAOInterface<EmployeeModel, UserModel> {
     int result = 0;
     try (Connection con = DatabaseConnect.getConnection();
         PreparedStatement pst = con.prepareStatement(
-            "INSERT INTO `users` (`User_ID`, `Account Type`, `Name`, `Email`, `Phone Number`, `Role`) VALUES (?,?,?,?,?,?)")) {
+            "INSERT INTO `users` (`user_id`, `work_schedule`, `salary`, `employee_type`, `contact_information`, `good_notes_receipt`, `invoice_id`) VALUES (?,?,?,?,?,?,?)")) {
 
       pst.setString(1, employee.getUserId());
       pst.setDate(2, employee.getWorkSchedule());
@@ -41,13 +41,14 @@ public class EmployeeDAO implements DAOInterface<EmployeeModel, UserModel> {
     int result = 0;
     try (Connection con = DatabaseConnect.getConnection();
         PreparedStatement pst = con.prepareStatement(
-            "UPDATE employees SET working_date = ?, salary = ?, employee_type = ?, contact_info = ?, invoice_code = ? WHERE employee_code = ?")) {
+            "UPDATE employees SET `work_schedule = ? `, `salary = ? `, `employee_type = ? `, `contact_information = ? `, `good_notes_receipt = ?`, `invoice_id = ? ` WHERE employee_code = ?")) {
       pst.setDate(1, employee.getWorkSchedule());
       pst.setDouble(2, employee.getSalary());
       pst.setString(3, employee.getEmployeeType());
       pst.setString(4, employee.getContactInformation());
       pst.setString(5, employee.getInvoiceId());
-      pst.setString(6, employee.getUserId());
+      pst.setString(6, employee.getGoodNotesReceiptId());
+      pst.setString(7, employee.getUserId());
 
       result = pst.executeUpdate();
     } catch (SQLException e) {
@@ -95,11 +96,11 @@ public class EmployeeDAO implements DAOInterface<EmployeeModel, UserModel> {
         ResultSet resultSet = statement.executeQuery()) {
       while (resultSet.next()) {
         EmployeeModel employee = new EmployeeModel();
-        employee.setUserId(String.valueOf(resultSet.getString("User_ID")));
-        employee.setWorkSchedule(resultSet.getDate("Work Schedule"));
-        employee.setSalary(resultSet.getDouble("Salary"));
-        employee.setEmployeeType(resultSet.getString("Employee Type"));
-        employee.setContactInformation(resultSet.getString("Contact Information"));
+        employee.setUserId(String.valueOf(resultSet.getString("user_id")));
+        employee.setWorkSchedule(resultSet.getDate("work_schedule"));
+        employee.setSalary(resultSet.getDouble("salary"));
+        employee.setEmployeeType(resultSet.getString("employee_type"));
+        employee.setContactInformation(resultSet.getString("contact_information"));
         employees.add(employee);
       }
     } catch (SQLException e) {
