@@ -26,7 +26,7 @@ public class EmployeeModel {
   }
 
   public String getUserId() {
-    return userId;
+    return this.userId;
   }
 
   public void setUserId(String userId) {
@@ -65,6 +65,27 @@ public class EmployeeModel {
     this.contactInformation = contactInformation;
   }
 
+  public String getGoodNotesReceiptId() {
+    return this.goodNotesReceiptId;
+  }
+
+  public void setGoodNotesReceiptId(String goodNotesReceiptId) {
+    this.goodNotesReceiptId = goodNotesReceiptId;
+  }
+
+  public String getInvoiceId() {
+    return this.invoiceId;
+  }
+
+  public void setInvoiceId(String invoiceId) {
+    this.invoiceId = invoiceId;
+  }
+
+  public EmployeeModel userId(String userId) {
+    setUserId(userId);
+    return this;
+  }
+
   public EmployeeModel workSchedule(Date workSchedule) {
     setWorkSchedule(workSchedule);
     return this;
@@ -85,19 +106,27 @@ public class EmployeeModel {
     return this;
   }
 
-  public String getGoodNotesReceiptId() {
-    return goodNotesReceiptId;
+  public EmployeeModel goodNotesReceiptId(String goodNotesReceiptId) {
+    setGoodNotesReceiptId(goodNotesReceiptId);
+    return this;
   }
 
-  public void setGoodNotesReceiptId(String goodNotesReceiptId) {
-    this.goodNotesReceiptId = goodNotesReceiptId;
+  public EmployeeModel invoiceId(String invoiceId) {
+    setInvoiceId(invoiceId);
+    return this;
   }
 
-  public String getInvoiceId() {
-    return invoiceId;
+  @Override
+  public String toString() {
+    return "{" +
+        " userId='" + getUserId() + "'" +
+        ", workSchedule='" + getWorkSchedule() + "'" +
+        ", salary='" + getSalary() + "'" +
+        ", employeeType='" + getEmployeeType() + "'" +
+        ", contactInformation='" + getContactInformation() + "'" +
+        ", goodNotesReceiptId='" + getGoodNotesReceiptId() + "'" +
+        ", invoiceId='" + getInvoiceId() + "'" +
+        "}";
   }
 
-  public void setInvoiceId(String invoiceId) {
-    this.invoiceId = invoiceId;
-  }
 }
