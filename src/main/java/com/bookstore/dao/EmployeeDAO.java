@@ -11,21 +11,66 @@ import com.bookstore.model.EmployeeModel;
 public class EmployeeDAO implements DAOInterface<EmployeeModel> {
 
   @Override
-  public int insert(EmployeeModel e) throws SQLException {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'insert'");
+  public int insert(EmployeeModel employee) throws SQLException {
+
+    int result = 0;
+    try (Connection con = DatabaseConnect.getConnection();
+        PreparedStatement pst = con.prepareStatement(
+            "INSERT INTO `users` (`User_ID`, `Account Type`, `Name`, `Email`, `Phone Number`, `Role`) VALUES (?,?,?,?,?,?)")) {
+
+      pst.setString(1, employee.getUserId());
+      pst.setDate(2, employee.getWorkSchedule());
+      pst.setDouble(3, employee.getSalary());
+      pst.setString(4, employee.getEmployeeType());
+      pst.setString(5, employee.getContactInformation());
+      pst.setString(6, employee.getGoodNotesReceiptId());
+      pst.setString(7, employee.getInvoiceId());
+
+      result = pst.executeUpdate();
+
+    } catch (SQLException e) {
+      throw e;
+    }
+    return result;
   }
 
   @Override
-  public int update(EmployeeModel e) throws SQLException {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'update'");
+  public int update(EmployeeModel employee) throws SQLException {
+
+    int result = 0;
+    try (Connection con = DatabaseConnect.getConnection();
+        PreparedStatement pst = con.prepareStatement(
+            "UPDATE employees SET working_date = ?, salary = ?, employee_type = ?, contact_info = ?, invoice_code = ? WHERE employee_code = ?")) {
+      pst.setDate(1, employee.getWorkSchedule());
+      pst.setDouble(2, employee.getSalary());
+      pst.setString(3, employee.getEmployeeType());
+      pst.setString(4, employee.getContactInformation());
+      pst.setString(5, employee.getInvoiceId());
+      pst.setString(6, employee.getUserId());
+
+      result = pst.executeUpdate();
+    } catch (SQLException e) {
+      throw e;
+    }
+    return result;
   }
 
   @Override
-  public int delete(String id) throws SQLException {
+  public int delete(String userId) throws SQLException {
     // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'delete'");
+    int result = 0;
+    try (Connection connection = DatabaseConnect.getConnection();
+        PreparedStatement statement = connection.prepareStatement("DELETE FROM employees WHERE employee_code = ?")) {
+      statement.setString(1, userId);
+      result = statement.executeUpdate();
+      if (result == 0) {
+        throw new SQLException("No rows were deleted.");
+      }
+    } catch (SQLException e) {
+      System.err.println("Error occurred while deleting employee: " + e.getMessage());
+      throw e;
+    }
+    return result;
   }
 
   @Override
@@ -68,5 +113,4 @@ public class EmployeeDAO implements DAOInterface<EmployeeModel> {
     }
     return employees;
   }
-
 }
