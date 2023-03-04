@@ -12,11 +12,21 @@ public class EmployeeModel {
   public EmployeeModel() {
   }
 
-  public EmployeeModel(Date workSchedule, float salary, String employeeType, String contactInformation) {
+  public EmployeeModel(String idEmployee, Date workSchedule, float salary, String employeeType,
+      String contactInformation) {
+    this.idEmployee = idEmployee;
     this.workSchedule = workSchedule;
     this.salary = salary;
     this.employeeType = employeeType;
     this.contactInformation = contactInformation;
+  }
+
+  public String getIdEmployee() {
+    return idEmployee;
+  }
+
+  public void setIdEmployee(String idEmployee) {
+    this.idEmployee = idEmployee;
   }
 
   public Date getWorkSchedule() {
