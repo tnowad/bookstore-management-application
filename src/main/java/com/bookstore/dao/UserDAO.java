@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 import com.bookstore.model.*;
 
-public class UserDAO implements DAOInterface<UserModel, UserModel> {
+public class UserDAO implements DAOInterface<UserModel> {
   public static UserDAO getInstance() {
     return new UserDAO();
   }
