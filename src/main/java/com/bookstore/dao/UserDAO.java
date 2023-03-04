@@ -45,7 +45,7 @@ public class UserDAO implements DAOInterface<UserModel> {
     try (Connection con = DatabaseConnect.getConnection();
         PreparedStatement pst = con.prepareStatement(
             "INSERT INTO `users` (`User_ID`, `Account Type`, `Name`, `Email`, `Phone Number`, `Role`) VALUES (?,?,?,?,?,?)");) {
-      pst.setString(1, String.valueOf(usr.getID()));
+      pst.setString(1, usr.getID());
       pst.setString(2, usr.getAccountType());
       pst.setString(3, usr.getName());
       pst.setString(4, usr.getEmail());
@@ -70,7 +70,7 @@ public class UserDAO implements DAOInterface<UserModel> {
       pst.setString(3, usr.getEmail());
       pst.setString(4, usr.getPhoneNumber());
       pst.setString(5, usr.getRole());
-      pst.setString(6, String.valueOf(usr.getID()));
+      pst.setString(6, usr.getID());
       result = pst.executeUpdate();
     } catch (SQLException e) {
       throw e;
