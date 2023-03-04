@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import com.bookstore.model.*;
 
-public class CustomerDAO implements DAOInterface<CustomerModel, UserModel> {
+public class CustomerDAO implements DAOInterface<CustomerModel> {
   public static CustomerDAO getInstance() {
     return new CustomerDAO();
   }
