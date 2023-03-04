@@ -57,12 +57,6 @@ public class UserDAO implements DAOInterface<UserModel, UserModel> {
   }
 
   @Override
-  public ArrayList<UserModel> selectAll() throws SQLException {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'selectAll'");
-  }
-
-  @Override
   public ArrayList<UserModel> searchByCondition(String condition) throws SQLException {
     // TODO Auto-generated method stub
     throw new UnsupportedOperationException("Unimplemented method 'searchByCondition'");
