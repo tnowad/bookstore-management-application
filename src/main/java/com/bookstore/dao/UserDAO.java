@@ -79,11 +79,11 @@ public class UserDAO implements DAOInterface<UserModel> {
   }
 
   @Override
-  public int delete(int userId) throws SQLException {
+  public int delete(String userId) throws SQLException {
     int result = 0;
     try (Connection con = DatabaseConnect.getConnection();
-        PreparedStatement pst = con.prepareStatement("DELETE FROM `users` WHERE User_ID=?")) {
-      pst.setInt(1, userId);
+        PreparedStatement pst = con.prepareStatement("DELETE FROM users WHERE User_ID=?")) {
+      pst.setString(1, userId);
       result = pst.executeUpdate();
     } catch (SQLException e) {
       throw e;

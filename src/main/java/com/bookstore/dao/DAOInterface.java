@@ -8,7 +8,7 @@ public interface DAOInterface<Entity> {
 
     public int update(Entity e) throws SQLException;
 
-    public int delete(int id) throws SQLException;
+    public int delete(String id) throws SQLException;
 
     public ArrayList<Entity> selectAll() throws SQLException;
 
