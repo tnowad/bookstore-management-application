@@ -35,15 +35,15 @@ public class CustomerDAO<CustomerModel> implements DAOInterface {
     }
 
     @Override
-    public Object selectById(String id) throws SQLException {
+    public ArrayList searchByCondition(String condition) throws SQLException {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'selectById'");
+        throw new UnsupportedOperationException("Unimplemented method 'searchByCondition'");
     }
 
     @Override
-    public ArrayList selectByCondition(String condition) throws SQLException {
+    public ArrayList searchByCondition(String condition, String columnName) throws SQLException {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'selectByCondition'");
+        throw new UnsupportedOperationException("Unimplemented method 'searchByCondition'");
     }
 
     @Override

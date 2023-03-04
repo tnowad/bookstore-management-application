@@ -65,14 +65,12 @@ public class UserDAO implements DAOInterface<UserModel> {
         try (Connection con = DatabaseConnect.getConnection();
                 PreparedStatement pst = con.prepareStatement(
                         "UPDATE users SET `Account Type` = ?, Name = ?, Email =?, `Phone Number` = ?, Role = ? WHERE User_ID = ?")) {
-
             pst.setString(1, usr.getAccountType());
             pst.setString(2, usr.getName());
             pst.setString(3, usr.getEmail());
             pst.setString(4, usr.getPhoneNumber());
             pst.setString(5, usr.getRole());
             pst.setString(6, String.valueOf(usr.getID()));
-
             result = pst.executeUpdate();
         } catch (SQLException e) {
             throw e;
@@ -110,30 +108,30 @@ public class UserDAO implements DAOInterface<UserModel> {
     }
 
     @Override
-    public UserModel selectById(String usr_id) throws SQLException {
-        UserModel user = null;
-        String query = "SELECT * FROM `users` WHERE `User_ID` = ?";
-        try (Connection con = DatabaseConnect.getConnection();
-                PreparedStatement pst = con.prepareStatement(query)) {
-            pst.setString(1, String.valueOf(usr_id));
-            try (ResultSet rs = pst.executeQuery()) {
-                if (rs.next()) {
-                    user = rs.next() ? createUserModelFromResultSet(rs) : null;
-                }
-            }
-        } catch (SQLException e) {
-            throw e;
-        }
-        return user;
-    }
-
-    @Override
-    public ArrayList<UserModel> selectByCondition(String condition) throws SQLException {
+    public ArrayList<UserModel> searchByCondition(String condition) throws SQLException {
         StringBuilder sb = new StringBuilder("SELECT * FROM `users` WHERE ");
         sb.append(condition);
         String query = sb.toString();
         try (Connection con = DatabaseConnect.getConnection()) {
             PreparedStatement pst = con.prepareStatement(query);
+            ResultSet rs = pst.executeQuery();
+            ArrayList<UserModel> users = new ArrayList<>();
+            while (rs.next()) {
+                UserModel user = createUserModelFromResultSet(rs);
+                users.add(user);
+            }
+            return users;
+        } catch (SQLException e) {
+            throw e;
+        }
+    }
+
+    @Override
+    public ArrayList<UserModel> searchByCondition(String condition, String columnName) throws SQLException {
+        String query = "SELECT * FROM khachhang WHERE " + columnName + " LIKE ?";
+        try (Connection con = DatabaseConnect.getConnection()) {
+            PreparedStatement pst = con.prepareStatement(query);
+            pst.setString(1, "%" + condition + "%");
             ResultSet rs = pst.executeQuery();
             ArrayList<UserModel> users = new ArrayList<>();
             while (rs.next()) {

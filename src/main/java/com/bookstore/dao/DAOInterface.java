@@ -12,9 +12,9 @@ public interface DAOInterface<Entity> {
 
     public ArrayList<Entity> selectAll() throws SQLException;
 
-    public Entity selectById(String id) throws SQLException;
+    public ArrayList<Entity> searchByCondition(String condition) throws SQLException;
 
-    public ArrayList<Entity> selectByCondition(String condition) throws SQLException;
+    public ArrayList<Entity> searchByCondition(String condition, String columnName) throws SQLException;
 
     public ArrayList<Entity> readDatabase() throws SQLException;
 }
