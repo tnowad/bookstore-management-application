@@ -3,30 +3,34 @@ package com.bookstore.model;
 import java.sql.Date;
 
 public class EmployeeModel {
-  private String employeeId;
+  private String userId;
   private Date workSchedule;
   private Double salary;
   private String employeeType;
   private String contactInformation;
+  private String goodNotesReceiptId;
+  private String invoiceId;
 
   public EmployeeModel() {
   }
 
-  public EmployeeModel(String employeeId, Date workSchedule, Double salary, String employeeType,
-      String contactInformation) {
-    this.employeeId = employeeId;
+  public EmployeeModel(String userId, Date workSchedule, Double salary, String employeeType, String contactInformation,
+      String goodNotesReceiptId, String invoiceId) {
+    this.userId = userId;
     this.workSchedule = workSchedule;
     this.salary = salary;
     this.employeeType = employeeType;
     this.contactInformation = contactInformation;
+    this.goodNotesReceiptId = goodNotesReceiptId;
+    this.invoiceId = invoiceId;
   }
 
-  public String getEmployeeId() {
-    return employeeId;
+  public String getUserId() {
+    return userId;
   }
 
-  public void setEmployeeId(String idEmployee) {
-    this.employeeId = idEmployee;
+  public void setUserId(String userId) {
+    this.userId = userId;
   }
 
   public Date getWorkSchedule() {
@@ -81,14 +85,19 @@ public class EmployeeModel {
     return this;
   }
 
-  @Override
-  public String toString() {
-    return "{" +
-        " WorkSchedule='" + getWorkSchedule() + "'" +
-        ", Salary='" + getSalary() + "'" +
-        ", Employee Type='" + getEmployeeType() + "'" +
-        ", Contact Information='" + getContactInformation() + "'" +
-        "}";
+  public String getGoodNotesReceiptId() {
+    return goodNotesReceiptId;
   }
 
+  public void setGoodNotesReceiptId(String goodNotesReceiptId) {
+    this.goodNotesReceiptId = goodNotesReceiptId;
+  }
+
+  public String getInvoiceId() {
+    return invoiceId;
+  }
+
+  public void setInvoiceId(String invoiceId) {
+    this.invoiceId = invoiceId;
+  }
 }

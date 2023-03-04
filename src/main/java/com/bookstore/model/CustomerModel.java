@@ -3,48 +3,40 @@ package com.bookstore.model;
 import java.sql.Date;
 
 public class CustomerModel {
-    private Date PurchaseHistory;
-    private String customerID;
+  private Date purchaseHistory;
+  private String customerId;
 
-    public CustomerModel() {
-    }
+  public CustomerModel() {
+  }
 
-    public CustomerModel(Date PurchaseHistory, String customerID) {
-        this.PurchaseHistory = PurchaseHistory;
-        this.customerID = customerID;
-    }
+  public CustomerModel(Date purchaseHistory, String customerID) {
+    this.purchaseHistory = purchaseHistory;
+    this.customerId = customerId;
+  }
 
-    public Date getPurchaseHistory() {
-        return this.PurchaseHistory;
-    }
+  public Date getPurchaseHistory() {
+    return this.purchaseHistory;
+  }
 
-    public void setPurchaseHistory(Date PurchaseHistory) {
-        this.PurchaseHistory = PurchaseHistory;
-    }
+  public void setPurchaseHistory(Date PurchaseHistory) {
+    this.purchaseHistory = purchaseHistory;
+  }
 
-    public String getCustomerID() {
-        return this.customerID;
-    }
+  public String getCustomerID() {
+    return this.customerId;
+  }
 
-    public void setCustomerID(String customerID) {
-        this.customerID = customerID;
-    }
+  public void setCustomerID(String customerId) {
+    this.customerId = customerId;
+  }
 
-    public CustomerModel PurchaseHistory(Date PurchaseHistory) {
-        setPurchaseHistory(PurchaseHistory);
-        return this;
-    }
+  public CustomerModel purchaseHistory(Date purchaseHistory) {
+    setPurchaseHistory(purchaseHistory);
+    return this;
+  }
 
-    public CustomerModel customerID(String customerID) {
-        setCustomerID(customerID);
-        return this;
-    }
-
-    @Override
-    public String toString() {
-        return "{" +
-                " PurchaseHistory='" + getPurchaseHistory() + "'" +
-                ", customerID='" + getCustomerID() + "'" +
-                "}";
-    }
+  public CustomerModel customerID(String customerID) {
+    setCustomerID(customerID);
+    return this;
+  }
 }

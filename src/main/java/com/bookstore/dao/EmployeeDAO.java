@@ -56,7 +56,7 @@ public class EmployeeDAO implements DAOInterface<EmployeeModel> {
         ResultSet resultSet = statement.executeQuery()) {
       while (resultSet.next()) {
         EmployeeModel employee = new EmployeeModel();
-        employee.setEmployeeId(String.valueOf(resultSet.getString("User_ID")));
+        employee.setUserId(String.valueOf(resultSet.getString("User_ID")));
         employee.setWorkSchedule(resultSet.getDate("Work Schedule"));
         employee.setSalary(resultSet.getDouble("Salary"));
         employee.setEmployeeType(resultSet.getString("Employee Type"));
