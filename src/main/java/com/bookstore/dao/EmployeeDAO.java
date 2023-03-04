@@ -7,8 +7,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.bookstore.model.EmployeeModel;
+import com.bookstore.model.UserModel;
 
-public class EmployeeDAO implements DAOInterface<EmployeeModel> {
+public class EmployeeDAO implements DAOInterface<EmployeeModel, UserModel> {
 
   @Override
   public int insert(EmployeeModel employee) throws SQLException {
@@ -71,12 +72,6 @@ public class EmployeeDAO implements DAOInterface<EmployeeModel> {
       throw e;
     }
     return result;
-  }
-
-  @Override
-  public ArrayList<EmployeeModel> selectAll() throws SQLException {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'selectAll'");
   }
 
   @Override

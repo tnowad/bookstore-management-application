@@ -48,24 +48,25 @@ public class CustomerDAO implements DAOInterface<CustomerModel, UserModel> {
     return result;
   }
 
-  @Override
-  public ArrayList<CustomerModel> selectAll() throws SQLException {
-    ArrayList<CustomerModel> customerList = new ArrayList<>();
-    String query = "SELECT * FROM User u LEFT JOIN Customer c ON u.User_ID = c.User_ID";
-    try (Connection con = DatabaseConnect.getConnection();
-        PreparedStatement pst = con.prepareStatement(query);
-        ResultSet resultSet = pst.executeQuery()) {
-      while (resultSet.next()) {
-        CustomerModel customer = new CustomerModel();
-        customer.setUserID(resultSet.getString("User_ID"));
-        customer.setPurchaseHistory(resultSet.getDate("Purchase History"));
-        customer.setInvoiceID(resultSet.getString("Invoice_ID"));
-        customer.setPaymentID(resultSet.getString("Payment_ID"));
-        customerList.add(customer);
-      }
-    }
-    return customerList;
-  }
+  // @Override
+  // public ArrayList<CustomerModel> selectAll() throws SQLException {
+  // ArrayList<CustomerModel> customerList = new ArrayList<>();
+  // String query = "SELECT * FROM User u LEFT JOIN Customer c ON u.User_ID =
+  // c.User_ID";
+  // try (Connection con = DatabaseConnect.getConnection();
+  // PreparedStatement pst = con.prepareStatement(query);
+  // ResultSet resultSet = pst.executeQuery()) {
+  // while (resultSet.next()) {
+  // CustomerModel customer = new CustomerModel();
+  // customer.setUserID(resultSet.getString("User_ID"));
+  // customer.setPurchaseHistory(resultSet.getDate("Purchase History"));
+  // customer.setInvoiceID(resultSet.getString("Invoice_ID"));
+  // customer.setPaymentID(resultSet.getString("Payment_ID"));
+  // customerList.add(customer);
+  // }
+  // }
+  // return customerList;
+  // }
 
   @Override
   public ArrayList<CustomerModel> searchByCondition(String condition) throws SQLException {
