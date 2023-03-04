@@ -15,16 +15,16 @@ public class CustomerDAO implements DAOInterface<CustomerModel> {
   @Override
   public ArrayList<CustomerModel> readDatabase() throws SQLException {
     ArrayList<CustomerModel> customerList = new ArrayList<>();
-    String sql = "SELECT * FROM `Customer` c, `User` u WHERE c.`UserID` = u.`UserID`";
+    String sql = "SELECT * FROM `Customer` c, `User` u WHERE c.`user_id` = u.`user_id`";
     try (Connection connection = DatabaseConnect.getConnection();
         PreparedStatement statement = connection.prepareStatement(sql);
         ResultSet resultSet = statement.executeQuery()) {
       while (resultSet.next()) {
         CustomerModel customer = new CustomerModel();
-        customer.setUserID(resultSet.getString("User_ID"));
-        customer.setPurchaseHistory(resultSet.getDate("Purchase History"));
-        customer.setInvoiceID(resultSet.getString("Invoice_ID"));
-        customer.setPaymentID(resultSet.getString("Payment_ID"));
+        customer.setUserID(resultSet.getString("user_id"));
+        customer.setPurchaseHistory(resultSet.getDate("purchase_history"));
+        customer.setInvoiceID(resultSet.getString("invoice_id"));
+        customer.setPaymentID(resultSet.getString("payment_id"));
         customerList.add(customer);
       }
     } catch (SQLException e) {
@@ -39,7 +39,7 @@ public class CustomerDAO implements DAOInterface<CustomerModel> {
     int result = 0;
     try (Connection con = DatabaseConnect.getConnection();
         PreparedStatement pst = con.prepareStatement(
-            "DELETE FROM `customer` c, `users` u WHERE c.User_ID= u.User_ID and c.User_ID=?")) {
+            "DELETE FROM `customer` c, `users` u WHERE c.user_id= u.user_id and c.user_id=?")) {
       pst.setString(1, userId);
       result = pst.executeUpdate();
     } catch (SQLException e) {
@@ -48,30 +48,10 @@ public class CustomerDAO implements DAOInterface<CustomerModel> {
     return result;
   }
 
-  // @Override
-  // public ArrayList<CustomerModel> selectAll() throws SQLException {
-  // ArrayList<CustomerModel> customerList = new ArrayList<>();
-  // String query = "SELECT * FROM User u LEFT JOIN Customer c ON u.User_ID =
-  // c.User_ID";
-  // try (Connection con = DatabaseConnect.getConnection();
-  // PreparedStatement pst = con.prepareStatement(query);
-  // ResultSet resultSet = pst.executeQuery()) {
-  // while (resultSet.next()) {
-  // CustomerModel customer = new CustomerModel();
-  // customer.setUserID(resultSet.getString("User_ID"));
-  // customer.setPurchaseHistory(resultSet.getDate("Purchase History"));
-  // customer.setInvoiceID(resultSet.getString("Invoice_ID"));
-  // customer.setPaymentID(resultSet.getString("Payment_ID"));
-  // customerList.add(customer);
-  // }
-  // }
-  // return customerList;
-  // }
-
   @Override
   public ArrayList<CustomerModel> searchByCondition(String condition) throws SQLException {
     StringBuilder sb = new StringBuilder(
-        "SELECT * FROM User u LEFT JOIN Customer c ON u.User_ID = c.User_ID WHERE ");
+        "SELECT * FROM User u LEFT JOIN Customer c ON u.user_id = c.user_id WHERE ");
     sb.append(condition);
     String query = sb.toString();
     try (Connection con = DatabaseConnect.getConnection();
@@ -80,10 +60,10 @@ public class CustomerDAO implements DAOInterface<CustomerModel> {
       ArrayList<CustomerModel> customerList = new ArrayList<>();
       while (resultSet.next()) {
         CustomerModel customer = new CustomerModel();
-        customer.setUserID(resultSet.getString("User_ID"));
-        customer.setPurchaseHistory(resultSet.getDate("Purchase History"));
-        customer.setInvoiceID(resultSet.getString("Invoice_ID"));
-        customer.setPaymentID(resultSet.getString("Payment_ID"));
+        customer.setUserID(resultSet.getString("user_id"));
+        customer.setPurchaseHistory(resultSet.getDate("purchase_history"));
+        customer.setInvoiceID(resultSet.getString("invoice_id"));
+        customer.setPaymentID(resultSet.getString("payment_id"));
         customerList.add(customer);
       }
       return customerList;
@@ -92,7 +72,7 @@ public class CustomerDAO implements DAOInterface<CustomerModel> {
 
   @Override
   public ArrayList<CustomerModel> searchByCondition(String condition, String columnName) throws SQLException {
-    String query = "SELECT * FROM `Customer` c, `User` u WHERE u.User_ID = c.User_ID AND " + columnName + " LIKE ?";
+    String query = "SELECT * FROM `Customer` c, `User` u WHERE u.user_id = c.user_id AND " + columnName + " LIKE ?";
     try (Connection con = DatabaseConnect.getConnection()) {
       PreparedStatement pst = con.prepareStatement(query);
       pst.setString(1, "%" + condition + "%");
@@ -100,10 +80,10 @@ public class CustomerDAO implements DAOInterface<CustomerModel> {
       ArrayList<CustomerModel> customerList = new ArrayList<>();
       while (resultSet.next()) {
         CustomerModel customer = new CustomerModel();
-        customer.setUserID(resultSet.getString("User_ID"));
-        customer.setPurchaseHistory(resultSet.getDate("Purchase History"));
-        customer.setInvoiceID(resultSet.getString("Invoice_ID"));
-        customer.setPaymentID(resultSet.getString("Payment_ID"));
+        customer.setUserID(resultSet.getString("user_id"));
+        customer.setPurchaseHistory(resultSet.getDate("purchase_history"));
+        customer.setInvoiceID(resultSet.getString("invoice_id"));
+        customer.setPaymentID(resultSet.getString("payment_id"));
         customerList.add(customer);
       }
       return customerList;
@@ -121,7 +101,7 @@ public class CustomerDAO implements DAOInterface<CustomerModel> {
       UserDAO userDAO = new UserDAO();
       int userID = userDAO.insert(new UserModel());
       // Insert customer data into Customer table with foreign key referencing User ID
-      String insertCustomerQuery = "INSERT INTO `Customer` (`Purchase`, `Invoice_ID`, `User_ID`, `Payment_ID`) VALUES (?, ?, ?, ?)";
+      String insertCustomerQuery = "INSERT INTO `Customer` (`purchase_history`, `invoice_id`, `user_id`, `payment_id`) VALUES (?, ?, ?, ?)";
       PreparedStatement customerPs = conn.prepareStatement(insertCustomerQuery);
       customerPs.setDate(1, customer.getPurchaseHistory());
       customerPs.setString(2, customer.getInvoiceID());
@@ -148,7 +128,7 @@ public class CustomerDAO implements DAOInterface<CustomerModel> {
   public int update(CustomerModel customer) throws SQLException {
     try (Connection conn = DatabaseConnect.getConnection();
         PreparedStatement ps = conn.prepareStatement(
-            "UPDATE `Customer` SET `Purchase` = ?, `Invoice_ID` = ?, `Payment_ID` = ? WHERE `User_ID` = ?");) {
+            "UPDATE `Customer` SET `Purchase` = ?, `invoice_id` = ?, `iayment_id` = ? WHERE `user_id` = ?");) {
       // Update customer data in Customer table
       ps.setDate(1, customer.getPurchaseHistory());
       ps.setString(2, customer.getInvoiceID());

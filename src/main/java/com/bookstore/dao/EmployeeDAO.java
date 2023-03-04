@@ -58,7 +58,6 @@ public class EmployeeDAO implements DAOInterface<EmployeeModel> {
 
   @Override
   public int delete(String userId) throws SQLException {
-    // TODO Auto-generated method stub
     int result = 0;
     try (Connection connection = DatabaseConnect.getConnection();
         PreparedStatement statement = connection.prepareStatement("DELETE FROM employees WHERE employee_code = ?")) {
@@ -76,23 +75,61 @@ public class EmployeeDAO implements DAOInterface<EmployeeModel> {
 
   @Override
   public ArrayList<EmployeeModel> searchByCondition(String condition) throws SQLException {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'searchByCondition'");
+    try (Connection con = DatabaseConnect.getConnection();
+        PreparedStatement pst = con.prepareStatement(
+            "SELECT * FROM `employees` WHERE " + condition);
+        ResultSet rs = pst.executeQuery()) {
+      ArrayList<EmployeeModel> employees = new ArrayList<>();
+      while (rs.next()) {
+        EmployeeModel employee = new EmployeeModel();
+        employee.setUserId(rs.getString("user_id"));
+        employee.setWorkSchedule(rs.getDate("work_schedule"));
+        employee.setSalary(rs.getDouble("salary"));
+        employee.setEmployeeType(rs.getString("employee_type"));
+        employee.setContactInformation(rs.getString("contact_information"));
+        employee.setGoodNotesReceiptId(rs.getString("good_notes_receipt_id"));
+        employee.setInvoiceId(rs.getString("invoice_id"));
+        employees.add(employee);
+      }
+      return employees;
+    } catch (SQLException e) {
+      throw e;
+    }
   }
 
   @Override
   public ArrayList<EmployeeModel> searchByCondition(String condition, String columnName) throws SQLException {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'searchByCondition'");
+
+    String query = "SELECT * FROM `employees` WHERE " + columnName + " LIKE ?";
+    try (Connection con = DatabaseConnect.getConnection()) {
+      PreparedStatement pst = con.prepareStatement(query);
+      pst.setString(1, "%" + condition + "%");
+      ResultSet resultSet = pst.executeQuery();
+      ArrayList<EmployeeModel> employeeList = new ArrayList<>();
+      while (resultSet.next()) {
+        EmployeeModel employee = new EmployeeModel();
+        employee.setUserId(resultSet.getString("user_id"));
+        employee.setWorkSchedule(resultSet.getDate("work_schedule"));
+        employee.setSalary(resultSet.getDouble("salary"));
+        employee.setEmployeeType(resultSet.getString("employee_type"));
+        employee.setContactInformation(resultSet.getString("contact_information"));
+        employee.setGoodNotesReceiptId(resultSet.getString("good_notes_receipt_id"));
+        employee.setInvoiceId(resultSet.getString("invoice_id"));
+        employeeList.add(employee);
+      }
+      return employeeList;
+    } catch (SQLException e) {
+      throw e;
+    }
   }
 
   @Override
   public ArrayList<EmployeeModel> readDatabase() throws SQLException {
-    ArrayList<EmployeeModel> employees = new ArrayList<>();
     String sql = "SELECT * FROM `Employee`";
     try (Connection connection = DatabaseConnect.getConnection();
         PreparedStatement statement = connection.prepareStatement(sql);
         ResultSet resultSet = statement.executeQuery()) {
+      ArrayList<EmployeeModel> employees = new ArrayList<>();
       while (resultSet.next()) {
         EmployeeModel employee = new EmployeeModel();
         employee.setUserId(String.valueOf(resultSet.getString("user_id")));
@@ -102,10 +139,10 @@ public class EmployeeDAO implements DAOInterface<EmployeeModel> {
         employee.setContactInformation(resultSet.getString("contact_information"));
         employees.add(employee);
       }
+      return employees;
     } catch (SQLException e) {
       System.err.println("Error occurred while retrieving customers: " + e.getMessage());
       throw e;
     }
-    return employees;
   }
 }
