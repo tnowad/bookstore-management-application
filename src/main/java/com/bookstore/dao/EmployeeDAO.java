@@ -48,7 +48,6 @@ public class EmployeeDAO implements DAOInterface<EmployeeModel> {
 
   @Override
   public ArrayList<EmployeeModel> readDatabase() throws SQLException {
-    // TODO Auto-generated method stub
     ArrayList<EmployeeModel> employees = new ArrayList<>();
     String sql = "SELECT * FROM `Employee`";
     try (Connection connection = DatabaseConnect.getConnection();
