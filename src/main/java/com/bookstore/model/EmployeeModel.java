@@ -3,7 +3,7 @@ package com.bookstore.model;
 import java.sql.Date;
 
 public class EmployeeModel {
-  private String idEmployee;
+  private String employeeId;
   private Date workSchedule;
   private float salary;
   private String employeeType;
@@ -12,21 +12,21 @@ public class EmployeeModel {
   public EmployeeModel() {
   }
 
-  public EmployeeModel(String idEmployee, Date workSchedule, float salary, String employeeType,
+  public EmployeeModel(String employeeId, Date workSchedule, float salary, String employeeType,
       String contactInformation) {
-    this.idEmployee = idEmployee;
+    this.employeeId = employeeId;
     this.workSchedule = workSchedule;
     this.salary = salary;
     this.employeeType = employeeType;
     this.contactInformation = contactInformation;
   }
 
-  public String getIdEmployee() {
-    return idEmployee;
+  public String getEmployeeId() {
+    return employeeId;
   }
 
-  public void setIdEmployee(String idEmployee) {
-    this.idEmployee = idEmployee;
+  public void setEmployeeId(String idEmployee) {
+    this.employeeId = idEmployee;
   }
 
   public Date getWorkSchedule() {
