@@ -1,22 +1,23 @@
 package com.bookstore.model;
 
 public class GenreModel {
-    private String ID, nameGenre;
+    private String genreID, nameGenre, ISBN;
 
     public GenreModel() {
     }
 
-    public GenreModel(String ID, String nameGenre) {
-        this.ID = ID;
+    public GenreModel(String genreID, String nameGenre, String ISBN) {
+        this.genreID = genreID;
         this.nameGenre = nameGenre;
+        this.ISBN = ISBN;
     }
 
-    public String getID() {
-        return this.ID;
+    public String getGenreID() {
+        return this.genreID;
     }
 
-    public void setID(String ID) {
-        this.ID = ID;
+    public void setGenreID(String genreID) {
+        this.genreID = genreID;
     }
 
     public String getNameGenre() {
@@ -27,8 +28,16 @@ public class GenreModel {
         this.nameGenre = nameGenre;
     }
 
-    public GenreModel ID(String ID) {
-        setID(ID);
+    public String getISBN() {
+        return this.ISBN;
+    }
+
+    public void setISBN(String ISBN) {
+        this.ISBN = ISBN;
+    }
+
+    public GenreModel genreID(String genreID) {
+        setGenreID(genreID);
         return this;
     }
 
@@ -37,12 +46,9 @@ public class GenreModel {
         return this;
     }
 
-    @Override
-    public String toString() {
-        return "{" +
-                " ID='" + getID() + "'" +
-                ", nameGenre='" + getNameGenre() + "'" +
-                "}";
+    public GenreModel ISBN(String ISBN) {
+        setISBN(ISBN);
+        return this;
     }
 
 }

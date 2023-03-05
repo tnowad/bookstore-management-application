@@ -5,17 +5,19 @@ import java.sql.Date;
 public class OrderModel {
     private String ShippingInformation;
     private Date orderDate;
-    private String invoiceID, ISBN, userID;
+    private String invoiceID, ISBN, userID, orderID;
 
     public OrderModel() {
     }
 
-    public OrderModel(String ShippingInformation, Date orderDate, String invoiceID, String ISBN, String userID) {
+    public OrderModel(String ShippingInformation, Date orderDate, String invoiceID, String ISBN, String userID,
+            String orderID) {
         this.ShippingInformation = ShippingInformation;
         this.orderDate = orderDate;
         this.invoiceID = invoiceID;
         this.ISBN = ISBN;
         this.userID = userID;
+        this.orderID = orderID;
     }
 
     public String getShippingInformation() {
@@ -58,6 +60,14 @@ public class OrderModel {
         this.userID = userID;
     }
 
+    public String getOrderID() {
+        return this.orderID;
+    }
+
+    public void setOrderID(String orderID) {
+        this.orderID = orderID;
+    }
+
     public OrderModel ShippingInformation(String ShippingInformation) {
         setShippingInformation(ShippingInformation);
         return this;
@@ -80,6 +90,11 @@ public class OrderModel {
 
     public OrderModel userID(String userID) {
         setUserID(userID);
+        return this;
+    }
+
+    public OrderModel orderID(String orderID) {
+        setOrderID(orderID);
         return this;
     }
 
