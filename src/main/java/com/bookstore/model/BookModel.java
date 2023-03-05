@@ -3,132 +3,91 @@ package com.bookstore.model;
 import java.sql.Date;
 
 public class BookModel {
-    private String Title, ISBN;
-    private boolean Status;
-    private Date PublicationDate;
-    private Integer Quantity, QuantityinStock;
-    private float price;
+  private String title;
+  private String ISBN;
+  private String description;
+  private boolean status;
+  private Date publicationDate;
+  private Integer quantity, quantityInStock;
+  private float price;
 
-    public BookModel() {
-    }
+  public BookModel() {
+  }
 
-    public BookModel(String Title, String ISBN, boolean Status, Date PublicationDate, Integer Quantity,
-            Integer QuantityinStock, float price) {
-        this.Title = Title;
-        this.ISBN = ISBN;
-        this.Status = Status;
-        this.PublicationDate = PublicationDate;
-        this.Quantity = Quantity;
-        this.QuantityinStock = QuantityinStock;
-        this.price = price;
-    }
+  public BookModel(String title, String iSBN, String description, boolean status, Date publicationDate,
+      Integer quantity, Integer quantityInStock, float price) {
+    this.title = title;
+    ISBN = iSBN;
+    this.description = description;
+    this.status = status;
+    this.publicationDate = publicationDate;
+    this.quantity = quantity;
+    this.quantityInStock = quantityInStock;
+    this.price = price;
+  }
 
-    public String getTitle() {
-        return this.Title;
-    }
+  public String getTitle() {
+    return title;
+  }
 
-    public void setTitle(String Title) {
-        this.Title = Title;
-    }
+  public void setTitle(String title) {
+    this.title = title;
+  }
 
-    public String getISBN() {
-        return this.ISBN;
-    }
+  public String getISBN() {
+    return ISBN;
+  }
 
-    public void setISBN(String ISBN) {
-        this.ISBN = ISBN;
-    }
+  public void setISBN(String iSBN) {
+    ISBN = iSBN;
+  }
 
-    public boolean isStatus() {
-        return this.Status;
-    }
+  public String getDescription() {
+    return description;
+  }
 
-    public boolean getStatus() {
-        return this.Status;
-    }
+  public void setDescription(String description) {
+    this.description = description;
+  }
 
-    public void setStatus(boolean Status) {
-        this.Status = Status;
-    }
+  public boolean isStatus() {
+    return status;
+  }
 
-    public Date getPublicationDate() {
-        return this.PublicationDate;
-    }
+  public void setStatus(boolean status) {
+    this.status = status;
+  }
 
-    public void setPublicationDate(Date PublicationDate) {
-        this.PublicationDate = PublicationDate;
-    }
+  public Date getPublicationDate() {
+    return publicationDate;
+  }
 
-    public Integer getQuantity() {
-        return this.Quantity;
-    }
+  public void setPublicationDate(Date publicationDate) {
+    this.publicationDate = publicationDate;
+  }
 
-    public void setQuantity(Integer Quantity) {
-        this.Quantity = Quantity;
-    }
+  public Integer getQuantity() {
+    return quantity;
+  }
 
-    public Integer getQuantityinStock() {
-        return this.QuantityinStock;
-    }
+  public void setQuantity(Integer quantity) {
+    this.quantity = quantity;
+  }
 
-    public void setQuantityinStock(Integer QuantityinStock) {
-        this.QuantityinStock = QuantityinStock;
-    }
+  public Integer getQuantityInStock() {
+    return quantityInStock;
+  }
 
-    public float getPrice() {
-        return this.price;
-    }
+  public void setQuantityInStock(Integer quantityInStock) {
+    this.quantityInStock = quantityInStock;
+  }
 
-    public void setPrice(float price) {
-        this.price = price;
-    }
+  public float getPrice() {
+    return price;
+  }
 
-    public BookModel Title(String Title) {
-        setTitle(Title);
-        return this;
-    }
-
-    public BookModel ISBN(String ISBN) {
-        setISBN(ISBN);
-        return this;
-    }
-
-    public BookModel Status(boolean Status) {
-        setStatus(Status);
-        return this;
-    }
-
-    public BookModel PublicationDate(Date PublicationDate) {
-        setPublicationDate(PublicationDate);
-        return this;
-    }
-
-    public BookModel Quantity(Integer Quantity) {
-        setQuantity(Quantity);
-        return this;
-    }
-
-    public BookModel QuantityinStock(Integer QuantityinStock) {
-        setQuantityinStock(QuantityinStock);
-        return this;
-    }
-
-    public BookModel price(float price) {
-        setPrice(price);
-        return this;
-    }
-
-    @Override
-    public String toString() {
-        return "{" +
-                " Title='" + getTitle() + "'" +
-                ", ISBN='" + getISBN() + "'" +
-                ", Status='" + isStatus() + "'" +
-                ", PublicationDate='" + getPublicationDate() + "'" +
-                ", Quantity='" + getQuantity() + "'" +
-                ", QuantityinStock='" + getQuantityinStock() + "'" +
-                ", price='" + getPrice() + "'" +
-                "}";
-    }
+  public void setPrice(float price) {
+    this.price = price;
+  }
 
 }

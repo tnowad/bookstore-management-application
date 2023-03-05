@@ -3,157 +3,91 @@ package com.bookstore.model;
 import java.sql.Date;
 
 public class PromotionsModel {
-    private int Amount, AmountRemaining;
-    private Date endDate, startDate;
-    private String offerDescription, promotionType, invoiceID, promotionID;
-    private float discountAmount = 0;
+  private String promotionId;
+  private int amount;
+  private Date endDate, startDate;
+  private String offerDescription;
+  private String promotionType;
+  private String invoiceId;
+  private float discountAmount = 0;
 
-    public PromotionsModel() {
-    }
+  public PromotionsModel() {
+  }
 
-    public PromotionsModel(int Amount, int AmountRemaining, Date endDate, Date startDate, String offerDescription,
-            String promotionType, String invoiceID, String promotionID, float discountAmount) {
-        this.Amount = Amount;
-        this.AmountRemaining = AmountRemaining;
-        this.endDate = endDate;
-        this.startDate = startDate;
-        this.offerDescription = offerDescription;
-        this.promotionType = promotionType;
-        this.invoiceID = invoiceID;
-        this.promotionID = promotionID;
-        this.discountAmount = discountAmount;
-    }
+  public PromotionsModel(String promotionId, int amount, Date endDate, Date startDate, String offerDescription,
+      String promotionType, String invoiceId, float discountAmount) {
+    this.promotionId = promotionId;
+    this.amount = amount;
+    this.endDate = endDate;
+    this.startDate = startDate;
+    this.offerDescription = offerDescription;
+    this.promotionType = promotionType;
+    this.invoiceId = invoiceId;
+    this.discountAmount = discountAmount;
+  }
 
-    public int getAmount() {
-        return this.Amount;
-    }
+  public String getPromotionId() {
+    return promotionId;
+  }
 
-    public void setAmount(int Amount) {
-        this.Amount = Amount;
-    }
+  public void setPromotionId(String promotionId) {
+    this.promotionId = promotionId;
+  }
 
-    public int getAmountRemaining() {
-        return this.AmountRemaining;
-    }
+  public int getAmount() {
+    return amount;
+  }
 
-    public void setAmountRemaining(int AmountRemaining) {
-        this.AmountRemaining = AmountRemaining;
-    }
+  public void setAmount(int amount) {
+    this.amount = amount;
+  }
 
-    public Date getEndDate() {
-        return this.endDate;
-    }
+  public Date getEndDate() {
+    return endDate;
+  }
 
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
-    }
+  public void setEndDate(Date endDate) {
+    this.endDate = endDate;
+  }
 
-    public Date getStartDate() {
-        return this.startDate;
-    }
+  public Date getStartDate() {
+    return startDate;
+  }
 
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
+  public void setStartDate(Date startDate) {
+    this.startDate = startDate;
+  }
 
-    public String getOfferDescription() {
-        return this.offerDescription;
-    }
+  public String getOfferDescription() {
+    return offerDescription;
+  }
 
-    public void setOfferDescription(String offerDescription) {
-        this.offerDescription = offerDescription;
-    }
+  public void setOfferDescription(String offerDescription) {
+    this.offerDescription = offerDescription;
+  }
 
-    public String getPromotionType() {
-        return this.promotionType;
-    }
+  public String getPromotionType() {
+    return promotionType;
+  }
 
-    public void setPromotionType(String promotionType) {
-        this.promotionType = promotionType;
-    }
+  public void setPromotionType(String promotionType) {
+    this.promotionType = promotionType;
+  }
 
-    public String getInvoiceID() {
-        return this.invoiceID;
-    }
+  public String getInvoiceId() {
+    return invoiceId;
+  }
 
-    public void setInvoiceID(String invoiceID) {
-        this.invoiceID = invoiceID;
-    }
+  public void setInvoiceId(String invoiceId) {
+    this.invoiceId = invoiceId;
+  }
 
-    public String getPromotionID() {
-        return this.promotionID;
-    }
+  public float getDiscountAmount() {
+    return discountAmount;
+  }
 
-    public void setPromotionID(String promotionID) {
-        this.promotionID = promotionID;
-    }
-
-    public float getDiscountAmount() {
-        return this.discountAmount;
-    }
-
-    public void setDiscountAmount(float discountAmount) {
-        this.discountAmount = discountAmount;
-    }
-
-    public PromotionsModel Amount(int Amount) {
-        setAmount(Amount);
-        return this;
-    }
-
-    public PromotionsModel AmountRemaining(int AmountRemaining) {
-        setAmountRemaining(AmountRemaining);
-        return this;
-    }
-
-    public PromotionsModel endDate(Date endDate) {
-        setEndDate(endDate);
-        return this;
-    }
-
-    public PromotionsModel startDate(Date startDate) {
-        setStartDate(startDate);
-        return this;
-    }
-
-    public PromotionsModel offerDescription(String offerDescription) {
-        setOfferDescription(offerDescription);
-        return this;
-    }
-
-    public PromotionsModel promotionType(String promotionType) {
-        setPromotionType(promotionType);
-        return this;
-    }
-
-    public PromotionsModel invoiceID(String invoiceID) {
-        setInvoiceID(invoiceID);
-        return this;
-    }
-
-    public PromotionsModel promotionID(String promotionID) {
-        setPromotionID(promotionID);
-        return this;
-    }
-
-    public PromotionsModel discountAmount(float discountAmount) {
-        setDiscountAmount(discountAmount);
-        return this;
-    }
-
-    @Override
-    public String toString() {
-        return "{" +
-                " Amount='" + getAmount() + "'" +
-                ", AmountRemaining='" + getAmountRemaining() + "'" +
-                ", endDate='" + getEndDate() + "'" +
-                ", startDate='" + getStartDate() + "'" +
-                ", offerDescription='" + getOfferDescription() + "'" +
-                ", promotionType='" + getPromotionType() + "'" +
-                ", invoiceID='" + getInvoiceID() + "'" +
-                ", promotionID='" + getPromotionID() + "'" +
-                ", discountAmount='" + getDiscountAmount() + "'" +
-                "}";
-    }
+  public void setDiscountAmount(float discountAmount) {
+    this.discountAmount = discountAmount;
+  }
 
 }

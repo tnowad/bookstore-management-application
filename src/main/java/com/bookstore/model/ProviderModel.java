@@ -1,48 +1,48 @@
 package com.bookstore.model;
 
 public class ProviderModel {
-    private String IDprovider, NameProvider;
+  private String providerId, nameProvider;
 
-    public ProviderModel() {
-    }
+  public ProviderModel() {
+  }
 
-    public ProviderModel(String IDprovider, String NameProvider) {
-        this.IDprovider = IDprovider;
-        this.NameProvider = NameProvider;
-    }
+  public ProviderModel(String providerId, String nameProvider) {
+    this.providerId = providerId;
+    this.nameProvider = nameProvider;
+  }
 
-    public String getIDprovider() {
-        return this.IDprovider;
-    }
+  public String getProviderId() {
+    return this.providerId;
+  }
 
-    public void setIDprovider(String IDprovider) {
-        this.IDprovider = IDprovider;
-    }
+  public void setProviderId(String providerId) {
+    this.providerId = providerId;
+  }
 
-    public String getNameProvider() {
-        return this.NameProvider;
-    }
+  public String nameProvider() {
+    return this.nameProvider;
+  }
 
-    public void setNameProvider(String NameProvider) {
-        this.NameProvider = NameProvider;
-    }
+  public void setNameProvider(String nameProvider) {
+    this.nameProvider = nameProvider;
+  }
 
-    public ProviderModel IDprovider(String IDprovider) {
-        setIDprovider(IDprovider);
-        return this;
-    }
+  public ProviderModel getProviderId(String providerId) {
+    setProviderId(providerId);
+    return this;
+  }
 
-    public ProviderModel NameProvider(String NameProvider) {
-        setNameProvider(NameProvider);
-        return this;
-    }
+  public ProviderModel getNameProvider(String nameProvider) {
+    setNameProvider(nameProvider);
+    return this;
+  }
 
-    @Override
-    public String toString() {
-        return "{" +
-                " IDprovider='" + getIDprovider() + "'" +
-                ", NameProvider='" + getNameProvider() + "'" +
-                "}";
-    }
+  @Override
+  public String toString() {
+    return "{" +
+        " providerId='" + getProviderId() + "'" +
+        ", nameProvider='" + nameProvider() + "'" +
+        "}";
+  }
 
 }
