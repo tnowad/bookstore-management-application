@@ -1,22 +1,23 @@
 package com.bookstore.model;
 
 public class ProviderModel {
-    private String IDprovider, NameProvider;
+    private String providerID, NameProvider, gnr_id;
 
     public ProviderModel() {
     }
 
-    public ProviderModel(String IDprovider, String NameProvider) {
-        this.IDprovider = IDprovider;
+    public ProviderModel(String providerID, String NameProvider, String gnr_id) {
+        this.providerID = providerID;
         this.NameProvider = NameProvider;
+        this.gnr_id = gnr_id;
     }
 
-    public String getIDprovider() {
-        return this.IDprovider;
+    public String getProviderID() {
+        return this.providerID;
     }
 
-    public void setIDprovider(String IDprovider) {
-        this.IDprovider = IDprovider;
+    public void setProviderID(String providerID) {
+        this.providerID = providerID;
     }
 
     public String getNameProvider() {
@@ -27,8 +28,16 @@ public class ProviderModel {
         this.NameProvider = NameProvider;
     }
 
-    public ProviderModel IDprovider(String IDprovider) {
-        setIDprovider(IDprovider);
+    public String getGnr_id() {
+        return this.gnr_id;
+    }
+
+    public void setGnr_id(String gnr_id) {
+        this.gnr_id = gnr_id;
+    }
+
+    public ProviderModel providerID(String providerID) {
+        setProviderID(providerID);
         return this;
     }
 
@@ -37,12 +46,8 @@ public class ProviderModel {
         return this;
     }
 
-    @Override
-    public String toString() {
-        return "{" +
-                " IDprovider='" + getIDprovider() + "'" +
-                ", NameProvider='" + getNameProvider() + "'" +
-                "}";
+    public ProviderModel gnr_id(String gnr_id) {
+        setGnr_id(gnr_id);
+        return this;
     }
-
 }

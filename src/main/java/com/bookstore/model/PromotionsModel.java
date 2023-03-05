@@ -141,19 +141,4 @@ public class PromotionsModel {
         return this;
     }
 
-    @Override
-    public String toString() {
-        return "{" +
-                " Amount='" + getAmount() + "'" +
-                ", AmountRemaining='" + getAmountRemaining() + "'" +
-                ", endDate='" + getEndDate() + "'" +
-                ", startDate='" + getStartDate() + "'" +
-                ", offerDescription='" + getOfferDescription() + "'" +
-                ", promotionType='" + getPromotionType() + "'" +
-                ", invoiceID='" + getInvoiceID() + "'" +
-                ", promotionID='" + getPromotionID() + "'" +
-                ", discountAmount='" + getDiscountAmount() + "'" +
-                "}";
-    }
-
 }

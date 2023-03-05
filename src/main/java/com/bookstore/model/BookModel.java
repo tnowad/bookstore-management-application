@@ -118,17 +118,4 @@ public class BookModel {
         return this;
     }
 
-    @Override
-    public String toString() {
-        return "{" +
-                " Title='" + getTitle() + "'" +
-                ", ISBN='" + getISBN() + "'" +
-                ", Status='" + isStatus() + "'" +
-                ", PublicationDate='" + getPublicationDate() + "'" +
-                ", Quantity='" + getQuantity() + "'" +
-                ", QuantityinStock='" + getQuantityinStock() + "'" +
-                ", price='" + getPrice() + "'" +
-                "}";
-    }
-
 }
