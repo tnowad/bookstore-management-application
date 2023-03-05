@@ -19,8 +19,9 @@ public class BookDAO implements DAOInterface<BookModel> {
   // Creates a BookModel object from the ResultSet returned by a SELECT query
   private BookModel createBookModelFromResultSet(ResultSet rs) throws SQLException {
     return new BookModel(
-        rs.getString("Title"),
+        rs.getString("title"),
         rs.getString("ISBN"),
+        rs.getString("description"),
         rs.getBoolean("Status"),
         rs.getDate("PublicationDate"),
         rs.getInt("Quantity"),
@@ -52,20 +53,21 @@ public class BookDAO implements DAOInterface<BookModel> {
     try (
         Connection conn = DatabaseConnect.getConnection(); // Establishes a connection to the database
         PreparedStatement pst = conn.prepareStatement(
-            "UPDATE `book` SET `title` = ?, `ISBN` = ?, `status` =?, `publication_date` =?, `quantity` =?, `Quantity_in_stock` =?, `price` =? WHERE `id` =?")) { // Prepares
-                                                                                                                                                                 // an
-                                                                                                                                                                 // UPDATE
-                                                                                                                                                                 // query
+            "UPDATE `book` SET `title` = ?, `ISBN` = ?, `description =?` ,`status` =?, `publication_date` =?, `quantity` =?, `Quantity_in_stock` =?, `price` =? WHERE `id` =?")) { // Prepares
+      // an
+      // UPDATE
+      // query
       // Sets the values of the placeholders in the query with data from the BookModel
       // object
       pst.setString(1, book.getTitle());
       pst.setString(2, book.getISBN());
-      pst.setBoolean(3, book.getStatus());
-      pst.setDate(4, book.getPublicationDate());
-      pst.setInt(5, book.getQuantity());
-      pst.setInt(6, book.getQuantityinStock());
-      pst.setFloat(7, book.getPrice());
-      pst.setString(8, book.getISBN());
+      pst.setString(3, book.getDescription());
+      pst.setBoolean(4, book.isStatus());
+      pst.setDate(5, book.getPublicationDate());
+      pst.setInt(6, book.getQuantity());
+      pst.setInt(7, book.getQuantityInStock());
+      pst.setFloat(8, book.getPrice());
+      pst.setString(9, book.getISBN());
       return pst.executeUpdate(); // Executes the UPDATE query and returns the number of affected rows
     }
   }
