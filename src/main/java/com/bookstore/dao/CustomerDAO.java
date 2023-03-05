@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
+
 import com.bookstore.model.*;
 
 // DAO class for CustomerModel
@@ -139,7 +141,7 @@ public class CustomerDAO implements DAOInterface<CustomerModel> {
   // Search for customers based on a given condition and return results as
   // ArrayList
   @Override
-  public ArrayList<CustomerModel> searchByCondition(String condition) throws SQLException {
+  public List<CustomerModel> searchByCondition(String condition) throws SQLException {
     // Build the SQL query with passed condition for searching customer data with
     // left join to User table
     StringBuilder sb = new StringBuilder(
@@ -175,7 +177,7 @@ public class CustomerDAO implements DAOInterface<CustomerModel> {
 
   // Overloaded method with column name added to restrict search to certain column
   @Override
-  public ArrayList<CustomerModel> searchByCondition(String condition, String columnName) throws SQLException {
+  public List<CustomerModel> searchByCondition(String condition, String columnName) throws SQLException {
     // Build the SQL query with given condition and column name to search only for
     // customer data
     String query = "SELECT * FROM `Customer` c, `User` u WHERE u.user_id = c.user_id AND " + columnName + " LIKE ?";

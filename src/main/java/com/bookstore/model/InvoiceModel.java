@@ -1,39 +1,32 @@
 package com.bookstore.model;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 public class InvoiceModel {
-    private OrderModel order;
-    private Date InvoiceDate;
+    private LocalDate InvoiceDate;
     private Boolean PaymentStatus;
-    private int TotalAmountDue;
+    private float TotalAmountDue = 0;
     private String invoiceID;
+    private String giftcardID;
 
     public InvoiceModel() {
+        InvoiceDate = LocalDate.now();
     }
 
-    public InvoiceModel(OrderModel order, Date InvoiceDate, Boolean PaymentStatus, int TotalAmountDue,
-            String invoiceID) {
-        this.order = order;
+    public InvoiceModel(LocalDate InvoiceDate, Boolean PaymentStatus, float TotalAmountDue, String invoiceID,
+            String giftcardID) {
         this.InvoiceDate = InvoiceDate;
         this.PaymentStatus = PaymentStatus;
         this.TotalAmountDue = TotalAmountDue;
         this.invoiceID = invoiceID;
+        this.giftcardID = giftcardID;
     }
 
-    public OrderModel getOrder() {
-        return this.order;
-    }
-
-    public void setOrder(OrderModel order) {
-        this.order = order;
-    }
-
-    public Date getInvoiceDate() {
+    public LocalDate getInvoiceDate() {
         return this.InvoiceDate;
     }
 
-    public void setInvoiceDate(Date InvoiceDate) {
+    public void setInvoiceDate(LocalDate InvoiceDate) {
         this.InvoiceDate = InvoiceDate;
     }
 
@@ -49,11 +42,11 @@ public class InvoiceModel {
         this.PaymentStatus = PaymentStatus;
     }
 
-    public int getTotalAmountDue() {
+    public float getTotalAmountDue() {
         return this.TotalAmountDue;
     }
 
-    public void setTotalAmountDue(int TotalAmountDue) {
+    public void setTotalAmountDue(float TotalAmountDue) {
         this.TotalAmountDue = TotalAmountDue;
     }
 
@@ -65,12 +58,15 @@ public class InvoiceModel {
         this.invoiceID = invoiceID;
     }
 
-    public InvoiceModel order(OrderModel order) {
-        setOrder(order);
-        return this;
+    public String getGiftcardID() {
+        return this.giftcardID;
     }
 
-    public InvoiceModel InvoiceDate(Date InvoiceDate) {
+    public void setGiftcardID(String giftcardID) {
+        this.giftcardID = giftcardID;
+    }
+
+    public InvoiceModel InvoiceDate(LocalDate InvoiceDate) {
         setInvoiceDate(InvoiceDate);
         return this;
     }
@@ -80,7 +76,7 @@ public class InvoiceModel {
         return this;
     }
 
-    public InvoiceModel TotalAmountDue(int TotalAmountDue) {
+    public InvoiceModel TotalAmountDue(float TotalAmountDue) {
         setTotalAmountDue(TotalAmountDue);
         return this;
     }
@@ -90,14 +86,19 @@ public class InvoiceModel {
         return this;
     }
 
+    public InvoiceModel giftcardID(String giftcardID) {
+        setGiftcardID(giftcardID);
+        return this;
+    }
+
     @Override
     public String toString() {
         return "{" +
-                " order='" + getOrder() + "'" +
-                ", InvoiceDate='" + getInvoiceDate() + "'" +
+                " InvoiceDate='" + getInvoiceDate() + "'" +
                 ", PaymentStatus='" + isPaymentStatus() + "'" +
                 ", TotalAmountDue='" + getTotalAmountDue() + "'" +
                 ", invoiceID='" + getInvoiceID() + "'" +
+                ", giftcardID='" + getGiftcardID() + "'" +
                 "}";
     }
 }

@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.bookstore.model.BookModel;
 
@@ -71,21 +72,21 @@ public class BookDAO implements DAOInterface<BookModel> {
 
     // Deletes a record from the book table with the specified id
     @Override
-    public int delete(String id) throws SQLException {
-        if (id == null || id.isEmpty()) { // Throws an IllegalArgumentException if the id is null or empty
+    public int delete(String isbn) throws SQLException {
+        if (isbn == null || isbn.isEmpty()) { // Throws an IllegalArgumentException if the id is null or empty
             throw new IllegalArgumentException("ID cannot be null or empty");
         }
         try (Connection conn = DatabaseConnect.getConnection(); // Establishes a connection to the database
-                PreparedStatement pst = conn.prepareStatement("DELETE FROM `book` WHERE `id` = ?")) { // Prepares a
-                                                                                                      // DELETE query
-            pst.setString(1, id);
+                PreparedStatement pst = conn.prepareStatement("DELETE FROM `book` WHERE `isbn` = ?")) { // Prepares a
+                                                                                                        // DELETE query
+            pst.setString(1, isbn);
             return pst.executeUpdate(); // Executes the DELETE query and returns the number of affected rows
         }
     }
 
     // Searches the book table for records that match a given condition
     @Override
-    public ArrayList<BookModel> searchByCondition(String condition) throws SQLException {
+    public List<BookModel> searchByCondition(String condition) throws SQLException {
         String query = "SELECT * FROM `book` WHERE " + condition;
         try (Connection conn = DatabaseConnect.getConnection(); // Establishes a connection to the database
                 PreparedStatement pst = conn.prepareStatement(query); // Prepares a SELECT query with a WHERE clause
@@ -107,7 +108,7 @@ public class BookDAO implements DAOInterface<BookModel> {
     // Searches the book table for records where the given column contains the given
     // condition
     @Override
-    public ArrayList<BookModel> searchByCondition(String condition, String columnName) throws SQLException {
+    public List<BookModel> searchByCondition(String condition, String columnName) throws SQLException {
         String query = "SELECT * FROM `book` WHERE " + columnName + " LIKE ?";
         try (Connection conn = DatabaseConnect.getConnection(); // Establishes a connection to the database
                 PreparedStatement pst = conn.prepareStatement(query)) { // Prepares a SELECT query with a WHERE clause

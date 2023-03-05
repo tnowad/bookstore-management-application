@@ -7,6 +7,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
+
 import com.bookstore.model.EmployeeModel;
 import com.bookstore.model.UserModel;
 
@@ -148,15 +150,12 @@ public class EmployeeDAO implements DAOInterface<EmployeeModel> {
   // interface's searchByCondition CRUD method implementation with single search
   // parameter
   @Override
-  public ArrayList<EmployeeModel> searchByCondition(String condition) throws SQLException {
+  public List<EmployeeModel> searchByCondition(String condition) throws SQLException {
     try (Connection con = DatabaseConnect.getConnection(); // getting DB connection
         PreparedStatement pst = con.prepareStatement(
             "SELECT * FROM `employees` WHERE " + condition); // specifying where clause
-
         ResultSet rs = pst.executeQuery()) { // executing the query with prepared statement
-
-      ArrayList<EmployeeModel> employees = new ArrayList<>(); // creating main list
-
+      List<EmployeeModel> employees = new ArrayList<>(); // creating main list
       while (rs.next()) { // iterating over retrieved records and forming Employee Models
         EmployeeModel employee = new EmployeeModel();
         employee.setUserId(rs.getString("user_id"));
@@ -178,15 +177,13 @@ public class EmployeeDAO implements DAOInterface<EmployeeModel> {
   // interface's searchByCondition CRUD method implementation with multiple
   // parameters i.e. a filter column name and a search term
   @Override
-  public ArrayList<EmployeeModel> searchByCondition(String condition, String columnName) throws SQLException {
-
+  public List<EmployeeModel> searchByCondition(String condition, String columnName) throws SQLException {
     String query = "SELECT * FROM `employees` WHERE " + columnName + " LIKE ?";
     try (Connection con = DatabaseConnect.getConnection()) {
       PreparedStatement pst = con.prepareStatement(query);
       pst.setString(1, "%" + condition + "%");
-
       ResultSet resultSet = pst.executeQuery();
-      ArrayList<EmployeeModel> employeeList = new ArrayList<>();
+      List<EmployeeModel> employeeList = new ArrayList<>();
       while (resultSet.next()) {
         EmployeeModel employee = new EmployeeModel();
         employee.setUserId(resultSet.getString("user_id"));
@@ -199,7 +196,6 @@ public class EmployeeDAO implements DAOInterface<EmployeeModel> {
         employeeList.add(employee); // adding the specific employee model into the List
       }
       return employeeList; // returning the filtered records list based on search term
-
     } catch (SQLException e) {
       throw e;
     }
