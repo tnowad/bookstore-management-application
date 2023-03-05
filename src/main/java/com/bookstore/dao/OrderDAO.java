@@ -55,15 +55,15 @@ public class OrderDAO implements DAOInterface<OrderModel> {
         )) {
       pstmt.setString(1, orderModel.getShippingInformation());
       pstmt.setDate(2, orderModel.getOrderDate());
-      pstmt.setString(3, orderModel.getInvoiceID());
+      pstmt.setString(3, orderModel.getInvoiceId());
       pstmt.setString(4, orderModel.getISBN());
-      pstmt.setString(5, orderModel.getUserID());
+      pstmt.setString(5, orderModel.getUserId());
       result = pstmt.executeUpdate();
 
       // Retrieve auto-generated key and set it in the orderModel instance.
       ResultSet generatedKeys = pstmt.getGeneratedKeys();
       if (generatedKeys.next()) {
-        orderModel.setOrderID(generatedKeys.getString(1));
+        orderModel.setOrderId(generatedKeys.getString(1));
       }
     } catch (SQLException e) {
       throw e;
@@ -80,10 +80,10 @@ public class OrderDAO implements DAOInterface<OrderModel> {
             "UPDATE `order` SET `shippingInformation`=?, `orderDate`=?, `invoiceID`=?, `ISBN`=?, `userID`=? WHERE `id`=?");) {
       pstmt.setString(1, orderModel.getShippingInformation()); // Setting the value of parameters in the query
       pstmt.setDate(2, orderModel.getOrderDate());
-      pstmt.setString(3, orderModel.getInvoiceID());
+      pstmt.setString(3, orderModel.getInvoiceId());
       pstmt.setString(4, orderModel.getISBN());
-      pstmt.setString(5, orderModel.getUserID());
-      pstmt.setString(6, orderModel.getOrderID());
+      pstmt.setString(5, orderModel.getUserId());
+      pstmt.setString(6, orderModel.getOrderId());
       result = pstmt.executeUpdate(); // Return number of rows updated
     } catch (SQLException e) {
       throw e;
@@ -147,11 +147,11 @@ public class OrderDAO implements DAOInterface<OrderModel> {
       // Loop through result set and retrieve customer data into OrderModel class
       while (resultSet.next()) {
         OrderModel orderModel = new OrderModel();
-        orderModel.setUserID(resultSet.getString("userID"));
-        orderModel.setInvoiceID(resultSet.getString("invoice_id"));
+        orderModel.setUserId(resultSet.getString("userID"));
+        orderModel.setInvoiceId(resultSet.getString("invoice_id"));
         orderModel.setOrderDate(resultSet.getDate("orderDate"));
         orderModel.setISBN(resultSet.getString("ISBN"));
-        orderModel.setOrderID(resultSet.getString("orderID"));
+        orderModel.setOrderId(resultSet.getString("orderID"));
         orderModel.setShippingInformation(resultSet.getString("shippingInformation"));
         orderList.add(orderModel);
       }

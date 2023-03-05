@@ -146,11 +146,11 @@ public class BookDAO implements DAOInterface<BookModel> {
       // Sets the values of the placeholders in the query with data from the BookModel
       // object
       pst.setString(1, book.getISBN());
-      pst.setBoolean(2, book.getStatus());
+      pst.setBoolean(2, book.isStatus());
       pst.setString(3, book.getTitle());
       pst.setDate(4, book.getPublicationDate());
       pst.setFloat(5, book.getPrice());
-      pst.setInt(6, book.getQuantityinStock());
+      pst.setInt(6, book.getQuantityInStock());
       pst.setInt(7, book.getQuantity());
       return pst.executeUpdate(); // Executes the INSERT query and returns the number of affected rows
     } catch (SQLException e) { // Catches and re-throws any SQLExceptions that occur
