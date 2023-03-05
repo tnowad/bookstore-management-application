@@ -4,6 +4,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface DAOInterface<Entity> {
+  public ArrayList<Entity> readDatabase() throws SQLException;
+
   public int insert(Entity e) throws SQLException;
 
   public int update(Entity e) throws SQLException;
@@ -14,5 +16,4 @@ public interface DAOInterface<Entity> {
 
   public ArrayList<Entity> searchByCondition(String condition, String columnName) throws SQLException;
 
-  public ArrayList<Entity> readDatabase() throws SQLException;
 }

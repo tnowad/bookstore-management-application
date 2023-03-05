@@ -1,3 +1,4 @@
+// Import required packages and classes
 package com.bookstore.dao;
 
 import java.sql.Connection;
@@ -7,18 +8,30 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import com.bookstore.model.*;
 
+// DAO class for CustomerModel
 public class CustomerDAO implements DAOInterface<CustomerModel> {
+
+  // Get instance of this DAO
   public static CustomerDAO getInstance() {
     return new CustomerDAO();
   }
 
+  // Read customer data from database and return as ArrayList
   @Override
   public ArrayList<CustomerModel> readDatabase() throws SQLException {
+    // Define an ArrayList to store retrieved customers
     ArrayList<CustomerModel> customerList = new ArrayList<>();
+    // Define SQL query to get customer data with join to User table
     String sql = "SELECT * FROM `Customer` c, `User` u WHERE c.`user_id` = u.`user_id`";
-    try (Connection connection = DatabaseConnect.getConnection();
+    try (
+        // Get a database connection
+        Connection connection = DatabaseConnect.getConnection();
+        // Prepare the SQL statement
         PreparedStatement statement = connection.prepareStatement(sql);
+        // Execute the SQL query and get result set
         ResultSet resultSet = statement.executeQuery()) {
+      // Loop through the result set and retrieve customer data into CustomerModel
+      // class
       while (resultSet.next()) {
         CustomerModel customer = new CustomerModel();
         customer.setUserID(resultSet.getString("user_id"));
@@ -31,73 +44,21 @@ public class CustomerDAO implements DAOInterface<CustomerModel> {
       System.err.println("Error occurred while retrieving customers: " + e.getMessage());
       throw e;
     }
+    // Return the ArrayList of customers
     return customerList;
   }
 
-  @Override
-  public int delete(String userId) throws SQLException {
-    int result = 0;
-    try (Connection con = DatabaseConnect.getConnection();
-        PreparedStatement pst = con.prepareStatement(
-            "DELETE FROM `customer` c, `users` u WHERE c.user_id= u.user_id and c.user_id=?")) {
-      pst.setString(1, userId);
-      result = pst.executeUpdate();
-    } catch (SQLException e) {
-      throw e;
-    }
-    return result;
-  }
-
-  @Override
-  public ArrayList<CustomerModel> searchByCondition(String condition) throws SQLException {
-    StringBuilder sb = new StringBuilder(
-        "SELECT * FROM User u LEFT JOIN Customer c ON u.user_id = c.user_id WHERE ");
-    sb.append(condition);
-    String query = sb.toString();
-    try (Connection con = DatabaseConnect.getConnection();
-        PreparedStatement pst = con.prepareStatement(query);
-        ResultSet resultSet = pst.executeQuery()) {
-      ArrayList<CustomerModel> customerList = new ArrayList<>();
-      while (resultSet.next()) {
-        CustomerModel customer = new CustomerModel();
-        customer.setUserID(resultSet.getString("user_id"));
-        customer.setPurchaseHistory(resultSet.getDate("purchase_history"));
-        customer.setInvoiceID(resultSet.getString("invoice_id"));
-        customer.setPaymentID(resultSet.getString("payment_id"));
-        customerList.add(customer);
-      }
-      return customerList;
-    }
-  }
-
-  @Override
-  public ArrayList<CustomerModel> searchByCondition(String condition, String columnName) throws SQLException {
-    String query = "SELECT * FROM `Customer` c, `User` u WHERE u.user_id = c.user_id AND " + columnName + " LIKE ?";
-    try (Connection con = DatabaseConnect.getConnection()) {
-      PreparedStatement pst = con.prepareStatement(query);
-      pst.setString(1, "%" + condition + "%");
-      ResultSet resultSet = pst.executeQuery();
-      ArrayList<CustomerModel> customerList = new ArrayList<>();
-      while (resultSet.next()) {
-        CustomerModel customer = new CustomerModel();
-        customer.setUserID(resultSet.getString("user_id"));
-        customer.setPurchaseHistory(resultSet.getDate("purchase_history"));
-        customer.setInvoiceID(resultSet.getString("invoice_id"));
-        customer.setPaymentID(resultSet.getString("payment_id"));
-        customerList.add(customer);
-      }
-      return customerList;
-    } catch (SQLException e) {
-      throw e;
-    }
-  }
-
+  // Insert a new customer to the database and return number of rows inserted
   @Override
   public int insert(CustomerModel customer) throws SQLException {
+    // Initialize database connection to null
     Connection conn = null;
     try {
+      // Get a database connection and set auto commit to false for transaction
+      // handling
       conn = DatabaseConnect.getConnection();
       conn.setAutoCommit(false);
+      // Create a UserDAO object to get the newly inserted user ID
       UserDAO userDAO = new UserDAO();
       int userID = userDAO.insert(new UserModel());
       // Insert customer data into Customer table with foreign key referencing User ID
@@ -119,28 +80,129 @@ public class CustomerDAO implements DAOInterface<CustomerModel> {
       throw e;
     } finally {
       // Close resources and connection
-      if (conn != null) {
-        conn.close();
+      try {
+        if (conn != null) {
+          conn.close();
+        }
+      } catch (SQLException e) {
+        e.printStackTrace();
       }
     }
   }
 
+  // Update an existing customer in the database and return number of rows updated
   public int update(CustomerModel customer) throws SQLException {
-    try (Connection conn = DatabaseConnect.getConnection();
+    try (
+        // Get a database connection
+        Connection conn = DatabaseConnect.getConnection();
+        // Prepare the SQL statement for updating customer data in Customer table
         PreparedStatement ps = conn.prepareStatement(
-            "UPDATE `Customer` SET `Purchase` = ?, `invoice_id` = ?, `iayment_id` = ? WHERE `user_id` = ?");) {
-      // Update customer data in Customer table
+            "UPDATE `Customer` SET `Purchase` = ?, `invoice_id` = ?, `payment_id` = ? WHERE `user_id` = ?");) {
+      // Set parameter values for the prepared statement
       ps.setDate(1, customer.getPurchaseHistory());
       ps.setString(2, customer.getInvoiceID());
       ps.setString(3, customer.getPaymentID());
       ps.setString(4, customer.getUserID());
-      ps.executeUpdate();
+      // Execute the SQL statement and get number of rows updated
+      int rowsUpdated = ps.executeUpdate();
       // Update user data in User table using UserDAO
       UserDAO userDAO = new UserDAO();
-      int userID = userDAO.update(new UserModel());
-      return 1; // Return 1 because only one row was updated
+      userDAO.update(new UserModel());
+      return rowsUpdated;
+    } catch (SQLException e) {
+      throw e;
+    }
+  }
+
+  // Delete a customer and associated user record by user ID and return number of
+  // rows deleted
+  @Override
+  public int delete(String userId) throws SQLException {
+    try (
+        // Get a database connection
+        Connection conn = DatabaseConnect.getConnection();
+        // Prepare the SQL statements for deleting customer and user records
+        PreparedStatement ps1 = conn.prepareStatement("DELETE FROM `customer` WHERE `user_id`=?");
+        PreparedStatement ps2 = conn.prepareStatement("DELETE FROM `users` WHERE `user_id`=?")) {
+      // Set parameters for the prepared statements
+      ps1.setString(1, userId);
+      ps2.setString(1, userId);
+      // Execute the SQL statements and get total number of rows deleted
+      int rowsDeleted = ps1.executeUpdate() + ps2.executeUpdate();
+      // Return the number of rows deleted
+      return rowsDeleted;
     } catch (SQLException ex) {
       throw ex;
+    }
+  }
+
+  // Search for customers based on a given condition and return results as
+  // ArrayList
+  @Override
+  public ArrayList<CustomerModel> searchByCondition(String condition) throws SQLException {
+    // Build the SQL query with passed condition for searching customer data with
+    // left join to User table
+    StringBuilder sb = new StringBuilder(
+        "SELECT * FROM User u LEFT JOIN Customer c ON u.user_id = c.user_id WHERE ");
+    sb.append(condition);
+    String query = sb.toString();
+    try (
+        // Get a database connection
+        Connection con = DatabaseConnect.getConnection();
+        // Prepare the SQL statement with the built query
+        PreparedStatement pst = con.prepareStatement(query);
+        // Execute the SQL statement and get result set
+        ResultSet resultSet = pst.executeQuery()) {
+      // Create an ArrayList of customers to hold the retrieved ones
+      ArrayList<CustomerModel> customerList = new ArrayList<>();
+      // Loop through result set and retrieve customer data into CustomerModel class
+      while (resultSet.next()) {
+        CustomerModel customer = new CustomerModel();
+        customer.setUserID(resultSet.getString("user_id"));
+        customer.setPurchaseHistory(resultSet.getDate("purchase_history"));
+        customer.setInvoiceID(resultSet.getString("invoice_id"));
+        customer.setPaymentID(resultSet.getString("payment_id"));
+        customerList.add(customer);
+      }
+      // Print a message if no records are found for the given search criteria
+      if (customerList.isEmpty()) {
+        System.out.println("No records found for the given condition: " + condition);
+      }
+      // Return the ArrayList of customers that meet the search criteria
+      return customerList;
+    }
+  }
+
+  // Overloaded method with column name added to restrict search to certain column
+  @Override
+  public ArrayList<CustomerModel> searchByCondition(String condition, String columnName) throws SQLException {
+    // Build the SQL query with given condition and column name to search only for
+    // customer data
+    String query = "SELECT * FROM `Customer` c, `User` u WHERE u.user_id = c.user_id AND " + columnName + " LIKE ?";
+    try (
+        // Get a database connection
+        Connection con = DatabaseConnect.getConnection();
+        // Prepare the SQL statement with the built query
+        PreparedStatement pst = con.prepareStatement(query);) {
+      // Set wildcarded value to the prepared statement
+      pst.setString(1, "%" + condition + "%");
+      // Execute the SQL statement and get result set
+      ResultSet resultSet = pst.executeQuery();
+      // Create an ArrayList of customers to hold the retrieved ones
+      ArrayList<CustomerModel> customerList = new ArrayList<>();
+      // Loop through result set and retrieve customer data into CustomerModel class
+      while (resultSet.next()) {
+        CustomerModel customer = new CustomerModel();
+        customer.setUserID(resultSet.getString("user_id"));
+        customer.setPurchaseHistory(resultSet.getDate("purchase_history"));
+        customer.setInvoiceID(resultSet.getString("invoice_id"));
+        customer.setPaymentID(resultSet.getString("payment_id"));
+        customerList.add(customer);
+      }
+      // Return the ArrayList of customers that meet the search criteria
+      return customerList;
+    } catch (SQLException e) {
+      throw e;
     }
   }
 
