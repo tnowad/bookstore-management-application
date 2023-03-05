@@ -4,21 +4,18 @@ import java.sql.Date;
 
 public class OrderModel {
     private String ShippingInformation;
-    private BookModel bookDetails;
-    private CustomerModel customerInformation;
     private Date orderDate;
-    private Integer orderTotal;
+    private String invoiceID, ISBN, userID;
 
     public OrderModel() {
     }
 
-    public OrderModel(String ShippingInformation, BookModel bookDetails, CustomerModel customerInformation,
-            Date orderDate, Integer orderTotal) {
+    public OrderModel(String ShippingInformation, Date orderDate, String invoiceID, String ISBN, String userID) {
         this.ShippingInformation = ShippingInformation;
-        this.bookDetails = bookDetails;
-        this.customerInformation = customerInformation;
         this.orderDate = orderDate;
-        this.orderTotal = orderTotal;
+        this.invoiceID = invoiceID;
+        this.ISBN = ISBN;
+        this.userID = userID;
     }
 
     public String getShippingInformation() {
@@ -29,22 +26,6 @@ public class OrderModel {
         this.ShippingInformation = ShippingInformation;
     }
 
-    public BookModel getBookDetails() {
-        return this.bookDetails;
-    }
-
-    public void setBookDetails(BookModel bookDetails) {
-        this.bookDetails = bookDetails;
-    }
-
-    public CustomerModel getCustomerInformation() {
-        return this.customerInformation;
-    }
-
-    public void setCustomerInformation(CustomerModel customerInformation) {
-        this.customerInformation = customerInformation;
-    }
-
     public Date getOrderDate() {
         return this.orderDate;
     }
@@ -53,26 +34,32 @@ public class OrderModel {
         this.orderDate = orderDate;
     }
 
-    public Integer getOrderTotal() {
-        return this.orderTotal;
+    public String getInvoiceID() {
+        return this.invoiceID;
     }
 
-    public void setOrderTotal(Integer orderTotal) {
-        this.orderTotal = orderTotal;
+    public void setInvoiceID(String invoiceID) {
+        this.invoiceID = invoiceID;
+    }
+
+    public String getISBN() {
+        return this.ISBN;
+    }
+
+    public void setISBN(String ISBN) {
+        this.ISBN = ISBN;
+    }
+
+    public String getUserID() {
+        return this.userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
     }
 
     public OrderModel ShippingInformation(String ShippingInformation) {
         setShippingInformation(ShippingInformation);
-        return this;
-    }
-
-    public OrderModel bookDetails(BookModel bookDetails) {
-        setBookDetails(bookDetails);
-        return this;
-    }
-
-    public OrderModel customerInformation(CustomerModel customerInformation) {
-        setCustomerInformation(customerInformation);
         return this;
     }
 
@@ -81,20 +68,19 @@ public class OrderModel {
         return this;
     }
 
-    public OrderModel orderTotal(Integer orderTotal) {
-        setOrderTotal(orderTotal);
+    public OrderModel invoiceID(String invoiceID) {
+        setInvoiceID(invoiceID);
         return this;
     }
 
-    @Override
-    public String toString() {
-        return "{" +
-                " ShippingInformation='" + getShippingInformation() + "'" +
-                ", bookDetails='" + getBookDetails() + "'" +
-                ", customerInformation='" + getCustomerInformation() + "'" +
-                ", orderDate='" + getOrderDate() + "'" +
-                ", orderTotal='" + getOrderTotal() + "'" +
-                "}";
+    public OrderModel ISBN(String ISBN) {
+        setISBN(ISBN);
+        return this;
+    }
+
+    public OrderModel userID(String userID) {
+        setUserID(userID);
+        return this;
     }
 
 }

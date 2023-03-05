@@ -110,15 +110,11 @@ public class UserDAO implements DAOInterface<UserModel> {
   // parameter.
   @Override
   public int delete(String userId) throws SQLException {
-    if (userId == null || userId.isEmpty()) {
-      throw new IllegalArgumentException("ID cannot be null or empty");
-    }
     try (
-        Connection con = DatabaseConnect.getConnection(); // Established connection with Database
-        PreparedStatement pst = con.prepareStatement("DELETE FROM `User` WHERE User_ID=?") // SQL Statement to execute
-    ) {
-      pst.setString(1, userId); // Setting the value of parameter in the query
-      return pst.executeUpdate(); // Return number of rows deleted
+        Connection con = DatabaseConnect.getConnection();
+        PreparedStatement pst = con.prepareStatement("DELETE FROM `user` WHERE userId=?")) {
+      pst.setString(1, userId);
+      return pst.executeUpdate();
     }
   }
 }

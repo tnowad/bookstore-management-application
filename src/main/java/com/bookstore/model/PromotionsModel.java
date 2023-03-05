@@ -5,13 +5,14 @@ import java.sql.Date;
 public class PromotionsModel {
     private int Amount, AmountRemaining;
     private Date endDate, startDate;
-    private String offerDescription, promotionType, invoiceID;
+    private String offerDescription, promotionType, invoiceID, promotionID;
+    private float discountAmount = 0;
 
     public PromotionsModel() {
     }
 
     public PromotionsModel(int Amount, int AmountRemaining, Date endDate, Date startDate, String offerDescription,
-            String promotionType, String invoiceID) {
+            String promotionType, String invoiceID, String promotionID, float discountAmount) {
         this.Amount = Amount;
         this.AmountRemaining = AmountRemaining;
         this.endDate = endDate;
@@ -19,6 +20,8 @@ public class PromotionsModel {
         this.offerDescription = offerDescription;
         this.promotionType = promotionType;
         this.invoiceID = invoiceID;
+        this.promotionID = promotionID;
+        this.discountAmount = discountAmount;
     }
 
     public int getAmount() {
@@ -77,6 +80,22 @@ public class PromotionsModel {
         this.invoiceID = invoiceID;
     }
 
+    public String getPromotionID() {
+        return this.promotionID;
+    }
+
+    public void setPromotionID(String promotionID) {
+        this.promotionID = promotionID;
+    }
+
+    public float getDiscountAmount() {
+        return this.discountAmount;
+    }
+
+    public void setDiscountAmount(float discountAmount) {
+        this.discountAmount = discountAmount;
+    }
+
     public PromotionsModel Amount(int Amount) {
         setAmount(Amount);
         return this;
@@ -112,6 +131,16 @@ public class PromotionsModel {
         return this;
     }
 
+    public PromotionsModel promotionID(String promotionID) {
+        setPromotionID(promotionID);
+        return this;
+    }
+
+    public PromotionsModel discountAmount(float discountAmount) {
+        setDiscountAmount(discountAmount);
+        return this;
+    }
+
     @Override
     public String toString() {
         return "{" +
@@ -122,6 +151,8 @@ public class PromotionsModel {
                 ", offerDescription='" + getOfferDescription() + "'" +
                 ", promotionType='" + getPromotionType() + "'" +
                 ", invoiceID='" + getInvoiceID() + "'" +
+                ", promotionID='" + getPromotionID() + "'" +
+                ", discountAmount='" + getDiscountAmount() + "'" +
                 "}";
     }
 
