@@ -5,19 +5,20 @@ import java.sql.Date;
 public class PromotionsModel {
     private int Amount, AmountRemaining;
     private Date endDate, startDate;
-    private String offerDescription, promotionType;
+    private String offerDescription, promotionType, invoiceID;
 
     public PromotionsModel() {
     }
 
     public PromotionsModel(int Amount, int AmountRemaining, Date endDate, Date startDate, String offerDescription,
-            String promotionType) {
+            String promotionType, String invoiceID) {
         this.Amount = Amount;
         this.AmountRemaining = AmountRemaining;
         this.endDate = endDate;
         this.startDate = startDate;
         this.offerDescription = offerDescription;
         this.promotionType = promotionType;
+        this.invoiceID = invoiceID;
     }
 
     public int getAmount() {
@@ -68,6 +69,14 @@ public class PromotionsModel {
         this.promotionType = promotionType;
     }
 
+    public String getInvoiceID() {
+        return this.invoiceID;
+    }
+
+    public void setInvoiceID(String invoiceID) {
+        this.invoiceID = invoiceID;
+    }
+
     public PromotionsModel Amount(int Amount) {
         setAmount(Amount);
         return this;
@@ -98,6 +107,11 @@ public class PromotionsModel {
         return this;
     }
 
+    public PromotionsModel invoiceID(String invoiceID) {
+        setInvoiceID(invoiceID);
+        return this;
+    }
+
     @Override
     public String toString() {
         return "{" +
@@ -107,6 +121,7 @@ public class PromotionsModel {
                 ", startDate='" + getStartDate() + "'" +
                 ", offerDescription='" + getOfferDescription() + "'" +
                 ", promotionType='" + getPromotionType() + "'" +
+                ", invoiceID='" + getInvoiceID() + "'" +
                 "}";
     }
 

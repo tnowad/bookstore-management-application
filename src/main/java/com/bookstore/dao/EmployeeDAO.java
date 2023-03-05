@@ -1,4 +1,3 @@
-
 // package name and import statements
 package com.bookstore.dao;
 
@@ -135,13 +134,10 @@ public class EmployeeDAO implements DAOInterface<EmployeeModel> {
       // Deleting employee data from Employee table
       psEmp.setString(1, userId);
       int rowsDeleted = psEmp.executeUpdate();
-
       // Deleting user data from User table
       psUser.setString(1, userId);
       rowsDeleted += psUser.executeUpdate();
-
       return rowsDeleted;
-
     } catch (SQLException ex) {
       throw ex;
     }
