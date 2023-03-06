@@ -49,8 +49,7 @@ CREATE TABLE publishers (
   id INT NOT NULL AUTO_INCREMENT,
   name VARCHAR(255) NOT NULL,
   address VARCHAR(255) NOT NULL,
-  PRIMARY KEY (id),
-  FOREIGN KEY (isbn) REFERENCES books (isbn)
+  PRIMARY KEY (id)
 );
 
 -- Authors table
@@ -59,7 +58,7 @@ CREATE TABLE authors (
   first_name VARCHAR(255) NOT NULL,
   last_name VARCHAR(255) NOT NULL,
   description VARCHAR(255) NOT NULL,
-  PRIMARY KEY (id),
+  PRIMARY KEY (id)
 );
 
 -- Providers table
@@ -86,18 +85,40 @@ CREATE TABLE books (
   FOREIGN KEY (author_id) REFERENCES authors (id)
 );
 
+-- Imports table
+CREATE TABLE imports (
+  id INT NOT NULL AUTO_INCREMENT,
+  provider_id INT NOT NULL,
+  employee_id INT NOT NULL,
+  total_price INT NOT NULL,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  FOREIGN KEY (provider_id) REFERENCES providers (id),
+  FOREIGN KEY (employee_id) REFERENCES employees (account_id)
+);
+
+-- ImportDetails table
+CREATE TABLE import_details (
+  import_id INT NOT NULL,
+  book_isbn VARCHAR(255) NOT NULL,
+  quantity INT NOT NULL,
+  price INT NOT NULL,
+  FOREIGN KEY (import_id) REFERENCES imports (id),
+  FOREIGN KEY (book_isbn) REFERENCES books (isbn)
+);
 
 -- Promotions table
 CREATE TABLE promotions (
-  int id INT NOT NULL AUTO_INCREMENT,
+  id INT NOT NULL AUTO_INCREMENT,
   description VARCHAR(255) NOT NULL,
   quantity INT NOT NULL,
   start_date DATE NOT NULL,
   end_date DATE NOT NULL,
-  condition VARCHAR(255) NOT NULL,
+  condition_apply VARCHAR(255) NULL,
   discount_percent FLOAT NULL DEFAULT 0,
   discount_amount FLOAT NULL DEFAULT 0,
-  PRIMARY KEY (id),
+  PRIMARY KEY (id)
 );
 
 /*
@@ -132,9 +153,11 @@ CREATE TABLE orders (
   total_price INT NOT NULL,
   customer_id INT NOT NULL,
   invoice_id INT NOT NULL,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  status ENUM ('pending', 'approved', 'rejected') NOT NULL DEFAULT 'pending',
   PRIMARY KEY (id),
-  FOREIGN KEY (customer_id) REFERENCES customers (account_id),
-  FOREIGN KEY (invoice_id) REFERENCES invoices (invoice_id),
+  FOREIGN KEY (customer_id) REFERENCES customers (account_id)
 );
 
 -- OrderDetails table
@@ -144,7 +167,52 @@ CREATE TABLE order_details (
   book_price INT NOT NULL,
   quantity INT NOT NULL,
   FOREIGN KEY (order_id) REFERENCES orders (id),
-  FOREIGN KEY (book_isbn) REFERENCES books (isbn),
+  FOREIGN KEY (book_isbn) REFERENCES books (isbn)
+);
+
+-- PaymentMethods table
+/*
+  Explaination:
+  - A payment method can be a credit card, debit card or cash
+  - A payment method can be used for multiple payments
+  - If a payment method is a credit card or debit card, it will have a card number, card holder and expiration date
+  - If change information of a payment method, it will create a new payment method
+*/
+CREATE TABLE payment_methods (
+  id INT NOT NULL AUTO_INCREMENT,
+  payment_id VARCHAR(15) NOT NULL,
+  card_number VARCHAR(255) NOT NULL,
+  card_holder VARCHAR(255) NOT NULL,
+  expiration_date DATE NOT NULL,
+  PRIMARY KEY (id)
+);
+
+-- Payments table
+/*
+  Explaination:
+  - A payment can be a cash, credit card or debit card
+  - When a payment is made, the payment status will be changed to 'approved'
+  - If payment is cash, the payment method id will be NULL
+  - If payment is credit card or debit card, the payment method id will be the id of the payment method
+  - When employee approves a payment, the payment status will be changed to 'approved'
+  - When employee rejects a payment, the payment status will be changed to 'rejected'
+  - When a payment is rejected, the payment status will be changed to 'rejected'
+  - When a payment is approved, the payment status will be changed to 'approved'
+*/
+CREATE TABLE payments (
+  id INT NOT NULL,
+  order_id INT NOT NULL,
+  customer_id INT NOT NULL,
+  total_price INT NOT NULL,
+  payment_method ENUM ('cash', 'credit_card', 'debit_card') NOT NULL,
+  payment_method_id INT NULL,
+  status ENUM ('pending', 'approved', 'rejected') NOT NULL DEFAULT 'pending',
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  FOREIGN KEY (order_id) REFERENCES orders (id),
+  FOREIGN KEY (customer_id) REFERENCES customers (account_id),
+  FOREIGN KEY (payment_method_id) REFERENCES payment_methods (id)
 );
 
 -- Invoice table
@@ -163,75 +231,6 @@ CREATE TABLE invoices (
   FOREIGN KEY (order_id) REFERENCES orders (id),
   FOREIGN KEY (promotion_id) REFERENCES promotions (id),
   FOREIGN KEY (payment_id) REFERENCES payments (id),
-  FOREIGN KEY (customer_id) REFERENCES customers (id),
-  FOREIGN KEY (employee_id) REFERENCES employees (id),
-);
-
--- Payments table
-/*
-  Explaination:
-  - A payment can be a cash, credit card or debit card
-  - When a payment is made, the payment status will be changed to 'approved'
-  - If payment is cash, the payment method id will be NULL
-  - If payment is credit card or debit card, the payment method id will be the id of the payment method
-  - When employee approves a payment, the payment status will be changed to 'approved'
-  - When employee rejects a payment, the payment status will be changed to 'rejected'
-  - When a payment is rejected, the payment status will be changed to 'rejected'
-  - When a payment is approved, the payment status will be changed to 'approved'
-*/
-*/
-CREATE TABLE payments (
-  id INT NOT NULL,
-  order_id INT NOT NULL,
-  customer_id INT NOT NULL,
-  total_price INT NOT NULL,
-  payment_method ENUM ('cash', 'credit_card', 'debit_card') NOT NULL,
-  payment_method_id INT NULL,
-  status ENUM ('pending', 'approved', 'rejected') NOT NULL DEFAULT 'pending',
-  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (id),
-  FOREIGN KEY (order_id) REFERENCES orders (id),
-  FOREIGN KEY (customer_id) REFERENCES customers (id),
-  FOREIGN KEY (payment_method_id) REFERENCES payment_methods (id)
-);
-
--- PaymentMethods table
-/*
-  Explaination:
-  - A payment method can be a credit card, debit card or cash
-  - A payment method can be used for multiple payments
-  - If a payment method is a credit card or debit card, it will have a card number, card holder and expiration date
-  - If change information of a payment method, it will create a new payment method
-*/
-CREATE TABLE payment_methods (
-  id INT NOT NULL AUTO_INCREMENT,
-  payment_id VARCHAR(15) NOT NULL,
-  card_number VARCHAR(255) NOT NULL,
-  card_holder VARCHAR(255) NOT NULL,
-  expiration_date DATE NOT NULL,
-  PRIMARY KEY (id),
-);
-
--- Imports table
-CREATE TABLE imports (
-  id INT NOT NULL AUTO_INCREMENT,
-  provider_id INT NOT NULL,
-  employee_id INT NOT NULL,
-  total_price INT NOT NULL,
-  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (id),
-  FOREIGN KEY (provider_id) REFERENCES providers (id),
-  FOREIGN KEY (employee_id) REFERENCES employees (id),
-);
-
--- ImportDetails table
-CREATE TABLE import_details (
-  import_id VARCHAR(15) NOT NULL,
-  book_isbn VARCHAR(255) NOT NULL,
-  quantity INT NOT NULL,
-  price INT NOT NULL,
-  FOREIGN KEY (import_id) REFERENCES imports (id),
-  FOREIGN KEY (book_isbn) REFERENCES books (isbn),
+  FOREIGN KEY (customer_id) REFERENCES customers (account_id),
+  FOREIGN KEY (employee_id) REFERENCES employees (account_id)
 );
