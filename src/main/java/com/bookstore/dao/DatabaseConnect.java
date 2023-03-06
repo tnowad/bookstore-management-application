@@ -15,6 +15,13 @@ public class DatabaseConnect {
   private static String user = rb.getString("user");
   private static String password = rb.getString("password");
 
+  /**
+   * Get connection to database
+   *
+   * @return Connection object to database
+   * @throws SQLException
+   * @throws ClassNotFoundException
+   */
   public static Connection getConnection() throws SQLException, ClassNotFoundException {
     if (connection == null) {
       Class.forName(driver);
@@ -23,6 +30,15 @@ public class DatabaseConnect {
     return connection;
   }
 
+  /**
+   * Get PreparedStatement
+   *
+   * @param sql
+   * @param args
+   * @return PreparedStatement after setting arguments
+   * @throws SQLException
+   * @throws ClassNotFoundException
+   */
   public static PreparedStatement getPreparedStatement(String sql, Object... args)
       throws SQLException, ClassNotFoundException {
     PreparedStatement preparedStatement = getConnection().prepareStatement(sql);
@@ -32,16 +48,39 @@ public class DatabaseConnect {
     return preparedStatement;
   }
 
+  /**
+   * Execute query
+   *
+   * @param sql
+   * @param args
+   * @return ResultSet after executing query
+   * @throws SQLException
+   * @throws ClassNotFoundException
+   */
   public static ResultSet executeQuery(String sql, Object... args) throws SQLException, ClassNotFoundException {
     PreparedStatement preparedStatement = getPreparedStatement(sql, args);
     return preparedStatement.executeQuery();
   }
 
+  /**
+   * Execute update
+   *
+   * @param sql
+   * @param args
+   * @return number of rows affected by the update
+   * @throws SQLException
+   * @throws ClassNotFoundException
+   */
   public static int executeUpdate(String sql, Object... args) throws SQLException, ClassNotFoundException {
     PreparedStatement preparedStatement = getPreparedStatement(sql, args);
     return preparedStatement.executeUpdate();
   }
 
+  /**
+   * Close connection
+   *
+   * @throws SQLException
+   */
   public static void closeConnection() {
     try {
       if (connection != null) {
