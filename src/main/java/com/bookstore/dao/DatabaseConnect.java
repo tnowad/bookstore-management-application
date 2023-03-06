@@ -5,7 +5,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ResourceBundle;
 
 public class DatabaseConnect {
@@ -16,66 +15,42 @@ public class DatabaseConnect {
   private static String user = rb.getString("user");
   private static String password = rb.getString("password");
 
-  public static Connection getConnection() {
+  public static Connection getConnection() throws SQLException, ClassNotFoundException {
     if (connection == null) {
-      try {
-        Class.forName(driver);
-        connection = DriverManager.getConnection(url, user, password);
-      } catch (Exception e) {
-        e.printStackTrace();
-      }
+      Class.forName(driver);
+      connection = DriverManager.getConnection(url, user, password);
     }
     return connection;
   }
 
-  public static ResultSet getResultSet(String sql) {
-    Statement statement = null;
-    ResultSet resultSet = null;
-    try {
-      statement = getConnection().createStatement();
-      resultSet = statement.executeQuery(sql);
-    } catch (SQLException e) {
-      System.out.println(e);
-    }
-    closeConnection();
-    return resultSet;
-  }
-
-  public static PreparedStatement getPreparedStatement(String sql) {
-    PreparedStatement preparedStatement = null;
-    try {
-      preparedStatement = getConnection().prepareStatement(sql);
-    } catch (SQLException e) {
-      System.out.println(e);
+  public static PreparedStatement getPreparedStatement(String sql, Object... args)
+      throws SQLException, ClassNotFoundException {
+    PreparedStatement preparedStatement = getConnection().prepareStatement(sql);
+    for (int i = 0; i < args.length; i++) {
+      preparedStatement.setObject(i + 1, args[i]);
     }
     return preparedStatement;
   }
 
-  public static ResultSet getResultSet(PreparedStatement preparedStatement) {
-    ResultSet resultSet = null;
-    try {
-      resultSet = preparedStatement.executeQuery();
-    } catch (SQLException e) {
-      System.out.println(e);
-    }
-    return resultSet;
+  public static ResultSet executeQuery(String sql, Object... args) throws SQLException, ClassNotFoundException {
+    PreparedStatement preparedStatement = getPreparedStatement(sql, args);
+    return preparedStatement.executeQuery();
   }
 
-  public static int executeUpdate(PreparedStatement preparedStatement) {
-    int result = 0;
-    try {
-      result = preparedStatement.executeUpdate();
-    } catch (SQLException e) {
-      System.out.println(e);
-    }
-    return result;
+  public static int executeUpdate(String sql, Object... args) throws SQLException, ClassNotFoundException {
+    PreparedStatement preparedStatement = getPreparedStatement(sql, args);
+    return preparedStatement.executeUpdate();
   }
 
   public static void closeConnection() {
     try {
-      connection.close();
+      if (connection != null) {
+        connection.close();
+      }
     } catch (SQLException e) {
       e.printStackTrace();
+    } finally {
+      connection = null;
     }
   }
 }
