@@ -48,9 +48,9 @@ public class ProviderDAO implements DAOInterface<ProviderModel> {
                 Connection conn = DatabaseConnect.getConnection(); // Established connection with Database
                 PreparedStatement pstmt = conn.prepareStatement(
                         "INSERT INTO `provider` (`providerID`, `nameProvider`, `gnrID`) VALUES (?,?,?)")) {
-            pstmt.setString(1, providerModel.getProviderID()); // Setting the value of parameters in the query
+            pstmt.setString(1, providerModel.getProviderId()); // Setting the value of parameters in the query
             pstmt.setString(2, providerModel.getNameProvider());
-            pstmt.setString(3, providerModel.getGnr_id());
+            pstmt.setString(3, providerModel.getGnrId());
             result = pstmt.executeUpdate(); // Return number of rows inserted
         } catch (SQLException e) {
             throw e;
@@ -66,8 +66,8 @@ public class ProviderDAO implements DAOInterface<ProviderModel> {
                 PreparedStatement pstmt = conn.prepareStatement(
                         "UPDATE `provider` SET `nameProvider`=?, `gnrID`=? WHERE `providerID`=?")) {
             pstmt.setString(1, providerModel.getNameProvider()); // Setting the value of parameters in the query
-            pstmt.setString(2, providerModel.getGnr_id());
-            pstmt.setString(3, providerModel.getProviderID());
+            pstmt.setString(2, providerModel.getGnrId());
+            pstmt.setString(3, providerModel.getProviderId());
             result = pstmt.executeUpdate(); // Return number of rows updated
         } catch (SQLException ex) {
             throw ex;
@@ -103,9 +103,9 @@ public class ProviderDAO implements DAOInterface<ProviderModel> {
 
             while (resultSet.next()) {
                 ProviderModel provider = new ProviderModel();
-                provider.setProviderID(resultSet.getString("providerID"));
+                provider.setProviderId(resultSet.getString("providerID"));
                 provider.setNameProvider(resultSet.getString("nameProvider"));
-                provider.setGnr_id(resultSet.getString("gnrID"));
+                provider.setGnrId(resultSet.getString("gnrID"));
                 providerList.add(provider);
             }
         } catch (SQLException e) {
@@ -135,9 +135,9 @@ public class ProviderDAO implements DAOInterface<ProviderModel> {
             // Loop through result set and retrieve provider data into ProviderModel class
             while (resultSet.next()) {
                 ProviderModel provider = new ProviderModel();
-                provider.setProviderID(resultSet.getString("providerID"));
+                provider.setProviderId(resultSet.getString("providerID"));
                 provider.setNameProvider(resultSet.getString("nameProvider"));
-                provider.setGnr_id(resultSet.getString("gnrID"));
+                provider.setGnrId(resultSet.getString("gnrID"));
                 providerList.add(provider);
             }
 

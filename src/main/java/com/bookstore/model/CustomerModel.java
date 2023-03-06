@@ -4,14 +4,14 @@ import java.sql.Date;
 
 public class CustomerModel {
   private Date purchaseHistory;
-  private String userID, invoiceID, paymentID;
+  private String customerID, invoiceID, paymentID;
 
   public CustomerModel() {
   }
 
-  public CustomerModel(Date purchaseHistory, String userID, String invoiceID, String paymentID) {
+  public CustomerModel(Date purchaseHistory, String customerID, String invoiceID, String paymentID) {
     this.purchaseHistory = purchaseHistory;
-    this.userID = userID;
+    this.customerID = customerID;
     this.invoiceID = invoiceID;
     this.paymentID = paymentID;
   }
@@ -24,12 +24,12 @@ public class CustomerModel {
     this.purchaseHistory = purchaseHistory;
   }
 
-  public String getUserID() {
-    return this.userID;
+  public String getCustomerID() {
+    return this.customerID;
   }
 
-  public void setUserID(String userID) {
-    this.userID = userID;
+  public void setCustomerID(String customerID) {
+    this.customerID = customerID;
   }
 
   public String getInvoiceID() {
@@ -53,8 +53,8 @@ public class CustomerModel {
     return this;
   }
 
-  public CustomerModel userID(String userID) {
-    setUserID(userID);
+  public CustomerModel customerID(String customerID) {
+    setCustomerID(customerID);
     return this;
   }
 
@@ -66,15 +66,5 @@ public class CustomerModel {
   public CustomerModel paymentID(String paymentID) {
     setPaymentID(paymentID);
     return this;
-  }
-
-  @Override
-  public String toString() {
-    return "{" +
-        " purchaseHistory='" + getPurchaseHistory() + "'" +
-        ", userID='" + getUserID() + "'" +
-        ", invoiceID='" + getInvoiceID() + "'" +
-        ", paymentID='" + getPaymentID() + "'" +
-        "}";
   }
 }

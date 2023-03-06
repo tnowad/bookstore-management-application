@@ -3,7 +3,7 @@ package com.bookstore.model;
 import java.sql.Date;
 
 public class EmployeeModel {
-  private String userId;
+  private String employeeID;
   private Date workSchedule;
   private Double salary;
   private String employeeType;
@@ -14,9 +14,9 @@ public class EmployeeModel {
   public EmployeeModel() {
   }
 
-  public EmployeeModel(String userId, Date workSchedule, Double salary, String employeeType, String contactInformation,
-      String goodNotesReceiptId, String invoiceId) {
-    this.userId = userId;
+  public EmployeeModel(String employeeID, Date workSchedule, Double salary, String employeeType,
+      String contactInformation, String goodNotesReceiptId, String invoiceId) {
+    this.employeeID = employeeID;
     this.workSchedule = workSchedule;
     this.salary = salary;
     this.employeeType = employeeType;
@@ -25,12 +25,12 @@ public class EmployeeModel {
     this.invoiceId = invoiceId;
   }
 
-  public String getUserId() {
-    return this.userId;
+  public String getEmployeeID() {
+    return this.employeeID;
   }
 
-  public void setUserId(String userId) {
-    this.userId = userId;
+  public void setEmployeeID(String employeeID) {
+    this.employeeID = employeeID;
   }
 
   public Date getWorkSchedule() {
@@ -81,8 +81,8 @@ public class EmployeeModel {
     this.invoiceId = invoiceId;
   }
 
-  public EmployeeModel userId(String userId) {
-    setUserId(userId);
+  public EmployeeModel employeeID(String employeeID) {
+    setEmployeeID(employeeID);
     return this;
   }
 
@@ -114,19 +114,6 @@ public class EmployeeModel {
   public EmployeeModel invoiceId(String invoiceId) {
     setInvoiceId(invoiceId);
     return this;
-  }
-
-  @Override
-  public String toString() {
-    return "{" +
-        " userId='" + getUserId() + "'" +
-        ", workSchedule='" + getWorkSchedule() + "'" +
-        ", salary='" + getSalary() + "'" +
-        ", employeeType='" + getEmployeeType() + "'" +
-        ", contactInformation='" + getContactInformation() + "'" +
-        ", goodNotesReceiptId='" + getGoodNotesReceiptId() + "'" +
-        ", invoiceId='" + getInvoiceId() + "'" +
-        "}";
   }
 
 }

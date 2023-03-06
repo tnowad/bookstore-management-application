@@ -26,7 +26,7 @@ public class EmployeeDAO implements DAOInterface<EmployeeModel> {
     ArrayList<EmployeeModel> employeeList = new ArrayList<>();
 
     // SQL query to join Employee and User tables to fetch required data
-    String sql = "SELECT * FROM `Employee` e, `User` u WHERE e.`UserID` = u.`UserID`";
+    String sql = "SELECT * FROM `Employee` e, `User` u WHERE e.`employeeId` = u.`userID`";
 
     try (Connection connection = DatabaseConnect.getConnection(); // establishing DB connection
         PreparedStatement statement = connection.prepareStatement(sql);
@@ -34,11 +34,11 @@ public class EmployeeDAO implements DAOInterface<EmployeeModel> {
 
       while (resultSet.next()) {
         EmployeeModel employee = new EmployeeModel();
-        employee.setUserId(String.valueOf(resultSet.getString("user_id")));
-        employee.setWorkSchedule(resultSet.getDate("work_schedule"));
+        employee.setEmployeeID(String.valueOf(resultSet.getString("employeeID")));
+        employee.setWorkSchedule(resultSet.getDate("workSchedule"));
         employee.setSalary(resultSet.getDouble("salary"));
-        employee.setEmployeeType(resultSet.getString("employee_type"));
-        employee.setContactInformation(resultSet.getString("contact_information"));
+        employee.setEmployeeType(resultSet.getString("employeeType"));
+        employee.setContactInformation(resultSet.getString("contactInformation"));
         employeeList.add(employee); // adding each retrieved employee model into the List
       }
       return employeeList; // returning final retrieved employee models list
@@ -63,7 +63,7 @@ public class EmployeeDAO implements DAOInterface<EmployeeModel> {
 
       // Insert employee data into Employee table, with foreign key referencing UserID
       // table
-      String insertEmployeeQuery = "INSERT INTO `Employee` (`user_id`, `contact_information`, `salary`, `employee_type`, `work_schedule`) VALUES (?, ?, ?, ?, ?)";
+      String insertEmployeeQuery = "INSERT INTO `Employee` (`employeeId`, `contactInformation`, `salary`, `employeeType`, `workSchedule`) VALUES (?, ?, ?, ?, ?)";
       PreparedStatement employeePS = conn.prepareStatement(insertEmployeeQuery);
       employeePS.setString(1, String.valueOf(userID));
       employeePS.setString(2, employee.getContactInformation());
@@ -78,7 +78,6 @@ public class EmployeeDAO implements DAOInterface<EmployeeModel> {
 
     } catch (SQLException e) {
       // rollback if any error occurs
-
       if (conn != null) {
         conn.rollback();
       }
@@ -101,17 +100,19 @@ public class EmployeeDAO implements DAOInterface<EmployeeModel> {
   public int update(EmployeeModel employee) throws SQLException {
     try (Connection con = DatabaseConnect.getConnection();
         PreparedStatement pst = con.prepareStatement(
-            "UPDATE employees SET `work_schedule = ? `, `salary = ? `, `employee_type = ? `, `contact_information = ? `, `good_notes_receipt = ?`, `invoice_id = ? ` WHERE `user_id` = ?")) {
+            "UPDATE employees SET `workSchedule = ? `, `salary = ? `, `employeeType = ? `, `contactInformation = ? `, `goodnotesreceiptId = ?`, `invoiceId = ? ` WHERE `employeeId` = ?")) {
       pst.setDate(1, employee.getWorkSchedule());
       pst.setDouble(2, employee.getSalary());
       pst.setString(3, employee.getEmployeeType());
       pst.setString(4, employee.getContactInformation());
       pst.setString(5, employee.getInvoiceId());
       pst.setString(6, employee.getGoodNotesReceiptId());
-      pst.setString(7, employee.getUserId());
+      pst.setString(7, employee.getEmployeeID());
       int rowsUpdated = pst.executeUpdate();
 
       UserDAO userDAO = new UserDAO();
+      UserModel userModel = new UserModel();
+      userModel.setID(employee.getEmployeeID());
       userDAO.update(new UserModel());
 
       return rowsUpdated;
@@ -124,13 +125,14 @@ public class EmployeeDAO implements DAOInterface<EmployeeModel> {
   @Override
   public int delete(String userId) throws SQLException {
     try (Connection conn = DatabaseConnect.getConnection(); // getting the DB connection
-        PreparedStatement psEmp = conn.prepareStatement("DELETE FROM `employee` WHERE `user_id`=?"); // employee record
-                                                                                                     // deletion
-                                                                                                     // statement
-        PreparedStatement psUser = conn.prepareStatement("DELETE FROM `users` WHERE `user_id`=?")) { // corresponding
-                                                                                                     // user record
-                                                                                                     // deletion
-                                                                                                     // statement
+        PreparedStatement psEmp = conn.prepareStatement("DELETE FROM `Employee` WHERE `employeeId`=?"); // employee
+                                                                                                        // record
+        // deletion
+        // statement
+        PreparedStatement psUser = conn.prepareStatement("DELETE FROM `User` WHERE `userId`=?")) { // corresponding
+                                                                                                   // user record
+                                                                                                   // deletion
+                                                                                                   // statement
       // Deleting employee data from Employee table
       psEmp.setString(1, userId);
       int rowsDeleted = psEmp.executeUpdate();
@@ -149,21 +151,21 @@ public class EmployeeDAO implements DAOInterface<EmployeeModel> {
   public List<EmployeeModel> searchByCondition(String condition) throws SQLException {
     try (Connection con = DatabaseConnect.getConnection(); // getting DB connection
         PreparedStatement pst = con.prepareStatement(
-            "SELECT * FROM `employees` WHERE " + condition); // specifying where clause
+            "SELECT * FROM `Employee` WHERE " + condition); // specifying where clause
         ResultSet rs = pst.executeQuery()) { // executing the query with prepared statement
-      List<EmployeeModel> employees = new ArrayList<>(); // creating main list
+      List<EmployeeModel> employeeList = new ArrayList<>(); // creating main list
       while (rs.next()) { // iterating over retrieved records and forming Employee Models
         EmployeeModel employee = new EmployeeModel();
-        employee.setUserId(rs.getString("user_id"));
+        employee.setEmployeeID(rs.getString("user_id"));
         employee.setWorkSchedule(rs.getDate("work_schedule"));
         employee.setSalary(rs.getDouble("salary"));
         employee.setEmployeeType(rs.getString("employee_type"));
         employee.setContactInformation(rs.getString("contact_information"));
         employee.setGoodNotesReceiptId(rs.getString("good_notes_receipt_id"));
         employee.setInvoiceId(rs.getString("invoice_id"));
-        employees.add(employee); // adding the current employee model into the List
+        employeeList.add(employee); // adding the current employee model into the List
       }
-      return employees; // returning the final employee list
+      return employeeList; // returning the final employee list
 
     } catch (SQLException e) {
       throw e;
@@ -174,7 +176,7 @@ public class EmployeeDAO implements DAOInterface<EmployeeModel> {
   // parameters i.e. a filter column name and a search term
   @Override
   public List<EmployeeModel> searchByCondition(String condition, String columnName) throws SQLException {
-    String query = "SELECT * FROM `employees` WHERE " + columnName + " LIKE ?";
+    String query = "SELECT * FROM `Employee` e, `User` u WHERE e.employeeId = u.userId AND " + columnName + " LIKE ?";
     try (Connection con = DatabaseConnect.getConnection()) {
       PreparedStatement pst = con.prepareStatement(query);
       pst.setString(1, "%" + condition + "%");
@@ -182,13 +184,13 @@ public class EmployeeDAO implements DAOInterface<EmployeeModel> {
       List<EmployeeModel> employeeList = new ArrayList<>();
       while (resultSet.next()) {
         EmployeeModel employee = new EmployeeModel();
-        employee.setUserId(resultSet.getString("user_id"));
-        employee.setWorkSchedule(resultSet.getDate("work_schedule"));
+        employee.setEmployeeID(resultSet.getString("employeeId"));
+        employee.setWorkSchedule(resultSet.getDate("workSchedule"));
         employee.setSalary(resultSet.getDouble("salary"));
-        employee.setEmployeeType(resultSet.getString("employee_type"));
-        employee.setContactInformation(resultSet.getString("contact_information"));
-        employee.setGoodNotesReceiptId(resultSet.getString("good_notes_receipt_id"));
-        employee.setInvoiceId(resultSet.getString("invoice_id"));
+        employee.setEmployeeType(resultSet.getString("employeeType"));
+        employee.setContactInformation(resultSet.getString("contactInformation"));
+        employee.setGoodNotesReceiptId(resultSet.getString("goodnotesreceiptId"));
+        employee.setInvoiceId(resultSet.getString("invoiceId"));
         employeeList.add(employee); // adding the specific employee model into the List
       }
       return employeeList; // returning the filtered records list based on search term

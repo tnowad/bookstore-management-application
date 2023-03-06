@@ -19,7 +19,7 @@ public class AuthorDAO implements DAOInterface<AuthorModel> {
         return new AuthorModel(
                 rs.getString("name"),
                 rs.getString("nationality"),
-                rs.getString("authorID"),
+                rs.getString("authorId"),
                 rs.getString("ISBN"));
     }
 

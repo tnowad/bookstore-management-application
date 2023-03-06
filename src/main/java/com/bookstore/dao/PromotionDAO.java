@@ -16,14 +16,13 @@ public class PromotionDAO implements DAOInterface<PromotionsModel> {
 
   private PromotionsModel createPromotionsModelFromResultSet(ResultSet rs) throws SQLException {
     return new PromotionsModel(
+        rs.getString("promotionId"),
         rs.getInt("amount"),
-        rs.getInt("amount_remaining"),
-        rs.getDate("end_date"),
-        rs.getDate("start_date"),
-        rs.getString("offer_description"),
-        rs.getString("promotion_type"),
-        rs.getString("invoice_id"),
-        rs.getString("promotion_id"),
+        rs.getDate("endDate"),
+        rs.getDate("startDate"),
+        rs.getString("offerDescription"),
+        rs.getString("promotionType"),
+        rs.getString("invoiceID"),
         rs.getFloat("discount_amount"));
   }
 
@@ -48,15 +47,14 @@ public class PromotionDAO implements DAOInterface<PromotionsModel> {
   public int insert(PromotionsModel promotionsModel) throws SQLException {
     try (Connection conn = DatabaseConnect.getConnection();
         PreparedStatement pst = conn.prepareStatement(
-            "INSERT INTO `promotion` (`amount`, `amount_remaining`, `end_date`, `start_date`, `offer_description`, `promotion_type`, `invoice_id`, `promotion_id`, `discount_amount`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)")) {
+            "INSERT INTO `promotion` (`amount`, `end_date`, `start_date`, `offer_description`, `promotion_type`, `invoice_id`, `promotion_id`, `discount_amount`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)")) {
       pst.setInt(1, promotionsModel.getAmount());
-      pst.setInt(2, promotionsModel.getAmountRemaining());
       pst.setDate(3, new java.sql.Date(promotionsModel.getEndDate().getTime()));
       pst.setDate(4, new java.sql.Date(promotionsModel.getStartDate().getTime()));
       pst.setString(5, promotionsModel.getOfferDescription());
       pst.setString(6, promotionsModel.getPromotionType());
-      pst.setString(7, promotionsModel.getInvoiceID());
-      pst.setString(8, promotionsModel.getPromotionID());
+      pst.setString(7, promotionsModel.getInvoiceId());
+      pst.setString(8, promotionsModel.getInvoiceId());
       pst.setFloat(9, promotionsModel.getDiscountAmount());
       // Step-3: Execute the query
       return pst.executeUpdate();
@@ -71,16 +69,15 @@ public class PromotionDAO implements DAOInterface<PromotionsModel> {
     try (
         Connection conn = DatabaseConnect.getConnection(); // Established connection with Database
         PreparedStatement pst = conn.prepareStatement(
-            "UPDATE `promotion` SET `amount` = ?, `amount_remaining` = ?, `end_date` = ?, `start_date` = ?, `offer_description` = ?, `promotion_type` = ?, `invoice_id` = ?, `discount_amount` = ? WHERE `promotion_id` = ?")) {
+            "UPDATE `promotion` SET `amount` = ?,`end_date` = ?, `start_date` = ?, `offer_description` = ?, `promotion_type` = ?, `invoice_id` = ?, `discount_amount` = ? WHERE `promotion_id` = ?")) {
       pst.setInt(1, promotionsModel.getAmount());
-      pst.setInt(2, promotionsModel.getAmountRemaining());
       pst.setDate(3, new java.sql.Date(promotionsModel.getEndDate().getTime()));
       pst.setDate(4, new java.sql.Date(promotionsModel.getStartDate().getTime()));
       pst.setString(5, promotionsModel.getOfferDescription());
       pst.setString(6, promotionsModel.getPromotionType());
-      pst.setString(7, promotionsModel.getInvoiceID());
+      pst.setString(7, promotionsModel.getInvoiceId());
       pst.setFloat(8, promotionsModel.getDiscountAmount());
-      pst.setString(9, promotionsModel.getPromotionID());
+      pst.setString(9, promotionsModel.getPromotionId());
 
       return pst.executeUpdate(); // Returns number of rows updated
     } catch (SQLException e) {
@@ -118,14 +115,13 @@ public class PromotionDAO implements DAOInterface<PromotionsModel> {
       while (rs.next()) {
         PromotionsModel promoton = new PromotionsModel();
         promoton.setAmount(rs.getInt("amount"));
-        promoton.setAmountRemaining(rs.getInt("amount_remaining"));
         promoton.setEndDate(rs.getDate("end_date"));
         promoton.setStartDate(rs.getDate("start_date"));
         promoton.setOfferDescription(rs.getString("offer_description"));
         promoton.setPromotionType(rs.getString("promotion_type"));
-        promoton.setInvoiceID(rs.getString("invoice_id"));
+        promoton.setInvoiceId(rs.getString("invoice_id"));
         promoton.setDiscountAmount(rs.getFloat("discount_amount"));
-        promoton.setPromotionID(rs.getString("promotion_id"));
+        promoton.setPromotionId(rs.getString("promotion_id"));
 
         promotionList.add(promoton);
       }
@@ -162,15 +158,13 @@ public class PromotionDAO implements DAOInterface<PromotionsModel> {
       while (resultSet.next()) {
         PromotionsModel promotion = new PromotionsModel();
         promotion.setAmount(resultSet.getInt("amount"));
-        promotion.setAmountRemaining(resultSet.getInt("amount_remaining"));
         promotion.setEndDate(resultSet.getDate("end_date"));
         promotion.setStartDate(resultSet.getDate("start_date"));
         promotion.setOfferDescription(resultSet.getString("offer_description"));
         promotion.setPromotionType(resultSet.getString("promotion_type"));
-        promotion.setInvoiceID(resultSet.getString("invoice_id"));
+        promotion.setInvoiceId(resultSet.getString("invoice_id"));
         promotion.setDiscountAmount(resultSet.getFloat("discount_amount"));
-        promotion.setPromotionID(resultSet.getString("promotion_id"));
-
+        promotion.setPromotionId(resultSet.getString("promotion_id"));
         promotionList.add(promotion);
       }
       // Return the ArrayList of promotions that meet the search criteria

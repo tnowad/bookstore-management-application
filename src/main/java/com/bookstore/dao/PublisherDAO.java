@@ -20,7 +20,7 @@ public class PublisherDAO implements DAOInterface<PublisherModel> {
                 rs.getString("location"),
                 rs.getString("name"),
                 rs.getString("ISBN"),
-                rs.getString("publisher_id"));
+                rs.getString("publisherID"));
     }
 
     @Override
@@ -49,11 +49,11 @@ public class PublisherDAO implements DAOInterface<PublisherModel> {
         try (
                 Connection conn = DatabaseConnect.getConnection(); // Established connection with Database
                 PreparedStatement pstmt = conn.prepareStatement(
-                        "INSERT INTO `publisher` (`location`, `name`, `ISBN`, `publisher_id`) VALUES (?,?,?,?)")) {
+                        "INSERT INTO `publisher` (`location`, `name`, `ISBN`, `publisherId`) VALUES (?,?,?,?)")) {
             pstmt.setString(1, publisherModel.getLocation()); // Setting the value of parameters in the query
             pstmt.setString(2, publisherModel.getName());
             pstmt.setString(3, publisherModel.getISBN());
-            pstmt.setString(4, publisherModel.getPublisherID());
+            pstmt.setString(4, publisherModel.getPublisherId());
             result = pstmt.executeUpdate(); // Return number of rows inserted
         } catch (SQLException e) {
             throw e;
@@ -67,12 +67,12 @@ public class PublisherDAO implements DAOInterface<PublisherModel> {
         try (
                 Connection conn = DatabaseConnect.getConnection(); // Established connection with Database
                 PreparedStatement pstmt = conn.prepareStatement(
-                        "UPDATE `publisher` SET `location`=?, `name`=?, `ISBN`=? WHERE `publisher_id`=?")) {
+                        "UPDATE `publisher` SET `location`=?, `name`=?, `ISBN`=? WHERE `publisherId`=?")) {
             // Setting the value of parameters in the query
             pstmt.setString(1, publisherModel.getLocation());
             pstmt.setString(2, publisherModel.getName());
             pstmt.setString(3, publisherModel.getISBN());
-            pstmt.setString(4, publisherModel.getPublisherID());
+            pstmt.setString(4, publisherModel.getPublisherId());
             result = pstmt.executeUpdate(); // Return number of rows updated
         } catch (SQLException e) {
             throw e;
@@ -86,7 +86,7 @@ public class PublisherDAO implements DAOInterface<PublisherModel> {
         try (
                 Connection conn = DatabaseConnect.getConnection(); // Establish connection with Database
                 PreparedStatement pstmt = conn.prepareStatement(
-                        "DELETE FROM `publisher` WHERE `publisher_id`=?")) {
+                        "DELETE FROM `publisher` WHERE `publisherId`=?")) {
             pstmt.setString(1, publisherID); // Set the value of parameters in the query
             result = pstmt.executeUpdate(); // Return number of rows deleted
         } catch (SQLException e) {
@@ -101,11 +101,11 @@ public class PublisherDAO implements DAOInterface<PublisherModel> {
         try (
                 Connection conn = DatabaseConnect.getConnection(); // Get a database connection
                 PreparedStatement pstmt = conn.prepareStatement(
-                        "SELECT `location`, `name`, `ISBN`, `publisher_id` FROM `publisher` WHERE " + condition)) {
+                        "SELECT `location`, `name`, `ISBN`, `publisherId` FROM `publisher` WHERE " + condition)) {
             ResultSet rs = pstmt.executeQuery(); // Execute the SQL statement and get the result set of publishers
             while (rs.next()) {
                 PublisherModel publisher = new PublisherModel(rs.getString("location"), rs.getString("name"),
-                        rs.getString("ISBN"), rs.getString("publisher_id"));
+                        rs.getString("ISBN"), rs.getString("publisherId"));
                 publishers.add(publisher);
             }
             // Print a message if no records are found for the given search criteria
@@ -132,7 +132,7 @@ public class PublisherDAO implements DAOInterface<PublisherModel> {
                         rs.getString("location"),
                         rs.getString("name"),
                         rs.getString("ISBN"),
-                        rs.getString("publisher_id"));
+                        rs.getString("publisherId"));
                 publishers.add(publisher);
             }
             if (publishers.isEmpty()) {

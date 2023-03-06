@@ -24,7 +24,7 @@ public class CustomerDAO implements DAOInterface<CustomerModel> {
     // Define an ArrayList to store retrieved customers
     ArrayList<CustomerModel> customerList = new ArrayList<>();
     // Define SQL query to get customer data with join to User table
-    String sql = "SELECT * FROM `Customer` c, `User` u WHERE c.`user_id` = u.`user_id`";
+    String sql = "SELECT * FROM `Customer` c, `User` u WHERE c.`customerID` = u.`userID`";
     try (
         // Get a database connection
         Connection connection = DatabaseConnect.getConnection();
@@ -36,10 +36,10 @@ public class CustomerDAO implements DAOInterface<CustomerModel> {
       // class
       while (resultSet.next()) {
         CustomerModel customer = new CustomerModel();
-        customer.setUserID(resultSet.getString("user_id"));
-        customer.setPurchaseHistory(resultSet.getDate("purchase_history"));
-        customer.setInvoiceID(resultSet.getString("invoice_id"));
-        customer.setPaymentID(resultSet.getString("payment_id"));
+        customer.setCustomerID(resultSet.getString("customerID"));
+        customer.setPurchaseHistory(resultSet.getDate("purchaseHistory"));
+        customer.setInvoiceID(resultSet.getString("invoiceID"));
+        customer.setPaymentID(resultSet.getString("paymentID"));
         customerList.add(customer);
       }
     } catch (SQLException e) {
@@ -64,16 +64,18 @@ public class CustomerDAO implements DAOInterface<CustomerModel> {
       UserDAO userDAO = new UserDAO();
       int userID = userDAO.insert(new UserModel());
       // Insert customer data into Customer table with foreign key referencing User ID
-      String insertCustomerQuery = "INSERT INTO `Customer` (`purchase_history`, `invoice_id`, `user_id`, `payment_id`) VALUES (?, ?, ?, ?)";
+      String insertCustomerQuery = "INSERT INTO `Customer` (`purchaseHistory`, `invoiceId`, `customerID`, `paymentId`) VALUES (?, ?, ?, ?)";
       PreparedStatement customerPs = conn.prepareStatement(insertCustomerQuery);
       customerPs.setDate(1, customer.getPurchaseHistory());
       customerPs.setString(2, customer.getInvoiceID());
       customerPs.setString(3, String.valueOf(userID));
       customerPs.setString(4, customer.getPaymentID());
       int rowsInserted = customerPs.executeUpdate();
+
       // Commit transaction on success
       conn.commit();
       return rowsInserted;
+
     } catch (SQLException e) {
       // Rollback transaction on error
       if (conn != null) {
@@ -99,17 +101,21 @@ public class CustomerDAO implements DAOInterface<CustomerModel> {
         Connection conn = DatabaseConnect.getConnection();
         // Prepare the SQL statement for updating customer data in Customer table
         PreparedStatement ps = conn.prepareStatement(
-            "UPDATE `Customer` SET `Purchase` = ?, `invoice_id` = ?, `payment_id` = ? WHERE `user_id` = ?");) {
+            "UPDATE `Customer` SET `purchaseHistory` = ?, `invoiceId` = ?, `paymentId` = ? WHERE `customerId` = ?");) {
       // Set parameter values for the prepared statement
       ps.setDate(1, customer.getPurchaseHistory());
       ps.setString(2, customer.getInvoiceID());
       ps.setString(3, customer.getPaymentID());
-      ps.setString(4, customer.getUserID());
+      ps.setString(4, customer.getCustomerID());
       // Execute the SQL statement and get number of rows updated
       int rowsUpdated = ps.executeUpdate();
       // Update user data in User table using UserDAO
       UserDAO userDAO = new UserDAO();
-      userDAO.update(new UserModel());
+      UserModel userModel = new UserModel();
+      userModel.setID(customer.getCustomerID());
+      userDAO.update(userModel);
+
+      conn.commit();
       return rowsUpdated;
     } catch (SQLException e) {
       throw e;
@@ -124,8 +130,8 @@ public class CustomerDAO implements DAOInterface<CustomerModel> {
         // Get a database connection
         Connection conn = DatabaseConnect.getConnection();
         // Prepare the SQL statements for deleting customer and user records
-        PreparedStatement ps1 = conn.prepareStatement("DELETE FROM `customer` WHERE `user_id`=?");
-        PreparedStatement ps2 = conn.prepareStatement("DELETE FROM `users` WHERE `user_id`=?")) {
+        PreparedStatement ps1 = conn.prepareStatement("DELETE FROM `Customer` WHERE `customerId`=?");
+        PreparedStatement ps2 = conn.prepareStatement("DELETE FROM `User` WHERE `userId`=?")) {
       // Set parameters for the prepared statements
       ps1.setString(1, userId);
       ps2.setString(1, userId);
@@ -144,10 +150,9 @@ public class CustomerDAO implements DAOInterface<CustomerModel> {
   public List<CustomerModel> searchByCondition(String condition) throws SQLException {
     // Build the SQL query with passed condition for searching customer data with
     // left join to User table
-    StringBuilder sb = new StringBuilder(
-        "SELECT * FROM User u LEFT JOIN Customer c ON u.user_id = c.user_id WHERE ");
-    sb.append(condition);
-    String query = sb.toString();
+    String query = "SELECT *"
+        + "FROM User u LEFT JOIN Customer c ON u.user_id = c.user_id "
+        + "WHERE " + condition;
     try (
         // Get a database connection
         Connection con = DatabaseConnect.getConnection();
@@ -160,7 +165,7 @@ public class CustomerDAO implements DAOInterface<CustomerModel> {
       // Loop through result set and retrieve customer data into CustomerModel class
       while (resultSet.next()) {
         CustomerModel customer = new CustomerModel();
-        customer.setUserID(resultSet.getString("user_id"));
+        customer.setCustomerID(resultSet.getString("user_id"));
         customer.setPurchaseHistory(resultSet.getDate("purchase_history"));
         customer.setInvoiceID(resultSet.getString("invoice_id"));
         customer.setPaymentID(resultSet.getString("payment_id"));
@@ -191,14 +196,14 @@ public class CustomerDAO implements DAOInterface<CustomerModel> {
       // Execute the SQL statement and get result set
       ResultSet resultSet = pst.executeQuery();
       // Create an ArrayList of customers to hold the retrieved ones
-      ArrayList<CustomerModel> customerList = new ArrayList<>();
+      List<CustomerModel> customerList = new ArrayList<>();
       // Loop through result set and retrieve customer data into CustomerModel class
       while (resultSet.next()) {
         CustomerModel customer = new CustomerModel();
-        customer.setUserID(resultSet.getString("user_id"));
-        customer.setPurchaseHistory(resultSet.getDate("purchase_history"));
-        customer.setInvoiceID(resultSet.getString("invoice_id"));
-        customer.setPaymentID(resultSet.getString("payment_id"));
+        customer.setCustomerID(resultSet.getString("customerId"));
+        customer.setPurchaseHistory(resultSet.getDate("purchaseHistory"));
+        customer.setInvoiceID(resultSet.getString("invoiceID"));
+        customer.setPaymentID(resultSet.getString("paymentID"));
         customerList.add(customer);
       }
       // Return the ArrayList of customers that meet the search criteria
