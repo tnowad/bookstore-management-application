@@ -25,7 +25,7 @@ public class AccountDAO implements DAOInterface<AccountModel> {
   @Override
   public ArrayList<AccountModel> readDatabase() throws SQLException, ClassNotFoundException {
     ArrayList<AccountModel> accountList = new ArrayList<>();
-    try (ResultSet rs = DatabaseConnect.executeQuery("SELECT * FROM `user`", null)) {
+    try (ResultSet rs = DatabaseConnect.executeQuery("SELECT * FROM `user`")) {
       while (rs.next()) {
         AccountModel accountModel = createAccountModelFromResultSet(rs);
         accountList.add(accountModel);
