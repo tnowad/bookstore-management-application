@@ -44,61 +44,24 @@ public class OrderDAO implements DAOInterface<OrderModel> {
     return orderList; // Returning ArrayList of OrderModel objects
   }
 
-  @Override
-  public int insert(OrderModel orderModel) throws SQLException {
-    int result = 0;
-    try (
-        Connection conn = DatabaseConnect.getConnection();
-        PreparedStatement pstmt = conn.prepareStatement(
-            "INSERT INTO `order` (`shippingInformation`, `orderDate`, `invoiceID`, `ISBN`, `userID`) VALUES (?,?,?,?,?)",
-            Statement.RETURN_GENERATED_KEYS // important to retrieve auto-generated key
-        )) {
-      pstmt.setString(1, orderModel.getShippingInformation());
-      pstmt.setDate(2, orderModel.getOrderDate());
-      pstmt.setString(3, orderModel.getInvoiceId());
-      pstmt.setString(4, orderModel.getISBN());
-      pstmt.setString(5, orderModel.getUserId());
-      result = pstmt.executeUpdate();
-
-      // Retrieve auto-generated key and set it in the orderModel instance.
-      ResultSet generatedKeys = pstmt.getGeneratedKeys();
-      if (generatedKeys.next()) {
-        orderModel.setOrderId(generatedKeys.getString(1));
-      }
-    } catch (SQLException e) {
-      throw e;
-    }
-    return result;
+  public int insert(OrderModel order) throws SQLException, ClassNotFoundException {
+    String insertSql = "INSERT INTO `orders` (`shipping_information`, `order_date`, `invoice_id`, `ISBN`, `user_id`) VALUES (?, ?, ?, ?, ?)";
+    Object[] args = { order.getShippingInformation(), order.getOrderDate(), order.getInvoiceId(), order.getISBN(),
+        order.getUserId() };
+    return DatabaseConnect.executeUpdate(insertSql, args);
   }
 
-  @Override
-  public int update(OrderModel orderModel) throws SQLException {
-    int result = 0;
-    try (
-        Connection conn = DatabaseConnect.getConnection(); // Establish connection with Database
-        PreparedStatement pstmt = conn.prepareStatement(
-            "UPDATE `order` SET `shippingInformation`=?, `orderDate`=?, `invoiceID`=?, `ISBN`=?, `userID`=? WHERE `id`=?");) {
-      pstmt.setString(1, orderModel.getShippingInformation()); // Setting the value of parameters in the query
-      pstmt.setDate(2, orderModel.getOrderDate());
-      pstmt.setString(3, orderModel.getInvoiceId());
-      pstmt.setString(4, orderModel.getISBN());
-      pstmt.setString(5, orderModel.getUserId());
-      pstmt.setString(6, orderModel.getOrderId());
-      result = pstmt.executeUpdate(); // Return number of rows updated
-    } catch (SQLException e) {
-      throw e;
-    }
-    return result;
+  public int update(OrderModel order) throws SQLException, ClassNotFoundException {
+    String updateSql = "UPDATE `orders` SET `shipping_information` = ?, `order_date` = ?, `invoice_id` = ?, `ISBN` = ?, `user_id` = ? WHERE `order_id` = ?";
+    Object[] args = { order.getShippingInformation(), order.getOrderDate(), order.getInvoiceId(), order.getISBN(),
+        order.getUserId(), order.getOrderId() };
+    return DatabaseConnect.executeUpdate(updateSql, args);
   }
 
-  @Override
-  public int delete(String orderID) throws SQLException {
-    try (
-        Connection con = DatabaseConnect.getConnection();
-        PreparedStatement pst = con.prepareStatement("DELETE FROM `order` WHERE `orderID`=?")) {
-      pst.setString(1, orderID);
-      return pst.executeUpdate();
-    }
+  public int delete(String orderId) throws SQLException, ClassNotFoundException {
+    String deleteSql = "DELETE FROM `orders` WHERE `order_id` = ?";
+    Object[] args = { orderId };
+    return DatabaseConnect.executeUpdate(deleteSql, args);
   }
 
   @Override

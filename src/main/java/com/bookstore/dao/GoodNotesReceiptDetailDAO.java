@@ -45,64 +45,58 @@ public class GoodNotesReceiptDetailDAO implements DAOInterface<GoodNotesReceiptD
   }
 
   @Override
-  public int update(GoodNotesReceiptDetailModel goodNotesReceiptDeatailModel) throws SQLException {
-    String updateSql = "UPDATE `account` SET `username`=?, `password`=?, `status`=? WHERE `accountId`=?";
-    Object[] args = { goodNotesReceiptModel.getGnrId(), goodNotesReceiptModel.getImportDate() };
+  public int update(GoodNotesReceiptDetailModel goodNotesReceiptDetailModel)
+      throws SQLException, ClassNotFoundException {
+    String updateSql = "UPDATE `good_notes_receipt_detail` SET `amount`=?, `price`=? WHERE `dgnr_id`=?";
+    Object[] args = { goodNotesReceiptDetailModel.getPrice(), goodNotesReceiptDetailModel.getAmount() };
     return DatabaseConnect.executeUpdate(updateSql, args);
   }
 
   @Override
-  public int delete(String dgnrId) throws SQLException {
-    try (
-        Connection con = DatabaseConnect.getConnection();
-        PreparedStatement pst = con.prepareStatement("DELETE FROM `GoodNotesReceiptDetail` WHERE `dgnrId`=?")) {
-      pst.setString(1, dgnrId);
-      return pst.executeUpdate();
-    }
+  public int delete(String dgnrId) throws SQLException, ClassNotFoundException {
+    String deleteSql = "DELETE FROM `good_notes_receipt_detail` WHERE `dgnr_id`=?";
+    Object[] args = { dgnrId };
+    return DatabaseConnect.executeUpdate(deleteSql, args);
   }
 
   @Override
-  public List<GoodNotesReceiptDetailModel> searchByCondition(String condition) throws SQLException {
-    String query = "SELECT * FROM `GoodNotesReceiptDetail` WHERE " + condition;
-    try (Connection conn = DatabaseConnect.getConnection(); // Establishes a connection to the database
-        PreparedStatement pst = conn.prepareStatement(query); // Prepares a SELECT query with a WHERE clause
-        ResultSet rs = pst.executeQuery()) { // Executes the SELECT query
-      List<GoodNotesReceiptDetailModel> dgnrList = new ArrayList<>();
-      while (rs.next()) { // Loops through the ResultSet and creates BookModel objects from each row
-        GoodNotesReceiptDetailModel goodNotesReceiptDetailModel = createDGNRFromResultSet(rs);
-        dgnrList.add(goodNotesReceiptDetailModel); // Adds each BookModel object to the ArrayList
+  public List<GoodNotesReceiptDetailModel> searchByCondition(String condition)
+      throws SQLException, ClassNotFoundException {
+    String query = "SELECT * FROM good_notes_receipt";
+    if (condition != null && !condition.isEmpty()) {
+      query += " WHERE " + condition;
+    }
+    try (ResultSet rs = DatabaseConnect.executeQuery(query)) {
+      List<GoodNotesReceiptDetailModel> goodNotesReceiptList = new ArrayList<>();
+      while (rs.next()) {
+        GoodNotesReceiptDetailModel goodNotesReceiptModel = createDGNRFromResultSet(rs);
+        goodNotesReceiptList.add(goodNotesReceiptModel);
       }
-      if (dgnrList.isEmpty()) { // Prints a message if no records were found
+      if (goodNotesReceiptList.isEmpty()) {
         System.out.println("No records found for the given condition: " + condition);
       }
-      return dgnrList; // Returns the ArrayList of BookModels
-    } catch (SQLException e) { // Catches and re-throws any SQLExceptions that occur
+      return goodNotesReceiptList;
+    } catch (SQLException e) {
       throw e;
     }
   }
 
   @Override
   public List<GoodNotesReceiptDetailModel> searchByCondition(String condition, String columnName)
-      throws SQLException {
-    String query = "SELECT * FROM `GoodNotesReceiptDetail` WHERE " + columnName + " LIKE ?";
-    try (Connection conn = DatabaseConnect.getConnection(); // Establishes a connection to the database
-        PreparedStatement pst = conn.prepareStatement(query)) { // Prepares a SELECT query with a WHERE clause
-                                                                // using a LIKE operator
-      pst.setString(1, "%" + condition + "%"); // Sets the value of the placeholder in the query with the given
-                                               // condition
-      try (ResultSet rs = pst.executeQuery()) { // Executes the SELECT query
-        List<GoodNotesReceiptDetailModel> dgnrList = new ArrayList<>();
-        while (rs.next()) { // Loops through the ResultSet and creates InvoiceModel objects from each row
-          GoodNotesReceiptDetailModel goodNotesReceiptDeatailModel = createDGNRFromResultSet(rs);
-          dgnrList.add(goodNotesReceiptDeatailModel); // Adds each InvoiceModel object to the List
+      throws SQLException, ClassNotFoundException {
+    String query = "SELECT * FROM good_notes_receipt WHERE " + columnName + " LIKE ?";
+    try (PreparedStatement pst = DatabaseConnect.getPreparedStatement(query, "%" + condition + "%")) {
+      try (ResultSet rs = pst.executeQuery()) {
+        List<GoodNotesReceiptDetailModel> receiptList = new ArrayList<>();
+        while (rs.next()) {
+          GoodNotesReceiptDetailModel receiptModel = createDGNRFromResultSet(rs);
+          receiptList.add(receiptModel);
         }
-        if (dgnrList.isEmpty()) { // Throws a SQLException if no records were found
+        if (receiptList.isEmpty()) {
           throw new SQLException("No records found for the given condition: " + condition);
         }
-        return dgnrList; // Returns the List of InvoiceModels
+        return receiptList;
       }
-    } catch (SQLException e) { // Catches and re-throws any SQLExceptions that occur
-      throw e;
     }
   }
 
