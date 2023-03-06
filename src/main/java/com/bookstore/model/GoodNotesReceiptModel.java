@@ -4,14 +4,14 @@ import java.sql.Date;
 
 public class GoodNotesReceiptModel {
     private Date importDate;
-    private String ID;
+    private String gnrId;
 
     public GoodNotesReceiptModel() {
     }
 
-    public GoodNotesReceiptModel(Date importDate, String ID) {
+    public GoodNotesReceiptModel(Date importDate, String gnrId) {
         this.importDate = importDate;
-        this.ID = ID;
+        this.gnrId = gnrId;
     }
 
     public Date getImportDate() {
@@ -22,12 +22,12 @@ public class GoodNotesReceiptModel {
         this.importDate = importDate;
     }
 
-    public String getID() {
-        return this.ID;
+    public String getGnrId() {
+        return this.gnrId;
     }
 
-    public void setID(String ID) {
-        this.ID = ID;
+    public void setGnrId(String gnrId) {
+        this.gnrId = gnrId;
     }
 
     public GoodNotesReceiptModel importDate(Date importDate) {
@@ -35,17 +35,8 @@ public class GoodNotesReceiptModel {
         return this;
     }
 
-    public GoodNotesReceiptModel ID(String ID) {
-        setID(ID);
+    public GoodNotesReceiptModel gnrId(String gnrId) {
+        setGnrId(gnrId);
         return this;
     }
-
-    @Override
-    public String toString() {
-        return "{" +
-                " importDate='" + getImportDate() + "'" +
-                ", ID='" + getID() + "'" +
-                "}";
-    }
-
 }

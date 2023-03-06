@@ -35,7 +35,7 @@ public class UserDAO implements DAOInterface<UserModel> {
     ArrayList<UserModel> users = new ArrayList<>();
     try (
         Connection con = DatabaseConnect.getConnection(); // Established connection with Database
-        PreparedStatement pst = con.prepareStatement("SELECT * FROM `users`"); // SQL Statement to execute
+        PreparedStatement pst = con.prepareStatement("SELECT * FROM `user`"); // SQL Statement to execute
         ResultSet rs = pst.executeQuery() // Executing the SQL Statement
     ) {
       while (rs.next()) {
@@ -92,7 +92,7 @@ public class UserDAO implements DAOInterface<UserModel> {
     try (
         Connection conn = DatabaseConnect.getConnection(); // Established connection with Database
         PreparedStatement pstmt = conn.prepareStatement(
-            "INSERT INTO `users` (`User_ID`, `Account Type`, `Name`, `Email`, `Phone Number`, `Role`) VALUES (?,?,?,?,?,?)")) {
+            "INSERT INTO `user` (`User_ID`, `Account Type`, `Name`, `Email`, `Phone Number`, `Role`) VALUES (?,?,?,?,?,?)")) {
       pstmt.setString(1, user.getID()); // Setting the value of parameters in the query
       pstmt.setString(2, user.getAccountType());
       pstmt.setString(3, user.getName());

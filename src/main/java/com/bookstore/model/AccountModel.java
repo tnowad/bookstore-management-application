@@ -1,63 +1,68 @@
 package com.bookstore.model;
 
 public class AccountModel {
-    private String Username, Password, Status;
+    private String username, password, status, accountID;
 
     public AccountModel() {
     }
 
-    public AccountModel(String Username, String Password, String Status) {
-        this.Username = Username;
-        this.Password = Password;
-        this.Status = Status;
+    public AccountModel(String username, String password, String status, String accountID) {
+        this.username = username;
+        this.password = password;
+        this.status = status;
+        this.accountID = accountID;
     }
 
     public String getUsername() {
-        return this.Username;
+        return this.username;
     }
 
-    public void setUsername(String Username) {
-        this.Username = Username;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
-        return this.Password;
+        return this.password;
     }
 
-    public void setPassword(String Password) {
-        this.Password = Password;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getStatus() {
-        return this.Status;
+        return this.status;
     }
 
-    public void setStatus(String Status) {
-        this.Status = Status;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public AccountModel Username(String Username) {
-        setUsername(Username);
+    public String getAccountID() {
+        return this.accountID;
+    }
+
+    public void setAccountID(String accountID) {
+        this.accountID = accountID;
+    }
+
+    public AccountModel username(String username) {
+        setUsername(username);
         return this;
     }
 
-    public AccountModel Password(String Password) {
-        setPassword(Password);
+    public AccountModel password(String password) {
+        setPassword(password);
         return this;
     }
 
-    public AccountModel Status(String Status) {
-        setStatus(Status);
+    public AccountModel status(String status) {
+        setStatus(status);
         return this;
     }
 
-    @Override
-    public String toString() {
-        return "{" +
-                " Username='" + getUsername() + "'" +
-                ", Password='" + getPassword() + "'" +
-                ", Status='" + getStatus() + "'" +
-                "}";
+    public AccountModel accountID(String accountID) {
+        setAccountID(accountID);
+        return this;
     }
 
 }

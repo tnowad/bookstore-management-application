@@ -3,25 +3,34 @@ package com.bookstore.model;
 import java.sql.Date;
 
 public class PaymentModel {
-    private OrderModel Order;
+    private String paymentId, orderId;
     private Date paymentDate;
     private float paymentAmount;
 
     public PaymentModel() {
     }
 
-    public PaymentModel(OrderModel Order, Date paymentDate, float paymentAmount) {
-        this.Order = Order;
+    public PaymentModel(String paymentId, String orderId, Date paymentDate, float paymentAmount) {
+        this.paymentId = paymentId;
+        this.orderId = orderId;
         this.paymentDate = paymentDate;
         this.paymentAmount = paymentAmount;
     }
 
-    public OrderModel getOrder() {
-        return this.Order;
+    public String getPaymentId() {
+        return this.paymentId;
     }
 
-    public void setOrder(OrderModel Order) {
-        this.Order = Order;
+    public void setPaymentId(String paymentId) {
+        this.paymentId = paymentId;
+    }
+
+    public String getOrderId() {
+        return this.orderId;
+    }
+
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
     }
 
     public Date getPaymentDate() {
@@ -40,8 +49,13 @@ public class PaymentModel {
         this.paymentAmount = paymentAmount;
     }
 
-    public PaymentModel Order(OrderModel Order) {
-        setOrder(Order);
+    public PaymentModel paymentId(String paymentId) {
+        setPaymentId(paymentId);
+        return this;
+    }
+
+    public PaymentModel orderId(String orderId) {
+        setOrderId(orderId);
         return this;
     }
 
@@ -53,15 +67,6 @@ public class PaymentModel {
     public PaymentModel paymentAmount(float paymentAmount) {
         setPaymentAmount(paymentAmount);
         return this;
-    }
-
-    @Override
-    public String toString() {
-        return "{" +
-                " Order='" + getOrder() + "'" +
-                ", paymentDate='" + getPaymentDate() + "'" +
-                ", paymentAmount='" + getPaymentAmount() + "'" +
-                "}";
     }
 
 }
