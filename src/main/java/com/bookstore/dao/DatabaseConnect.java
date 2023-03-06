@@ -7,11 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 public class DatabaseConnect {
-  private static final Logger LOGGER = LogManager.getLogger(DatabaseConnect.class);
   private static Connection connection = null;
   private static ResourceBundle rb = ResourceBundle.getBundle("resources.config.database");
   private static String driver = rb.getString("driver");
@@ -52,7 +48,7 @@ public class DatabaseConnect {
         connection.close();
       }
     } catch (SQLException e) {
-      LOGGER.error("Error closing database connection", e);
+      e.printStackTrace();
     } finally {
       connection = null;
     }
