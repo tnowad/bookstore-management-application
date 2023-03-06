@@ -16,79 +16,62 @@ public class CustomerDAO implements DAOInterface<CustomerModel> {
     return new CustomerDAO();
   }
 
+  private CustomerModel createCustomerModelFromResultSet(ResultSet rs) throws SQLException {
+    return new CustomerModel(
+        rs.getDate("purchaseHistory"),
+        rs.getString("customerId"),
+        rs.getString("invoiceId"),
+        rs.getString("paymentId"));
+  }
+
   @Override
-  public ArrayList<CustomerModel> readDatabase() throws SQLException {
-    // Define an ArrayList to store retrieved customers
+  public ArrayList<CustomerModel> readDatabase() throws SQLException, ClassNotFoundException {
     ArrayList<CustomerModel> customerList = new ArrayList<>();
-    // Define SQL query to get customer data with join to User table
-    String sql = "SELECT * FROM `Customer` c, `User` u WHERE c.`customerID` = u.`userID`";
-    try (
-        // Get a database connection
-        Connection connection = DatabaseConnect.getConnection();
-        // Prepare the SQL statement
-        PreparedStatement statement = connection.prepareStatement(sql);
-        // Execute the SQL query and get result set
-        ResultSet resultSet = statement.executeQuery()) {
-      // Loop through the result set and retrieve customer data into CustomerModel
-      // class
-      while (resultSet.next()) {
-        CustomerModel customer = new CustomerModel();
-        customer.setCustomerID(resultSet.getString("customerID"));
-        customer.setPurchaseHistory(resultSet.getDate("purchaseHistory"));
-        customer.setInvoiceID(resultSet.getString("invoiceID"));
-        customer.setPaymentID(resultSet.getString("paymentID"));
-        customerList.add(customer);
+    try (ResultSet rs = DatabaseConnect
+        .executeQuery("SELECT * FROM `Customer` c, `User` u WHERE c.`customerID` = u.`userID`")) {
+      while (rs.next()) {
+        CustomerModel customerModel = createCustomerModelFromResultSet(rs);
+        customerList.add(customerModel);
       }
-    } catch (SQLException e) {
-      System.err.println("Error occurred while retrieving customers: " + e.getMessage());
-      throw e;
     }
-    // Return the ArrayList of customers
     return customerList;
   }
 
-  // Insert a new customer to the database and return number of rows inserted
   @Override
-  public int insert(CustomerModel customer) throws SQLException {
-    // Initialize database connection to null
-    Connection conn = null;
-    try {
-      // Get a database connection and set auto commit to false for transaction
-      // handling
-      conn = DatabaseConnect.getConnection();
-      conn.setAutoCommit(false);
-      // Create a UserDAO object to get the newly inserted user ID
-      UserDAO userDAO = new UserDAO();
-      int userID = userDAO.insert(new UserModel());
-      // Insert customer data into Customer table with foreign key referencing User ID
-      String insertCustomerQuery = "INSERT INTO `Customer` (`purchaseHistory`, `invoiceId`, `customerID`, `paymentId`) VALUES (?, ?, ?, ?)";
-      PreparedStatement customerPs = conn.prepareStatement(insertCustomerQuery);
-      customerPs.setDate(1, customer.getPurchaseHistory());
-      customerPs.setString(2, customer.getInvoiceID());
-      customerPs.setString(3, String.valueOf(userID));
-      customerPs.setString(4, customer.getPaymentID());
-      int rowsInserted = customerPs.executeUpdate();
+  public int insert(CustomerModel customer) throws SQLException, ClassNotFoundException {
+    // Connection conn = null;
+    // try {
+    //   conn = DatabaseConnect.getConnection();
+    //   conn.setAutoCommit(false);
+       UserDAO userDAO = new UserDAO();
+       int userID = userDAO.insert(new UserModel());
+       String insertCustomerQuery = "INSERT INTO `Customer` (`purchaseHistory`, `invoiceId`, `customerID`, `paymentId`) VALUES (?, ?, ?, ?)";
+    //   PreparedStatement customerPs = conn.prepareStatement(insertCustomerQuery);
+    //   customerPs.setDate(1, customer.getPurchaseHistory());
+    //   customerPs.setString(2, customer.getInvoiceID());
+    //   customerPs.setString(3, String.valueOf(userID));
+    //   customerPs.setString(4, customer.getPaymentID());
+    //   int rowsInserted = customerPs.executeUpdate();
+    //   conn.commit();
+    //   return rowsInserted;
 
-      // Commit transaction on success
-      conn.commit();
-      return rowsInserted;
-
-    } catch (SQLException e) {
-      // Rollback transaction on error
-      if (conn != null) {
-        conn.rollback();
-      }
-      throw e;
-    } finally {
-      // Close resources and connection
-      try {
-        if (conn != null) {
-          conn.close();
-        }
-      } catch (SQLException e) {
-        e.printStackTrace();
-      }
-    }
+    // } catch (SQLException e) {
+    //   // Rollback transaction on error
+    //   if (conn != null) {
+    //     conn.rollback();
+    //   }
+    //   throw e;
+    // } finally {
+    //   // Close resources and connection
+    //   try {
+    //     if (conn != null) {
+    //       conn.close();
+    //     }
+    //   } catch (SQLException e) {
+    //     e.printStackTrace();
+    //   }
+    // }
+    String insertSql = ""
   }
 
   // Update an existing customer in the database and return number of rows updated
