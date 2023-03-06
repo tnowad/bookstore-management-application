@@ -22,7 +22,7 @@ CREATE TABLE users (
   updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   role ENUM ('admin', 'customer', 'employee') NOT NULL DEFAULT 'customer',
   PRIMARY KEY (account_id),
-  FOREIGN KEY (account_id) REFERENCES accounts (id),
+  FOREIGN KEY (account_id) REFERENCES accounts (id)
 );
 
 -- Customers table
