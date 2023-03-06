@@ -1,6 +1,5 @@
 package com.bookstore.dao;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,116 +22,74 @@ public class GenreDAO implements DAOInterface<GenreModel> {
     }
 
     @Override
-    public ArrayList<GenreModel> readDatabase() throws SQLException {
-        ArrayList<GenreModel> genreModelList = new ArrayList<>();
-        try (
-                Connection con = DatabaseConnect.getConnection(); // Established connection with Database
-                PreparedStatement pst = con.prepareStatement("SELECT * FROM `genre`"); // SQL Statement to execute
-                ResultSet rs = pst.executeQuery() // Executing the SQL Statement
-        ) {
+    public ArrayList<GenreModel> readDatabase() throws SQLException, ClassNotFoundException {
+        ArrayList<GenreModel> genreList = new ArrayList<>();
+        try (ResultSet rs = DatabaseConnect.executeQuery("SELECT * FROM genre")) {
             while (rs.next()) {
-                GenreModel genreModel = createGenreModelFromResultSet(rs); // Creating GenreModel object from ResultSet
-                genreModelList.add(genreModel); // Adding GenreModel object into ArrayList
+                GenreModel genreModel = createGenreModelFromResultSet(rs);
+                genreList.add(genreModel);
             }
+        }
+        return genreList;
+    }
+
+    @Override
+    public int insert(GenreModel genre) throws SQLException, ClassNotFoundException {
+        String insertSql = "INSERT INTO genre (genreID, nameGenre, ISBN) VALUES (?, ?, ?)";
+        Object[] args = { genre.getGenreID(), genre.getNameGenre(), genre.getISBN() };
+        return DatabaseConnect.executeUpdate(insertSql, args);
+    }
+
+    @Override
+    public int update(GenreModel genre) throws SQLException, ClassNotFoundException {
+        String updateSql = "UPDATE genre SET nameGenre = ?, ISBN = ? WHERE genreID = ?";
+        Object[] args = { genre.getNameGenre(), genre.getISBN(), genre.getGenreID() };
+        return DatabaseConnect.executeUpdate(updateSql, args);
+    }
+
+    @Override
+    public int delete(String genreID) throws SQLException, ClassNotFoundException {
+        String deleteSql = "DELETE FROM genre WHERE genreID = ?";
+        return DatabaseConnect.executeUpdate(deleteSql, new Object[] { genreID });
+    }
+
+    @Override
+    public List<GenreModel> searchByCondition(String condition) throws SQLException, ClassNotFoundException {
+        String query = "SELECT * FROM genre";
+        if (condition != null && !condition.isEmpty()) {
+            query += " WHERE " + condition;
+        }
+        try (ResultSet rs = DatabaseConnect.executeQuery(query)) {
+            List<GenreModel> genreList = new ArrayList<>();
+            while (rs.next()) {
+                GenreModel genreModel = createGenreModelFromResultSet(rs);
+                genreList.add(genreModel);
+            }
+            if (genreList.isEmpty()) {
+                throw new SQLException("No records found for the given condition: " + condition);
+            }
+            return genreList;
         } catch (SQLException e) {
             throw e;
         }
-        return genreModelList; // Returning ArrayList of GenreModel objects
     }
 
     @Override
-    public int insert(GenreModel genreModel) throws SQLException {
-        int result = 0;
-        try (
-                // Get a database connection
-                Connection con = DatabaseConnect.getConnection();
-                // Prepare the SQL statement with the built query
-                PreparedStatement pst = con
-                        .prepareStatement("INSERT INTO `genre`(`genreID`, `nameGenre`, `ISBN`) VALUES (?, ?, ?)");) {
-            // Set attribute values to the prepared statement
-            pst.setString(1, genreModel.getGenreID());
-            pst.setString(2, genreModel.getNameGenre());
-            pst.setString(3, genreModel.getISBN());
-            // Execute the SQL statement and get count of rows affected.
-            result = pst.executeUpdate();
-        } catch (SQLException ex) {
-            throw ex;
-        }
-        return result; // Return the count of rows affected
-    }
-
-    @Override
-    public int update(GenreModel genreModel) throws SQLException {
-        int result = 0;
-        try (
-                // Get a database connection
-                Connection con = DatabaseConnect.getConnection();
-                // Prepare the SQL statement with the built query
-                PreparedStatement pst = con
-                        .prepareStatement("UPDATE `genre` SET `nameGenre`=?, `ISBN`=? WHERE `genreID`=?");) {
-            // Set attribute values to the prepared statement
-            pst.setString(1, genreModel.getNameGenre());
-            pst.setString(2, genreModel.getISBN());
-            pst.setString(3, genreModel.getGenreID());
-            // Execute the SQL statement and get count of rows affected.
-            result = pst.executeUpdate();
-        } catch (SQLException ex) {
-            throw ex;
-        }
-        return result; // Return the count of rows affected
-    }
-
-    @Override
-    public int delete(String genreID) throws SQLException {
-        int result = 0;
-        try (
-                // Get a database connection
-                Connection con = DatabaseConnect.getConnection();
-                // Prepare the SQL statement with the built query
-                PreparedStatement pst = con
-                        .prepareStatement("DELETE FROM `genre` WHERE `genreID`=?");) {
-            // Set attribute values to the prepared statement
-            pst.setString(1, genreID);
-            // Execute the SQL statement and get count of rows affected.
-            result = pst.executeUpdate();
-        } catch (SQLException ex) {
-            throw ex;
-        }
-        return result; // Return the count of rows affected
-    }
-
-    @Override
-    public List<GenreModel> searchByCondition(String condition) throws SQLException {
-        List<GenreModel> genreModelList = new ArrayList<>();
-        try (
-                Connection con = DatabaseConnect.getConnection();
-                // Prepare the SQL statement with the built query
-                PreparedStatement pst = con.prepareStatement("SELECT * FROM `genre` WHERE " + condition);
-                ResultSet rs = pst.executeQuery();) {
-            while (rs.next()) {
-                GenreModel genreModel = createGenreModelFromResultSet(rs);
-                genreModelList.add(genreModel);
+    public List<GenreModel> searchByCondition(String condition, String columnName)
+            throws SQLException, ClassNotFoundException {
+        String query = "SELECT * FROM genre WHERE " + columnName + " LIKE ?";
+        try (PreparedStatement pst = DatabaseConnect.getPreparedStatement(query, "%" + condition + "%")) {
+            try (ResultSet rs = pst.executeQuery()) {
+                List<GenreModel> genreList = new ArrayList<>();
+                while (rs.next()) {
+                    GenreModel genreModel = createGenreModelFromResultSet(rs);
+                    genreList.add(genreModel);
+                }
+                if (genreList.isEmpty()) {
+                    throw new SQLException("No records found for the given condition: " + condition);
+                }
+                return genreList;
             }
-        } catch (SQLException e) {
-            throw e;
         }
-        return genreModelList;
-    }
-
-    @Override
-    public List<GenreModel> searchByCondition(String condition, String columnName) throws SQLException {
-        List<GenreModel> genreModelList = new ArrayList<>();
-        try (Connection con = DatabaseConnect.getConnection();
-                PreparedStatement pst = con.prepareStatement("SELECT * FROM `genre` WHERE `" + columnName + "` = ?");) {
-            pst.setString(1, condition);
-            ResultSet rs = pst.executeQuery();
-            while (rs.next()) {
-                GenreModel genreModel = createGenreModelFromResultSet(rs);
-                genreModelList.add(genreModel);
-            }
-        } catch (SQLException ex) {
-            throw ex;
-        }
-        return genreModelList;
     }
 }
