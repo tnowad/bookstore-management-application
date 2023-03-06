@@ -3,20 +3,26 @@ package com.bookstore.dao;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.AfterAll;
 import com.bookstore.model.AccountModel;
 
 @DisplayName("AccountDAO Test")
 public class AccountDAOTest {
+
     private static AccountDAO dao;
+    private static Connection connection;
 
     @BeforeAll
-    public void setup() {
+    public static void setup() {
+        connection = DatabaseConnect.getConnection();
+        System.out.println("Connection: " + connection);
         dao = AccountDAO.getInstance();
     }
 
@@ -91,5 +97,16 @@ public class AccountDAOTest {
         condition = "username LIKE '%test%'";
         accountList = dao.searchByCondition(condition, "username");
         assertTrue(accountList.size() > 0);
+    }
+
+    @AfterAll
+    static void tearDown() {
+        if (connection != null) {
+            try {
+                connection.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
