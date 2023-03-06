@@ -10,15 +10,12 @@ import java.util.List;
 
 import com.bookstore.model.*;
 
-// DAO class for CustomerModel
 public class CustomerDAO implements DAOInterface<CustomerModel> {
 
-  // Get instance of this DAO
   public static CustomerDAO getInstance() {
     return new CustomerDAO();
   }
 
-  // Read customer data from database and return as ArrayList
   @Override
   public ArrayList<CustomerModel> readDatabase() throws SQLException {
     // Define an ArrayList to store retrieved customers
