@@ -7,11 +7,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.bookstore.model.AccountModel;
+import com.bookstore.util.PasswordUtil;
 
 public class AccountDAO implements DAOInterface<AccountModel> {
+  private static AccountDAO instance;
 
   public static AccountDAO getInstance() {
-    return new AccountDAO();
+    if (instance == null) {
+      instance = new AccountDAO();
+    }
+    return instance;
   }
 
   private AccountModel createAccountModelFromResultSet(ResultSet rs) throws SQLException {
@@ -92,6 +97,27 @@ public class AccountDAO implements DAOInterface<AccountModel> {
         }
         return accountList;
       }
+    }
+  }
+
+  public boolean login(String username, String password) {
+    String query = "SELECT password FROM accounts WHERE username=?";
+    try (ResultSet rs = DatabaseConnect.executeQuery(query, username)) {
+      if (rs.next()) {
+        String hashedPassword = rs.getString("password");
+        return PasswordUtil.checkPassword(password, hashedPassword);
+      }
+    } catch (SQLException | ClassNotFoundException e) {
+      e.printStackTrace();
+    }
+    return false;
+  }
+
+  public static void main(String[] args) {
+    try {
+      AccountDAO accountDAO = AccountDAO.getInstance();
+      System.out.println(accountDAO.login("admin", "admin"));
+    } catch (Exception e) {
     }
   }
 }
