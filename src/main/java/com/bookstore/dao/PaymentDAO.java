@@ -26,18 +26,14 @@ public class PaymentDAO implements DAOInterface<PaymentModel> {
 
   @Override
   public ArrayList<PaymentModel> readDatabase() throws SQLException, ClassNotFoundException {
-    ArrayList<PaymentModel> payments = new ArrayList<>();
-    String selectSql = "SELECT * FROM `payments`";
-    ResultSet resultSet = DatabaseConnect.executeQuery(selectSql, null);
-    while (resultSet.next()) {
-      PaymentModel payment = new PaymentModel();
-      payment.setPaymentId(resultSet.getString("payment_id"));
-      payment.setOrderId(resultSet.getString("order_id"));
-      payment.setPaymentDate(resultSet.getDate("payment_date"));
-      payment.setPaymentAmount(resultSet.getFloat("payment_amount"));
-      payments.add(payment);
+    ArrayList<PaymentModel> paymentList = new ArrayList<>();
+    try (ResultSet rs = DatabaseConnect.executeQuery("SELECT * FROM `payments`")) {
+      while (rs.next()) {
+        PaymentModel payment = createPaymentModelFromResultSet(rs);
+        paymentList.add(payment);
+      }
     }
-    return payments;
+    return paymentList;
   }
 
   @Override
@@ -60,6 +56,49 @@ public class PaymentDAO implements DAOInterface<PaymentModel> {
     String deleteSql = "DELETE FROM `payments` WHERE `payment_id`=?";
     Object[] args = { paymentId };
     return DatabaseConnect.executeUpdate(deleteSql, args);
+  }
+
+  public List<PaymentModel> searchByCondition(String condition) throws SQLException, ClassNotFoundException {
+    String query = "SELECT * FROM payments";
+    if (condition != null && !condition.isEmpty()) {
+      query += " WHERE " + condition;
+    }
+    try (ResultSet rs = DatabaseConnect.executeQuery(query)) {
+      List<PaymentModel> paymentList = new ArrayList<>();
+      while (rs.next()) {
+        PaymentModel paymentModel = createPaymentModelFromResultSet(rs);
+        paymentList.add(paymentModel);
+      }
+      if (paymentList.isEmpty()) {
+        System.out.println("No records found for the given condition: " + condition);
+      }
+      return paymentList;
+    } catch (SQLException e) {
+      throw e;
+    }
+  }
+
+  @Override
+  public List<PaymentModel> searchByCondition(String condition, String columnName)
+      throws SQLException, ClassNotFoundException {
+    String query = "SELECT * FROM payment";
+    if (condition != null && !condition.isEmpty()) {
+      query += " WHERE " + condition;
+    }
+    query += " ORDER BY " + columnName;
+    try (PreparedStatement pst = DatabaseConnect.getPreparedStatement(query, "%" + condition + "%")) {
+      try (ResultSet rs = pst.executeQuery()) {
+        List<PaymentModel> paymentList = new ArrayList<>();
+        while (rs.next()) {
+          PaymentModel paymentModel = createPaymentModelFromResultSet(rs);
+          paymentList.add(paymentModel);
+        }
+        if (paymentList.isEmpty()) {
+          throw new SQLException("No records found for the given condition: " + condition);
+        }
+        return paymentList;
+      }
+    }
   }
 
 }

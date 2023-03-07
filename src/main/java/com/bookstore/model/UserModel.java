@@ -1,108 +1,66 @@
 package com.bookstore.model;
 
 public class UserModel {
-    private String Email, PhoneNumber, ID, Name, Role, AccountType;
+  private String email, phoneNumber, id, name, role, accountType;
 
-    public UserModel() {
-    }
+  public UserModel() {
+  }
 
-    public UserModel(String Email, String PhoneNumber, String ID, String Name, String Role, String AccountType) {
-        this.Email = Email;
-        this.PhoneNumber = PhoneNumber;
-        this.ID = ID;
-        this.Name = Name;
-        this.Role = Role;
-        this.AccountType = AccountType;
-    }
+  public UserModel(String email, String phoneNumber, String id, String name, String role, String accountType) {
+    this.email = email;
+    this.phoneNumber = phoneNumber;
+    this.id = id;
+    this.name = name;
+    this.role = role;
+    this.accountType = accountType;
+  }
 
-    public String getEmail() {
-        return this.Email;
-    }
+  public String getEmail() {
+    return email;
+  }
 
-    public void setEmail(String Email) {
-        this.Email = Email;
-    }
+  public void setEmail(String email) {
+    this.email = email;
+  }
 
-    public String getPhoneNumber() {
-        return this.PhoneNumber;
-    }
+  public String getPhoneNumber() {
+    return phoneNumber;
+  }
 
-    public void setPhoneNumber(String PhoneNumber) {
-        this.PhoneNumber = PhoneNumber;
-    }
+  public void setPhoneNumber(String phoneNumber) {
+    this.phoneNumber = phoneNumber;
+  }
 
-    public String getID() {
-        return this.ID;
-    }
+  public String getId() {
+    return id;
+  }
 
-    public void setID(String ID) {
-        this.ID = ID;
-    }
+  public void setId(String id) {
+    this.id = id;
+  }
 
-    public String getName() {
-        return this.Name;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public void setName(String Name) {
-        this.Name = Name;
-    }
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    public String getRole() {
-        return this.Role;
-    }
+  public String getRole() {
+    return role;
+  }
 
-    public void setRole(String Role) {
-        this.Role = Role;
-    }
+  public void setRole(String role) {
+    this.role = role;
+  }
 
-    public String getAccountType() {
-        return this.AccountType;
-    }
+  public String getAccountType() {
+    return accountType;
+  }
 
-    public void setAccountType(String AccountType) {
-        this.AccountType = AccountType;
-    }
-
-    public UserModel Email(String Email) {
-        setEmail(Email);
-        return this;
-    }
-
-    public UserModel PhoneNumber(String PhoneNumber) {
-        setPhoneNumber(PhoneNumber);
-        return this;
-    }
-
-    public UserModel ID(String ID) {
-        setID(ID);
-        return this;
-    }
-
-    public UserModel Name(String Name) {
-        setName(Name);
-        return this;
-    }
-
-    public UserModel Role(String Role) {
-        setRole(Role);
-        return this;
-    }
-
-    public UserModel AccountType(String AccountType) {
-        setAccountType(AccountType);
-        return this;
-    }
-
-    @Override
-    public String toString() {
-        return "{" +
-                " Email='" + getEmail() + "'" +
-                ", PhoneNumber='" + getPhoneNumber() + "'" +
-                ", ID='" + getID() + "'" +
-                ", Name='" + getName() + "'" +
-                ", Role='" + getRole() + "'" +
-                ", AccountType='" + getAccountType() + "'" +
-                "}";
-    }
+  public void setAccountType(String accountType) {
+    this.accountType = accountType;
+  }
 
 }

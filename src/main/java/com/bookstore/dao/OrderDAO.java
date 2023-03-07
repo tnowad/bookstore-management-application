@@ -64,65 +64,6 @@ public class OrderDAO implements DAOInterface<OrderModel> {
     return DatabaseConnect.executeUpdate(deleteSql, args);
   }
 
-  @Override
-  public List<OrderModel> searchByCondition(String condition) throws SQLException {
-    // Build the SQL query with passed condition for searching order data
-    String query = "SELECT userID, orderID, shippingInformation, orderDate, invoiceID, ISBN FROM `order` WHERE "
-        + condition;
-    try (Connection con = DatabaseConnect.getConnection(); // Get a database connection
-        PreparedStatement pst = con.prepareStatement(query)) { // Prepare the SQL statement with the built query
-      // Execute the SQL statement and get result set
-      ResultSet resultSet = pst.executeQuery();
-      // Create an ArrayList of orders to hold the retrieved ones
-      ArrayList<OrderModel> orderModels = new ArrayList<>();
-      // Loop through result set and retrieve order data into OrderModel class
-      while (resultSet.next()) {
-        OrderModel orderModel = createOrderModelFromResultSet(resultSet);
-        orderModels.add(orderModel);
-      }
-      // Print a message if no records are found for the given search criteria
-      if (orderModels.isEmpty()) {
-        System.out.println("No records found for the given condition: " + condition);
-      }
-      // Return the ArrayList of orders that meet the search criteria
-      return orderModels;
-    } catch (SQLException e) {
-      throw new SQLException("Failed to search orders by condition: " + condition, e);
-    }
-  }
-
-  @Override
-  public List<OrderModel> searchByCondition(String condition, String columnName) throws SQLException {
-    // Build the SQL query with given condition and column name to search only for
-    // order Data
-    String query = "SELECT * FROM `order` WHERE " + columnName + " LIKE ?";
-    try (
-        // Get a database connection
-        Connection con = DatabaseConnect.getConnection();
-        // Prepare the SQL statement with the built query
-        PreparedStatement pst = con.prepareStatement(query);) {
-      // Set wildcarded value to the prepared statement
-      pst.setString(1, "%" + condition + "%");
-      // Execute the SQL statement and get result set
-      ResultSet resultSet = pst.executeQuery();
-      // Create an ArrayList of customers to hold the retrieved ones
-      ArrayList<OrderModel> orderList = new ArrayList<>();
-      // Loop through result set and retrieve customer data into OrderModel class
-      while (resultSet.next()) {
-        OrderModel orderModel = new OrderModel();
-        orderModel.setUserId(resultSet.getString("userID"));
-        orderModel.setInvoiceId(resultSet.getString("invoice_id"));
-        orderModel.setOrderDate(resultSet.getDate("orderDate"));
-        orderModel.setISBN(resultSet.getString("ISBN"));
-        orderModel.setOrderId(resultSet.getString("orderID"));
-        orderModel.setShippingInformation(resultSet.getString("shippingInformation"));
-        orderList.add(orderModel);
-      }
-      // Return the ArrayList of orders that meet the search criteria
-      return orderList;
-    } catch (SQLException e) {
-      throw e;
-    }
-  }
+  
 
 }

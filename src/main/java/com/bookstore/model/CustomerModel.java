@@ -4,67 +4,48 @@ import java.sql.Date;
 
 public class CustomerModel {
   private Date purchaseHistory;
-  private String customerID, invoiceID, paymentID;
+  private String customerId, invoiceId, paymentId;
 
   public CustomerModel() {
   }
 
-  public CustomerModel(Date purchaseHistory, String customerID, String invoiceID, String paymentID) {
+  public CustomerModel(Date purchaseHistory, String customerId, String invoiceId, String paymentId) {
     this.purchaseHistory = purchaseHistory;
-    this.customerID = customerID;
-    this.invoiceID = invoiceID;
-    this.paymentID = paymentID;
+    this.customerId = customerId;
+    this.invoiceId = invoiceId;
+    this.paymentId = paymentId;
   }
 
   public Date getPurchaseHistory() {
-    return this.purchaseHistory;
+    return purchaseHistory;
   }
 
   public void setPurchaseHistory(Date purchaseHistory) {
     this.purchaseHistory = purchaseHistory;
   }
 
-  public String getCustomerID() {
-    return this.customerID;
+  public String getCustomerId() {
+    return customerId;
   }
 
-  public void setCustomerID(String customerID) {
-    this.customerID = customerID;
+  public void setCustomerId(String customerId) {
+    this.customerId = customerId;
   }
 
-  public String getInvoiceID() {
-    return this.invoiceID;
+  public String getInvoiceId() {
+    return invoiceId;
   }
 
-  public void setInvoiceID(String invoiceID) {
-    this.invoiceID = invoiceID;
+  public void setInvoiceId(String invoiceId) {
+    this.invoiceId = invoiceId;
   }
 
-  public String getPaymentID() {
-    return this.paymentID;
+  public String getPaymentId() {
+    return paymentId;
   }
 
-  public void setPaymentID(String paymentID) {
-    this.paymentID = paymentID;
+  public void setPaymentId(String paymentId) {
+    this.paymentId = paymentId;
   }
 
-  public CustomerModel purchaseHistory(Date purchaseHistory) {
-    setPurchaseHistory(purchaseHistory);
-    return this;
-  }
-
-  public CustomerModel customerID(String customerID) {
-    setCustomerID(customerID);
-    return this;
-  }
-
-  public CustomerModel invoiceID(String invoiceID) {
-    setInvoiceID(invoiceID);
-    return this;
-  }
-
-  public CustomerModel paymentID(String paymentID) {
-    setPaymentID(paymentID);
-    return this;
-  }
 }
