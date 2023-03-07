@@ -16,54 +16,83 @@ public class OrderDAO implements DAOInterface<OrderModel> {
     return new OrderDAO();
   }
 
-  private OrderModel createOrderModelFromResultSet(ResultSet rs) throws SQLException {
-    return new OrderModel(
-        rs.getString("shippingInformation"),
-        rs.getDate("orderDate"),
-        rs.getString("invoiceID"),
-        rs.getString("ISBN"),
-        rs.getString("userID"),
-        rs.getString("orderID"));
+  private OrderModel createOrderFromResultSet(ResultSet rs) throws SQLException {
+    OrderModel orderModel = new OrderModel();
+    orderModel.setOrderId(rs.getString("order_id"));
+    orderModel.setUserId(rs.getString("user_id"));
+    orderModel.setISBN(rs.getString("ISBN"));
+    orderModel.setInvoiceId(rs.getString("invoice_id"));
+    orderModel.setOrderDate(rs.getDate("order_date"));
+    orderModel.setShippingInformation(rs.getString("shipping_information"));
+    return orderModel;
   }
 
-  @Override
-  public ArrayList<OrderModel> readDatabase() throws SQLException {
+  public ArrayList<OrderModel> readDatabase() throws SQLException, ClassNotFoundException {
     ArrayList<OrderModel> orderList = new ArrayList<>();
-    try (
-        Connection con = DatabaseConnect.getConnection(); // Established connection with Database
-        PreparedStatement pst = con.prepareStatement("SELECT * FROM `Order`"); // SQL Statement to execute
-        ResultSet rs = pst.executeQuery() // Executing the SQL Statement
-    ) {
+    try (ResultSet rs = DatabaseConnect.executeQuery("SELECT * FROM `orders`")) {
       while (rs.next()) {
-        OrderModel orderModel = createOrderModelFromResultSet(rs); // Creating UserModel object from ResultSet
-        orderList.add(orderModel); // Adding OrderModel object into ArrayList
+        OrderModel order = createOrderFromResultSet(rs);
+        orderList.add(order);
       }
-    } catch (SQLException e) {
-      throw e;
     }
-    return orderList; // Returning ArrayList of OrderModel objects
+    return orderList;
   }
 
   public int insert(OrderModel order) throws SQLException, ClassNotFoundException {
-    String insertSql = "INSERT INTO `orders` (`shipping_information`, `order_date`, `invoice_id`, `ISBN`, `user_id`) VALUES (?, ?, ?, ?, ?)";
+    String insertSql = "INSERT INTO `orders` (`shipping_information`, `order_date`, `invoice_id`, `ISBN`, `user_id`, `order_id`) VALUES (?, ?, ?, ?, ?, ?)";
     Object[] args = { order.getShippingInformation(), order.getOrderDate(), order.getInvoiceId(), order.getISBN(),
-        order.getUserId() };
+        order.getUserId(), order.getOrderId() };
     return DatabaseConnect.executeUpdate(insertSql, args);
   }
 
   public int update(OrderModel order) throws SQLException, ClassNotFoundException {
-    String updateSql = "UPDATE `orders` SET `shipping_information` = ?, `order_date` = ?, `invoice_id` = ?, `ISBN` = ?, `user_id` = ? WHERE `order_id` = ?";
+    String updateSql = "UPDATE `orders` SET `shipping_information`=?, `order_date`=?, `invoice_id`=?, `ISBN`=?, `user_id`=? WHERE `order_id`=?";
     Object[] args = { order.getShippingInformation(), order.getOrderDate(), order.getInvoiceId(), order.getISBN(),
         order.getUserId(), order.getOrderId() };
     return DatabaseConnect.executeUpdate(updateSql, args);
   }
 
   public int delete(String orderId) throws SQLException, ClassNotFoundException {
-    String deleteSql = "DELETE FROM `orders` WHERE `order_id` = ?";
+    String deleteSql = "DELETE FROM `orders` WHERE `order_id`=?";
     Object[] args = { orderId };
     return DatabaseConnect.executeUpdate(deleteSql, args);
   }
 
-  
+  public List<OrderModel> searchByCondition(String condition) throws SQLException, ClassNotFoundException {
+    String query = "SELECT * FROM `orders`";
+    if (condition != null && !condition.isEmpty()) {
+      query += " WHERE " + condition;
+    }
+    try (ResultSet rs = DatabaseConnect.executeQuery(query)) {
+      List<OrderModel> orderList = new ArrayList<>();
+      while (rs.next()) {
+        OrderModel order = createOrderFromResultSet(rs);
+        orderList.add(order);
+      }
+      if (orderList.isEmpty()) {
+        System.out.println("No records found for the given condition: " + condition);
+      }
+      return orderList;
+    } catch (SQLException e) {
+      throw e;
+    }
+  }
 
+  public List<OrderModel> searchByCondition(String condition, String columnName)
+      throws SQLException, ClassNotFoundException {
+    String query = "SELECT * FROM orders WHERE " + columnName + " LIKE ?";
+    try (PreparedStatement pst = DatabaseConnect.getPreparedStatement(query, "%" + condition + "%")) {
+      try (ResultSet rs = pst.executeQuery()) {
+        List<OrderModel> orderList = new ArrayList<>();
+        while (rs.next()) {
+          OrderModel order = createOrderFromResultSet(rs);
+          orderList.add(order);
+        }
+        if (orderList.isEmpty()) {
+          throw new SQLException("No records found for the given condition: " + condition);
+        }
+        return orderList;
+      }
+    }
+  }
 }
