@@ -1,51 +1,40 @@
 package com.bookstore.model;
 
-import java.sql.Date;
-
 public class CustomerModel {
-  private Date purchaseHistory;
-  private String customerId, invoiceId, paymentId;
+  private String accountId, address;
 
   public CustomerModel() {
   }
 
-  public CustomerModel(Date purchaseHistory, String customerId, String invoiceId, String paymentId) {
-    this.purchaseHistory = purchaseHistory;
-    this.customerId = customerId;
-    this.invoiceId = invoiceId;
-    this.paymentId = paymentId;
+  public CustomerModel(String accountId, String address) {
+    this.accountId = accountId;
+    this.address = address;
   }
 
-  public Date getPurchaseHistory() {
-    return purchaseHistory;
+  public String getAccountId() {
+    return this.accountId;
   }
 
-  public void setPurchaseHistory(Date purchaseHistory) {
-    this.purchaseHistory = purchaseHistory;
+  public void setAccountId(String accountId) {
+    this.accountId = accountId;
   }
 
-  public String getCustomerId() {
-    return customerId;
+  public String getAddress() {
+    return this.address;
   }
 
-  public void setCustomerId(String customerId) {
-    this.customerId = customerId;
+  public void setAddress(String address) {
+    this.address = address;
   }
 
-  public String getInvoiceId() {
-    return invoiceId;
+  public CustomerModel accountId(String accountId) {
+    setAccountId(accountId);
+    return this;
   }
 
-  public void setInvoiceId(String invoiceId) {
-    this.invoiceId = invoiceId;
-  }
-
-  public String getPaymentId() {
-    return paymentId;
-  }
-
-  public void setPaymentId(String paymentId) {
-    this.paymentId = paymentId;
+  public CustomerModel address(String address) {
+    setAddress(address);
+    return this;
   }
 
 }

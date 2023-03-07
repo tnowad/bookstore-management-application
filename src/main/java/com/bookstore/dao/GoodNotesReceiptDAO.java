@@ -1,6 +1,5 @@
 package com.bookstore.dao;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,7 +14,6 @@ public class GoodNotesReceiptDAO implements DAOInterface<GoodNotesReceiptModel> 
     return new GoodNotesReceiptDAO();
   }
 
-  // Helper method to create UserModel object from ResultSet
   private GoodNotesReceiptModel createGNRFromResultSet(ResultSet rs) throws SQLException {
     return new GoodNotesReceiptModel(
         rs.getDate("importDate"),

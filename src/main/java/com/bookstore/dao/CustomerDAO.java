@@ -1,8 +1,5 @@
-// Import required packages and classes
 package com.bookstore.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -14,6 +11,12 @@ public class CustomerDAO implements DAOInterface<CustomerModel> {
 
   public static CustomerDAO getInstance() {
     return new CustomerDAO();
+  }
+
+  private CustomerModel createCustomerModelFromResultSet(ResultSet rs) throws SQLException {
+    return new CustomerModel(
+        rs.getString("accountId"),
+        rs.getString("address"));
   }
 
   @Override
@@ -29,23 +32,24 @@ public class CustomerDAO implements DAOInterface<CustomerModel> {
     return customerList;
   }
 
+  @Override
   public int insert(CustomerModel customer) throws SQLException, ClassNotFoundException {
-    String insertSql = "INSERT INTO customers (customer_id, purchase_history, invoice_id, payment_id) VALUES (?, ?, ?, ?)";
-    Object[] args = { customer.getCustomerId(), customer.getPurchaseHistory(), customer.getInvoiceId(),
-        customer.getPaymentId() };
+    String insertSql = "INSERT INTO customers (accountId, address) VALUES (?, ?)";
+    Object[] args = { customer.getAccountId(), customer.getAddress() };
     return DatabaseConnect.executeUpdate(insertSql, args);
   }
 
+  @Override
   public int update(CustomerModel customer) throws SQLException, ClassNotFoundException {
-    String updateSql = "UPDATE customers SET purchase_history=?, invoice_id=?, payment_id=? WHERE customer_id=?";
-    Object[] args = { customer.getPurchaseHistory(), customer.getInvoiceId(), customer.getPaymentId(),
-        customer.getCustomerId() };
+    String updateSql = "UPDATE customers SET address = ? WHERE accountId = ?";
+    Object[] args = { customer.getAddress(), customer.getAccountId() };
     return DatabaseConnect.executeUpdate(updateSql, args);
   }
 
-  public int delete(String customerId) throws SQLException, ClassNotFoundException {
-    String deleteSql = "DELETE FROM customers WHERE customer_id=?";
-    Object[] args = { customerId };
+  @Override
+  public int delete(String accountId) throws SQLException, ClassNotFoundException {
+    String deleteSql = "DELETE c, s FROM customers c JOIN users s ON c.accountId = s.accountId WHERE c.accountId=?";
+    Object[] args = { accountId };
     return DatabaseConnect.executeUpdate(deleteSql, args);
   }
 
@@ -89,15 +93,6 @@ public class CustomerDAO implements DAOInterface<CustomerModel> {
       }
       return customerList;
     }
-  }
-
-  private CustomerModel createCustomerModelFromResultSet(ResultSet rs) throws SQLException {
-    CustomerModel customer = new CustomerModel();
-    customer.setCustomerId(rs.getString("customer_id"));
-    customer.setPurchaseHistory(rs.getDate("purchase_history"));
-    customer.setInvoiceId(rs.getString("invoice_id"));
-    customer.setPaymentId(rs.getString("payment_id"));
-    return customer;
   }
 
 }

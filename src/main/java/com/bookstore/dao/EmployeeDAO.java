@@ -1,20 +1,15 @@
 // package name and import statements
 package com.bookstore.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.bookstore.model.EmployeeModel;
-import com.bookstore.model.UserModel;
 
-// DAO class with DAOInterface implemented for Employee entity CRUD operations
 public class EmployeeDAO implements DAOInterface<EmployeeModel> {
 
-  // singleton instance getter to create a single instance in the application
   public static EmployeeDAO getInscance() {
     return new EmployeeDAO();
   }
