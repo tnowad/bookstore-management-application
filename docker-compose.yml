@@ -11,6 +11,7 @@ services:
       - "3306:3306"
     volumes:
       - ./database/init:/docker-entrypoint-initdb.d/:ro
+      - ./database/init/insert.sql:/docker-entrypoint-initdb.d/insert.sql:ro
   phpmyadmin:
     image: phpmyadmin:5.2.1-apache
     container_name: bookstore-management-phpmyadmin
