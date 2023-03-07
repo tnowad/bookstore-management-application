@@ -1,16 +1,16 @@
 package com.bookstore.model;
 
 public class AccountModel {
-    private String username, password, status, accountID;
+    private String username, password, status, accountId;
 
     public AccountModel() {
     }
 
-    public AccountModel(String username, String password, String status, String accountID) {
+    public AccountModel(String username, String password, String status, String accountId) {
         this.username = username;
         this.password = password;
         this.status = status;
-        this.accountID = accountID;
+        this.accountId = accountId;
     }
 
     public String getUsername() {
@@ -37,12 +37,12 @@ public class AccountModel {
         this.status = status;
     }
 
-    public String getAccountID() {
-        return this.accountID;
+    public String getAccountId() {
+        return this.accountId;
     }
 
-    public void setAccountID(String accountID) {
-        this.accountID = accountID;
+    public void setAccountId(String accountId) {
+        this.accountId = accountId;
     }
 
     public AccountModel username(String username) {
@@ -60,8 +60,8 @@ public class AccountModel {
         return this;
     }
 
-    public AccountModel accountID(String accountID) {
-        setAccountID(accountID);
+    public AccountModel accountId(String accountId) {
+        setAccountId(accountId);
         return this;
     }
 
