@@ -53,7 +53,6 @@ public class DatabaseConnectTest {
     assertTrue(resultSet.next());
     assertEquals("The Great Gatsby", resultSet.getString("title"));
     assertEquals("F. Scott Fitzgerald", resultSet.getString("author"));
-    // assertEquals(12.99, resultSet.getDouble("price"));
     resultSet.close();
     statement.close();
   }
