@@ -1,180 +1,238 @@
 CREATE DATABASE bookstore;
 
 USE bookstore;
-CREATE TABLE `accounts` (
-  `id` INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  `username` VARCHAR(255) UNIQUE NOT NULL,
-  `password` VARCHAR(255) NOT NULL,
-  `status` ENUM ('active', 'inactive') NOT NULL DEFAULT "active"
-);
 
-CREATE TABLE `users` (
-  `account_id` INT PRIMARY KEY NOT NULL,
-  `first_name` VARCHAR(255) NOT NULL,
-  `last_name` VARCHAR(255) NOT NULL,
-  `email` VARCHAR(255),
-  `phone` VARCHAR(255),
-  `created_at` TIMESTAMP NOT NULL DEFAULT (CURRENT_TIMESTAMP),
-  `updated_at` TIMESTAMP NOT NULL DEFAULT (CURRENT_TIMESTAMP),
-  `role` ENUM ('admin', 'customer', 'employee') NOT NULL DEFAULT "customer"
-);
+CREATE TABLE
+  `categories` (
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(255) NOT NULL,
+    PRIMARY KEY (`id`)
+  );
 
-CREATE TABLE `customers` (
-  `account_id` int PRIMARY KEY NOT NULL,
-  `address` VARCHAR(255)
-);
+CREATE TABLE
+  `promotions` (
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `description` VARCHAR(255) NOT NULL,
+    `quantity` INT NOT NULL,
+    `start_date` DATE NOT NULL,
+    `end_date` DATE NOT NULL,
+    `condition_apply` VARCHAR(255),
+    `discount_percent` DOUBLE (8, 2),
+    `discount_amount` DOUBLE (8, 2),
+    PRIMARY KEY (`id`)
+  );
 
-CREATE TABLE `employees` (
-  `account_id` INT PRIMARY KEY NOT NULL,
-  `salary` DOUBLE,
-  `employee_type` ENUM ('employee_cashier', 'employee_manager', 'employee_stock', 'employee_delivery', 'employee_order', 'employee_accountant', 'employee_marketing', 'employee_hr', 'employee_security', 'employee_receptionist', 'employee_cleaner', 'employee_sales'),
-  `contact_information` VARCHAR(15)
-);
+CREATE TABLE
+  `books` (
+    `isbn` VARCHAR(255) NOT NULL,
+    `title` VARCHAR(255) NOT NULL,
+    `description` VARCHAR(255) NOT NULL,
+    `price` DOUBLE (8, 2) NOT NULL,
+    `available_quantity` INT NOT NULL,
+    `original_quantity` INT NOT NULL,
+    `status` ENUM ('available') NOT NULL DEFAULT "available",
+    `publisher_id` INT,
+    `author_id` INT,
+    PRIMARY KEY (`isbn`)
+  );
 
-CREATE TABLE `publishers` (
-  `id` INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(255) NOT NULL,
-  `address` VARCHAR(255) NOT NULL
-);
+CREATE TABLE
+  `import_items` (
+    `import_id` INT NOT NULL,
+    `book_isbn` VARCHAR(255) NOT NULL,
+    `quantity` INT NOT NULL,
+    `price` INT NOT NULL
+  );
 
-CREATE TABLE `authors` (
-  `id` INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  `first_name` VARCHAR(255) NOT NULL,
-  `last_name` VARCHAR(255) NOT NULL,
-  `description` VARCHAR(255) NOT NULL
-);
+CREATE TABLE
+  `publishers` (
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(255) NOT NULL,
+    `address` VARCHAR(255) NOT NULL,
+    PRIMARY KEY (`id`)
+  );
 
-CREATE TABLE `providers` (
-  `id` INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(255) NOT NULL,
-  `description` VARCHAR(255) NOT NULL
-);
+CREATE TABLE
+  `payment_methods` (
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `payment_id` VARCHAR(255) NOT NULL,
+    `card_number` VARCHAR(255) NOT NULL,
+    `card_holder` VARCHAR(255) NOT NULL,
+    `expiration_date` DATE NOT NULL,
+    `customer_id` INT NOT NULL,
+    PRIMARY KEY (`id`)
+  );
 
-CREATE TABLE `books` (
-  `isbn` VARCHAR(255) PRIMARY KEY NOT NULL,
-  `title` VARCHAR(255) NOT NULL,
-  `description` VARCHAR(255) NOT NULL,
-  `price` FLOAT NOT NULL,
-  `available_quantity` INT NOT NULL,
-  `original_quantity` INT NOT NULL,
-  `status` ENUM ('available', 'unavailable') NOT NULL DEFAULT "available",
-  `publisher_id` INT,
-  `author_id` INT
-);
+CREATE TABLE
+  `addresses` (
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `user_id` INT NOT NULL,
+    `street` VARCHAR(255) NOT NULL,
+    `city` VARCHAR(255) NOT NULL,
+    `state` VARCHAR(255) NOT NULL,
+    `zip` VARCHAR(255) NOT NULL,
+    PRIMARY KEY (`id`)
+  );
 
-CREATE TABLE `imports` (
-  `id` INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  `provider_id` INT NOT NULL,
-  `employee_id` INT NOT NULL,
-  `total_price` INT NOT NULL,
-  `created_at` TIMESTAMP NOT NULL DEFAULT (CURRENT_TIMESTAMP),
-  `updated_at` TIMESTAMP NOT NULL DEFAULT (CURRENT_TIMESTAMP)
-);
+CREATE TABLE
+  `authors` (
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `first_name` VARCHAR(255) NOT NULL,
+    `last_name` VARCHAR(255) NOT NULL,
+    `description` VARCHAR(255) NOT NULL,
+    PRIMARY KEY (`id`)
+  );
 
-CREATE TABLE `import_details` (
-  `import_id` INT NOT NULL,
-  `book_isbn` VARCHAR(255) NOT NULL,
-  `quantity` INT NOT NULL,
-  `price` INT NOT NULL
-);
+CREATE TABLE
+  `cart_items` (
+    `cart_id` INT NOT NULL,
+    `book_isbn` VARCHAR(255) NOT NULL,
+    `price` INT NOT NULL,
+    `quantity` INT NOT NULL,
+    `discount` INT NOT NULL
+  );
 
-CREATE TABLE `promotions` (
-  `id` INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  `description` VARCHAR(255) NOT NULL,
-  `quantity` INT NOT NULL,
-  `start_date` DATE NOT NULL,
-  `end_date` DATE NOT NULL,
-  `condition_apply` VARCHAR(255),
-  `discount_percent` FLOAT DEFAULT 0,
-  `discount_amount` FLOAT DEFAULT 0
-);
+CREATE TABLE
+  `users` (
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `username` VARCHAR(255) NOT NULL,
+    `password` VARCHAR(255) NOT NULL,
+    `status` ENUM ('active') NOT NULL DEFAULT "active",
+    `name` VARCHAR(255) NOT NULL,
+    `email` VARCHAR(255),
+    `phone` VARCHAR(255),
+    `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `role` ENUM ('customer') NOT NULL DEFAULT "customer",
+    PRIMARY KEY (`id`)
+  );
 
-CREATE TABLE `orders` (
-  `id` INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  `total_price` INT NOT NULL,
-  `customer_id` INT NOT NULL,
-  `invoice_id` INT NOT NULL,
-  `created_at` TIMESTAMP NOT NULL DEFAULT (CURRENT_TIMESTAMP),
-  `updated_at` TIMESTAMP NOT NULL DEFAULT (CURRENT_TIMESTAMP),
-  `status` ENUM ('pending', 'approved', 'rejected') NOT NULL DEFAULT "pending"
-);
+CREATE TABLE
+  `imports` (
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `provider_id` INT NOT NULL,
+    `employee_id` INT NOT NULL,
+    `total_price` INT NOT NULL,
+    `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`)
+  );
 
-CREATE TABLE `order_details` (
-  `order_id` INT NOT NULL,
-  `book_isbn` VARCHAR(255) NOT NULL,
-  `book_price` INT NOT NULL,
-  `quantity` INT NOT NULL
-);
+CREATE TABLE
+  `providers` (
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(255) NOT NULL,
+    `description` VARCHAR(255) NOT NULL,
+    PRIMARY KEY (`id`)
+  );
 
-CREATE TABLE `payment_methods` (
-  `id` INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  `payment_id` VARCHAR(15) NOT NULL,
-  `card_number` VARCHAR(255) NOT NULL,
-  `card_holder` VARCHAR(255) NOT NULL,
-  `expiration_date` DATE NOT NULL
-);
+CREATE TABLE
+  `carts` (
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `user_id` INT NOT NULL,
+    `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `status` ENUM ('pending') NOT NULL DEFAULT "pending",
+    `expires` TIMESTAMP NOT NULL,
+    `promotion_id` int,
+    PRIMARY KEY (`id`)
+  );
 
-CREATE TABLE `payments` (
-  `id` INT PRIMARY KEY NOT NULL,
-  `order_id` INT NOT NULL,
-  `customer_id` INT NOT NULL,
-  `total_price` INT NOT NULL,
-  `payment_method` ENUM ('cash', 'credit_card', 'debit_card') NOT NULL,
-  `payment_method_id` INT,
-  `status` ENUM ('pending', 'approved', 'rejected') NOT NULL DEFAULT "pending",
-  `created_at` TIMESTAMP NOT NULL DEFAULT (CURRENT_TIMESTAMP),
-  `updated_at` TIMESTAMP NOT NULL DEFAULT (CURRENT_TIMESTAMP)
-);
+CREATE TABLE
+  `employees` (
+    `user_id` INT NOT NULL,
+    `salary` DOUBLE,
+    `employee_type` ENUM ('employee'),
+    `contact_information` VARCHAR(255),
+    PRIMARY KEY (`user_id`)
+  );
 
-CREATE TABLE `invoices` (
-  `id` INT PRIMARY KEY NOT NULL,
-  `order_id` INT NOT NULL,
-  `customer_id` INT NOT NULL,
-  `employee_id` INT NOT NULL,
-  `promotion_id` INT NOT NULL,
-  `payment_id` INT,
-  `total_price` INT NOT NULL,
-  `created_at` TIMESTAMP NOT NULL DEFAULT (CURRENT_TIMESTAMP),
-  `updated_at` TIMESTAMP NOT NULL DEFAULT (CURRENT_TIMESTAMP),
-  `status` ENUM ('pending', 'approved', 'rejected') NOT NULL DEFAULT "pending"
-);
+CREATE TABLE
+  `payments` (
+    `id` INT NOT NULL,
+    `order_id` INT NOT NULL,
+    `user_id` INT NOT NULL,
+    `amount` INT NOT NULL,
+    `payment_method` ENUM ('cash') NOT NULL,
+    `payment_method_id` INT,
+    `status` ENUM ('pending') NOT NULL DEFAULT "pending",
+    `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`)
+  );
 
-ALTER TABLE `users` ADD FOREIGN KEY (`account_id`) REFERENCES `accounts` (`id`);
+CREATE TABLE
+  `orders` (
+    `id` INT NOT NULL,
+    `cart_id` INT NOT NULL,
+    `customer_id` INT NOT NULL,
+    `employee_id` INT NOT NULL,
+    `total` INT NOT NULL,
+    `paid` INT NOT NULL,
+    `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `status` ENUM ('pending') NOT NULL DEFAULT "pending",
+    PRIMARY KEY (`id`)
+  );
 
-ALTER TABLE `customers` ADD FOREIGN KEY (`account_id`) REFERENCES `accounts` (`id`);
-
-ALTER TABLE `employees` ADD FOREIGN KEY (`account_id`) REFERENCES `accounts` (`id`);
-
-ALTER TABLE `books` ADD FOREIGN KEY (`publisher_id`) REFERENCES `publishers` (`id`);
-
-ALTER TABLE `books` ADD FOREIGN KEY (`author_id`) REFERENCES `authors` (`id`);
+CREATE TABLE
+  `shipping` (
+    `id` INT NOT NULL,
+    `order_id` int NOT NULL,
+    `shipping_method` VARCHAR(255),
+    `address_id` int NOT NULL,
+    `status` ENUM ('pending') NOT NULL DEFAULT "pending",
+    PRIMARY KEY (`id`)
+  );
 
 ALTER TABLE `imports` ADD FOREIGN KEY (`provider_id`) REFERENCES `providers` (`id`);
 
-ALTER TABLE `imports` ADD FOREIGN KEY (`employee_id`) REFERENCES `employees` (`account_id`);
+ALTER TABLE `books` ADD FOREIGN KEY (`author_id`) REFERENCES `authors` (`id`);
 
-ALTER TABLE `import_details` ADD FOREIGN KEY (`import_id`) REFERENCES `imports` (`id`);
+ALTER TABLE `import_items` ADD FOREIGN KEY (`import_id`) REFERENCES `imports` (`id`);
 
-ALTER TABLE `import_details` ADD FOREIGN KEY (`book_isbn`) REFERENCES `books` (`isbn`);
+ALTER TABLE `users` ADD FOREIGN KEY (`id`) REFERENCES `employees` (`user_id`);
 
-ALTER TABLE `orders` ADD FOREIGN KEY (`customer_id`) REFERENCES `customers` (`account_id`);
+ALTER TABLE `cart_items` ADD FOREIGN KEY (`book_isbn`) REFERENCES `books` (`isbn`);
 
-ALTER TABLE `order_details` ADD FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`);
+ALTER TABLE `addresses` ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
-ALTER TABLE `order_details` ADD FOREIGN KEY (`book_isbn`) REFERENCES `books` (`isbn`);
+ALTER TABLE `cart_items` ADD FOREIGN KEY (`cart_id`) REFERENCES `carts` (`id`);
+
+ALTER TABLE `import_items` ADD FOREIGN KEY (`book_isbn`) REFERENCES `books` (`isbn`);
+
+ALTER TABLE `payments` ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+
+ALTER TABLE `carts` ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+
+ALTER TABLE `imports` ADD FOREIGN KEY (`employee_id`) REFERENCES `employees` (`user_id`);
+
+ALTER TABLE `books` ADD FOREIGN KEY (`publisher_id`) REFERENCES `publishers` (`id`);
+
+CREATE TABLE
+  `categories_books` (
+    `categories_id` INT,
+    `books_isbn` VARCHAR(255),
+    PRIMARY KEY (`categories_id`, `books_isbn`)
+  );
+
+ALTER TABLE `categories_books` ADD FOREIGN KEY (`categories_id`) REFERENCES `categories` (`id`);
+
+ALTER TABLE `categories_books` ADD FOREIGN KEY (`books_isbn`) REFERENCES `books` (`isbn`);
 
 ALTER TABLE `payments` ADD FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`);
 
-ALTER TABLE `payments` ADD FOREIGN KEY (`customer_id`) REFERENCES `customers` (`account_id`);
+ALTER TABLE `orders` ADD FOREIGN KEY (`customer_id`) REFERENCES `users` (`id`);
+
+ALTER TABLE `orders` ADD FOREIGN KEY (`employee_id`) REFERENCES `employees` (`user_id`);
+
+ALTER TABLE `orders` ADD FOREIGN KEY (`cart_id`) REFERENCES `carts` (`id`);
+
+ALTER TABLE `shipping` ADD FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`);
+
+ALTER TABLE `shipping` ADD FOREIGN KEY (`address_id`) REFERENCES `addresses` (`id`);
 
 ALTER TABLE `payments` ADD FOREIGN KEY (`payment_method_id`) REFERENCES `payment_methods` (`id`);
 
-ALTER TABLE `invoices` ADD FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`);
+ALTER TABLE `payment_methods` ADD FOREIGN KEY (`customer_id`) REFERENCES `users` (`id`);
 
-ALTER TABLE `invoices` ADD FOREIGN KEY (`promotion_id`) REFERENCES `promotions` (`id`);
-
-ALTER TABLE `invoices` ADD FOREIGN KEY (`payment_id`) REFERENCES `payments` (`id`);
-
-ALTER TABLE `invoices` ADD FOREIGN KEY (`customer_id`) REFERENCES `customers` (`account_id`);
-
-ALTER TABLE `invoices` ADD FOREIGN KEY (`employee_id`) REFERENCES `employees` (`account_id`);
+ALTER TABLE `carts` ADD FOREIGN KEY (`promotion_id`) REFERENCES `promotions` (`id`);
