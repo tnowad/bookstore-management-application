@@ -126,4 +126,8 @@ public class AccountDAO implements DAOInterface<AccountModel> {
     } catch (Exception e) {
     }
   }
+
+  public AccountModel getAccountByUsername(String username) {
+    return null;
+  }
 }
