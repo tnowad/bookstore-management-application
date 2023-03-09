@@ -8,6 +8,7 @@ USE bookstore;
  * - isbn: The International Standard Book Number (ISBN) is a unique numeric commercial book identifier.
  * - title: The title of the book.
  * - description: The description of the book.
+ * - image: The image of the book.
  * - price: The price of the book.
  * - quantity: The quantity of the book.
  * - status: The status of the book.
@@ -23,6 +24,7 @@ CREATE TABLE
     `isbn` VARCHAR(20) NOT NULL,
     `title` NVARCHAR (255) NOT NULL,
     `description` NVARCHAR (255) NOT NULL,
+    `image` VARCHAR(255) NOT NULL,
     `price` INT NOT NULL,
     `quantity` INT NOT NULL,
     `status` ENUM ('available', 'unavailable', 'deleted') NOT NULL DEFAULT "available",
@@ -111,9 +113,9 @@ CREATE TABLE
 CREATE TABLE
   `imports` (
     `id` INT NOT NULL AUTO_INCREMENT,
-    `provider_id` INT NOT NULL,
+    `provider_id` INT NULL,
     `employee_id` INT NOT NULL,
-    `total_price` INT NOT NULL,
+    `total_price` DECIMAL(11, 0) NOT NULL,
     `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (`id`)
@@ -173,15 +175,15 @@ CREATE TABLE
 CREATE TABLE
   `users` (
     `id` INT NOT NULL AUTO_INCREMENT,
-    `username` VARCHAR(255) NOT NULL,
-    `password` VARCHAR(255) NOT NULL,
-    `status` ENUM ('active', 'banned') NOT NULL DEFAULT "active",
+    `username` VARCHAR(100) NOT NULL,
+    `password` VARCHAR(100) NOT NULL,
+    `status` ENUM ('active', 'inactive', 'banned') NOT NULL DEFAULT "active",
     `name` NVARCHAR (100) NOT NULL,
-    `email` NVARCHAR (255),
+    `email` VARCHAR(255),
     `phone` VARCHAR(15),
     `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `role` ENUM ('customer', 'employee', 'manager') NOT NULL DEFAULT "customer",
+    `role` ENUM ('customer', 'employee', 'admin') NOT NULL DEFAULT "customer",
     PRIMARY KEY (`id`)
   );
 
@@ -205,7 +207,7 @@ CREATE TABLE
     `street` NVARCHAR (255) NOT NULL,
     `city` NVARCHAR (255) NOT NULL,
     `state` NVARCHAR (255) NOT NULL,
-    `zip` NVARCHAR (255) NOT NULL,
+    `zip` NVARCHAR (20) NOT NULL,
     PRIMARY KEY (`id`)
   );
 
@@ -223,8 +225,13 @@ CREATE TABLE
 CREATE TABLE
   `employees` (
     `user_id` INT NOT NULL,
-    `salary` DOUBLE,
-    `employee_type` ENUM ('employee') NOT NULL,
+    `salary` INT,
+    `employee_type` ENUM (
+      'employee_manager',
+      'employee_sales',
+      'employee_inventory',
+      'employee_order'
+    ) NOT NULL DEFAULT "employee_sales",
     `contact_information` NVARCHAR (255),
     PRIMARY KEY (`user_id`)
   );
@@ -248,9 +255,9 @@ CREATE TABLE
     `id` INT NOT NULL AUTO_INCREMENT,
     `user_id` INT NOT NULL,
     `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `status` ENUM ('pending') NOT NULL DEFAULT "pending",
-    `expires` TIMESTAMP NOT NULL,
-    `promotion_id` int,
+    `status` ENUM ('shopping', 'pending', 'reject', 'accept',) NOT NULL DEFAULT "shopping",
+    `expires` TIMESTAMP NULL,
+    `promotion_id` INT NULL,
     PRIMARY KEY (`id`)
   );
 
@@ -270,7 +277,7 @@ CREATE TABLE
 CREATE TABLE
   `cart_items` (
     `cart_id` INT NOT NULL,
-    `book_isbn` NVARCHAR (255) NOT NULL,
+    `book_isbn` VARCHAR(20) NOT NULL,
     `price` INT NOT NULL,
     `quantity` INT NOT NULL,
     `discount` INT NOT NULL
@@ -297,8 +304,8 @@ CREATE TABLE
     `start_date` DATE NOT NULL,
     `end_date` DATE NOT NULL,
     `condition_apply` NVARCHAR (255),
-    `discount_percent` DOUBLE (8, 2),
-    `discount_amount` DOUBLE (8, 2),
+    `discount_percent` INT,
+    `discount_amount` INT,
     PRIMARY KEY (`id`)
   );
 
