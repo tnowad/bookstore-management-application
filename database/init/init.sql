@@ -3,6 +3,19 @@ CREATE DATABASE bookstore;
 USE bookstore;
 
 CREATE TABLE
+  `books` (
+    `isbn` VARCHAR(255) NOT NULL,
+    `title` VARCHAR(255) NOT NULL,
+    `description` VARCHAR(255) NOT NULL,
+    `price` DOUBLE (8, 2) NOT NULL,
+    `original_quantity` INT NOT NULL,
+    `status` ENUM ('available', 'unavailable', 'deleted') NOT NULL DEFAULT "available",
+    `publisher_id` INT,
+    `author_id` INT,
+    PRIMARY KEY (`isbn`)
+  );
+
+CREATE TABLE
   `categories` (
     `id` INT NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(255) NOT NULL,
@@ -10,67 +23,10 @@ CREATE TABLE
   );
 
 CREATE TABLE
-  `promotions` (
-    `id` INT NOT NULL AUTO_INCREMENT,
-    `description` VARCHAR(255) NOT NULL,
-    `quantity` INT NOT NULL,
-    `start_date` DATE NOT NULL,
-    `end_date` DATE NOT NULL,
-    `condition_apply` VARCHAR(255),
-    `discount_percent` DOUBLE (8, 2),
-    `discount_amount` DOUBLE (8, 2),
-    PRIMARY KEY (`id`)
-  );
-
-CREATE TABLE
-  `books` (
-    `isbn` VARCHAR(255) NOT NULL,
-    `title` VARCHAR(255) NOT NULL,
-    `description` VARCHAR(255) NOT NULL,
-    `price` DOUBLE (8, 2) NOT NULL,
-    `available_quantity` INT NOT NULL,
-    `original_quantity` INT NOT NULL,
-    `status` ENUM ('available') NOT NULL DEFAULT "available",
-    `publisher_id` INT,
-    `author_id` INT,
-    PRIMARY KEY (`isbn`)
-  );
-
-CREATE TABLE
-  `import_items` (
-    `import_id` INT NOT NULL,
-    `book_isbn` VARCHAR(255) NOT NULL,
-    `quantity` INT NOT NULL,
-    `price` INT NOT NULL
-  );
-
-CREATE TABLE
   `publishers` (
     `id` INT NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(255) NOT NULL,
     `address` VARCHAR(255) NOT NULL,
-    PRIMARY KEY (`id`)
-  );
-
-CREATE TABLE
-  `payment_methods` (
-    `id` INT NOT NULL AUTO_INCREMENT,
-    `payment_id` VARCHAR(255) NOT NULL,
-    `card_number` VARCHAR(255) NOT NULL,
-    `card_holder` VARCHAR(255) NOT NULL,
-    `expiration_date` DATE NOT NULL,
-    `customer_id` INT NOT NULL,
-    PRIMARY KEY (`id`)
-  );
-
-CREATE TABLE
-  `addresses` (
-    `id` INT NOT NULL AUTO_INCREMENT,
-    `user_id` INT NOT NULL,
-    `street` VARCHAR(255) NOT NULL,
-    `city` VARCHAR(255) NOT NULL,
-    `state` VARCHAR(255) NOT NULL,
-    `zip` VARCHAR(255) NOT NULL,
     PRIMARY KEY (`id`)
   );
 
@@ -84,12 +40,30 @@ CREATE TABLE
   );
 
 CREATE TABLE
-  `cart_items` (
-    `cart_id` INT NOT NULL,
+  `imports` (
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `provider_id` INT NOT NULL,
+    `employee_id` INT NOT NULL,
+    `total_price` INT NOT NULL,
+    `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`)
+  );
+
+CREATE TABLE
+  `import_items` (
+    `import_id` INT NOT NULL,
     `book_isbn` VARCHAR(255) NOT NULL,
-    `price` INT NOT NULL,
     `quantity` INT NOT NULL,
-    `discount` INT NOT NULL
+    `price` INT NOT NULL
+  );
+
+CREATE TABLE
+  `providers` (
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(255) NOT NULL,
+    `description` VARCHAR(255) NOT NULL,
+    PRIMARY KEY (`id`)
   );
 
 CREATE TABLE
@@ -108,22 +82,23 @@ CREATE TABLE
   );
 
 CREATE TABLE
-  `imports` (
+  `addresses` (
     `id` INT NOT NULL AUTO_INCREMENT,
-    `provider_id` INT NOT NULL,
-    `employee_id` INT NOT NULL,
-    `total_price` INT NOT NULL,
-    `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `user_id` INT NOT NULL,
+    `street` VARCHAR(255) NOT NULL,
+    `city` VARCHAR(255) NOT NULL,
+    `state` VARCHAR(255) NOT NULL,
+    `zip` VARCHAR(255) NOT NULL,
     PRIMARY KEY (`id`)
   );
 
 CREATE TABLE
-  `providers` (
-    `id` INT NOT NULL AUTO_INCREMENT,
-    `name` VARCHAR(255) NOT NULL,
-    `description` VARCHAR(255) NOT NULL,
-    PRIMARY KEY (`id`)
+  `employees` (
+    `user_id` INT NOT NULL,
+    `salary` DOUBLE,
+    `employee_type` ENUM ('employee'),
+    `contact_information` VARCHAR(255),
+    PRIMARY KEY (`user_id`)
   );
 
 CREATE TABLE
@@ -138,31 +113,30 @@ CREATE TABLE
   );
 
 CREATE TABLE
-  `employees` (
-    `user_id` INT NOT NULL,
-    `salary` DOUBLE,
-    `employee_type` ENUM ('employee'),
-    `contact_information` VARCHAR(255),
-    PRIMARY KEY (`user_id`)
+  `cart_items` (
+    `cart_id` INT NOT NULL,
+    `book_isbn` VARCHAR(255) NOT NULL,
+    `price` INT NOT NULL,
+    `quantity` INT NOT NULL,
+    `discount` INT NOT NULL
   );
 
 CREATE TABLE
-  `payments` (
-    `id` INT NOT NULL,
-    `order_id` INT NOT NULL,
-    `user_id` INT NOT NULL,
-    `amount` INT NOT NULL,
-    `payment_method` ENUM ('cash') NOT NULL,
-    `payment_method_id` INT,
-    `status` ENUM ('pending') NOT NULL DEFAULT "pending",
-    `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `promotions` (
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `description` VARCHAR(255) NOT NULL,
+    `quantity` INT NOT NULL,
+    `start_date` DATE NOT NULL,
+    `end_date` DATE NOT NULL,
+    `condition_apply` VARCHAR(255),
+    `discount_percent` DOUBLE (8, 2),
+    `discount_amount` DOUBLE (8, 2),
     PRIMARY KEY (`id`)
   );
 
 CREATE TABLE
   `orders` (
-    `id` INT NOT NULL,
+    `id` INT NOT NULL AUTO_INCREMENT,
     `cart_id` INT NOT NULL,
     `customer_id` INT NOT NULL,
     `employee_id` INT NOT NULL,
@@ -176,11 +150,36 @@ CREATE TABLE
 
 CREATE TABLE
   `shipping` (
-    `id` INT NOT NULL,
+    `id` INT NOT NULL AUTO_INCREMENT,
     `order_id` int NOT NULL,
     `shipping_method` VARCHAR(255),
     `address_id` int NOT NULL,
     `status` ENUM ('pending') NOT NULL DEFAULT "pending",
+    PRIMARY KEY (`id`)
+  );
+
+CREATE TABLE
+  `payments` (
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `order_id` INT NOT NULL,
+    `user_id` INT NOT NULL,
+    `amount` INT NOT NULL,
+    `payment_method` ENUM ('cash') NOT NULL,
+    `payment_method_id` INT,
+    `status` ENUM ('pending') NOT NULL DEFAULT "pending",
+    `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`)
+  );
+
+CREATE TABLE
+  `payment_methods` (
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `payment_id` VARCHAR(255) NOT NULL,
+    `card_number` VARCHAR(255) NOT NULL,
+    `card_holder` VARCHAR(255) NOT NULL,
+    `expiration_date` DATE NOT NULL,
+    `customer_id` INT NOT NULL,
     PRIMARY KEY (`id`)
   );
 
