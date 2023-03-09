@@ -1,15 +1,15 @@
 package com.bookstore.bus;
 
 import com.bookstore.dao.AccountDAO;
+import com.bookstore.model.AccountModel;
+import com.bookstore.util.PasswordUtil;
 
-public class AccountBUS {
-  private AccountDAO accountDAO;
-
-  public AccountBUS() {
-    accountDAO = AccountDAO.getInstance();
-  }
-
-  public boolean login(String username, String password) {
-    return accountDAO.login(username, password);
+class AccountBUS {
+  public static AccountModel login(String username, String password) {
+    AccountModel account = AccountDAO.getInstance().getAccountByUsername(username);
+    if (account != null && PasswordUtil.checkPassword(password, account.getPassword())) {
+      return account;
+    }
+    return null;
   }
 }

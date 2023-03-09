@@ -42,7 +42,13 @@ public class AccountDAO implements DAOInterface<AccountModel> {
   @Override
   public int insert(AccountModel account) throws SQLException, ClassNotFoundException {
     String insertSql = "INSERT INTO account (accountId, username, password, status) VALUES (?, ?, ?, ?)";
-    Object[] args = { account.getAccountId(), account.getUsername(), account.getPassword(), account.getStatus() };
+    account.setPassword(PasswordUtil.hashPassword(account.getPassword()));
+    Object[] args = {
+        account.getAccountId(),
+        account.getUsername(),
+        account.getPassword(),
+        account.getStatus()
+    };
     return DatabaseConnect.executeUpdate(insertSql, args);
   }
 
