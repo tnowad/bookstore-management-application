@@ -10,6 +10,10 @@ import com.bookstore.model.AuthorModel;
 
 public class AuthorDAO implements DAOInterface<AuthorModel> {
 
+  public static AuthorDAO getInstance() {
+    return new AuthorDAO();
+  }
+
   private AuthorModel createAuthorModelFromResultSet(ResultSet rs) throws SQLException {
     return new AuthorModel(
         rs.getInt("id"),

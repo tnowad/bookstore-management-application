@@ -10,6 +10,10 @@ import com.bookstore.model.BookModel;
 
 public class BookDAO implements DAOInterface<BookModel> {
 
+  public static BookDAO getInstance() {
+    return new BookDAO();
+  }
+
   private BookModel createBookModelFromResultSet(ResultSet rs) throws SQLException {
     return new BookModel(
         rs.getString("isbn"),

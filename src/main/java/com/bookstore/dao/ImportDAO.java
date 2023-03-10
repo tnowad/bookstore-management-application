@@ -12,6 +12,10 @@ import java.util.List;
 
 public class ImportDAO implements DAOInterface<ImportModel> {
 
+  public static ImportDAO getInstance() {
+    return new ImportDAO();
+  }
+
   private ImportModel createImportModelFromResultSet(ResultSet rs) throws SQLException {
     int id = rs.getInt("id");
     int providerId = rs.getInt("provider_id");

@@ -10,6 +10,10 @@ import com.bookstore.model.AddressModel;
 
 public class AddressDAO implements DAOInterface<AddressModel> {
 
+  public static AddressDAO getInstance() {
+    return new AddressDAO();
+  }
+
   private AddressModel createAddressModelFromResultSet(ResultSet rs) throws SQLException {
     return new AddressModel(
         rs.getInt("id"),

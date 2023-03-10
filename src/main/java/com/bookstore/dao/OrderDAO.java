@@ -10,6 +10,22 @@ import java.util.List;
 
 public class OrderDAO implements DAOInterface<OrderModel> {
 
+  public static OrderDAO getInstance() {
+    return new OrderDAO();
+  }
+
+  private OrderModel createOrderModelFromResultSet(ResultSet rs) throws SQLException {
+    return new OrderModel(
+        rs.getInt("cart_id"),
+        rs.getInt("customer_id"),
+        rs.getInt("employee_id"),
+        rs.getInt("total"),
+        rs.getInt("paid"),
+        rs.getTimestamp("created_at").toLocalDateTime(),
+        rs.getTimestamp("updated_at").toLocalDateTime(),
+        OrderModel.Status.valueOf(rs.getString("status")));
+  }
+
   @Override
   public ArrayList<OrderModel> readDatabase() throws SQLException, ClassNotFoundException {
     String query = "SELECT * FROM orders";
@@ -93,15 +109,4 @@ public class OrderDAO implements DAOInterface<OrderModel> {
     }
   }
 
-  private OrderModel createOrderModelFromResultSet(ResultSet rs) throws SQLException {
-    return new OrderModel(
-        rs.getInt("cart_id"),
-        rs.getInt("customer_id"),
-        rs.getInt("employee_id"),
-        rs.getInt("total"),
-        rs.getInt("paid"),
-        rs.getTimestamp("created_at").toLocalDateTime(),
-        rs.getTimestamp("updated_at").toLocalDateTime(),
-        OrderModel.Status.valueOf(rs.getString("status")));
-  }
 }

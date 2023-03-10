@@ -10,6 +10,10 @@ import com.bookstore.model.CartModel;
 
 public class CartDAO implements DAOInterface<CartModel> {
 
+  public static CartDAO getInstance() {
+    return new CartDAO();
+  }
+
   private CartModel createCartModelFromResultSet(ResultSet rs) throws SQLException {
     return new CartModel(
         rs.getInt("id"),

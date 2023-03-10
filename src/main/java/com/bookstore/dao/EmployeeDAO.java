@@ -11,6 +11,10 @@ import com.bookstore.model.EmployeeModel.EmployeeType;
 
 public class EmployeeDAO implements DAOInterface<EmployeeModel> {
 
+  public static EmployeeDAO getInstance() {
+    return new EmployeeDAO();
+  }
+
   private EmployeeModel createEmployeeModelFromResultSet(ResultSet rs) throws SQLException {
     return new EmployeeModel(
         rs.getInt("user_id"),

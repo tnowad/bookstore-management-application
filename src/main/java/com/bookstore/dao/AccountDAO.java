@@ -10,13 +10,9 @@ import com.bookstore.model.AccountModel;
 import com.bookstore.util.PasswordUtil;
 
 public class AccountDAO implements DAOInterface<AccountModel> {
-  private static AccountDAO instance;
 
   public static AccountDAO getInstance() {
-    if (instance == null) {
-      instance = new AccountDAO();
-    }
-    return instance;
+    return new AccountDAO();
   }
 
   private AccountModel createAccountModelFromResultSet(ResultSet rs) throws SQLException {

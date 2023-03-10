@@ -10,7 +10,6 @@ public class CartModel {
   private Timestamp expires;
   private Integer promotionId;
 
-  // Constructor
   public CartModel(int id, int userId, Timestamp createdAt, Status status, Timestamp expires, Integer promotionId) {
     this.id = id;
     this.userId = userId;
@@ -20,7 +19,6 @@ public class CartModel {
     this.promotionId = promotionId;
   }
 
-  // Getters and Setters
   public int getId() {
     return id;
   }
@@ -69,7 +67,6 @@ public class CartModel {
     this.promotionId = promotionId;
   }
 
-  // Enum for cart status
   public enum Status {
     SHOPPING,
     PENDING,
