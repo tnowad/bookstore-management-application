@@ -51,8 +51,7 @@ public class PaymentMethodDAO implements DAOInterface<PaymentMethodModel> {
 
   @Override
   public int update(PaymentMethodModel paymentMethod) throws SQLException, ClassNotFoundException {
-    String updateSql = "UPDATE payment_methods SET payment_id = ?, card_number = ?, card_holder = ?, "
-        + "expiration_date = ?, customer_id = ? WHERE id = ?";
+    String updateSql = "UPDATE payment_methods SET payment_id = ?, card_number = ?, card_holder = ?, expiration_date = ?, customer_id = ? WHERE id = ?";
     Object[] args = {
         paymentMethod.getPaymentId(), paymentMethod.getCardNumber(), paymentMethod.getCardHolder(),
         paymentMethod.getExpirationDate(), paymentMethod.getCustomerId(), paymentMethod.getId()
