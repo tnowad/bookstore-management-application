@@ -1,9 +1,0 @@
-CREATE TABLE addresses (
-  id INT NOT NULL AUTO_INCREMENT,
-  user_id INT NOT NULL,
-  street VARCHAR(255) NOT NULL,
-  city VARCHAR(255) NOT NULL,
-  state VARCHAR(255) NOT NULL,
-  zip VARCHAR(255) NOT NULL,
-  PRIMARY KEY (id)
-);
