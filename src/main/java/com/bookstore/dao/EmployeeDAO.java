@@ -1,112 +1,96 @@
-// package name and import statements
 package com.bookstore.dao;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.bookstore.model.EmployeeModel;
+import com.bookstore.model.EmployeeModel.EmployeeType;
 
 public class EmployeeDAO implements DAOInterface<EmployeeModel> {
 
-  public static EmployeeDAO getInscance() {
-    return new EmployeeDAO();
+  private EmployeeModel createEmployeeModelFromResultSet(ResultSet rs) throws SQLException {
+    return new EmployeeModel(
+        rs.getInt("user_id"),
+        rs.getInt("salary"),
+        EmployeeType.valueOf(rs.getString("employee_type").toUpperCase()),
+        rs.getString("contact_information"));
   }
 
   @Override
   public ArrayList<EmployeeModel> readDatabase() throws SQLException, ClassNotFoundException {
-    String query = "SELECT * FROM employees";
-    ArrayList<EmployeeModel> employeeList = new ArrayList<>();
-    try (ResultSet rs = DatabaseConnect.executeQuery(query)) {
+    ArrayList<EmployeeModel> employeesList = new ArrayList<>();
+    try (ResultSet rs = DatabaseConnect.executeQuery("SELECT * FROM employees")) {
       while (rs.next()) {
-        EmployeeModel employee = createEmployeeFromResultSet(rs);
-        employeeList.add(employee);
+        EmployeeModel employeeModel = createEmployeeModelFromResultSet(rs);
+        employeesList.add(employeeModel);
       }
     }
-    return employeeList;
+    return employeesList;
   }
 
   @Override
   public int insert(EmployeeModel employee) throws SQLException, ClassNotFoundException {
-    String insertSql = "INSERT INTO employees (employee_id, work_schedule, salary, employee_type, contact_information, good_notes_receipt_id, invoice_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
-    Object[] args = { employee.getEmployeeID(), employee.getWorkSchedule(), employee.getSalary(),
-        employee.getEmployeeType(), employee.getContactInformation(), employee.getGoodNotesReceiptId(),
-        employee.getInvoiceId() };
+    String insertSql = "INSERT INTO employees (user_id, salary, employee_type, contact_information) VALUES (?, ?, ?, ?)";
+    Object[] args = { employee.getUserId(), employee.getSalary(), employee.getEmployeeType().name(),
+        employee.getContactInformation() };
     return DatabaseConnect.executeUpdate(insertSql, args);
   }
 
   @Override
   public int update(EmployeeModel employee) throws SQLException, ClassNotFoundException {
-    String updateSql = "UPDATE employees SET work_schedule=?, salary=?, employee_type=?, contact_information=?, good_notes_receipt_id=?, invoice_id=? WHERE employee_id=?";
-    Object[] args = { employee.getWorkSchedule(), employee.getSalary(), employee.getEmployeeType(),
-        employee.getContactInformation(), employee.getGoodNotesReceiptId(), employee.getInvoiceId(),
-        employee.getEmployeeID() };
+    String updateSql = "UPDATE employees SET salary = ?, employee_type = ?, contact_information = ? WHERE user_id = ?";
+    Object[] args = { employee.getSalary(), employee.getEmployeeType().name(), employee.getContactInformation(),
+        employee.getUserId() };
     return DatabaseConnect.executeUpdate(updateSql, args);
   }
 
   @Override
-  public int delete(String employeeId) throws SQLException, ClassNotFoundException {
-    String deleteSql = "DELETE FROM employees WHERE employee_id=?";
-    Object[] args = { employeeId };
+  public int delete(String id) throws SQLException, ClassNotFoundException {
+    String deleteSql = "DELETE FROM employees WHERE user_id = ?";
+    Object[] args = { id };
     return DatabaseConnect.executeUpdate(deleteSql, args);
   }
 
   @Override
-  public List<EmployeeModel> searchByCondition(String condition, String columnName)
-      throws SQLException, ClassNotFoundException {
+  public List<EmployeeModel> searchByCondition(String condition) throws SQLException, ClassNotFoundException {
     String query = "SELECT * FROM employees";
     if (condition != null && !condition.isEmpty()) {
       query += " WHERE " + condition;
     }
-    if (columnName != null && !columnName.isEmpty()) {
-      query += " ORDER BY " + columnName;
-    }
     try (ResultSet rs = DatabaseConnect.executeQuery(query)) {
-      List<EmployeeModel> employeeList = new ArrayList<>();
+      List<EmployeeModel> employeesList = new ArrayList<>();
       while (rs.next()) {
-        EmployeeModel employee = createEmployeeFromResultSet(rs);
-        employeeList.add(employee);
+        EmployeeModel employeeModel = createEmployeeModelFromResultSet(rs);
+        employeesList.add(employeeModel);
       }
-      if (employeeList.isEmpty()) {
+      if (employeesList.isEmpty()) {
         System.out.println("No records found for the given condition: " + condition);
       }
-      return employeeList;
-    }
-  }
-
-  @Override
-  public List<EmployeeModel> searchByCondition(String condition)
-      throws SQLException, ClassNotFoundException {
-    String query = "SELECT * FROM good_notes_receipt";
-    if (condition != null && !condition.isEmpty()) {
-      query += " WHERE " + condition;
-    }
-    try (ResultSet rs = DatabaseConnect.executeQuery(query)) {
-      List<EmployeeModel> employeeList = new ArrayList<>();
-      while (rs.next()) {
-        EmployeeModel employeeModel = createEmployeeFromResultSet(rs);
-        employeeList.add(employeeModel);
-      }
-      if (employeeList.isEmpty()) {
-        System.out.println("No records found for the given condition: " + condition);
-      }
-      return employeeList;
+      return employeesList;
     } catch (SQLException e) {
       throw e;
     }
   }
 
-  private EmployeeModel createEmployeeFromResultSet(ResultSet rs) throws SQLException {
-    EmployeeModel employee = new EmployeeModel();
-    employee.setEmployeeID(rs.getString("employee_id"));
-    employee.setWorkSchedule(rs.getDate("work_schedule"));
-    employee.setSalary(rs.getDouble("salary"));
-    employee.setEmployeeType(rs.getString("employee_type"));
-    employee.setContactInformation(rs.getString("contact_information"));
-    employee.setGoodNotesReceiptId(rs.getString("good_notes_receipt_id"));
-    employee.setInvoiceId(rs.getString("invoice_id"));
-    return employee;
+  @Override
+  public List<EmployeeModel> searchByCondition(String condition, String columnName)
+      throws SQLException, ClassNotFoundException {
+    String query = "SELECT * FROM employees WHERE " + columnName + " LIKE ?";
+    try (PreparedStatement pst = DatabaseConnect.getPreparedStatement(query, "%" + condition + "%")) {
+      try (ResultSet rs = pst.executeQuery()) {
+        List<EmployeeModel> employeesList = new ArrayList<>();
+        while (rs.next()) {
+          EmployeeModel employeeModel = createEmployeeModelFromResultSet(rs);
+          employeesList.add(employeeModel);
+        }
+        if (employeesList.isEmpty()) {
+          throw new SQLException("No records found for the given condition: " + condition);
+        }
+        return employeesList;
+      }
+    }
   }
-
 }

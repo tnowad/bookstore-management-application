@@ -1,71 +1,69 @@
 package com.bookstore.dao;
 
+import com.bookstore.model.OrderModel;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.bookstore.model.OrderModel;
-
 public class OrderDAO implements DAOInterface<OrderModel> {
 
-  public static OrderDAO getInstance() {
-    return new OrderDAO();
-  }
-
-  private OrderModel createOrderFromResultSet(ResultSet rs) throws SQLException {
-    OrderModel orderModel = new OrderModel();
-    orderModel.setOrderId(rs.getString("order_id"));
-    orderModel.setUserId(rs.getString("user_id"));
-    orderModel.setISBN(rs.getString("ISBN"));
-    orderModel.setInvoiceId(rs.getString("invoice_id"));
-    orderModel.setOrderDate(rs.getDate("order_date"));
-    orderModel.setShippingInformation(rs.getString("shipping_information"));
-    return orderModel;
-  }
-
+  @Override
   public ArrayList<OrderModel> readDatabase() throws SQLException, ClassNotFoundException {
-    ArrayList<OrderModel> orderList = new ArrayList<>();
-    try (ResultSet rs = DatabaseConnect.executeQuery("SELECT * FROM `orders`")) {
+    String query = "SELECT * FROM orders";
+    try (ResultSet rs = DatabaseConnect.executeQuery(query)) {
+      ArrayList<OrderModel> orderList = new ArrayList<>();
       while (rs.next()) {
-        OrderModel order = createOrderFromResultSet(rs);
-        orderList.add(order);
+        OrderModel orderModel = createOrderModelFromResultSet(rs);
+        orderList.add(orderModel);
       }
+      if (orderList.isEmpty()) {
+        System.out.println("No records found!");
+      }
+      return orderList;
     }
-    return orderList;
   }
 
+  @Override
   public int insert(OrderModel order) throws SQLException, ClassNotFoundException {
-    String insertSql = "INSERT INTO `orders` (`shipping_information`, `order_date`, `invoice_id`, `ISBN`, `user_id`, `order_id`) VALUES (?, ?, ?, ?, ?, ?)";
-    Object[] args = { order.getShippingInformation(), order.getOrderDate(), order.getInvoiceId(), order.getISBN(),
-        order.getUserId(), order.getOrderId() };
+    String insertSql = "INSERT INTO orders (cart_id, customer_id, employee_id, total, paid, created_at, updated_at, status)"
+        + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    Object[] args = { order.getCart_id(), order.getCustomer_id(), order.getEmployee_id(), order.getTotal(),
+        order.getPaid(), Timestamp.valueOf(order.getCreated_at()), Timestamp.valueOf(order.getUpdated_at()),
+        order.getStatus().name() };
     return DatabaseConnect.executeUpdate(insertSql, args);
   }
 
+  @Override
   public int update(OrderModel order) throws SQLException, ClassNotFoundException {
-    String updateSql = "UPDATE `orders` SET `shipping_information`=?, `order_date`=?, `invoice_id`=?, `ISBN`=?, `user_id`=? WHERE `order_id`=?";
-    Object[] args = { order.getShippingInformation(), order.getOrderDate(), order.getInvoiceId(), order.getISBN(),
-        order.getUserId(), order.getOrderId() };
+    String updateSql = "UPDATE orders SET cart_id=?, customer_id=?, employee_id=?, total=?, paid=?, created_at=?, "
+        + "updated_at=?, status=? WHERE id=?";
+    Object[] args = { order.getCart_id(), order.getCustomer_id(), order.getEmployee_id(), order.getTotal(),
+        order.getPaid(), Timestamp.valueOf(order.getCreated_at()), Timestamp.valueOf(order.getUpdated_at()),
+        order.getStatus().name(), order.getId() };
     return DatabaseConnect.executeUpdate(updateSql, args);
   }
 
-  public int delete(String orderId) throws SQLException, ClassNotFoundException {
-    String deleteSql = "DELETE FROM `orders` WHERE `order_id`=?";
-    Object[] args = { orderId };
+  @Override
+  public int delete(String id) throws SQLException, ClassNotFoundException {
+    String deleteSql = "DELETE FROM orders WHERE id = ?";
+    Object[] args = { id };
     return DatabaseConnect.executeUpdate(deleteSql, args);
   }
 
+  @Override
   public List<OrderModel> searchByCondition(String condition) throws SQLException, ClassNotFoundException {
-    String query = "SELECT * FROM `orders`";
+    String query = "SELECT * FROM orders";
     if (condition != null && !condition.isEmpty()) {
       query += " WHERE " + condition;
     }
     try (ResultSet rs = DatabaseConnect.executeQuery(query)) {
       List<OrderModel> orderList = new ArrayList<>();
       while (rs.next()) {
-        OrderModel order = createOrderFromResultSet(rs);
-        orderList.add(order);
+        OrderModel orderModel = createOrderModelFromResultSet(rs);
+        orderList.add(orderModel);
       }
       if (orderList.isEmpty()) {
         System.out.println("No records found for the given condition: " + condition);
@@ -76,6 +74,7 @@ public class OrderDAO implements DAOInterface<OrderModel> {
     }
   }
 
+  @Override
   public List<OrderModel> searchByCondition(String condition, String columnName)
       throws SQLException, ClassNotFoundException {
     String query = "SELECT * FROM orders WHERE " + columnName + " LIKE ?";
@@ -83,8 +82,8 @@ public class OrderDAO implements DAOInterface<OrderModel> {
       try (ResultSet rs = pst.executeQuery()) {
         List<OrderModel> orderList = new ArrayList<>();
         while (rs.next()) {
-          OrderModel order = createOrderFromResultSet(rs);
-          orderList.add(order);
+          OrderModel orderModel = createOrderModelFromResultSet(rs);
+          orderList.add(orderModel);
         }
         if (orderList.isEmpty()) {
           throw new SQLException("No records found for the given condition: " + condition);
@@ -92,5 +91,17 @@ public class OrderDAO implements DAOInterface<OrderModel> {
         return orderList;
       }
     }
+  }
+
+  private OrderModel createOrderModelFromResultSet(ResultSet rs) throws SQLException {
+    return new OrderModel(
+        rs.getInt("cart_id"),
+        rs.getInt("customer_id"),
+        rs.getInt("employee_id"),
+        rs.getInt("total"),
+        rs.getInt("paid"),
+        rs.getTimestamp("created_at").toLocalDateTime(),
+        rs.getTimestamp("updated_at").toLocalDateTime(),
+        OrderModel.Status.valueOf(rs.getString("status")));
   }
 }

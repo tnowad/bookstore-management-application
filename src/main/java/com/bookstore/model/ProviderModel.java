@@ -1,39 +1,42 @@
 package com.bookstore.model;
 
 public class ProviderModel {
-  private String providerId, nameProvider, gnrId;
 
-  public ProviderModel(String providerId, String nameProvider, String gnrId) {
-    this.providerId = providerId;
-    this.nameProvider = nameProvider;
-    this.gnrId = gnrId;
-  }
+  private int id;
+  private String name;
+  private String description;
 
   public ProviderModel() {
+
   }
 
-  public String getProviderId() {
-    return providerId;
+  public ProviderModel(int id, String name, String description) {
+    this.id = id;
+    this.name = name;
+    this.description = description;
   }
 
-  public void setProviderId(String providerId) {
-    this.providerId = providerId;
+  public int getId() {
+    return id;
   }
 
-  public String getNameProvider() {
-    return nameProvider;
+  public void setId(int id) {
+    this.id = id;
   }
 
-  public void setNameProvider(String nameProvider) {
-    this.nameProvider = nameProvider;
+  public String getName() {
+    return name;
   }
 
-  public String getGnrId() {
-    return gnrId;
+  public void setName(String name) {
+    this.name = name;
   }
 
-  public void setGnrId(String gnrId) {
-    this.gnrId = gnrId;
+  public String getDescription() {
+    return description;
   }
 
+  public void setDescription(String description) {
+    this.description = description;
+  }
 }

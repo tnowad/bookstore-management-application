@@ -5,62 +5,53 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 import com.bookstore.model.PublisherModel;
 
 public class PublisherDAO implements DAOInterface<PublisherModel> {
 
-  public static PublisherDAO getInstance() {
-    return new PublisherDAO();
-  }
-
   private PublisherModel createPublisherModelFromResultSet(ResultSet rs) throws SQLException {
     return new PublisherModel(
-        rs.getString("location"),
+        rs.getInt("id"),
         rs.getString("name"),
-        rs.getString("ISBN"),
-        rs.getString("publisherID"));
+        rs.getString("description"));
   }
 
   @Override
   public ArrayList<PublisherModel> readDatabase() throws SQLException, ClassNotFoundException {
-    String query = "SELECT * FROM Publisher";
-    try (ResultSet rs = DatabaseConnect.executeQuery(query)) {
-      ArrayList<PublisherModel> publisherList = new ArrayList<>();
+    ArrayList<PublisherModel> publisherList = new ArrayList<>();
+    try (ResultSet rs = DatabaseConnect.executeQuery("SELECT * FROM publishers")) {
       while (rs.next()) {
         PublisherModel publisherModel = createPublisherModelFromResultSet(rs);
         publisherList.add(publisherModel);
       }
-      return publisherList;
-    } catch (SQLException e) {
-      throw e;
     }
+    return publisherList;
   }
 
   @Override
   public int insert(PublisherModel publisher) throws SQLException, ClassNotFoundException {
-    String insertSql = "INSERT INTO Publisher (publisherId, location, name, ISBN) VALUES (?, ?, ?, ?)";
-    Object[] args = { publisher.getPublisherId(), publisher.getLocation(), publisher.getName(),
-        publisher.getISBN() };
+    String insertSql = "INSERT INTO publishers (name, description) VALUES (?, ?)";
+    Object[] args = { publisher.getName(), publisher.getDescription() };
     return DatabaseConnect.executeUpdate(insertSql, args);
   }
 
   @Override
   public int update(PublisherModel publisher) throws SQLException, ClassNotFoundException {
-    String updateSql = "UPDATE Publisher SET location = ?, name = ? WHERE publisherId = ?";
-    Object[] args = { publisher.getLocation(), publisher.getName(), publisher.getPublisherId() };
+    String updateSql = "UPDATE publishers SET name = ?, description = ? WHERE id = ?";
+    Object[] args = { publisher.getName(), publisher.getDescription(), publisher.getId() };
     return DatabaseConnect.executeUpdate(updateSql, args);
   }
 
   @Override
-  public int delete(String publisherId) throws SQLException, ClassNotFoundException {
-    String deleteSql = "DELETE FROM Publisher WHERE publisherId = ?";
-    Object[] args = { publisherId };
+  public int delete(String id) throws SQLException, ClassNotFoundException {
+    String deleteSql = "DELETE FROM publishers WHERE id = ?";
+    Object[] args = { id };
     return DatabaseConnect.executeUpdate(deleteSql, args);
   }
 
+  @Override
   public List<PublisherModel> searchByCondition(String condition) throws SQLException, ClassNotFoundException {
-    String query = "SELECT * FROM publisher";
+    String query = "SELECT * FROM publishers";
     if (condition != null && !condition.isEmpty()) {
       query += " WHERE " + condition;
     }
@@ -71,7 +62,7 @@ public class PublisherDAO implements DAOInterface<PublisherModel> {
         publisherList.add(publisherModel);
       }
       if (publisherList.isEmpty()) {
-        throw new SQLException("No records found for the given condition: " + condition);
+        System.out.println("No records found for the given condition: " + condition);
       }
       return publisherList;
     } catch (SQLException e) {
@@ -82,7 +73,7 @@ public class PublisherDAO implements DAOInterface<PublisherModel> {
   @Override
   public List<PublisherModel> searchByCondition(String condition, String columnName)
       throws SQLException, ClassNotFoundException {
-    String query = "SELECT * FROM Publisher WHERE " + columnName + " LIKE ?";
+    String query = "SELECT * FROM publishers WHERE " + columnName + " LIKE ?";
     try (PreparedStatement pst = DatabaseConnect.getPreparedStatement(query, "%" + condition + "%")) {
       try (ResultSet rs = pst.executeQuery()) {
         List<PublisherModel> publisherList = new ArrayList<>();

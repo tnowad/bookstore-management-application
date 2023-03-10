@@ -1,29 +1,42 @@
 package com.bookstore.model;
 
-import java.sql.Date;
-
 public class BookModel {
+  private String isbn;
   private String title;
-  private String ISBN;
   private String description;
-  private boolean status;
-  private Date publicationDate;
-  private Integer quantity, quantityInStock;
-  private float price;
+  private String image;
+  private int price;
+  private int quantity;
+  private Status status;
+  private int publisherId;
+  private int authorId;
 
-  public BookModel() {
+  public enum Status {
+    AVAILABLE,
+    UNAVAILABLE,
+    DELETED;
   }
 
-  public BookModel(String title, String iSBN, String description, boolean status, Date publicationDate,
-      Integer quantity, Integer quantityInStock, float price) {
+  public BookModel(String isbn, String title, String description, String image, int price, int quantity,
+      Status status, int publisherId, int authorId) {
+    this.isbn = isbn;
     this.title = title;
-    ISBN = iSBN;
     this.description = description;
-    this.status = status;
-    this.publicationDate = publicationDate;
-    this.quantity = quantity;
-    this.quantityInStock = quantityInStock;
+    this.image = image;
     this.price = price;
+    this.quantity = quantity;
+    this.status = status;
+    this.publisherId = publisherId;
+    this.authorId = authorId;
+  }
+
+  // Getters & Setters
+  public String getIsbn() {
+    return isbn;
+  }
+
+  public void setIsbn(String isbn) {
+    this.isbn = isbn;
   }
 
   public String getTitle() {
@@ -34,14 +47,6 @@ public class BookModel {
     this.title = title;
   }
 
-  public String getISBN() {
-    return ISBN;
-  }
-
-  public void setISBN(String iSBN) {
-    ISBN = iSBN;
-  }
-
   public String getDescription() {
     return description;
   }
@@ -50,44 +55,51 @@ public class BookModel {
     this.description = description;
   }
 
-  public boolean isStatus() {
-    return status;
+  public String getImage() {
+    return image;
   }
 
-  public void setStatus(boolean status) {
-    this.status = status;
+  public void setImage(String image) {
+    this.image = image;
   }
 
-  public Date getPublicationDate() {
-    return publicationDate;
-  }
-
-  public void setPublicationDate(Date publicationDate) {
-    this.publicationDate = publicationDate;
-  }
-
-  public Integer getQuantity() {
-    return quantity;
-  }
-
-  public void setQuantity(Integer quantity) {
-    this.quantity = quantity;
-  }
-
-  public Integer getQuantityInStock() {
-    return quantityInStock;
-  }
-
-  public void setQuantityInStock(Integer quantityInStock) {
-    this.quantityInStock = quantityInStock;
-  }
-
-  public float getPrice() {
+  public int getPrice() {
     return price;
   }
 
-  public void setPrice(float price) {
+  public void setPrice(int price) {
     this.price = price;
   }
 
+  public int getQuantity() {
+    return quantity;
+  }
+
+  public void setQuantity(int quantity) {
+    this.quantity = quantity;
+  }
+
+  public Status getStatus() {
+    return status;
+  }
+
+  public void setStatus(Status status) {
+    this.status = status;
+  }
+
+  public int getPublisherId() {
+    return publisherId;
+  }
+
+  public void setPublisherId(int publisherId) {
+    this.publisherId = publisherId;
+  }
+
+  public int getAuthorId() {
+    return authorId;
+  }
+
+  public void setAuthorId(int authorId) {
+    this.authorId = authorId;
+  }
 }
