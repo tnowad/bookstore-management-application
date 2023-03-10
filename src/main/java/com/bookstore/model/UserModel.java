@@ -1,127 +1,120 @@
 package com.bookstore.model;
 
-import java.sql.Date;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 public class UserModel {
-  private String accountId, firstName, lastName, email, phone, role;
-  private Date createdAt, updatedAt;
+    private int id;
+    private String username;
+    private String password;
+    private String status;
+    private String name;
+    private String email;
+    private String phone;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+    private String role;
+    
+    // Constructor
+   
+    
+    // Getters and setters
+    public int getId() {
+        return id;
+    }
+    
+    public UserModel(int id, String username, String password, String status, String name, String email, String phone,
+        LocalDateTime createdAt, LocalDateTime updatedAt, String role) {
+        }
+        
+        public UserModel(int int1, String string, String string2, String string3, String string4, String string5,
+        String string6, Timestamp timestamp, Timestamp timestamp2, String string7) {
+              this.id = id;
+              this.username = username;
+              this.password = password;
+              this.status = status;
+              this.name = name;
+              this.email = email;
+              this.phone = phone;
+              this.createdAt = createdAt;
+              this.updatedAt = updatedAt;
+              this.role = role;
+    }
 
-  public UserModel() {
-  }
-
-  public UserModel(String accountId, String firstName, String lastName, String email, String phone, String role,
-      Date createdAt, Date updatedAt) {
-    this.accountId = accountId;
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.email = email;
-    this.phone = phone;
-    this.role = role;
-    this.createdAt = createdAt;
-    this.updatedAt = updatedAt;
-  }
-
-  public String getAccountId() {
-    return this.accountId;
-  }
-
-  public void setAccountId(String accountId) {
-    this.accountId = accountId;
-  }
-
-  public String getFirstName() {
-    return this.firstName;
-  }
-
-  public void setFirstName(String firstName) {
-    this.firstName = firstName;
-  }
-
-  public String getLastName() {
-    return this.lastName;
-  }
-
-  public void setLastName(String lastName) {
-    this.lastName = lastName;
-  }
-
-  public String getEmail() {
-    return this.email;
-  }
-
-  public void setEmail(String email) {
-    this.email = email;
-  }
-
-  public String getPhone() {
-    return this.phone;
-  }
-
-  public void setPhone(String phone) {
-    this.phone = phone;
-  }
-
-  public String getRole() {
-    return this.role;
-  }
-
-  public void setRole(String role) {
-    this.role = role;
-  }
-
-  public Date getCreatedAt() {
-    return this.createdAt;
-  }
-
-  public void setCreatedAt(Date createdAt) {
-    this.createdAt = createdAt;
-  }
-
-  public Date getUpdatedAt() {
-    return this.updatedAt;
-  }
-
-  public void setUpdatedAt(Date updatedAt) {
-    this.updatedAt = updatedAt;
-  }
-
-  public UserModel accountId(String accountId) {
-    setAccountId(accountId);
-    return this;
-  }
-
-  public UserModel firstName(String firstName) {
-    setFirstName(firstName);
-    return this;
-  }
-
-  public UserModel lastName(String lastName) {
-    setLastName(lastName);
-    return this;
-  }
-
-  public UserModel email(String email) {
-    setEmail(email);
-    return this;
-  }
-
-  public UserModel phone(String phone) {
-    setPhone(phone);
-    return this;
-  }
-
-  public UserModel role(String role) {
-    setRole(role);
-    return this;
-  }
-
-  public UserModel createdAt(Date createdAt) {
-    setCreatedAt(createdAt);
-    return this;
-  }
-
-  public UserModel updatedAt(Date updatedAt) {
-    setUpdatedAt(updatedAt);
-    return this;
-  }
+    public void setId(int id) {
+        this.id = id;
+    }
+    
+    public String getUsername() {
+        return username;
+    }
+    
+    public void setUsername(String username) {
+        this.username = username;
+    }
+    
+    public String getPassword() {
+        return password;
+    }
+    
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    
+    public String getStatus() {
+        return status;
+    }
+    
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    
+    public String getName() {
+        return name;
+    }
+    
+    public void setName(String name) {
+        this.name = name;
+    }
+    
+    public String getEmail() {
+        return email;
+    }
+    
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    
+    public String getPhone() {
+        return phone;
+    }
+    
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+    
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+    
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+    
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+    
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+    
+    public String getRole() {
+        return role;
+    }
+    
+    public void setRole(String role) {
+        this.role = role;
+    }
 }
+

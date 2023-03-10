@@ -2,71 +2,40 @@ package com.bookstore.model;
 
 import java.sql.Date;
 
+import com.google.protobuf.Timestamp;
+
 public class PaymentModel {
-    private String paymentId, orderId;
-    private Date paymentDate;
-    private float paymentAmount;
+      private int id;
+    private int orderId;
+    private int userId;
+    private int amount;
+    private PaymentMethod paymentMethod;
+    private int paymentMethodId;
+    private PaymentStatus status;
+    private Timestamp createdAt;
+    private Timestamp updatedAt;
 
-    public PaymentModel() {
+    public  PaymentModel() {
     }
 
-    public PaymentModel(String paymentId, String orderId, Date paymentDate, float paymentAmount) {
-        this.paymentId = paymentId;
+    
+
+    public PaymentModel(int id, int orderId, int userId, int amount, PaymentMethod paymentMethod, int paymentMethodId,
+            PaymentStatus status, Timestamp createdAt, Timestamp updatedAt) {
+        this.id = id;
         this.orderId = orderId;
-        this.paymentDate = paymentDate;
-        this.paymentAmount = paymentAmount;
+        this.userId = userId;
+        this.amount = amount;
+        this.paymentMethod = paymentMethod;
+        this.paymentMethodId = paymentMethodId;
+        this.status = status;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 
-    public String getPaymentId() {
-        return this.paymentId;
-    }
 
-    public void setPaymentId(String paymentId) {
-        this.paymentId = paymentId;
-    }
 
-    public String getOrderId() {
-        return this.orderId;
+    public enum PaymentStatus {
+        PENDING
     }
-
-    public void setOrderId(String orderId) {
-        this.orderId = orderId;
-    }
-
-    public Date getPaymentDate() {
-        return this.paymentDate;
-    }
-
-    public void setPaymentDate(Date paymentDate) {
-        this.paymentDate = paymentDate;
-    }
-
-    public float getPaymentAmount() {
-        return this.paymentAmount;
-    }
-
-    public void setPaymentAmount(float paymentAmount) {
-        this.paymentAmount = paymentAmount;
-    }
-
-    public PaymentModel paymentId(String paymentId) {
-        setPaymentId(paymentId);
-        return this;
-    }
-
-    public PaymentModel orderId(String orderId) {
-        setOrderId(orderId);
-        return this;
-    }
-
-    public PaymentModel paymentDate(Date paymentDate) {
-        setPaymentDate(paymentDate);
-        return this;
-    }
-
-    public PaymentModel paymentAmount(float paymentAmount) {
-        setPaymentAmount(paymentAmount);
-        return this;
-    }
-
 }
