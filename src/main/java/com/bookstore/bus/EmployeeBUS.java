@@ -41,8 +41,12 @@ public class EmployeeBUS {
 
   public int addEmployee(int userId, int salary, EmployeeType employeeType, String contactInformation)
       throws ClassNotFoundException, SQLException {
+    if (userId < 0 || salary < 0 || contactInformation.isEmpty()) {
+      throw new IllegalArgumentException("Invalid input. Please check the input and try again.");
+    }
     EmployeeModel employeeModel = new EmployeeModel();
-    setEmployeeProperties(employeeModel, userId, salary, employeeType, contactInformation);
+    setEmployeeProperties(employeeModel, userId, salary,
+        employeeType != null ? employeeType : EmployeeType.EMPLOYEE_SALES, contactInformation);
     int added = EmployeeDAO.getInstance().insert(employeeModel);
     if (added == 1) {
       employeeList.add(employeeModel);
@@ -79,20 +83,16 @@ public class EmployeeBUS {
     if (userModel == null) {
       return 0;
     }
-    try {
-      int updated = EmployeeDAO.getInstance().delete(String.valueOf(employeeModel.getUserId()));
-      if (updated != 1) {
-        return 0;
-      }
-      userModel.setStatus(Status.DELETED);
-      updated = UserDAO.getInstance().update(userModel);
-      if (updated != 1) {
-        return 0;
-      }
-      return updated;
-    } catch (IllegalArgumentException ex) {
-      throw new RuntimeException("Failed to delete employee", ex);
+    int deleted = EmployeeDAO.getInstance().delete(String.valueOf(employeeModel.getUserId()));
+    if (deleted != 1) {
+      return 0;
     }
+    userModel.setStatus(Status.DELETED);
+    deleted = UserDAO.getInstance().update(userModel);
+    if (deleted != 1) {
+      return 0;
+    }
+    return deleted;
   }
 
   public ArrayList<EmployeeModel> searchEmployee(String value, String columns) {

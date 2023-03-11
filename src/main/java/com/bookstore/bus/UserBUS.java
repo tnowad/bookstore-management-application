@@ -69,12 +69,7 @@ public class UserBUS {
       setUserProperties(user, username, password, email, phone, role, status, name);
       int updated = UserDAO.getInstance().update(user);
       if (updated == 1) {
-        for (int i = 0; i < userList.size(); i++) {
-          UserModel u = userList.get(i);
-          if (u.getUsername().equals(username)) {
-            userList.set(i, user);
-          }
-        }
+        userList.replaceAll(usr -> usr.getUsername().equals(username) ? user : usr);
       }
       return updated;
     }
