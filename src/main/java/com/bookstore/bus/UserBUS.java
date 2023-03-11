@@ -9,16 +9,14 @@ import com.bookstore.model.UserModel.*;
 import com.bookstore.util.PasswordUtil;
 
 public class UserBUS {
-
   private ArrayList<UserModel> userList;
-  private static UserDAO manageUserDao = new UserDAO();
 
   public UserBUS() throws ClassNotFoundException, SQLException {
-    userList = manageUserDao.readDatabase();
+    userList = UserDAO.getInstance().readDatabase();
   }
 
   public void readDatabase() throws ClassNotFoundException, SQLException {
-    userList = manageUserDao.readDatabase();
+    userList = UserDAO.getInstance().readDatabase();
   }
 
   public UserModel getUserModel(String username) {
@@ -33,7 +31,7 @@ public class UserBUS {
   }
 
   public static UserModel login(String username, String password) throws SQLException, ClassNotFoundException {
-    UserModel userModel = manageUserDao.getAccountByUsername(username);
+    UserModel userModel = UserDAO.getInstance().getAccountByUsername(username);
     if (userModel != null && PasswordUtil.checkPassword(password, userModel.getPassword())) {
       return userModel;
     }
@@ -55,7 +53,7 @@ public class UserBUS {
       String name) throws ClassNotFoundException, SQLException {
     UserModel userModel = new UserModel();
     setUserProperties(userModel, username, password, email, phone, role, status, name);
-    int added = manageUserDao.insert(userModel);
+    int added = UserDAO.getInstance().insert(userModel);
     if (added == 1) {
       userList.add(userModel);
     }
@@ -64,12 +62,12 @@ public class UserBUS {
 
   public int updateUser(String username, String password, String email, String phone, Role role, Status status,
       String name) throws ClassNotFoundException, SQLException {
-    UserModel user = manageUserDao.getAccountByUsername(username);
+    UserModel user = UserDAO.getInstance().getAccountByUsername(username);
     if (user == null) {
       return 0;
     } else {
       setUserProperties(user, username, password, email, phone, role, status, name);
-      int updated = manageUserDao.update(user);
+      int updated = UserDAO.getInstance().update(user);
       if (updated == 1) {
         for (int i = 0; i < userList.size(); i++) {
           UserModel u = userList.get(i);
@@ -83,12 +81,12 @@ public class UserBUS {
   }
 
   public int deleteUser(String username) throws ClassNotFoundException, SQLException {
-    UserModel user = manageUserDao.getAccountByUsername(username);
+    UserModel user = UserDAO.getInstance().getAccountByUsername(username);
     if (user == null) {
       return 0;
     } else {
       user.setStatus(UserModel.Status.DELETED);
-      int updated = manageUserDao.update(user);
+      int updated = UserDAO.getInstance().update(user);
       if (updated == 1) {
         return updated;
       }
