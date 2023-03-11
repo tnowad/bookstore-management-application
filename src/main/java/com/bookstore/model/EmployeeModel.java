@@ -13,6 +13,9 @@ public class EmployeeModel {
     this.contactInformation = contactInformation;
   }
 
+  public EmployeeModel() {
+  }
+
   public int getUserId() {
     return userId;
   }

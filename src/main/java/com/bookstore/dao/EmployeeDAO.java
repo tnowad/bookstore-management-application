@@ -97,4 +97,19 @@ public class EmployeeDAO implements DAOInterface<EmployeeModel> {
       }
     }
   }
+
+  public EmployeeModel getEmployeeById(int id) throws SQLException, ClassNotFoundException {
+    String query = "SELECT * FROM employees WHERE user_id = ?";
+    Object[] args = { id };
+    try (PreparedStatement pst = DatabaseConnect.getPreparedStatement(query, args)) {
+      try (ResultSet rs = pst.executeQuery()) {
+        if (rs.next()) {
+          return createEmployeeModelFromResultSet(rs);
+        }
+      }
+    } catch (SQLException e) {
+      throw e;
+    }
+    return null;
+  }
 }

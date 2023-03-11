@@ -31,7 +31,7 @@ public class UserBUS {
   }
 
   public static UserModel login(String username, String password) throws SQLException, ClassNotFoundException {
-    UserModel userModel = UserDAO.getInstance().getAccountByUsername(username);
+    UserModel userModel = UserDAO.getInstance().getUserByUsername(username);
     if (userModel != null && PasswordUtil.checkPassword(password, userModel.getPassword())) {
       return userModel;
     }
@@ -62,7 +62,7 @@ public class UserBUS {
 
   public int updateUser(String username, String password, String email, String phone, Role role, Status status,
       String name) throws ClassNotFoundException, SQLException {
-    UserModel user = UserDAO.getInstance().getAccountByUsername(username);
+    UserModel user = UserDAO.getInstance().getUserByUsername(username);
     if (user == null) {
       return 0;
     } else {
@@ -81,7 +81,7 @@ public class UserBUS {
   }
 
   public int deleteUser(String username) throws ClassNotFoundException, SQLException {
-    UserModel user = UserDAO.getInstance().getAccountByUsername(username);
+    UserModel user = UserDAO.getInstance().getUserByUsername(username);
     if (user == null) {
       return 0;
     } else {
