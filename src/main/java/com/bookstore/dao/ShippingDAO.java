@@ -10,6 +10,10 @@ import com.bookstore.model.ShippingModel;
 
 public class ShippingDAO implements DAOInterface<ShippingModel> {
 
+  public static ShippingDAO getInstance() {
+    return new ShippingDAO();
+  }
+
   private ShippingModel createShippingModelFromResultSet(ResultSet rs) throws SQLException {
     return new ShippingModel(
         rs.getInt("id"),
@@ -34,14 +38,16 @@ public class ShippingDAO implements DAOInterface<ShippingModel> {
   @Override
   public int insert(ShippingModel shipping) throws SQLException, ClassNotFoundException {
     String insertSql = "INSERT INTO shipping (order_id, shipping_method, address_id, status) VALUES (?, ?, ?, ?)";
-    Object[] args = { shipping.getOrderId(), shipping.getShippingMethod(), shipping.getAddressId(), shipping.getStatus().name() };
+    Object[] args = { shipping.getOrderId(), shipping.getShippingMethod(), shipping.getAddressId(),
+        shipping.getStatus().name() };
     return DatabaseConnect.executeUpdate(insertSql, args);
   }
 
   @Override
   public int update(ShippingModel shipping) throws SQLException, ClassNotFoundException {
     String updateSql = "UPDATE shipping SET shipping_method = ?, address_id = ?, status = ? WHERE id = ?";
-    Object[] args = { shipping.getShippingMethod(), shipping.getAddressId(), shipping.getStatus().name(), shipping.getId() };
+    Object[] args = { shipping.getShippingMethod(), shipping.getAddressId(), shipping.getStatus().name(),
+        shipping.getId() };
     return DatabaseConnect.executeUpdate(updateSql, args);
   }
 

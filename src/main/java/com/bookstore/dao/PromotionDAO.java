@@ -10,6 +10,10 @@ import com.bookstore.model.PromotionModel;
 
 public class PromotionDAO implements DAOInterface<PromotionModel> {
 
+  public static PromotionDAO getInstance() {
+    return new PromotionDAO();
+  }
+
   private PromotionModel createPromotionModelFromResultSet(ResultSet rs) throws SQLException {
     return new PromotionModel(
         rs.getInt("id"),

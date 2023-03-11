@@ -5,7 +5,6 @@ public class CategoryModel {
     private String name;
 
     public CategoryModel() {
-
     }
 
     public CategoryModel(int id, String name) {
@@ -13,15 +12,30 @@ public class CategoryModel {
         this.name = name;
     }
 
-    public CategoryModel(String name) {
-        this.name = name;
+    public int getId() {
+        return this.id;
     }
 
-    public int getId() {
-        return id;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public CategoryModel id(int id) {
+        setId(id);
+        return this;
+    }
+
+    public CategoryModel name(String name) {
+        setName(name);
+        return this;
+    }
+
 }

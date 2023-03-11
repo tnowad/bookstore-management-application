@@ -30,7 +30,6 @@ public class BookModel {
     this.authorId = authorId;
   }
 
-  // Getters & Setters
   public String getIsbn() {
     return isbn;
   }

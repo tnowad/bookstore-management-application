@@ -9,6 +9,10 @@ import com.bookstore.model.PublisherModel;
 
 public class PublisherDAO implements DAOInterface<PublisherModel> {
 
+  public static PublisherDAO getInstance() {
+    return new PublisherDAO();
+  }
+
   private PublisherModel createPublisherModelFromResultSet(ResultSet rs) throws SQLException {
     return new PublisherModel(
         rs.getInt("id"),

@@ -10,6 +10,10 @@ import com.bookstore.model.ProviderModel;
 
 public class ProviderDAO implements DAOInterface<ProviderModel> {
 
+  public static ProviderDAO getInstance() {
+    return new ProviderDAO();
+  }
+
   private ProviderModel createProviderModelFromResultSet(ResultSet rs) throws SQLException {
     return new ProviderModel(
         rs.getInt("id"),
