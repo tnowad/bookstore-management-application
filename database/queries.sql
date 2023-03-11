@@ -87,25 +87,10 @@ INSERT INTO
         contact_information
     )
 VALUES (
-        1,
-        5000,
-        'employee_manager',
-        '123 Main St, Anytown USA'
-    ), (
-        2,
-        4000,
-        'employee_sales',
-        '456 Maple Ave, Somewhere USA'
-    ), (
         3,
-        3500,
-        'employee_inventory',
-        '789 Oak St, Nowhere USA'
-    ), (
-        4,
-        3000,
-        'employee_order',
-        '246 Elm St, Anytown USA'
+        5000,
+        'employee_manage',
+        '123 Main St, Anytown USA'
     );
 
 INSERT INTO
