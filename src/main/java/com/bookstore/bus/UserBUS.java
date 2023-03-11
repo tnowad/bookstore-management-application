@@ -94,7 +94,7 @@ public class UserBUS {
     }
   }
 
-  public ArrayList<UserModel> search(String value, String columns) {
+  public ArrayList<UserModel> searchUser(String value, String columns) {
     ArrayList<UserModel> results = new ArrayList<>();
     for (UserModel userModel : userList) {
       if (checkUserValue(userModel, value, columns)) {
