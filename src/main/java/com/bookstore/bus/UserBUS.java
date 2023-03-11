@@ -2,105 +2,75 @@ package com.bookstore.bus;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import com.bookstore.dao.UserDAO;
 import com.bookstore.model.UserModel;
-import com.bookstore.model.UserModel.*;
 import com.bookstore.util.PasswordUtil;
 
-public class UserBUS {
-  private ArrayList<UserModel> userList;
+public class UserBUS extends BUSAbstract<UserModel> {
 
   public UserBUS() throws ClassNotFoundException, SQLException {
-    userList = UserDAO.getInstance().readDatabase();
+    super();
   }
 
-  public void readDatabase() throws ClassNotFoundException, SQLException {
-    userList = UserDAO.getInstance().readDatabase();
+  @Override
+  protected ArrayList<UserModel> readDatabase() throws ClassNotFoundException, SQLException {
+    return UserDAO.getInstance().readDatabase();
   }
 
-  public UserModel getUserModel(String username) {
-    if (userList != null) {
-      for (UserModel userModel : userList) {
-        if (userModel.getUsername().equals(username)) {
-          return userModel;
-        }
-      }
-    }
-    return null;
+  @Override
+  protected int getId(UserModel userModel) {
+    return userModel.getId();
   }
 
-  public static UserModel login(String username, String password) throws SQLException, ClassNotFoundException {
-    UserModel userModel = UserDAO.getInstance().getUserByUsername(username);
-    if (userModel != null && PasswordUtil.checkPassword(password, userModel.getPassword())) {
-      return userModel;
-    }
-    return null;
+  protected UserModel createModel(UserModel userModel) {
+    String username = userModel.getUsername();
+    String password = userModel.getPassword();
+    String email = userModel.getEmail();
+    String phone = userModel.getPhone();
+    UserModel.Role role = userModel.getRole();
+    UserModel.Status status = userModel.getStatus();
+    String name = userModel.getName();
+    return new UserModel(-1, username, password, status, name, email, phone, null, null, role);
   }
 
-  private void setUserProperties(UserModel userModel, String username, String password, String email, String phone,
-      Role role, Status status, String name) {
-    userModel.setUsername(username);
-    userModel.setPassword(password);
-    userModel.setEmail(email);
-    userModel.setPhone(phone);
-    userModel.setRole(role);
-    userModel.setStatus(status);
-    userModel.setName(name);
+  @Override
+  protected int insert(UserModel userModel) throws ClassNotFoundException, SQLException {
+    return UserDAO.getInstance().insert(userModel);
   }
 
-  public int addUser(String username, String password, String email, String phone, Role role, Status status,
-      String name) throws ClassNotFoundException, SQLException {
-    UserModel userModel = new UserModel();
-    setUserProperties(userModel, username, password, email, phone, role, status, name);
-    int added = UserDAO.getInstance().insert(userModel);
-    if (added == 1) {
-      userList.add(userModel);
-    }
-    return added;
+  @Override
+  protected void copyProperties(UserModel currentUserModel, UserModel newUserModel) {
+    currentUserModel.setUsername(newUserModel.getUsername());
+    currentUserModel.setPassword(newUserModel.getPassword());
+    currentUserModel.setEmail(newUserModel.getEmail());
+    currentUserModel.setPhone(newUserModel.getPhone());
+    currentUserModel.setRole(newUserModel.getRole());
+    currentUserModel.setStatus(newUserModel.getStatus());
+    currentUserModel.setName(newUserModel.getName());
   }
 
-  public int updateUser(String username, String password, String email, String phone, Role role, Status status,
-      String name) throws ClassNotFoundException, SQLException {
-    UserModel user = UserDAO.getInstance().getUserByUsername(username);
-    if (user == null) {
-      return 0;
+  @Override
+  protected int updateModel(UserModel userModel) throws ClassNotFoundException, SQLException {
+    return UserDAO.getInstance().update(userModel);
+  }
+
+  @Override
+  protected int deleteModel(String id) throws ClassNotFoundException, SQLException {
+    int deletedRows = UserDAO.getInstance().delete(id);
+    if (deletedRows > 0) {
+      UserModel userModel = new UserModel(Integer.parseInt(id), "", "", null, "", "", "", null, null, null);
+      return UserDAO.getInstance().update(userModel);
     } else {
-      setUserProperties(user, username, password, email, phone, role, status, name);
-      int updated = UserDAO.getInstance().update(user);
-      if (updated == 1) {
-        userList.replaceAll(usr -> usr.getUsername().equals(username) ? user : usr);
-      }
-      return updated;
-    }
-  }
-
-  public int deleteUser(String username) throws ClassNotFoundException, SQLException {
-    UserModel user = UserDAO.getInstance().getUserByUsername(username);
-    if (user == null) {
-      return 0;
-    } else {
-      user.setStatus(UserModel.Status.DELETED);
-      int updated = UserDAO.getInstance().update(user);
-      if (updated == 1) {
-        return updated;
-      }
       return 0;
     }
   }
 
-  public ArrayList<UserModel> searchUser(String value, String columns) {
-    ArrayList<UserModel> results = new ArrayList<>();
-    for (UserModel userModel : userList) {
-      if (checkUserValue(userModel, value, columns)) {
-        results.add(userModel);
-      }
-    }
-    return results;
-  }
-
-  private boolean checkUserValue(UserModel userModel, String value, String columns) {
-    switch (columns.toLowerCase()) {
+  @Override
+  protected boolean checkValue(UserModel userModel, String value, String column) {
+    switch (column.toLowerCase()) {
       case "username":
         return userModel.getUsername().equalsIgnoreCase(value);
       case "status":
@@ -114,24 +84,20 @@ public class UserBUS {
       case "role":
         return userModel.getRole().toString().equalsIgnoreCase(value);
       default:
-        return checkAllColumns(userModel, value);
+        return false;
     }
   }
 
-  private boolean checkAllColumns(UserModel userModel, String value) {
-    return String.valueOf(userModel.getId()).equals(value)
-        || userModel.getUsername().toLowerCase().contains(value.toLowerCase())
-        || userModel.getPassword().toLowerCase().contains(value.toLowerCase())
-        || userModel.getStatus().toString().toLowerCase().contains(value.toLowerCase())
-        || userModel.getName().toLowerCase().contains(value.toLowerCase())
-        || userModel.getEmail().toLowerCase().contains(value.toLowerCase())
-        || userModel.getPhone().equals(value)
-        || userModel.getCreatedAt().toString().contains(value)
-        || userModel.getUpdatedAt().toString().contains(value)
-        || userModel.getRole().toString().toLowerCase().contains(value.toLowerCase());
+  public UserModel login(String username, String password) throws SQLException, ClassNotFoundException {
+    UserModel userModel = UserDAO.getInstance().getUserByUsername(username);
+    if (userModel != null && PasswordUtil.checkPassword(password, userModel.getPassword())) {
+      return userModel;
+    }
+    return null;
   }
 
-  public ArrayList<UserModel> getUserList() {
-    return userList;
+  public List<UserModel> getUserList() throws ClassNotFoundException, SQLException {
+    return Collections.unmodifiableList(readDatabase());
   }
+
 }

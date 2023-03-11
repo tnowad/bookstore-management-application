@@ -31,6 +31,13 @@ public class EmployeeBUS {
     return null;
   }
 
+  // public EmployeeModel getEmployeeModel(int userId) {
+  // return employeeList.stream()
+  // .filter(employee -> employee.getUserId() == userId)
+  // .findFirst()
+  // .orElse(null);
+  // }
+
   private void setEmployeeProperties(EmployeeModel employeeModel, int userId, int salary, EmployeeType employeeType,
       String contactInformation) {
     employeeModel.setUserId(userId);
@@ -63,6 +70,8 @@ public class EmployeeBUS {
       setEmployeeProperties(employeeModel, userId, salary, employeeType, contactInformation);
       int updated = EmployeeDAO.getInstance().update(employeeModel);
       if (updated == 1) {
+        // employeeList.replaceAll(emp -> emp.getUserId() == userId ? employeeModel :
+        // emp);
         for (int i = 0; i < employeeList.size(); i++) {
           EmployeeModel e = employeeList.get(i);
           if (e.getUserId() == userId) {

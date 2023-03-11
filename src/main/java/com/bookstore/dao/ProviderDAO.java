@@ -93,4 +93,15 @@ public class ProviderDAO implements DAOInterface<ProviderModel> {
       }
     }
   }
+
+  public ProviderModel getProviderById(int id) throws SQLException, ClassNotFoundException {
+    String query = "SELECT * FROM providers WHERE id = ?";
+    Object[] args = { id };
+    try (PreparedStatement pst = DatabaseConnect.getPreparedStatement(query, args); ResultSet rs = pst.executeQuery()) {
+      if (rs.next()) {
+        return createProviderModelFromResultSet(rs);
+      }
+    }
+    return null;
+  }
 }
