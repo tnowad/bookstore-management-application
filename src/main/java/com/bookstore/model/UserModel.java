@@ -1,52 +1,91 @@
 package com.bookstore.model;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 public class UserModel {
-  private String accountId, firstName, lastName, email, phone, role;
-  private Date createdAt, updatedAt;
+  private int id;
+  private String username;
+  private String password;
+  private Status status;
+  private String name;
+  private String email;
+  private String phone;
+  private Timestamp createdAt;
+  private Timestamp updatedAt;
+  private Role role;
+
+  public enum Status {
+    ACTIVE,
+    INACTIVE,
+    BANNED,
+    DELETED
+  }
+
+  public enum Role {
+    CUSTOMER,
+    EMPLOYEE,
+    ADMIN
+  }
 
   public UserModel() {
   }
 
-  public UserModel(String accountId, String firstName, String lastName, String email, String phone, String role,
-      Date createdAt, Date updatedAt) {
-    this.accountId = accountId;
-    this.firstName = firstName;
-    this.lastName = lastName;
+  public UserModel(int id, String username, String password, Status status, String name, String email, String phone,
+      Timestamp createdAt, Timestamp updatedAt, Role role) {
+    this.id = id;
+    this.username = username;
+    this.password = password;
+    this.status = status;
+    this.name = name;
     this.email = email;
     this.phone = phone;
-    this.role = role;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
+    this.role = role;
   }
 
-  public String getAccountId() {
-    return this.accountId;
+  public int getId() {
+    return id;
   }
 
-  public void setAccountId(String accountId) {
-    this.accountId = accountId;
+  public void setId(int id) {
+    this.id = id;
   }
 
-  public String getFirstName() {
-    return this.firstName;
+  public String getUsername() {
+    return username;
   }
 
-  public void setFirstName(String firstName) {
-    this.firstName = firstName;
+  public void setUsername(String username) {
+    this.username = username;
   }
 
-  public String getLastName() {
-    return this.lastName;
+  public String getPassword() {
+    return password;
   }
 
-  public void setLastName(String lastName) {
-    this.lastName = lastName;
+  public void setPassword(String password) {
+    this.password = password;
+  }
+
+  public Status getStatus() {
+    return status;
+  }
+
+  public void setStatus(Status status) {
+    this.status = status;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
   }
 
   public String getEmail() {
-    return this.email;
+    return email;
   }
 
   public void setEmail(String email) {
@@ -54,74 +93,34 @@ public class UserModel {
   }
 
   public String getPhone() {
-    return this.phone;
+    return phone;
   }
 
   public void setPhone(String phone) {
     this.phone = phone;
   }
 
-  public String getRole() {
-    return this.role;
+  public Timestamp getCreatedAt() {
+    return createdAt;
   }
 
-  public void setRole(String role) {
-    this.role = role;
-  }
-
-  public Date getCreatedAt() {
-    return this.createdAt;
-  }
-
-  public void setCreatedAt(Date createdAt) {
+  public void setCreatedAt(Timestamp createdAt) {
     this.createdAt = createdAt;
   }
 
-  public Date getUpdatedAt() {
-    return this.updatedAt;
+  public Timestamp getUpdatedAt() {
+    return updatedAt;
   }
 
-  public void setUpdatedAt(Date updatedAt) {
+  public void setUpdatedAt(Timestamp updatedAt) {
     this.updatedAt = updatedAt;
   }
 
-  public UserModel accountId(String accountId) {
-    setAccountId(accountId);
-    return this;
+  public Role getRole() {
+    return role;
   }
 
-  public UserModel firstName(String firstName) {
-    setFirstName(firstName);
-    return this;
-  }
-
-  public UserModel lastName(String lastName) {
-    setLastName(lastName);
-    return this;
-  }
-
-  public UserModel email(String email) {
-    setEmail(email);
-    return this;
-  }
-
-  public UserModel phone(String phone) {
-    setPhone(phone);
-    return this;
-  }
-
-  public UserModel role(String role) {
-    setRole(role);
-    return this;
-  }
-
-  public UserModel createdAt(Date createdAt) {
-    setCreatedAt(createdAt);
-    return this;
-  }
-
-  public UserModel updatedAt(Date updatedAt) {
-    setUpdatedAt(updatedAt);
-    return this;
+  public void setRole(Role role) {
+    this.role = role;
   }
 }

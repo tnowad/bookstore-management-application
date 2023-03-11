@@ -1,68 +1,40 @@
 package com.bookstore.model;
 
 public class AuthorModel {
-    private String name, nationality, authorID, ISBN;
+  private int id;
+  private String name;
+  private String description;
 
-    public AuthorModel() {
-    }
+  public AuthorModel() {
+  }
 
-    public AuthorModel(String name, String nationality, String authorID, String ISBN) {
-        this.name = name;
-        this.nationality = nationality;
-        this.authorID = authorID;
-        this.ISBN = ISBN;
-    }
+  public AuthorModel(int id, String name, String description) {
+    this.id = id;
+    this.name = name;
+    this.description = description;
+  }
 
-    public String getName() {
-        return this.name;
-    }
+  public int getId() {
+    return id;
+  }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  public void setId(int id) {
+    this.id = id;
+  }
 
-    public String getNationality() {
-        return this.nationality;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public void setNationality(String nationality) {
-        this.nationality = nationality;
-    }
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    public String getAuthorID() {
-        return this.authorID;
-    }
+  public String getDescription() {
+    return description;
+  }
 
-    public void setAuthorID(String authorID) {
-        this.authorID = authorID;
-    }
-
-    public String getISBN() {
-        return this.ISBN;
-    }
-
-    public void setISBN(String ISBN) {
-        this.ISBN = ISBN;
-    }
-
-    public AuthorModel name(String name) {
-        setName(name);
-        return this;
-    }
-
-    public AuthorModel nationality(String nationality) {
-        setNationality(nationality);
-        return this;
-    }
-
-    public AuthorModel authorID(String authorID) {
-        setAuthorID(authorID);
-        return this;
-    }
-
-    public AuthorModel ISBN(String ISBN) {
-        setISBN(ISBN);
-        return this;
-    }
-
+  public void setDescription(String description) {
+    this.description = description;
+  }
 }

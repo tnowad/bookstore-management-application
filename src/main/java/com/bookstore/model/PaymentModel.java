@@ -1,72 +1,109 @@
 package com.bookstore.model;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 
 public class PaymentModel {
-    private String paymentId, orderId;
-    private Date paymentDate;
-    private float paymentAmount;
+  private int id;
+  private int orderId;
+  private int userId;
+  private int amount;
+  private PaymentMethod paymentMethod;
+  private int paymentMethodId;
+  private PaymentStatus status;
+  private LocalDateTime createdAt;
+  private LocalDateTime updatedAt;
 
-    public PaymentModel() {
-    }
+  public PaymentModel(int id, int orderId, int userId, int amount, PaymentMethod paymentMethod, int paymentMethodId,
+      PaymentStatus status, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    super();
+    this.id = id;
+    this.orderId = orderId;
+    this.userId = userId;
+    this.amount = amount;
+    this.paymentMethod = paymentMethod;
+    this.paymentMethodId = paymentMethodId;
+    this.status = status;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
+  }
 
-    public PaymentModel(String paymentId, String orderId, Date paymentDate, float paymentAmount) {
-        this.paymentId = paymentId;
-        this.orderId = orderId;
-        this.paymentDate = paymentDate;
-        this.paymentAmount = paymentAmount;
-    }
+  public int getId() {
+    return id;
+  }
 
-    public String getPaymentId() {
-        return this.paymentId;
-    }
+  public void setId(int id) {
+    this.id = id;
+  }
 
-    public void setPaymentId(String paymentId) {
-        this.paymentId = paymentId;
-    }
+  public int getOrderId() {
+    return orderId;
+  }
 
-    public String getOrderId() {
-        return this.orderId;
-    }
+  public void setOrderId(int orderId) {
+    this.orderId = orderId;
+  }
 
-    public void setOrderId(String orderId) {
-        this.orderId = orderId;
-    }
+  public int getUserId() {
+    return userId;
+  }
 
-    public Date getPaymentDate() {
-        return this.paymentDate;
-    }
+  public void setUserId(int userId) {
+    this.userId = userId;
+  }
 
-    public void setPaymentDate(Date paymentDate) {
-        this.paymentDate = paymentDate;
-    }
+  public int getAmount() {
+    return amount;
+  }
 
-    public float getPaymentAmount() {
-        return this.paymentAmount;
-    }
+  public void setAmount(int amount) {
+    this.amount = amount;
+  }
 
-    public void setPaymentAmount(float paymentAmount) {
-        this.paymentAmount = paymentAmount;
-    }
+  public PaymentMethod getPaymentMethod() {
+    return paymentMethod;
+  }
 
-    public PaymentModel paymentId(String paymentId) {
-        setPaymentId(paymentId);
-        return this;
-    }
+  public void setPaymentMethod(PaymentMethod paymentMethod) {
+    this.paymentMethod = paymentMethod;
+  }
 
-    public PaymentModel orderId(String orderId) {
-        setOrderId(orderId);
-        return this;
-    }
+  public int getPaymentMethodId() {
+    return paymentMethodId;
+  }
 
-    public PaymentModel paymentDate(Date paymentDate) {
-        setPaymentDate(paymentDate);
-        return this;
-    }
+  public void setPaymentMethodId(int paymentMethodId) {
+    this.paymentMethodId = paymentMethodId;
+  }
 
-    public PaymentModel paymentAmount(float paymentAmount) {
-        setPaymentAmount(paymentAmount);
-        return this;
-    }
+  public PaymentStatus getStatus() {
+    return status;
+  }
 
+  public void setStatus(PaymentStatus status) {
+    this.status = status;
+  }
+
+  public LocalDateTime getCreatedAt() {
+    return createdAt;
+  }
+
+  public void setCreatedAt(LocalDateTime createdAt) {
+    this.createdAt = createdAt;
+  }
+
+  public LocalDateTime getUpdatedAt() {
+    return updatedAt;
+  }
+
+  public void setUpdatedAt(LocalDateTime updatedAt) {
+    this.updatedAt = updatedAt;
+  }
+
+  public enum PaymentMethod {
+    CASH
+  }
+
+  public enum PaymentStatus {
+    PENDING
+  }
 }

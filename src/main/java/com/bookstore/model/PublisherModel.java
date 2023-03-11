@@ -1,24 +1,26 @@
 package com.bookstore.model;
 
 public class PublisherModel {
-  private String location, name, ISBN, publisherId;
+  private int id;
+  private String name;
+  private String description;
 
   public PublisherModel() {
+
   }
 
-  public PublisherModel(String location, String name, String iSBN, String publisherId) {
-    this.location = location;
+  public PublisherModel(int id, String name, String description) {
+    this.id = id;
     this.name = name;
-    this.ISBN = iSBN;
-    this.publisherId = publisherId;
+    this.description = description;
   }
 
-  public String getLocation() {
-    return location;
+  public int getId() {
+    return id;
   }
 
-  public void setLocation(String location) {
-    this.location = location;
+  public void setId(int id) {
+    this.id = id;
   }
 
   public String getName() {
@@ -29,20 +31,11 @@ public class PublisherModel {
     this.name = name;
   }
 
-  public String getISBN() {
-    return ISBN;
+  public String getDescription() {
+    return description;
   }
 
-  public void setISBN(String iSBN) {
-    ISBN = iSBN;
+  public void setDescription(String description) {
+    this.description = description;
   }
-
-  public String getPublisherId() {
-    return publisherId;
-  }
-
-  public void setPublisherId(String publisherId) {
-    this.publisherId = publisherId;
-  }
-
 }

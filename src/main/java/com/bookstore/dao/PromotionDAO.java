@@ -6,31 +6,32 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.bookstore.model.PromotionsModel;
+import com.bookstore.model.PromotionModel;
 
-public class PromotionDAO implements DAOInterface<PromotionsModel> {
+public class PromotionDAO implements DAOInterface<PromotionModel> {
+
   public static PromotionDAO getInstance() {
     return new PromotionDAO();
   }
 
-  private PromotionsModel createPromotionsModelFromResultSet(ResultSet rs) throws SQLException {
-    return new PromotionsModel(
-        rs.getString("promotionId"),
-        rs.getInt("amount"),
-        rs.getDate("endDate"),
-        rs.getDate("startDate"),
-        rs.getString("offerDescription"),
-        rs.getString("promotionType"),
-        rs.getString("invoiceID"),
-        rs.getFloat("discountAmount"));
+  private PromotionModel createPromotionModelFromResultSet(ResultSet rs) throws SQLException {
+    return new PromotionModel(
+        rs.getInt("id"),
+        rs.getString("description"),
+        rs.getInt("quantity"),
+        rs.getDate("start_date"),
+        rs.getDate("end_date"),
+        rs.getString("condition_apply"),
+        rs.getInt("discount_percent"),
+        rs.getInt("discount_amount"));
   }
 
   @Override
-  public ArrayList<PromotionsModel> readDatabase() throws SQLException, ClassNotFoundException {
-    ArrayList<PromotionsModel> promotionList = new ArrayList<>();
-    try (ResultSet rs = DatabaseConnect.executeQuery("SELECT * from promotion")) {
+  public ArrayList<PromotionModel> readDatabase() throws SQLException, ClassNotFoundException {
+    ArrayList<PromotionModel> promotionList = new ArrayList<>();
+    try (ResultSet rs = DatabaseConnect.executeQuery("SELECT * FROM promotions")) {
       while (rs.next()) {
-        PromotionsModel promotionModel = createPromotionsModelFromResultSet(rs);
+        PromotionModel promotionModel = createPromotionModelFromResultSet(rs);
         promotionList.add(promotionModel);
       }
     }
@@ -38,47 +39,59 @@ public class PromotionDAO implements DAOInterface<PromotionsModel> {
   }
 
   @Override
-  public int insert(PromotionsModel promotion) throws SQLException, ClassNotFoundException {
-    String insertSql = "INSERT INTO promotion "
-        + "(promotion_id, amount, end_date, start_date, offer_description, promotion_type, invoice_id, discount_amount) "
-        + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-    Object[] args = { promotion.getPromotionId(), promotion.getAmount(), promotion.getEndDate(),
-        promotion.getStartDate(), promotion.getOfferDescription(), promotion.getPromotionType(),
-        promotion.getInvoiceId(), promotion.getDiscountAmount() };
+  public int insert(PromotionModel promotion) throws SQLException, ClassNotFoundException {
+    String insertSql = "INSERT INTO promotions "
+        + "(description, quantity, start_date, end_date, condition_apply, discount_percent, discount_amount)"
+        + " VALUES (?, ?, ?, ?, ?, ?, ?)";
+    Object[] args = {
+        promotion.getDescription(),
+        promotion.getQuantity(),
+        promotion.getStartDate(),
+        promotion.getEndDate(),
+        promotion.getConditionApply(),
+        promotion.getDiscountPercent(),
+        promotion.getDiscountAmount()
+    };
     return DatabaseConnect.executeUpdate(insertSql, args);
   }
 
   @Override
-  public int update(PromotionsModel promotion) throws SQLException, ClassNotFoundException {
-    String updateSql = "UPDATE promotion SET amount = ?, end_date = ?, start_date = ?, "
-        + "offer_description = ?, promotion_type = ?, invoice_id = ?, discount_amount = ? WHERE promotion_id = ?";
-    Object[] args = { promotion.getAmount(), promotion.getEndDate(), promotion.getStartDate(),
-        promotion.getOfferDescription(), promotion.getPromotionType(), promotion.getInvoiceId(),
-        promotion.getDiscountAmount(), promotion.getPromotionId() };
+  public int update(PromotionModel promotion) throws SQLException, ClassNotFoundException {
+    String updateSql = "UPDATE promotions SET description = ?, quantity = ?, start_date = ?, end_date = ?, condition_apply = ?, [...] WHERE id = ?";
+    Object[] args = {
+        promotion.getDescription(),
+        promotion.getQuantity(),
+        promotion.getStartDate(),
+        promotion.getEndDate(),
+        promotion.getConditionApply(),
+        promotion.getDiscountPercent(),
+        promotion.getDiscountAmount(),
+        promotion.getId()
+    };
     return DatabaseConnect.executeUpdate(updateSql, args);
   }
 
   @Override
-  public int delete(String promotion_id) throws SQLException, ClassNotFoundException {
-    String deleteQuery = "DELETE FROM promotion WHERE promotion_id = ?";
-    Object[] args = { promotion_id };
-    return DatabaseConnect.executeUpdate(deleteQuery, args);
+  public int delete(String id) throws SQLException, ClassNotFoundException {
+    String deleteSql = "DELETE FROM promotions WHERE id = ?";
+    Object[] args = { id };
+    return DatabaseConnect.executeUpdate(deleteSql, args);
   }
 
   @Override
-  public List<PromotionsModel> searchByCondition(String condition) throws SQLException, ClassNotFoundException {
-    String query = "SELECT * FROM promotion";
+  public List<PromotionModel> searchByCondition(String condition) throws SQLException, ClassNotFoundException {
+    String query = "SELECT * FROM promotions";
     if (condition != null && !condition.isEmpty()) {
       query += " WHERE " + condition;
     }
     try (ResultSet rs = DatabaseConnect.executeQuery(query)) {
-      List<PromotionsModel> promotionList = new ArrayList<>();
+      List<PromotionModel> promotionList = new ArrayList<>();
       while (rs.next()) {
-        PromotionsModel promotionModel = createPromotionsModelFromResultSet(rs);
+        PromotionModel promotionModel = createPromotionModelFromResultSet(rs);
         promotionList.add(promotionModel);
       }
       if (promotionList.isEmpty()) {
-        throw new SQLException("No promotions found for the given condition: " + condition);
+        System.out.println("No records found for the given condition: " + condition);
       }
       return promotionList;
     } catch (SQLException e) {
@@ -87,22 +100,21 @@ public class PromotionDAO implements DAOInterface<PromotionsModel> {
   }
 
   @Override
-  public List<PromotionsModel> searchByCondition(String condition, String columnName)
+  public List<PromotionModel> searchByCondition(String condition, String columnName)
       throws SQLException, ClassNotFoundException {
-    String query = "SELECT * FROM promotion WHERE " + columnName + " LIKE ?";
+    String query = "SELECT * FROM promotions WHERE " + columnName + " LIKE ?";
     try (PreparedStatement pst = DatabaseConnect.getPreparedStatement(query, "%" + condition + "%")) {
       try (ResultSet rs = pst.executeQuery()) {
-        List<PromotionsModel> promotionList = new ArrayList<>();
+        List<PromotionModel> promotionList = new ArrayList<>();
         while (rs.next()) {
-          PromotionsModel promotionModel = createPromotionsModelFromResultSet(rs);
+          PromotionModel promotionModel = createPromotionModelFromResultSet(rs);
           promotionList.add(promotionModel);
         }
         if (promotionList.isEmpty()) {
-          System.out.println("No records found for the given condition: " + condition);
+          throw new SQLException("No records found for the given condition: " + condition);
         }
         return promotionList;
       }
     }
   }
-
 }

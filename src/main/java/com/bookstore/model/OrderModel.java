@@ -1,71 +1,103 @@
 package com.bookstore.model;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 
 public class OrderModel {
-  private String shippingInformation;
-  private Date orderDate;
-  private String invoiceId, ISBN, userId, orderId;
+  private int id;
+  private int cart_id;
+  private int customer_id;
+  private int employee_id;
+  private int total;
+  private int paid;
+  private LocalDateTime created_at;
+  private LocalDateTime updated_at;
+  private Status status;
 
-  public OrderModel() {
+  public enum Status {
+    PENDING;
   }
 
-  public OrderModel(String shippingInformation, Date orderDate, String invoiceId, String iSBN, String userId,
-      String orderId) {
-    this.shippingInformation = shippingInformation;
-    this.orderDate = orderDate;
-    this.invoiceId = invoiceId;
-    ISBN = iSBN;
-    this.userId = userId;
-    this.orderId = orderId;
+  public OrderModel(int cart_id, int customer_id, int employee_id, int total, int paid, LocalDateTime created_at,
+      LocalDateTime updated_at, Status status) {
+    this.cart_id = cart_id;
+    this.customer_id = customer_id;
+    this.employee_id = employee_id;
+    this.total = total;
+    this.paid = paid;
+    this.created_at = created_at;
+    this.updated_at = updated_at;
+    this.status = status;
   }
 
-  public String getShippingInformation() {
-    return shippingInformation;
+  public int getId() {
+    return id;
   }
 
-  public void setShippingInformation(String shippingInformation) {
-    this.shippingInformation = shippingInformation;
+  public void setId(int id) {
+    this.id = id;
   }
 
-  public Date getOrderDate() {
-    return orderDate;
+  public int getCart_id() {
+    return cart_id;
   }
 
-  public void setOrderDate(Date orderDate) {
-    this.orderDate = orderDate;
+  public void setCart_id(int cart_id) {
+    this.cart_id = cart_id;
   }
 
-  public String getInvoiceId() {
-    return invoiceId;
+  public int getCustomer_id() {
+    return customer_id;
   }
 
-  public void setInvoiceId(String invoiceId) {
-    this.invoiceId = invoiceId;
+  public void setCustomer_id(int customer_id) {
+    this.customer_id = customer_id;
   }
 
-  public String getISBN() {
-    return ISBN;
+  public int getEmployee_id() {
+    return employee_id;
   }
 
-  public void setISBN(String iSBN) {
-    ISBN = iSBN;
+  public void setEmployee_id(int employee_id) {
+    this.employee_id = employee_id;
   }
 
-  public String getUserId() {
-    return userId;
+  public int getTotal() {
+    return total;
   }
 
-  public void setUserId(String userId) {
-    this.userId = userId;
+  public void setTotal(int total) {
+    this.total = total;
   }
 
-  public String getOrderId() {
-    return orderId;
+  public int getPaid() {
+    return paid;
   }
 
-  public void setOrderId(String orderId) {
-    this.orderId = orderId;
+  public void setPaid(int paid) {
+    this.paid = paid;
   }
 
+  public LocalDateTime getCreated_at() {
+    return created_at;
+  }
+
+  public void setCreated_at(LocalDateTime created_at) {
+    this.created_at = created_at;
+  }
+
+  public LocalDateTime getUpdated_at() {
+    return updated_at;
+  }
+
+  public void setUpdated_at(LocalDateTime updated_at) {
+    this.updated_at = updated_at;
+  }
+
+  public Status getStatus() {
+    return status;
+  }
+
+  public void setStatus(Status status) {
+    this.status = status;
+  }
 }

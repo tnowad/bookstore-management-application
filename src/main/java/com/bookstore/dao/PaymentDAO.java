@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.bookstore.model.PaymentModel;
+import com.bookstore.model.PaymentModel.*;
 
 public class PaymentDAO implements DAOInterface<PaymentModel> {
 
@@ -15,20 +16,26 @@ public class PaymentDAO implements DAOInterface<PaymentModel> {
   }
 
   private PaymentModel createPaymentModelFromResultSet(ResultSet rs) throws SQLException {
-    return new PaymentModel(
-        rs.getString("paymentId"),
-        rs.getString("orderId"),
-        rs.getDate("paymentDate"),
-        rs.getFloat("paymentAmount"));
+    PaymentModel paymentModel = new PaymentModel(
+        rs.getInt("id"),
+        rs.getInt("order_id"),
+        rs.getInt("user_id"),
+        rs.getInt("amount"),
+        PaymentMethod.valueOf(rs.getString("payment_method")),
+        rs.getInt("payment_method_id"),
+        PaymentStatus.valueOf(rs.getString("status")),
+        rs.getTimestamp("created_at").toLocalDateTime(),
+        rs.getTimestamp("updated_at").toLocalDateTime());
+    return paymentModel;
   }
 
   @Override
   public ArrayList<PaymentModel> readDatabase() throws SQLException, ClassNotFoundException {
     ArrayList<PaymentModel> paymentList = new ArrayList<>();
-    try (ResultSet rs = DatabaseConnect.executeQuery("SELECT * FROM `payments`")) {
+    try (ResultSet rs = DatabaseConnect.executeQuery("SELECT * FROM payments")) {
       while (rs.next()) {
-        PaymentModel payment = createPaymentModelFromResultSet(rs);
-        paymentList.add(payment);
+        PaymentModel paymentModel = createPaymentModelFromResultSet(rs);
+        paymentList.add(paymentModel);
       }
     }
     return paymentList;
@@ -36,27 +43,32 @@ public class PaymentDAO implements DAOInterface<PaymentModel> {
 
   @Override
   public int insert(PaymentModel payment) throws SQLException, ClassNotFoundException {
-    String insertSql = "INSERT INTO `payments` (`payment_id`, `order_id`, `payment_date`, `payment_amount`) VALUES (?, ?, ?, ?)";
-    Object[] args = { payment.getPaymentId(), payment.getOrderId(), payment.getPaymentDate(),
-        payment.getPaymentAmount() };
+    String insertSql = "INSERT INTO payments (order_id, user_id, amount, payment_method, payment_method_id, status) VALUES (?, ?, ?, ?, ?, ?)";
+    Object[] args = { payment.getOrderId(), payment.getUserId(), payment.getAmount(),
+        payment.getPaymentMethod().toString(), payment.getPaymentMethodId(),
+        payment.getStatus().toString() };
     return DatabaseConnect.executeUpdate(insertSql, args);
   }
 
   @Override
   public int update(PaymentModel payment) throws SQLException, ClassNotFoundException {
-    String updateSql = "UPDATE `payments` SET `payment_date`=?, `payment_amount`=? WHERE `payment_id`=?";
-    Object[] args = { payment.getPaymentDate(), payment.getPaymentAmount(), payment.getPaymentId() };
+    String updateSql = "UPDATE payments SET order_id = ?, user_id = ?, amount = ?, payment_method = ?, payment_method_id = ?, status = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?";
+    Object[] args = { payment.getOrderId(), payment.getUserId(), payment.getAmount(),
+        payment.getPaymentMethod().toString(), payment.getPaymentMethodId(),
+        payment.getStatus().toString(), payment.getId() };
     return DatabaseConnect.executeUpdate(updateSql, args);
   }
 
   @Override
-  public int delete(String paymentId) throws SQLException, ClassNotFoundException {
-    String deleteSql = "DELETE FROM `payments` WHERE `payment_id`=?";
-    Object[] args = { paymentId };
+  public int delete(String id) throws SQLException, ClassNotFoundException {
+    String deleteSql = "DELETE FROM payments WHERE id = ?";
+    Object[] args = { id };
     return DatabaseConnect.executeUpdate(deleteSql, args);
   }
 
-  public List<PaymentModel> searchByCondition(String condition) throws SQLException, ClassNotFoundException {
+  @Override
+  public List<PaymentModel> searchByCondition(String condition)
+      throws SQLException, ClassNotFoundException {
     String query = "SELECT * FROM payments";
     if (condition != null && !condition.isEmpty()) {
       query += " WHERE " + condition;
@@ -79,11 +91,7 @@ public class PaymentDAO implements DAOInterface<PaymentModel> {
   @Override
   public List<PaymentModel> searchByCondition(String condition, String columnName)
       throws SQLException, ClassNotFoundException {
-    String query = "SELECT * FROM payment";
-    if (condition != null && !condition.isEmpty()) {
-      query += " WHERE " + condition;
-    }
-    query += " ORDER BY " + columnName;
+    String query = "SELECT * FROM payments WHERE " + columnName + " LIKE ?";
     try (PreparedStatement pst = DatabaseConnect.getPreparedStatement(query, "%" + condition + "%")) {
       try (ResultSet rs = pst.executeQuery()) {
         List<PaymentModel> paymentList = new ArrayList<>();
@@ -92,11 +100,11 @@ public class PaymentDAO implements DAOInterface<PaymentModel> {
           paymentList.add(paymentModel);
         }
         if (paymentList.isEmpty()) {
-          throw new SQLException("No records found for the given condition: " + condition);
+          throw new SQLException(
+              "No records found for the given condition: " + condition);
         }
         return paymentList;
       }
     }
   }
-
 }
