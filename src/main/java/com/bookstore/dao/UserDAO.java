@@ -56,17 +56,17 @@ public class UserDAO implements DAOInterface<UserModel> {
 
   @Override
   public int update(UserModel user) throws SQLException, ClassNotFoundException {
-    String updateSql = "UPDATE users SET username = ?, password = ?, status = ?, name = ?, email = ?, phone = ?, role = ? WHERE id = ?";
+    String updateSql = "UPDATE users SET password = ?, status = ?, name = ?, email = ?, phone = ?, role = ? WHERE username = ?";
     Object[] args = { user.getUsername(), user.getPassword(), user.getStatus().toString().toLowerCase(),
         user.getName(), user.getEmail(), user.getPhone(), user.getRole().toString().toLowerCase(), user.getId() };
     return DatabaseConnect.executeUpdate(updateSql, args);
   }
 
   @Override
-  public int delete(String id) throws SQLException, ClassNotFoundException {
-    String deleteSql = "DELETE FROM users WHERE id = ?";
-    Object[] args = { id };
-    return DatabaseConnect.executeUpdate(deleteSql, args);
+  public int delete(String username) throws SQLException, ClassNotFoundException {
+    String updateStatusSql = "UPDATE users SET status = ? WHERE username = ?";
+    Object[] args = { UserModel.Status.DELETED, username };
+    return DatabaseConnect.executeUpdate(updateStatusSql, args);
   }
 
   @Override
@@ -115,4 +115,18 @@ public class UserDAO implements DAOInterface<UserModel> {
       }
     }
   }
+
+  public UserModel getAccountByUsername(String username) throws SQLException, ClassNotFoundException {
+    String query = "SELECT * FROM users WHERE username = ?";
+    Object[] args = { username };
+
+    try (PreparedStatement pst = DatabaseConnect.getPreparedStatement(query, args); ResultSet rs = pst.executeQuery()) {
+      if (rs.next()) {
+        return createUserModelFromResultSet(rs);
+      }
+    }
+
+    return null;
+  }
+
 }

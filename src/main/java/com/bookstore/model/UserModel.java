@@ -17,13 +17,17 @@ public class UserModel {
   public enum Status {
     ACTIVE,
     INACTIVE,
-    BANNED
+    BANNED,
+    DELETED
   }
 
   public enum Role {
     CUSTOMER,
     EMPLOYEE,
     ADMIN
+  }
+
+  public UserModel() {
   }
 
   public UserModel(int id, String username, String password, Status status, String name, String email, String phone,
