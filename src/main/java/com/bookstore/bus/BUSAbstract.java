@@ -4,47 +4,109 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public abstract class BUSAbstract<T> {
-  private ArrayList<T> models;
+
+  private ArrayList<T> models; // list of models fetched from the database
 
   /**
-   * Constructor for BUSAbstract class that initializes models ArrayList
-   * with the data imported from readDatabase function.
+   * Constructor. Initializes models ArrayList with results of readDatabase().
    *
-   * @throws ClassNotFoundException if the specified database driver cannot be
-   *                                found
-   * @throws SQLException           if a database access error occurs
+   * @throws ClassNotFoundException If the JDBC driver cannot be found.
+   * @throws SQLException           If there is an error connecting to the
+   *                                database or executing a query.
    */
   protected BUSAbstract() throws ClassNotFoundException, SQLException {
     this.models = readDatabase();
   }
 
   /**
-   * This method is used to read data from the database and store it into an
-   * ArrayList of T type.
+   * Abstract method. Fetches all models from database and returns them as an
+   * ArrayList.
    *
-   * @return an ArrayList containing objects of T type
-   * @throws ClassNotFoundException if the specified database driver cannot be
-   *                                found
-   * @throws SQLException           if a database access error occurs
+   * @return ArrayList of all models in database.
+   * @throws ClassNotFoundException If the JDBC driver cannot be found.
+   * @throws SQLException           If there is an error connecting to the
+   *                                database or executing a query.
    */
   protected abstract ArrayList<T> readDatabase() throws ClassNotFoundException, SQLException;
 
   /**
-   * Method to get the T object's id value.
+   * Abstract method. Gets the ID of a model object.
    *
-   * @param t The T object which the id is to be returned
-   * @return the id value of the provided model
+   * @param t Model object.
+   * @return ID of the model object.
    */
   protected abstract int getId(T t);
 
   /**
-   * Add new object of T type to the database using an object T.
+   * Abstract method. Creates a new model object.
    *
-   * @param t object of T type to be added
-   * @return 1 if record added successfully otherwise 0
-   * @throws ClassNotFoundException if the specified database driver cannot be
-   *                                found
-   * @throws SQLException           if a database access error occurs
+   * @param t Model object.
+   * @return Newly created model object.
+   */
+  protected abstract T createModel(T t);
+
+  /**
+   * Abstract method. Inserts a new row into the database for a given model.
+   *
+   * @param model Model object.
+   * @return Number of rows affected by the insert statement.
+   * @throws ClassNotFoundException If the JDBC driver cannot be found.
+   * @throws SQLException           If there is an error connecting to the
+   *                                database or executing a query.
+   */
+  protected abstract int insert(T model) throws ClassNotFoundException, SQLException;
+
+  /**
+   * Abstract method. Updates an existing model row in the database.
+   *
+   * @param model Model object.
+   * @return Number of rows affected by the update statement.
+   * @throws ClassNotFoundException If the JDBC driver cannot be found.
+   * @throws SQLException           If there is an error connecting to the
+   *                                database or executing a query.
+   */
+  protected abstract int updateModel(T model) throws ClassNotFoundException, SQLException;
+
+  /**
+   * Abstract method. Deletes a model row from the database.
+   *
+   * @param id ID of the model to delete.
+   * @return Number of rows affected by the delete statement.
+   * @throws ClassNotFoundException If the JDBC driver cannot be found.
+   * @throws SQLException           If there is an error connecting to the
+   *                                database or executing a query.
+   */
+  protected abstract int deleteModel(String id) throws ClassNotFoundException, SQLException;
+
+  /**
+   * Checks whether a given value exists in a specified column for a model.
+   *
+   * @param t       Model object.
+   * @param value   Value to check for.
+   * @param columns Comma-separated list of columns to search.
+   * @return True if the value exists, false otherwise.
+   */
+  protected boolean checkValue(T t, String value, String columns) {
+    return false;
+  }
+
+  /**
+   * Copies properties from one model object to another.
+   *
+   * @param currentModel Current model object.
+   * @param newModel     New model object.
+   */
+  protected void copyProperties(T currentModel, T newModel) {
+  }
+
+  /**
+   * Adds a new model to the database and models ArrayList.
+   *
+   * @param t New model object.
+   * @return Number of rows affected by the insert statement.
+   * @throws ClassNotFoundException If the JDBC driver cannot be found.
+   * @throws SQLException           If there is an error connecting to the
+   *                                database or executing a query.
    */
   public int add(T t) throws ClassNotFoundException, SQLException {
     int added = insert(t);
@@ -55,36 +117,13 @@ public abstract class BUSAbstract<T> {
   }
 
   /**
-   * Creates a new T object from the given T instance.
-   * This method should be implemented by subclasses to initialize the properties
-   * of
-   * the created model based on the provided arguments.
-   * 
-   * @param t an instance of T to use as the basis for creating a new object
-   * @return a newly created and fully initialized instance of T
-   */
-  protected abstract T createModel(T t);
-
-  /**
-   * Inserts the provided model into database, returns 1 if successful
-   * 0 or negative value on failure.
+   * Updates an existing model in the database and models ArrayList.
    *
-   * @param model object of T type to be inserted
-   * @return 1 if record inserted successfully otherwise 0 or negative values
-   * @throws ClassNotFoundException if the specified database driver cannot be
-   *                                found
-   * @throws SQLException           if a database access error occurs
-   */
-  protected abstract int insert(T model) throws ClassNotFoundException, SQLException;
-
-  /**
-   * Update an existing entry in the database using an object T.
-   *
-   * @param t object of T type to update an existing record
-   * @return 1 if a record updated successfully, 0 otherwise
-   * @throws ClassNotFoundException if the specified database driver cannot be
-   *                                found
-   * @throws SQLException           if a database access error occurs
+   * @param t Model object to update.
+   * @return Number of rows affected by the update statement.
+   * @throws ClassNotFoundException If the JDBC driver cannot be found.
+   * @throws SQLException           If there is an error connecting to the
+   *                                database or executing a query.
    */
   public int update(T t) throws ClassNotFoundException, SQLException {
     T currentModelToUpdate = getModel(getId(t));
@@ -108,33 +147,13 @@ public abstract class BUSAbstract<T> {
   }
 
   /**
-   * Copy property values from updated entity into existing entity.
+   * Deletes a model from the database and models ArrayList.
    *
-   * @param currentModel Existing entity model
-   * @param newModle     Updated entity model
-   */
-  protected void copyProperties(T currentModel, T newModel) {
-  }
-
-  /**
-   * Updates a record in the database based on provided object T.
-   *
-   * @param model An object of T type referring the content to modify record
-   * @return 1 if a record updated successfully otherwise 0
-   * @throws ClassNotFoundException if the specified database driver cannot be
-   *                                found
-   * @throws SQLException           if a database access error occurs
-   */
-  protected abstract int updateModel(T model) throws ClassNotFoundException, SQLException;
-
-  /**
-   * Delete a record in the database based on the provide object identifier
-   *
-   * @param modelId identifier of specific object T that holds content to delete.
-   * @return 1 if deleted successfully otherwise 0
-   * @throws ClassNotFoundException if the specified database driver cannot be
-   *                                found
-   * @throws SQLException           if a database access error occurs
+   * @param modelId ID of the model to delete.
+   * @return Number of rows affected by the delete statement.
+   * @throws ClassNotFoundException If the JDBC driver cannot be found.
+   * @throws SQLException           If there is an error connecting to the
+   *                                database or executing a query.
    */
   public int delete(int modelId) throws ClassNotFoundException, SQLException {
     T model = getModel(modelId);
@@ -150,24 +169,11 @@ public abstract class BUSAbstract<T> {
   }
 
   /**
-   * Deletes a record from the database based on supplied identifier.
+   * Searches for models with a given value in a specified column.
    *
-   * @param id identifier of the record to be deleted
-   * @return 1 if record deleted successfully otherwise 0
-   * @throws ClassNotFoundException if the specified database driver cannot be
-   *                                found
-   * @throws SQLException           if a database access error occurs
-   */
-  protected abstract int deleteModel(String id) throws ClassNotFoundException, SQLException;
-
-  /**
-   * Search records in the database matching provided value
-   * with given columns.
-   *
-   * @param value   String of search value e.g a name
-   * @param columns String of comma-separated column names to search within e,g
-   *                "name, author"
-   * @return an array list of matching records (ArrayList<T>) from the database
+   * @param value   Value to search for.
+   * @param columns Comma-separated list of columns to search in.
+   * @return ArrayList of all matching models.
    */
   public ArrayList<T> search(String value, String columns) {
     ArrayList<T> results = new ArrayList<>();
@@ -180,22 +186,10 @@ public abstract class BUSAbstract<T> {
   }
 
   /**
-   * Check if a record has provided value exists in given column(s).
+   * Gets the model with a given ID from models ArrayList.
    *
-   * @param t       the object to check string against
-   * @param value   value to search
-   * @param columns columns to look into.
-   * @return true if the record matches the search criteria, false otherwise
-   */
-  protected boolean checkValue(T t, String value, String columns) {
-    return false;
-  };
-
-  /**
-   * Retrieve an object of T type from the provided model identifier.
-   *
-   * @param modelId identifier for the model to retrieve
-   * @return a T object if found and null if not found
+   * @param modelId ID of the model to retrieve.
+   * @return Model object with the given ID, or null if not found.
    */
   public T getModel(int modelId) {
     if (models != null) {
@@ -209,9 +203,9 @@ public abstract class BUSAbstract<T> {
   }
 
   /**
-   * Get all object models from ArrayList <T>.
+   * Gets all models from models ArrayList.
    *
-   * @return ArrayList<T> containing all model instances.
+   * @return ArrayList of all models.
    */
   public ArrayList<T> getModels() {
     return models;
