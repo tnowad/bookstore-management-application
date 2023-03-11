@@ -64,7 +64,6 @@ public class LoginUI {
     setBackground();
     initGroupContent();
     initGroupLogo();
-
   }
 
   private void initGroupLogo() {
@@ -230,7 +229,6 @@ public class LoginUI {
   private void initFrame() {
     frame.setPreferredSize(new Dimension(1100, 550));
     frame.setMinimumSize(new Dimension(700, 600));
-    // frame.setMaximumSize(new Dimension(1200, 650));
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.pack();
     frame.setLocationRelativeTo(null);
