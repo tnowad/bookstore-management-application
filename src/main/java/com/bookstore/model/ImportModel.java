@@ -11,6 +11,9 @@ public class ImportModel {
   private Timestamp createdAt;
   private Timestamp updatedAt;
 
+  public ImportModel() {
+  }
+
   public ImportModel(int id, int providerId, int employeeId, BigDecimal totalPrice, Timestamp createdAt,
       Timestamp updatedAt) {
     this.id = id;
@@ -55,5 +58,47 @@ public class ImportModel {
 
   public Timestamp getUpdatedAt() {
     return updatedAt;
+  }
+
+  public void setId(int id) {
+    this.id = id;
+  }
+
+  public void setCreatedAt(Timestamp createdAt) {
+    this.createdAt = createdAt;
+  }
+
+  public void setUpdatedAt(Timestamp updatedAt) {
+    this.updatedAt = updatedAt;
+  }
+
+  public ImportModel id(int id) {
+    setId(id);
+    return this;
+  }
+
+  public ImportModel providerId(int providerId) {
+    setProviderId(providerId);
+    return this;
+  }
+
+  public ImportModel employeeId(int employeeId) {
+    setEmployeeId(employeeId);
+    return this;
+  }
+
+  public ImportModel totalPrice(BigDecimal totalPrice) {
+    setTotalPrice(totalPrice);
+    return this;
+  }
+
+  public ImportModel createdAt(Timestamp createdAt) {
+    setCreatedAt(createdAt);
+    return this;
+  }
+
+  public ImportModel updatedAt(Timestamp updatedAt) {
+    setUpdatedAt(updatedAt);
+    return this;
   }
 }

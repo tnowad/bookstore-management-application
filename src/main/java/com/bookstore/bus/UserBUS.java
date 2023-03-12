@@ -38,8 +38,9 @@ public class UserBUS extends BUSAbstract<UserModel> {
   }
 
   @Override
-  protected UserModel mapToEntity(UserModel to) {
-    updateEntityFields(to, to);
+  protected UserModel mapToEntity(UserModel from) {
+    UserModel to = new UserModel();
+    updateEntityFields(from, to);
     return to;
   }
 

@@ -32,8 +32,9 @@ public class EmployeeBUS extends BUSAbstract<EmployeeModel> {
   }
 
   @Override
-  protected EmployeeModel mapToEntity(EmployeeModel to) {
-    updateEntityFields(to, to);
+  protected EmployeeModel mapToEntity(EmployeeModel from) {
+    EmployeeModel to = new EmployeeModel();
+    updateEntityFields(from, to);
     return to;
   }
 
@@ -50,7 +51,11 @@ public class EmployeeBUS extends BUSAbstract<EmployeeModel> {
       case "user_id":
         return employeeModel.getUserId() == Integer.parseInt(value);
       case "salary":
-        return employeeModel.getSalary() == Integer.parseInt(value);
+        int salaryValue = Integer.parseInt(value);
+        if (salaryValue <= 0) {
+          throw new IllegalArgumentException("Invalid salary value: must be greater than zero!");
+        }
+        return employeeModel.getSalary() == salaryValue;
       case "employee_type":
         return employeeModel.getEmployeeType().toString().toLowerCase().equals(value.toLowerCase());
       case "contact_information":

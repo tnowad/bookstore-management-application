@@ -29,8 +29,9 @@ public class ProviderBUS extends BUSAbstract<ProviderModel> {
   }
 
   @Override
-  protected ProviderModel mapToEntity(ProviderModel to) {
-    updateEntityFields(to, to);
+  protected ProviderModel mapToEntity(ProviderModel from) {
+    ProviderModel to = new ProviderModel();
+    updateEntityFields(from, to);
     return to;
   }
 

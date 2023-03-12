@@ -17,6 +17,9 @@ public class BookModel {
     DELETED;
   }
 
+  public BookModel() {
+  }
+
   public BookModel(String isbn, String title, String description, String image, int price, int quantity,
       Status status, int publisherId, int authorId) {
     this.isbn = isbn;

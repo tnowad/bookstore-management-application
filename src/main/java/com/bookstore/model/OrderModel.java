@@ -1,6 +1,6 @@
 package com.bookstore.model;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 public class OrderModel {
   private int id;
@@ -9,16 +9,19 @@ public class OrderModel {
   private int employee_id;
   private int total;
   private int paid;
-  private LocalDateTime created_at;
-  private LocalDateTime updated_at;
+  private Timestamp created_at;
+  private Timestamp updated_at;
   private Status status;
 
   public enum Status {
     PENDING;
   }
 
-  public OrderModel(int cart_id, int customer_id, int employee_id, int total, int paid, LocalDateTime created_at,
-      LocalDateTime updated_at, Status status) {
+  public OrderModel() {
+  }
+
+  public OrderModel(int cart_id, int customer_id, int employee_id, int total, int paid, Timestamp created_at,
+      Timestamp updated_at, Status status) {
     this.cart_id = cart_id;
     this.customer_id = customer_id;
     this.employee_id = employee_id;
@@ -77,19 +80,19 @@ public class OrderModel {
     this.paid = paid;
   }
 
-  public LocalDateTime getCreated_at() {
+  public Timestamp getCreated_at() {
     return created_at;
   }
 
-  public void setCreated_at(LocalDateTime created_at) {
+  public void setCreated_at(Timestamp created_at) {
     this.created_at = created_at;
   }
 
-  public LocalDateTime getUpdated_at() {
+  public Timestamp getUpdated_at() {
     return updated_at;
   }
 
-  public void setUpdated_at(LocalDateTime updated_at) {
+  public void setUpdated_at(Timestamp updated_at) {
     this.updated_at = updated_at;
   }
 

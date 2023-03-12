@@ -4,7 +4,6 @@ import com.bookstore.model.OrderModel;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,8 +20,8 @@ public class OrderDAO implements DAOInterface<OrderModel> {
         rs.getInt("employee_id"),
         rs.getInt("total"),
         rs.getInt("paid"),
-        rs.getTimestamp("created_at").toLocalDateTime(),
-        rs.getTimestamp("updated_at").toLocalDateTime(),
+        rs.getTimestamp("created_at"),
+        rs.getTimestamp("updated_at"),
         OrderModel.Status.valueOf(rs.getString("status")));
   }
 
@@ -44,21 +43,19 @@ public class OrderDAO implements DAOInterface<OrderModel> {
 
   @Override
   public int insert(OrderModel order) throws SQLException, ClassNotFoundException {
-    String insertSql = "INSERT INTO orders (cart_id, customer_id, employee_id, total, paid, created_at, updated_at, status)"
-        + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    String insertSql = "INSERT INTO orders (cart_id, customer_id, employee_id, total, paid, status)"
+        + "VALUES (?, ?, ?, ?, ?, ?)";
     Object[] args = { order.getCart_id(), order.getCustomer_id(), order.getEmployee_id(), order.getTotal(),
-        order.getPaid(), Timestamp.valueOf(order.getCreated_at()), Timestamp.valueOf(order.getUpdated_at()),
-        order.getStatus().name() };
+        order.getPaid(), order.getStatus().name() };
     return DatabaseConnect.executeUpdate(insertSql, args);
   }
 
   @Override
   public int update(OrderModel order) throws SQLException, ClassNotFoundException {
-    String updateSql = "UPDATE orders SET cart_id=?, customer_id=?, employee_id=?, total=?, paid=?, created_at=?, "
-        + "updated_at=?, status=? WHERE id=?";
+    String updateSql = "UPDATE orders SET cart_id=?, customer_id=?, employee_id=?, total=?, paid=?, "
+        + "status=? WHERE id=?";
     Object[] args = { order.getCart_id(), order.getCustomer_id(), order.getEmployee_id(), order.getTotal(),
-        order.getPaid(), Timestamp.valueOf(order.getCreated_at()), Timestamp.valueOf(order.getUpdated_at()),
-        order.getStatus().name(), order.getId() };
+        order.getPaid(), order.getStatus().name(), order.getId() };
     return DatabaseConnect.executeUpdate(updateSql, args);
   }
 

@@ -176,7 +176,7 @@ public abstract class BUSAbstract<T> {
    * @throws IllegalArgumentException if either value or columns are null or
    *                                  empty.
    */
-  public List<T> search(String value, String columns) {
+  public List<T> search(String value, String columns) throws RuntimeException {
     if (value == null || value.isEmpty()) {
       throw new IllegalArgumentException(
           "Invalid input. Please make sure 'value' are not null or empty.");
