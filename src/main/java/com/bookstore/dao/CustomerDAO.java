@@ -47,7 +47,7 @@ public class CustomerDAO implements DAOInterface<CustomerModel> {
   }
 
   @Override
-  public int delete(String accountId) throws SQLException, ClassNotFoundException {
+  public int delete(int accountId) throws SQLException, ClassNotFoundException {
     String deleteSql = "DELETE c, s FROM customers c JOIN users s ON c.accountId = s.accountId WHERE c.accountId=?";
     Object[] args = { accountId };
     return DatabaseConnect.executeUpdate(deleteSql, args);

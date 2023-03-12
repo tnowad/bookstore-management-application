@@ -47,7 +47,7 @@ public class PublisherDAO implements DAOInterface<PublisherModel> {
   }
 
   @Override
-  public int delete(String id) throws SQLException, ClassNotFoundException {
+  public int delete(int id) throws SQLException, ClassNotFoundException {
     String deleteSql = "DELETE FROM publishers WHERE id = ?";
     Object[] args = { id };
     return DatabaseConnect.executeUpdate(deleteSql, args);

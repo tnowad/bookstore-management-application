@@ -54,7 +54,7 @@ public interface DAOInterface<Entity> {
    *                                errors
    * @throws ClassNotFoundException if driver class not found
    */
-  public int delete(String id) throws SQLException, ClassNotFoundException;
+  public int delete(int id) throws SQLException, ClassNotFoundException;
 
   /**
    * Searches the database table associated with this DAO for rows matching a

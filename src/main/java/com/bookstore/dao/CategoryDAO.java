@@ -43,7 +43,7 @@ public class CategoryDAO implements DAOInterface<CategoryModel> {
   }
 
   @Override
-  public int delete(String id) throws SQLException, ClassNotFoundException {
+  public int delete(int id) throws SQLException, ClassNotFoundException {
     String deleteSql = "DELETE FROM categories WHERE id = ?";
     Object[] args = { id };
     return DatabaseConnect.executeUpdate(deleteSql, args);

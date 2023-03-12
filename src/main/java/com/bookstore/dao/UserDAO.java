@@ -63,7 +63,7 @@ public class UserDAO implements DAOInterface<UserModel> {
   }
 
   @Override
-  public int delete(String username) throws SQLException, ClassNotFoundException {
+  public int delete(int username) throws SQLException, ClassNotFoundException {
     String updateStatusSql = "UPDATE users SET status = ? WHERE username = ?";
     Object[] args = { UserModel.Status.DELETED, username };
     return DatabaseConnect.executeUpdate(updateStatusSql, args);

@@ -48,7 +48,7 @@ public class AuthorDAO implements DAOInterface<AuthorModel> {
   }
 
   @Override
-  public int delete(String id) throws SQLException, ClassNotFoundException {
+  public int delete(int id) throws SQLException, ClassNotFoundException {
     String deleteSql = "DELETE FROM authors WHERE id = ?";
     Object[] args = { id };
     return DatabaseConnect.executeUpdate(deleteSql, args);

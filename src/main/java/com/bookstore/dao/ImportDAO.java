@@ -56,7 +56,7 @@ public class ImportDAO implements DAOInterface<ImportModel> {
   }
 
   @Override
-  public int delete(String id) throws SQLException, ClassNotFoundException {
+  public int delete(int id) throws SQLException, ClassNotFoundException {
     String deleteSql = "DELETE FROM imports WHERE id = ?";
     Object[] args = { id };
     return DatabaseConnect.executeUpdate(deleteSql, args);

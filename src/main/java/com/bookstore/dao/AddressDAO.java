@@ -53,7 +53,7 @@ public class AddressDAO implements DAOInterface<AddressModel> {
   }
 
   @Override
-  public int delete(String id) throws SQLException, ClassNotFoundException {
+  public int delete(int id) throws SQLException, ClassNotFoundException {
     String deleteSql = "DELETE FROM addresses WHERE id = ?";
     Object[] args = { id };
     return DatabaseConnect.executeUpdate(deleteSql, args);

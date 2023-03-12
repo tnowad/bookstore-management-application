@@ -56,7 +56,7 @@ public class BookDAO implements DAOInterface<BookModel> {
   }
 
   @Override
-  public int delete(String ISBN) throws SQLException, ClassNotFoundException {
+  public int delete(int ISBN) throws SQLException, ClassNotFoundException {
     String deleteSql = "DELETE FROM books WHERE isbn = ?";
     Object[] args = { ISBN };
     return DatabaseConnect.executeUpdate(deleteSql, args);

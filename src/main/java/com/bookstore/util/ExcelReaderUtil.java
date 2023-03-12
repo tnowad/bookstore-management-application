@@ -23,7 +23,6 @@ public class ExcelReaderUtil {
     }
     FileInputStream fileInputStream = new FileInputStream(file);
     Workbook workbook = WorkbookFactory.create(fileInputStream);
-
     Sheet sheet = workbook.getSheetAt(sheetIndex);
     Iterator<Row> rowIterator = sheet.iterator();
     while (rowIterator.hasNext()) {
