@@ -13,6 +13,9 @@ public class PaymentModel {
   private LocalDateTime createdAt;
   private LocalDateTime updatedAt;
 
+  public PaymentModel() {
+  }
+
   public PaymentModel(int id, int orderId, int userId, int amount, PaymentMethod paymentMethod, int paymentMethodId,
       PaymentStatus status, LocalDateTime createdAt, LocalDateTime updatedAt) {
     super();
@@ -106,4 +109,5 @@ public class PaymentModel {
   public enum PaymentStatus {
     PENDING
   }
+
 }

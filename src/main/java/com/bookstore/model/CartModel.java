@@ -10,6 +10,9 @@ public class CartModel {
   private Timestamp expires;
   private Integer promotionId;
 
+  public CartModel() {
+  }
+
   public CartModel(int id, int userId, Timestamp createdAt, Status status, Timestamp expires, Integer promotionId) {
     this.id = id;
     this.userId = userId;
@@ -71,6 +74,11 @@ public class CartModel {
     SHOPPING,
     PENDING,
     REJECT,
-    ACCEPT
+    ACCEPT;
+
+    // public boolean isEmpty() {
+    // return false;
+    // }
+
   }
 }

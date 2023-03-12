@@ -10,6 +10,9 @@ public class PaymentMethodModel {
   private LocalDate expirationDate;
   private int customerId;
 
+  public PaymentMethodModel() {
+  }
+
   public PaymentMethodModel(String paymentId, String cardNumber, String cardHolder,
       LocalDate expirationDate, int customerId) {
     this.paymentId = paymentId;
