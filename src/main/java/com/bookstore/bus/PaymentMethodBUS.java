@@ -71,7 +71,7 @@ public class PaymentMethodBUS extends BUSAbstract<PaymentMethodModel> {
     }
   }
 
-  protected boolean checkAllColumns(PaymentMethodModel paymentMethodModel, String value) {
+  private boolean checkAllColumns(PaymentMethodModel paymentMethodModel, String value) {
     return paymentMethodModel.getId() == Integer.parseInt(value)
         || paymentMethodModel.getPaymentId().equalsIgnoreCase(value)
         || paymentMethodModel.getCardNumber().equalsIgnoreCase(value)
@@ -81,7 +81,7 @@ public class PaymentMethodBUS extends BUSAbstract<PaymentMethodModel> {
   }
 
   @Override
-  protected int insertModel(PaymentMethodModel paymentMethodModel) throws SQLException, ClassNotFoundException {
+  public int insertModel(PaymentMethodModel paymentMethodModel) throws SQLException, ClassNotFoundException {
     if (paymentMethodModel.getPaymentId() == null || paymentMethodModel.getPaymentId().isEmpty()) {
       throw new IllegalArgumentException("Payment ID cannot be null or empty!");
     }
@@ -99,12 +99,12 @@ public class PaymentMethodBUS extends BUSAbstract<PaymentMethodModel> {
   }
 
   @Override
-  protected int updateModel(PaymentMethodModel paymentMethodModel) throws SQLException, ClassNotFoundException {
+  public int updateModel(PaymentMethodModel paymentMethodModel) throws SQLException, ClassNotFoundException {
     return update(paymentMethodModel);
   }
 
   @Override
-  protected int deleteModel(int id) throws SQLException, ClassNotFoundException {
+  public int deleteModel(int id) throws SQLException, ClassNotFoundException {
     return delete(id);
   }
 

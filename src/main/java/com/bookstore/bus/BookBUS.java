@@ -88,7 +88,7 @@ public class BookBUS extends BUSAbstract<BookModel> {
     }
   }
 
-  protected boolean checkAllColumns(BookModel bookModel, String value) {
+  private boolean checkAllColumns(BookModel bookModel, String value) {
     return bookModel.getIsbn().equals(value)
         || bookModel.getTitle().toLowerCase().contains(value.toLowerCase())
         || bookModel.getDescription().toLowerCase().contains(value.toLowerCase())
@@ -101,7 +101,7 @@ public class BookBUS extends BUSAbstract<BookModel> {
   }
 
   @Override
-  protected int insertModel(BookModel bookModel) throws SQLException, ClassNotFoundException {
+  public int insertModel(BookModel bookModel) throws SQLException, ClassNotFoundException {
     if (bookModel.getIsbn() == null || bookModel.getIsbn().isEmpty()) {
       throw new IllegalArgumentException("ISBN cannot be null or empty!");
     }
@@ -127,12 +127,12 @@ public class BookBUS extends BUSAbstract<BookModel> {
   }
 
   @Override
-  protected int updateModel(BookModel bookModel) throws SQLException, ClassNotFoundException {
+  public int updateModel(BookModel bookModel) throws SQLException, ClassNotFoundException {
     return update(bookModel);
   }
 
   @Override
-  protected int deleteModel(int isbn) throws SQLException, ClassNotFoundException {
+  public int deleteModel(int isbn) throws SQLException, ClassNotFoundException {
     return delete(isbn);
   }
 

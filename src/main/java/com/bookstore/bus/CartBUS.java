@@ -64,7 +64,7 @@ public class CartBUS extends BUSAbstract<CartModel> {
     }
   }
 
-  protected boolean checkAllColumns(CartModel cartModel, String value) {
+  private boolean checkAllColumns(CartModel cartModel, String value) {
     return cartModel.getId() == Integer.parseInt(value)
         || cartModel.getUserId() == Integer.parseInt(value)
         || cartModel.getStatus().toString().equalsIgnoreCase(value)
@@ -73,7 +73,7 @@ public class CartBUS extends BUSAbstract<CartModel> {
   }
 
   @Override
-  protected int insertModel(CartModel cartModel) throws SQLException, ClassNotFoundException {
+  public int insertModel(CartModel cartModel) throws SQLException, ClassNotFoundException {
     if (cartModel.getUserId() <= 0) {
       throw new IllegalArgumentException("User ID must be greater than 0!");
     }
@@ -84,12 +84,12 @@ public class CartBUS extends BUSAbstract<CartModel> {
   }
 
   @Override
-  protected int updateModel(CartModel cartModel) throws SQLException, ClassNotFoundException {
+  public int updateModel(CartModel cartModel) throws SQLException, ClassNotFoundException {
     return update(cartModel);
   }
 
   @Override
-  protected int deleteModel(int id) throws SQLException, ClassNotFoundException {
+  public int deleteModel(int id) throws SQLException, ClassNotFoundException {
     return delete(id);
   }
 

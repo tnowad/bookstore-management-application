@@ -74,7 +74,7 @@ public class PaymentBUS extends BUSAbstract<PaymentModel> {
     }
   }
 
-  protected boolean checkAllColumns(PaymentModel paymentModel, String value) {
+  private boolean checkAllColumns(PaymentModel paymentModel, String value) {
     return paymentModel.getId() == Integer.parseInt(value)
         || paymentModel.getOrderId() == Integer.parseInt(value)
         || paymentModel.getUserId() == Integer.parseInt(value)
@@ -87,7 +87,7 @@ public class PaymentBUS extends BUSAbstract<PaymentModel> {
   }
 
   @Override
-  protected int insertModel(PaymentModel paymentModel) throws SQLException, ClassNotFoundException {
+  public int insertModel(PaymentModel paymentModel) throws SQLException, ClassNotFoundException {
     if (paymentModel.getOrderId() <= 0) {
       throw new IllegalArgumentException("Order ID must be greater than 0!");
     }
@@ -104,12 +104,12 @@ public class PaymentBUS extends BUSAbstract<PaymentModel> {
   }
 
   @Override
-  protected int updateModel(PaymentModel paymentModel) throws SQLException, ClassNotFoundException {
+  public int updateModel(PaymentModel paymentModel) throws SQLException, ClassNotFoundException {
     return update(paymentModel);
   }
 
   @Override
-  protected int deleteModel(int id) throws SQLException, ClassNotFoundException {
+  public int deleteModel(int id) throws SQLException, ClassNotFoundException {
     return delete(id);
   }
 

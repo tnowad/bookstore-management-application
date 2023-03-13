@@ -54,13 +54,13 @@ public class CategoryBUS extends BUSAbstract<CategoryModel> {
     }
   }
 
-  protected boolean checkAllColumns(CategoryModel categoryModel, String value) {
+  private boolean checkAllColumns(CategoryModel categoryModel, String value) {
     return categoryModel.getId() == Integer.parseInt(value)
         || categoryModel.getName().toLowerCase().contains(value.toLowerCase());
   }
 
   @Override
-  protected int insertModel(CategoryModel categoryModel) throws SQLException, ClassNotFoundException {
+  public int insertModel(CategoryModel categoryModel) throws SQLException, ClassNotFoundException {
     if (categoryModel.getName() == null || categoryModel.getName().isEmpty()) {
       throw new IllegalArgumentException("Category name cannot be null or empty!");
     }
@@ -68,12 +68,12 @@ public class CategoryBUS extends BUSAbstract<CategoryModel> {
   }
 
   @Override
-  protected int updateModel(CategoryModel categoryModel) throws SQLException, ClassNotFoundException {
+  public int updateModel(CategoryModel categoryModel) throws SQLException, ClassNotFoundException {
     return update(categoryModel);
   }
 
   @Override
-  protected int deleteModel(int id) throws SQLException, ClassNotFoundException {
+  public int deleteModel(int id) throws SQLException, ClassNotFoundException {
     return delete(id);
   }
 

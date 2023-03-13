@@ -13,7 +13,7 @@ public abstract class BUSAbstract<T> {
    * @throws SQLException           if database error occurs
    * @throws ClassNotFoundException if class cannot be loaded from name
    */
-  protected BUSAbstract() throws SQLException, ClassNotFoundException {
+  public BUSAbstract() throws SQLException, ClassNotFoundException {
     this.models = readFromDatabase();
   }
 
@@ -50,7 +50,7 @@ public abstract class BUSAbstract<T> {
    * @throws SQLException           if database error occurs
    * @throws ClassNotFoundException if class cannot be loaded from name
    */
-  protected abstract int insertModel(T model) throws SQLException, ClassNotFoundException;
+  public abstract int insertModel(T model) throws SQLException, ClassNotFoundException;
 
   /**
    * Updates a model in the database
@@ -60,7 +60,7 @@ public abstract class BUSAbstract<T> {
    * @throws SQLException           if database error occurs
    * @throws ClassNotFoundException if class cannot be loaded from name
    */
-  protected abstract int updateModel(T model) throws SQLException, ClassNotFoundException;
+  public abstract int updateModel(T model) throws SQLException, ClassNotFoundException;
 
   /**
    * Deletes a model from the database
@@ -70,7 +70,7 @@ public abstract class BUSAbstract<T> {
    * @throws SQLException           if database error occurs
    * @throws ClassNotFoundException if class cannot be loaded from name
    */
-  protected abstract int deleteModel(int id) throws SQLException, ClassNotFoundException;
+  public abstract int deleteModel(int id) throws SQLException, ClassNotFoundException;
 
   /**
    * Checks if the given model passes a certain filter criteria

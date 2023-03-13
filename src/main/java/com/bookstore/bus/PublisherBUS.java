@@ -18,7 +18,7 @@ public class PublisherBUS extends BUSAbstract<PublisherModel> {
   }
 
   @Override
-  protected ArrayList<PublisherModel> readFromDatabase() throws SQLException, ClassNotFoundException {
+  public ArrayList<PublisherModel> readFromDatabase() throws SQLException, ClassNotFoundException {
     return publisherDAO.readDatabase();
   }
 
@@ -57,14 +57,14 @@ public class PublisherBUS extends BUSAbstract<PublisherModel> {
     }
   }
 
-  protected boolean checkAllColumns(PublisherModel publisherModel, String value) {
+  private boolean checkAllColumns(PublisherModel publisherModel, String value) {
     return publisherModel.getId() == Integer.parseInt(value)
         || publisherModel.getName().toLowerCase().contains(value.toLowerCase())
         || publisherModel.getDescription().toLowerCase().contains(value.toLowerCase());
   }
 
   @Override
-  protected int insertModel(PublisherModel publisherModel) throws SQLException, ClassNotFoundException {
+  public int insertModel(PublisherModel publisherModel) throws SQLException, ClassNotFoundException {
     if (publisherModel.getName() == null || publisherModel.getName().isEmpty()) {
       throw new IllegalArgumentException("Publisher name cannot be null or empty!");
     }
@@ -75,12 +75,12 @@ public class PublisherBUS extends BUSAbstract<PublisherModel> {
   }
 
   @Override
-  protected int updateModel(PublisherModel publisherModel) throws SQLException, ClassNotFoundException {
+  public int updateModel(PublisherModel publisherModel) throws SQLException, ClassNotFoundException {
     return update(publisherModel);
   }
 
   @Override
-  protected int deleteModel(int id) throws SQLException, ClassNotFoundException {
+  public int deleteModel(int id) throws SQLException, ClassNotFoundException {
     return delete(id);
   }
 
