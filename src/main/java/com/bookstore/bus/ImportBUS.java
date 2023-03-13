@@ -14,10 +14,9 @@ import com.bookstore.model.ImportModel;
 public class ImportBUS extends BUSAbstract<ImportModel> {
 
   private final List<ImportModel> importList = new ArrayList<>();
-  private final ImportDAO importDAO;
+  private final ImportDAO importDAO = ImportDAO.getInstance();
 
-  protected ImportBUS(ImportDAO importDAO) throws SQLException, ClassNotFoundException {
-    this.importDAO = importDAO;
+  public ImportBUS() throws SQLException, ClassNotFoundException {
     this.importList.addAll(importDAO.readDatabase());
   }
 
@@ -73,7 +72,7 @@ public class ImportBUS extends BUSAbstract<ImportModel> {
     }
   }
 
-  protected boolean checkAllColumns(ImportModel importModel, String value) {
+  private boolean checkAllColumns(ImportModel importModel, String value) {
     return importModel.getId() == Integer.parseInt(value)
         || importModel.getProviderId() == Integer.parseInt(value)
         || importModel.getEmployeeId() == Integer.parseInt(value)
@@ -81,7 +80,7 @@ public class ImportBUS extends BUSAbstract<ImportModel> {
   }
 
   @Override
-  protected int insertModel(ImportModel importModel) throws SQLException, ClassNotFoundException {
+  public int insertModel(ImportModel importModel) throws SQLException, ClassNotFoundException {
     if (importModel.getEmployeeId() <= 0) {
       throw new IllegalArgumentException("Employee id must be greater than 0!");
     }
@@ -95,7 +94,7 @@ public class ImportBUS extends BUSAbstract<ImportModel> {
   }
 
   @Override
-  protected int updateModel(ImportModel importModel) throws SQLException, ClassNotFoundException {
+  public int updateModel(ImportModel importModel) throws SQLException, ClassNotFoundException {
     if (importModel.getEmployeeId() < 0) {
       throw new IllegalArgumentException("Employee id must be greater than 0!");
     }
@@ -107,7 +106,7 @@ public class ImportBUS extends BUSAbstract<ImportModel> {
   }
 
   @Override
-  protected int deleteModel(int id) throws SQLException, ClassNotFoundException {
+  public int deleteModel(int id) throws SQLException, ClassNotFoundException {
     return delete(id);
   }
 

@@ -1,7 +1,6 @@
 package com.bookstore.bus;
 
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -12,10 +11,9 @@ import com.bookstore.model.PaymentModel;
 public class PaymentBUS extends BUSAbstract<PaymentModel> {
 
   private final List<PaymentModel> paymentList = new ArrayList<>();
-  private final PaymentDAO paymentDAO;
+  private final PaymentDAO paymentDAO = PaymentDAO.getInstance();
 
-  protected PaymentBUS(PaymentDAO paymentDAO) throws SQLException, ClassNotFoundException {
-    this.paymentDAO = paymentDAO;
+  public PaymentBUS() throws SQLException, ClassNotFoundException {
     this.paymentList.addAll(paymentDAO.readDatabase());
   }
 
@@ -66,19 +64,17 @@ public class PaymentBUS extends BUSAbstract<PaymentModel> {
       case "status":
         return paymentModel.getStatus().toString().equalsIgnoreCase(value);
       case "created_at":
-        // Assuming that the input value is a timestamp string in the format of
-        // "yyyy-MM-dd HH:mm:ss"
-        return paymentModel.getCreatedAt().equals(Timestamp.valueOf(value));
+        long createdAtTimestamp = paymentModel.getCreatedAt().getTime() / 1000;
+        return createdAtTimestamp == Long.parseLong(value);
       case "updated_at":
-        // Assuming that the input value is a timestamp string in the format of
-        // "yyyy-MM-dd HH:mm:ss"
-        return paymentModel.getUpdatedAt().equals(Timestamp.valueOf(value));
+        long updatedAtTimestamp = paymentModel.getUpdatedAt().getTime() / 1000;
+        return updatedAtTimestamp == Long.parseLong(value);
       default:
         return checkAllColumns(paymentModel, value);
     }
   }
 
-  protected boolean checkAllColumns(PaymentModel paymentModel, String value) {
+  private boolean checkAllColumns(PaymentModel paymentModel, String value) {
     return paymentModel.getId() == Integer.parseInt(value)
         || paymentModel.getOrderId() == Integer.parseInt(value)
         || paymentModel.getUserId() == Integer.parseInt(value)
@@ -91,7 +87,7 @@ public class PaymentBUS extends BUSAbstract<PaymentModel> {
   }
 
   @Override
-  protected int insertModel(PaymentModel paymentModel) throws SQLException, ClassNotFoundException {
+  public int insertModel(PaymentModel paymentModel) throws SQLException, ClassNotFoundException {
     if (paymentModel.getOrderId() <= 0) {
       throw new IllegalArgumentException("Order ID must be greater than 0!");
     }
@@ -108,12 +104,12 @@ public class PaymentBUS extends BUSAbstract<PaymentModel> {
   }
 
   @Override
-  protected int updateModel(PaymentModel paymentModel) throws SQLException, ClassNotFoundException {
+  public int updateModel(PaymentModel paymentModel) throws SQLException, ClassNotFoundException {
     return update(paymentModel);
   }
 
   @Override
-  protected int deleteModel(int id) throws SQLException, ClassNotFoundException {
+  public int deleteModel(int id) throws SQLException, ClassNotFoundException {
     return delete(id);
   }
 

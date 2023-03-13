@@ -10,6 +10,10 @@ import com.bookstore.model.CategoryModel;
 
 public class CategoryDAO implements DAOInterface<CategoryModel> {
 
+  public static CategoryDAO getInstance() {
+    return new CategoryDAO();
+  }
+
   private CategoryModel createCategoryModelFromResultSet(ResultSet rs) throws SQLException {
     return new CategoryModel(
         rs.getInt("id"),

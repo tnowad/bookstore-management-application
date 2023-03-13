@@ -11,10 +11,9 @@ import com.bookstore.model.CategoryModel;
 public class CategoryBUS extends BUSAbstract<CategoryModel> {
 
   private final List<CategoryModel> categoryList = new ArrayList<>();
-  private final CategoryDAO categoryDAO;
+  private final CategoryDAO categoryDAO = CategoryDAO.getInstance();
 
-  protected CategoryBUS(CategoryDAO categoryDAO) throws SQLException, ClassNotFoundException {
-    this.categoryDAO = categoryDAO;
+  public CategoryBUS() throws SQLException, ClassNotFoundException {
     this.categoryList.addAll(categoryDAO.readDatabase());
   }
 
@@ -55,13 +54,13 @@ public class CategoryBUS extends BUSAbstract<CategoryModel> {
     }
   }
 
-  protected boolean checkAllColumns(CategoryModel categoryModel, String value) {
+  private boolean checkAllColumns(CategoryModel categoryModel, String value) {
     return categoryModel.getId() == Integer.parseInt(value)
         || categoryModel.getName().toLowerCase().contains(value.toLowerCase());
   }
 
   @Override
-  protected int insertModel(CategoryModel categoryModel) throws SQLException, ClassNotFoundException {
+  public int insertModel(CategoryModel categoryModel) throws SQLException, ClassNotFoundException {
     if (categoryModel.getName() == null || categoryModel.getName().isEmpty()) {
       throw new IllegalArgumentException("Category name cannot be null or empty!");
     }
@@ -69,12 +68,12 @@ public class CategoryBUS extends BUSAbstract<CategoryModel> {
   }
 
   @Override
-  protected int updateModel(CategoryModel categoryModel) throws SQLException, ClassNotFoundException {
+  public int updateModel(CategoryModel categoryModel) throws SQLException, ClassNotFoundException {
     return update(categoryModel);
   }
 
   @Override
-  protected int deleteModel(int id) throws SQLException, ClassNotFoundException {
+  public int deleteModel(int id) throws SQLException, ClassNotFoundException {
     return delete(id);
   }
 

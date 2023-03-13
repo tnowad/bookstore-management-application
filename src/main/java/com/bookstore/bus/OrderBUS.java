@@ -13,10 +13,9 @@ import com.bookstore.model.OrderModel;
 public class OrderBUS extends BUSAbstract<OrderModel> {
 
   private final List<OrderModel> orderList = new ArrayList<>();
-  private final OrderDAO orderDAO;
+  private final OrderDAO orderDAO = OrderDAO.getInstance();
 
-  protected OrderBUS(OrderDAO orderDAO) throws SQLException, ClassNotFoundException {
-    this.orderDAO = orderDAO;
+  public OrderBUS() throws SQLException, ClassNotFoundException {
     this.orderList.addAll(orderDAO.readDatabase());
   }
 
@@ -82,7 +81,7 @@ public class OrderBUS extends BUSAbstract<OrderModel> {
     }
   }
 
-  protected boolean checkAllColumns(OrderModel orderModel, String value) {
+  private boolean checkAllColumns(OrderModel orderModel, String value) {
     return orderModel.getId() == Integer.parseInt(value)
         || orderModel.getCart_id() == Integer.parseInt(value)
         || orderModel.getCustomer_id() == Integer.parseInt(value)
@@ -93,7 +92,7 @@ public class OrderBUS extends BUSAbstract<OrderModel> {
   }
 
   @Override
-  protected int insertModel(OrderModel orderModel) throws SQLException, ClassNotFoundException {
+  public int insertModel(OrderModel orderModel) throws SQLException, ClassNotFoundException {
     if (orderModel.getTotal() < 0) {
       throw new IllegalArgumentException("Total must be greater than 0!");
     }
@@ -109,7 +108,7 @@ public class OrderBUS extends BUSAbstract<OrderModel> {
   }
 
   @Override
-  protected int updateModel(OrderModel orderModel) throws SQLException, ClassNotFoundException {
+  public int updateModel(OrderModel orderModel) throws SQLException, ClassNotFoundException {
     if (orderModel.getEmployee_id() <= 0) {
       throw new IllegalArgumentException("Employee id must be greater than 0!");
     }
@@ -124,7 +123,7 @@ public class OrderBUS extends BUSAbstract<OrderModel> {
   }
 
   @Override
-  protected int deleteModel(int id) throws SQLException, ClassNotFoundException {
+  public int deleteModel(int id) throws SQLException, ClassNotFoundException {
     return delete(id);
   }
 

@@ -14,10 +14,9 @@ import com.bookstore.model.UserModel.Status;
 
 public class EmployeeBUS extends BUSAbstract<EmployeeModel> {
   private final List<EmployeeModel> employeeList = new ArrayList<>();
-  private final EmployeeDAO employeeDao;
+  private final EmployeeDAO employeeDao = EmployeeDAO.getInstance();
 
-  public EmployeeBUS(EmployeeDAO employeeDao) throws SQLException, ClassNotFoundException {
-    this.employeeDao = employeeDao;
+  public EmployeeBUS() throws SQLException, ClassNotFoundException {
     this.employeeList.addAll(employeeDao.readDatabase());
   }
 
@@ -73,7 +72,7 @@ public class EmployeeBUS extends BUSAbstract<EmployeeModel> {
   }
 
   @Override
-  protected int insertModel(EmployeeModel employeeModel) throws SQLException, ClassNotFoundException {
+  public int insertModel(EmployeeModel employeeModel) throws SQLException, ClassNotFoundException {
     if (employeeModel.getSalary() < 0 || employeeModel.getContactInformation().isEmpty()) {
       throw new IllegalArgumentException("Invalid input. Please check the input and try again.");
     }
@@ -83,12 +82,12 @@ public class EmployeeBUS extends BUSAbstract<EmployeeModel> {
   }
 
   @Override
-  protected int updateModel(EmployeeModel employeeModel) throws SQLException, ClassNotFoundException {
+  public int updateModel(EmployeeModel employeeModel) throws SQLException, ClassNotFoundException {
     return update(employeeModel);
   }
 
   @Override
-  protected int deleteModel(int id) throws SQLException, ClassNotFoundException {
+  public int deleteModel(int id) throws SQLException, ClassNotFoundException {
     EmployeeModel employeeModel = getModel(id);
     if (employeeModel == null) {
       return 0;

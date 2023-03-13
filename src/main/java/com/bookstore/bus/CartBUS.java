@@ -12,10 +12,9 @@ import com.bookstore.model.CartModel;
 public class CartBUS extends BUSAbstract<CartModel> {
 
   private final List<CartModel> cartList = new ArrayList<>();
-  private final CartDAO cartDAO;
+  private final CartDAO cartDAO = CartDAO.getInstance();
 
-  protected CartBUS(CartDAO cartDAO) throws SQLException, ClassNotFoundException {
-    this.cartDAO = cartDAO;
+  public CartBUS() throws SQLException, ClassNotFoundException {
     this.cartList.addAll(cartDAO.readDatabase());
   }
 
@@ -53,14 +52,10 @@ public class CartBUS extends BUSAbstract<CartModel> {
       case "user_id":
         return cartModel.getUserId() == Integer.parseInt(value);
       case "created_at":
-        // Assuming that the input value is a timestamp string in the format of
-        // "yyyy-MM-dd HH:mm:ss"
         return cartModel.getCreatedAt().equals(Timestamp.valueOf(value));
       case "status":
         return cartModel.getStatus().toString().equalsIgnoreCase(value);
       case "expires":
-        // Assuming that the input value is a timestamp string in the format of
-        // "yyyy-MM-dd HH:mm:ss"
         return cartModel.getExpires() != null && cartModel.getExpires().equals(Timestamp.valueOf(value));
       case "promotion_id":
         return cartModel.getPromotionId() == Integer.parseInt(value);
@@ -69,7 +64,7 @@ public class CartBUS extends BUSAbstract<CartModel> {
     }
   }
 
-  protected boolean checkAllColumns(CartModel cartModel, String value) {
+  private boolean checkAllColumns(CartModel cartModel, String value) {
     return cartModel.getId() == Integer.parseInt(value)
         || cartModel.getUserId() == Integer.parseInt(value)
         || cartModel.getStatus().toString().equalsIgnoreCase(value)
@@ -78,7 +73,7 @@ public class CartBUS extends BUSAbstract<CartModel> {
   }
 
   @Override
-  protected int insertModel(CartModel cartModel) throws SQLException, ClassNotFoundException {
+  public int insertModel(CartModel cartModel) throws SQLException, ClassNotFoundException {
     if (cartModel.getUserId() <= 0) {
       throw new IllegalArgumentException("User ID must be greater than 0!");
     }
@@ -89,12 +84,12 @@ public class CartBUS extends BUSAbstract<CartModel> {
   }
 
   @Override
-  protected int updateModel(CartModel cartModel) throws SQLException, ClassNotFoundException {
+  public int updateModel(CartModel cartModel) throws SQLException, ClassNotFoundException {
     return update(cartModel);
   }
 
   @Override
-  protected int deleteModel(int id) throws SQLException, ClassNotFoundException {
+  public int deleteModel(int id) throws SQLException, ClassNotFoundException {
     return delete(id);
   }
 

@@ -11,10 +11,9 @@ import com.bookstore.model.PromotionModel;
 public class PromotionBUS extends BUSAbstract<PromotionModel> {
 
   private final List<PromotionModel> promotionList = new ArrayList<>();
-  private final PromotionDAO promotionDAO;
+  private final PromotionDAO promotionDAO = PromotionDAO.getInstance();
 
-  protected PromotionBUS(PromotionDAO promotionDAO) throws SQLException, ClassNotFoundException {
-    this.promotionDAO = promotionDAO;
+  public PromotionBUS() throws SQLException, ClassNotFoundException {
     this.promotionList.addAll(promotionDAO.readDatabase());
   }
 
@@ -88,7 +87,7 @@ public class PromotionBUS extends BUSAbstract<PromotionModel> {
     }
   }
 
-  protected boolean checkAllColumns(PromotionModel promotionModel, String value) {
+  private boolean checkAllColumns(PromotionModel promotionModel, String value) {
     return Integer.toString(promotionModel.getId()).equals(value)
         || promotionModel.getDescription().toLowerCase().contains(value.toLowerCase())
         || (Integer.toString(promotionModel.getQuantity())).equals(value)
@@ -101,7 +100,7 @@ public class PromotionBUS extends BUSAbstract<PromotionModel> {
   }
 
   @Override
-  protected int insertModel(PromotionModel promotionModel) throws SQLException, ClassNotFoundException {
+  public int insertModel(PromotionModel promotionModel) throws SQLException, ClassNotFoundException {
     if (promotionModel.getDescription() == null || promotionModel.getDescription().isEmpty()) {
       throw new IllegalArgumentException("Description cannot be null or empty!");
     }
@@ -121,12 +120,12 @@ public class PromotionBUS extends BUSAbstract<PromotionModel> {
   }
 
   @Override
-  protected int updateModel(PromotionModel promotionModel) throws SQLException, ClassNotFoundException {
+  public int updateModel(PromotionModel promotionModel) throws SQLException, ClassNotFoundException {
     return update(promotionModel);
   }
 
   @Override
-  protected int deleteModel(int id) throws SQLException, ClassNotFoundException {
+  public int deleteModel(int id) throws SQLException, ClassNotFoundException {
     return delete(id);
   }
 

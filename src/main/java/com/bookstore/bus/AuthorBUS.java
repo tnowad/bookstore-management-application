@@ -11,10 +11,9 @@ import com.bookstore.model.AuthorModel;
 public class AuthorBUS extends BUSAbstract<AuthorModel> {
 
   private final List<AuthorModel> authorList = new ArrayList<>();
-  private final AuthorDAO authorDAO;
+  private final AuthorDAO authorDAO = AuthorDAO.getInstance();
 
-  protected AuthorBUS(AuthorDAO authorDAO) throws SQLException, ClassNotFoundException {
-    this.authorDAO = authorDAO;
+  public AuthorBUS() throws SQLException, ClassNotFoundException {
     this.authorList.addAll(authorDAO.readDatabase());
   }
 
@@ -55,14 +54,14 @@ public class AuthorBUS extends BUSAbstract<AuthorModel> {
     }
   }
 
-  protected boolean checkAllColumns(AuthorModel authorModel, String value) {
+  private boolean checkAllColumns(AuthorModel authorModel, String value) {
     return authorModel.getId() == Integer.parseInt(value)
         || authorModel.getName().toLowerCase().contains(value.toLowerCase())
         || authorModel.getDescription().toLowerCase().contains(value.toLowerCase());
   }
 
   @Override
-  protected int insertModel(AuthorModel authorModel) throws SQLException, ClassNotFoundException {
+  public int insertModel(AuthorModel authorModel) throws SQLException, ClassNotFoundException {
     if (authorModel.getName() == null || authorModel.getName().isEmpty()) {
       throw new IllegalArgumentException("Name cannot be null or empty!");
     }
@@ -73,12 +72,12 @@ public class AuthorBUS extends BUSAbstract<AuthorModel> {
   }
 
   @Override
-  protected int updateModel(AuthorModel authorModel) throws SQLException, ClassNotFoundException {
+  public int updateModel(AuthorModel authorModel) throws SQLException, ClassNotFoundException {
     return update(authorModel);
   }
 
   @Override
-  protected int deleteModel(int id) throws SQLException, ClassNotFoundException {
+  public int deleteModel(int id) throws SQLException, ClassNotFoundException {
     return delete(id);
   }
 

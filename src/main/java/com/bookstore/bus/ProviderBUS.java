@@ -11,10 +11,9 @@ import com.bookstore.model.ProviderModel;
 public class ProviderBUS extends BUSAbstract<ProviderModel> {
 
   private final List<ProviderModel> providerList = new ArrayList<>();
-  private final ProviderDAO providerDAO;
+  private final ProviderDAO providerDAO = ProviderDAO.getInstance();
 
-  protected ProviderBUS(ProviderDAO providerDAO) throws SQLException, ClassNotFoundException {
-    this.providerDAO = providerDAO;
+  public ProviderBUS() throws SQLException, ClassNotFoundException {
     this.providerList.addAll(providerDAO.readDatabase());
   }
 
@@ -55,14 +54,14 @@ public class ProviderBUS extends BUSAbstract<ProviderModel> {
     }
   }
 
-  protected boolean checkAllColumns(ProviderModel providerModel, String value) {
+  private boolean checkAllColumns(ProviderModel providerModel, String value) {
     return providerModel.getId() == Integer.parseInt(value)
         || providerModel.getName().toLowerCase().contains(value.toLowerCase())
         || providerModel.getDescription().toLowerCase().contains(value.toLowerCase());
   }
 
   @Override
-  protected int insertModel(ProviderModel providerModel) throws SQLException, ClassNotFoundException {
+  public int insertModel(ProviderModel providerModel) throws SQLException, ClassNotFoundException {
     if (providerModel.getName() == null || providerModel.getName().isEmpty()) {
       throw new IllegalArgumentException("Name cannot be null or empty!");
     }
@@ -73,12 +72,12 @@ public class ProviderBUS extends BUSAbstract<ProviderModel> {
   }
 
   @Override
-  protected int updateModel(ProviderModel providerModel) throws SQLException, ClassNotFoundException {
+  public int updateModel(ProviderModel providerModel) throws SQLException, ClassNotFoundException {
     return update(providerModel);
   }
 
   @Override
-  protected int deleteModel(int id) throws SQLException, ClassNotFoundException {
+  public int deleteModel(int id) throws SQLException, ClassNotFoundException {
     return delete(id);
   }
 

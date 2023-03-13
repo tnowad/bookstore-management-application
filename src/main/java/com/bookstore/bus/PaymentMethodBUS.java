@@ -1,7 +1,7 @@
 package com.bookstore.bus;
 
 import java.sql.SQLException;
-import java.sql.Timestamp;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -12,10 +12,9 @@ import com.bookstore.model.PaymentMethodModel;
 public class PaymentMethodBUS extends BUSAbstract<PaymentMethodModel> {
 
   private final List<PaymentMethodModel> paymentMethodList = new ArrayList<>();
-  private final PaymentMethodDAO paymentMethodDAO;
+  private final PaymentMethodDAO paymentMethodDAO = PaymentMethodDAO.getInstance();
 
-  protected PaymentMethodBUS(PaymentMethodDAO paymentMethodDAO) throws SQLException, ClassNotFoundException {
-    this.paymentMethodDAO = paymentMethodDAO;
+  public PaymentMethodBUS() throws SQLException, ClassNotFoundException {
     this.paymentMethodList.addAll(paymentMethodDAO.readDatabase());
   }
 
@@ -57,8 +56,14 @@ public class PaymentMethodBUS extends BUSAbstract<PaymentMethodModel> {
       case "card_holder":
         return paymentMethodModel.getCardHolder().equalsIgnoreCase(value);
       case "expiration_date":
-        // Assuming that the input value is a date string in the format of "yyyy-MM-dd"
-        return paymentMethodModel.getExpirationDate().equals(java.sql.Date.valueOf(value));
+        try {
+          Date expirationDate = paymentMethodModel.getExpirationDate();
+          Date inputDate = Date.valueOf(value);
+          return expirationDate.compareTo(inputDate) <= 0;
+        } catch (IllegalArgumentException e) {
+          System.out.println("Invalid date format: " + value);
+          return false;
+        }
       case "customer_id":
         return paymentMethodModel.getCustomerId() == Integer.parseInt(value);
       default:
@@ -66,7 +71,7 @@ public class PaymentMethodBUS extends BUSAbstract<PaymentMethodModel> {
     }
   }
 
-  protected boolean checkAllColumns(PaymentMethodModel paymentMethodModel, String value) {
+  private boolean checkAllColumns(PaymentMethodModel paymentMethodModel, String value) {
     return paymentMethodModel.getId() == Integer.parseInt(value)
         || paymentMethodModel.getPaymentId().equalsIgnoreCase(value)
         || paymentMethodModel.getCardNumber().equalsIgnoreCase(value)
@@ -76,10 +81,7 @@ public class PaymentMethodBUS extends BUSAbstract<PaymentMethodModel> {
   }
 
   @Override
-  protected int insertModel(PaymentMethodModel paymentMethodModel) throws SQLException, ClassNotFoundException {
-    if (paymentMethodModel.getCustomerId() <= 0) {
-      throw new IllegalArgumentException("Customer ID must be greater than 0!");
-    }
+  public int insertModel(PaymentMethodModel paymentMethodModel) throws SQLException, ClassNotFoundException {
     if (paymentMethodModel.getPaymentId() == null || paymentMethodModel.getPaymentId().isEmpty()) {
       throw new IllegalArgumentException("Payment ID cannot be null or empty!");
     }
@@ -97,12 +99,12 @@ public class PaymentMethodBUS extends BUSAbstract<PaymentMethodModel> {
   }
 
   @Override
-  protected int updateModel(PaymentMethodModel paymentMethodModel) throws SQLException, ClassNotFoundException {
+  public int updateModel(PaymentMethodModel paymentMethodModel) throws SQLException, ClassNotFoundException {
     return update(paymentMethodModel);
   }
 
   @Override
-  protected int deleteModel(int id) throws SQLException, ClassNotFoundException {
+  public int deleteModel(int id) throws SQLException, ClassNotFoundException {
     return delete(id);
   }
 

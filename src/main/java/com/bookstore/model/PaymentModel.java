@@ -1,6 +1,6 @@
 package com.bookstore.model;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 public class PaymentModel {
   private int id;
@@ -10,14 +10,14 @@ public class PaymentModel {
   private PaymentMethod paymentMethod;
   private int paymentMethodId;
   private PaymentStatus status;
-  private LocalDateTime createdAt;
-  private LocalDateTime updatedAt;
+  private Timestamp createdAt;
+  private Timestamp updatedAt;
 
   public PaymentModel() {
   }
 
   public PaymentModel(int id, int orderId, int userId, int amount, PaymentMethod paymentMethod, int paymentMethodId,
-      PaymentStatus status, LocalDateTime createdAt, LocalDateTime updatedAt) {
+      PaymentStatus status, Timestamp createdAt, Timestamp updatedAt) {
     super();
     this.id = id;
     this.orderId = orderId;
@@ -86,19 +86,19 @@ public class PaymentModel {
     this.status = status;
   }
 
-  public LocalDateTime getCreatedAt() {
+  public Timestamp getCreatedAt() {
     return createdAt;
   }
 
-  public void setCreatedAt(LocalDateTime createdAt) {
+  public void setCreatedAt(Timestamp createdAt) {
     this.createdAt = createdAt;
   }
 
-  public LocalDateTime getUpdatedAt() {
+  public Timestamp getUpdatedAt() {
     return updatedAt;
   }
 
-  public void setUpdatedAt(LocalDateTime updatedAt) {
+  public void setUpdatedAt(Timestamp updatedAt) {
     this.updatedAt = updatedAt;
   }
 

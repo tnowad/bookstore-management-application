@@ -12,10 +12,9 @@ import com.bookstore.util.PasswordUtil;
 
 public class UserBUS extends BUSAbstract<UserModel> {
   private final List<UserModel> userList = new ArrayList<>();
-  private final UserDAO userDAO;
+  private final UserDAO userDAO = UserDAO.getInstance();
 
-  protected UserBUS(UserDAO userDAO) throws SQLException, ClassNotFoundException {
-    this.userDAO = userDAO;
+  public UserBUS() throws SQLException, ClassNotFoundException {
     this.userList.addAll(userDAO.readDatabase());
   }
 
@@ -87,7 +86,7 @@ public class UserBUS extends BUSAbstract<UserModel> {
   }
 
   @Override
-  protected int insertModel(UserModel userModel) throws SQLException, ClassNotFoundException {
+  public int insertModel(UserModel userModel) throws SQLException, ClassNotFoundException {
     if (userModel.getUsername() == null || userModel.getUsername().isEmpty() ||
         userModel.getStatus() == null || userModel.getName() == null || userModel.getName().isEmpty() ||
         userModel.getPassword() == null || userModel.getPassword().isEmpty() ||
@@ -107,7 +106,7 @@ public class UserBUS extends BUSAbstract<UserModel> {
   }
 
   @Override
-  protected int updateModel(UserModel userModel) throws SQLException, ClassNotFoundException {
+  public int updateModel(UserModel userModel) throws SQLException, ClassNotFoundException {
     return update(userModel);
   }
 
@@ -117,7 +116,7 @@ public class UserBUS extends BUSAbstract<UserModel> {
   }
 
   @Override
-  protected int deleteModel(int id) throws SQLException, ClassNotFoundException {
+  public int deleteModel(int id) throws SQLException, ClassNotFoundException {
     UserModel userModel = getModel(id);
     if (userModel == null) {
       return 0;

@@ -11,10 +11,9 @@ import com.bookstore.model.ShippingModel;
 public class ShippingBUS extends BUSAbstract<ShippingModel> {
 
   private final List<ShippingModel> shippingList = new ArrayList<>();
-  private final ShippingDAO shippingDAO;
+  private final ShippingDAO shippingDAO = ShippingDAO.getInstance();
 
-  protected ShippingBUS(ShippingDAO shippingDAO) throws SQLException, ClassNotFoundException {
-    this.shippingDAO = shippingDAO;
+  public ShippingBUS() throws SQLException, ClassNotFoundException {
     this.shippingList.addAll(shippingDAO.readDatabase());
   }
 
@@ -61,7 +60,7 @@ public class ShippingBUS extends BUSAbstract<ShippingModel> {
     }
   }
 
-  protected boolean checkAllColumns(ShippingModel shippingModel, String value) {
+  private boolean checkAllColumns(ShippingModel shippingModel, String value) {
     return shippingModel.getId() == Integer.parseInt(value)
         || shippingModel.getOrderId() == Integer.parseInt(value)
         || shippingModel.getShippingMethod().equalsIgnoreCase(value)
@@ -70,10 +69,7 @@ public class ShippingBUS extends BUSAbstract<ShippingModel> {
   }
 
   @Override
-  protected int insertModel(ShippingModel shippingModel) throws SQLException, ClassNotFoundException {
-    if (shippingModel.getOrderId() <= 0) {
-      throw new IllegalArgumentException("Order ID must be greater than 0!");
-    }
+  public int insertModel(ShippingModel shippingModel) throws SQLException, ClassNotFoundException {
     if (shippingModel.getShippingMethod() == null || shippingModel.getShippingMethod().isEmpty()) {
       throw new IllegalArgumentException("Shipping method cannot be null or empty!");
     }
@@ -87,12 +83,12 @@ public class ShippingBUS extends BUSAbstract<ShippingModel> {
   }
 
   @Override
-  protected int updateModel(ShippingModel shippingModel) throws SQLException, ClassNotFoundException {
+  public int updateModel(ShippingModel shippingModel) throws SQLException, ClassNotFoundException {
     return update(shippingModel);
   }
 
   @Override
-  protected int deleteModel(int id) throws SQLException, ClassNotFoundException {
+  public int deleteModel(int id) throws SQLException, ClassNotFoundException {
     return delete(id);
   }
 

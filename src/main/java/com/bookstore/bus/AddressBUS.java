@@ -11,10 +11,9 @@ import com.bookstore.model.AddressModel;
 public class AddressBUS extends BUSAbstract<AddressModel> {
 
   private final List<AddressModel> addressList = new ArrayList<>();
-  private final AddressDAO addressDAO;
+  private final AddressDAO addressDAO = AddressDAO.getInstance();
 
-  protected AddressBUS(AddressDAO addressDAO) throws SQLException, ClassNotFoundException {
-    this.addressDAO = addressDAO;
+  public AddressBUS() throws SQLException, ClassNotFoundException {
     this.addressList.addAll(addressDAO.readDatabase());
   }
 
@@ -64,7 +63,7 @@ public class AddressBUS extends BUSAbstract<AddressModel> {
     }
   }
 
-  protected boolean checkAllColumns(AddressModel addressModel, String value) {
+  private boolean checkAllColumns(AddressModel addressModel, String value) {
     return addressModel.getId() == Integer.parseInt(value)
         || addressModel.getUserId() == Integer.parseInt(value)
         || addressModel.getStreet().toLowerCase().contains(value.toLowerCase())
@@ -74,7 +73,7 @@ public class AddressBUS extends BUSAbstract<AddressModel> {
   }
 
   @Override
-  protected int insertModel(AddressModel addressModel) throws SQLException, ClassNotFoundException {
+  public int insertModel(AddressModel addressModel) throws SQLException, ClassNotFoundException {
     if (addressModel.getStreet() == null || addressModel.getStreet().isEmpty()) {
       throw new IllegalArgumentException("Street cannot be null or empty!");
     }
@@ -88,12 +87,12 @@ public class AddressBUS extends BUSAbstract<AddressModel> {
   }
 
   @Override
-  protected int updateModel(AddressModel addressModel) throws SQLException, ClassNotFoundException {
+  public int updateModel(AddressModel addressModel) throws SQLException, ClassNotFoundException {
     return update(addressModel);
   }
 
   @Override
-  protected int deleteModel(int id) throws SQLException, ClassNotFoundException {
+  public int deleteModel(int id) throws SQLException, ClassNotFoundException {
     return delete(id);
   }
 
