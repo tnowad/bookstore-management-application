@@ -75,10 +75,5 @@ public class CartModel {
     PENDING,
     REJECT,
     ACCEPT;
-
-    // public boolean isEmpty() {
-    // return false;
-    // }
-
   }
 }
