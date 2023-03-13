@@ -71,9 +71,6 @@ public class ShippingBUS extends BUSAbstract<ShippingModel> {
 
   @Override
   protected int insertModel(ShippingModel shippingModel) throws SQLException, ClassNotFoundException {
-    if (shippingModel.getOrderId() <= 0) {
-      throw new IllegalArgumentException("Order ID must be greater than 0!");
-    }
     if (shippingModel.getShippingMethod() == null || shippingModel.getShippingMethod().isEmpty()) {
       throw new IllegalArgumentException("Shipping method cannot be null or empty!");
     }

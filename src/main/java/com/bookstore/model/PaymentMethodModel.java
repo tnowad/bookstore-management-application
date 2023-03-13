@@ -1,20 +1,20 @@
 package com.bookstore.model;
 
-import java.time.LocalDate;
+import java.sql.Date;
 
 public class PaymentMethodModel {
   private int id;
-  private String paymentId; // using string since it has NVARCHAR datatype in DB
+  private String paymentId;
   private String cardNumber;
   private String cardHolder;
-  private LocalDate expirationDate;
+  private Date expirationDate;
   private int customerId;
 
   public PaymentMethodModel() {
   }
 
   public PaymentMethodModel(String paymentId, String cardNumber, String cardHolder,
-      LocalDate expirationDate, int customerId) {
+      Date expirationDate, int customerId) {
     this.paymentId = paymentId;
     this.cardNumber = cardNumber;
     this.cardHolder = cardHolder;
@@ -54,11 +54,11 @@ public class PaymentMethodModel {
     this.cardHolder = cardHolder;
   }
 
-  public LocalDate getExpirationDate() {
+  public Date getExpirationDate() {
     return expirationDate;
   }
 
-  public void setExpirationDate(LocalDate expirationDate) {
+  public void setExpirationDate(Date expirationDate) {
     this.expirationDate = expirationDate;
   }
 

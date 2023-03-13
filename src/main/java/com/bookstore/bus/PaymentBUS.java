@@ -1,7 +1,6 @@
 package com.bookstore.bus;
 
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -66,13 +65,11 @@ public class PaymentBUS extends BUSAbstract<PaymentModel> {
       case "status":
         return paymentModel.getStatus().toString().equalsIgnoreCase(value);
       case "created_at":
-        // Assuming that the input value is a timestamp string in the format of
-        // "yyyy-MM-dd HH:mm:ss"
-        return paymentModel.getCreatedAt().equals(Timestamp.valueOf(value));
+        long createdAtTimestamp = paymentModel.getCreatedAt().getTime() / 1000;
+        return createdAtTimestamp == Long.parseLong(value);
       case "updated_at":
-        // Assuming that the input value is a timestamp string in the format of
-        // "yyyy-MM-dd HH:mm:ss"
-        return paymentModel.getUpdatedAt().equals(Timestamp.valueOf(value));
+        long updatedAtTimestamp = paymentModel.getUpdatedAt().getTime() / 1000;
+        return updatedAtTimestamp == Long.parseLong(value);
       default:
         return checkAllColumns(paymentModel, value);
     }

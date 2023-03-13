@@ -53,14 +53,10 @@ public class CartBUS extends BUSAbstract<CartModel> {
       case "user_id":
         return cartModel.getUserId() == Integer.parseInt(value);
       case "created_at":
-        // Assuming that the input value is a timestamp string in the format of
-        // "yyyy-MM-dd HH:mm:ss"
         return cartModel.getCreatedAt().equals(Timestamp.valueOf(value));
       case "status":
         return cartModel.getStatus().toString().equalsIgnoreCase(value);
       case "expires":
-        // Assuming that the input value is a timestamp string in the format of
-        // "yyyy-MM-dd HH:mm:ss"
         return cartModel.getExpires() != null && cartModel.getExpires().equals(Timestamp.valueOf(value));
       case "promotion_id":
         return cartModel.getPromotionId() == Integer.parseInt(value);

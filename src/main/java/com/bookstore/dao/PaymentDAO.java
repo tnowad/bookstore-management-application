@@ -24,8 +24,8 @@ public class PaymentDAO implements DAOInterface<PaymentModel> {
         PaymentMethod.valueOf(rs.getString("payment_method")),
         rs.getInt("payment_method_id"),
         PaymentStatus.valueOf(rs.getString("status")),
-        rs.getTimestamp("created_at").toLocalDateTime(),
-        rs.getTimestamp("updated_at").toLocalDateTime());
+        rs.getTimestamp("created_at"),
+        rs.getTimestamp("updated_at"));
     return paymentModel;
   }
 

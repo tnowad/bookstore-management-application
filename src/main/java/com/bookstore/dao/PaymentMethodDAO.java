@@ -19,7 +19,7 @@ public class PaymentMethodDAO implements DAOInterface<PaymentMethodModel> {
         rs.getString("payment_id"),
         rs.getString("card_number"),
         rs.getString("card_holder"),
-        rs.getDate("expiration_date").toLocalDate(),
+        rs.getDate("expiration_date"),
         rs.getInt("customer_id"));
     paymentMethodModel.setId(rs.getInt("id"));
     return paymentMethodModel;

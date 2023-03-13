@@ -1,7 +1,7 @@
 package com.bookstore.bus;
 
 import java.sql.SQLException;
-import java.sql.Timestamp;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -57,8 +57,14 @@ public class PaymentMethodBUS extends BUSAbstract<PaymentMethodModel> {
       case "card_holder":
         return paymentMethodModel.getCardHolder().equalsIgnoreCase(value);
       case "expiration_date":
-        // Assuming that the input value is a date string in the format of "yyyy-MM-dd"
-        return paymentMethodModel.getExpirationDate().equals(java.sql.Date.valueOf(value));
+        try {
+          Date expirationDate = paymentMethodModel.getExpirationDate();
+          Date inputDate = Date.valueOf(value);
+          return expirationDate.compareTo(inputDate) <= 0;
+        } catch (IllegalArgumentException e) {
+          System.out.println("Invalid date format: " + value);
+          return false;
+        }
       case "customer_id":
         return paymentMethodModel.getCustomerId() == Integer.parseInt(value);
       default:
@@ -77,9 +83,6 @@ public class PaymentMethodBUS extends BUSAbstract<PaymentMethodModel> {
 
   @Override
   protected int insertModel(PaymentMethodModel paymentMethodModel) throws SQLException, ClassNotFoundException {
-    if (paymentMethodModel.getCustomerId() <= 0) {
-      throw new IllegalArgumentException("Customer ID must be greater than 0!");
-    }
     if (paymentMethodModel.getPaymentId() == null || paymentMethodModel.getPaymentId().isEmpty()) {
       throw new IllegalArgumentException("Payment ID cannot be null or empty!");
     }
