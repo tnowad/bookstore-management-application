@@ -11,10 +11,9 @@ import com.bookstore.model.ProviderModel;
 public class ProviderBUS extends BUSAbstract<ProviderModel> {
 
   private final List<ProviderModel> providerList = new ArrayList<>();
-  private final ProviderDAO providerDAO;
+  private final ProviderDAO providerDAO = ProviderDAO.getInstance();
 
-  protected ProviderBUS(ProviderDAO providerDAO) throws SQLException, ClassNotFoundException {
-    this.providerDAO = providerDAO;
+  public ProviderBUS() throws SQLException, ClassNotFoundException {
     this.providerList.addAll(providerDAO.readDatabase());
   }
 

@@ -12,10 +12,9 @@ import com.bookstore.model.CartModel;
 public class CartBUS extends BUSAbstract<CartModel> {
 
   private final List<CartModel> cartList = new ArrayList<>();
-  private final CartDAO cartDAO;
+  private final CartDAO cartDAO = CartDAO.getInstance();
 
-  protected CartBUS(CartDAO cartDAO) throws SQLException, ClassNotFoundException {
-    this.cartDAO = cartDAO;
+  public CartBUS() throws SQLException, ClassNotFoundException {
     this.cartList.addAll(cartDAO.readDatabase());
   }
 

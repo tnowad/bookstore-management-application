@@ -11,10 +11,9 @@ import com.bookstore.model.ShippingModel;
 public class ShippingBUS extends BUSAbstract<ShippingModel> {
 
   private final List<ShippingModel> shippingList = new ArrayList<>();
-  private final ShippingDAO shippingDAO;
+  private final ShippingDAO shippingDAO = ShippingDAO.getInstance();
 
-  protected ShippingBUS(ShippingDAO shippingDAO) throws SQLException, ClassNotFoundException {
-    this.shippingDAO = shippingDAO;
+  public ShippingBUS() throws SQLException, ClassNotFoundException {
     this.shippingList.addAll(shippingDAO.readDatabase());
   }
 

@@ -11,10 +11,9 @@ import com.bookstore.model.PromotionModel;
 public class PromotionBUS extends BUSAbstract<PromotionModel> {
 
   private final List<PromotionModel> promotionList = new ArrayList<>();
-  private final PromotionDAO promotionDAO;
+  private final PromotionDAO promotionDAO = PromotionDAO.getInstance();
 
-  protected PromotionBUS(PromotionDAO promotionDAO) throws SQLException, ClassNotFoundException {
-    this.promotionDAO = promotionDAO;
+  public PromotionBUS() throws SQLException, ClassNotFoundException {
     this.promotionList.addAll(promotionDAO.readDatabase());
   }
 

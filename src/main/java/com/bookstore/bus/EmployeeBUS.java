@@ -14,10 +14,9 @@ import com.bookstore.model.UserModel.Status;
 
 public class EmployeeBUS extends BUSAbstract<EmployeeModel> {
   private final List<EmployeeModel> employeeList = new ArrayList<>();
-  private final EmployeeDAO employeeDao;
+  private final EmployeeDAO employeeDao = EmployeeDAO.getInstance();
 
-  public EmployeeBUS(EmployeeDAO employeeDao) throws SQLException, ClassNotFoundException {
-    this.employeeDao = employeeDao;
+  public EmployeeBUS() throws SQLException, ClassNotFoundException {
     this.employeeList.addAll(employeeDao.readDatabase());
   }
 

@@ -11,10 +11,9 @@ import com.bookstore.model.AuthorModel;
 public class AuthorBUS extends BUSAbstract<AuthorModel> {
 
   private final List<AuthorModel> authorList = new ArrayList<>();
-  private final AuthorDAO authorDAO;
+  private final AuthorDAO authorDAO = AuthorDAO.getInstance();
 
-  protected AuthorBUS(AuthorDAO authorDAO) throws SQLException, ClassNotFoundException {
-    this.authorDAO = authorDAO;
+  protected AuthorBUS() throws SQLException, ClassNotFoundException {
     this.authorList.addAll(authorDAO.readDatabase());
   }
 

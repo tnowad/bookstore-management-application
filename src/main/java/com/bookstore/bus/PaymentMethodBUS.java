@@ -12,10 +12,9 @@ import com.bookstore.model.PaymentMethodModel;
 public class PaymentMethodBUS extends BUSAbstract<PaymentMethodModel> {
 
   private final List<PaymentMethodModel> paymentMethodList = new ArrayList<>();
-  private final PaymentMethodDAO paymentMethodDAO;
+  private final PaymentMethodDAO paymentMethodDAO = PaymentMethodDAO.getInstance();
 
-  protected PaymentMethodBUS(PaymentMethodDAO paymentMethodDAO) throws SQLException, ClassNotFoundException {
-    this.paymentMethodDAO = paymentMethodDAO;
+  public PaymentMethodBUS() throws SQLException, ClassNotFoundException {
     this.paymentMethodList.addAll(paymentMethodDAO.readDatabase());
   }
 

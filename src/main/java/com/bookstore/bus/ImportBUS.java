@@ -14,10 +14,9 @@ import com.bookstore.model.ImportModel;
 public class ImportBUS extends BUSAbstract<ImportModel> {
 
   private final List<ImportModel> importList = new ArrayList<>();
-  private final ImportDAO importDAO;
+  private final ImportDAO importDAO = ImportDAO.getInstance();
 
-  protected ImportBUS(ImportDAO importDAO) throws SQLException, ClassNotFoundException {
-    this.importDAO = importDAO;
+  public ImportBUS() throws SQLException, ClassNotFoundException {
     this.importList.addAll(importDAO.readDatabase());
   }
 

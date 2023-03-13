@@ -13,10 +13,9 @@ import com.bookstore.model.OrderModel;
 public class OrderBUS extends BUSAbstract<OrderModel> {
 
   private final List<OrderModel> orderList = new ArrayList<>();
-  private final OrderDAO orderDAO;
+  private final OrderDAO orderDAO = OrderDAO.getInstance();
 
-  protected OrderBUS(OrderDAO orderDAO) throws SQLException, ClassNotFoundException {
-    this.orderDAO = orderDAO;
+  public OrderBUS() throws SQLException, ClassNotFoundException {
     this.orderList.addAll(orderDAO.readDatabase());
   }
 

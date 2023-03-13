@@ -12,10 +12,9 @@ import com.bookstore.util.PasswordUtil;
 
 public class UserBUS extends BUSAbstract<UserModel> {
   private final List<UserModel> userList = new ArrayList<>();
-  private final UserDAO userDAO;
+  private final UserDAO userDAO = UserDAO.getInstance();
 
-  protected UserBUS(UserDAO userDAO) throws SQLException, ClassNotFoundException {
-    this.userDAO = userDAO;
+  public UserBUS() throws SQLException, ClassNotFoundException {
     this.userList.addAll(userDAO.readDatabase());
   }
 

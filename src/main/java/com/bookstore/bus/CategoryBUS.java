@@ -11,10 +11,9 @@ import com.bookstore.model.CategoryModel;
 public class CategoryBUS extends BUSAbstract<CategoryModel> {
 
   private final List<CategoryModel> categoryList = new ArrayList<>();
-  private final CategoryDAO categoryDAO;
+  private final CategoryDAO categoryDAO = CategoryDAO.getInstance();
 
-  protected CategoryBUS(CategoryDAO categoryDAO) throws SQLException, ClassNotFoundException {
-    this.categoryDAO = categoryDAO;
+  public CategoryBUS() throws SQLException, ClassNotFoundException {
     this.categoryList.addAll(categoryDAO.readDatabase());
   }
 

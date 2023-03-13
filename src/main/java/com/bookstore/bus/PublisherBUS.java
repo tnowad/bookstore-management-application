@@ -11,10 +11,9 @@ import com.bookstore.model.PublisherModel;
 public class PublisherBUS extends BUSAbstract<PublisherModel> {
 
   private final List<PublisherModel> publisherList = new ArrayList<>();
-  private final PublisherDAO publisherDAO;
+  private final PublisherDAO publisherDAO = PublisherDAO.getInstance();
 
-  protected PublisherBUS(PublisherDAO publisherDAO) throws SQLException, ClassNotFoundException {
-    this.publisherDAO = publisherDAO;
+  public PublisherBUS() throws SQLException, ClassNotFoundException {
     this.publisherList.addAll(publisherDAO.readDatabase());
   }
 

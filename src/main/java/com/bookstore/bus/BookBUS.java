@@ -10,11 +10,10 @@ import com.bookstore.model.BookModel;
 
 public class BookBUS extends BUSAbstract<BookModel> {
 
-  private final List<BookModel> bookList = new ArrayList<>();
-  private final BookDAO bookDAO;
+  private final ArrayList<BookModel> bookList = new ArrayList<>();
+  private final BookDAO bookDAO = BookDAO.getInstance();
 
-  protected BookBUS(BookDAO bookDAO) throws SQLException, ClassNotFoundException {
-    this.bookDAO = bookDAO;
+  public BookBUS() throws ClassNotFoundException, SQLException {
     this.bookList.addAll(bookDAO.readDatabase());
   }
 
