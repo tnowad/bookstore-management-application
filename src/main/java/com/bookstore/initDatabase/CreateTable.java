@@ -208,7 +208,7 @@ public class CreateTable {
           + ");";
       stmt.executeUpdate(sql);
 
-      System.out.println("Table created successfully...");
+      System.out.println("Table created successfully");
     } catch (SQLException se) {
       se.printStackTrace();
     } catch (Exception e) {
@@ -228,6 +228,6 @@ public class CreateTable {
         se.printStackTrace();
       }
     }
-    System.out.println("Done...");
+    System.out.println("Success");
   }
 }
