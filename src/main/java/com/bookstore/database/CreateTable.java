@@ -1,4 +1,4 @@
-package com.bookstore.initDatabase;
+package com.bookstore.database;
 
 import java.sql.*;
 import java.sql.Timestamp;
@@ -10,7 +10,7 @@ public class CreateTable {
   static final String USER = "root";
   static final String PASS = "admin123";
 
-  public static void main(String[] args) {
+  public CreateTable() {
     Connection conn = null;
     Statement stmt = null;
     try {
@@ -229,5 +229,9 @@ public class CreateTable {
       }
     }
     System.out.println("Success");
+  }
+
+  public static void main(String[] args) {
+    new CreateTable();
   }
 }
