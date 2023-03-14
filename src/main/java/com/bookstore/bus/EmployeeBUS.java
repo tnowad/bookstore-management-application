@@ -26,8 +26,16 @@ public class EmployeeBUS extends BUSAbstract<EmployeeModel> {
   }
 
   @Override
-  protected int getId(EmployeeModel t) {
+  public int getId(EmployeeModel t) {
     return t.getUserId();
+  }
+
+  public EmployeeModel getEmployeeModel(int userId) {
+    return getModel(userId);
+  }
+
+  public List<EmployeeModel> getEmployeeList() {
+    return Collections.unmodifiableList(employeeList);
   }
 
   @Override
@@ -47,27 +55,32 @@ public class EmployeeBUS extends BUSAbstract<EmployeeModel> {
   @Override
   protected boolean checkFilter(EmployeeModel employeeModel, String value, String column) {
     switch (column.toLowerCase()) {
-      case "user_id":
+      case "user_id" -> {
         return employeeModel.getUserId() == Integer.parseInt(value);
-      case "salary":
+      }
+      case "salary" -> {
         int salaryValue = Integer.parseInt(value);
         if (salaryValue <= 0) {
           throw new IllegalArgumentException("Invalid salary value: must be greater than zero!");
         }
         return employeeModel.getSalary() == salaryValue;
-      case "employee_type":
-        return employeeModel.getEmployeeType().toString().toLowerCase().equals(value.toLowerCase());
-      case "contact_information":
+      }
+      case "employee_type" -> {
+        return employeeModel.getEmployeeType().toString().equalsIgnoreCase(value);
+      }
+      case "contact_information" -> {
         return employeeModel.getContactInformation().toLowerCase().contains(value.toLowerCase());
-      default:
+      }
+      default -> {
         return checkAllColumns(employeeModel, value);
+      }
     }
   }
 
   private boolean checkAllColumns(EmployeeModel employeeModel, String value) {
     return employeeModel.getUserId() == Integer.parseInt(value)
         || employeeModel.getSalary() == Integer.parseInt(value)
-        || employeeModel.getEmployeeType().toString().toLowerCase().equals(value.toLowerCase())
+        || employeeModel.getEmployeeType().toString().equalsIgnoreCase(value)
         || employeeModel.getContactInformation().toLowerCase().contains(value.toLowerCase());
   }
 
@@ -112,11 +125,4 @@ public class EmployeeBUS extends BUSAbstract<EmployeeModel> {
     return search(value, columns);
   }
 
-  public EmployeeModel getEmployeeModel(int userId) {
-    return getModel(userId);
-  }
-
-  public List<EmployeeModel> getEmployeeList() {
-    return Collections.unmodifiableList(employeeList);
-  }
 }

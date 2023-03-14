@@ -11,6 +11,7 @@ import com.bookstore.model.AddressModel;
 public class AddressBUS extends BUSAbstract<AddressModel> {
 
   private final List<AddressModel> addressList = new ArrayList<>();
+
   private final AddressDAO addressDAO = AddressDAO.getInstance();
 
   public AddressBUS() throws SQLException, ClassNotFoundException {
@@ -23,8 +24,16 @@ public class AddressBUS extends BUSAbstract<AddressModel> {
   }
 
   @Override
-  protected int getId(AddressModel addressModel) {
+  public int getId(AddressModel addressModel) {
     return addressModel.getId();
+  }
+
+  public AddressModel getAddressModel(int id) {
+    return getModel(id);
+  }
+
+  public List<AddressModel> getModelList() throws NullPointerException {
+    return Collections.unmodifiableList(addressList);
   }
 
   @Override
@@ -45,22 +54,15 @@ public class AddressBUS extends BUSAbstract<AddressModel> {
 
   @Override
   protected boolean checkFilter(AddressModel addressModel, String value, String column) {
-    switch (column.toLowerCase()) {
-      case "id":
-        return addressModel.getId() == Integer.parseInt(value);
-      case "user_id":
-        return addressModel.getUserId() == Integer.parseInt(value);
-      case "street":
-        return addressModel.getStreet().toLowerCase().contains(value.toLowerCase());
-      case "city":
-        return addressModel.getCity().toLowerCase().contains(value.toLowerCase());
-      case "state":
-        return addressModel.getState().toLowerCase().contains(value.toLowerCase());
-      case "zip":
-        return addressModel.getZip().toLowerCase().contains(value.toLowerCase());
-      default:
-        return checkAllColumns(addressModel, value);
-    }
+    return switch (column.toLowerCase()) {
+      case "id" -> addressModel.getId() == Integer.parseInt(value);
+      case "user_id" -> addressModel.getUserId() == Integer.parseInt(value);
+      case "street" -> addressModel.getStreet().toLowerCase().contains(value.toLowerCase());
+      case "city" -> addressModel.getCity().toLowerCase().contains(value.toLowerCase());
+      case "state" -> addressModel.getState().toLowerCase().contains(value.toLowerCase());
+      case "zip" -> addressModel.getZip().toLowerCase().contains(value.toLowerCase());
+      default -> checkAllColumns(addressModel, value);
+    };
   }
 
   private boolean checkAllColumns(AddressModel addressModel, String value) {
@@ -96,15 +98,8 @@ public class AddressBUS extends BUSAbstract<AddressModel> {
     return delete(id);
   }
 
-  public List<AddressModel> searchModel(String value, String columns) {
+  public List<AddressModel> searchAddress(String value, String columns) {
     return search(value, columns);
   }
 
-  public AddressModel getAddressModel(int id) {
-    return getModel(id);
-  }
-
-  public List<AddressModel> getAddressList() {
-    return Collections.unmodifiableList(addressList);
-  }
 }

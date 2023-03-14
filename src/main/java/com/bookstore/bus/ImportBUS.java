@@ -26,8 +26,16 @@ public class ImportBUS extends BUSAbstract<ImportModel> {
   }
 
   @Override
-  protected int getId(ImportModel importModel) {
+  public int getId(ImportModel importModel) {
     return importModel.getId();
+  }
+
+  public ImportModel getImportModel(int id) {
+    return getModel(id);
+  }
+
+  public List<ImportModel> getImportList() {
+    return Collections.unmodifiableList(importList);
   }
 
   @Override
@@ -49,26 +57,33 @@ public class ImportBUS extends BUSAbstract<ImportModel> {
   @Override
   protected boolean checkFilter(ImportModel importModel, String value, String column) {
     switch (column.toLowerCase()) {
-      case "id":
+      case "id" -> {
         if (Integer.parseInt(value) <= 0) {
           throw new IllegalArgumentException("Id must be greater than 0!");
         }
         return importModel.getId() == Integer.parseInt(value);
-      case "provider_id":
+      }
+      case "provider_id" -> {
         return importModel.getProviderId() == Integer.parseInt(value);
-      case "employee_id":
+      }
+      case "employee_id" -> {
         return importModel.getEmployeeId() == Integer.parseInt(value);
-      case "total_price":
+      }
+      case "total_price" -> {
         BigDecimal price = new BigDecimal(value);
         return importModel.getTotalPrice().compareTo(price) == 0;
-      case "created_at":
+      }
+      case "created_at" -> {
         long createdAtTimestamp = importModel.getCreatedAt().getTime() / 1000;
         return createdAtTimestamp == Long.parseLong(value);
-      case "updated_at":
+      }
+      case "updated_at" -> {
         long updatedAtTimestamp = importModel.getUpdatedAt().getTime() / 1000;
         return updatedAtTimestamp == Long.parseLong(value);
-      default:
+      }
+      default -> {
         return checkAllColumns(importModel, value);
+      }
     }
   }
 
@@ -112,13 +127,5 @@ public class ImportBUS extends BUSAbstract<ImportModel> {
 
   public List<ImportModel> searchModel(String value, String columns) {
     return search(value, columns);
-  }
-
-  public ImportModel getImportModel(int id) {
-    return getModel(id);
-  }
-
-  public List<ImportModel> getImportList() {
-    return Collections.unmodifiableList(importList);
   }
 }

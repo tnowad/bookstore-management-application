@@ -19,7 +19,7 @@ public interface DAOInterface<Entity> {
    *                                errors
    * @throws ClassNotFoundException if driver class not found
    */
-  public ArrayList<Entity> readDatabase() throws SQLException, ClassNotFoundException;
+  ArrayList<Entity> readDatabase() throws SQLException, ClassNotFoundException;
 
   /**
    * Inserts an entity to the database table associated with this DAO.
@@ -31,7 +31,7 @@ public interface DAOInterface<Entity> {
    *                                constraints violated
    * @throws ClassNotFoundException if driver class not found
    */
-  public int insert(Entity e) throws SQLException, ClassNotFoundException;
+  int insert(Entity e) throws SQLException, ClassNotFoundException;
 
   /**
    * Updates an existing entry in the database table associated with this DAO.
@@ -43,7 +43,7 @@ public interface DAOInterface<Entity> {
    *                                constraints violated
    * @throws ClassNotFoundException if driver class not found
    */
-  public int update(Entity e) throws SQLException, ClassNotFoundException;
+  int update(Entity e) throws SQLException, ClassNotFoundException;
 
   /**
    * Deletes a given entity from the database table associated with this DAO.
@@ -54,7 +54,7 @@ public interface DAOInterface<Entity> {
    *                                errors
    * @throws ClassNotFoundException if driver class not found
    */
-  public int delete(int id) throws SQLException, ClassNotFoundException;
+  int delete(int id) throws SQLException, ClassNotFoundException;
 
   /**
    * Searches the database table associated with this DAO for rows matching a
@@ -68,7 +68,7 @@ public interface DAOInterface<Entity> {
    *                                errors
    * @throws ClassNotFoundException if driver class not found
    */
-  public List<Entity> searchByCondition(String condition) throws SQLException, ClassNotFoundException;
+  List<Entity> searchByCondition(String condition) throws SQLException, ClassNotFoundException;
 
   /**
    * Searches the database table associated with this DAO for rows matching a
@@ -84,6 +84,6 @@ public interface DAOInterface<Entity> {
    *                                errors
    * @throws ClassNotFoundException if driver class not found
    */
-  public List<Entity> searchByCondition(String condition, String columnName)
+  List<Entity> searchByCondition(String condition, String columnName)
       throws SQLException, ClassNotFoundException;
 }

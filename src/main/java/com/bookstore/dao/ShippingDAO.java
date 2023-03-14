@@ -74,8 +74,6 @@ public class ShippingDAO implements DAOInterface<ShippingModel> {
         System.out.println("No records found for the given condition: " + condition);
       }
       return shippingList;
-    } catch (SQLException e) {
-      throw e;
     }
   }
 

@@ -24,8 +24,16 @@ public class PaymentMethodBUS extends BUSAbstract<PaymentMethodModel> {
   }
 
   @Override
-  protected int getId(PaymentMethodModel paymentMethodModel) {
+  public int getId(PaymentMethodModel paymentMethodModel) {
     return paymentMethodModel.getId();
+  }
+
+  public PaymentMethodModel getPaymentMethodModel(int id) {
+    return getModel(id);
+  }
+
+  public List<PaymentMethodModel> getPaymentMethodList() {
+    return Collections.unmodifiableList(paymentMethodList);
   }
 
   @Override
@@ -47,15 +55,19 @@ public class PaymentMethodBUS extends BUSAbstract<PaymentMethodModel> {
   @Override
   protected boolean checkFilter(PaymentMethodModel paymentMethodModel, String value, String column) {
     switch (column.toLowerCase()) {
-      case "id":
+      case "id" -> {
         return paymentMethodModel.getId() == Integer.parseInt(value);
-      case "payment_id":
+      }
+      case "payment_id" -> {
         return paymentMethodModel.getPaymentId().equalsIgnoreCase(value);
-      case "card_number":
+      }
+      case "card_number" -> {
         return paymentMethodModel.getCardNumber().equalsIgnoreCase(value);
-      case "card_holder":
+      }
+      case "card_holder" -> {
         return paymentMethodModel.getCardHolder().equalsIgnoreCase(value);
-      case "expiration_date":
+      }
+      case "expiration_date" -> {
         try {
           Date expirationDate = paymentMethodModel.getExpirationDate();
           Date inputDate = Date.valueOf(value);
@@ -64,10 +76,13 @@ public class PaymentMethodBUS extends BUSAbstract<PaymentMethodModel> {
           System.out.println("Invalid date format: " + value);
           return false;
         }
-      case "customer_id":
+      }
+      case "customer_id" -> {
         return paymentMethodModel.getCustomerId() == Integer.parseInt(value);
-      default:
+      }
+      default -> {
         return checkAllColumns(paymentMethodModel, value);
+      }
     }
   }
 
@@ -112,11 +127,4 @@ public class PaymentMethodBUS extends BUSAbstract<PaymentMethodModel> {
     return search(value, columns);
   }
 
-  public PaymentMethodModel getPaymentMethodModel(int id) {
-    return getModel(id);
-  }
-
-  public List<PaymentMethodModel> getPaymentMethodList() {
-    return Collections.unmodifiableList(paymentMethodList);
-  }
 }

@@ -94,8 +94,6 @@ public class PromotionDAO implements DAOInterface<PromotionModel> {
         System.out.println("No records found for the given condition: " + condition);
       }
       return promotionList;
-    } catch (SQLException e) {
-      throw e;
     }
   }
 

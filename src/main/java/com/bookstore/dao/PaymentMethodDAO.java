@@ -83,8 +83,6 @@ public class PaymentMethodDAO implements DAOInterface<PaymentMethodModel> {
         System.out.println("No records found for the given condition: " + condition);
       }
       return paymentMethodList;
-    } catch (SQLException e) {
-      throw e;
     }
   }
 

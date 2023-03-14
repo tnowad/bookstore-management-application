@@ -74,8 +74,6 @@ public class EmployeeDAO implements DAOInterface<EmployeeModel> {
         System.out.println("No records found for the given condition: " + condition);
       }
       return employeesList;
-    } catch (SQLException e) {
-      throw e;
     }
   }
 
@@ -107,8 +105,6 @@ public class EmployeeDAO implements DAOInterface<EmployeeModel> {
           return createEmployeeModelFromResultSet(rs);
         }
       }
-    } catch (SQLException e) {
-      throw e;
     }
     return null;
   }

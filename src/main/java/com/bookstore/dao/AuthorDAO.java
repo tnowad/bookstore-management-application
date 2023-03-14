@@ -70,8 +70,6 @@ public class AuthorDAO implements DAOInterface<AuthorModel> {
         System.out.println("No records found for the given condition: " + condition);
       }
       return authorList;
-    } catch (SQLException e) {
-      throw e;
     }
   }
 

@@ -23,8 +23,16 @@ public class AuthorBUS extends BUSAbstract<AuthorModel> {
   }
 
   @Override
-  protected int getId(AuthorModel authorModel) {
+  public int getId(AuthorModel authorModel) {
     return authorModel.getId();
+  }
+
+  public AuthorModel getAuthorModel(int id) {
+    return getModel(id);
+  }
+
+  public List<AuthorModel> getAuthorList() throws NullPointerException {
+    return Collections.unmodifiableList(authorList);
   }
 
   @Override
@@ -42,16 +50,12 @@ public class AuthorBUS extends BUSAbstract<AuthorModel> {
 
   @Override
   protected boolean checkFilter(AuthorModel authorModel, String value, String column) {
-    switch (column.toLowerCase()) {
-      case "id":
-        return authorModel.getId() == Integer.parseInt(value);
-      case "name":
-        return authorModel.getName().toLowerCase().contains(value.toLowerCase());
-      case "description":
-        return authorModel.getDescription().toLowerCase().contains(value.toLowerCase());
-      default:
-        return checkAllColumns(authorModel, value);
-    }
+    return switch (column.toLowerCase()) {
+      case "id" -> authorModel.getId() == Integer.parseInt(value);
+      case "name" -> authorModel.getName().toLowerCase().contains(value.toLowerCase());
+      case "description" -> authorModel.getDescription().toLowerCase().contains(value.toLowerCase());
+      default -> checkAllColumns(authorModel, value);
+    };
   }
 
   private boolean checkAllColumns(AuthorModel authorModel, String value) {
@@ -85,11 +89,4 @@ public class AuthorBUS extends BUSAbstract<AuthorModel> {
     return search(value, columns);
   }
 
-  public AuthorModel getAuthorModel(int id) {
-    return getModel(id);
-  }
-
-  public List<AuthorModel> getAuthorList() {
-    return Collections.unmodifiableList(authorList);
-  }
 }

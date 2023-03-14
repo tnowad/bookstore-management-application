@@ -35,6 +35,21 @@ public abstract class BUSAbstract<T> {
   protected abstract int getId(T t);
 
   /**
+   * Gets the details of a specific Model entity based on its ID
+   * 
+   * @param modelId the identifier of desired Entity
+   * @return the entity with the specified identifier if exists;otherwise null
+   */
+  public T getModel(int modelId) {
+    for (T m : models) {
+      if (getId(m) == modelId) {
+        return m;
+      }
+    }
+    return null;
+  }
+
+  /**
    * Transforms T-objects to Entities understandable by the database
    * 
    * @param t the model to transform
@@ -190,28 +205,4 @@ public abstract class BUSAbstract<T> {
     return results;
   }
 
-  /**
-   * Gets the details of a specific Model entity based on its ID
-   * 
-   * @param modelId the identifier of desired Entity
-   * @return the entity with the specified identifier if exists;otherwise null
-   */
-  public T getModel(int modelId) {
-    for (T m : models) {
-      if (getId(m) == modelId) {
-        return m;
-      }
-    }
-    return null;
-  }
-
-  /**
-   * Returns the ArrayList of values entries used to represent the Models in
-   * memory
-   * 
-   * @return an ArrayList of models
-   */
-  public List<T> getModels() {
-    return models;
-  }
 }

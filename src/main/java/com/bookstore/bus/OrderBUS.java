@@ -25,8 +25,16 @@ public class OrderBUS extends BUSAbstract<OrderModel> {
   }
 
   @Override
-  protected int getId(OrderModel orderModel) {
+  public int getId(OrderModel orderModel) {
     return orderModel.getId();
+  }
+
+  public OrderModel getOrderModel(int id) {
+    return getModel(id);
+  }
+
+  public List<OrderModel> getOrderList() {
+    return Collections.unmodifiableList(orderList);
   }
 
   @Override
@@ -51,33 +59,43 @@ public class OrderBUS extends BUSAbstract<OrderModel> {
   @Override
   protected boolean checkFilter(OrderModel orderModel, String value, String column) {
     switch (column.toLowerCase()) {
-      case "id":
+      case "id" -> {
         if (Integer.parseInt(value) <= 0) {
           throw new IllegalArgumentException("Id must be greater than 0!");
         }
         return orderModel.getId() == Integer.parseInt(value);
-      case "cart_id":
+      }
+      case "cart_id" -> {
         return orderModel.getCart_id() == Integer.parseInt(value);
-      case "customer_id":
+      }
+      case "customer_id" -> {
         return orderModel.getCustomer_id() == Integer.parseInt(value);
-      case "employee_id":
+      }
+      case "employee_id" -> {
         return orderModel.getEmployee_id() == Integer.parseInt(value);
-      case "total":
+      }
+      case "total" -> {
         int total = Integer.parseInt(value);
         return orderModel.getTotal() == total;
-      case "paid":
+      }
+      case "paid" -> {
         int paid = Integer.parseInt(value);
         return orderModel.getPaid() == paid;
-      case "created_at":
+      }
+      case "created_at" -> {
         long createdAtTimestamp = orderModel.getCreated_at().getTime() / 1000;
         return createdAtTimestamp == Long.parseLong(value);
-      case "updated_at":
+      }
+      case "updated_at" -> {
         long updatedAtTimestamp = orderModel.getUpdated_at().getTime() / 1000;
         return updatedAtTimestamp == Long.parseLong(value);
-      case "status":
+      }
+      case "status" -> {
         return orderModel.getStatus().toString().equalsIgnoreCase(value);
-      default:
+      }
+      default -> {
         return checkAllColumns(orderModel, value);
+      }
     }
   }
 
@@ -131,11 +149,4 @@ public class OrderBUS extends BUSAbstract<OrderModel> {
     return search(value, columns);
   }
 
-  public OrderModel getOrderModel(int id) {
-    return getModel(id);
-  }
-
-  public List<OrderModel> getOrderList() {
-    return Collections.unmodifiableList(orderList);
-  }
 }

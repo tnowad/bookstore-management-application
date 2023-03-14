@@ -36,6 +36,14 @@ public class UserBUS extends BUSAbstract<UserModel> {
     return t.getId();
   }
 
+  public UserModel getUserModel(int id) {
+    return getModel(id);
+  }
+
+  public List<UserModel> getUserList() {
+    return Collections.unmodifiableList(userList);
+  }
+
   @Override
   protected UserModel mapToEntity(UserModel from) {
     UserModel to = new UserModel();
@@ -55,24 +63,16 @@ public class UserBUS extends BUSAbstract<UserModel> {
 
   @Override
   protected boolean checkFilter(UserModel userModel, String value, String column) {
-    switch (column.toLowerCase()) {
-      case "id":
-        return userModel.getId() == Integer.parseInt(value);
-      case "username":
-        return userModel.getUsername().equalsIgnoreCase(value);
-      case "status":
-        return userModel.getStatus().toString().equalsIgnoreCase(value);
-      case "name":
-        return userModel.getName().equalsIgnoreCase(value);
-      case "email":
-        return userModel.getEmail().equalsIgnoreCase(value);
-      case "phone":
-        return userModel.getPhone().equals(value);
-      case "role":
-        return userModel.getRole().toString().equalsIgnoreCase(value);
-      default:
-        return checkAllColumns(userModel, value);
-    }
+    return switch (column.toLowerCase()) {
+      case "id" -> userModel.getId() == Integer.parseInt(value);
+      case "username" -> userModel.getUsername().equalsIgnoreCase(value);
+      case "status" -> userModel.getStatus().toString().equalsIgnoreCase(value);
+      case "name" -> userModel.getName().equalsIgnoreCase(value);
+      case "email" -> userModel.getEmail().equalsIgnoreCase(value);
+      case "phone" -> userModel.getPhone().equals(value);
+      case "role" -> userModel.getRole().toString().equalsIgnoreCase(value);
+      default -> checkAllColumns(userModel, value);
+    };
   }
 
   private boolean checkAllColumns(UserModel userModel, String value) {
@@ -132,11 +132,4 @@ public class UserBUS extends BUSAbstract<UserModel> {
     return search(value, columns);
   }
 
-  public UserModel getUserModel(int id) {
-    return getModel(id);
-  }
-
-  public List<UserModel> getUserList() {
-    return Collections.unmodifiableList(userList);
-  }
 }

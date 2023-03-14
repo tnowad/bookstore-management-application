@@ -78,8 +78,6 @@ public class BookDAO implements DAOInterface<BookModel> {
         System.out.println("No records found for the given condition: " + condition);
       }
       return bookList;
-    } catch (SQLException e) {
-      throw e;
     }
   }
 

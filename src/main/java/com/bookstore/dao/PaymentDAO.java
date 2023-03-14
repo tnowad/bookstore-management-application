@@ -16,7 +16,7 @@ public class PaymentDAO implements DAOInterface<PaymentModel> {
   }
 
   private PaymentModel createPaymentModelFromResultSet(ResultSet rs) throws SQLException {
-    PaymentModel paymentModel = new PaymentModel(
+    return new PaymentModel(
         rs.getInt("id"),
         rs.getInt("order_id"),
         rs.getInt("user_id"),
@@ -26,7 +26,6 @@ public class PaymentDAO implements DAOInterface<PaymentModel> {
         PaymentStatus.valueOf(rs.getString("status")),
         rs.getTimestamp("created_at"),
         rs.getTimestamp("updated_at"));
-    return paymentModel;
   }
 
   @Override
@@ -83,8 +82,6 @@ public class PaymentDAO implements DAOInterface<PaymentModel> {
         System.out.println("No records found for the given condition: " + condition);
       }
       return paymentList;
-    } catch (SQLException e) {
-      throw e;
     }
   }
 

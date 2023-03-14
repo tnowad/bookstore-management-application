@@ -89,8 +89,6 @@ public class UserDAO implements DAOInterface<UserModel> {
       }
 
       return userList;
-    } catch (SQLException e) {
-      throw e;
     }
   }
 

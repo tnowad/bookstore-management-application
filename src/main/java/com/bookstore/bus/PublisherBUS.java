@@ -23,8 +23,16 @@ public class PublisherBUS extends BUSAbstract<PublisherModel> {
   }
 
   @Override
-  protected int getId(PublisherModel publisherModel) {
+  public int getId(PublisherModel publisherModel) {
     return publisherModel.getId();
+  }
+
+  public PublisherModel getPublisherModel(int id) {
+    return getModel(id);
+  }
+
+  public List<PublisherModel> getPublisherList() {
+    return Collections.unmodifiableList(publisherList);
   }
 
   @Override
@@ -43,17 +51,21 @@ public class PublisherBUS extends BUSAbstract<PublisherModel> {
   @Override
   protected boolean checkFilter(PublisherModel publisherModel, String value, String column) {
     switch (column.toLowerCase()) {
-      case "id":
+      case "id" -> {
         if (Integer.parseInt(value) < 0) {
           throw new IllegalArgumentException("Id must be greater than 0!");
         }
         return publisherModel.getId() == Integer.parseInt(value);
-      case "name":
+      }
+      case "name" -> {
         return publisherModel.getName().toLowerCase().contains(value.toLowerCase());
-      case "description":
+      }
+      case "description" -> {
         return publisherModel.getDescription().toLowerCase().contains(value.toLowerCase());
-      default:
+      }
+      default -> {
         return checkAllColumns(publisherModel, value);
+      }
     }
   }
 
@@ -88,11 +100,4 @@ public class PublisherBUS extends BUSAbstract<PublisherModel> {
     return search(value, columns);
   }
 
-  public PublisherModel getPublisherModel(int id) {
-    return getModel(id);
-  }
-
-  public List<PublisherModel> getPublisherList() {
-    return Collections.unmodifiableList(publisherList);
-  }
 }

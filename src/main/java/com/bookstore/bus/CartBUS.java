@@ -24,8 +24,16 @@ public class CartBUS extends BUSAbstract<CartModel> {
   }
 
   @Override
-  protected int getId(CartModel cartModel) {
+  public int getId(CartModel cartModel) {
     return cartModel.getId();
+  }
+
+  public CartModel getCartModel(int id) {
+    return getModel(id);
+  }
+
+  public List<CartModel> getCartList() {
+    return Collections.unmodifiableList(cartList);
   }
 
   @Override
@@ -46,22 +54,15 @@ public class CartBUS extends BUSAbstract<CartModel> {
 
   @Override
   protected boolean checkFilter(CartModel cartModel, String value, String column) {
-    switch (column.toLowerCase()) {
-      case "id":
-        return cartModel.getId() == Integer.parseInt(value);
-      case "user_id":
-        return cartModel.getUserId() == Integer.parseInt(value);
-      case "created_at":
-        return cartModel.getCreatedAt().equals(Timestamp.valueOf(value));
-      case "status":
-        return cartModel.getStatus().toString().equalsIgnoreCase(value);
-      case "expires":
-        return cartModel.getExpires() != null && cartModel.getExpires().equals(Timestamp.valueOf(value));
-      case "promotion_id":
-        return cartModel.getPromotionId() == Integer.parseInt(value);
-      default:
-        return checkAllColumns(cartModel, value);
-    }
+    return switch (column.toLowerCase()) {
+      case "id" -> cartModel.getId() == Integer.parseInt(value);
+      case "user_id" -> cartModel.getUserId() == Integer.parseInt(value);
+      case "created_at" -> cartModel.getCreatedAt().equals(Timestamp.valueOf(value));
+      case "status" -> cartModel.getStatus().toString().equalsIgnoreCase(value);
+      case "expires" -> cartModel.getExpires() != null && cartModel.getExpires().equals(Timestamp.valueOf(value));
+      case "promotion_id" -> cartModel.getPromotionId() == Integer.parseInt(value);
+      default -> checkAllColumns(cartModel, value);
+    };
   }
 
   private boolean checkAllColumns(CartModel cartModel, String value) {
@@ -97,11 +98,4 @@ public class CartBUS extends BUSAbstract<CartModel> {
     return search(value, columns);
   }
 
-  public CartModel getCartModel(int id) {
-    return getModel(id);
-  }
-
-  public List<CartModel> getCartList() {
-    return Collections.unmodifiableList(cartList);
-  }
 }

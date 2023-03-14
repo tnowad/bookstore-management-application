@@ -23,16 +23,23 @@ public class PromotionBUS extends BUSAbstract<PromotionModel> {
   }
 
   @Override
-  protected int getId(PromotionModel promotionModel) {
+  public int getId(PromotionModel promotionModel) {
     return promotionModel.getId();
+  }
+
+  public PromotionModel getPromotionModel(int id) {
+    return getModel(id);
+  }
+
+  public List<PromotionModel> getPromotionList() {
+    return Collections.unmodifiableList(promotionList);
   }
 
   @Override
   protected PromotionModel mapToEntity(PromotionModel from) {
-    PromotionModel to = new PromotionModel(from.getId(), from.getDescription(), from.getQuantity(),
+    return new PromotionModel(from.getId(), from.getDescription(), from.getQuantity(),
         from.getStartDate(), from.getEndDate(), from.getConditionApply(), from.getDiscountPercent(),
         from.getDiscountAmount());
-    return to;
   }
 
   @Override
@@ -49,41 +56,50 @@ public class PromotionBUS extends BUSAbstract<PromotionModel> {
   @Override
   protected boolean checkFilter(PromotionModel promotionModel, String value, String column) {
     switch (column.toLowerCase()) {
-      case "id":
+      case "id" -> {
         try {
           return Integer.parseInt(value) == promotionModel.getId();
         } catch (NumberFormatException e) {
           return false;
         }
-      case "description":
+      }
+      case "description" -> {
         return promotionModel.getDescription().toLowerCase().contains(value.toLowerCase());
-      case "quantity":
+      }
+      case "quantity" -> {
         try {
           return Integer.parseInt(value) > 0 && promotionModel.getQuantity() == Integer.parseInt(value);
         } catch (NumberFormatException e) {
           return false;
         }
-      case "start_date":
+      }
+      case "start_date" -> {
         return promotionModel.getStartDate().equals(value);
-      case "end_date":
+      }
+      case "end_date" -> {
         return promotionModel.getEndDate().equals(value);
-      case "condition_apply":
+      }
+      case "condition_apply" -> {
         return promotionModel.getConditionApply() != null
             && promotionModel.getConditionApply().toLowerCase().contains(value.toLowerCase());
-      case "discount_percent":
+      }
+      case "discount_percent" -> {
         try {
           return Integer.parseInt(value) >= 0 && promotionModel.getDiscountPercent() == Integer.parseInt(value);
         } catch (NumberFormatException e) {
           return false;
         }
-      case "discount_amount":
+      }
+      case "discount_amount" -> {
         try {
           return Integer.parseInt(value) >= 0 && promotionModel.getDiscountAmount() == Integer.parseInt(value);
         } catch (NumberFormatException e) {
           return false;
         }
-      default:
+      }
+      default -> {
         return checkAllColumns(promotionModel, value);
+      }
     }
   }
 
@@ -133,11 +149,4 @@ public class PromotionBUS extends BUSAbstract<PromotionModel> {
     return search(value, columns);
   }
 
-  public PromotionModel getPromotionModel(int id) {
-    return getModel(id);
-  }
-
-  public List<PromotionModel> getPromotionList() {
-    return Collections.unmodifiableList(promotionList);
-  }
 }

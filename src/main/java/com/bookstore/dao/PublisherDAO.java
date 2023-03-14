@@ -69,8 +69,6 @@ public class PublisherDAO implements DAOInterface<PublisherModel> {
         System.out.println("No records found for the given condition: " + condition);
       }
       return publisherList;
-    } catch (SQLException e) {
-      throw e;
     }
   }
 

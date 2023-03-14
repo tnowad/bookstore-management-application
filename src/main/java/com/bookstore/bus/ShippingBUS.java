@@ -23,8 +23,16 @@ public class ShippingBUS extends BUSAbstract<ShippingModel> {
   }
 
   @Override
-  protected int getId(ShippingModel shippingModel) {
+  public int getId(ShippingModel shippingModel) {
     return shippingModel.getId();
+  }
+
+  public ShippingModel getShippingModel(int id) {
+    return getModel(id);
+  }
+
+  public List<ShippingModel> getShippingList() {
+    return Collections.unmodifiableList(shippingList);
   }
 
   @Override
@@ -44,20 +52,14 @@ public class ShippingBUS extends BUSAbstract<ShippingModel> {
 
   @Override
   protected boolean checkFilter(ShippingModel shippingModel, String value, String column) {
-    switch (column.toLowerCase()) {
-      case "id":
-        return shippingModel.getId() == Integer.parseInt(value);
-      case "order_id":
-        return shippingModel.getOrderId() == Integer.parseInt(value);
-      case "shipping_method":
-        return shippingModel.getShippingMethod().equalsIgnoreCase(value);
-      case "address_id":
-        return shippingModel.getAddressId() == Integer.parseInt(value);
-      case "status":
-        return shippingModel.getStatus().toString().equalsIgnoreCase(value);
-      default:
-        return checkAllColumns(shippingModel, value);
-    }
+    return switch (column.toLowerCase()) {
+      case "id" -> shippingModel.getId() == Integer.parseInt(value);
+      case "order_id" -> shippingModel.getOrderId() == Integer.parseInt(value);
+      case "shipping_method" -> shippingModel.getShippingMethod().equalsIgnoreCase(value);
+      case "address_id" -> shippingModel.getAddressId() == Integer.parseInt(value);
+      case "status" -> shippingModel.getStatus().toString().equalsIgnoreCase(value);
+      default -> checkAllColumns(shippingModel, value);
+    };
   }
 
   private boolean checkAllColumns(ShippingModel shippingModel, String value) {
@@ -96,11 +98,4 @@ public class ShippingBUS extends BUSAbstract<ShippingModel> {
     return search(value, columns);
   }
 
-  public ShippingModel getShippingModel(int id) {
-    return getModel(id);
-  }
-
-  public List<ShippingModel> getShippingList() {
-    return Collections.unmodifiableList(shippingList);
-  }
 }

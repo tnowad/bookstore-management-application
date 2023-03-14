@@ -82,8 +82,6 @@ public class ImportDAO implements DAOInterface<ImportModel> {
       }
 
       return importsList;
-    } catch (SQLException e) {
-      throw e;
     }
   }
 

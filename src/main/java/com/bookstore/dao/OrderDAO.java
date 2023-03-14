@@ -82,8 +82,6 @@ public class OrderDAO implements DAOInterface<OrderModel> {
         System.out.println("No records found for the given condition: " + condition);
       }
       return orderList;
-    } catch (SQLException e) {
-      throw e;
     }
   }
 

@@ -23,8 +23,16 @@ public class CategoryBUS extends BUSAbstract<CategoryModel> {
   }
 
   @Override
-  protected int getId(CategoryModel categoryModel) {
+  public int getId(CategoryModel categoryModel) {
     return categoryModel.getId();
+  }
+
+  public CategoryModel getCategoryModel(int id) {
+    return getModel(id);
+  }
+
+  public List<CategoryModel> getCategoryList() {
+    return Collections.unmodifiableList(categoryList);
   }
 
   @Override
@@ -42,15 +50,18 @@ public class CategoryBUS extends BUSAbstract<CategoryModel> {
   @Override
   protected boolean checkFilter(CategoryModel categoryModel, String value, String column) {
     switch (column.toLowerCase()) {
-      case "id":
+      case "id" -> {
         if (Integer.parseInt(value) <= 0) {
           throw new IllegalArgumentException("Id must be greater than 0!");
         }
         return categoryModel.getId() == Integer.parseInt(value);
-      case "name":
+      }
+      case "name" -> {
         return categoryModel.getName().toLowerCase().contains(value.toLowerCase());
-      default:
+      }
+      default -> {
         return checkAllColumns(categoryModel, value);
+      }
     }
   }
 
@@ -81,11 +92,4 @@ public class CategoryBUS extends BUSAbstract<CategoryModel> {
     return search(value, columns);
   }
 
-  public CategoryModel getCategoryModel(int id) {
-    return getModel(id);
-  }
-
-  public List<CategoryModel> getCategoryList() {
-    return Collections.unmodifiableList(categoryList);
-  }
 }

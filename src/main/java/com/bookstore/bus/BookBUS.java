@@ -23,8 +23,16 @@ public class BookBUS extends BUSAbstract<BookModel> {
   }
 
   @Override
-  protected int getId(BookModel bookModel) {
+  public int getId(BookModel bookModel) {
     return Integer.parseInt(bookModel.getIsbn());
+  }
+
+  public BookModel getBookModel(int isbn) {
+    return getModel(isbn);
+  }
+
+  public List<BookModel> getBookList() {
+    return Collections.unmodifiableList(bookList);
   }
 
   @Override
@@ -49,42 +57,52 @@ public class BookBUS extends BUSAbstract<BookModel> {
   @Override
   protected boolean checkFilter(BookModel bookModel, String value, String column) {
     switch (column.toLowerCase()) {
-      case "isbn":
+      case "isbn" -> {
         return bookModel.getIsbn().equals(value);
-      case "title":
+      }
+      case "title" -> {
         return bookModel.getTitle().toLowerCase().contains(value.toLowerCase());
-      case "description":
+      }
+      case "description" -> {
         return bookModel.getDescription().toLowerCase().contains(value.toLowerCase());
-      case "image":
+      }
+      case "image" -> {
         return bookModel.getImage().toLowerCase().contains(value.toLowerCase());
-      case "price":
+      }
+      case "price" -> {
         try {
           return Integer.parseInt(value) > 0 && bookModel.getPrice() == Integer.parseInt(value);
         } catch (NumberFormatException e) {
           return false;
         }
-      case "quantity":
+      }
+      case "quantity" -> {
         try {
           return Integer.parseInt(value) > 0 && bookModel.getQuantity() == Integer.parseInt(value);
         } catch (NumberFormatException e) {
           return false;
         }
-      case "status":
+      }
+      case "status" -> {
         return bookModel.getStatus().equals(value.toUpperCase());
-      case "author_id":
+      }
+      case "author_id" -> {
         try {
           return Integer.parseInt(value) > 0 && bookModel.getAuthorId() == Integer.parseInt(value);
         } catch (NumberFormatException e) {
           return false;
         }
-      case "publisher_id":
+      }
+      case "publisher_id" -> {
         try {
           return Integer.parseInt(value) > 0 && bookModel.getPublisherId() == Integer.parseInt(value);
         } catch (NumberFormatException e) {
           return false;
         }
-      default:
+      }
+      default -> {
         return checkAllColumns(bookModel, value);
+      }
     }
   }
 
@@ -138,14 +156,6 @@ public class BookBUS extends BUSAbstract<BookModel> {
 
   public List<BookModel> searchModel(String value, String columns) {
     return search(value, columns);
-  }
-
-  public BookModel getBookModel(int isbn) {
-    return getModel(isbn);
-  }
-
-  public List<BookModel> getBookList() {
-    return Collections.unmodifiableList(bookList);
   }
 
 }

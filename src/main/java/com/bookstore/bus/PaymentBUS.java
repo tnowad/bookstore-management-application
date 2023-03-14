@@ -27,6 +27,14 @@ public class PaymentBUS extends BUSAbstract<PaymentModel> {
     return paymentModel.getId();
   }
 
+  public PaymentModel getPaymentModel(int id) {
+    return getModel(id);
+  }
+
+  public List<PaymentModel> getPaymentList() {
+    return Collections.unmodifiableList(paymentList);
+  }
+
   @Override
   protected PaymentModel mapToEntity(PaymentModel from) {
     PaymentModel to = new PaymentModel();
@@ -49,28 +57,38 @@ public class PaymentBUS extends BUSAbstract<PaymentModel> {
   @Override
   protected boolean checkFilter(PaymentModel paymentModel, String value, String column) {
     switch (column.toLowerCase()) {
-      case "id":
+      case "id" -> {
         return paymentModel.getId() == Integer.parseInt(value);
-      case "order_id":
+      }
+      case "order_id" -> {
         return paymentModel.getOrderId() == Integer.parseInt(value);
-      case "user_id":
+      }
+      case "user_id" -> {
         return paymentModel.getUserId() == Integer.parseInt(value);
-      case "amount":
+      }
+      case "amount" -> {
         return paymentModel.getAmount() == Integer.parseInt(value);
-      case "payment_method":
+      }
+      case "payment_method" -> {
         return paymentModel.getPaymentMethod().toString().equalsIgnoreCase(value);
-      case "payment_method_id":
+      }
+      case "payment_method_id" -> {
         return paymentModel.getPaymentMethodId() == Integer.parseInt(value);
-      case "status":
+      }
+      case "status" -> {
         return paymentModel.getStatus().toString().equalsIgnoreCase(value);
-      case "created_at":
+      }
+      case "created_at" -> {
         long createdAtTimestamp = paymentModel.getCreatedAt().getTime() / 1000;
         return createdAtTimestamp == Long.parseLong(value);
-      case "updated_at":
+      }
+      case "updated_at" -> {
         long updatedAtTimestamp = paymentModel.getUpdatedAt().getTime() / 1000;
         return updatedAtTimestamp == Long.parseLong(value);
-      default:
+      }
+      default -> {
         return checkAllColumns(paymentModel, value);
+      }
     }
   }
 
@@ -117,11 +135,4 @@ public class PaymentBUS extends BUSAbstract<PaymentModel> {
     return search(value, columns);
   }
 
-  public PaymentModel getPaymentModel(int id) {
-    return getModel(id);
-  }
-
-  public List<PaymentModel> getPaymentList() {
-    return Collections.unmodifiableList(paymentList);
-  }
 }

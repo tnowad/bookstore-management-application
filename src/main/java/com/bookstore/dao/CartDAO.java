@@ -74,8 +74,6 @@ public class CartDAO implements DAOInterface<CartModel> {
         System.out.println("No records found for the given condition: " + condition);
       }
       return cartList;
-    } catch (SQLException e) {
-      throw e;
     }
   }
 

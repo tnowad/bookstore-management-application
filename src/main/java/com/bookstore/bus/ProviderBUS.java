@@ -23,8 +23,16 @@ public class ProviderBUS extends BUSAbstract<ProviderModel> {
   }
 
   @Override
-  protected int getId(ProviderModel t) {
+  public int getId(ProviderModel t) {
     return t.getId();
+  }
+
+  public ProviderModel getProviderModel(int id) {
+    return getModel(id);
+  }
+
+  public List<ProviderModel> getProviderList() {
+    return Collections.unmodifiableList(providerList);
   }
 
   @Override
@@ -42,16 +50,12 @@ public class ProviderBUS extends BUSAbstract<ProviderModel> {
 
   @Override
   protected boolean checkFilter(ProviderModel providerModel, String value, String column) {
-    switch (column.toLowerCase()) {
-      case "id":
-        return providerModel.getId() == Integer.parseInt(value);
-      case "name":
-        return providerModel.getName().toLowerCase().contains(value.toLowerCase());
-      case "description":
-        return providerModel.getDescription().toLowerCase().contains(value.toLowerCase());
-      default:
-        return checkAllColumns(providerModel, value);
-    }
+    return switch (column.toLowerCase()) {
+      case "id" -> providerModel.getId() == Integer.parseInt(value);
+      case "name" -> providerModel.getName().toLowerCase().contains(value.toLowerCase());
+      case "description" -> providerModel.getDescription().toLowerCase().contains(value.toLowerCase());
+      default -> checkAllColumns(providerModel, value);
+    };
   }
 
   private boolean checkAllColumns(ProviderModel providerModel, String value) {
@@ -85,11 +89,4 @@ public class ProviderBUS extends BUSAbstract<ProviderModel> {
     return search(value, columns);
   }
 
-  public ProviderModel getProviderModel(int id) {
-    return getModel(id);
-  }
-
-  public List<ProviderModel> getProviderList() {
-    return Collections.unmodifiableList(providerList);
-  }
 }

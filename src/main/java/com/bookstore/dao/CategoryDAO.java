@@ -69,8 +69,6 @@ public class CategoryDAO implements DAOInterface<CategoryModel> {
         System.out.println("No records found for the given condition: " + condition);
       }
       return categoryList;
-    } catch (SQLException e) {
-      throw e;
     }
   }
 

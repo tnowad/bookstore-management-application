@@ -75,8 +75,6 @@ public class AddressDAO implements DAOInterface<AddressModel> {
         System.out.println("No records found for the given condition: " + condition);
       }
       return addressList;
-    } catch (SQLException e) {
-      throw e;
     }
   }
 

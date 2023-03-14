@@ -70,8 +70,6 @@ public class ProviderDAO implements DAOInterface<ProviderModel> {
         System.out.println("No records found for the given condition: " + condition);
       }
       return providerList;
-    } catch (SQLException e) {
-      throw e;
     }
   }
 
