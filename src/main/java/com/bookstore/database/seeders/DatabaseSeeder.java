@@ -6,6 +6,7 @@ public class DatabaseSeeder {
         new UserSeeder(),
         new BookSeeder(),
         new AddressSeeder(),
+        new AuthorSeeder(),
     };
     for (ISeeder seeder : seeders) {
       new Thread(() -> {

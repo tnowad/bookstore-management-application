@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 import com.bookstore.model.UserModel;
 import com.github.javafaker.Faker;
 
-public class UserFactory implements Factory<UserModel> {
+public class UserFactory implements IFactory<UserModel> {
   private static final Faker faker = new Faker();
   private static int id = 0;
 

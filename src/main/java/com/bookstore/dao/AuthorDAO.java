@@ -9,9 +9,13 @@ import java.util.List;
 import com.bookstore.model.AuthorModel;
 
 public class AuthorDAO implements DAOInterface<AuthorModel> {
+  private static AuthorDAO instance;
 
   public static AuthorDAO getInstance() {
-    return new AuthorDAO();
+    if (instance == null) {
+      instance = new AuthorDAO();
+    }
+    return instance;
   }
 
   private AuthorModel createAuthorModelFromResultSet(ResultSet rs) throws SQLException {

@@ -3,7 +3,7 @@ package com.bookstore.database.factories;
 import com.bookstore.model.AddressModel;
 import com.github.javafaker.Faker;
 
-public class AddressFactory implements Factory<AddressModel> {
+public class AddressFactory implements IFactory<AddressModel> {
   private static final Faker faker = new Faker();
   private static int id = 0;
 
