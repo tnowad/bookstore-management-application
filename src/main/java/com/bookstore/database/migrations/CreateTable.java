@@ -1,7 +1,9 @@
-package com.bookstore.database;
+package com.bookstore.database.migrations;
 
-import java.sql.*;
-import java.sql.Timestamp;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class CreateTable {
   static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
