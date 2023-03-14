@@ -2,7 +2,14 @@ package com.bookstore.database.seeders;
 
 public class DatabaseSeeder {
   public static void main(String[] args) {
-    new UserSeeder().run();
-    new BookSeeder().run();
+    ISeeder[] seeders = new ISeeder[] {
+        new UserSeeder(),
+        new BookSeeder()
+    };
+    for (ISeeder seeder : seeders) {
+      new Thread(() -> {
+        seeder.run();
+      }).start();
+    }
   }
 }

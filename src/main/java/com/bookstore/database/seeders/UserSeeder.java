@@ -5,9 +5,9 @@ import java.sql.SQLException;
 import com.bookstore.dao.UserDAO;
 import com.bookstore.database.factories.UserFactory;
 
-public class UserSeeder {
+public class UserSeeder implements ISeeder {
   public void run() {
-    for (int i = 0; i < 1000; i++) {
+    for (int i = 0; i < 100; i++) {
       try {
         UserDAO.getInstance().insert(new UserFactory().create());
       } catch (ClassNotFoundException | SQLException e) {
