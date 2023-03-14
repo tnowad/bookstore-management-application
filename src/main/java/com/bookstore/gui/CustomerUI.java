@@ -3,7 +3,6 @@ package com.bookstore.gui;
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
-import javax.swing.border.*;
 
 public class CustomerUI extends JFrame implements MouseListener {
 
@@ -36,7 +35,7 @@ public class CustomerUI extends JFrame implements MouseListener {
   public void initIconMenuBar() {
     iconMenuBar = new JPanel();
     iconMenuBar.addMouseListener(this);
-    iconMenuBar.setPreferredSize(new Dimension(40, 550));
+    iconMenuBar.setPreferredSize(new Dimension(40, 200));
     iconMenuBar.setBackground(Color.WHITE);
 
     jLabelHomeIcon = new JLabel();
@@ -142,20 +141,14 @@ public class CustomerUI extends JFrame implements MouseListener {
     groupContent.add(contentHome, "cardhome");
     groupContent.add(contentNotifi, "cardnotifi");
 
-    jButtonHome.addActionListener(new java.awt.event.ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        CardLayout c1Layout = (CardLayout) groupContent.getLayout();
-        c1Layout.show(groupContent, "cardhome");
-      }
+    jButtonHome.addActionListener(e -> {
+      CardLayout c1Layout = (CardLayout) groupContent.getLayout();
+      c1Layout.show(groupContent, "cardhome");
     });
 
-    jButtonNotification.addActionListener(new java.awt.event.ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        CardLayout c2Layout = (CardLayout) groupContent.getLayout();
-        c2Layout.show(groupContent, "cardnotifi");
-      }
+    jButtonNotification.addActionListener(e -> {
+      CardLayout c2Layout = (CardLayout) groupContent.getLayout();
+      c2Layout.show(groupContent, "cardnotifi");
     });
 
   }
@@ -174,46 +167,52 @@ public class CustomerUI extends JFrame implements MouseListener {
 
   public static void main(String[] args) {
     new CustomerUI().setLocationRelativeTo(null);
-    System.out.println("gggg");
   }
 
+  // Define a field for the MouseAdapter
+  private MouseAdapter outsideClickListener;
+
   private void openMenuBar() {
-    new Thread(new Runnable() {
-      @Override
-      public void run() {
-        for (int i = 0; i < 130; i++) {
-          buttonMenuBar.setSize(i, 550);
-          try {
-            Thread.sleep(2);
-          } catch (InterruptedException e) {
-            e.printStackTrace();
-          }
+    new Thread(() -> {
+      for (int i = 0; i < getParent().getWidth(); i++) {
+        buttonMenuBar.setSize(i, 550);
+        try {
+          Thread.sleep(2);
+        } catch (InterruptedException e) {
+          e.printStackTrace();
         }
       }
 
+      // Add outsideClickListener to detect clicks outside of menu bar
+      outsideClickListener = new MouseAdapter() {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+          if (!buttonMenuBar.getBounds().contains(e.getPoint())) {
+            closeMenuBar();
+            removeMouseListener(outsideClickListener); // Remove listener after use
+          }
+        }
+      };
+      addMouseListener(outsideClickListener);
     }).start();
   }
 
   public void closeMenuBar() {
-    new Thread(new Runnable() {
-      @Override
-      public void run() {
-        for (int i = 180; i > 0; i--) {
-          buttonMenuBar.setSize(i, 550);
-          try {
-            Thread.sleep(2);
-          } catch (InterruptedException e) {
-            e.printStackTrace();
-          }
+    new Thread(() -> {
+      for (int i = getParent().getWidth(); i > 0; i--) {
+        buttonMenuBar.setSize(i, 550);
+        try {
+          Thread.sleep(2);
+        } catch (InterruptedException e) {
+          e.printStackTrace();
         }
       }
-
     }).start();
   }
 
   @Override
   public void mouseClicked(MouseEvent arg0) {
-    if (buttonMenuBar.isVisible() == false) {
+    if (!buttonMenuBar.isVisible()) {
       initButtonMenuBar();
       groupContent.setPreferredSize(new Dimension(1030, 550));
       this.add(buttonMenuBar, BorderLayout.CENTER);
@@ -223,8 +222,10 @@ public class CustomerUI extends JFrame implements MouseListener {
       closeMenuBar();
       groupContent.setPreferredSize(new Dimension(1160, 550));
       buttonMenuBar.setVisible(false);
+      this.removeMouseListener(outsideClickListener); // Remove listener after closing menu bar
       this.setVisible(true);
     }
+
   }
 
   @Override
