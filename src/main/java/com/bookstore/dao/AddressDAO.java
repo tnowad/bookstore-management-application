@@ -9,9 +9,13 @@ import java.util.List;
 import com.bookstore.model.AddressModel;
 
 public class AddressDAO implements DAOInterface<AddressModel> {
+  private static AddressDAO instance;
 
   public static AddressDAO getInstance() {
-    return new AddressDAO();
+    if (instance == null) {
+      instance = new AddressDAO();
+    }
+    return instance;
   }
 
   private AddressModel createAddressModelFromResultSet(ResultSet rs) throws SQLException {

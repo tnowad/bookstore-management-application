@@ -12,9 +12,12 @@ import com.bookstore.model.UserModel.Role;
 import com.bookstore.model.UserModel.Status;
 
 public class UserDAO implements DAOInterface<UserModel> {
-
+  private static UserDAO instance;
   public static UserDAO getInstance() {
-    return new UserDAO();
+    if(instance == null) {
+      instance = new UserDAO();
+    }
+    return instance;
   }
 
   private UserModel createUserModelFromResultSet(ResultSet rs) throws SQLException {
