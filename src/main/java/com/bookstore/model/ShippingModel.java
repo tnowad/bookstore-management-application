@@ -59,6 +59,8 @@ public class ShippingModel {
   }
 
   public enum Status {
-    PENDING
+    PENDING,
+    SHIPPED,
+    DELIVERED
   }
 }

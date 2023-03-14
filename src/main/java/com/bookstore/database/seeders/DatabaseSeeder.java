@@ -7,6 +7,16 @@ public class DatabaseSeeder {
         new BookSeeder(),
         new AddressSeeder(),
         new AuthorSeeder(),
+        new CartSeeder(),
+        new CategorySeeder(),
+        new ImportsSeeder(),
+        new PaymentSeeder(),
+        new PromotionSeeder(),
+        new PublisherSeeder(),
+        new ProvidersSeeder(),
+        new ShippingSeeder(),
+        new OrderSeeder(),
+
     };
     for (ISeeder seeder : seeders) {
       new Thread(() -> {

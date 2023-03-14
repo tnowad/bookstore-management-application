@@ -103,11 +103,14 @@ public class PaymentModel {
   }
 
   public enum PaymentMethod {
-    CASH
+    CASH,
+    CREDIT
   }
 
   public enum PaymentStatus {
-    PENDING
+    PENDING,
+    SUCCESS,
+    FAILED
   }
 
 }

@@ -14,7 +14,8 @@ public class OrderModel {
   private Status status;
 
   public enum Status {
-    PENDING;
+    PENDING,
+    SOLVED;
   }
 
   public OrderModel() {
@@ -22,6 +23,19 @@ public class OrderModel {
 
   public OrderModel(int cart_id, int customer_id, int employee_id, int total, int paid, Timestamp created_at,
       Timestamp updated_at, Status status) {
+    this.cart_id = cart_id;
+    this.customer_id = customer_id;
+    this.employee_id = employee_id;
+    this.total = total;
+    this.paid = paid;
+    this.created_at = created_at;
+    this.updated_at = updated_at;
+    this.status = status;
+  }
+
+  public OrderModel(int id, int cart_id, int customer_id, int employee_id, int total, int paid, Timestamp created_at,
+      Timestamp updated_at, Status status) {
+    this.id = id;
     this.cart_id = cart_id;
     this.customer_id = customer_id;
     this.employee_id = employee_id;

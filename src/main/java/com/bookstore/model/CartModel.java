@@ -8,7 +8,7 @@ public class CartModel {
   private Timestamp createdAt;
   private Status status;
   private Timestamp expires;
-  private Integer promotionId;
+  private int promotionId;
 
   public CartModel() {
   }
