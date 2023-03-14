@@ -3,6 +3,7 @@ package com.bookstore.database.factories;
 import java.sql.Timestamp;
 
 import com.bookstore.model.UserModel;
+import com.bookstore.util.PasswordUtil;
 import com.github.javafaker.Faker;
 
 public class UserFactory implements IFactory<UserModel> {
@@ -13,7 +14,7 @@ public class UserFactory implements IFactory<UserModel> {
     return new UserModel(
         ++id,
         faker.name().username(),
-        faker.internet().password(),
+        PasswordUtil.hashPassword("password"),
         UserModel.Status.values()[faker.number().numberBetween(0, 3)],
         faker.name().fullName(),
         faker.internet().emailAddress(),
