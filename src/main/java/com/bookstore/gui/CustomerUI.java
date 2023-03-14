@@ -5,7 +5,6 @@ import javax.swing.*;
 import java.awt.event.*;
 
 public class CustomerUI extends JFrame implements MouseListener {
-
   private JPanel groupHeader, groupContent, iconMenuBar, buttonMenuBar;
 
   private JButton jButtonHome, jButtonCart, jButtonHistory, jButtonProfile, jButtonNotification, jButtonHelp,
@@ -84,16 +83,33 @@ public class CustomerUI extends JFrame implements MouseListener {
     jButtonHome.setFont(font);
     jButtonHome.setBackground(Color.WHITE);
     buttonMenuBar.add(jButtonHome);
+    jButtonHome.addActionListener(e -> {
+      CardLayout c1Layout = (CardLayout) groupContent.getLayout();
+      c1Layout.show(groupContent, "cardhome");
+    });
 
     jButtonNotification = new JButton("Thông Báo");
     jButtonNotification.setFont(font);
     jButtonNotification.setBackground(Color.WHITE);
     buttonMenuBar.add(jButtonNotification);
+    jButtonNotification.addActionListener(e -> {
+      CardLayout c2Layout = (CardLayout) groupContent.getLayout();
+      c2Layout.show(groupContent, "cardnotifi");
+    });
 
     jButtonCart = new JButton("Giỏ Hàng");
     jButtonCart.setFont(font);
     jButtonCart.setBackground(Color.WHITE);
     buttonMenuBar.add(jButtonCart);
+    jButtonCart.addMouseListener(new MouseAdapter() {
+      @Override
+      public void mousePressed(MouseEvent e) {
+        CartUI cart = new CartUI();
+        groupContent.add(cart, "cartcart");
+        CardLayout c1Layout = (CardLayout) groupContent.getLayout();
+        c1Layout.show(groupContent, "cardcart");
+      }
+    });
 
     jButtonHistory = new JButton("Lịch Sử");
     jButtonHistory.setFont(font);
@@ -141,16 +157,6 @@ public class CustomerUI extends JFrame implements MouseListener {
     groupContent.add(contentHome, "cardhome");
     groupContent.add(contentNotifi, "cardnotifi");
 
-    jButtonHome.addActionListener(e -> {
-      CardLayout c1Layout = (CardLayout) groupContent.getLayout();
-      c1Layout.show(groupContent, "cardhome");
-    });
-
-    jButtonNotification.addActionListener(e -> {
-      CardLayout c2Layout = (CardLayout) groupContent.getLayout();
-      c2Layout.show(groupContent, "cardnotifi");
-    });
-
   }
 
   public void initFrame() {
@@ -169,7 +175,6 @@ public class CustomerUI extends JFrame implements MouseListener {
     new CustomerUI().setLocationRelativeTo(null);
   }
 
-  // Define a field for the MouseAdapter
   private MouseAdapter outsideClickListener;
 
   private void openMenuBar() {
@@ -182,14 +187,12 @@ public class CustomerUI extends JFrame implements MouseListener {
           e.printStackTrace();
         }
       }
-
-      // Add outsideClickListener to detect clicks outside of menu bar
       outsideClickListener = new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {
           if (!buttonMenuBar.getBounds().contains(e.getPoint())) {
             closeMenuBar();
-            removeMouseListener(outsideClickListener); // Remove listener after use
+            removeMouseListener(outsideClickListener);
           }
         }
       };
@@ -230,22 +233,42 @@ public class CustomerUI extends JFrame implements MouseListener {
 
   @Override
   public void mouseEntered(MouseEvent arg0) {
-
   }
 
   @Override
   public void mouseExited(MouseEvent arg0) {
-    throw new UnsupportedOperationException("Unimplemented method 'mouseExited'");
   }
 
   @Override
-  public void mousePressed(MouseEvent arg0) {
-    throw new UnsupportedOperationException("Unimplemented method 'mousePressed'");
+  public void mousePressed(MouseEvent e) {
+    if (e.getSource() == jButtonHome) {
+      CardLayout c1Layout = (CardLayout) groupContent.getLayout();
+      c1Layout.show(groupContent, "cardhome");
+    }
+
+    if (e.getSource() == jButtonCart) {
+      CardLayout c1Layout = (CardLayout) groupContent.getLayout();
+      c1Layout.show(groupContent, "cardcart");
+    }
+
+    if (e.getSource() == jButtonHistory) {
+      CardLayout c1Layout = (CardLayout) groupContent.getLayout();
+      c1Layout.show(groupContent, "cardhistory");
+    }
+
+    if (e.getSource() == jButtonProfile) {
+      CardLayout c1Layout = (CardLayout) groupContent.getLayout();
+      c1Layout.show(groupContent, "cardprofile");
+    }
+
+    if (e.getSource() == jButtonNotification) {
+      CardLayout c1Layout = (CardLayout) groupContent.getLayout();
+      c1Layout.show(groupContent, "cardnotification");
+    }
   }
 
   @Override
   public void mouseReleased(MouseEvent arg0) {
-    throw new UnsupportedOperationException("Unimplemented method 'mouseReleased'");
   }
 
 }
