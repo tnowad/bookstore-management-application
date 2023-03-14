@@ -13,14 +13,16 @@ import com.bookstore.model.UserModel.Status;
 
 public class UserDAO implements DAOInterface<UserModel> {
   private static UserDAO instance;
+
   public static UserDAO getInstance() {
-    if(instance == null) {
+    if (instance == null) {
       instance = new UserDAO();
     }
     return instance;
   }
 
   private UserModel createUserModelFromResultSet(ResultSet rs) throws SQLException {
+
     int id = rs.getInt("id");
     String username = rs.getString("username");
     String password = rs.getString("password");
