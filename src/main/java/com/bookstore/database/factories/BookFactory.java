@@ -3,7 +3,7 @@ package com.bookstore.database.factories;
 import com.bookstore.model.BookModel;
 import com.github.javafaker.Faker;
 
-public class BookFactory {
+public class BookFactory implements Factory<BookModel> {
   private static final Faker faker = new Faker();
 
   public BookModel create() {

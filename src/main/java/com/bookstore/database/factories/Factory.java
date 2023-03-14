@@ -1,5 +1,5 @@
 package com.bookstore.database.factories;
 
-public abstract class Factory<T> {
+public interface Factory<T> {
   public abstract T create();
 }
