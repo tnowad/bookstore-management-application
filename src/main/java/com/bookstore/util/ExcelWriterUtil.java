@@ -28,9 +28,9 @@ public class ExcelWriterUtil {
     }
 
     SXSSFWorkbook workbook = new SXSSFWorkbook();
-    Sheet sheet = workbook.createSheet(sheetName);
 
-    try (BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(filePath))) {
+    try (workbook; BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(filePath))) {
+      Sheet sheet = workbook.createSheet(sheetName);
       for (List<String> rowData : data) {
         Row row = sheet.createRow(sheet.getLastRowNum() + 1);
 
@@ -42,8 +42,6 @@ public class ExcelWriterUtil {
       }
 
       workbook.write(bos);
-    } finally {
-      workbook.close();
     }
   }
 }

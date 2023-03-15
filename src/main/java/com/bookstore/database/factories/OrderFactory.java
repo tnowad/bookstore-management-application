@@ -1,9 +1,6 @@
 package com.bookstore.database.factories;
 
-import java.util.concurrent.TimeUnit;
-
 import com.bookstore.model.OrderModel;
-import com.bookstore.model.OrderModel.Status;
 import com.github.javafaker.Faker;
 import java.sql.Timestamp;
 

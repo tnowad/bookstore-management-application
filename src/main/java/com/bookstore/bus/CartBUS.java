@@ -8,6 +8,7 @@ import java.util.List;
 
 import com.bookstore.dao.CartDAO;
 import com.bookstore.model.CartModel;
+import com.bookstore.model.UserModel;
 
 public class CartBUS extends BUSAbstract<CartModel> {
 
@@ -79,7 +80,7 @@ public class CartBUS extends BUSAbstract<CartModel> {
       throw new IllegalArgumentException("User ID must be greater than 0!");
     }
     if (cartModel.getStatus() == null) {
-      throw new IllegalArgumentException("Status cannot be null or empty!");
+      cartModel.setStatus(cartModel.getStatus() != null ? cartModel.getStatus() : CartModel.Status.PENDING);
     }
     return add(cartModel);
   }

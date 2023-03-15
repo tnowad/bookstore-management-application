@@ -18,31 +18,22 @@ public class ExcelReaderUtil {
   public static List<List<String>> readExcel(String filePath, int sheetIndex) throws IOException {
     List<List<String>> data = new ArrayList<>();
     File file = new File(filePath);
-    if (file.exists() == false) {
+    if (!file.exists()) {
       throw new IOException("File not found: " + filePath);
     }
     FileInputStream fileInputStream = new FileInputStream(file);
     Workbook workbook = WorkbookFactory.create(fileInputStream);
     Sheet sheet = workbook.getSheetAt(sheetIndex);
-    Iterator<Row> rowIterator = sheet.iterator();
-    while (rowIterator.hasNext()) {
-      Row row = rowIterator.next();
+    for (Row row : sheet) {
       Iterator<Cell> cellIterator = row.cellIterator();
       List<String> rowData = new ArrayList<>();
       while (cellIterator.hasNext()) {
         Cell cell = cellIterator.next();
         switch (cell.getCellType()) {
-          case STRING:
-            rowData.add(cell.getStringCellValue());
-            break;
-          case NUMERIC:
-            rowData.add(String.valueOf(cell.getNumericCellValue()));
-            break;
-          case BOOLEAN:
-            rowData.add(String.valueOf(cell.getBooleanCellValue()));
-            break;
-          default:
-            rowData.add("");
+          case STRING -> rowData.add(cell.getStringCellValue());
+          case NUMERIC -> rowData.add(String.valueOf(cell.getNumericCellValue()));
+          case BOOLEAN -> rowData.add(String.valueOf(cell.getBooleanCellValue()));
+          default -> rowData.add("");
         }
       }
       data.add(rowData);

@@ -32,7 +32,7 @@ public class AddressBUS extends BUSAbstract<AddressModel> {
     return getModel(id);
   }
 
-  public List<AddressModel> getModelList() throws NullPointerException {
+  public List<AddressModel> getAddressList() throws NullPointerException {
     return Collections.unmodifiableList(addressList);
   }
 
