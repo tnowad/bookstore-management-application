@@ -12,8 +12,6 @@ import javax.swing.table.TableColumnModel;
 public class CartUI extends JFrame {
 
   private JLabel jLabelBookTitle;
-  private JButton jButtonRemove, jButtonCheckout;
-  private JTable jTableCart;
 
   public CartUI() {
     setPreferredSize(new Dimension(1280, 720));
@@ -29,8 +27,7 @@ public class CartUI extends JFrame {
 
   public void init() {
     // Title Label
-    JLabel jLabelCartTitle = new JLabel("Shopping List", SwingConstants.CENTER); // Added SwingConstants.CENTER to
-                                                                                 // center the text
+    JLabel jLabelCartTitle = new JLabel("Shopping List", SwingConstants.CENTER);
     jLabelCartTitle.setFont(new Font("Segoe Script", Font.BOLD, 32));
     jLabelCartTitle.setForeground(new Color(94, 63, 43));
 
@@ -41,13 +38,13 @@ public class CartUI extends JFrame {
     gbc.gridx = 0;
     gbc.gridy = 0;
     gbc.fill = GridBagConstraints.HORIZONTAL;
-    gbc.anchor = GridBagConstraints.CENTER; // Set anchor for center alignment of label
+    gbc.anchor = GridBagConstraints.CENTER;
 
     JPanel contentTop = new JPanel(new GridBagLayout());
     contentTop.add(titleContainer, gbc);
 
     // Remove Button
-    jButtonRemove = new JButton(new ImageIcon("remove.png"));
+    JButton jButtonRemove = new JButton(new ImageIcon("remove.png"));
     jButtonRemove.setToolTipText("Delete");
     jButtonRemove.setBackground(new Color(222, 66, 66));
     jButtonRemove.setBorder(BorderFactory.createEmptyBorder());
@@ -58,7 +55,7 @@ public class CartUI extends JFrame {
     });
 
     // Checkout Button
-    jButtonCheckout = new JButton("Proceed to checkout");
+    JButton jButtonCheckout = new JButton("Proceed to checkout");
     jButtonCheckout.setFont(new Font("sansserif", Font.PLAIN, 18));
     jButtonCheckout.setForeground(new Color(255, 255, 255));
     jButtonCheckout.setBackground(new Color(94, 63, 43));
@@ -75,7 +72,7 @@ public class CartUI extends JFrame {
     }, new String[] { "", "Tên Sách", "Số Lượng", "Đơn Giá", "Thành Tiền" }) {
       @Override
       public boolean isCellEditable(int row, int column) {
-        return column != 0; // disable editing on column 1 onwards
+        return column == 2; // enable editing on column quantity
       }
 
       @Override
@@ -88,12 +85,12 @@ public class CartUI extends JFrame {
       }
     };
 
-    jTableCart = new JTable(model);
+    JTable jTableCart = new JTable(model);
     jTableCart.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     jTableCart.setFont(new Font("sansserif", Font.PLAIN, 16));
     jTableCart.setRowHeight(30);
 
-    // make table header not movable but still resizable
+    // make table header not movable and resizable
     jTableCart.getTableHeader().setReorderingAllowed(false);
     jTableCart.getTableHeader().setResizingAllowed(false);
 
@@ -141,10 +138,10 @@ public class CartUI extends JFrame {
 
     // align left for left columns and right for right columns
     DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-    renderer.setHorizontalAlignment(SwingConstants.LEFT);
+    renderer.setHorizontalAlignment(SwingConstants.CENTER);
     jTableCart.getColumnModel().getColumn(1).setCellRenderer(renderer);
     jTableCart.getColumnModel().getColumn(2).setCellRenderer(renderer);
-    renderer.setHorizontalAlignment(SwingConstants.RIGHT);
+    renderer.setHorizontalAlignment(SwingConstants.CENTER);
     jTableCart.getColumnModel().getColumn(3).setCellRenderer(renderer);
     jTableCart.getColumnModel().getColumn(4).setCellRenderer(renderer);
 
@@ -153,13 +150,12 @@ public class CartUI extends JFrame {
     quantityColumn.setCellEditor(new QuantityEditor());
   }
 
-  class QuantityEditor extends AbstractCellEditor implements TableCellEditor {
-    private final JButton plusButton, minusButton;
+  static class QuantityEditor extends AbstractCellEditor implements TableCellEditor {
     private final JTextField field;
 
     public QuantityEditor() {
-      plusButton = new JButton("+");
-      minusButton = new JButton("-");
+      JButton plusButton = new JButton("+");
+      JButton minusButton = new JButton("-");
       field = new JTextField();
       JPanel panel = new JPanel(new BorderLayout());
 
