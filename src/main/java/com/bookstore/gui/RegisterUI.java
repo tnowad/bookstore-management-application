@@ -259,7 +259,7 @@ public class RegisterUI {
   private void initFrame() {
     frame.setPreferredSize(new Dimension(1150, 625));
     frame.setMinimumSize(new Dimension(700, 600));
-    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     frame.pack();
     frame.setLocationRelativeTo(null);
     frame.setVisible(true);

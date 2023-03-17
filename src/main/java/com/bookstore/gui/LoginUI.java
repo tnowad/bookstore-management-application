@@ -3,7 +3,15 @@ package com.bookstore.gui;
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
+import java.sql.SQLException;
+import java.util.Arrays;
+
 import javax.swing.border.*;
+
+import com.bookstore.bus.UserBUS;
+import com.bookstore.dao.UserDAO;
+import com.bookstore.model.UserModel;
+import com.bookstore.model.UserModel.Role;
 
 public class LoginUI {
 
@@ -151,30 +159,57 @@ public class LoginUI {
   }
 
   private void handleEvent() {
-    usernameTextField.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent evt) {
+    usernameTextField.addActionListener(evt -> {
 
+    });
+
+    passwordField.addActionListener(evt -> {
+
+    });
+
+    loginButton.addActionListener(e -> {
+      String username = usernameTextField.getText();
+      char[] password = passwordField.getPassword();
+      String passwordtext = new String(password);
+      try {
+        UserBUS userBUS = new UserBUS();
+        UserModel user = userBUS.login(username, passwordtext);
+        if (user != null) {
+          // successful login - do something (e.g. show main application window)
+          System.out.println("Logged in successfully");
+          UserModel userModel = UserDAO.getInstance().getUserByUsername(username);
+          Role role = userModel.getRole();
+          switch (role) {
+            case CUSTOMER -> {
+
+            }
+            case EMPLOYEE -> {
+
+            }
+            case ADMIN -> {
+
+            }
+          }
+        } else {
+          // login failed - do something (e.g. display error message)
+          JOptionPane.showMessageDialog(null, "Invalid username or password", "Login Failed",
+              JOptionPane.ERROR_MESSAGE);
+          System.out.println("Login Failed");
+        }
+        Arrays.fill(password, '0');
+      } catch (SQLException ex) {
+        // handle database error (e.g. display error message)
+        ex.printStackTrace();
+      } catch (ClassNotFoundException ex) {
+        // handle missing class error (e.g. display error message)
+        ex.printStackTrace();
       }
     });
 
-    passwordField.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent evt) {
+    cancelButton.addActionListener(e -> frame.dispose());
 
-      }
-    });
-
-    loginButton.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-
-      }
-    });
-
-    cancelButton.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        frame.dispose();
-      }
+    registerButton.addActionListener(e -> {
+      new RegisterUI();
     });
 
     frame.addComponentListener(new ComponentAdapter() {
