@@ -71,6 +71,10 @@
 				"value": "data",
 				"label": "Data Access Layer"
 			},
+      {
+        "value": "utils",
+        "label": "Utils"
+      },
 			{
 				"value": "",
 				"label": "none"
