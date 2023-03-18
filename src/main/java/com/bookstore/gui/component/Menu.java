@@ -1,4 +1,4 @@
-package com.bookstore.gui.components;
+package com.bookstore.gui.component;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
