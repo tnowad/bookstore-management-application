@@ -16,6 +16,7 @@ public class DatabaseSeeder {
         new ProvidersSeeder(),
         new ShippingSeeder(),
         new OrderSeeder(),
+        new EmployeeSeeder(),
 
     };
     for (ISeeder seeder : seeders) {
