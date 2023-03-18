@@ -13,12 +13,17 @@ import org.jdesktop.animation.timing.TimingTargetAdapter;
 
 import net.miginfocom.swing.MigLayout;
 
+/**
+ * It contains menu, header and main.
+ *
+ * @extends JFrame
+ */
 public class Main extends JFrame {
   // Contains all components in the frame (menu, header, main)
   private JLayeredPane background;
   // Layout for background
   private MigLayout layout;
-  // Menu, header, main
+  // Todo: Create menu, header and main components to replace JFrame
   private JFrame menu;
   private JFrame header;
   private JFrame main;
