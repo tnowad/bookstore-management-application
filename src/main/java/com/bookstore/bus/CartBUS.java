@@ -8,7 +8,6 @@ import java.util.List;
 
 import com.bookstore.dao.CartDAO;
 import com.bookstore.model.CartModel;
-import com.bookstore.model.UserModel;
 
 public class CartBUS extends BUSAbstract<CartModel> {
 

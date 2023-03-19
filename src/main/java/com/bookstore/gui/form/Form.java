@@ -7,7 +7,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class Form extends JPanel {
-  private JLabel label;
 
   public Form() {
     initComponent();
@@ -16,7 +15,7 @@ public class Form extends JPanel {
   }
 
   private void initComponent() {
-    label = new JLabel("Form");
+    JLabel label = new JLabel("Form");
     add(label);
     // Align middle
     label.setVerticalAlignment(JLabel.CENTER);

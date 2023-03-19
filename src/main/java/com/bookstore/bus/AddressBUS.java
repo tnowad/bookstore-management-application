@@ -11,7 +11,6 @@ import com.bookstore.model.AddressModel;
 public class AddressBUS extends BUSAbstract<AddressModel> {
 
   private final List<AddressModel> addressList = new ArrayList<>();
-
   private final AddressDAO addressDAO = AddressDAO.getInstance();
 
   public AddressBUS() throws SQLException, ClassNotFoundException {
