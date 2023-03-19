@@ -1,15 +1,18 @@
 package com.bookstore.gui.swing.noticeboard;
 
-import com.bookstore.gui.swing.scrollbar.ScrollBarCustom;
-import java.awt.Color;
-import java.awt.Font;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
+import java.awt.Color;
+import java.awt.Font;
+
 import net.miginfocom.swing.MigLayout;
 
-public class NoticeBoard extends javax.swing.JPanel {
+import com.bookstore.gui.swing.scrollbar.ScrollBarCustom;
+
+public class NoticeBoard extends JPanel {
 
   private javax.swing.JScrollPane jScrollPane1;
   private javax.swing.JPanel panel;

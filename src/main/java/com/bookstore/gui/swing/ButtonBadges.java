@@ -1,5 +1,7 @@
 package com.bookstore.gui.swing;
 
+import javax.swing.JButton;
+import javax.swing.border.EmptyBorder;
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -12,8 +14,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
-import javax.swing.JButton;
-import javax.swing.border.EmptyBorder;
+
 import org.jdesktop.animation.timing.Animator;
 import org.jdesktop.animation.timing.TimingTarget;
 import org.jdesktop.animation.timing.TimingTargetAdapter;
@@ -38,7 +39,7 @@ public class ButtonBadges extends JButton {
 
   private Animator animator;
   private int targetSize;
-  private float animatSize;
+  private float animatorSize;
   private Point pressedPoint;
   private float alpha;
   private Color effectColor = new Color(173, 173, 173);
@@ -53,7 +54,7 @@ public class ButtonBadges extends JButton {
       @Override
       public void mousePressed(MouseEvent me) {
         targetSize = Math.max(getWidth(), getHeight()) * 2;
-        animatSize = 0;
+        animatorSize = 0;
         pressedPoint = me.getPoint();
         alpha = 0.5f;
         if (animator.isRunning()) {
@@ -68,7 +69,7 @@ public class ButtonBadges extends JButton {
         if (fraction > 0.5f) {
           alpha = 1 - fraction;
         }
-        animatSize = fraction * targetSize;
+        animatorSize = fraction * targetSize;
         repaint();
       }
     };
@@ -77,7 +78,7 @@ public class ButtonBadges extends JButton {
   }
 
   @Override
-  protected void paintComponent(Graphics grphcs) {
+  protected void paintComponent(Graphics graphics) {
     int width = getWidth();
     int height = getHeight();
     BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
@@ -88,35 +89,35 @@ public class ButtonBadges extends JButton {
     if (pressedPoint != null) {
       g2.setColor(effectColor);
       g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, alpha));
-      g2.fillOval((int) (pressedPoint.x - animatSize / 2), (int) (pressedPoint.y - animatSize / 2),
-          (int) animatSize, (int) animatSize);
+      g2.fillOval((int) (pressedPoint.x - animatorSize / 2), (int) (pressedPoint.y - animatorSize / 2),
+          (int) animatorSize, (int) animatorSize);
     }
     g2.dispose();
-    grphcs.drawImage(img, 0, 0, null);
-    super.paintComponent(grphcs);
+    graphics.drawImage(img, 0, 0, null);
+    super.paintComponent(graphics);
   }
 
   @Override
-  public void paint(Graphics grphcs) {
-    super.paint(grphcs);
+  public void paint(Graphics graphics) {
+    super.paint(graphics);
     if (badges > 0) {
       String value = badges > 9 ? "+9" : badges + "";
       int width = getWidth();
-      Graphics2D g2 = (Graphics2D) grphcs;
-      g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-      FontMetrics ft = g2.getFontMetrics();
-      Rectangle2D r2 = ft.getStringBounds(value, g2);
-      int fw = (int) r2.getWidth();
-      int fh = (int) r2.getHeight();
-      g2.setColor(getForeground());
-      int size = Math.max(fw, fh) + 4;
-      g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, 0.8f));
-      g2.fillOval(width - size, 0, size, size);
-      int x = (size - fw) / 2;
-      g2.setColor(Color.WHITE);
-      g2.setComposite(AlphaComposite.SrcOver);
-      g2.drawString(value, width - size + x, ft.getAscent() + 1);
-      g2.dispose();
+      Graphics2D graphics2d = (Graphics2D) graphics;
+      graphics2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+      FontMetrics fontMetrics = graphics2d.getFontMetrics();
+      Rectangle2D rectangle2d = fontMetrics.getStringBounds(value, graphics2d);
+      int fontWidth = (int) rectangle2d.getWidth();
+      int fontHeight = (int) rectangle2d.getHeight();
+      graphics2d.setColor(getForeground());
+      int size = Math.max(fontWidth, fontHeight) + 4;
+      graphics2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, 0.8f));
+      graphics2d.fillOval(width - size, 0, size, size);
+      int x = (size - fontWidth) / 2;
+      graphics2d.setColor(Color.WHITE);
+      graphics2d.setComposite(AlphaComposite.SrcOver);
+      graphics2d.drawString(value, width - size + x, fontMetrics.getAscent() + 1);
+      graphics2d.dispose();
     }
   }
 }

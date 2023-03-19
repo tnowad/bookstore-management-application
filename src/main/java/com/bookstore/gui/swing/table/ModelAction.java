@@ -1,33 +1,51 @@
-package com.raven.swing.table;
+package com.bookstore.gui.swing.table;
 
-import com.raven.model.ModelStudent;
+class ModelStudent {
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public ModelStudent(String name) {
+    this.name = name;
+  }
+
+  public ModelStudent() {
+  }
+
+  private String name;
+}
 
 public class ModelAction {
 
-    public ModelStudent getStudent() {
-        return student;
-    }
+  public ModelStudent getStudent() {
+    return student;
+  }
 
-    public void setStudent(ModelStudent student) {
-        this.student = student;
-    }
+  public void setStudent(ModelStudent student) {
+    this.student = student;
+  }
 
-    public EventAction getEvent() {
-        return event;
-    }
+  public EventAction getEvent() {
+    return event;
+  }
 
-    public void setEvent(EventAction event) {
-        this.event = event;
-    }
+  public void setEvent(EventAction event) {
+    this.event = event;
+  }
 
-    public ModelAction(ModelStudent student, EventAction event) {
-        this.student = student;
-        this.event = event;
-    }
+  public ModelAction(ModelStudent student, EventAction event) {
+    this.student = student;
+    this.event = event;
+  }
 
-    public ModelAction() {
-    }
+  public ModelAction() {
+  }
 
-    private ModelStudent student;
-    private EventAction event;
+  private ModelStudent student;
+  private EventAction event;
 }

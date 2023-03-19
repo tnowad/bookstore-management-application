@@ -1,6 +1,7 @@
 package com.bookstore.gui.swing;
 
 import java.awt.Component;
+
 import net.miginfocom.swing.MigLayout;
 import org.jdesktop.animation.timing.Animator;
 import org.jdesktop.animation.timing.TimingTarget;
