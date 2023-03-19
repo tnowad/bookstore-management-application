@@ -26,7 +26,7 @@ public class ExcelWriterUtil {
     if (parentDirectory != null && !Files.exists(parentDirectory)) {
       Files.createDirectories(parentDirectory);
     }
-
+    // !Deprecated: Use WorkbookFactory.create() instead of new XSSFWorkbook()
     SXSSFWorkbook workbook = new SXSSFWorkbook();
 
     try (workbook; BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(filePath))) {
