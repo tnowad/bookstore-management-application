@@ -40,7 +40,7 @@ public class Message extends javax.swing.JDialog {
 
       @Override
       public void end() {
-        if (!show) {
+        if (show == false) {
           setVisible(false);
         }
       }
@@ -57,6 +57,9 @@ public class Message extends javax.swing.JDialog {
     setVisible(true);
   }
 
+  @SuppressWarnings("unchecked")
+  // <editor-fold defaultstate="collapsed" desc="Generated
+  // Code">//GEN-BEGIN:initComponents
   private void initComponents() {
 
     jPanel1 = new javax.swing.JPanel();
@@ -161,9 +164,11 @@ public class Message extends javax.swing.JDialog {
     animator.start();
   }
 
+  // Variables declaration - do not modify//GEN-BEGIN:variables
   private com.bookstore.gui.swing.Button button1;
   private com.bookstore.gui.swing.Button button2;
   private javax.swing.JPanel jPanel1;
   private javax.swing.JLabel lbIcon;
   private javax.swing.JLabel lbMessage;
+  // End of variables declaration//GEN-END:variables
 }

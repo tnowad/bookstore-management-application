@@ -2,7 +2,8 @@ package com.bookstore.gui.form;
 
 import com.bookstore.gui.dialog.Message;
 import com.bookstore.gui.main.Main;
-import com.bookstore.model.CardModel;
+import com.bookstore.gui.model.ModelCard;
+import com.bookstore.gui.model.ModelStudent;
 import com.bookstore.gui.swing.icon.GoogleMaterialDesignIcons;
 import com.bookstore.gui.swing.icon.IconFontSwing;
 import com.bookstore.gui.swing.noticeboard.ModelNoticeBoard;
@@ -11,9 +12,9 @@ import java.awt.Color;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
-public class Home extends javax.swing.JPanel {
+public class Form_Home extends javax.swing.JPanel {
 
-  public Home() {
+  public Form_Home() {
     initComponents();
     table1.fixTable(jScrollPane1);
     setOpaque(false);
@@ -113,6 +114,7 @@ public class Home extends javax.swing.JPanel {
     return obj.isOk();
   }
 
+  @SuppressWarnings("unchecked")
   // <editor-fold defaultstate="collapsed" desc="Generated
   // Code">//GEN-BEGIN:initComponents
   private void initComponents() {

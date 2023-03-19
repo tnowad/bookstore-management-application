@@ -23,7 +23,7 @@ public final class IconFontSwing {
   private static List<IconFont> fonts = new ArrayList<>();
 
   public static synchronized void register(IconFont iconFont) {
-    if (!IconFontSwing.fonts.contains(iconFont)) {
+    if (IconFontSwing.fonts.contains(iconFont) == false) {
       IconFontSwing.fonts.add(iconFont);
     }
   }
