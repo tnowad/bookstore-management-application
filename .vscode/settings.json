@@ -2,5 +2,8 @@
     "java.configuration.updateBuildConfiguration": "automatic",
     "commentTranslate.multiLineMerge": true,
     "commentTranslate.source": "Google",
-    "commentTranslate.targetLanguage": "vi"
+    "commentTranslate.targetLanguage": "vi",
+    "cSpell.words": [
+        "fillx"
+    ]
 }

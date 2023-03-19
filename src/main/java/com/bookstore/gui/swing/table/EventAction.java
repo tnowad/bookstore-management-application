@@ -1,10 +1,8 @@
 package com.bookstore.gui.swing.table;
 
-import com.raven.model.ModelStudent;
+public interface EventAction<T> {
 
-public interface EventAction {
+  public void delete(T student);
 
-  public void delete(ModelStudent student);
-
-  public void update(ModelStudent student);
+  public void update(T student);
 }

@@ -13,14 +13,14 @@ public class PanelPopup extends JPanel {
   }
 
   @Override
-  protected void paintComponent(Graphics grphcs) {
-    Graphics2D g2 = (Graphics2D) grphcs;
-    g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-    g2.setColor(new Color(50, 50, 50));
-    g2.fillRect(8, 0, getSize().width - 8, getSize().height);
+  protected void paintComponent(Graphics graphics) {
+    Graphics2D graphics2d = (Graphics2D) graphics;
+    graphics2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+    graphics2d.setColor(new Color(50, 50, 50));
+    graphics2d.fillRect(8, 0, getSize().width - 8, getSize().height);
     int x[] = { 0, 10, 10 };
     int y[] = { 20, 13, 27 };
-    g2.fillPolygon(x, y, x.length);
-    super.paintComponent(grphcs);
+    graphics2d.fillPolygon(x, y, x.length);
+    super.paintComponent(graphics);
   }
 }

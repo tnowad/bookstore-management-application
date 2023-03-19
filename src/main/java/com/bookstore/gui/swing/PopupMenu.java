@@ -1,25 +1,29 @@
 package com.bookstore.gui.swing;
 
-import com.bookstore.gui.event.EventMenuSelected;
-import net.miginfocom.swing.MigLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Frame;
+import java.awt.event.WindowEvent;
+import javax.swing.GroupLayout;
+
 import org.jdesktop.animation.timing.Animator;
 import org.jdesktop.animation.timing.TimingTarget;
 import org.jdesktop.animation.timing.TimingTargetAdapter;
+import net.miginfocom.swing.MigLayout;
 
-import java.awt.*;
+import com.bookstore.gui.event.EventMenuSelected;
 
 public class PopupMenu extends javax.swing.JDialog {
+  private PanelPopup panel;
 
   private Animator animator;
   private boolean show = true;
 
-  private void formWindowLostFocus(java.awt.event.WindowEvent evt) {
+  private void formWindowLostFocus(WindowEvent evt) {
     closeMenu();
   }
 
-  private com.bookstore.gui.swing.PanelPopup panel;
-
-  public PopupMenu(java.awt.Frame parent, int index, EventMenuSelected eventSelected, String... subMenu) {
+  public PopupMenu(Frame parent, int index, EventMenuSelected eventSelected, String... subMenu) {
     super(parent, false);
     initComponents();
     setOpacity(0f);
@@ -76,7 +80,7 @@ public class PopupMenu extends javax.swing.JDialog {
 
   private void initComponents() {
 
-    panel = new com.bookstore.gui.swing.PanelPopup();
+    panel = new PanelPopup();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     setUndecorated(true);
@@ -89,27 +93,28 @@ public class PopupMenu extends javax.swing.JDialog {
       }
     });
 
-    javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
+    GroupLayout panelLayout = new GroupLayout(panel);
     panel.setLayout(panelLayout);
     panelLayout.setHorizontalGroup(
-        panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        panelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGap(0, 200, Short.MAX_VALUE));
     panelLayout.setVerticalGroup(
-        panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        panelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE));
 
-    javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+    GroupLayout layout = new GroupLayout(getContentPane());
+
     getContentPane().setLayout(layout);
     layout.setHorizontalGroup(
-        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
+        layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addComponent(panel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE,
                 Short.MAX_VALUE));
+
     layout.setVerticalGroup(
-        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
+        layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addComponent(panel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE,
                 Short.MAX_VALUE));
 
     pack();
   }
-
 }
