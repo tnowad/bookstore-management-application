@@ -1,6 +1,8 @@
 package com.bookstore.gui.component;
 
 import javax.swing.GroupLayout;
+import javax.swing.Icon;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.LayoutStyle;
@@ -25,7 +27,7 @@ import com.bookstore.gui.swing.scrollbar.ScrollBarCustom;
 
 public class Menu extends JPanel {
   private JPanel panel;
-  private Profile profile1;
+  private Profile profile;
   private JScrollPane scrollPane;
 
   public boolean isShowMenu() {
@@ -61,71 +63,6 @@ public class Menu extends JPanel {
     scrollPane.setVerticalScrollBar(new ScrollBarCustom());
     layout = new MigLayout("wrap, fillx, insets 0", "[fill]", "[]0[]");
     panel.setLayout(layout);
-  }
-
-  public void initMenuItem() {
-    // addMenu(new ModelMenu(new
-    // ImageIcon(getClass().getResource("/com/bookstore/gui/icon/1.png")),
-    // "Dashboard", "Home",
-    // "Buttons", "Cards", "Tabs", "Accordions", "Modals"));
-    // addMenu(new ModelMenu(new
-    // ImageIcon(getClass().getResource("/com/bookstore/gui/icon/2.png")), "Charts",
-    // "Morris",
-    // "Flot",
-    // "Line"));
-    // addMenu(new ModelMenu(new
-    // ImageIcon(getClass().getResource("/com/bookstore/gui/icon/3.png")), "Report",
-    // "Income",
-    // "Expense",
-    // "Profit"));
-    // addMenu(new ModelMenu(new
-    // ImageIcon(getClass().getResource("/com/bookstore/gui/icon/4.png")),
-    // "Message", "Sender",
-    // "Inbox",
-    // "User"));
-    // addMenu(new ModelMenu(new
-    // ImageIcon(getClass().getResource("/com/bookstore/gui/icon/5.png")), "Staff",
-    // "Sender",
-    // "Inbox",
-    // "User"));
-    // addMenu(new ModelMenu(new
-    // ImageIcon(getClass().getResource("/com/bookstore/gui/icon/6.png")),
-    // "Student", "Menu 001",
-    // "Menu 002", "Menu 003"));
-    // addMenu(new ModelMenu(new
-    // ImageIcon(getClass().getResource("/com/bookstore/gui/icon/7.png")),
-    // "Library", "Menu 001",
-    // "Menu 002", "Menu 003"));
-    // addMenu(new ModelMenu(new
-    // ImageIcon(getClass().getResource("/com/bookstore/gui/icon/8.png")),
-    // "Holiday", "Menu 001",
-    // "Menu 002", "Menu 003"));
-    // addMenu(
-    // new ModelMenu(new
-    // ImageIcon(getClass().getResource("/com/bookstore/gui/icon/9.png")),
-    // "Calendar", "Menu 001",
-    // "Menu 002", "Menu 003"));
-    // addMenu(
-    // new ModelMenu(new
-    // ImageIcon(getClass().getResource("/com/bookstore/gui/icon/10.png")), "Chat
-    // App", "Menu 001",
-    // "Menu 002", "Menu 003"));
-    // addMenu(
-    // new ModelMenu(new
-    // ImageIcon(getClass().getResource("/com/bookstore/gui/icon/11.png")),
-    // "Contace", "Menu 001",
-    // "Menu 002", "Menu 003"));
-    // addMenu(new ModelMenu(new
-    // ImageIcon(getClass().getResource("/com/bookstore/gui/icon/12.png")), "File
-    // Manager",
-    // "Menu 001",
-    // "Menu 002", "Menu 003"));
-    // addMenu(new ModelMenu(new
-    // ImageIcon(getClass().getResource("/com/bookstore/gui/icon/13.png")), "Our
-    // Centres"));
-    // addMenu(new ModelMenu(new
-    // ImageIcon(getClass().getResource("/com/bookstore/gui/icon/14.png")),
-    // "Gallery"));
   }
 
   private void addMenu(ModelMenu menu) {
@@ -167,7 +104,7 @@ public class Menu extends JPanel {
 
     scrollPane = new JScrollPane();
     panel = new JPanel();
-    profile1 = new com.bookstore.gui.component.Profile();
+    profile = new com.bookstore.gui.component.Profile();
 
     scrollPane.setBorder(null);
     scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -191,11 +128,11 @@ public class Menu extends JPanel {
     layout.setHorizontalGroup(
         layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
-            .addComponent(profile1, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE));
+            .addComponent(profile, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE));
     layout.setVerticalGroup(
         layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(profile1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+                .addComponent(profile, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
                     GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)));
@@ -211,4 +148,40 @@ public class Menu extends JPanel {
     super.paintComponent(grphcs);
   }
 
+  public static void main(String[] args) {
+    new JFrame() {
+      {
+        Menu menu = new Menu();
+        ModelMenu modelMenu = new ModelMenu(
+            new Icon() {
+              @Override
+              public void paintIcon(Component c, Graphics g, int x, int y) {
+                g.setColor(Color.WHITE);
+                g.fillRect(x, y, getIconWidth(), getIconHeight());
+                g.setColor(Color.BLACK);
+                g.fillRect(x + 5, y + 5, getIconWidth() - 10, getIconHeight() - 10);
+              }
+
+              @Override
+              public int getIconWidth() {
+                return 20;
+              }
+
+              @Override
+              public int getIconHeight() {
+                return 20;
+              }
+            },
+            "Home",
+            new String[] { "1", "2" });
+        for (int i = 0; i < 10; i++) {
+          menu.addMenu(modelMenu);
+        }
+        add(menu);
+        setSize(300, 600);
+        setLocationRelativeTo(null);
+        setVisible(true);
+      }
+    };
+  }
 }

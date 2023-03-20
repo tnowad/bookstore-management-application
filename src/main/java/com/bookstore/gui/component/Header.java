@@ -1,6 +1,9 @@
 package com.bookstore.gui.component;
 
+import java.awt.EventQueue;
 import java.awt.event.ActionListener;
+
+import javax.swing.JFrame;
 
 public class Header extends javax.swing.JPanel {
 
@@ -89,9 +92,8 @@ public class Header extends javax.swing.JPanel {
                     .addComponent(buttonBadges2, javax.swing.GroupLayout.DEFAULT_SIZE,
                         javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap()));
-  }// </editor-fold>//GEN-END:initComponents
+  }
 
-  // Variables declaration - do not modify//GEN-BEGIN:variables
   private com.bookstore.gui.swing.ButtonBadges buttonBadges1;
   private com.bookstore.gui.swing.ButtonBadges buttonBadges2;
   private com.bookstore.gui.swing.Button cmdMenu;
@@ -99,5 +101,18 @@ public class Header extends javax.swing.JPanel {
   private javax.swing.JLabel lbRole;
   private javax.swing.JLabel lbUserName;
   private com.bookstore.gui.swing.ImageAvatar pic;
-  // End of variables declaration//GEN-END:variables
+
+  public static void main(String[] args) {
+    EventQueue.invokeLater(() -> {
+      new JFrame() {
+        {
+          add(new Header());
+          pack();
+          setLocationRelativeTo(null);
+          setVisible(true);
+        }
+      };
+    });
+  }
+
 }
