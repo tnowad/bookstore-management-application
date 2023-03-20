@@ -2,6 +2,8 @@ package com.bookstore.gui;
 
 import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+
 import java.awt.*;
 import java.awt.event.*;
 
@@ -10,21 +12,16 @@ public class AdminUI extends JFrame implements MouseListener {
   Dashboard db = new Dashboard();
   UserUI us = new UserUI();
   JFrame frame = new JFrame();
-  private JPanel top;
   private JPanel homeMenu;
-
   private JLabel jButton_ActionMenu;
   private JTextField jText_search;
   private JLabel jButton_search;
   private JLabel jButton_Menu;
-  private JLabel jButton_announcement;
 
-  private JLabel jButton_account;
-  private JPanel topWest;
-  private JLabel jLogo;
-  private JPanel topEAST;
+
   private JLabel jButton_MenuItem;
   private JLabel jButton_MenuTable;
+  private JLabel jLogo;
 
   public AdminUI() {
     try {
@@ -32,79 +29,15 @@ public class AdminUI extends JFrame implements MouseListener {
     } catch (Exception ex) {
       System.err.println("Failed to initialize LaF");
     }
-    initComponent();
     initFrame();
 
   }
 
-  public void initComponent() {
-    frame.getContentPane().setLayout(new BorderLayout());
-    initMenu();
-    initContend();
-    frame.getContentPane().add(db.initDashboard(), BorderLayout.CENTER);
-  }
-
-  public void initContend() {
-    // khởi tạo home top
-    top = new JPanel();
-    top.setLayout(new BorderLayout());
-
-    // set font home top
-    top.setPreferredSize(new Dimension(1000, 50));
-    top.setFont(new Font("sansserif", 0, 16));
-
-    // Các button trong top
-    topWest = new JPanel();
-    topWest.setLayout(new FlowLayout());
-    jLogo = new JLabel("Book Shop");
-    jLogo.setFont(new Font("sansserif", 0, 24));
-    jLogo.setIcon(
-        new ImageIcon("/resources/image/cart.png"));
-    topWest.add(jLogo);
-
-    jButton_ActionMenu = new JLabel();
-    jButton_ActionMenu.setIcon(
-        new ImageIcon(getClass().getResource("/resources/image/menu.png")));
-    jButton_ActionMenu.setPreferredSize(new Dimension(30, 30));
-    jButton_ActionMenu.addMouseListener(this);
-    topWest.add(jButton_ActionMenu);
-
-    topEAST = new JPanel();
-    topEAST.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 5));
-    jButton_account = new JLabel();
-    jButton_account.setIcon(
-        new ImageIcon(getClass().getResource("/resources/image/account.png")));
-    jButton_account.setPreferredSize(new Dimension(30, 30));
-
-    jButton_search = new JLabel();
-    jButton_search.setIcon(new ImageIcon(getClass().getResource("/resources/image/search.png")));
-    jButton_search.setPreferredSize(new Dimension(30, 30));
-    jButton_search.addMouseListener(this);
-
-    jButton_announcement = new JLabel();
-    jButton_announcement.setIcon(
-        new ImageIcon(getClass().getResource("/resources/image/announcement.png")));
-    jButton_announcement.setPreferredSize(new Dimension(30, 30));
-
-    jText_search = new JTextField("Nhập tại đây nhó");
-    jText_search.setPreferredSize(new Dimension(300, 20));
-
-    topEAST.add(jText_search);
-    topEAST.add(jButton_search);
-    topEAST.add(jButton_announcement);
-    topEAST.add(jButton_account);
-
-    // add các button vào home top
-    top.add(topWest, BorderLayout.WEST);
-    top.add(topEAST, BorderLayout.EAST);
-
-    frame.getContentPane().add(top, BorderLayout.NORTH);
-
-  }
 
   private void initFrame() {
     frame.setPreferredSize(new Dimension(1160, 550));
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    initMenu();
     frame.pack();
     frame.setLocationRelativeTo(null);
     frame.setVisible(true);
@@ -115,54 +48,94 @@ public class AdminUI extends JFrame implements MouseListener {
     homeMenu.setPreferredSize(new Dimension(150, 1000));
     homeMenu.setLayout(new GridLayout(10, 1));
 
+    jLogo = new JLabel("Book Store");
+    jLogo.setFont(new Font("sansserif", Font.BOLD, 20));
+    jLogo.setIcon(
+      new ImageIcon(getClass().getResource("/resources/image/logo.png")));    
+    homeMenu.add(jLogo);
+    
     jButton_Menu = new JLabel("Dashboard");
     jButton_Menu.setName("Dashboard");
     jButton_Menu.setFont(new Font("sansserif", 0, 12));
     jButton_Menu.setIcon(
         new ImageIcon(getClass().getResource("/resources/image/dashboard.png")));
-    jButton_Menu.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.GRAY));
     jButton_Menu.addMouseListener(this);
     homeMenu.add(jButton_Menu);
 
     jButton_Menu = new JLabel("Table");
     jButton_Menu.setName("Table");
     jButton_Menu.setIcon(
-        new ImageIcon(getClass().getResource("/resources/image/notification.png")));
-    jButton_Menu.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.GRAY));
+        new ImageIcon(getClass().getResource("/resources/image/table.png")));
     jButton_Menu.setFont(new Font("sansserif", 0, 12));
     jButton_Menu.addMouseListener(this);
     homeMenu.add(jButton_Menu);
 
     jButton_MenuTable = new JLabel();
-    jButton_MenuTable.setLayout(new GridLayout(2, 1));
+    jButton_MenuTable.setLayout(new GridLayout(4, 1));
+
+    jButton_MenuItem = new JLabel("Product");
+    jButton_MenuItem.setName("Product");
+    jButton_MenuItem.setFont(new Font("sansserif", 0, 11));
+    jButton_MenuItem.setIcon(
+        new ImageIcon(getClass().getResource("/resources/image/dot.png")));
+    jButton_MenuItem.addMouseListener(this);
+    jButton_MenuTable.add(jButton_MenuItem);
 
     jButton_MenuItem = new JLabel("User");
     jButton_MenuItem.setName("User");
     jButton_MenuItem.setFont(new Font("sansserif", 0, 11));
     jButton_MenuItem.setIcon(
         new ImageIcon(getClass().getResource("/resources/image/dot.png")));
-    jButton_MenuItem.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 0));
-    jButton_MenuItem.addMouseListener(this);
     jButton_MenuTable.add(jButton_MenuItem);
 
     jButton_MenuItem = new JLabel("Order");
+    jButton_MenuItem.setName("Order");
     jButton_MenuItem.setFont(new Font("sansserif", 0, 11));
     jButton_MenuItem.setIcon(
         new ImageIcon(getClass().getResource("/resources/image/dot.png")));
-    jButton_MenuItem.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 0));
     jButton_MenuTable.add(jButton_MenuItem);
+
+    jButton_MenuItem = new JLabel("Import");
+    jButton_MenuItem.setName("Import");
+    jButton_MenuItem.setFont(new Font("sansserif", 0, 11));
+    jButton_MenuItem.setIcon(
+        new ImageIcon(getClass().getResource("/resources/image/dot.png")));
+    jButton_MenuTable.add(jButton_MenuItem);
+
+    jButton_MenuTable.setBorder(new EmptyBorder(0, 14, 0, 0));
+    jButton_MenuTable.setName("MenuTable");
+    // homeMenu.add(jButton_MenuTable);
+
 
     jButton_Menu = new JLabel("Messenger");
     jButton_Menu.setName("Messenger");
     jButton_Menu.setFont(new Font("sansserif", 0, 12));
     jButton_Menu.setIcon(
-        new ImageIcon(getClass().getResource("/resources/image/dashboard.png")));
-    jButton_Menu.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.GRAY));
+        new ImageIcon(getClass().getResource("/resources/image/messenger.png")));
+    homeMenu.add(jButton_Menu);
+    
+    jButton_Menu = new JLabel("Report");
+    jButton_Menu.setName("Report");
+    jButton_Menu.setFont(new Font("sansserif", 0, 12));
+    jButton_Menu.setIcon(
+        new ImageIcon(getClass().getResource("/resources/image/report.png")));
     homeMenu.add(jButton_Menu);
 
-    homeMenu.setBackground(Color.BLUE);
+    jButton_Menu = new JLabel("Contact");
+    jButton_Menu.setName("Contact");
+    jButton_Menu.setFont(new Font("sansserif", 0, 12));
+    jButton_Menu.setIcon(
+        new ImageIcon(getClass().getResource("/resources/image/contact.png")));
+    homeMenu.add(jButton_Menu);
+
+   
+
+    homeMenu.setBackground(new Color(182238));
+    homeMenu.setBorder(new EmptyBorder(0, 7, 0, 0));
     frame.getContentPane().add(homeMenu, BorderLayout.WEST);
   }
+
+
 
   public void actionMenu(MouseEvent e) {
     Component component = (Component) e.getSource();
@@ -191,12 +164,11 @@ public class AdminUI extends JFrame implements MouseListener {
     String name = component.getName();
 
     Component[] components = homeMenu.getComponents();
-    System.out.print(components[2].getName());
-    String name2 = components[2].getName();
+    String name2 = components[3].getName();
 
     if (name.equals("Table")) {
       if (name2.equals("Messenger")) {
-        homeMenu.add(jButton_MenuTable, 2);
+        homeMenu.add(jButton_MenuTable, 3);
       } else {
         homeMenu.remove(jButton_MenuTable);
       }
@@ -213,41 +185,7 @@ public class AdminUI extends JFrame implements MouseListener {
   public void mouseClicked(MouseEvent e) {
     setMenuItem(e);
     actionMenu(e);
-    if (e.getSource() == jButton_ActionMenu) {
-      if (homeMenu.getWidth() > 50) {
-        ActionListener shrinkListener = e12 -> {
-          int newWidth = homeMenu.getWidth() - 5;
-          int newHeight = homeMenu.getHeight() - 5;
-          if (homeMenu.getWidth() == 50) {
-            ((Timer) e12.getSource()).stop();
-          } else {
-            homeMenu.setPreferredSize(new Dimension(newWidth, newHeight));
-            homeMenu.revalidate();
-            homeMenu.repaint();
-          }
-        };
-        Timer timer = new Timer(10, shrinkListener);
-        timer.start();
-      } else {
-        ActionListener shrinkListener = e1 -> {
-          int newWidth = homeMenu.getWidth() + 5;
-          int newHeight = homeMenu.getHeight() + 5;
-          if (homeMenu.getWidth() == 150) {
-            ((Timer) e1.getSource()).stop();
-          } else {
-            homeMenu.setPreferredSize(new Dimension(newWidth, newHeight));
-            homeMenu.revalidate();
-            homeMenu.repaint();
-          }
-        };
-        Timer timer = new Timer(10, shrinkListener);
-        timer.start();
-      }
-    }
-    if (e.getSource() == jButton_search) {
-      jText_search.setVisible(!jText_search.isVisible());
-    }
-  }
+}
 
   @Override
   public void mousePressed(MouseEvent e) {
