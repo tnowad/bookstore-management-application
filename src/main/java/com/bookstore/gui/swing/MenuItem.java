@@ -2,7 +2,7 @@ package com.bookstore.gui.swing;
 
 import com.bookstore.gui.event.EventMenu;
 import com.bookstore.gui.event.EventMenuSelected;
-import com.bookstore.gui.model.ModelMenu;
+import com.bookstore.gui.model.MenuModel;
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -14,7 +14,7 @@ import net.miginfocom.swing.MigLayout;
 
 public class MenuItem extends javax.swing.JPanel {
 
-  public ModelMenu getMenu() {
+  public MenuModel getMenu() {
     return menu;
   }
 
@@ -43,12 +43,12 @@ public class MenuItem extends javax.swing.JPanel {
   }
 
   private float alpha;
-  private ModelMenu menu;
+  private MenuModel menu;
   private boolean open;
   private EventMenuSelected eventSelected;
   private int index;
 
-  public MenuItem(ModelMenu menu, EventMenu event, EventMenuSelected eventSelected, int index) {
+  public MenuItem(MenuModel menu, EventMenu event, EventMenuSelected eventSelected, int index) {
     initComponents();
     this.menu = menu;
     this.eventSelected = eventSelected;

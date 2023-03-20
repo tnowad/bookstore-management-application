@@ -20,7 +20,7 @@ import net.miginfocom.swing.MigLayout;
 import com.bookstore.gui.event.EventMenu;
 import com.bookstore.gui.event.EventMenuSelected;
 import com.bookstore.gui.event.EventShowPopupMenu;
-import com.bookstore.gui.model.ModelMenu;
+import com.bookstore.gui.model.MenuModel;
 import com.bookstore.gui.swing.MenuAnimation;
 import com.bookstore.gui.swing.MenuItem;
 import com.bookstore.gui.swing.scrollbar.ScrollBarCustom;
@@ -65,7 +65,7 @@ public class Menu extends JPanel {
     panel.setLayout(layout);
   }
 
-  private void addMenu(ModelMenu menu) {
+  private void addMenu(MenuModel menu) {
     panel.add(new MenuItem(menu, getEventMenu(), event, panel.getComponentCount()), "h 40!");
   }
 
@@ -152,7 +152,7 @@ public class Menu extends JPanel {
     new JFrame() {
       {
         Menu menu = new Menu();
-        ModelMenu modelMenu = new ModelMenu(
+        MenuModel modelMenu = new MenuModel(
             new Icon() {
               @Override
               public void paintIcon(Component c, Graphics g, int x, int y) {

@@ -2,7 +2,11 @@ package com.bookstore.gui.model;
 
 import javax.swing.Icon;
 
-public class ModelMenu {
+public class MenuModel {
+
+  private Icon icon;
+  private String menuName;
+  private String subMenu[];
 
   public Icon getIcon() {
     return icon;
@@ -28,16 +32,12 @@ public class ModelMenu {
     this.subMenu = subMenu;
   }
 
-  public ModelMenu(Icon icon, String menuName, String... subMenu) {
+  public MenuModel(Icon icon, String menuName, String... subMenu) {
     this.icon = icon;
     this.menuName = menuName;
     this.subMenu = subMenu;
   }
 
-  public ModelMenu() {
+  public MenuModel() {
   }
-
-  private Icon icon;
-  private String menuName;
-  private String subMenu[];
 }
