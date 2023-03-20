@@ -12,9 +12,6 @@ public class Header extends javax.swing.JPanel {
     cmdMenu.addActionListener(event);
   }
 
-  @SuppressWarnings("unchecked")
-  // <editor-fold defaultstate="collapsed" desc="Generated
-  // Code">//GEN-BEGIN:initComponents
   private void initComponents() {
 
     cmdMenu = new com.bookstore.gui.swing.Button();

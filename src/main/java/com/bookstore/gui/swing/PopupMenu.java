@@ -73,9 +73,6 @@ public class PopupMenu extends javax.swing.JDialog {
     animator.start();
   }
 
-  @SuppressWarnings("unchecked")
-  // <editor-fold defaultstate="collapsed" desc="Generated
-  // Code">//GEN-BEGIN:initComponents
   private void initComponents() {
 
     panel = new com.bookstore.gui.swing.PanelPopup();

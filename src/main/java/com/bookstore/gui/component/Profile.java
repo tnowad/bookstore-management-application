@@ -7,9 +7,6 @@ public class Profile extends javax.swing.JPanel {
     setOpaque(false);
   }
 
-  @SuppressWarnings("unchecked")
-  // <editor-fold defaultstate="collapsed" desc="Generated
-  // Code">//GEN-BEGIN:initComponents
   private void initComponents() {
 
     jLabel1 = new javax.swing.JLabel();

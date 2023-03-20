@@ -114,9 +114,6 @@ public class Form_Home extends javax.swing.JPanel {
     return obj.isOk();
   }
 
-  @SuppressWarnings("unchecked")
-  // <editor-fold defaultstate="collapsed" desc="Generated
-  // Code">//GEN-BEGIN:initComponents
   private void initComponents() {
 
     card1 = new com.bookstore.gui.component.Card();
