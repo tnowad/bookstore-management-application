@@ -4,17 +4,6 @@ import javax.swing.Icon;
 
 public class ModelProfile {
 
-  private Icon icon;
-  private String name;
-
-  public ModelProfile() {
-  }
-
-  public ModelProfile(Icon icon, String name) {
-    this.icon = icon;
-    this.name = name;
-  }
-
   public Icon getIcon() {
     return icon;
   }
@@ -31,4 +20,14 @@ public class ModelProfile {
     this.name = name;
   }
 
+  public ModelProfile(Icon icon, String name) {
+    this.icon = icon;
+    this.name = name;
+  }
+
+  public ModelProfile() {
+  }
+
+  private Icon icon;
+  private String name;
 }

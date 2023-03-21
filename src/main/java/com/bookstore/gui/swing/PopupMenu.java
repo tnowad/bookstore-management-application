@@ -1,29 +1,21 @@
 package com.bookstore.gui.swing;
 
+import com.bookstore.gui.event.EventMenuSelected;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Frame;
-import java.awt.event.WindowEvent;
-import javax.swing.GroupLayout;
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import net.miginfocom.swing.MigLayout;
 import org.jdesktop.animation.timing.Animator;
 import org.jdesktop.animation.timing.TimingTarget;
 import org.jdesktop.animation.timing.TimingTargetAdapter;
-import net.miginfocom.swing.MigLayout;
-
-import com.bookstore.gui.event.EventMenuSelected;
 
 public class PopupMenu extends javax.swing.JDialog {
-  private PanelPopup panel;
 
   private Animator animator;
   private boolean show = true;
 
-  private void formWindowLostFocus(WindowEvent evt) {
-    closeMenu();
-  }
-
-  public PopupMenu(Frame parent, int index, EventMenuSelected eventSelected, String... subMenu) {
+  public PopupMenu(java.awt.Frame parent, int index, EventMenuSelected eventSelected, String... subMenu) {
     super(parent, false);
     initComponents();
     setOpacity(0f);
@@ -33,9 +25,12 @@ public class PopupMenu extends javax.swing.JDialog {
     for (String st : subMenu) {
       MenuButton item = new MenuButton(st, true);
       item.setIndex(++subMenuIndex);
-      item.addActionListener(ae -> {
-        eventSelected.menuSelected(index, item.getIndex());
-        closeMenu();
+      item.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+          eventSelected.menuSelected(index, item.getIndex());
+          closeMenu();
+        }
       });
       panel.add(item);
       setSize(new Dimension(120, 35 * subMenu.length));
@@ -52,7 +47,7 @@ public class PopupMenu extends javax.swing.JDialog {
 
       @Override
       public void end() {
-        if (!show) {
+        if (show == false) {
           setVisible(false);
         }
       }
@@ -80,7 +75,7 @@ public class PopupMenu extends javax.swing.JDialog {
 
   private void initComponents() {
 
-    panel = new PanelPopup();
+    panel = new com.bookstore.gui.swing.PanelPopup();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     setUndecorated(true);
@@ -93,28 +88,34 @@ public class PopupMenu extends javax.swing.JDialog {
       }
     });
 
-    GroupLayout panelLayout = new GroupLayout(panel);
+    javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
     panel.setLayout(panelLayout);
     panelLayout.setHorizontalGroup(
-        panelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+        panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 200, Short.MAX_VALUE));
     panelLayout.setVerticalGroup(
-        panelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+        panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE));
 
-    GroupLayout layout = new GroupLayout(getContentPane());
-
+    javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
     layout.setHorizontalGroup(
-        layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addComponent(panel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE,
+        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
                 Short.MAX_VALUE));
-
     layout.setVerticalGroup(
-        layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addComponent(panel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE,
+        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
                 Short.MAX_VALUE));
 
     pack();
-  }
+  }// </editor-fold>//GEN-END:initComponents
+
+  private void formWindowLostFocus(java.awt.event.WindowEvent evt) {// GEN-FIRST:event_formWindowLostFocus
+    closeMenu();
+  }// GEN-LAST:event_formWindowLostFocus
+
+  // Variables declaration - do not modify//GEN-BEGIN:variables
+  private com.bookstore.gui.swing.PanelPopup panel;
+  // End of variables declaration//GEN-END:variables
 }

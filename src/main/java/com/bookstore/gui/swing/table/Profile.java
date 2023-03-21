@@ -1,51 +1,45 @@
 package com.bookstore.gui.swing.table;
 
-import javax.swing.JLabel;
-import javax.swing.GroupLayout;
-
-import com.bookstore.gui.swing.ImageAvatar;
-
 public class Profile extends javax.swing.JPanel {
-
-  private JLabel jLabelName;
-  private ImageAvatar imageAvatar;
 
   public Profile(ModelProfile data) {
     initComponents();
-    imageAvatar.setIcon(data.getIcon());
-    jLabelName.setText(data.getName());
+    pic.setIcon(data.getIcon());
+    lbName.setText(data.getName());
   }
 
   private void initComponents() {
 
-    imageAvatar = new ImageAvatar();
-    jLabelName = new JLabel();
+    pic = new com.bookstore.gui.swing.ImageAvatar();
+    lbName = new javax.swing.JLabel();
 
-    jLabelName.setForeground(new java.awt.Color(102, 102, 102));
-    jLabelName.setText("Name");
+    lbName.setForeground(new java.awt.Color(102, 102, 102));
+    lbName.setText("Name");
 
-    GroupLayout layout = new GroupLayout(this);
+    javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
     this.setLayout(layout);
     layout.setHorizontalGroup(
-        layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(imageAvatar, GroupLayout.PREFERRED_SIZE, 28,
-                    GroupLayout.PREFERRED_SIZE)
+                .addComponent(pic, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
-                .addComponent(jLabelName, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE,
+                .addComponent(lbName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
                     Short.MAX_VALUE)
                 .addContainerGap()));
     layout.setVerticalGroup(
-        layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addComponent(imageAvatar, GroupLayout.DEFAULT_SIZE,
-                        GroupLayout.DEFAULT_SIZE,
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pic, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
                         Short.MAX_VALUE)
-                    .addComponent(jLabelName, GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE))
+                    .addComponent(lbName, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE))
                 .addContainerGap()));
-  }
+  }// </editor-fold>//GEN-END:initComponents
 
+  // Variables declaration - do not modify//GEN-BEGIN:variables
+  private javax.swing.JLabel lbName;
+  private com.bookstore.gui.swing.ImageAvatar pic;
+  // End of variables declaration//GEN-END:variables
 }

@@ -1,102 +1,82 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
 package com.bookstore.gui.main;
 
-import java.awt.Color;
-import java.awt.EventQueue;
-
-import javax.swing.GroupLayout;
-import javax.swing.JFrame;
-import javax.swing.JLayeredPane;
-
-import org.jdesktop.animation.timing.Animator;
-import org.jdesktop.animation.timing.TimingTarget;
-import org.jdesktop.animation.timing.TimingTargetAdapter;
-
+import com.bookstore.gui.component.Header;
+import com.bookstore.gui.component.Menu;
+import com.bookstore.gui.form.MainForm;
 import net.miginfocom.swing.MigLayout;
 
 /**
- * It contains menu, header and main.
  *
- * @extends JFrame
+ * @author alex
  */
-public class Main extends JFrame {
-  // Contains all components in the frame (menu, header, main)
-  private JLayeredPane background;
-  // Layout for background
-  private MigLayout layout;
-  // Todo: Create menu, header and main components to replace JFrame
-  private JFrame menu;
-  private JFrame header;
-  private JFrame main;
-  // Timing and animation for menu frame
-  private Animator animator;
+public class Main extends javax.swing.JFrame {
 
-  public Main() {
-    initComponent();
-    handleEvent();
-    initFrame();
-  }
+    private MigLayout layout;
+    private Menu menu;
+    private Header header;
+    private MainForm main;
+    public Main() {
+        initComponents();
+        initFrame();
+    }
 
-  private void initComponent() {
-    background = new JLayeredPane();
+    private void initFrame(){
+        layout= new MigLayout("fill", "0[]0[100%, fill]0", "0[fill, top]0");
+        background.setLayout(layout);
+        menu = new Menu();
+        header = new Header();
+        main = new MainForm();
+        background.add(menu, "w 230!");
+        background.add(header, "h 50!, warp");
+        background.add(main, "w 100%, h 100%");
+    }
+    
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
 
-    layout = new MigLayout(
-        "fill",
-        "0[]0[100%, fill]0",
-        "0[fill, top]0");
+        background = new javax.swing.JLayeredPane();
 
-    background.setLayout(layout);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-    menu = new JFrame();
-    header = new JFrame();
-    main = new JFrame();
+        javax.swing.GroupLayout backgroundLayout = new javax.swing.GroupLayout(background);
+        background.setLayout(backgroundLayout);
+        backgroundLayout.setHorizontalGroup(
+            backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1345, Short.MAX_VALUE)
+        );
+        backgroundLayout.setVerticalGroup(
+            backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 763, Short.MAX_VALUE)
+        );
 
-    // Timing and animation for menu frame
-    TimingTarget timingTarget = new TimingTargetAdapter() {
-      @Override
-      public void timingEvent(float fraction) {
-        int width = (int) (fraction * 200);
-        menu.setSize(width, 600);
-      }
-    };
-    animator = new Animator(500, timingTarget);
-    animator.setResolution(0);
-    animator.setDeceleration(0.5f);
-    animator.setAcceleration(0.5f);
-  }
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(background)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(background)
+        );
 
-  private void initFrame() {
-    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    background.setBackground(new Color(245, 245, 245));
-    background.setOpaque(true);
-    GroupLayout backgroundLayout = new GroupLayout(background);
-    background.setLayout(backgroundLayout);
-    backgroundLayout.setHorizontalGroup(
-        backgroundLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 1366, Short.MAX_VALUE));
-    backgroundLayout.setVerticalGroup(
-        backgroundLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 768, Short.MAX_VALUE));
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
 
-    GroupLayout layout = new GroupLayout(getContentPane());
-    getContentPane().setLayout(layout);
-    layout.setHorizontalGroup(
-        layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addComponent(background));
-    layout.setVerticalGroup(
-        layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addComponent(background));
-    pack();
-    setLocationRelativeTo(null);
-  }
+    public static void main(String args[]) {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new Main().setVisible(true);
+            }
+        });
+    }
 
-  private void handleEvent() {
-  }
-
-  public static void main(String[] args) {
-    EventQueue.invokeLater(new Runnable() {
-      public void run() {
-        new Main().setVisible(true);
-      }
-    });
-  }
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLayeredPane background;
+    // End of variables declaration//GEN-END:variables
 }

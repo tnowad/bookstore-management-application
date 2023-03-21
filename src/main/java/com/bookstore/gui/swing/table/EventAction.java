@@ -1,8 +1,10 @@
 package com.bookstore.gui.swing.table;
 
-public interface EventAction<T> {
+import com.bookstore.gui.model.ModelStudent;
 
-  public void delete(T student);
+public interface EventAction {
 
-  public void update(T student);
+  public void delete(ModelStudent student);
+
+  public void update(ModelStudent student);
 }

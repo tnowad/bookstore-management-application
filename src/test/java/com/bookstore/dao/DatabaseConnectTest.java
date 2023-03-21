@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,11 +13,10 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 public class DatabaseConnectTest {
-  private static Connection connection;
 
   @BeforeAll
   public static void setUp() throws Exception {
-    connection = DatabaseConnect.getConnection();
+    DatabaseConnect.getConnection();
     createTable();
   }
 

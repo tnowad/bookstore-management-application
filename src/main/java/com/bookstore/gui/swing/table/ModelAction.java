@@ -1,24 +1,6 @@
 package com.bookstore.gui.swing.table;
 
-class ModelStudent {
-
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public ModelStudent(String name) {
-    this.name = name;
-  }
-
-  public ModelStudent() {
-  }
-
-  private String name;
-}
+import com.bookstore.gui.model.ModelStudent;
 
 public class ModelAction {
 

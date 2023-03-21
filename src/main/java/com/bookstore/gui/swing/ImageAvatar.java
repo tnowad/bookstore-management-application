@@ -36,7 +36,7 @@ public class ImageAvatar extends JComponent {
   private int borderSize;
 
   @Override
-  protected void paintComponent(Graphics graphics) {
+  protected void paintComponent(Graphics grphcs) {
     if (icon != null) {
       int width = getWidth();
       int height = getHeight();
@@ -46,17 +46,17 @@ public class ImageAvatar extends JComponent {
       int border = borderSize * 2;
       diameter -= border;
       Rectangle size = getAutoSize(icon, diameter);
-      BufferedImage bufferedImage = new BufferedImage(size.width, size.height, BufferedImage.TYPE_INT_ARGB);
-      Graphics2D graphics2dImage = bufferedImage.createGraphics();
-      graphics2dImage.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-      graphics2dImage.fillOval(0, 0, diameter, diameter);
-      Composite composite = graphics2dImage.getComposite();
-      graphics2dImage.setComposite(AlphaComposite.SrcIn);
-      graphics2dImage.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-      graphics2dImage.drawImage(toImage(icon), size.x, size.y, size.width, size.height, null);
-      graphics2dImage.setComposite(composite);
-      graphics2dImage.dispose();
-      Graphics2D g2 = (Graphics2D) graphics;
+      BufferedImage img = new BufferedImage(size.width, size.height, BufferedImage.TYPE_INT_ARGB);
+      Graphics2D g2_img = img.createGraphics();
+      g2_img.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+      g2_img.fillOval(0, 0, diameter, diameter);
+      Composite composite = g2_img.getComposite();
+      g2_img.setComposite(AlphaComposite.SrcIn);
+      g2_img.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+      g2_img.drawImage(toImage(icon), size.x, size.y, size.width, size.height, null);
+      g2_img.setComposite(composite);
+      g2_img.dispose();
+      Graphics2D g2 = (Graphics2D) grphcs;
       g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
       if (borderSize > 0) {
         diameter += border;
@@ -68,27 +68,31 @@ public class ImageAvatar extends JComponent {
         diameter -= border;
         g2.fillOval(x + borderSize, y + borderSize, diameter, diameter);
       }
-      g2.drawImage(bufferedImage, x + borderSize, y + borderSize, null);
+      g2.drawImage(img, x + borderSize, y + borderSize, null);
     }
-    super.paintComponent(graphics);
+    super.paintComponent(grphcs);
   }
 
   private Rectangle getAutoSize(Icon image, int size) {
-    int imageWidth = image.getIconWidth();
-    int imageHeight = image.getIconHeight();
-    double xScale = (double) size / imageWidth;
-    double yScale = (double) size / imageHeight;
+    int w = size;
+    int h = size;
+    int iw = image.getIconWidth();
+    int ih = image.getIconHeight();
+    double xScale = (double) w / iw;
+    double yScale = (double) h / ih;
     double scale = Math.max(xScale, yScale);
-    int width = (int) (scale * imageWidth);
-    int height = (int) (scale * imageHeight);
+    int width = (int) (scale * iw);
+    int height = (int) (scale * ih);
     if (width < 1) {
       width = 1;
     }
     if (height < 1) {
       height = 1;
     }
-    int x = (size - width) / 2;
-    int y = (size - height) / 2;
+    int cw = size;
+    int ch = size;
+    int x = (cw - width) / 2;
+    int y = (ch - height) / 2;
     return new Rectangle(new Point(x, y), new Dimension(width, height));
   }
 

@@ -7,5 +7,9 @@
         "fillx",
         "nogrid"
     ],
+<<<<<<< HEAD
     "java.debug.settings.onBuildFailureProceed": true
+=======
+    "todo-tree.tree.scanMode": "workspace"
+>>>>>>> 6c163928f30fe993131b0a21b6ca8c60fd5fa039
 }

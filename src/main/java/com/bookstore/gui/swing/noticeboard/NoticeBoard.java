@@ -1,21 +1,15 @@
 package com.bookstore.gui.swing.noticeboard;
 
+import com.bookstore.gui.swing.scrollbar.ScrollBarCustom;
+import java.awt.Color;
+import java.awt.Font;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
-import java.awt.Color;
-import java.awt.Font;
-
 import net.miginfocom.swing.MigLayout;
 
-import com.bookstore.gui.swing.scrollbar.ScrollBarCustom;
-
-public class NoticeBoard extends JPanel {
-
-  private javax.swing.JScrollPane jScrollPane1;
-  private javax.swing.JPanel panel;
+public class NoticeBoard extends javax.swing.JPanel {
 
   public NoticeBoard() {
     initComponents();
@@ -52,7 +46,12 @@ public class NoticeBoard extends JPanel {
   }
 
   public void scrollToTop() {
-    SwingUtilities.invokeLater(() -> jScrollPane1.getVerticalScrollBar().setValue(0));
+    SwingUtilities.invokeLater(new Runnable() {
+      @Override
+      public void run() {
+        jScrollPane1.getVerticalScrollBar().setValue(0);
+      }
+    });
   }
 
   private void initComponents() {
@@ -84,6 +83,10 @@ public class NoticeBoard extends JPanel {
     layout.setVerticalGroup(
         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 351, Short.MAX_VALUE));
-  }
+  }// </editor-fold>//GEN-END:initComponents
 
+  // Variables declaration - do not modify//GEN-BEGIN:variables
+  private javax.swing.JScrollPane jScrollPane1;
+  private javax.swing.JPanel panel;
+  // End of variables declaration//GEN-END:variables
 }

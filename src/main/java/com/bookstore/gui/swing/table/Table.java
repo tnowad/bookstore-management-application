@@ -1,5 +1,6 @@
 package com.bookstore.gui.swing.table;
 
+import com.bookstore.gui.swing.scrollbar.ScrollBarCustom;
 import java.awt.Color;
 import java.awt.Component;
 import javax.swing.JLabel;
@@ -11,8 +12,6 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellEditor;
 
-import com.bookstore.gui.swing.scrollbar.ScrollBarCustom;
-
 public class Table extends JTable {
 
   public Table() {
@@ -22,7 +21,7 @@ public class Table extends JTable {
     getTableHeader().setReorderingAllowed(false);
     getTableHeader().setDefaultRenderer(new DefaultTableCellRenderer() {
       @Override
-      public Component getTableCellRendererComponent(JTable jTable, Object o, boolean bln, boolean bln1, int i,
+      public Component getTableCellRendererComponent(JTable jtable, Object o, boolean bln, boolean bln1, int i,
           int i1) {
         TableHeader header = new TableHeader(o + "");
         if (i1 == 4) {
@@ -33,8 +32,8 @@ public class Table extends JTable {
     });
     setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
       @Override
-      public Component getTableCellRendererComponent(JTable jTable, Object o, boolean selected, boolean focus,
-          int i, int i1) {
+      public Component getTableCellRendererComponent(JTable jtable, Object o, boolean selected, boolean focus, int i,
+          int i1) {
         if (o instanceof ModelProfile) {
           ModelProfile data = (ModelProfile) o;
           Profile cell = new Profile(data);
@@ -55,7 +54,7 @@ public class Table extends JTable {
           }
           return cell;
         } else {
-          Component com = super.getTableCellRendererComponent(jTable, o, selected, focus, i, i1);
+          Component com = super.getTableCellRendererComponent(jtable, o, selected, focus, i, i1);
           setBorder(noFocusBorder);
           com.setForeground(new Color(102, 102, 102));
           if (selected) {
@@ -86,9 +85,9 @@ public class Table extends JTable {
   public void fixTable(JScrollPane scroll) {
     scroll.getViewport().setBackground(Color.WHITE);
     scroll.setVerticalScrollBar(new ScrollBarCustom());
-    JPanel jPanel = new JPanel();
-    jPanel.setBackground(Color.WHITE);
-    scroll.setCorner(JScrollPane.UPPER_RIGHT_CORNER, jPanel);
+    JPanel p = new JPanel();
+    p.setBackground(Color.WHITE);
+    scroll.setCorner(JScrollPane.UPPER_RIGHT_CORNER, p);
     scroll.setBorder(new EmptyBorder(5, 10, 5, 10));
   }
 }
