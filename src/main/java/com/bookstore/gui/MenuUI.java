@@ -7,15 +7,12 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
 
-public class AdminUI extends JFrame implements MouseListener {
+public class MenuUI extends JFrame implements MouseListener {
 
   Dashboard db = new Dashboard();
   UserUI us = new UserUI();
   JFrame frame = new JFrame();
   private JPanel homeMenu;
-  private JLabel jButton_ActionMenu;
-  private JTextField jText_search;
-  private JLabel jButton_search;
   private JLabel jButton_Menu;
 
 
@@ -23,27 +20,8 @@ public class AdminUI extends JFrame implements MouseListener {
   private JLabel jButton_MenuTable;
   private JLabel jLogo;
 
-  public AdminUI() {
-    try {
-      UIManager.setLookAndFeel(new FlatLightLaf());
-    } catch (Exception ex) {
-      System.err.println("Failed to initialize LaF");
-    }
-    initFrame();
 
-  }
-
-
-  private void initFrame() {
-    frame.setPreferredSize(new Dimension(1160, 550));
-    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    initMenu();
-    frame.pack();
-    frame.setLocationRelativeTo(null);
-    frame.setVisible(true);
-  }
-
-  private void initMenu() {
+  public JPanel initMenu() {
     homeMenu = new JPanel();
     homeMenu.setPreferredSize(new Dimension(150, 1000));
     homeMenu.setLayout(new GridLayout(10, 1));
@@ -132,7 +110,7 @@ public class AdminUI extends JFrame implements MouseListener {
 
     homeMenu.setBackground(new Color(182238));
     homeMenu.setBorder(new EmptyBorder(0, 7, 0, 0));
-    frame.getContentPane().add(homeMenu, BorderLayout.WEST);
+    return homeMenu;
   }
 
 
@@ -178,7 +156,7 @@ public class AdminUI extends JFrame implements MouseListener {
   }
 
   public static void main(String[] args) {
-    new AdminUI();
+    new MenuUI();
   }
 
   @Override

@@ -6,5 +6,6 @@
     "cSpell.words": [
         "fillx",
         "nogrid"
-    ]
+    ],
+    "java.debug.settings.onBuildFailureProceed": true
 }
