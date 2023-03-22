@@ -22,7 +22,7 @@ public class UserExcelUtil extends ExcelUtil {
 
   public static void readUsersFromExcel() {
     JFileChooser fileChooser = new JFileChooser();
-    FileNameExtensionFilter excelFileName = new FileNameExtensionFilter("Users", "xls", "xlsx");
+    FileNameExtensionFilter excelFileName = new FileNameExtensionFilter("Users", "xls", "xlsx", "xlsm");
     fileChooser.setFileFilter(excelFileName);
     int option = fileChooser.showOpenDialog(null);
 
@@ -44,20 +44,32 @@ public class UserExcelUtil extends ExcelUtil {
             }
             UserModel userModel = UserDAO.getInstance().getUserByUsername(model.getUsername());
             if (userModel != null) {
-              Object[] options = { "Skip", "Update" };
+              Object[] options = { "Update", "Delete" };
               int choice = JOptionPane.showOptionDialog(
                   null,
-                  "Duplicate Username Found: do you want to skip or update?",
+                  "Username " + userModel.getUsername() + " already exists. Do you want to update or delete it?",
                   "Duplicate Username Found",
                   JOptionPane.YES_NO_OPTION,
                   JOptionPane.QUESTION_MESSAGE,
                   null,
                   options,
                   options[0]);
+              while (choice == JOptionPane.CLOSED_OPTION) {
+                choice = JOptionPane.showOptionDialog(
+                    null,
+                    "Please choose to update or delete the duplicate user.",
+                    "Duplicate Username Found",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE,
+                    null,
+                    options,
+                    options[0]);
+              }
               if (choice == JOptionPane.YES_OPTION) {
-                continue;
-              } else {
                 userBusiness.updateModel(model);
+              } else {
+                userBusiness.deleteModel(userModel.getId());
+                userBusiness.insertModel(model);
               }
             } else {
               userBusiness.insertModel(model);

@@ -17,7 +17,7 @@ public class BookExcelUtil extends ExcelUtil {
 
   public static void readBooksFromExcel() {
     JFileChooser fileChooser = new JFileChooser();
-    FileNameExtensionFilter excelFileName = new FileNameExtensionFilter("Books", "xls", "xlsx");
+    FileNameExtensionFilter excelFileName = new FileNameExtensionFilter("Books", "xls", "xlsx", "xlsm");
     fileChooser.setFileFilter(excelFileName);
     int option = fileChooser.showOpenDialog(null);
 
@@ -37,13 +37,20 @@ public class BookExcelUtil extends ExcelUtil {
                   JOptionPane.ERROR_MESSAGE);
               continue;
             }
+
+            if (model.getTitle() == null) {
+              JOptionPane.showMessageDialog(null, "Error: title cannot be null.", "Title Error",
+                  JOptionPane.ERROR_MESSAGE);
+              continue;
+            }
+
             BookBUS bookBUS = new BookBUS();
             BookModel bookModel = bookBUS.getBookModel(Integer.parseInt(model.getIsbn()));
             if (bookModel != null) {
-              Object[] options = { "Skip", "Update" };
+              Object[] options = { "Update", "Delete" };
               int choice = JOptionPane.showOptionDialog(
                   null,
-                  "Duplicate ISBN Found: do you want to skip or update?",
+                  "Duplicate ISBN Found: do you want to update or delete?",
                   "Duplicate ISBN Found",
                   JOptionPane.YES_NO_OPTION,
                   JOptionPane.QUESTION_MESSAGE,
@@ -51,7 +58,8 @@ public class BookExcelUtil extends ExcelUtil {
                   options,
                   options[0]);
               if (choice == JOptionPane.YES_OPTION) {
-                continue;
+                bookBusiness.deleteModel(Integer.parseInt(model.getIsbn()));
+                bookBusiness.insertModel(model);
               } else {
                 bookBusiness.updateModel(model);
               }
