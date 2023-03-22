@@ -96,6 +96,9 @@ public abstract class ExcelUtilities {
   }
 
   public static class RowData {
+    /**
+     * Getter method for retrieving the row values
+     */
     private final List<String> values;
 
     public RowData(List<String> values) {

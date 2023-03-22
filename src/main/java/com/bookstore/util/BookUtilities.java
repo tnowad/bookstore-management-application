@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.io.FileOutputStream;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -14,12 +13,8 @@ import com.bookstore.bus.BookBUS;
 import com.bookstore.dao.BookDAO;
 import com.bookstore.model.BookModel;
 
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
-public class BookUtilities {
-  public static void readBooksFromExcel() throws ClassNotFoundException, SQLException {
+public class BookUtilities extends ExcelUtilities {
+  public static void readBooksFromExcel() {
     JFileChooser fileChooser = new JFileChooser();
     int option = fileChooser.showOpenDialog(null);
 
@@ -28,7 +23,7 @@ public class BookUtilities {
       String filePath = file.getAbsolutePath();
 
       try {
-        List<List<String>> bookData = ExcelReaderUtil.readExcel(filePath, 1);
+        List<List<String>> bookData = ExcelUtilities.readExcel(filePath, 1);
         List<BookModel> bookModels = convertToBookModelList(bookData);
         BookBUS bookBus = new BookBUS();
         for (BookModel model : bookModels) {
@@ -78,7 +73,7 @@ public class BookUtilities {
   }
 
   public static void writeBooksToExcel(List<BookModel> books) {
-    List<RowData> rowDataList = new ArrayList<>();
+    List<ExcelUtilities.RowData> rowDataList = new ArrayList<>();
 
     // Create header row
     List<String> headerValues = new ArrayList<>();
@@ -126,31 +121,6 @@ public class BookUtilities {
             JOptionPane.ERROR_MESSAGE);
         e.printStackTrace();
       }
-    }
-  }
-
-  /**
-   * Represents a single row of data in the Excel file.
-   */
-  public static class RowData {
-    private final List<String> values;
-
-    public RowData(List<String> values) {
-      this.values = values;
-    }
-
-    public List<String> getValues() {
-      return values;
-    }
-  }
-
-  /**
-   * Custom exception that wraps an IOException when writing to the spreadsheet
-   * fails.
-   */
-  public static class SpreadsheetIOException extends RuntimeException {
-    public SpreadsheetIOException(String message, Throwable cause) {
-      super(message, cause);
     }
   }
 }

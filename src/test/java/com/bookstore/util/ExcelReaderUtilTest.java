@@ -13,7 +13,7 @@ public class ExcelReaderUtilTest {
   void testReadExcel() throws IOException {
     String filePath = "resources/ExcelTest.xlsx";
     int sheetIndex = 0;
-    List<List<String>> data = ExcelReaderUtil.readExcel(filePath, sheetIndex);
+    List<List<String>> data = ExcelUtilities.readExcel(filePath, sheetIndex);
 
     assertNotNull(data);
     assertEquals(3, data.size());
