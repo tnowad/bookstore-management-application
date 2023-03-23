@@ -4,9 +4,21 @@
  */
 package com.bookstore.gui.main;
 
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.Icon;
+import javax.swing.UIManager;
+
 import com.bookstore.gui.component.Header;
 import com.bookstore.gui.component.Menu;
 import com.bookstore.gui.form.MainForm;
+import com.bookstore.gui.model.MenuModel;
+import com.formdev.flatlaf.FlatLightLaf;
+
 import net.miginfocom.swing.MigLayout;
 
 /**
@@ -30,8 +42,36 @@ public class Main extends javax.swing.JFrame {
         menu = new Menu();
         header = new Header();
         main = new MainForm();
+
+        
+        
+        MenuModel modelMenu = new MenuModel(
+            new Icon() {
+              @Override
+              public void paintIcon(Component c, Graphics g, int x, int y) {
+                g.setColor(Color.WHITE);
+                g.fillRect(x, y, getIconWidth(), getIconHeight());
+                g.setColor(Color.BLACK);
+                g.fillRect(x + 5, y + 5, getIconWidth() - 10, getIconHeight() - 10);
+              }
+
+              @Override
+              public int getIconWidth() {
+                return 20;
+              }
+
+              @Override
+              public int getIconHeight() {
+                return 20;
+              }
+            },
+            "Home",
+            new String[] { "1", "2" });
+        for (int i = 0; i < 10; i++) {
+          menu.addMenu(modelMenu);
+        }
         background.add(menu, "w 230!");
-        background.add(header, "h 50!, warp");
+        background.add(header, "h 50!, w 1050!");
         background.add(main, "w 100%, h 100%");
     }
     
@@ -69,6 +109,11 @@ public class Main extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     public static void main(String args[]) {
+        try {
+            UIManager.setLookAndFeel( new FlatLightLaf() );
+        } catch( Exception ex ) {
+            System.err.println( "Failed to initialize LaF" );
+        }
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Main().setVisible(true);

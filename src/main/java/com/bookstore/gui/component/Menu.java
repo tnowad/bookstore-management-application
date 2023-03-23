@@ -66,7 +66,7 @@ public class Menu extends JPanel {
     panel.setLayout(layout);
   }
 
-  private void addMenu(MenuModel menu) {
+  public void addMenu(MenuModel menu) {
     panel.add(new MenuItem(menu, getEventMenu(), event, panel.getComponentCount()), "h 40!");
   }
 

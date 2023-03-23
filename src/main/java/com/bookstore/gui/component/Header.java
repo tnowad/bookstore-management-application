@@ -11,8 +11,8 @@ public class Header extends javax.swing.JPanel {
     initComponents();
   }
 
-  public void addMenuEvent(ActionListener event) {
-    cmdMenu.addActionListener(event);
+  public void addMenuEvent(ActionListener actionListener) {
+    cmdMenu.addActionListener(actionListener);
   }
 
   private void initComponents() {
@@ -27,9 +27,9 @@ public class Header extends javax.swing.JPanel {
 
     setBackground(new java.awt.Color(255, 255, 255));
 
-    cmdMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/raven/icon/menu.png"))); // NOI18N
+    cmdMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/bookstore/gui/icon/menu.png"))); // NOI18N
 
-    pic.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/raven/icon/profile.jpg"))); // NOI18N
+    pic.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/bookstore/gui/icon/profile.jpg"))); // NOI18N
 
     lbUserName.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
     lbUserName.setForeground(new java.awt.Color(127, 127, 127));
@@ -41,11 +41,11 @@ public class Header extends javax.swing.JPanel {
     jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
     buttonBadges1.setForeground(new java.awt.Color(250, 49, 49));
-    buttonBadges1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/raven/icon/notification.png"))); // NOI18N
+    buttonBadges1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/bookstore/gui/icon/notification.png"))); // NOI18N
     buttonBadges1.setBadges(12);
 
     buttonBadges2.setForeground(new java.awt.Color(63, 178, 232));
-    buttonBadges2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/raven/icon/message.png"))); // NOI18N
+    buttonBadges2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/bookstore/gui/icon/message.png"))); // NOI18N
     buttonBadges2.setBadges(5);
 
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
