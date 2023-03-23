@@ -31,52 +31,123 @@ public class Main extends javax.swing.JFrame {
     private Menu menu;
     private Header header;
     private MainForm main;
+
     public Main() {
         initComponents();
         initFrame();
     }
 
-    private void initFrame(){
-        layout= new MigLayout("fill", "0[]0[100%, fill]0", "0[fill, top]0");
+    private void initFrame() {
+        layout = new MigLayout("fill", "0[]0[100%, fill]0", "0[fill, top]0");
         background.setLayout(layout);
         menu = new Menu();
         header = new Header();
         main = new MainForm();
 
-        
-        
-        MenuModel modelMenu = new MenuModel(
-            new Icon() {
-              @Override
-              public void paintIcon(Component c, Graphics g, int x, int y) {
-                g.setColor(Color.WHITE);
-                g.fillRect(x, y, getIconWidth(), getIconHeight());
-                g.setColor(Color.BLACK);
-                g.fillRect(x + 5, y + 5, getIconWidth() - 10, getIconHeight() - 10);
-              }
+        MenuModel modelMenuHome = new MenuModel(
+                new Icon() {
+                    @Override
+                    public void paintIcon(Component c, Graphics g, int x, int y) {
+                        g.setColor(Color.WHITE);
+                        g.fillRect(x, y, getIconWidth(), getIconHeight());
+                        g.setColor(Color.BLACK);
+                        g.fillRect(x + 5, y + 5, getIconWidth() - 10, getIconHeight() - 10);
+                    }
 
-              @Override
-              public int getIconWidth() {
-                return 20;
-              }
+                    @Override
+                    public int getIconWidth() {
+                        return 20;
+                    }
 
-              @Override
-              public int getIconHeight() {
-                return 20;
-              }
-            },
-            "Home",
-            new String[] { "1", "2" });
-        for (int i = 0; i < 10; i++) {
-          menu.addMenu(modelMenu);
-        }
+                    @Override
+                    public int getIconHeight() {
+                        return 20;
+                    }
+                },
+                "Home",
+                new String[] { "1", "2" });
+
+        MenuModel modelMenuNotification = new MenuModel(
+                new Icon() {
+                    @Override
+                    public void paintIcon(Component c, Graphics g, int x, int y) {
+                        g.setColor(Color.WHITE);
+                        g.fillRect(x, y, getIconWidth(), getIconHeight());
+                        g.setColor(Color.BLACK);
+                        g.fillRect(x + 5, y + 5, getIconWidth() - 10, getIconHeight() - 10);
+                    }
+
+                    @Override
+                    public int getIconWidth() {
+                        return 20;
+                    }
+
+                    @Override
+                    public int getIconHeight() {
+                        return 20;
+                    }
+                },
+                "Notification",
+                new String[] { "1", "2" });
+
+        MenuModel modelMenuCart = new MenuModel(
+                new Icon() {
+                    @Override
+                    public void paintIcon(Component c, Graphics g, int x, int y) {
+                        g.setColor(Color.WHITE);
+                        g.fillRect(x, y, getIconWidth(), getIconHeight());
+                        g.setColor(Color.BLACK);
+                        g.fillRect(x + 5, y + 5, getIconWidth() - 10, getIconHeight() - 10);
+                    }
+
+                    @Override
+                    public int getIconWidth() {
+                        return 20;
+                    }
+
+                    @Override
+                    public int getIconHeight() {
+                        return 20;
+                    }
+                },
+                "Cart",
+                new String[] { "1", "2" });
+
+        MenuModel modelMenuHelp = new MenuModel(
+                new Icon() {
+                    @Override
+                    public void paintIcon(Component c, Graphics g, int x, int y) {
+                        g.setColor(Color.WHITE);
+                        g.fillRect(x, y, getIconWidth(), getIconHeight());
+                        g.setColor(Color.BLACK);
+                        g.fillRect(x + 5, y + 5, getIconWidth() - 10, getIconHeight() - 10);
+                    }
+
+                    @Override
+                    public int getIconWidth() {
+                        return 20;
+                    }
+
+                    @Override
+                    public int getIconHeight() {
+                        return 20;
+                    }
+                },
+                "Help",
+                new String[] { "1", "2" });
+
+        menu.addMenu(modelMenuHome);
+        menu.addMenu(modelMenuNotification);
+        menu.addMenu(modelMenuCart);
+        menu.addMenu(modelMenuHelp);
         background.add(menu, "w 230!");
         background.add(header, "h 50!, w 1050!");
         background.add(main, "w 100%, h 100%");
     }
-    
+
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         background = new javax.swing.JLayeredPane();
@@ -86,33 +157,29 @@ public class Main extends javax.swing.JFrame {
         javax.swing.GroupLayout backgroundLayout = new javax.swing.GroupLayout(background);
         background.setLayout(backgroundLayout);
         backgroundLayout.setHorizontalGroup(
-            backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1345, Short.MAX_VALUE)
-        );
+                backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 1345, Short.MAX_VALUE));
         backgroundLayout.setVerticalGroup(
-            backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 763, Short.MAX_VALUE)
-        );
+                backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 763, Short.MAX_VALUE));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(background)
-        );
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(background));
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(background)
-        );
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(background));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     public static void main(String args[]) {
         try {
-            UIManager.setLookAndFeel( new FlatLightLaf() );
-        } catch( Exception ex ) {
-            System.err.println( "Failed to initialize LaF" );
+            UIManager.setLookAndFeel(new FlatLightLaf());
+        } catch (Exception ex) {
+            System.err.println("Failed to initialize LaF");
         }
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
