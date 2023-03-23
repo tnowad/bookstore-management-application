@@ -53,7 +53,7 @@ public class CustomerUI extends JFrame implements MouseListener {
     jLabelLogoutIcon.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 
     jLabelHomeIcon.setIcon(new ImageIcon(getClass().getResource("/resources/image/home.png")));
-    jLabelNotifiIcon.setIcon(new ImageIcon(getClass().getResource("/resources/image/notif.png")));
+    jLabelNotifiIcon.setIcon(new ImageIcon(getClass().getResource("/resources/image/notification.png")));
     jLabelCartIcon.setIcon(new ImageIcon(getClass().getResource("/resources/image/cart.png")));
     jLabelHistoryIcon.setIcon(new ImageIcon(getClass().getResource("/resources/image/history.png")));
     jLabelProfileIcon.setIcon(new ImageIcon(getClass().getResource("/resources/image/profile.png")));
