@@ -92,8 +92,6 @@ public class UserExcelUtil extends ExcelUtil {
             JOptionPane.ERROR_MESSAGE);
         e.printStackTrace();
       }
-    } else {
-      return;
     }
   }
 

@@ -107,8 +107,6 @@ public class CategoryExcelReader extends ExcelUtil {
             JOptionPane.ERROR_MESSAGE);
         e.printStackTrace();
       }
-    } else {
-      return;
     }
   }
 

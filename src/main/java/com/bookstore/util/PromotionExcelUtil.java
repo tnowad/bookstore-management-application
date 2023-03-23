@@ -50,7 +50,6 @@ public class PromotionExcelUtil extends ExcelUtil {
                   options[0]);
               if (choice == JOptionPane.NO_OPTION) {
                 promotionBus.deleteModel(promotionModel.getId());
-                continue;
               } else {
                 String oldData = "Old Data:\nID: " + promotionModel.getId()
                     + "\nDescription: " + promotionModel.getDescription()
@@ -114,8 +113,6 @@ public class PromotionExcelUtil extends ExcelUtil {
             JOptionPane.ERROR_MESSAGE);
         e.printStackTrace();
       }
-    } else {
-      return;
     }
   }
 

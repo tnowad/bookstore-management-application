@@ -109,8 +109,6 @@ public class AuthorExcelUtil extends ExcelUtil {
             JOptionPane.ERROR_MESSAGE);
         e.printStackTrace();
       }
-    } else {
-      return;
     }
   }
 

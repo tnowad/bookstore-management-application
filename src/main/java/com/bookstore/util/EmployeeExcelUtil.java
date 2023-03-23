@@ -13,7 +13,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import com.bookstore.bus.EmployeeBUS;
 import com.bookstore.dao.EmployeeDAO;
 import com.bookstore.model.EmployeeModel;
-import com.bookstore.model.EmployeeModel.EmployeeType;;
+import com.bookstore.model.EmployeeModel.EmployeeType;
 
 public class EmployeeExcelUtil {
 
