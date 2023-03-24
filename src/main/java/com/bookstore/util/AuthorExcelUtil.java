@@ -121,10 +121,10 @@ public class AuthorExcelUtil extends ExcelUtil {
         AuthorModel model = new AuthorModel(id, name, description);
         AuthorModels.add(model);
       } catch (NumberFormatException e) {
-        LOGGER.log(Level.WARNING, "Invalid number format found in data: " + row.toString(), e);
+        LOGGER.log(Level.WARNING, "Invalid number format found in data: " + row, e);
         throw new IllegalArgumentException("Invalid number format found in data.");
       } catch (IndexOutOfBoundsException e) {
-        LOGGER.log(Level.WARNING, "Missing data found in row: " + row.toString(), e);
+        LOGGER.log(Level.WARNING, "Missing data found in row: " + row, e);
         throw new IllegalArgumentException("Missing data found in row.");
       }
     }
