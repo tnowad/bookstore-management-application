@@ -189,7 +189,8 @@ public class RegisterUI {
     });
 
     loginButton.addActionListener(e -> {
-
+      frame.setVisible(false);
+      new LoginUI();
     });
 
     cancelButton.addActionListener(e -> frame.dispose());
