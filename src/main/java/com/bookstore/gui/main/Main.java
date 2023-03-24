@@ -45,7 +45,9 @@ public class Main extends javax.swing.JFrame {
   }
 
   private void initLayout(Layout layout) {
-    // TODO: init layout
+    for (MenuModel menuModel : layout.getMenuModel()) {
+      menu.addMenu(menuModel);
+    }
   }
 
   private void initFrame() {
@@ -55,110 +57,11 @@ public class Main extends javax.swing.JFrame {
     header = new Header();
     main = new MainForm();
 
-    MenuModel modelMenuHome = new MenuModel(
-        new Icon() {
-          @Override
-          public void paintIcon(Component c, Graphics g, int x, int y) {
-            g.setColor(Color.WHITE);
-            g.fillRect(x, y, getIconWidth(), getIconHeight());
-            g.setColor(Color.BLACK);
-            g.fillRect(x + 5, y + 5, getIconWidth() - 10, getIconHeight() - 10);
-          }
-
-          @Override
-          public int getIconWidth() {
-            return 20;
-          }
-
-          @Override
-          public int getIconHeight() {
-            return 20;
-          }
-        },
-        "Home",
-        new String[] { "1", "2" });
-
-    MenuModel modelMenuNotification = new MenuModel(
-        new Icon() {
-          @Override
-          public void paintIcon(Component c, Graphics g, int x, int y) {
-            g.setColor(Color.WHITE);
-            g.fillRect(x, y, getIconWidth(), getIconHeight());
-            g.setColor(Color.BLACK);
-            g.fillRect(x + 5, y + 5, getIconWidth() - 10, getIconHeight() - 10);
-          }
-
-          @Override
-          public int getIconWidth() {
-            return 20;
-          }
-
-          @Override
-          public int getIconHeight() {
-            return 20;
-          }
-        },
-        "Notification",
-        new String[] { "1", "2" });
-
-    MenuModel modelMenuCart = new MenuModel(
-        new Icon() {
-          @Override
-          public void paintIcon(Component c, Graphics g, int x, int y) {
-            g.setColor(Color.WHITE);
-            g.fillRect(x, y, getIconWidth(), getIconHeight());
-            g.setColor(Color.BLACK);
-            g.fillRect(x + 5, y + 5, getIconWidth() - 10, getIconHeight() - 10);
-          }
-
-          @Override
-          public int getIconWidth() {
-            return 20;
-          }
-
-          @Override
-          public int getIconHeight() {
-            return 20;
-          }
-        },
-        "Cart",
-        new String[] { "1", "2" });
-
-    MenuModel modelMenuHelp = new MenuModel(
-        new Icon() {
-          @Override
-          public void paintIcon(Component c, Graphics g, int x, int y) {
-            g.setColor(Color.WHITE);
-            g.fillRect(x, y, getIconWidth(), getIconHeight());
-            g.setColor(Color.BLACK);
-            g.fillRect(x + 5, y + 5, getIconWidth() - 10, getIconHeight() - 10);
-          }
-
-          @Override
-          public int getIconWidth() {
-            return 20;
-          }
-
-          @Override
-          public int getIconHeight() {
-            return 20;
-          }
-        },
-        "Help",
-        new String[] { "1", "2" });
-
-    menu.addMenu(modelMenuHome);
-    menu.addMenu(modelMenuNotification);
-    menu.addMenu(modelMenuCart);
-    menu.addMenu(modelMenuHelp);
     background.add(menu, "w 230!");
     background.add(header, "h 50!, w 1050!");
     background.add(main, "w 100%, h 100%");
   }
 
-  @SuppressWarnings("unchecked")
-  // <editor-fold defaultstate="collapsed" desc="Generated
-  // Code">//GEN-BEGIN:initComponents
   private void initComponents() {
 
     background = new javax.swing.JLayeredPane();
