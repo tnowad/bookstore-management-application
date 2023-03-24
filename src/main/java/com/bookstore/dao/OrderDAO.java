@@ -67,27 +67,14 @@ public class OrderDAO implements DAOInterface<OrderModel> {
   }
 
   @Override
-  public List<OrderModel> searchByCondition(String condition) throws SQLException, ClassNotFoundException {
-    String query = "SELECT * FROM orders";
-    if (condition != null && !condition.isEmpty()) {
-      query += " WHERE " + condition;
-    }
-    try (ResultSet rs = DatabaseConnect.executeQuery(query)) {
-      List<OrderModel> orderList = new ArrayList<>();
-      while (rs.next()) {
-        OrderModel orderModel = createOrderModelFromResultSet(rs);
-        orderList.add(orderModel);
-      }
-      if (orderList.isEmpty()) {
-        System.out.println("No records found for the given condition: " + condition);
-      }
-      return orderList;
-    }
-  }
-
-  @Override
   public List<OrderModel> searchByCondition(String condition, String columnName)
       throws SQLException, ClassNotFoundException {
+    if (columnName == null || columnName.isEmpty()) {
+      throw new IllegalArgumentException("Column name cannot be empty");
+    } else if (condition == null || condition.isEmpty()) {
+      throw new IllegalArgumentException("Condition cannot be empty");
+    }
+
     String query = "SELECT * FROM orders WHERE " + columnName + " LIKE ?";
     try (PreparedStatement pst = DatabaseConnect.getPreparedStatement(query, "%" + condition + "%")) {
       try (ResultSet rs = pst.executeQuery()) {

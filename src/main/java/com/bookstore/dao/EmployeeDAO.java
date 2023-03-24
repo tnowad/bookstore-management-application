@@ -59,27 +59,14 @@ public class EmployeeDAO implements DAOInterface<EmployeeModel> {
   }
 
   @Override
-  public List<EmployeeModel> searchByCondition(String condition) throws SQLException, ClassNotFoundException {
-    String query = "SELECT * FROM employees";
-    if (condition != null && !condition.isEmpty()) {
-      query += " WHERE " + condition;
-    }
-    try (ResultSet rs = DatabaseConnect.executeQuery(query)) {
-      List<EmployeeModel> employeesList = new ArrayList<>();
-      while (rs.next()) {
-        EmployeeModel employeeModel = createEmployeeModelFromResultSet(rs);
-        employeesList.add(employeeModel);
-      }
-      if (employeesList.isEmpty()) {
-        System.out.println("No records found for the given condition: " + condition);
-      }
-      return employeesList;
-    }
-  }
-
-  @Override
   public List<EmployeeModel> searchByCondition(String condition, String columnName)
       throws SQLException, ClassNotFoundException {
+    if (columnName == null || columnName.isEmpty()) {
+      throw new IllegalArgumentException("Column name cannot be empty");
+    } else if (condition == null || condition.isEmpty()) {
+      throw new IllegalArgumentException("Condition cannot be empty");
+    }
+
     String query = "SELECT * FROM employees WHERE " + columnName + " LIKE ?";
     try (PreparedStatement pst = DatabaseConnect.getPreparedStatement(query, "%" + condition + "%")) {
       try (ResultSet rs = pst.executeQuery()) {

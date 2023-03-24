@@ -9,9 +9,13 @@ import java.util.List;
 import com.bookstore.model.BookModel;
 
 public class BookDAO implements DAOInterface<BookModel> {
+  private static BookDAO instance;
 
   public static BookDAO getInstance() {
-    return new BookDAO();
+    if (instance == null) {
+      instance = new BookDAO();
+    }
+    return instance;
   }
 
   private BookModel createBookModelFromResultSet(ResultSet rs) throws SQLException {
@@ -63,27 +67,14 @@ public class BookDAO implements DAOInterface<BookModel> {
   }
 
   @Override
-  public List<BookModel> searchByCondition(String condition) throws SQLException, ClassNotFoundException {
-    String query = "SELECT * FROM books";
-    if (condition != null && !condition.isEmpty()) {
-      query += " WHERE " + condition;
-    }
-    try (ResultSet rs = DatabaseConnect.executeQuery(query)) {
-      List<BookModel> bookList = new ArrayList<>();
-      while (rs.next()) {
-        BookModel bookModel = createBookModelFromResultSet(rs);
-        bookList.add(bookModel);
-      }
-      if (bookList.isEmpty()) {
-        System.out.println("No records found for the given condition: " + condition);
-      }
-      return bookList;
-    }
-  }
-
-  @Override
   public List<BookModel> searchByCondition(String condition, String columnName)
       throws SQLException, ClassNotFoundException {
+    if (columnName == null || columnName.isEmpty()) {
+      throw new IllegalArgumentException("Column name cannot be empty");
+    } else if (condition == null || condition.isEmpty()) {
+      throw new IllegalArgumentException("Condition cannot be empty");
+    }
+
     String query = "SELECT * FROM books WHERE " + columnName + " LIKE ?";
     try (PreparedStatement pst = DatabaseConnect.getPreparedStatement(query, "%" + condition + "%")) {
       try (ResultSet rs = pst.executeQuery()) {

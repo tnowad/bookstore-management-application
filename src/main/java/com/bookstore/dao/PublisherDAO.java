@@ -54,27 +54,14 @@ public class PublisherDAO implements DAOInterface<PublisherModel> {
   }
 
   @Override
-  public List<PublisherModel> searchByCondition(String condition) throws SQLException, ClassNotFoundException {
-    String query = "SELECT * FROM publishers";
-    if (condition != null && !condition.isEmpty()) {
-      query += " WHERE " + condition;
-    }
-    try (ResultSet rs = DatabaseConnect.executeQuery(query)) {
-      List<PublisherModel> publisherList = new ArrayList<>();
-      while (rs.next()) {
-        PublisherModel publisherModel = createPublisherModelFromResultSet(rs);
-        publisherList.add(publisherModel);
-      }
-      if (publisherList.isEmpty()) {
-        System.out.println("No records found for the given condition: " + condition);
-      }
-      return publisherList;
-    }
-  }
-
-  @Override
   public List<PublisherModel> searchByCondition(String condition, String columnName)
       throws SQLException, ClassNotFoundException {
+    if (columnName == null || columnName.isEmpty()) {
+      throw new IllegalArgumentException("Column name cannot be empty");
+    } else if (condition == null || condition.isEmpty()) {
+      throw new IllegalArgumentException("Condition cannot be empty");
+    }
+
     String query = "SELECT * FROM publishers WHERE " + columnName + " LIKE ?";
     try (PreparedStatement pst = DatabaseConnect.getPreparedStatement(query, "%" + condition + "%")) {
       try (ResultSet rs = pst.executeQuery()) {

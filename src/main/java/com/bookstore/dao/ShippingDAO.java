@@ -59,27 +59,14 @@ public class ShippingDAO implements DAOInterface<ShippingModel> {
   }
 
   @Override
-  public List<ShippingModel> searchByCondition(String condition) throws SQLException, ClassNotFoundException {
-    String query = "SELECT * FROM shipping";
-    if (condition != null && !condition.isEmpty()) {
-      query += " WHERE " + condition;
-    }
-    try (ResultSet rs = DatabaseConnect.executeQuery(query)) {
-      List<ShippingModel> shippingList = new ArrayList<>();
-      while (rs.next()) {
-        ShippingModel shippingModel = createShippingModelFromResultSet(rs);
-        shippingList.add(shippingModel);
-      }
-      if (shippingList.isEmpty()) {
-        System.out.println("No records found for the given condition: " + condition);
-      }
-      return shippingList;
-    }
-  }
-
-  @Override
   public List<ShippingModel> searchByCondition(String condition, String columnName)
       throws SQLException, ClassNotFoundException {
+    if (columnName == null || columnName.isEmpty()) {
+      throw new IllegalArgumentException("Column name cannot be empty");
+    } else if (condition == null || condition.isEmpty()) {
+      throw new IllegalArgumentException("Condition cannot be empty");
+    }
+
     String query = "SELECT * FROM shipping WHERE " + columnName + " LIKE ?";
     try (PreparedStatement pst = DatabaseConnect.getPreparedStatement(query, "%" + condition + "%")) {
       try (ResultSet rs = pst.executeQuery()) {

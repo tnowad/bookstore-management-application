@@ -79,27 +79,14 @@ public class PromotionDAO implements DAOInterface<PromotionModel> {
   }
 
   @Override
-  public List<PromotionModel> searchByCondition(String condition) throws SQLException, ClassNotFoundException {
-    String query = "SELECT * FROM promotions";
-    if (condition != null && !condition.isEmpty()) {
-      query += " WHERE " + condition;
-    }
-    try (ResultSet rs = DatabaseConnect.executeQuery(query)) {
-      List<PromotionModel> promotionList = new ArrayList<>();
-      while (rs.next()) {
-        PromotionModel promotionModel = createPromotionModelFromResultSet(rs);
-        promotionList.add(promotionModel);
-      }
-      if (promotionList.isEmpty()) {
-        System.out.println("No records found for the given condition: " + condition);
-      }
-      return promotionList;
-    }
-  }
-
-  @Override
   public List<PromotionModel> searchByCondition(String condition, String columnName)
       throws SQLException, ClassNotFoundException {
+    if (columnName == null || columnName.isEmpty()) {
+      throw new IllegalArgumentException("Column name cannot be empty");
+    } else if (condition == null || condition.isEmpty()) {
+      throw new IllegalArgumentException("Condition cannot be empty");
+    }
+
     String query = "SELECT * FROM promotions WHERE " + columnName + " LIKE ?";
     try (PreparedStatement pst = DatabaseConnect.getPreparedStatement(query, "%" + condition + "%")) {
       try (ResultSet rs = pst.executeQuery()) {

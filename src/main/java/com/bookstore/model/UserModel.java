@@ -68,6 +68,9 @@ public class UserModel {
   }
 
   public Status getStatus() {
+    if (status == null) {
+      status = Status.ACTIVE;
+    }
     return status;
   }
 

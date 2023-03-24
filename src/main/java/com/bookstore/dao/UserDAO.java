@@ -72,31 +72,14 @@ public class UserDAO implements DAOInterface<UserModel> {
   }
 
   @Override
-  public List<UserModel> searchByCondition(String condition) throws SQLException, ClassNotFoundException {
-    String query = "SELECT * FROM users";
-
-    if (condition != null && !condition.isEmpty()) {
-      query += " WHERE " + condition;
-    }
-
-    try (ResultSet rs = DatabaseConnect.executeQuery(query)) {
-      List<UserModel> userList = new ArrayList<>();
-      while (rs.next()) {
-        UserModel userModel = createUserModelFromResultSet(rs);
-        userList.add(userModel);
-      }
-
-      if (userList.isEmpty()) {
-        System.out.println("No records found for the given condition: " + condition);
-      }
-
-      return userList;
-    }
-  }
-
-  @Override
   public List<UserModel> searchByCondition(String condition, String columnName)
       throws SQLException, ClassNotFoundException {
+    if (columnName == null || columnName.isEmpty()) {
+      throw new IllegalArgumentException("Column name cannot be empty");
+    } else if (condition == null || condition.isEmpty()) {
+      throw new IllegalArgumentException("Condition cannot be empty");
+    }
+
     String query = "SELECT * FROM users WHERE " + columnName + " LIKE ?";
 
     try (PreparedStatement pst = DatabaseConnect.getPreparedStatement(query, "%" + condition + "%")) {

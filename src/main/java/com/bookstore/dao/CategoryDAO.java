@@ -54,27 +54,14 @@ public class CategoryDAO implements DAOInterface<CategoryModel> {
   }
 
   @Override
-  public List<CategoryModel> searchByCondition(String condition) throws SQLException, ClassNotFoundException {
-    String query = "SELECT * FROM categories";
-    if (condition != null && !condition.isEmpty()) {
-      query += " WHERE " + condition;
-    }
-    try (ResultSet rs = DatabaseConnect.executeQuery(query)) {
-      List<CategoryModel> categoryList = new ArrayList<>();
-      while (rs.next()) {
-        CategoryModel categoryModel = createCategoryModelFromResultSet(rs);
-        categoryList.add(categoryModel);
-      }
-      if (categoryList.isEmpty()) {
-        System.out.println("No records found for the given condition: " + condition);
-      }
-      return categoryList;
-    }
-  }
-
-  @Override
   public List<CategoryModel> searchByCondition(String condition, String columnName)
       throws SQLException, ClassNotFoundException {
+    if (columnName == null || columnName.isEmpty()) {
+      throw new IllegalArgumentException("Column name cannot be empty");
+    } else if (condition == null || condition.isEmpty()) {
+      throw new IllegalArgumentException("Condition cannot be empty");
+    }
+
     String query = "SELECT * FROM categories WHERE " + columnName + " LIKE ?";
     try (PreparedStatement pst = DatabaseConnect.getPreparedStatement(query, "%" + condition + "%")) {
       try (ResultSet rs = pst.executeQuery()) {

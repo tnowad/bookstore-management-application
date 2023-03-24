@@ -66,28 +66,14 @@ public class PaymentDAO implements DAOInterface<PaymentModel> {
   }
 
   @Override
-  public List<PaymentModel> searchByCondition(String condition)
-      throws SQLException, ClassNotFoundException {
-    String query = "SELECT * FROM payments";
-    if (condition != null && !condition.isEmpty()) {
-      query += " WHERE " + condition;
-    }
-    try (ResultSet rs = DatabaseConnect.executeQuery(query)) {
-      List<PaymentModel> paymentList = new ArrayList<>();
-      while (rs.next()) {
-        PaymentModel paymentModel = createPaymentModelFromResultSet(rs);
-        paymentList.add(paymentModel);
-      }
-      if (paymentList.isEmpty()) {
-        System.out.println("No records found for the given condition: " + condition);
-      }
-      return paymentList;
-    }
-  }
-
-  @Override
   public List<PaymentModel> searchByCondition(String condition, String columnName)
       throws SQLException, ClassNotFoundException {
+    if (columnName == null || columnName.isEmpty()) {
+      throw new IllegalArgumentException("Column name cannot be empty");
+    } else if (condition == null || condition.isEmpty()) {
+      throw new IllegalArgumentException("Condition cannot be empty");
+    }
+
     String query = "SELECT * FROM payments WHERE " + columnName + " LIKE ?";
     try (PreparedStatement pst = DatabaseConnect.getPreparedStatement(query, "%" + condition + "%")) {
       try (ResultSet rs = pst.executeQuery()) {

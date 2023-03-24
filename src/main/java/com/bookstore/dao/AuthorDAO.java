@@ -59,27 +59,14 @@ public class AuthorDAO implements DAOInterface<AuthorModel> {
   }
 
   @Override
-  public List<AuthorModel> searchByCondition(String condition) throws SQLException, ClassNotFoundException {
-    String query = "SELECT * FROM authors";
-    if (condition != null && !condition.isEmpty()) {
-      query += " WHERE " + condition;
-    }
-    try (ResultSet rs = DatabaseConnect.executeQuery(query)) {
-      List<AuthorModel> authorList = new ArrayList<>();
-      while (rs.next()) {
-        AuthorModel authorModel = createAuthorModelFromResultSet(rs);
-        authorList.add(authorModel);
-      }
-      if (authorList.isEmpty()) {
-        System.out.println("No records found for the given condition: " + condition);
-      }
-      return authorList;
-    }
-  }
-
-  @Override
   public List<AuthorModel> searchByCondition(String condition, String columnName)
       throws SQLException, ClassNotFoundException {
+    if (columnName == null || columnName.isEmpty()) {
+      throw new IllegalArgumentException("Column name cannot be empty");
+    } else if (condition == null || condition.isEmpty()) {
+      throw new IllegalArgumentException("Condition cannot be empty");
+    }
+
     String query = "SELECT * FROM authors WHERE " + columnName + " LIKE ?";
     try (PreparedStatement pst = DatabaseConnect.getPreparedStatement(query, "%" + condition + "%")) {
       try (ResultSet rs = pst.executeQuery()) {

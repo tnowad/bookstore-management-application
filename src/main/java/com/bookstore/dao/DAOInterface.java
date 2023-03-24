@@ -58,20 +58,6 @@ public interface DAOInterface<Entity> {
 
   /**
    * Searches the database table associated with this DAO for rows matching a
-   * particular condition.
-   *
-   * @param condition the SQL WHERE clause used in the SELECT query, without the
-   *                  WHERE keyword itself
-   * @return a List of Entity objects representing all rows that match the search
-   *         condition
-   * @throws SQLException           on any exception arising from database access
-   *                                errors
-   * @throws ClassNotFoundException if driver class not found
-   */
-  List<Entity> searchByCondition(String condition) throws SQLException, ClassNotFoundException;
-
-  /**
-   * Searches the database table associated with this DAO for rows matching a
    * particular condition and column.
    *
    * @param condition  the SQL WHERE clause used in the SELECT query, without the

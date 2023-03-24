@@ -63,31 +63,14 @@ public class ImportDAO implements DAOInterface<ImportModel> {
   }
 
   @Override
-  public List<ImportModel> searchByCondition(String condition) throws SQLException, ClassNotFoundException {
-    String query = "SELECT * FROM imports";
-
-    if (condition != null && !condition.isEmpty()) {
-      query += " WHERE " + condition;
-    }
-
-    try (ResultSet rs = DatabaseConnect.executeQuery(query)) {
-      List<ImportModel> importsList = new ArrayList<>();
-      while (rs.next()) {
-        ImportModel ImportModel = createImportModelFromResultSet(rs);
-        importsList.add(ImportModel);
-      }
-
-      if (importsList.isEmpty()) {
-        System.out.println("No records found for the given condition: " + condition);
-      }
-
-      return importsList;
-    }
-  }
-
-  @Override
   public List<ImportModel> searchByCondition(String condition, String columnName)
       throws SQLException, ClassNotFoundException {
+    if (columnName == null || columnName.isEmpty()) {
+      throw new IllegalArgumentException("Column name cannot be empty");
+    } else if (condition == null || condition.isEmpty()) {
+      throw new IllegalArgumentException("Condition cannot be empty");
+    }
+
     String query = "SELECT * FROM imports WHERE " + columnName + " LIKE ?";
 
     try (PreparedStatement pst = DatabaseConnect.getPreparedStatement(query, "%" + condition + "%")) {
