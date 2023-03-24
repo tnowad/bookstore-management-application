@@ -18,7 +18,6 @@ public class UserModel {
     ACTIVE,
     INACTIVE,
     BANNED,
-    DELETED
   }
 
   public enum Role {
@@ -123,4 +122,5 @@ public class UserModel {
   public void setRole(Role role) {
     this.role = role;
   }
+
 }

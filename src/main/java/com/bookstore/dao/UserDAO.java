@@ -21,8 +21,7 @@ public class UserDAO implements DAOInterface<UserModel> {
     return instance;
   }
 
-  private UserModel createUserModelFromResultSet(ResultSet rs) throws SQLException {
-
+  private static UserModel createUserModelFromResultSet(ResultSet rs) throws SQLException {
     int id = rs.getInt("id");
     String username = rs.getString("username");
     String password = rs.getString("password");
@@ -33,7 +32,6 @@ public class UserDAO implements DAOInterface<UserModel> {
     Timestamp createdAt = rs.getTimestamp("created_at");
     Timestamp updatedAt = rs.getTimestamp("updated_at");
     Role role = Role.valueOf(rs.getString("role").toUpperCase());
-
     return new UserModel(id, username, password, status, name, email, phone, createdAt, updatedAt, role);
   }
 
@@ -47,30 +45,29 @@ public class UserDAO implements DAOInterface<UserModel> {
         userList.add(userModel);
       }
     }
-
     return userList;
   }
 
   @Override
   public int insert(UserModel user) throws SQLException, ClassNotFoundException {
     String insertSql = "INSERT INTO users (username, password, status, name, email, phone, role) VALUES (?, ?, ?, ?, ?, ?, ?)";
-    Object[] args = { user.getUsername(), user.getPassword(), user.getStatus().toString().toLowerCase(),
-        user.getName(), user.getEmail(), user.getPhone(), user.getRole().toString().toLowerCase() };
+    Object[] args = { user.getUsername(), user.getPassword(), user.getStatus().toString().toUpperCase(),
+        user.getName(), user.getEmail(), user.getPhone(), user.getRole().toString().toUpperCase() };
     return DatabaseConnect.executeUpdate(insertSql, args);
   }
 
   @Override
   public int update(UserModel user) throws SQLException, ClassNotFoundException {
-    String updateSql = "UPDATE users SET password = ?, status = ?, name = ?, email = ?, phone = ?, role = ? WHERE username = ?";
-    Object[] args = { user.getUsername(), user.getPassword(), user.getStatus().toString().toLowerCase(),
-        user.getName(), user.getEmail(), user.getPhone(), user.getRole().toString().toLowerCase(), user.getId() };
+    String updateSql = "UPDATE users SET username = ?, password = ?, status = ?, name = ?, email = ?, phone = ?, role = ? WHERE id = ?";
+    Object[] args = { user.getUsername(), user.getPassword(), user.getStatus().toString().toUpperCase(),
+        user.getName(), user.getEmail(), user.getPhone(), user.getRole().toString().toUpperCase(), user.getId() };
     return DatabaseConnect.executeUpdate(updateSql, args);
   }
 
   @Override
-  public int delete(int username) throws SQLException, ClassNotFoundException {
-    String updateStatusSql = "UPDATE users SET status = ? WHERE username = ?";
-    Object[] args = { UserModel.Status.DELETED, username };
+  public int delete(int id) throws SQLException, ClassNotFoundException {
+    String updateStatusSql = "UPDATE users SET status = ? WHERE id = ?";
+    Object[] args = { UserModel.Status.BANNED.toString().toUpperCase(), id };
     return DatabaseConnect.executeUpdate(updateStatusSql, args);
   }
 
@@ -119,7 +116,7 @@ public class UserDAO implements DAOInterface<UserModel> {
     }
   }
 
-  public UserModel getUserByUsername(String username) throws SQLException, ClassNotFoundException {
+  public static UserModel getUserByUsername(String username) throws SQLException, ClassNotFoundException {
     String query = "SELECT * FROM users WHERE username = ?";
     Object[] args = { username };
     try (PreparedStatement pst = DatabaseConnect.getPreparedStatement(query, args); ResultSet rs = pst.executeQuery()) {
@@ -130,7 +127,7 @@ public class UserDAO implements DAOInterface<UserModel> {
     return null;
   }
 
-  public UserModel getUserById(int id) throws SQLException, ClassNotFoundException {
+  public static UserModel getUserById(int id) throws SQLException, ClassNotFoundException {
     String query = "SELECT * FROM users WHERE id = ?";
     Object[] args = { id };
     try (PreparedStatement pst = DatabaseConnect.getPreparedStatement(query, args); ResultSet rs = pst.executeQuery()) {
@@ -140,4 +137,5 @@ public class UserDAO implements DAOInterface<UserModel> {
     }
     return null;
   }
+
 }
