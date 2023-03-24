@@ -24,6 +24,7 @@ public class UserBUS extends BUSAbstract<UserModel> {
   }
 
   public UserModel login(String username, String password) throws SQLException, ClassNotFoundException {
+    UserDAO.getInstance();
     UserModel userModel = UserDAO.getInstance().getUserByUsername(username);
     if (userModel != null && PasswordUtil.checkPassword(password, userModel.getPassword())) {
       return userModel;

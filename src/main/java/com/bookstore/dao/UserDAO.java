@@ -116,7 +116,7 @@ public class UserDAO implements DAOInterface<UserModel> {
     }
   }
 
-  public static UserModel getUserByUsername(String username) throws SQLException, ClassNotFoundException {
+  public UserModel getUserByUsername(String username) throws SQLException, ClassNotFoundException {
     String query = "SELECT * FROM users WHERE username = ?";
     Object[] args = { username };
     try (PreparedStatement pst = DatabaseConnect.getPreparedStatement(query, args); ResultSet rs = pst.executeQuery()) {
@@ -127,7 +127,7 @@ public class UserDAO implements DAOInterface<UserModel> {
     return null;
   }
 
-  public static UserModel getUserById(int id) throws SQLException, ClassNotFoundException {
+  public UserModel getUserById(int id) throws SQLException, ClassNotFoundException {
     String query = "SELECT * FROM users WHERE id = ?";
     Object[] args = { id };
     try (PreparedStatement pst = DatabaseConnect.getPreparedStatement(query, args); ResultSet rs = pst.executeQuery()) {

@@ -108,7 +108,7 @@ public class EmployeeBUS extends BUSAbstract<EmployeeModel> {
     UserDAO userDao = UserDAO.getInstance();
     UserModel userModel = userDao.getUserById(employeeModel.getUserId());
     if (userModel != null) {
-      userModel.setStatus(Status.DELETED);
+      userModel.setStatus(Status.BANNED);
       userDao.update(userModel);
     }
     int deleted = employeeDao.delete(employeeModel.getUserId());
