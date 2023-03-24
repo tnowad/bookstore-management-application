@@ -170,26 +170,16 @@ public class LoginUI {
     loginButton.addActionListener(e -> {
       String username = usernameTextField.getText();
       char[] password = passwordField.getPassword();
-      String passwordtext = new String(password);
+      String passwordText = new String(password);
       try {
         UserBUS userBUS = new UserBUS();
-        UserModel user = userBUS.login(username, passwordtext);
+        UserModel user = userBUS.login(username, passwordText);
         if (user != null) {
           // successful login - do something (e.g. show main application window)
           System.out.println("Logged in successfully");
           UserModel userModel = UserDAO.getInstance().getUserByUsername(username);
-          Role role = userModel.getRole();
-          switch (role) {
-            case CUSTOMER -> {
-
-            }
-            case EMPLOYEE -> {
-
-            }
-            case ADMIN -> {
-
-            }
-          }
+          // Init session user after login with SessionUser class
+          SessionUser sessionUser = new SessionUser(userModel);
         } else {
           // login failed - do something (e.g. display error message)
           JOptionPane.showMessageDialog(null, "Invalid username or password", "Login Failed",
@@ -251,7 +241,6 @@ public class LoginUI {
         frame.repaint();
       }
     });
-
   }
 
   private void initFrame() {
@@ -261,9 +250,5 @@ public class LoginUI {
     frame.pack();
     frame.setLocationRelativeTo(null);
     frame.setVisible(true);
-  }
-
-  public static void main(String[] args) {
-    new LoginUI();
   }
 }

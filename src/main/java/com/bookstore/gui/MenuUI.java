@@ -15,11 +15,9 @@ public class MenuUI extends JFrame implements MouseListener {
   private JPanel homeMenu;
   private JLabel jButton_Menu;
 
-
   private JLabel jButton_MenuItem;
   private JLabel jButton_MenuTable;
   private JLabel jLogo;
-
 
   public JPanel initMenu() {
     homeMenu = new JPanel();
@@ -29,9 +27,9 @@ public class MenuUI extends JFrame implements MouseListener {
     jLogo = new JLabel("Book Store");
     jLogo.setFont(new Font("sansserif", Font.BOLD, 20));
     jLogo.setIcon(
-      new ImageIcon(getClass().getResource("/resources/image/logo.png")));    
+        new ImageIcon(getClass().getResource("/resources/image/logo.png")));
     homeMenu.add(jLogo);
-    
+
     jButton_Menu = new JLabel("Dashboard");
     jButton_Menu.setName("Dashboard");
     jButton_Menu.setFont(new Font("sansserif", 0, 12));
@@ -84,14 +82,13 @@ public class MenuUI extends JFrame implements MouseListener {
     jButton_MenuTable.setName("MenuTable");
     // homeMenu.add(jButton_MenuTable);
 
-
     jButton_Menu = new JLabel("Messenger");
     jButton_Menu.setName("Messenger");
     jButton_Menu.setFont(new Font("sansserif", 0, 12));
     jButton_Menu.setIcon(
         new ImageIcon(getClass().getResource("/resources/image/messenger.png")));
     homeMenu.add(jButton_Menu);
-    
+
     jButton_Menu = new JLabel("Report");
     jButton_Menu.setName("Report");
     jButton_Menu.setFont(new Font("sansserif", 0, 12));
@@ -106,14 +103,10 @@ public class MenuUI extends JFrame implements MouseListener {
         new ImageIcon(getClass().getResource("/resources/image/contact.png")));
     homeMenu.add(jButton_Menu);
 
-   
-
     homeMenu.setBackground(new Color(182238));
     homeMenu.setBorder(new EmptyBorder(0, 7, 0, 0));
     return homeMenu;
   }
-
-
 
   public void actionMenu(MouseEvent e) {
     Component component = (Component) e.getSource();
@@ -156,14 +149,15 @@ public class MenuUI extends JFrame implements MouseListener {
   }
 
   public static void main(String[] args) {
-    new MenuUI();
+    new MenuUI().setVisible(true);
+    ;
   }
 
   @Override
   public void mouseClicked(MouseEvent e) {
     setMenuItem(e);
     actionMenu(e);
-}
+  }
 
   @Override
   public void mousePressed(MouseEvent e) {
