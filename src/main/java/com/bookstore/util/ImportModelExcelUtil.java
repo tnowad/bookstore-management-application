@@ -7,146 +7,129 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.bookstore.bus.ImportBUS;
-import com.bookstore.dao.ImportDAO;
 import com.bookstore.model.ImportModel;
-import com.bookstore.util.ExcelUtil.RowData;
-import com.bookstore.util.ExcelUtil.SpreadsheetIOException;
 
-public class ImportModelExcelUtil {
+public class ImportModelExcelUtil extends ExcelUtil {
 
-  public static void readModelsFromExcel() throws NumberFormatException, ClassNotFoundException, SQLException {
+  private static final String[] EXCEL_EXTENSIONS = { "xls", "xlsx", "xlsm" };
+  private static final Logger LOGGER = Logger.getLogger(ImportModelExcelUtil.class.getName());
+
+  public static void selectAndProcessImportModelExcelFile() {
     JFileChooser fileChooser = new JFileChooser();
-    FileNameExtensionFilter excelFileName = new FileNameExtensionFilter("Imports", "xls", "xlsx", "xlsm");
-    fileChooser.setFileFilter(excelFileName);
+    FileNameExtensionFilter excelFilter = new FileNameExtensionFilter("Import Models", EXCEL_EXTENSIONS);
+    fileChooser.setFileFilter(excelFilter);
     int option = fileChooser.showOpenDialog(null);
-    if (option != JFileChooser.APPROVE_OPTION) {
-      return;
-    }
-    File file = fileChooser.getSelectedFile();
-    String filePath = file.getAbsolutePath();
-    try {
-      List<List<String>> modelData = ExcelUtil.readExcel(filePath, 0);
-      List<ImportModel> importModels = convertToImportModelList(modelData);
-      ImportBUS importModelBUS = new ImportBUS();
-
-      for (ImportModel model : importModels) {
-        try {
-
-          ImportModel existingModel = importModelBUS.getModel(model.getId());
-
-          if (existingModel != null) {
-            Object[] options = { "Update", "Delete" };
-
-            int choice = JOptionPane.showOptionDialog(
-                null,
-                "A duplicate model with ID: " + existingModel.getId()
-                    + " was found. Would you like to update this model?",
-                "Duplicate Model Found",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE,
-                null,
-                options,
-                options[0]);
-
-            while (choice == JOptionPane.CLOSED_OPTION) {
-              choice = JOptionPane.showOptionDialog(
-                  null,
-                  "Please choose to update or delete the duplicate model.",
-                  "Duplicate Model Found",
-                  JOptionPane.YES_NO_OPTION,
-                  JOptionPane.QUESTION_MESSAGE,
-                  null,
-                  options,
-                  options[0]);
-            }
-
-            if (choice == JOptionPane.NO_OPTION) {
-              ImportDAO.getInstance().delete(existingModel.getId());
-              ImportDAO.getInstance().insert(model);
-            } else if (choice == JOptionPane.YES_OPTION) {
-              String oldData = "Old Data:\nID: " + existingModel.getId() + "\nProvider ID: "
-                  + existingModel.getProviderId() + "\nEmployee ID: " + existingModel.getEmployeeId()
-                  + "\nTotal Price: "
-                  + existingModel.getTotalPrice() + "\nCreated At: " + existingModel.getCreatedAt() + "\nUpdated At:"
-                  + existingModel.getUpdatedAt();
-
-              String newData = "New Data:\nID: " + model.getId() + "\nProvider ID: " + model.getProviderId()
-                  + "\nEmployee ID: " + model.getEmployeeId() + "\nTotal Price: " + model.getTotalPrice()
-                  + "\nCreated At: " + model.getCreatedAt() + "\nUpdated At:" + model.getUpdatedAt();
-
-              Object[] message = { oldData, newData };
-
-              int updateChoice = JOptionPane.showOptionDialog(
-                  null,
-                  message,
-                  "Update Model",
-                  JOptionPane.YES_NO_OPTION,
-                  JOptionPane.QUESTION_MESSAGE,
-                  null,
-                  options,
-                  options[0]);
-
-              if (updateChoice == JOptionPane.YES_OPTION) {
-                ImportDAO.getInstance().update(model);
-              }
-            }
-          } else {
-            ImportDAO.getInstance().insert(model);
-
-          }
-
-        } catch (NullPointerException ptr) {
-          JOptionPane.showMessageDialog(null, "Error: " + ptr.getMessage(), "Model not found.",
-              JOptionPane.ERROR_MESSAGE);
+    if (option == JFileChooser.APPROVE_OPTION) {
+      File file = fileChooser.getSelectedFile();
+      try {
+        List<List<String>> importModelData = ExcelUtil.readExcel(file.getAbsolutePath(), 1);
+        if (importModelData.isEmpty()) {
+          throw new IllegalArgumentException("No data found in file.");
         }
+        List<ImportModel> importModels = convertToImportModelList(importModelData);
+        ImportBUS importModelBUS = new ImportBUS();
+        for (ImportModel model : importModels) {
+          ImportModel existingImportModel = importModelBUS.getImportModel(model.getId());
+          if (existingImportModel != null) {
+            handleDuplicateImportModel(existingImportModel, model, importModelBUS);
+          } else {
+            importModelBUS.insertModel(model);
+          }
+        }
+        JOptionPane.showMessageDialog(null, "Data from " + file.getName() + " has been inserted successfully.");
+      } catch (IOException | SQLException | ClassNotFoundException e) {
+        LOGGER.log(Level.SEVERE, "Error occurred while processing file: " + file.getName(), e);
+        showErrorDialog("An error occurred while processing the file.", "Error");
+      } catch (IllegalArgumentException e) {
+        LOGGER.log(Level.WARNING, "Invalid data found in file: " + file.getName(), e);
+        showErrorDialog(e.getMessage(), "Invalid Data");
       }
-      JOptionPane.showMessageDialog(null, "Data from " + file.getName() + " has been inserted successfully.");
-    } catch (IOException e) {
-      JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), "File Input Error", JOptionPane.ERROR_MESSAGE);
-      e.printStackTrace();
-    } catch (NumberFormatException e) {
-      JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), "Number Format Error",
-          JOptionPane.ERROR_MESSAGE);
-      e.printStackTrace();
-    } catch (IllegalArgumentException e) {
-      JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), "Illegal Argument Error",
-          JOptionPane.ERROR_MESSAGE);
-      e.printStackTrace();
     }
   }
 
-  private static List<ImportModel> convertToImportModelList(List<List<String>> data) {
+  private static void handleDuplicateImportModel(ImportModel existingImportModel, ImportModel newImportModel,
+      ImportBUS importModelBUS) throws ClassNotFoundException, SQLException {
+    Object[] options = { "Update", "Delete" };
+    int choice = JOptionPane.showOptionDialog(
+        null,
+        "A duplicate import model with ID: " + existingImportModel.getId()
+            + " was found. Would you like to update or delete this import model?",
+        "Duplicate Import Model Found",
+        JOptionPane.YES_NO_OPTION,
+        JOptionPane.QUESTION_MESSAGE,
+        null,
+        options,
+        options[0]);
+    if (choice == JOptionPane.NO_OPTION) {
+      importModelBUS.deleteModel(existingImportModel.getId());
+    } else {
+      String oldData = "Old Data:\nID: " + existingImportModel.getId() + "\nProvider ID: "
+          + existingImportModel.getProviderId() + "\nEmployee ID: " + existingImportModel.getEmployeeId()
+          + "\nTotal Price: " + existingImportModel.getTotalPrice() + "\nCreated At: "
+          + existingImportModel.getCreatedAt() + "\nUpdated At: " + existingImportModel.getUpdatedAt();
+      String newData = "New Data:\nID: " + newImportModel.getId() + "\nProvider ID: " + newImportModel.getProviderId()
+          + "\nEmployee ID: " + newImportModel.getEmployeeId() + "\nTotal Price: " + newImportModel.getTotalPrice()
+          + "\nCreated At: " + newImportModel.getCreatedAt() + "\nUpdated At: " + newImportModel.getUpdatedAt();
+      Object[] message = { oldData, newData };
+      int updateChoice = JOptionPane.showOptionDialog(
+          null,
+          message,
+          "Update Import Model",
+          JOptionPane.YES_NO_OPTION,
+          JOptionPane.QUESTION_MESSAGE,
+          null,
+          options,
+          options[0]);
+      while (updateChoice == JOptionPane.CLOSED_OPTION) {
+        updateChoice = JOptionPane.showOptionDialog(
+            null,
+            "Please choose to update or delete the duplicate import model.",
+            "Duplicate Import Model Found",
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.QUESTION_MESSAGE,
+            null,
+            options,
+            options[0]);
+      }
+      if (updateChoice == JOptionPane.YES_OPTION) {
+        importModelBUS.updateModel(newImportModel);
+      } else {
+        importModelBUS.deleteModel(existingImportModel.getId());
+        importModelBUS.insertModel(newImportModel);
+      }
+    }
+  }
+
+  private static void showErrorDialog(String message, String title) {
+    LOGGER.log(Level.WARNING, "Error occurred: " + message);
+    JOptionPane.showMessageDialog(null, "Error: " + message, title, JOptionPane.ERROR_MESSAGE);
+  }
+
+  private static List<ImportModel> convertToImportModelList(List<List<String>> data) throws IllegalArgumentException {
     List<ImportModel> importModels = new ArrayList<>();
     for (List<String> row : data) {
-      try {
-        int id = Integer.parseInt(row.get(0));
-        int providerId = Integer.parseInt(row.get(1));
-        int employeeId = Integer.parseInt(row.get(2));
-        BigDecimal totalPrice = new BigDecimal(row.get(3));
-        Timestamp createdAt = Timestamp.valueOf(row.get(4));
-        Timestamp updatedAt = Timestamp.valueOf(row.get(5));
-        ImportModel model = new ImportModel(id, providerId, employeeId, totalPrice, createdAt, updatedAt);
-        importModels.add(model);
-      } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), "Number Format Error",
-            JOptionPane.ERROR_MESSAGE);
-        e.printStackTrace();
-      } catch (IllegalArgumentException e) {
-        JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), "Illegal Argument Error",
-            JOptionPane.ERROR_MESSAGE);
-        e.printStackTrace();
-      }
+      int id = Integer.parseInt(row.get(0));
+      int providerId = Integer.parseInt(row.get(1));
+      int employeeId = Integer.parseInt(row.get(2));
+      BigDecimal totalPrice = new BigDecimal(row.get(3));
+      Timestamp createdAt = Timestamp.valueOf(row.get(4));
+      Timestamp updatedAt = Timestamp.valueOf(row.get(5));
+      ImportModel model = new ImportModel(id, providerId, employeeId, totalPrice, createdAt, updatedAt);
+      importModels.add(model);
     }
     return importModels;
   }
 
-  public static void writeModelsToExcel(List<List<String>> imports) {
-    List<ExcelUtil.RowData> rowDataList = new ArrayList<>();
+  public static void writeImportModelToExcel(List<ImportModel> imports) throws SpreadsheetIOException {
+    List<RowData> rowDataList = new ArrayList<>();
 
     // Create header row
     List<String> headerValues = new ArrayList<>();
@@ -156,18 +139,18 @@ public class ImportModelExcelUtil {
     headerValues.add("Total Price");
     headerValues.add("Created At");
     headerValues.add("Updated At");
-    RowData headerRow = new RowData(headerValues);
-    rowDataList.add(headerRow);
+    RowData header = new RowData(headerValues);
+    rowDataList.add(header);
 
     // Write data rows
-    for (List<String> importModel : imports) {
+    for (ImportModel importModel : imports) {
       List<String> values = new ArrayList<>();
-      values.add(importModel.get(0));
-      values.add(importModel.get(1));
-      values.add(importModel.get(2));
-      values.add(importModel.get(3));
-      values.add(importModel.get(4));
-      values.add(importModel.get(5));
+      values.add(Integer.toString(importModel.getId()));
+      values.add(Integer.toString(importModel.getProviderId()));
+      values.add(Integer.toString(importModel.getEmployeeId()));
+      values.add(importModel.getTotalPrice().toString());
+      values.add(importModel.getCreatedAt().toString());
+      values.add(importModel.getUpdatedAt().toString());
       RowData rowData = new RowData(values);
       rowDataList.add(rowData);
     }
@@ -179,15 +162,24 @@ public class ImportModelExcelUtil {
       File outputFile = fileChooser.getSelectedFile();
       String filePath = outputFile.getAbsolutePath();
 
+      if (outputFile.exists()) {
+        int overwriteOption = JOptionPane.showConfirmDialog(null,
+            "The file already exists. Do you want to overwrite it?", "File Exists", JOptionPane.YES_NO_OPTION);
+        if (overwriteOption == JOptionPane.NO_OPTION) {
+          return;
+        }
+      }
       try {
-        ExcelUtil.writeExcel(rowDataList, filePath, "Imports");
+        writeExcel(rowDataList, filePath, "Imports");
         JOptionPane.showMessageDialog(null,
             "Data has been written successfully to " + outputFile.getName() + ".");
       } catch (SpreadsheetIOException e) {
+        LOGGER.log(Level.SEVERE, "Error occurred while writing data to file: " + outputFile.getName(), e);
         JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), "File Output Error",
             JOptionPane.ERROR_MESSAGE);
-        e.printStackTrace();
+        throw e;
       }
     }
   }
+
 }

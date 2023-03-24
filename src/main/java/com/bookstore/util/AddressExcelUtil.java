@@ -5,149 +5,123 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.bookstore.bus.AddressBUS;
-import com.bookstore.dao.AddressDAO;
 import com.bookstore.model.AddressModel;
 
 public class AddressExcelUtil extends ExcelUtil {
 
-  public static void readAddressesFromExcel() throws NumberFormatException, ClassNotFoundException, SQLException {
+  private static final String[] EXCEL_EXTENSIONS = { "xls", "xlsx", "xlsm" };
+  private static final Logger LOGGER = Logger.getLogger(AddressExcelUtil.class.getName());
+
+  public static void selectAndProcessAddressesExcelFile() {
     JFileChooser fileChooser = new JFileChooser();
-    FileNameExtensionFilter excelFileName = new FileNameExtensionFilter("Addresses", "xls", "xlsx", "xslm");
-    fileChooser.setFileFilter(excelFileName);
-
+    FileNameExtensionFilter excelFilter = new FileNameExtensionFilter("Addresses", EXCEL_EXTENSIONS);
+    fileChooser.setFileFilter(excelFilter);
     int option = fileChooser.showOpenDialog(null);
-
-    if (option != JFileChooser.APPROVE_OPTION) {
-      return;
-    }
-
-    File file = fileChooser.getSelectedFile();
-    String filePath = file.getAbsolutePath();
-
-    try {
-      List<List<String>> addressData = ExcelUtil.readExcel(filePath, 1);
-      List<AddressModel> addressModels = convertToAddressModelList(addressData);
-      AddressBUS addressBUS = new AddressBUS();
-      for (AddressModel model : addressModels) {
-        try {
-
-          AddressModel existingAddress = addressBUS.getModel(model.getId());
-
-          if (existingAddress != null) {
-            Object[] options = { "Update", "Delete" };
-
-            int choice = JOptionPane.showOptionDialog(
-                null,
-                "A duplicate address with ID: " + existingAddress.getId()
-                    + " was found. Would you like to update this address?",
-                "Duplicate Address Found",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE,
-                null,
-                options,
-                options[0]);
-
-            while (choice == JOptionPane.CLOSED_OPTION) {
-              choice = JOptionPane.showOptionDialog(
-                  null,
-                  "Please choose to update or delete the duplicate address.",
-                  "Duplicate Address Found",
-                  JOptionPane.YES_NO_OPTION,
-                  JOptionPane.QUESTION_MESSAGE,
-                  null,
-                  options,
-                  options[0]);
-            }
-
-            if (choice == JOptionPane.NO_OPTION) {
-              AddressDAO.getInstance().delete(existingAddress.getId());
-              AddressDAO.getInstance().insert(model);
-            } else if (choice == JOptionPane.YES_OPTION) {
-              String oldData = "Old Data:\nID: " + existingAddress.getId() + "\nUserID: "
-                  + existingAddress.getUserId() + "\nStreet: " + existingAddress.getStreet() + "\nCity: "
-                  + existingAddress.getCity() + "\nState: " + existingAddress.getState() + "\nZip Code: "
-                  + existingAddress.getZip();
-
-              String newData = "New Data:\nID: " + model.getId() + "\nUserID: " + model.getUserId() + "\nStreet: "
-                  + model.getStreet() + "\nCity: " + model.getCity() + "\nState: " + model.getState() + "\nZip Code: "
-                  + model.getZip();
-
-              Object[] message = { oldData, newData };
-
-              int updateChoice = JOptionPane.showOptionDialog(
-                  null,
-                  message,
-                  "Update Address",
-                  JOptionPane.YES_NO_OPTION,
-                  JOptionPane.QUESTION_MESSAGE,
-                  null,
-                  options,
-                  options[0]);
-
-              if (updateChoice == JOptionPane.YES_OPTION) {
-                AddressDAO.getInstance().update(model);
-              }
-            }
-          } else {
-            AddressDAO.getInstance().insert(model);
-          }
-
-        } catch (NullPointerException ptr) {
-          JOptionPane.showMessageDialog(null, "Error: " + ptr.getMessage(), "Address not found.",
-              JOptionPane.ERROR_MESSAGE);
+    if (option == JFileChooser.APPROVE_OPTION) {
+      File file = fileChooser.getSelectedFile();
+      try {
+        List<List<String>> addressData = readExcel(file.getAbsolutePath(), 1);
+        if (addressData.isEmpty()) {
+          throw new IllegalArgumentException("No data found in file.");
         }
-
+        List<AddressModel> addressModels = convertToAddressModelList(addressData);
+        AddressBUS addressBUS = new AddressBUS();
+        for (AddressModel model : addressModels) {
+          AddressModel existingAddress = addressBUS.getAddressModel(model.getId());
+          if (existingAddress != null) {
+            handleDuplicateAddress(existingAddress, model, addressBUS);
+          } else {
+            addressBUS.insertModel(model);
+          }
+        }
+        JOptionPane.showMessageDialog(null, "Data from " + file.getName() + " has been inserted successfully.");
+      } catch (IOException | SQLException | ClassNotFoundException e) {
+        LOGGER.log(Level.SEVERE, "Error occurred while processing file: " + file.getName(), e);
+        showErrorDialog("An error occurred while processing the file.", "Error");
+      } catch (IllegalArgumentException e) {
+        LOGGER.log(Level.WARNING, "Invalid data found in file: " + file.getName(), e);
+        showErrorDialog(e.getMessage(), "Invalid Data");
       }
-
-      JOptionPane.showMessageDialog(null, "Data from " + file.getName() + " has been inserted successfully.");
-
-    } catch (IOException e) {
-      JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), "File Input Error", JOptionPane.ERROR_MESSAGE);
-      e.printStackTrace();
-    } catch (NumberFormatException e) {
-      JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), "Number Format Error",
-          JOptionPane.ERROR_MESSAGE);
-      e.printStackTrace();
-    } catch (IllegalArgumentException e) {
-      JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), "Illegal Argument Error",
-          JOptionPane.ERROR_MESSAGE);
-      e.printStackTrace();
+    } else if (option == JFileChooser.CANCEL_OPTION) {
+      LOGGER.log(Level.INFO, "User cancelled file selection dialog.");
     }
   }
 
-  private static List<AddressModel> convertToAddressModelList(List<List<String>> data) {
+  private static void handleDuplicateAddress(AddressModel existingAddress, AddressModel newAddress,
+      AddressBUS addressBUS) throws ClassNotFoundException, SQLException {
+    Object[] options = { "Update", "Delete" };
+    int choice = JOptionPane.showOptionDialog(
+        null,
+        "A duplicate address with ID: " + existingAddress.getId()
+            + " was found. Would you like to update or delete this address?",
+        "Duplicate Address Found",
+        JOptionPane.YES_NO_OPTION,
+        JOptionPane.QUESTION_MESSAGE,
+        null,
+        options,
+        options[0]);
+    if (choice == JOptionPane.NO_OPTION) {
+      addressBUS.deleteModel(existingAddress.getId());
+    } else {
+      String oldData = "Old Data:\nID: " + existingAddress.getId() + "\nUser ID: " + existingAddress.getUserId()
+          + "\nStreet: " + existingAddress.getStreet() + "\nCity: " + existingAddress.getCity() + "\nState: "
+          + existingAddress.getState() + "\nZip: " + existingAddress.getZip();
+      String newData = "New Data:\nID: " + newAddress.getId() + "\nUser ID: " + newAddress.getUserId()
+          + "\nStreet: " + newAddress.getStreet() + "\nCity: " + newAddress.getCity() + "\nState: "
+          + newAddress.getState() + "\nZip: " + newAddress.getZip();
+      Object[] message = { oldData, newData };
+      int updateChoice = JOptionPane.showOptionDialog(null, message, "Update Address", JOptionPane.YES_NO_OPTION,
+          JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+      while (updateChoice == JOptionPane.CLOSED_OPTION) {
+        updateChoice = JOptionPane.showOptionDialog(
+            null,
+            "Please choose to update or delete the duplicate address.",
+            "Duplicate Address Found",
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.QUESTION_MESSAGE,
+            null,
+            options,
+            options[0]);
+      }
+      if (updateChoice == JOptionPane.YES_OPTION) {
+        addressBUS.updateModel(newAddress);
+      } else {
+        addressBUS.deleteModel(existingAddress.getId());
+        addressBUS.insertModel(newAddress);
+      }
+    }
+  }
+
+  private static void showErrorDialog(String message, String title) {
+    LOGGER.log(Level.WARNING, "Error occurred: " + message);
+    JOptionPane.showMessageDialog(null, "Error: " + message, title, JOptionPane.ERROR_MESSAGE);
+  }
+
+  private static List<AddressModel> convertToAddressModelList(List<List<String>> data) throws IllegalArgumentException {
     List<AddressModel> addressModels = new ArrayList<>();
     for (List<String> row : data) {
-      try {
-        int id = Integer.parseInt(row.get(0));
-        int userId = Integer.parseInt(row.get(1));
-        String street = row.get(2);
-        String city = row.get(3);
-        String state = row.get(4);
-        String zip = row.get(5);
-        AddressModel model = new AddressModel(id, userId, street, city, state, zip);
-        addressModels.add(model);
-      } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), "Number Format Error",
-            JOptionPane.ERROR_MESSAGE);
-        e.printStackTrace();
-      } catch (IllegalArgumentException e) {
-        JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), "Illegal Argument Error",
-            JOptionPane.ERROR_MESSAGE);
-        e.printStackTrace();
-      }
+      int id = Integer.parseInt(row.get(0));
+      int userId = Integer.parseInt(row.get(1));
+      String street = row.get(2);
+      String city = row.get(3);
+      String state = row.get(4);
+      String zip = row.get(5);
+      AddressModel model = new AddressModel(id, userId, street, city, state, zip);
+      addressModels.add(model);
     }
     return addressModels;
   }
 
-  public static void writeAddressesToExcel(List<AddressModel> addresses) {
-    List<ExcelUtil.RowData> rowDataList = new ArrayList<>();
+  public static void writeAddressesToExcel(List<AddressModel> addresses) throws SpreadsheetIOException {
+    List<RowData> rowDataList = new ArrayList<>();
 
     // Create header row
     List<String> headerValues = new ArrayList<>();
@@ -180,15 +154,25 @@ public class AddressExcelUtil extends ExcelUtil {
       File outputFile = fileChooser.getSelectedFile();
       String filePath = outputFile.getAbsolutePath();
 
+      if (outputFile.exists()) {
+        int overwriteOption = JOptionPane.showConfirmDialog(null,
+            "The file already exists. Do you want to overwrite it?", "File Exists", JOptionPane.YES_NO_OPTION);
+        if (overwriteOption == JOptionPane.NO_OPTION) {
+          return;
+        }
+      }
+
       try {
         writeExcel(rowDataList, filePath, "Addresses");
         JOptionPane.showMessageDialog(null,
             "Data has been written successfully to " + outputFile.getName() + ".");
       } catch (SpreadsheetIOException e) {
+        LOGGER.log(Level.SEVERE, "Error occurred while writing data to file: " + outputFile.getName(), e);
         JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), "File Output Error",
             JOptionPane.ERROR_MESSAGE);
-        e.printStackTrace();
+        throw e;
       }
     }
   }
+
 }
