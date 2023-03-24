@@ -1,29 +1,36 @@
 package com.bookstore.gui.model;
 
-import java.awt.Component;
+import java.awt.event.ActionListener;
 
 public class MenuItemModel {
   private String name;
-  private Component component;
+  private ActionListener actionListener;
 
-  public MenuItemModel(String name, Component component) {
+  public MenuItemModel() {
+  }
+
+  public MenuItemModel(String name) {
     this.name = name;
-    this.component = component;
+  }
+
+  public MenuItemModel(String name, ActionListener actionListener) {
+    this.name = name;
+    this.actionListener = actionListener;
   }
 
   public String getName() {
     return name;
   }
 
+  public ActionListener getActionListener() {
+    return actionListener;
+  }
+
   public void setName(String name) {
     this.name = name;
   }
 
-  public Component getComponent() {
-    return component;
-  }
-
-  public void setComponent(Component component) {
-    this.component = component;
+  public void setActionListener(ActionListener actionListener) {
+    this.actionListener = actionListener;
   }
 }

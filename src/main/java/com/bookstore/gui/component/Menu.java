@@ -15,6 +15,8 @@ import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import net.miginfocom.swing.MigLayout;
 
@@ -182,11 +184,20 @@ public class Menu extends JPanel {
           }
         };
         MenuModel modelMenu = new MenuModel(icon, "Menu", new MenuItemModel[] {
-            new MenuItemModel("Sub 1", new Form("Sub 1")),
-            new MenuItemModel("Sub 2", new Form("Sub 2")),
-            new MenuItemModel("Sub 3", new Form("Sub 3")),
+            new MenuItemModel("Home", new ActionListener() {
+              @Override
+              public void actionPerformed(ActionEvent e) {
+                System.out.println("Home");
+              }
+            }),
+            new MenuItemModel("About", new ActionListener() {
+              @Override
+              public void actionPerformed(ActionEvent e) {
+                System.out.println("About");
+              }
+            })
         });
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 10; i++) {
           menu.addMenu(modelMenu);
         }
         add(menu);

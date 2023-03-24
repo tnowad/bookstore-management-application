@@ -73,12 +73,7 @@ public class MenuItem extends javax.swing.JPanel {
     for (MenuItemModel menuItemModel : menu.getSubMenu()) {
       MenuButton item = new MenuButton(menuItemModel.getName());
       item.setIndex(++subMenuIndex);
-      item.addActionListener(new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent ae) {
-          eventSelected.menuSelected(index, item.getIndex());
-        }
-      });
+      item.addActionListener(menuItemModel.getActionListener());
       add(item);
     }
   }
