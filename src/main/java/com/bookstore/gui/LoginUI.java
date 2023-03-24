@@ -10,8 +10,10 @@ import javax.swing.border.*;
 
 import com.bookstore.bus.UserBUS;
 import com.bookstore.dao.UserDAO;
+import com.bookstore.gui.main.Main;
 import com.bookstore.model.UserModel;
 import com.bookstore.model.UserModel.Role;
+import com.bookstore.gui.component.Layout;
 
 public class LoginUI {
 
@@ -170,31 +172,18 @@ public class LoginUI {
     loginButton.addActionListener(e -> {
       String username = usernameTextField.getText();
       char[] password = passwordField.getPassword();
-      String passwordtext = new String(password);
+      String passwordText = new String(password);
       try {
         UserBUS userBUS = new UserBUS();
-        UserModel user = userBUS.login(username, passwordtext);
+        UserModel user = userBUS.login(username, passwordText);
         if (user != null) {
-          // successful login - do something (e.g. show main application window)
-          System.out.println("Logged in successfully");
-          UserModel userModel = UserDAO.getInstance().getUserByUsername(username);
-          Role role = userModel.getRole();
-          switch (role) {
-            case CUSTOMER -> {
-
-            }
-            case EMPLOYEE -> {
-
-            }
-            case ADMIN -> {
-
-            }
-          }
+          JOptionPane.showMessageDialog(null, "Login successfully", "Login Success",
+              JOptionPane.INFORMATION_MESSAGE);
+          frame.dispose();
+          EventQueue.invokeLater(() -> new Main(new Layout(user)));
         } else {
-          // login failed - do something (e.g. display error message)
           JOptionPane.showMessageDialog(null, "Invalid username or password", "Login Failed",
               JOptionPane.ERROR_MESSAGE);
-          System.out.println("Login Failed");
         }
         Arrays.fill(password, '0');
       } catch (SQLException ex) {
@@ -251,7 +240,10 @@ public class LoginUI {
         frame.repaint();
       }
     });
+  }
 
+  private Layout Layout(Role role) {
+    return null;
   }
 
   private void initFrame() {
@@ -261,9 +253,5 @@ public class LoginUI {
     frame.pack();
     frame.setLocationRelativeTo(null);
     frame.setVisible(true);
-  }
-
-  public static void main(String[] args) {
-    new LoginUI();
   }
 }
