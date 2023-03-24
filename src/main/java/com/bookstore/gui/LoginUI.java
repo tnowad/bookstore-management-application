@@ -10,8 +10,10 @@ import javax.swing.border.*;
 
 import com.bookstore.bus.UserBUS;
 import com.bookstore.dao.UserDAO;
+import com.bookstore.gui.main.Main;
 import com.bookstore.model.UserModel;
 import com.bookstore.model.UserModel.Role;
+import com.bookstore.gui.component.Layout;
 
 public class LoginUI {
 
@@ -175,16 +177,13 @@ public class LoginUI {
         UserBUS userBUS = new UserBUS();
         UserModel user = userBUS.login(username, passwordText);
         if (user != null) {
-          // successful login - do something (e.g. show main application window)
-          System.out.println("Logged in successfully");
-          UserModel userModel = UserDAO.getInstance().getUserByUsername(username);
-          // Init session user after login with SessionUser class
-          SessionUser sessionUser = new SessionUser(userModel);
+          JOptionPane.showMessageDialog(null, "Login successfully", "Login Success",
+              JOptionPane.INFORMATION_MESSAGE);
+          frame.dispose();
+          EventQueue.invokeLater(() -> new Main(new Layout(user)));
         } else {
-          // login failed - do something (e.g. display error message)
           JOptionPane.showMessageDialog(null, "Invalid username or password", "Login Failed",
               JOptionPane.ERROR_MESSAGE);
-          System.out.println("Login Failed");
         }
         Arrays.fill(password, '0');
       } catch (SQLException ex) {
@@ -241,6 +240,10 @@ public class LoginUI {
         frame.repaint();
       }
     });
+  }
+
+  private Layout Layout(Role role) {
+    return null;
   }
 
   private void initFrame() {
