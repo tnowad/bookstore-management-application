@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package com.bookstore.gui.main;
 
 import java.awt.Color;
@@ -17,7 +13,6 @@ import javax.swing.JLayeredPane;
 import javax.swing.UIManager;
 
 import com.bookstore.gui.component.Header;
-import com.bookstore.gui.component.Layout;
 import com.bookstore.gui.component.Menu;
 import com.bookstore.gui.form.MainForm;
 import com.bookstore.gui.model.MenuItemModel;
