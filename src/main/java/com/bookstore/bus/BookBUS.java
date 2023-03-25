@@ -7,43 +7,43 @@ import java.util.List;
 
 import com.bookstore.dao.BookDAO;
 import com.bookstore.model.BookModel;
+import com.bookstore.model.BookModel.Status;
 
-public class BookBUS extends BUSInterface<BookModel> {
+public class BookBUS implements BUSInterface<BookModel> {
 
-  private final ArrayList<BookModel> bookList = new ArrayList<>();
-  private final BookDAO bookDAO = BookDAO.getInstance();
+  private final List<BookModel> bookList = new ArrayList<>();
 
-  public BookBUS() throws ClassNotFoundException, SQLException {
-    this.bookList.addAll(bookDAO.readDatabase());
+  public BookBUS() throws SQLException, ClassNotFoundException {
+    this.bookList.addAll(BookDAO.getInstance().readDatabase());
   }
 
   @Override
-  protected ArrayList<BookModel> readFromDatabase() throws SQLException, ClassNotFoundException {
-    return bookDAO.readDatabase();
-  }
-
-  @Override
-  public int getId(BookModel bookModel) {
-    return Integer.parseInt(bookModel.getIsbn());
-  }
-
-  public BookModel getBookModel(int isbn) {
-    return getModel(isbn);
-  }
-
-  public List<BookModel> getBookList() {
+  public List<BookModel> getAllModels() {
     return Collections.unmodifiableList(bookList);
   }
 
   @Override
-  protected BookModel mapToEntity(BookModel from) {
+  public BookModel getModelById(int id) throws SQLException, ClassNotFoundException {
+    for (BookModel bookModel : bookList) {
+      if (bookModel.getIsbn() == String.valueOf(id)) {
+        return bookModel;
+      }
+    }
+    return null;
+  }
+
+  public List<BookModel> getBookList() throws NullPointerException {
+    return Collections.unmodifiableList(bookList);
+  }
+
+  private BookModel mapToEntity(BookModel from) {
     BookModel to = new BookModel();
     updateEntityFields(from, to);
     return to;
   }
 
-  @Override
-  protected void updateEntityFields(BookModel from, BookModel to) {
+  private void updateEntityFields(BookModel from, BookModel to) {
+    to.setIsbn(from.getIsbn());
     to.setTitle(from.getTitle());
     to.setDescription(from.getDescription());
     to.setImage(from.getImage());
@@ -54,72 +54,35 @@ public class BookBUS extends BUSInterface<BookModel> {
     to.setAuthorId(from.getAuthorId());
   }
 
-  @Override
-  protected boolean checkFilter(BookModel bookModel, String value, String column) {
-    switch (column.toLowerCase()) {
-      case "isbn" -> {
-        return bookModel.getIsbn().equals(value);
-      }
-      case "title" -> {
-        return bookModel.getTitle().toLowerCase().contains(value.toLowerCase());
-      }
-      case "description" -> {
-        return bookModel.getDescription().toLowerCase().contains(value.toLowerCase());
-      }
-      case "image" -> {
-        return bookModel.getImage().toLowerCase().contains(value.toLowerCase());
-      }
-      case "price" -> {
-        try {
-          return Integer.parseInt(value) > 0 && bookModel.getPrice() == Integer.parseInt(value);
-        } catch (NumberFormatException e) {
-          return false;
-        }
-      }
-      case "quantity" -> {
-        try {
-          return Integer.parseInt(value) > 0 && bookModel.getQuantity() == Integer.parseInt(value);
-        } catch (NumberFormatException e) {
-          return false;
-        }
-      }
-      case "status" -> {
-        return bookModel.getStatus().equals(value.toUpperCase());
-      }
-      case "author_id" -> {
-        try {
-          return Integer.parseInt(value) > 0 && bookModel.getAuthorId() == Integer.parseInt(value);
-        } catch (NumberFormatException e) {
-          return false;
-        }
-      }
-      case "publisher_id" -> {
-        try {
-          return Integer.parseInt(value) > 0 && bookModel.getPublisherId() == Integer.parseInt(value);
-        } catch (NumberFormatException e) {
-          return false;
-        }
-      }
-      default -> {
-        return checkAllColumns(bookModel, value);
-      }
-    }
+  private boolean checkFilter(BookModel bookModel, String value, String column) {
+    return switch (column.toLowerCase()) {
+      case "isbn" -> bookModel.getIsbn().toLowerCase().contains(value.toLowerCase());
+      case "title" -> bookModel.getTitle().toLowerCase().contains(value.toLowerCase());
+      case "description" -> bookModel.getDescription().toLowerCase().contains(value.toLowerCase());
+      case "image" -> bookModel.getImage().toLowerCase().contains(value.toLowerCase());
+      case "quantity" -> bookModel.getQuantity() > 0;
+      case "price" -> bookModel.getPrice() > 0;
+      case "status" -> bookModel.getStatus().toString().equalsIgnoreCase(value);
+      case "publisher_id" -> Integer.parseInt(value) == bookModel.getPublisherId();
+      case "author_id" -> Integer.parseInt(value) == bookModel.getAuthorId();
+      default -> checkAllColumns(bookModel, value);
+    };
   }
 
   private boolean checkAllColumns(BookModel bookModel, String value) {
-    return bookModel.getIsbn().equals(value)
+    return bookModel.getIsbn().toLowerCase().contains(value.toLowerCase())
         || bookModel.getTitle().toLowerCase().contains(value.toLowerCase())
         || bookModel.getDescription().toLowerCase().contains(value.toLowerCase())
         || bookModel.getImage().toLowerCase().contains(value.toLowerCase())
-        || bookModel.getPrice() > 0 && ("" + bookModel.getPrice()).equals(value)
-        || bookModel.getQuantity() > 0 && ("" + bookModel.getQuantity()).equals(value)
-        || bookModel.getStatus().equals(value.toUpperCase())
-        || bookModel.getAuthorId() > 0 && ("" + bookModel.getAuthorId()).equals(value)
-        || bookModel.getPublisherId() > 0 && ("" + bookModel.getPublisherId()).equals(value);
+        || bookModel.getQuantity() == Integer.parseInt(value)
+        || bookModel.getPrice() == Integer.parseInt(value)
+        || bookModel.getStatus().toString().toLowerCase().equals(value.toLowerCase())
+        || bookModel.getPublisherId() == Integer.parseInt(value)
+        || bookModel.getAuthorId() == Integer.parseInt(value);
   }
 
   @Override
-  public int insertModel(BookModel bookModel) throws SQLException, ClassNotFoundException {
+  public int addModel(BookModel bookModel) throws SQLException, ClassNotFoundException {
     if (bookModel.getIsbn() == null || bookModel.getIsbn().isEmpty()) {
       throw new IllegalArgumentException("ISBN cannot be null or empty!");
     }
@@ -133,29 +96,79 @@ public class BookBUS extends BUSInterface<BookModel> {
       throw new IllegalArgumentException("Image cannot be null or empty!");
     }
     if (bookModel.getPrice() <= 0) {
-      throw new IllegalArgumentException("Price must be greater than zero!");
+      throw new IllegalArgumentException("Price must be greater than 0!");
     }
-    if (bookModel.getQuantity() < 0) {
-      throw new IllegalArgumentException("Quantity cannot be less than zero!");
+    if (bookModel.getQuantity() <= 0) {
+      throw new IllegalArgumentException("Quantity must be greater than 0!");
     }
-    if (bookModel.getStatus() == null) {
-      throw new IllegalArgumentException("Status cannot be null!");
+    if (bookModel.getStatus() == null || bookModel.getStatus().toString().isEmpty()) {
+      bookModel.setStatus(Status.AVAILABLE);
     }
-    return add(bookModel);
+    if (bookModel.getPublisherId() <= 0) {
+      throw new IllegalArgumentException("Publisher ID must be greater than 0!");
+    }
+    if (bookModel.getAuthorId() <= 0) {
+      throw new IllegalArgumentException("Author ID must be greater than 0!");
+    }
+
+    int id = BookDAO.getInstance().insert(mapToEntity(bookModel));
+    bookModel.setIsbn(String.valueOf(id));
+    bookList.add(bookModel);
+    return id;
   }
 
   @Override
   public int updateModel(BookModel bookModel) throws SQLException, ClassNotFoundException {
-    return update(bookModel);
+    BookModel existingBook = getModelById(Integer.parseInt(bookModel.getIsbn()));
+    if (existingBook == null) {
+      return 0;
+    }
+
+    updateEntityFields(bookModel, existingBook);
+    try {
+      BookDAO.getInstance().update(mapToEntity(existingBook));
+      return 1;
+    } catch (SQLException e) {
+      e.printStackTrace();
+      throw new SQLException("Failed to update book: " + e.getMessage());
+    }
   }
 
   @Override
-  public int deleteModel(int isbn) throws SQLException, ClassNotFoundException {
-    return delete(isbn);
+  public int deleteModel(int id) throws SQLException, ClassNotFoundException {
+    BookModel bookModel = getModelById(id);
+    if (bookModel == null) {
+      throw new IllegalArgumentException("Book with ID " + id + " does not exist.");
+    }
+    int deletedRows = BookDAO.getInstance().delete(id);
+    if (deletedRows > 0) {
+      bookList.remove(bookModel);
+    }
+    return deletedRows;
   }
 
-  public List<BookModel> searchModel(String value, String columns) {
-    return search(value, columns);
+  @Override
+  public List<BookModel> searchModel(String value, String columns) throws SQLException, ClassNotFoundException {
+    List<BookModel> results = new ArrayList<>();
+    try {
+      List<BookModel> entities = BookDAO.getInstance().search(value, columns);
+      for (BookModel entity : entities) {
+        BookModel model = mapToEntity(entity);
+        if (checkFilter(model, value, columns)) {
+          results.add(model);
+        }
+      }
+    } catch (SQLException e) {
+      throw new SQLException("Failed to search for book: " + e.getMessage());
+    } catch (ClassNotFoundException e) {
+      throw new ClassNotFoundException("Failed to search for book: " + e.getMessage());
+    }
+
+    if (results.isEmpty()) {
+      throw new IllegalArgumentException("No book found with the specified search criteria.");
+    }
+
+    return results;
   }
 
 }

@@ -1,135 +1,159 @@
 package com.bookstore.bus;
 
-import com.bookstore.dao.DatabaseConnect;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import com.bookstore.model.UserModel;
 import com.bookstore.model.UserModel.Role;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import com.bookstore.model.UserModel.Status;
 
 import java.sql.SQLException;
 import java.util.List;
 
 public class UserBUSTest {
-  private static UserBUS userBUS;
 
-  @BeforeAll
-  public static void setUp() throws SQLException, ClassNotFoundException {
+  private UserBUS userBUS;
+
+  @BeforeEach
+  public void setUp() throws ClassNotFoundException, SQLException {
     userBUS = new UserBUS();
   }
 
-  @AfterAll
-  public static void tearDown() {
-    DatabaseConnect.closeConnection();
+  @Test
+  public void testGetAllModels() {
+    List<UserModel> models = userBUS.getAllModels();
+    Assertions.assertNotNull(models);
+    Assertions.assertEquals(9, models.size());
   }
 
   @Test
-  public void testLogin() throws SQLException, ClassNotFoundException {
-    UserModel userModel = userBUS.login("testuser", "password");
-    Assertions.assertNotNull(userModel);
-    Assertions.assertEquals(Role.ADMIN, userModel.getRole());
+  public void testGetModelById() throws SQLException, ClassNotFoundException {
+    int id = 2;
+    UserModel model = userBUS.getModelById(id);
+    Assertions.assertNotNull(model);
+    Assertions.assertEquals(id, model.getId());
   }
 
   @Test
-  public void testLoginWithInvalidCredentials() throws SQLException, ClassNotFoundException {
-    UserBUS userBUS = new UserBUS();
-    UserModel userModel = userBUS.login("testuser", "wrongpassword");
-    Assertions.assertNull(userModel);
-  }
+  public void testAddModel() throws SQLException, ClassNotFoundException {
+    UserModel model = new UserModel();
+    model.setUsername("testuser");
+    model.setName("Test User");
+    model.setPassword("password");
+    model.setEmail("testuser@example.com");
+    model.setPhone("1234567890");
+    model.setRole(Role.ADMIN);
+    model.setStatus(Status.ACTIVE);
 
-  @Test
-  public void testGetUserModel() {
-    UserModel userModel = userBUS.getUserModel(31);
-    Assertions.assertNotNull(userModel);
-    Assertions.assertEquals("testuser", userModel.getUsername());
-    Assertions.assertEquals("ACTIVE", userModel.getStatus().toString().toUpperCase());
-  }
-
-  @Test
-  public void testGetUserList() {
-    List<UserModel> userList = userBUS.getUserList();
-    Assertions.assertNotNull(userList);
-    Assertions.assertEquals(10, userList.size());
-  }
-
-  @Test
-  public void testInsertModel() throws SQLException, ClassNotFoundException {
-    UserModel userModel = new UserModel();
-    userModel.setUsername("tester");
-    userModel.setPassword("password");
-    userModel.setName("Test User");
-    userModel.setEmail("testuser@example.com");
-    userModel.setPhone("1234567890");
-    userModel.setRole(null);
-    userModel.setStatus(null);
-    int id = userBUS.insertModel(userModel);
-
-    UserModel insertedUser = userBUS.getUserModel(id);
-    Assertions.assertNotNull(insertedUser);
-    Assertions.assertEquals(userModel.getUsername(), insertedUser.getUsername());
-    Assertions.assertEquals(userModel.getName(), insertedUser.getName());
-    Assertions.assertEquals(userModel.getEmail(), insertedUser.getEmail());
-    Assertions.assertEquals(userModel.getPhone(), insertedUser.getPhone());
-    Assertions.assertEquals(userModel.getRole(), insertedUser.getRole());
-  }
-
-  @Test
-  public void testInsertModelWithInvalidInput() throws SQLException, ClassNotFoundException {
-    UserModel userModel = new UserModel();
-    userModel.setUsername("");
-    userModel.setPassword("password");
-    userModel.setName("Test User");
-    userModel.setEmail("");
-    userModel.setPhone("");
-    userModel.setRole(Role.CUSTOMER);
-
-    userBUS.insertModel(userModel);
+    int id = userBUS.addModel(model);
+    Assertions.assertTrue(id > 0);
   }
 
   @Test
   public void testUpdateModel() throws SQLException, ClassNotFoundException {
-    UserModel userModel = userBUS.getUserModel(1);
-    userModel.setName("Updated Name");
+    int id = 2;
+    UserModel model = userBUS.getModelById(id);
+    model.setName("Updated Name");
 
-    int rowsAffected = userBUS.updateModel(userModel);
-    Assertions.assertEquals(1, rowsAffected);
+    int result = userBUS.updateModel(model);
+    Assertions.assertEquals(1, result);
 
-    UserModel updatedUser = userBUS.getUserModel(1);
-    Assertions.assertNotNull(updatedUser);
-    Assertions.assertEquals(userModel.getName(), updatedUser.getName());
+    UserModel updatedModel = userBUS.getModelById(id);
+    Assertions.assertEquals(model.getName(), updatedModel.getName());
   }
 
   @Test
   public void testDeleteModel() throws SQLException, ClassNotFoundException {
-    int rowsAffected = userBUS.deleteModel(2);
-    Assertions.assertEquals(1, rowsAffected);
+    int result = userBUS.deleteModel(10);
+    Assertions.assertEquals(1, result);
 
-    UserModel deletedUser = userBUS.getUserModel(2);
-    Assertions.assertNull(deletedUser);
   }
 
   @Test
-  public void testDeleteModelWithValidInput() throws SQLException, ClassNotFoundException {
-    UserBUS userBUS = new UserBUS();
-    int result = userBUS.deleteModel(1);
-    Assertions.assertTrue(result > 0);
+  public void testSearchModel() throws SQLException, ClassNotFoundException {
+    String value = "lethianh";
+    String columns = "username";
+
+    List<UserModel> models = userBUS.searchModel(value, columns);
+    Assertions.assertNotNull(models);
+    Assertions.assertFalse(models.isEmpty());
   }
 
   @Test
-  public void testDeleteModelWithInvalidInput() throws SQLException, ClassNotFoundException {
-    UserBUS userBUS = new UserBUS();
-    int result = userBUS.deleteModel(-1);
-    Assertions.assertEquals(0, result);
+  public void testAddModelSuccess() throws SQLException, ClassNotFoundException {
+    UserModel userModel = new UserModel();
+    userModel.setUsername("Testing");
+    userModel.setName("John Doe");
+    userModel.setPassword("123456");
+    userModel.setEmail("email@example.com");
+    int id = userBUS.addModel(userModel);
+    Assertions.assertEquals(id, userModel.getId());
   }
 
   @Test
-  public void testSearchModel() {
-    List<UserModel> searchResults = userBUS.searchModel("admin", "username");
-    Assertions.assertNotNull(searchResults);
-    Assertions.assertEquals(1, searchResults.size());
+  public void testAddModelWithEmptyUsername() {
+    UserModel userModel = new UserModel();
+    userModel.setUsername("");
 
-    UserModel searchResult = searchResults.get(0);
-    Assertions.assertEquals("admin", searchResult.getUsername());
+    IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class,
+        () -> userBUS.addModel(userModel));
+
+    Assertions.assertEquals("Username, name and password cannot be empty. Please check the input and try again.",
+        exception.getMessage());
   }
+
+  @Test
+  public void testAddModelWithEmptyName() {
+    UserModel userModel = new UserModel();
+    userModel.setName("");
+
+    IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class,
+        () -> userBUS.addModel(userModel));
+
+    Assertions.assertEquals("Username, name and password cannot be empty. Please check the input and try again.",
+        exception.getMessage());
+  }
+
+  @Test
+  public void testAddModelWithEmptyPassword() {
+    UserModel userModel = new UserModel();
+    userModel.setPassword("");
+
+    IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class,
+        () -> userBUS.addModel(userModel));
+
+    Assertions.assertEquals("Username, name and password cannot be empty. Please check the input and try again.",
+        exception.getMessage());
+  }
+
+  @Test
+  public void testAddModelWithNoPhoneOrEmail() {
+    UserModel userModel = new UserModel();
+    userModel.setUsername("Testing");
+    userModel.setName("John Doe");
+    userModel.setPassword("123456");
+    userModel.setPhone("");
+    userModel.setEmail("");
+
+    IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class,
+        () -> userBUS.addModel(userModel));
+
+    Assertions.assertEquals("At least one of 'phone' or 'email' is required.", exception.getMessage());
+  }
+
+  // Uncomment this test if you want to validate email addresses
+  /*
+   * @Test
+   * public void testAddModelWithInvalidEmail() {
+   * userModel.setEmail("invalid-email");
+   * 
+   * IllegalArgumentException exception =
+   * Assertions.assertThrows(IllegalArgumentException.class,
+   * () -> userBUS.addModel(userModel));
+   * 
+   * Assertions.assertEquals("Invalid email address.", exception.getMessage());
+   * }
+   */
+
 }

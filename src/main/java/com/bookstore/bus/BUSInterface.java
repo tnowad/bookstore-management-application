@@ -1,54 +1,65 @@
 package com.bookstore.bus;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public interface BUSInterface<T> {
 
   /**
-   * Retrieves all models from the database.
+   * Returns a list of all models.
    *
-   * @return a list of all models in the database.
+   * @return a list of all models
    */
   List<T> getAllModels();
 
   /**
-   * Retrieves a specific model from the database based on its ID.
+   * Returns the model with the given id.
    *
-   * @param id the ID of the model to retrieve.
-   * @return the model with the specified ID if it exists; otherwise null.
+   * @param id the id of the model to retrieve
+   * @return the model with the given id, or null if not found
+   * @throws SQLException           if there is an error accessing the database
+   * @throws ClassNotFoundException if the driver class cannot be found
    */
-  T getModelById(int id);
+  T getModelById(int id) throws SQLException, ClassNotFoundException;
 
   /**
-   * Adds a new model to the database.
+   * Adds the given model to the database.
    *
-   * @param model the model to add.
-   * @return true if the model was added successfully; otherwise false.
+   * @param model the model to add
+   * @return the number of rows affected by the operation
+   * @throws SQLException           if there is an error accessing the database
+   * @throws ClassNotFoundException if the driver class cannot be found
    */
-  boolean addModel(T model);
+  int addModel(T model) throws SQLException, ClassNotFoundException;
 
   /**
-   * Updates an existing model in the database.
+   * Updates the given model in the database.
    *
-   * @param model the updated model to replace the old one.
-   * @return true if the model was updated successfully; otherwise false.
+   * @param model the model to update
+   * @return the number of rows affected by the operation
+   * @throws SQLException           if there is an error accessing the database
+   * @throws ClassNotFoundException if the driver class cannot be found
    */
-  boolean updateModel(T model);
+  int updateModel(T model) throws SQLException, ClassNotFoundException;
 
   /**
-   * Deletes a model from the database based on its ID.
+   * Deletes the model with the given id from the database.
    *
-   * @param id the ID of the model to delete.
-   * @return true if the model was deleted successfully; otherwise false.
+   * @param id the id of the model to delete
+   * @return the number of rows affected by the operation
+   * @throws SQLException           if there is an error accessing the database
+   * @throws ClassNotFoundException if the driver class cannot be found
    */
-  boolean deleteModel(int id);
+  int deleteModel(int id) throws SQLException, ClassNotFoundException;
 
   /**
-   * Searches for models that contain a specific value in specific columns.
+   * Searches for models that match the given value in the specified columns.
    *
-   * @param value   the value to search for.
-   * @param columns the columns to include in the search.
-   * @return a list of models that matched the search criteria.
+   * @param value   the value to search for
+   * @param columns the columns to search in
+   * @return a list of models that match the search criteria
+   * @throws SQLException           if there is an error accessing the database
+   * @throws ClassNotFoundException if the driver class cannot be found
    */
-  List<T> search(String value, String... columns);
+  List<T> searchModel(String value, String columns) throws SQLException, ClassNotFoundException;
 }

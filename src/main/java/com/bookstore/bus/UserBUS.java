@@ -13,7 +13,6 @@ import com.bookstore.util.PasswordUtil;
 
 public class UserBUS implements BUSInterface<UserModel> {
   private final List<UserModel> userList = new ArrayList<>();
-  private UserModel userModel = null;
 
   public UserBUS() throws SQLException, ClassNotFoundException {
     this.userList.addAll(UserDAO.getInstance().readDatabase());
@@ -28,9 +27,22 @@ public class UserBUS implements BUSInterface<UserModel> {
   }
 
   @Override
-  public UserModel getModelById(int id) {
-    UserModel userModel = new UserModel();
-    userModel.setId(id);
+  public List<UserModel> getAllModels() {
+    return Collections.unmodifiableList(userList);
+  }
+
+  @Override
+  public UserModel getModelById(int id) throws SQLException, ClassNotFoundException {
+    for (UserModel userModel : userList) {
+      if (userModel.getId() == id) {
+        return userModel;
+      }
+    }
+
+    UserModel userModel = UserDAO.getInstance().getUserById(id);
+    if (userModel != null) {
+      userList.add(userModel);
+    }
     return userModel;
   }
 
@@ -42,6 +54,7 @@ public class UserBUS implements BUSInterface<UserModel> {
 
   private void updateEntityFields(UserModel from, UserModel to) {
     to.setUsername(from.getUsername());
+    to.setPassword(from.getPassword());
     to.setStatus(from.getStatus());
     to.setName(from.getName());
     to.setEmail(from.getEmail());
@@ -74,9 +87,9 @@ public class UserBUS implements BUSInterface<UserModel> {
 
   @Override
   public int addModel(UserModel userModel) throws SQLException, ClassNotFoundException {
-    if (userModel.getUsername() == null || userModel.getUsername().isEmpty() ||
-        userModel.getName() == null || userModel.getName().isEmpty() ||
-        userModel.getPassword() == null || userModel.getPassword().isEmpty()) {
+    if (userModel.getUsername() == null || userModel.getUsername().isEmpty()
+        || userModel.getName() == null || userModel.getName().isEmpty()
+        || userModel.getPassword() == null || userModel.getPassword().isEmpty()) {
       throw new IllegalArgumentException(
           "Username, name and password cannot be empty. Please check the input and try again.");
     }
@@ -92,39 +105,68 @@ public class UserBUS implements BUSInterface<UserModel> {
     // }
     userModel.setRole(userModel.getRole() != null ? userModel.getRole() : Role.CUSTOMER);
     userModel.setStatus(userModel.getStatus() != null ? userModel.getStatus() : Status.ACTIVE);
-    return add(userModel);
-  }
 
-  @Override
-  public int updateModel(UserModel userModel) throws SQLException, ClassNotFoundException {
-    return update(userModel);
+    int id = UserDAO.getInstance().insert(mapToEntity(userModel));
+    userModel.setId(id);
+    userList.add(userModel);
+    return id;
   }
 
   // private boolean isValidEmailAddress(String email) {
-  // String regexPattern = "^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$";
-  // return email.matches(regexPattern);
+  // return true;
   // }
 
   @Override
-  public int deleteModel(int id) throws SQLException, ClassNotFoundException {
-    UserModel userModel = getModel(id);
-    if (userModel == null) {
+  public int updateModel(UserModel userModel) throws SQLException, ClassNotFoundException {
+    UserModel existingUser = getModelById(userModel.getId());
+    if (existingUser == null) {
       return 0;
     }
-    int deleted = UserDAO.getInstance().delete(userModel.getId());
-    if (deleted > 0) {
-      userList.removeIf(user -> user.getId() == id);
-    }
-    return deleted;
-  }
 
-  public List<UserModel> searchModel(String value, String columns) {
-    return search(value, columns);
+    updateEntityFields(userModel, existingUser);
+    try {
+      UserDAO.getInstance().update(mapToEntity(existingUser));
+      return 1;
+    } catch (SQLException e) {
+      e.printStackTrace();
+      throw new SQLException("Failed to update user: " + e.getMessage());
+    }
   }
 
   @Override
-  public List<UserModel> getAllModels() {
-    return Collections.unmodifiableList(userList);
+  public int deleteModel(int id) throws SQLException, ClassNotFoundException {
+    UserModel userModel = getModelById(id);
+    if (userModel == null) {
+      throw new IllegalArgumentException("User with ID " + id + " does not exist.");
+    }
+    int deletedRows = UserDAO.getInstance().delete(id);
+    if (deletedRows > 0) {
+      userList.remove(userModel);
+    }
+    return deletedRows;
   }
 
+  @Override
+  public List<UserModel> searchModel(String value, String columns) throws SQLException, ClassNotFoundException {
+    List<UserModel> results = new ArrayList<>();
+    try {
+      List<UserModel> entities = UserDAO.getInstance().search(value, columns);
+      for (UserModel entity : entities) {
+        UserModel model = mapToEntity(entity);
+        if (checkFilter(model, value, columns)) {
+          results.add(model);
+        }
+      }
+    } catch (SQLException e) {
+      throw new SQLException("Failed to search for users: " + e.getMessage());
+    } catch (ClassNotFoundException e) {
+      throw new ClassNotFoundException("Failed to search for users: " + e.getMessage());
+    }
+
+    if (results.isEmpty()) {
+      throw new IllegalArgumentException("No users found with the specified search criteria.");
+    }
+
+    return results;
+  }
 }

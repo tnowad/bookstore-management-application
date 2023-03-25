@@ -8,48 +8,45 @@ import java.util.List;
 import com.bookstore.dao.ProviderDAO;
 import com.bookstore.model.ProviderModel;
 
-public class ProviderBUS extends BUSInterface<ProviderModel> {
+public class ProviderBUS implements BUSInterface<ProviderModel> {
 
   private final List<ProviderModel> providerList = new ArrayList<>();
-  private final ProviderDAO providerDAO = ProviderDAO.getInstance();
 
   public ProviderBUS() throws SQLException, ClassNotFoundException {
-    this.providerList.addAll(providerDAO.readDatabase());
+    this.providerList.addAll(ProviderDAO.getInstance().readDatabase());
   }
 
   @Override
-  protected ArrayList<ProviderModel> readFromDatabase() throws SQLException, ClassNotFoundException {
-    return providerDAO.readDatabase();
-  }
-
-  @Override
-  public int getId(ProviderModel t) {
-    return t.getId();
-  }
-
-  public ProviderModel getProviderModel(int id) {
-    return getModel(id);
-  }
-
-  public List<ProviderModel> getProviderList() {
+  public List<ProviderModel> getAllModels() {
     return Collections.unmodifiableList(providerList);
   }
 
   @Override
-  protected ProviderModel mapToEntity(ProviderModel from) {
+  public ProviderModel getModelById(int id) throws SQLException, ClassNotFoundException {
+    for (ProviderModel providerModel : providerList) {
+      if (providerModel.getId() == id) {
+        return providerModel;
+      }
+    }
+    return null;
+  }
+
+  public List<ProviderModel> getProviderList() throws NullPointerException {
+    return Collections.unmodifiableList(providerList);
+  }
+
+  private ProviderModel mapToEntity(ProviderModel from) {
     ProviderModel to = new ProviderModel();
     updateEntityFields(from, to);
     return to;
   }
 
-  @Override
-  protected void updateEntityFields(ProviderModel from, ProviderModel to) {
+  private void updateEntityFields(ProviderModel from, ProviderModel to) {
     to.setName(from.getName());
     to.setDescription(from.getDescription());
   }
 
-  @Override
-  protected boolean checkFilter(ProviderModel providerModel, String value, String column) {
+  private boolean checkFilter(ProviderModel providerModel, String value, String column) {
     return switch (column.toLowerCase()) {
       case "id" -> providerModel.getId() == Integer.parseInt(value);
       case "name" -> providerModel.getName().toLowerCase().contains(value.toLowerCase());
@@ -65,28 +62,71 @@ public class ProviderBUS extends BUSInterface<ProviderModel> {
   }
 
   @Override
-  public int insertModel(ProviderModel providerModel) throws SQLException, ClassNotFoundException {
+  public int addModel(ProviderModel providerModel) throws SQLException, ClassNotFoundException {
     if (providerModel.getName() == null || providerModel.getName().isEmpty()) {
       throw new IllegalArgumentException("Name cannot be null or empty!");
     }
     if (providerModel.getDescription() == null || providerModel.getDescription().isEmpty()) {
       throw new IllegalArgumentException("Description cannot be null or empty!");
     }
-    return add(providerModel);
+
+    int id = ProviderDAO.getInstance().insert(mapToEntity(providerModel));
+    providerModel.setId(id);
+    providerList.add(providerModel);
+    return id;
   }
 
   @Override
   public int updateModel(ProviderModel providerModel) throws SQLException, ClassNotFoundException {
-    return update(providerModel);
+    ProviderModel existingProvider = getModelById(providerModel.getId());
+    if (existingProvider == null) {
+      return 0;
+    }
+
+    updateEntityFields(providerModel, existingProvider);
+    try {
+      ProviderDAO.getInstance().update(mapToEntity(existingProvider));
+      return 1;
+    } catch (SQLException e) {
+      e.printStackTrace();
+      throw new SQLException("Failed to update provider: " + e.getMessage());
+    }
   }
 
   @Override
   public int deleteModel(int id) throws SQLException, ClassNotFoundException {
-    return delete(id);
+    ProviderModel providerModel = getModelById(id);
+    if (providerModel == null) {
+      throw new IllegalArgumentException("Provider with ID " + id + " does not exist.");
+    }
+    int deletedRows = ProviderDAO.getInstance().delete(id);
+    if (deletedRows > 0) {
+      providerList.remove(providerModel);
+    }
+    return deletedRows;
   }
 
-  public List<ProviderModel> searchModel(String value, String columns) {
-    return search(value, columns);
-  }
+  @Override
+  public List<ProviderModel> searchModel(String value, String columns) throws SQLException, ClassNotFoundException {
+    List<ProviderModel> results = new ArrayList<>();
+    try {
+      List<ProviderModel> entities = ProviderDAO.getInstance().search(value, columns);
+      for (ProviderModel entity : entities) {
+        ProviderModel model = mapToEntity(entity);
+        if (checkFilter(model, value, columns)) {
+          results.add(model);
+        }
+      }
+    } catch (SQLException e) {
+      throw new SQLException("Failed to search for provider: " + e.getMessage());
+    } catch (ClassNotFoundException e) {
+      throw new ClassNotFoundException("Failed to search for provider: " + e.getMessage());
+    }
 
+    if (results.isEmpty()) {
+      throw new IllegalArgumentException("No provider found with the specified search criteria.");
+    }
+
+    return results;
+  }
 }
