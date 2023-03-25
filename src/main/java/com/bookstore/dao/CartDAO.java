@@ -38,8 +38,8 @@ public class CartDAO implements DAOInterface<CartModel> {
 
   @Override
   public int insert(CartModel cart) throws SQLException, ClassNotFoundException {
-    String insertSql = "INSERT INTO carts (user_id, status, promotion_id) VALUES (?, ?, ?)";
-    Object[] args = { cart.getUserId(), cart.getStatus().name(), cart.getPromotionId() };
+    String insertSql = "INSERT INTO carts (user_id, status, promotion_id, expires) VALUES (?, ?, ?, ?)";
+    Object[] args = { cart.getUserId(), cart.getStatus().name(), cart.getPromotionId(), cart.getExpires() };
     return DatabaseConnect.executeUpdate(insertSql, args);
   }
 
@@ -59,7 +59,7 @@ public class CartDAO implements DAOInterface<CartModel> {
   }
 
   @Override
-  public List<CartModel> searchByCondition(String condition, String columnName)
+  public List<CartModel> search(String condition, String columnName)
       throws SQLException, ClassNotFoundException {
     if (columnName == null || columnName.isEmpty()) {
       throw new IllegalArgumentException("Column name cannot be empty");

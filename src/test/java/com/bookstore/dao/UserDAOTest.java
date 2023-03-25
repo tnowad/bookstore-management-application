@@ -49,7 +49,7 @@ public class UserDAOTest {
 
   @Test
   public void testSearchByCondition() throws SQLException, ClassNotFoundException {
-    List<UserModel> userList = userDAO.searchByCondition("ngoctu", "username");
+    List<UserModel> userList = userDAO.search("ngoctu", "username");
     Assertions.assertNotNull(userList);
     Assertions.assertEquals(1, userList.size());
   }

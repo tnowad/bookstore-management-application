@@ -64,7 +64,7 @@ public class AddressDAO implements DAOInterface<AddressModel> {
   }
 
   @Override
-  public List<AddressModel> searchByCondition(String condition, String columnName)
+  public List<AddressModel> search(String condition, String columnName)
       throws SQLException, ClassNotFoundException {
     if (columnName == null || columnName.isEmpty()) {
       throw new IllegalArgumentException("Column name cannot be empty");

@@ -72,7 +72,7 @@ public class UserDAO implements DAOInterface<UserModel> {
   }
 
   @Override
-  public List<UserModel> searchByCondition(String condition, String columnName)
+  public List<UserModel> search(String condition, String columnName)
       throws SQLException, ClassNotFoundException {
     if (columnName == null || columnName.isEmpty()) {
       throw new IllegalArgumentException("Column name cannot be empty");

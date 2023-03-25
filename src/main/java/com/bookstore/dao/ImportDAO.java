@@ -63,7 +63,7 @@ public class ImportDAO implements DAOInterface<ImportModel> {
   }
 
   @Override
-  public List<ImportModel> searchByCondition(String condition, String columnName)
+  public List<ImportModel> search(String condition, String columnName)
       throws SQLException, ClassNotFoundException {
     if (columnName == null || columnName.isEmpty()) {
       throw new IllegalArgumentException("Column name cannot be empty");

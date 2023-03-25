@@ -55,7 +55,7 @@ public class ProviderDAO implements DAOInterface<ProviderModel> {
   }
 
   @Override
-  public List<ProviderModel> searchByCondition(String condition, String columnName)
+  public List<ProviderModel> search(String condition, String columnName)
       throws SQLException, ClassNotFoundException {
     if (columnName == null || columnName.isEmpty()) {
       throw new IllegalArgumentException("Column name cannot be empty");

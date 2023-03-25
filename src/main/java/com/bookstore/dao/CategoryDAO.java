@@ -54,7 +54,7 @@ public class CategoryDAO implements DAOInterface<CategoryModel> {
   }
 
   @Override
-  public List<CategoryModel> searchByCondition(String condition, String columnName)
+  public List<CategoryModel> search(String condition, String columnName)
       throws SQLException, ClassNotFoundException {
     if (columnName == null || columnName.isEmpty()) {
       throw new IllegalArgumentException("Column name cannot be empty");

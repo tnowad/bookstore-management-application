@@ -70,6 +70,6 @@ public interface DAOInterface<Entity> {
    *                                errors
    * @throws ClassNotFoundException if driver class not found
    */
-  List<Entity> searchByCondition(String condition, String columnName)
+  List<Entity> search(String condition, String columnName)
       throws SQLException, ClassNotFoundException;
 }

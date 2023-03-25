@@ -59,7 +59,7 @@ public class EmployeeDAO implements DAOInterface<EmployeeModel> {
   }
 
   @Override
-  public List<EmployeeModel> searchByCondition(String condition, String columnName)
+  public List<EmployeeModel> search(String condition, String columnName)
       throws SQLException, ClassNotFoundException {
     if (columnName == null || columnName.isEmpty()) {
       throw new IllegalArgumentException("Column name cannot be empty");

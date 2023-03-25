@@ -59,7 +59,7 @@ public class AuthorDAO implements DAOInterface<AuthorModel> {
   }
 
   @Override
-  public List<AuthorModel> searchByCondition(String condition, String columnName)
+  public List<AuthorModel> search(String condition, String columnName)
       throws SQLException, ClassNotFoundException {
     if (columnName == null || columnName.isEmpty()) {
       throw new IllegalArgumentException("Column name cannot be empty");

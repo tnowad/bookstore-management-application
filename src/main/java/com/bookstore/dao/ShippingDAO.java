@@ -59,7 +59,7 @@ public class ShippingDAO implements DAOInterface<ShippingModel> {
   }
 
   @Override
-  public List<ShippingModel> searchByCondition(String condition, String columnName)
+  public List<ShippingModel> search(String condition, String columnName)
       throws SQLException, ClassNotFoundException {
     if (columnName == null || columnName.isEmpty()) {
       throw new IllegalArgumentException("Column name cannot be empty");

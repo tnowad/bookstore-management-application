@@ -54,7 +54,7 @@ public class PublisherDAO implements DAOInterface<PublisherModel> {
   }
 
   @Override
-  public List<PublisherModel> searchByCondition(String condition, String columnName)
+  public List<PublisherModel> search(String condition, String columnName)
       throws SQLException, ClassNotFoundException {
     if (columnName == null || columnName.isEmpty()) {
       throw new IllegalArgumentException("Column name cannot be empty");

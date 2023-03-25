@@ -67,7 +67,7 @@ public class OrderDAO implements DAOInterface<OrderModel> {
   }
 
   @Override
-  public List<OrderModel> searchByCondition(String condition, String columnName)
+  public List<OrderModel> search(String condition, String columnName)
       throws SQLException, ClassNotFoundException {
     if (columnName == null || columnName.isEmpty()) {
       throw new IllegalArgumentException("Column name cannot be empty");

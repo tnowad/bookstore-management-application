@@ -67,7 +67,7 @@ public class BookDAO implements DAOInterface<BookModel> {
   }
 
   @Override
-  public List<BookModel> searchByCondition(String condition, String columnName)
+  public List<BookModel> search(String condition, String columnName)
       throws SQLException, ClassNotFoundException {
     if (columnName == null || columnName.isEmpty()) {
       throw new IllegalArgumentException("Column name cannot be empty");
