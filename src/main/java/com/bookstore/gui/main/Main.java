@@ -6,29 +6,30 @@ package com.bookstore.gui.main;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.Icon;
+import javax.swing.JFrame;
+import javax.swing.JLayeredPane;
 import javax.swing.UIManager;
 
 import com.bookstore.gui.component.Header;
 import com.bookstore.gui.component.Layout;
 import com.bookstore.gui.component.Menu;
 import com.bookstore.gui.form.MainForm;
+import com.bookstore.gui.model.MenuItemModel;
 import com.bookstore.gui.model.MenuModel;
 import com.formdev.flatlaf.FlatLightLaf;
 
 import net.miginfocom.swing.MigLayout;
 
-/**
- *
- * @author alex
- */
-public class Main extends javax.swing.JFrame {
-
+public class Main extends JFrame {
   private MigLayout layout;
+  private JLayeredPane background;
+
   private Menu menu;
   private Header header;
   private MainForm main;
@@ -87,7 +88,7 @@ public class Main extends javax.swing.JFrame {
             .addComponent(background));
 
     pack();
-  }// </editor-fold>//GEN-END:initComponents
+  }
 
   public static void main(String args[]) {
     try {
@@ -95,14 +96,47 @@ public class Main extends javax.swing.JFrame {
     } catch (Exception ex) {
       System.err.println("Failed to initialize LaF");
     }
-    java.awt.EventQueue.invokeLater(new Runnable() {
+    EventQueue.invokeLater(new Runnable() {
       public void run() {
-        new Main().setVisible(true);
+        MenuItemModel menuItemModel = new MenuItemModel(
+            "Home",
+            new ActionListener() {
+              @Override
+              public void actionPerformed(ActionEvent e) {
+                System.out.println("Home");
+              }
+            });
+
+        MenuModel menuModel = new MenuModel(
+            new Icon() {
+              @Override
+              public void paintIcon(Component c, Graphics g, int x, int y) {
+                g.setColor(Color.BLACK);
+                g.fillRect(x, y, getIconWidth(), getIconHeight());
+              }
+
+              @Override
+              public int getIconWidth() {
+                return 20;
+              }
+
+              @Override
+              public int getIconHeight() {
+                return 20;
+              }
+            },
+            "Home",
+            new MenuItemModel[] {
+                menuItemModel,
+                menuItemModel,
+                menuItemModel,
+                menuItemModel,
+                menuItemModel
+            });
+
+        Main main = new Main();
+        main.setVisible(true);
       }
     });
   }
-
-  // Variables declaration - do not modify//GEN-BEGIN:variables
-  private javax.swing.JLayeredPane background;
-  // End of variables declaration//GEN-END:variables
 }
