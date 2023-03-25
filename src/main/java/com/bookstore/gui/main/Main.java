@@ -39,24 +39,25 @@ public class Main extends JFrame {
     initFrame();
   }
 
-  public Main(Layout layout) {
+  public Main(Menu menu, Header header, MainForm main) {
+
+    this.menu = menu;
+    this.header = header;
+    this.main = main;
+
     initComponents();
     initFrame();
-    initLayout(layout);
-  }
-
-  private void initLayout(Layout layout) {
-    for (MenuModel menuModel : layout.getMenuModel()) {
-      menu.addMenu(menuModel);
-    }
   }
 
   private void initFrame() {
     layout = new MigLayout("fill", "0[]0[100%, fill]0", "0[fill, top]0");
     background.setLayout(layout);
-    menu = new Menu();
-    header = new Header();
-    main = new MainForm();
+    if (menu == null)
+      menu = new Menu();
+    if (header == null)
+      header = new Header();
+    if (main == null)
+      main = new MainForm();
 
     background.add(menu, "w 230!");
     background.add(header, "h 50!, w 1050!");
