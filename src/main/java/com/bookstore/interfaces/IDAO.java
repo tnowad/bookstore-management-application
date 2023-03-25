@@ -1,4 +1,4 @@
-package com.bookstore.dao;
+package com.bookstore.interfaces;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -9,7 +9,7 @@ import java.util.List;
  *
  * @param <Entity> the entity type that this DAO interface will handle
  */
-public interface DAOInterface<Entity> {
+public interface IDAO<Entity> {
 
   /**
    * Reads all entries from the database table associated with this DAO.

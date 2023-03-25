@@ -5,9 +5,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.bookstore.interfaces.IDAO;
 import com.bookstore.model.PublisherModel;
 
-public class PublisherDAO implements DAOInterface<PublisherModel> {
+public class PublisherDAO implements IDAO<PublisherModel> {
 
   public static PublisherDAO getInstance() {
     return new PublisherDAO();

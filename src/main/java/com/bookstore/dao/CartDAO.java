@@ -6,9 +6,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.bookstore.interfaces.IDAO;
 import com.bookstore.model.CartModel;
+import com.bookstore.model.CartModel.Status;
 
-public class CartDAO implements DAOInterface<CartModel> {
+public class CartDAO implements IDAO<CartModel> {
 
   public static CartDAO getInstance() {
     return new CartDAO();
@@ -48,6 +50,12 @@ public class CartDAO implements DAOInterface<CartModel> {
     String updateSql = "UPDATE carts SET user_id = ?, status = ?, expires = ?, promotion_id = ? WHERE id = ?";
     Object[] args = { cart.getUserId(), cart.getStatus().name(), cart.getExpires(), cart.getPromotionId(),
         cart.getId() };
+    return DatabaseConnect.executeUpdate(updateSql, args);
+  }
+
+  public int updateStatus(int userId, Status status) throws SQLException, ClassNotFoundException {
+    String updateSql = "UPDATE carts SET status = ? WHERE userId = ?";
+    Object[] args = { status, userId };
     return DatabaseConnect.executeUpdate(updateSql, args);
   }
 

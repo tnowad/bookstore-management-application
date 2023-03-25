@@ -7,9 +7,10 @@ import java.util.Collections;
 import java.util.List;
 
 import com.bookstore.dao.ImportDAO;
+import com.bookstore.interfaces.IBUS;
 import com.bookstore.model.ImportModel;
 
-public class ImportBUS implements BUSInterface<ImportModel> {
+public class ImportBUS implements IBUS<ImportModel> {
 
   private final List<ImportModel> importList = new ArrayList<>();
 
@@ -91,19 +92,34 @@ public class ImportBUS implements BUSInterface<ImportModel> {
 
   @Override
   public int updateModel(ImportModel importModel) throws SQLException, ClassNotFoundException {
-    ImportModel existingImport = getModelById(importModel.getId());
-    if (existingImport == null) {
-      return 0;
+    int updatedRows = ImportDAO.getInstance().update(importModel);
+    if (updatedRows > 0) {
+      for (int i = 0; i < importList.size(); i++) {
+        if (importList.get(i).getId() == importModel.getId()) {
+          importList.set(i, importModel);
+          break;
+        }
+      }
     }
+    return updatedRows;
+  }
 
-    updateEntityFields(importModel, existingImport);
-    try {
-      ImportDAO.getInstance().update(mapToEntity(existingImport));
-      return 1;
-    } catch (SQLException e) {
-      e.printStackTrace();
-      throw new SQLException("Failed to update import: " + e.getMessage());
+  public int updateTotal(int id, BigDecimal total) throws SQLException, ClassNotFoundException {
+    ImportModel importModel = getModelById(id);
+    if (importModel == null) {
+      throw new IllegalArgumentException("Import with ID " + id + " does not exist.");
     }
+    importModel.setTotalPrice(total);
+    int updatedRows = ImportDAO.getInstance().update(importModel);
+    if (updatedRows > 0) {
+      for (int i = 0; i < importList.size(); i++) {
+        if (importList.get(i).getId() == importModel.getId()) {
+          importList.set(i, importModel);
+          break;
+        }
+      }
+    }
+    return updatedRows;
   }
 
   @Override

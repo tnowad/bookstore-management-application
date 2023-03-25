@@ -6,9 +6,10 @@ import java.util.Collections;
 import java.util.List;
 
 import com.bookstore.dao.AddressDAO;
+import com.bookstore.interfaces.IBUS;
 import com.bookstore.model.AddressModel;
 
-public class AddressBUS implements BUSInterface<AddressModel> {
+public class AddressBUS implements IBUS<AddressModel> {
 
   private final List<AddressModel> addressList = new ArrayList<>();
 
@@ -90,19 +91,16 @@ public class AddressBUS implements BUSInterface<AddressModel> {
 
   @Override
   public int updateModel(AddressModel addressModel) throws SQLException, ClassNotFoundException {
-    AddressModel existingAddress = getModelById(addressModel.getId());
-    if (existingAddress == null) {
-      return 0;
+    int updatedRows = AddressDAO.getInstance().update(addressModel);
+    if (updatedRows > 0) {
+      for (int i = 0; i < addressList.size(); i++) {
+        if (addressList.get(i).getId() == addressModel.getId()) {
+          addressList.set(i, addressModel);
+          break;
+        }
+      }
     }
-
-    updateEntityFields(addressModel, existingAddress);
-    try {
-      AddressDAO.getInstance().update(mapToEntity(existingAddress));
-      return 1;
-    } catch (SQLException e) {
-      e.printStackTrace();
-      throw new SQLException("Failed to update user: " + e.getMessage());
-    }
+    return updatedRows;
   }
 
   @Override

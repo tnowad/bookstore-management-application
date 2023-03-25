@@ -36,11 +36,11 @@ public class BookExcelUtil extends ExcelUtil {
         List<BookModel> bookModels = convertToBookModelList(bookData);
         BookBUS bookBUS = new BookBUS();
         for (BookModel model : bookModels) {
-          BookModel existingBook = bookBUS.getBookModel(Integer.parseInt(model.getIsbn()));
+          BookModel existingBook = bookBUS.getModelById(Integer.parseInt(model.getIsbn()));
           if (existingBook != null) {
             handleDuplicateBook(existingBook, model, bookBUS);
           } else {
-            bookBUS.insertModel(model);
+            bookBUS.addModel(model);
           }
         }
         JOptionPane.showMessageDialog(null, "Data from " + file.getName() + " has been inserted successfully.");
@@ -108,7 +108,7 @@ public class BookExcelUtil extends ExcelUtil {
         bookBUS.updateModel(newBook);
       } else {
         bookBUS.deleteModel(Integer.parseInt(existingBook.getIsbn()));
-        bookBUS.insertModel(newBook);
+        bookBUS.addModel(newBook);
       }
     }
   }

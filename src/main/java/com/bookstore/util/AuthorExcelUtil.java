@@ -35,11 +35,11 @@ public class AuthorExcelUtil extends ExcelUtil {
         List<AuthorModel> authorModels = convertToAuthorModelList(authorData);
         AuthorBUS authorBUS = new AuthorBUS();
         for (AuthorModel model : authorModels) {
-          AuthorModel existingAuthor = authorBUS.getAuthorModel(model.getId());
+          AuthorModel existingAuthor = authorBUS.getModelById(model.getId());
           if (existingAuthor != null) {
             handleDuplicateAuthor(existingAuthor, model, authorBUS);
           } else {
-            authorBUS.insertModel(model);
+            authorBUS.addModel(model);
           }
         }
         JOptionPane.showMessageDialog(null, "Data from " + file.getName() + " has been inserted successfully.");
@@ -101,7 +101,7 @@ public class AuthorExcelUtil extends ExcelUtil {
         authorBUS.updateModel(newAuthor);
       } else {
         authorBUS.deleteModel(existingAuthor.getId());
-        authorBUS.insertModel(newAuthor);
+        authorBUS.addModel(newAuthor);
       }
     }
   }

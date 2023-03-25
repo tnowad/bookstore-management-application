@@ -6,9 +6,10 @@ import java.util.Collections;
 import java.util.List;
 
 import com.bookstore.dao.ProviderDAO;
+import com.bookstore.interfaces.IBUS;
 import com.bookstore.model.ProviderModel;
 
-public class ProviderBUS implements BUSInterface<ProviderModel> {
+public class ProviderBUS implements IBUS<ProviderModel> {
 
   private final List<ProviderModel> providerList = new ArrayList<>();
 
@@ -78,19 +79,16 @@ public class ProviderBUS implements BUSInterface<ProviderModel> {
 
   @Override
   public int updateModel(ProviderModel providerModel) throws SQLException, ClassNotFoundException {
-    ProviderModel existingProvider = getModelById(providerModel.getId());
-    if (existingProvider == null) {
-      return 0;
+    int updatedRows = ProviderDAO.getInstance().update(providerModel);
+    if (updatedRows > 0) {
+      for (int i = 0; i < providerList.size(); i++) {
+        if (providerList.get(i).getId() == providerModel.getId()) {
+          providerList.set(i, providerModel);
+          break;
+        }
+      }
     }
-
-    updateEntityFields(providerModel, existingProvider);
-    try {
-      ProviderDAO.getInstance().update(mapToEntity(existingProvider));
-      return 1;
-    } catch (SQLException e) {
-      e.printStackTrace();
-      throw new SQLException("Failed to update provider: " + e.getMessage());
-    }
+    return updatedRows;
   }
 
   @Override

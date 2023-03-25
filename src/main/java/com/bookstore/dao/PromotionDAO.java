@@ -6,9 +6,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.bookstore.interfaces.IDAO;
 import com.bookstore.model.PromotionModel;
 
-public class PromotionDAO implements DAOInterface<PromotionModel> {
+public class PromotionDAO implements IDAO<PromotionModel> {
 
   public static PromotionDAO getInstance() {
     return new PromotionDAO();

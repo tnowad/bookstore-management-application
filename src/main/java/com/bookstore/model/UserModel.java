@@ -15,15 +15,15 @@ public class UserModel {
   private Role role;
 
   public enum Status {
-    ACTIVE,
-    INACTIVE,
-    BANNED,
+    active,
+    inactive,
+    banned,
   }
 
   public enum Role {
-    CUSTOMER,
-    EMPLOYEE,
-    ADMIN
+    customer,
+    employee,
+    admin
   }
 
   public UserModel() {
@@ -69,7 +69,7 @@ public class UserModel {
 
   public Status getStatus() {
     if (status == null) {
-      status = Status.ACTIVE;
+      status = Status.active;
     }
     return status;
   }

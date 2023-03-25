@@ -6,9 +6,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.bookstore.interfaces.IDAO;
 import com.bookstore.model.AddressModel;
 
-public class AddressDAO implements DAOInterface<AddressModel> {
+public class AddressDAO implements IDAO<AddressModel> {
   private static AddressDAO instance;
 
   public static AddressDAO getInstance() {

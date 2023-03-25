@@ -1,13 +1,16 @@
 package com.bookstore.dao;
 
+import com.bookstore.interfaces.IDAO;
 import com.bookstore.model.OrderModel;
+import com.bookstore.model.OrderModel.Status;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderDAO implements DAOInterface<OrderModel> {
+public class OrderDAO implements IDAO<OrderModel> {
 
   public static OrderDAO getInstance() {
     return new OrderDAO();
@@ -52,10 +55,15 @@ public class OrderDAO implements DAOInterface<OrderModel> {
 
   @Override
   public int update(OrderModel order) throws SQLException, ClassNotFoundException {
-    String updateSql = "UPDATE orders SET cart_id=?, customer_id=?, employee_id=?, total=?, paid=?, "
-        + "status=? WHERE id=?";
+    String updateSql = "UPDATE orders SET cart_id=?, customer_id=?, employee_id=?, total=?, paid=?, status=? WHERE id=?";
     Object[] args = { order.getCart_id(), order.getCustomer_id(), order.getEmployee_id(), order.getTotal(),
         order.getPaid(), order.getStatus().name(), order.getId() };
+    return DatabaseConnect.executeUpdate(updateSql, args);
+  }
+
+  public int updateStatus(int cartId, Status status) throws SQLException, ClassNotFoundException {
+    String updateSql = "UPDATE orders SET status = ? WHERE cart_id = ?";
+    Object[] args = { status, cartId };
     return DatabaseConnect.executeUpdate(updateSql, args);
   }
 

@@ -6,12 +6,13 @@ import java.util.Collections;
 import java.util.List;
 
 import com.bookstore.dao.UserDAO;
+import com.bookstore.interfaces.IBUS;
 import com.bookstore.model.UserModel;
 import com.bookstore.model.UserModel.Role;
 import com.bookstore.model.UserModel.Status;
 import com.bookstore.util.PasswordUtil;
 
-public class UserBUS implements BUSInterface<UserModel> {
+public class UserBUS implements IBUS<UserModel> {
   private final List<UserModel> userList = new ArrayList<>();
 
   public UserBUS() throws SQLException, ClassNotFoundException {
@@ -103,8 +104,8 @@ public class UserBUS implements BUSInterface<UserModel> {
     // if (hasEmail && !isValidEmailAddress(userModel.getEmail())) {
     // throw new IllegalArgumentException("Invalid email address.");
     // }
-    userModel.setRole(userModel.getRole() != null ? userModel.getRole() : Role.CUSTOMER);
-    userModel.setStatus(userModel.getStatus() != null ? userModel.getStatus() : Status.ACTIVE);
+    userModel.setRole(userModel.getRole() != null ? userModel.getRole() : Role.customer);
+    userModel.setStatus(userModel.getStatus() != null ? userModel.getStatus() : Status.active);
 
     int id = UserDAO.getInstance().insert(mapToEntity(userModel));
     userModel.setId(id);
@@ -118,19 +119,42 @@ public class UserBUS implements BUSInterface<UserModel> {
 
   @Override
   public int updateModel(UserModel userModel) throws SQLException, ClassNotFoundException {
-    UserModel existingUser = getModelById(userModel.getId());
-    if (existingUser == null) {
-      return 0;
+    int updatedRows = UserDAO.getInstance().update(userModel);
+    if (updatedRows > 0) {
+      for (int i = 0; i < userList.size(); i++) {
+        if (userList.get(i).getId() == userModel.getId()) {
+          userList.set(i, userModel);
+          break;
+        }
+      }
     }
+    return updatedRows;
+  }
 
-    updateEntityFields(userModel, existingUser);
-    try {
-      UserDAO.getInstance().update(mapToEntity(existingUser));
-      return 1;
-    } catch (SQLException e) {
-      e.printStackTrace();
-      throw new SQLException("Failed to update user: " + e.getMessage());
+  public int updateStatus(String username, Status status) throws ClassNotFoundException, SQLException {
+    int success = UserDAO.getInstance().updateStatus(username, status);
+    if (success == 1) {
+      for (UserModel user : userList) {
+        if (user.getUsername().equals(username)) {
+          user.setStatus(status);
+          return 1;
+        }
+      }
     }
+    return 0;
+  }
+
+  public int updateRole(String username, Role role) throws ClassNotFoundException, SQLException {
+    int success = UserDAO.getInstance().updateRole(username, role);
+    if (success == 1) {
+      for (UserModel user : userList) {
+        if (user.getUsername().equals(username)) {
+          user.setRole(role);
+          return 1;
+        }
+      }
+    }
+    return 0;
   }
 
   @Override

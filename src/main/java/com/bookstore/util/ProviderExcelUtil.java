@@ -35,11 +35,11 @@ public class ProviderExcelUtil extends ExcelUtil {
         List<ProviderModel> providerModels = convertToProviderModelList(providerData);
         ProviderBUS providerBUS = new ProviderBUS();
         for (ProviderModel model : providerModels) {
-          ProviderModel existingProvider = providerBUS.getProviderModel(model.getId());
+          ProviderModel existingProvider = providerBUS.getModelById(model.getId());
           if (existingProvider != null) {
             handleDuplicateProvider(existingProvider, model, providerBUS);
           } else {
-            providerBUS.insertModel(model);
+            providerBUS.addModel(model);
           }
         }
         JOptionPane.showMessageDialog(null, "Data from " + file.getName() + " has been inserted successfully.");
@@ -93,7 +93,7 @@ public class ProviderExcelUtil extends ExcelUtil {
         providerBUS.updateModel(newProvider);
       } else {
         providerBUS.deleteModel(existingProvider.getId());
-        providerBUS.insertModel(newProvider);
+        providerBUS.addModel(newProvider);
       }
     }
   }

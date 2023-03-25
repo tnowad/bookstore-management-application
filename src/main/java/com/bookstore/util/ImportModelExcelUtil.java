@@ -37,11 +37,11 @@ public class ImportModelExcelUtil extends ExcelUtil {
         List<ImportModel> importModels = convertToImportModelList(importModelData);
         ImportBUS importModelBUS = new ImportBUS();
         for (ImportModel model : importModels) {
-          ImportModel existingImportModel = importModelBUS.getImportModel(model.getId());
+          ImportModel existingImportModel = importModelBUS.getModelById(model.getId());
           if (existingImportModel != null) {
             handleDuplicateImportModel(existingImportModel, model, importModelBUS);
           } else {
-            importModelBUS.insertModel(model);
+            importModelBUS.addModel(model);
           }
         }
         JOptionPane.showMessageDialog(null, "Data from " + file.getName() + " has been inserted successfully.");
@@ -103,7 +103,7 @@ public class ImportModelExcelUtil extends ExcelUtil {
         importModelBUS.updateModel(newImportModel);
       } else {
         importModelBUS.deleteModel(existingImportModel.getId());
-        importModelBUS.insertModel(newImportModel);
+        importModelBUS.addModel(newImportModel);
       }
     }
   }

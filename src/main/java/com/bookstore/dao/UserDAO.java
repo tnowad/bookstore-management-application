@@ -7,11 +7,12 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.bookstore.interfaces.IDAO;
 import com.bookstore.model.UserModel;
 import com.bookstore.model.UserModel.Role;
 import com.bookstore.model.UserModel.Status;
 
-public class UserDAO implements DAOInterface<UserModel> {
+public class UserDAO implements IDAO<UserModel> {
   private static UserDAO instance;
 
   public static UserDAO getInstance() {
@@ -64,10 +65,22 @@ public class UserDAO implements DAOInterface<UserModel> {
     return DatabaseConnect.executeUpdate(updateSql, args);
   }
 
+  public int updateStatus(String username, Status status) throws SQLException, ClassNotFoundException {
+    String updateSql = "UPDATE books SET status = ? WHERE username = ?";
+    Object[] args = { status, username };
+    return DatabaseConnect.executeUpdate(updateSql, args);
+  }
+
+  public int updateRole(String username, Role role) throws SQLException, ClassNotFoundException {
+    String updateSql = "UPDATE books SET role = ? WHERE username = ?";
+    Object[] args = { role, username };
+    return DatabaseConnect.executeUpdate(updateSql, args);
+  }
+
   @Override
   public int delete(int id) throws SQLException, ClassNotFoundException {
     String updateStatusSql = "UPDATE users SET status = ? WHERE id = ?";
-    Object[] args = { UserModel.Status.BANNED.toString().toUpperCase(), id };
+    Object[] args = { UserModel.Status.banned.toString().toUpperCase(), id };
     return DatabaseConnect.executeUpdate(updateStatusSql, args);
   }
 

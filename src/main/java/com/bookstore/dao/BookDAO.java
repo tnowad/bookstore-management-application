@@ -6,9 +6,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.bookstore.interfaces.IDAO;
 import com.bookstore.model.BookModel;
+import com.bookstore.model.BookModel.Status;
 
-public class BookDAO implements DAOInterface<BookModel> {
+public class BookDAO implements IDAO<BookModel> {
   private static BookDAO instance;
 
   public static BookDAO getInstance() {
@@ -56,6 +58,18 @@ public class BookDAO implements DAOInterface<BookModel> {
     String updateSql = "UPDATE books SET title = ?, description = ?, image = ?, price = ?, quantity = ?, status = ?, publisher_id = ?, author_id = ? WHERE isbn = ?";
     Object[] args = { book.getTitle(), book.getDescription(), book.getImage(), book.getPrice(), book.getQuantity(),
         book.getStatus().name(), book.getPublisherId(), book.getAuthorId(), book.getIsbn() };
+    return DatabaseConnect.executeUpdate(updateSql, args);
+  }
+
+  public int updateQuantity(String isbn, int quantity) throws SQLException, ClassNotFoundException {
+    String updateSql = "UPDATE books SET quantity = ? WHERE isbn = ?";
+    Object[] args = { quantity, isbn };
+    return DatabaseConnect.executeUpdate(updateSql, args);
+  }
+
+  public int updateStatus(String isbn, Status status) throws SQLException, ClassNotFoundException {
+    String updateSql = "UPDATE books SET status = ? WHERE isbn = ?";
+    Object[] args = { status, isbn };
     return DatabaseConnect.executeUpdate(updateSql, args);
   }
 

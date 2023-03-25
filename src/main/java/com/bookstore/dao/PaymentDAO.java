@@ -6,10 +6,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.bookstore.interfaces.IDAO;
 import com.bookstore.model.PaymentModel;
 import com.bookstore.model.PaymentModel.*;
 
-public class PaymentDAO implements DAOInterface<PaymentModel> {
+public class PaymentDAO implements IDAO<PaymentModel> {
 
   public static PaymentDAO getInstance() {
     return new PaymentDAO();
@@ -55,6 +56,12 @@ public class PaymentDAO implements DAOInterface<PaymentModel> {
     Object[] args = { payment.getOrderId(), payment.getUserId(), payment.getAmount(),
         payment.getPaymentMethod().toString(), payment.getPaymentMethodId(),
         payment.getStatus().toString(), payment.getId() };
+    return DatabaseConnect.executeUpdate(updateSql, args);
+  }
+
+  public int updateStatus(int orderId, PaymentStatus status) throws SQLException, ClassNotFoundException {
+    String updateSql = "UPDATE payments SET status = ? WHERE order_id = ?";
+    Object[] args = { status, orderId };
     return DatabaseConnect.executeUpdate(updateSql, args);
   }
 

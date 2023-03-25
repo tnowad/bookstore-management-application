@@ -12,9 +12,9 @@ public class BookModel {
   private int authorId;
 
   public enum Status {
-    AVAILABLE,
-    UNAVAILABLE,
-    DELETED;
+    available,
+    unavailable,
+    deleted;
   }
 
   public BookModel() {

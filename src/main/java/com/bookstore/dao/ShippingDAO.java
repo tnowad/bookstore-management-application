@@ -6,9 +6,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.bookstore.interfaces.IDAO;
 import com.bookstore.model.ShippingModel;
+import com.bookstore.model.ShippingModel.Status;
 
-public class ShippingDAO implements DAOInterface<ShippingModel> {
+public class ShippingDAO implements IDAO<ShippingModel> {
 
   public static ShippingDAO getInstance() {
     return new ShippingDAO();
@@ -48,6 +50,12 @@ public class ShippingDAO implements DAOInterface<ShippingModel> {
     String updateSql = "UPDATE shipping SET shipping_method = ?, address_id = ?, status = ? WHERE id = ?";
     Object[] args = { shipping.getShippingMethod(), shipping.getAddressId(), shipping.getStatus().name(),
         shipping.getId() };
+    return DatabaseConnect.executeUpdate(updateSql, args);
+  }
+
+  public int updateStatus(int orderId, Status status) throws SQLException, ClassNotFoundException {
+    String updateSql = "UPDATE shipping SET status = ? WHERE status = ?";
+    Object[] args = { status, status };
     return DatabaseConnect.executeUpdate(updateSql, args);
   }
 

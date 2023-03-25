@@ -43,8 +43,8 @@ public class UserBUSTest {
     model.setPassword("password");
     model.setEmail("testuser@example.com");
     model.setPhone("1234567890");
-    model.setRole(Role.ADMIN);
-    model.setStatus(Status.ACTIVE);
+    model.setRole(Role.admin);
+    model.setStatus(Status.active);
 
     int id = userBUS.addModel(model);
     Assertions.assertTrue(id > 0);
@@ -54,7 +54,7 @@ public class UserBUSTest {
   public void testUpdateModel() throws SQLException, ClassNotFoundException {
     int id = 2;
     UserModel model = userBUS.getModelById(id);
-    model.setName("Updated Name");
+    model.setName("12345");
 
     int result = userBUS.updateModel(model);
     Assertions.assertEquals(1, result);
@@ -65,19 +65,19 @@ public class UserBUSTest {
 
   @Test
   public void testDeleteModel() throws SQLException, ClassNotFoundException {
-    int result = userBUS.deleteModel(10);
+    int result = userBUS.deleteModel(9);
     Assertions.assertEquals(1, result);
-
   }
 
   @Test
   public void testSearchModel() throws SQLException, ClassNotFoundException {
-    String value = "lethianh";
-    String columns = "username";
+    String value = "Lê Thị Anh";
+    String columns = "name";
 
     List<UserModel> models = userBUS.searchModel(value, columns);
     Assertions.assertNotNull(models);
     Assertions.assertFalse(models.isEmpty());
+    Assertions.assertEquals(1, models.size());
   }
 
   @Test

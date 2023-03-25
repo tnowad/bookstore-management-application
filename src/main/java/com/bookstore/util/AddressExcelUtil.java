@@ -35,11 +35,11 @@ public class AddressExcelUtil extends ExcelUtil {
         List<AddressModel> addressModels = convertToAddressModelList(addressData);
         AddressBUS addressBUS = new AddressBUS();
         for (AddressModel model : addressModels) {
-          AddressModel existingAddress = addressBUS.getAddressModel(model.getId());
+          AddressModel existingAddress = addressBUS.getModelById(model.getId());
           if (existingAddress != null) {
             handleDuplicateAddress(existingAddress, model, addressBUS);
           } else {
-            addressBUS.insertModel(model);
+            addressBUS.addModel(model);
           }
         }
         JOptionPane.showMessageDialog(null, "Data from " + file.getName() + " has been inserted successfully.");
@@ -95,7 +95,7 @@ public class AddressExcelUtil extends ExcelUtil {
         addressBUS.updateModel(newAddress);
       } else {
         addressBUS.deleteModel(existingAddress.getId());
-        addressBUS.insertModel(newAddress);
+        addressBUS.addModel(newAddress);
       }
     }
   }

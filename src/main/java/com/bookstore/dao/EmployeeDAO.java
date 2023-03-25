@@ -6,10 +6,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.bookstore.interfaces.IDAO;
 import com.bookstore.model.EmployeeModel;
 import com.bookstore.model.EmployeeModel.EmployeeType;
 
-public class EmployeeDAO implements DAOInterface<EmployeeModel> {
+public class EmployeeDAO implements IDAO<EmployeeModel> {
 
   public static EmployeeDAO getInstance() {
     return new EmployeeDAO();
@@ -48,6 +49,12 @@ public class EmployeeDAO implements DAOInterface<EmployeeModel> {
     String updateSql = "UPDATE employees SET salary = ?, employee_type = ?, contact_information = ? WHERE user_id = ?";
     Object[] args = { employee.getSalary(), employee.getEmployeeType().name(), employee.getContactInformation(),
         employee.getUserId() };
+    return DatabaseConnect.executeUpdate(updateSql, args);
+  }
+
+  public int updateStatus(int userId, EmployeeType role) throws SQLException, ClassNotFoundException {
+    String updateSql = "UPDATE employees SET employee_type = ? WHERE user_id = ?";
+    Object[] args = { userId, role };
     return DatabaseConnect.executeUpdate(updateSql, args);
   }
 

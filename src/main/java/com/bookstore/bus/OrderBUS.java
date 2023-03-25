@@ -4,50 +4,49 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 import com.bookstore.dao.OrderDAO;
+import com.bookstore.interfaces.IBUS;
 import com.bookstore.model.OrderModel;
+import com.bookstore.model.OrderModel.Status;
 
-public class OrderBUS extends BUSInterface<OrderModel> {
+public class OrderBUS implements IBUS<OrderModel> {
 
   private final List<OrderModel> orderList = new ArrayList<>();
-  private final OrderDAO orderDAO = OrderDAO.getInstance();
 
   public OrderBUS() throws SQLException, ClassNotFoundException {
-    this.orderList.addAll(orderDAO.readDatabase());
+    this.orderList.addAll(OrderDAO.getInstance().readDatabase());
   }
 
   @Override
-  protected ArrayList<OrderModel> readFromDatabase() throws SQLException, ClassNotFoundException {
-    return orderDAO.readDatabase();
-  }
-
-  @Override
-  public int getId(OrderModel orderModel) {
-    return orderModel.getId();
-  }
-
-  public OrderModel getOrderModel(int id) {
-    return getModel(id);
-  }
-
-  public List<OrderModel> getOrderList() {
+  public List<OrderModel> getAllModels() {
     return Collections.unmodifiableList(orderList);
   }
 
   @Override
-  protected OrderModel mapToEntity(OrderModel from) {
+  public OrderModel getModelById(int id) throws SQLException, ClassNotFoundException {
+    for (OrderModel orderModel : orderList) {
+      if (orderModel.getId() == id) {
+        return orderModel;
+      }
+    }
+    return null;
+  }
+
+  public List<OrderModel> getOrderList() throws NullPointerException {
+    return Collections.unmodifiableList(orderList);
+  }
+
+  private OrderModel mapToEntity(OrderModel from) {
     OrderModel to = new OrderModel();
     updateEntityFields(from, to);
     return to;
   }
 
-  @Override
-  protected void updateEntityFields(OrderModel from, OrderModel to) {
+  private void updateEntityFields(OrderModel from, OrderModel to) {
     to.setCart_id(from.getCart_id());
-    to.setCustomer_id(from.getCustomer_id());
+    to.setEmployee_id(from.getCustomer_id());
     to.setEmployee_id(from.getEmployee_id());
     to.setTotal(from.getTotal());
     to.setPaid(from.getPaid());
@@ -56,47 +55,19 @@ public class OrderBUS extends BUSInterface<OrderModel> {
     to.setStatus(from.getStatus());
   }
 
-  @Override
-  protected boolean checkFilter(OrderModel orderModel, String value, String column) {
-    switch (column.toLowerCase()) {
-      case "id" -> {
-        if (Integer.parseInt(value) <= 0) {
-          throw new IllegalArgumentException("Id must be greater than 0!");
-        }
-        return orderModel.getId() == Integer.parseInt(value);
-      }
-      case "cart_id" -> {
-        return orderModel.getCart_id() == Integer.parseInt(value);
-      }
-      case "customer_id" -> {
-        return orderModel.getCustomer_id() == Integer.parseInt(value);
-      }
-      case "employee_id" -> {
-        return orderModel.getEmployee_id() == Integer.parseInt(value);
-      }
-      case "total" -> {
-        int total = Integer.parseInt(value);
-        return orderModel.getTotal() == total;
-      }
-      case "paid" -> {
-        int paid = Integer.parseInt(value);
-        return orderModel.getPaid() == paid;
-      }
-      case "created_at" -> {
-        long createdAtTimestamp = orderModel.getCreated_at().getTime() / 1000;
-        return createdAtTimestamp == Long.parseLong(value);
-      }
-      case "updated_at" -> {
-        long updatedAtTimestamp = orderModel.getUpdated_at().getTime() / 1000;
-        return updatedAtTimestamp == Long.parseLong(value);
-      }
-      case "status" -> {
-        return orderModel.getStatus().toString().equalsIgnoreCase(value);
-      }
-      default -> {
-        return checkAllColumns(orderModel, value);
-      }
-    }
+  private boolean checkFilter(OrderModel orderModel, String value, String column) {
+    return switch (column.toLowerCase()) {
+      case "id" -> orderModel.getId() == Integer.parseInt(value);
+      case "cart_id" -> orderModel.getCart_id() == Integer.parseInt(value);
+      case "customer_id" -> orderModel.getCustomer_id() == Integer.parseInt(value);
+      case "employee_id" -> orderModel.getEmployee_id() == Integer.parseInt(value);
+      case "total" -> orderModel.getTotal() == Integer.parseInt(value);
+      case "paid" -> orderModel.getPaid() == Integer.parseInt(value);
+      case "created_at" -> orderModel.getCreated_at().toString().toLowerCase().contains(value.toLowerCase());
+      case "updated_at" -> orderModel.getUpdated_at().toString().toLowerCase().contains(value.toLowerCase());
+      case "status" -> orderModel.getStatus().toString().toLowerCase().contains(value.toLowerCase());
+      default -> checkAllColumns(orderModel, value);
+    };
   }
 
   private boolean checkAllColumns(OrderModel orderModel, String value) {
@@ -106,47 +77,111 @@ public class OrderBUS extends BUSInterface<OrderModel> {
         || orderModel.getEmployee_id() == Integer.parseInt(value)
         || orderModel.getTotal() == Integer.parseInt(value)
         || orderModel.getPaid() == Integer.parseInt(value)
-        || orderModel.getStatus().toString().equalsIgnoreCase(value);
+        || orderModel.getCreated_at().toString().toLowerCase().contains(value.toLowerCase())
+        || orderModel.getUpdated_at().toString().toLowerCase().contains(value.toLowerCase())
+        || orderModel.getStatus().toString().toLowerCase().contains(value.toLowerCase());
   }
 
   @Override
-  public int insertModel(OrderModel orderModel) throws SQLException, ClassNotFoundException {
-    if (orderModel.getTotal() < 0) {
-      throw new IllegalArgumentException("Total must be greater than 0!");
+  public int addModel(OrderModel orderModel) throws SQLException, ClassNotFoundException {
+    if (orderModel.getCart_id() <= 0) {
+      throw new IllegalArgumentException("Cart ID must be greater than 0!");
     }
-
-    if (orderModel.getPaid() <= 0) {
-      throw new IllegalArgumentException("Paid must be greater than 0!");
+    if (orderModel.getCustomer_id() <= 0) {
+      throw new IllegalArgumentException("Customer ID must be greater than 0!");
     }
-
-    Date now = new Date();
-    orderModel.setCreated_at(new Timestamp(now.getTime()));
-    orderModel.setUpdated_at(new Timestamp(now.getTime()));
-    return add(orderModel);
-  }
-
-  @Override
-  public int updateModel(OrderModel orderModel) throws SQLException, ClassNotFoundException {
     if (orderModel.getEmployee_id() <= 0) {
-      throw new IllegalArgumentException("Employee id must be greater than 0!");
+      throw new IllegalArgumentException("Employee ID must be greater than 0!");
     }
     if (orderModel.getTotal() <= 0) {
       throw new IllegalArgumentException("Total must be greater than 0!");
     }
-    if (orderModel.getPaid() <= 0) {
-      throw new IllegalArgumentException("Paid must be greater than 0!");
+    if (orderModel.getPaid() < 0) {
+      throw new IllegalArgumentException("Paid cannot be negative!");
     }
+    orderModel.setStatus(orderModel.getStatus() != null ? orderModel.getStatus() : Status.pending);
+
+    int id = OrderDAO.getInstance().insert(mapToEntity(orderModel));
+    orderModel.setId(id);
+    orderList.add(orderModel);
+    return id;
+  }
+
+  @Override
+  public int updateModel(OrderModel orderModel) throws SQLException, ClassNotFoundException {
+    int updatedRows = OrderDAO.getInstance().update(orderModel);
+    if (updatedRows > 0) {
+      for (int i = 0; i < orderList.size(); i++) {
+        if (orderList.get(i).getId() == orderModel.getId()) {
+          orderList.set(i, orderModel);
+          break;
+        }
+      }
+    }
+    return updatedRows;
+  }
+
+  public int updateMoney(int id, int paid) throws SQLException, ClassNotFoundException {
+    OrderModel orderModel = getModelById(id);
+    if (orderModel == null) {
+      throw new IllegalArgumentException("Order with ID " + id + " does not exist.");
+    }
+    orderModel.setPaid(paid);
     orderModel.setUpdated_at(new Timestamp(System.currentTimeMillis()));
-    return update(orderModel);
+    int updatedRows = updateModel(orderModel);
+    if (updatedRows > 0) {
+      return orderModel.getTotal() - orderModel.getPaid();
+    }
+    return -1;
+  }
+
+  public int updateStatus(int cartId, Status status) throws SQLException, ClassNotFoundException {
+    int success = OrderDAO.getInstance().updateStatus(cartId, status);
+    if (success == 1) {
+      for (OrderModel order : orderList) {
+        if (order.getCart_id() == cartId) {
+          order.setStatus(status);
+          return 1;
+        }
+      }
+    }
+    return 0;
   }
 
   @Override
   public int deleteModel(int id) throws SQLException, ClassNotFoundException {
-    return delete(id);
+    OrderModel orderModel = getModelById(id);
+    if (orderModel == null) {
+      throw new IllegalArgumentException("Order with ID " + id + " does not exist.");
+    }
+    int deletedRows = OrderDAO.getInstance().delete(id);
+    if (deletedRows > 0) {
+      orderList.remove(orderModel);
+    }
+    return deletedRows;
   }
 
-  public List<OrderModel> searchModel(String value, String columns) {
-    return search(value, columns);
-  }
+  @Override
+  public List<OrderModel> searchModel(String value, String columns) throws SQLException, ClassNotFoundException {
+    List<OrderModel> results = new ArrayList<>();
+    try {
+      List<OrderModel> entities = OrderDAO.getInstance().search(value, columns);
+      for (OrderModel entity : entities) {
+        OrderModel model = mapToEntity(entity);
+        if (checkFilter(model, value, columns)) {
+          results.add(model);
+        }
+      }
+    } catch (SQLException e) {
+      throw new SQLException("Failed to search for order: " + e.getMessage());
+    } catch (ClassNotFoundException e) {
+      throw new ClassNotFoundException("Failed to search for order: " + e.getMessage());
+    }
 
+    if (results.isEmpty()) {
+      throw new IllegalArgumentException("No order found with the specified search criteria.");
+    }
+
+    return results;
+  }
 }

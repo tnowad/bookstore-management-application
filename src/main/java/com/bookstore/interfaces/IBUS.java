@@ -1,9 +1,9 @@
-package com.bookstore.bus;
+package com.bookstore.interfaces;
 
 import java.sql.SQLException;
 import java.util.List;
 
-public interface BUSInterface<T> {
+public interface IBUS<T> {
 
   /**
    * Returns a list of all models.

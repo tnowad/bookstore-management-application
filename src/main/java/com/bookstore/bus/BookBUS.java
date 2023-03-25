@@ -6,10 +6,11 @@ import java.util.Collections;
 import java.util.List;
 
 import com.bookstore.dao.BookDAO;
+import com.bookstore.interfaces.IBUS;
 import com.bookstore.model.BookModel;
 import com.bookstore.model.BookModel.Status;
 
-public class BookBUS implements BUSInterface<BookModel> {
+public class BookBUS implements IBUS<BookModel> {
 
   private final List<BookModel> bookList = new ArrayList<>();
 
@@ -102,7 +103,7 @@ public class BookBUS implements BUSInterface<BookModel> {
       throw new IllegalArgumentException("Quantity must be greater than 0!");
     }
     if (bookModel.getStatus() == null || bookModel.getStatus().toString().isEmpty()) {
-      bookModel.setStatus(Status.AVAILABLE);
+      bookModel.setStatus(Status.available);
     }
     if (bookModel.getPublisherId() <= 0) {
       throw new IllegalArgumentException("Publisher ID must be greater than 0!");
@@ -119,19 +120,42 @@ public class BookBUS implements BUSInterface<BookModel> {
 
   @Override
   public int updateModel(BookModel bookModel) throws SQLException, ClassNotFoundException {
-    BookModel existingBook = getModelById(Integer.parseInt(bookModel.getIsbn()));
-    if (existingBook == null) {
-      return 0;
+    int updatedRows = BookDAO.getInstance().update(bookModel);
+    if (updatedRows > 0) {
+      for (int i = 0; i < bookList.size(); i++) {
+        if (bookList.get(i).getIsbn() == bookModel.getIsbn()) {
+          bookList.set(i, bookModel);
+          break;
+        }
+      }
     }
+    return updatedRows;
+  }
 
-    updateEntityFields(bookModel, existingBook);
-    try {
-      BookDAO.getInstance().update(mapToEntity(existingBook));
-      return 1;
-    } catch (SQLException e) {
-      e.printStackTrace();
-      throw new SQLException("Failed to update book: " + e.getMessage());
+  public int updateQuantity(String isbn, int quantity) throws ClassNotFoundException, SQLException {
+    int success = BookDAO.getInstance().updateQuantity(isbn, quantity);
+    if (success == 1) {
+      for (BookModel book : bookList) {
+        if (book.getIsbn().equals(isbn)) {
+          book.setQuantity(quantity);
+          return 1;
+        }
+      }
     }
+    return 0;
+  }
+
+  public int updateStatus(String isbn, Status status) throws ClassNotFoundException, SQLException {
+    int success = BookDAO.getInstance().updateStatus(isbn, status);
+    if (success == 1) {
+      for (BookModel book : bookList) {
+        if (book.getIsbn().equals(isbn)) {
+          book.setStatus(status);
+          return 1;
+        }
+      }
+    }
+    return 0;
   }
 
   @Override

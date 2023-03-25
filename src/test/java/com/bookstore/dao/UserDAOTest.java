@@ -27,8 +27,8 @@ public class UserDAOTest {
 
   @Test
   public void testInsert() throws SQLException, ClassNotFoundException {
-    UserModel user = new UserModel(11, "testuser", "password", UserModel.Status.ACTIVE, "Test User",
-        "testuser@example.com", "1234567890", null, null, UserModel.Role.CUSTOMER);
+    UserModel user = new UserModel(11, "testuser", "password", UserModel.Status.active, "Test User",
+        "testuser@example.com", "1234567890", null, null, UserModel.Role.customer);
     int result = userDAO.insert(user);
     Assertions.assertEquals(1, result);
   }

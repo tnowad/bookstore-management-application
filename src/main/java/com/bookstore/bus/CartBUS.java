@@ -7,44 +7,45 @@ import java.util.Collections;
 import java.util.List;
 
 import com.bookstore.dao.CartDAO;
+import com.bookstore.interfaces.IBUS;
 import com.bookstore.model.CartModel;
+import com.bookstore.model.CartModel.Status;
 
-public class CartBUS extends BUSInterface<CartModel> {
+public class CartBUS implements IBUS<CartModel> {
 
   private final List<CartModel> cartList = new ArrayList<>();
-  private final CartDAO cartDAO = CartDAO.getInstance();
 
   public CartBUS() throws SQLException, ClassNotFoundException {
-    this.cartList.addAll(cartDAO.readDatabase());
+    this.cartList.addAll(CartDAO.getInstance().readDatabase());
   }
 
   @Override
-  protected ArrayList<CartModel> readFromDatabase() throws SQLException, ClassNotFoundException {
-    return cartDAO.readDatabase();
-  }
-
-  @Override
-  public int getId(CartModel cartModel) {
-    return cartModel.getId();
-  }
-
-  public CartModel getCartModel(int id) {
-    return getModel(id);
-  }
-
-  public List<CartModel> getCartList() {
+  public List<CartModel> getAllModels() {
     return Collections.unmodifiableList(cartList);
   }
 
   @Override
-  protected CartModel mapToEntity(CartModel from) {
+  public CartModel getModelById(int id) throws SQLException, ClassNotFoundException {
+    for (CartModel cartModel : cartList) {
+      if (cartModel.getId() == id) {
+        return cartModel;
+      }
+    }
+    return null;
+  }
+
+  public List<CartModel> getCartList() throws NullPointerException {
+    return Collections.unmodifiableList(cartList);
+  }
+
+  private CartModel mapToEntity(CartModel from) {
     CartModel to = new CartModel();
     updateEntityFields(from, to);
     return to;
   }
 
-  @Override
-  protected void updateEntityFields(CartModel from, CartModel to) {
+  private void updateEntityFields(CartModel from, CartModel to) {
+    to.setId(from.getId());
     to.setUserId(from.getUserId());
     to.setCreatedAt(from.getCreatedAt());
     to.setStatus(from.getStatus());
@@ -52,14 +53,13 @@ public class CartBUS extends BUSInterface<CartModel> {
     to.setPromotionId(from.getPromotionId());
   }
 
-  @Override
-  protected boolean checkFilter(CartModel cartModel, String value, String column) {
+  private boolean checkFilter(CartModel cartModel, String value, String column) {
     return switch (column.toLowerCase()) {
       case "id" -> cartModel.getId() == Integer.parseInt(value);
       case "user_id" -> cartModel.getUserId() == Integer.parseInt(value);
-      case "created_at" -> cartModel.getCreatedAt().equals(Timestamp.valueOf(value));
+      case "created_at" -> cartModel.getCreatedAt().toString().toLowerCase().contains(value.toLowerCase());
       case "status" -> cartModel.getStatus().toString().equalsIgnoreCase(value);
-      case "expires" -> cartModel.getExpires() != null && cartModel.getExpires().equals(Timestamp.valueOf(value));
+      case "expires" -> cartModel.getExpires().toString().toLowerCase().contains(value.toLowerCase());
       case "promotion_id" -> cartModel.getPromotionId() == Integer.parseInt(value);
       default -> checkAllColumns(cartModel, value);
     };
@@ -68,34 +68,95 @@ public class CartBUS extends BUSInterface<CartModel> {
   private boolean checkAllColumns(CartModel cartModel, String value) {
     return cartModel.getId() == Integer.parseInt(value)
         || cartModel.getUserId() == Integer.parseInt(value)
+        || cartModel.getCreatedAt().toString().toLowerCase().contains(value.toLowerCase())
         || cartModel.getStatus().toString().equalsIgnoreCase(value)
-        || (cartModel.getExpires() != null && cartModel.getExpires().toString().contains(value))
+        || cartModel.getExpires().toString().toLowerCase().contains(value.toLowerCase())
         || cartModel.getPromotionId() == Integer.parseInt(value);
   }
 
   @Override
-  public int insertModel(CartModel cartModel) throws SQLException, ClassNotFoundException {
+  public int addModel(CartModel cartModel) throws SQLException, ClassNotFoundException {
     if (cartModel.getUserId() <= 0) {
       throw new IllegalArgumentException("User ID must be greater than 0!");
     }
-    if (cartModel.getStatus() == null) {
-      cartModel.setStatus(cartModel.getStatus() != null ? cartModel.getStatus() : CartModel.Status.PENDING);
+    if (cartModel.getStatus() == null || cartModel.getStatus().toString().isEmpty()) {
+      cartModel.setStatus(Status.shopping);
     }
-    return add(cartModel);
+    if (cartModel.getExpires() == null) {
+      cartModel.setExpires(new Timestamp(System.currentTimeMillis()));
+    }
+    if (cartModel.getPromotionId() < 0) {
+      throw new IllegalArgumentException("Promotion ID cannot be negative!");
+    }
+
+    int id = CartDAO.getInstance().insert(mapToEntity(cartModel));
+    cartModel.setId(id);
+    cartList.add(cartModel);
+    return id;
   }
 
   @Override
   public int updateModel(CartModel cartModel) throws SQLException, ClassNotFoundException {
-    return update(cartModel);
+    int updatedRows = CartDAO.getInstance().update(cartModel);
+    if (updatedRows > 0) {
+      for (int i = 0; i < cartList.size(); i++) {
+        if (cartList.get(i).getId() == cartModel.getId()) {
+          cartList.set(i, cartModel);
+          break;
+        }
+      }
+    }
+    return updatedRows;
+  }
+
+  public int updateStatus(int userId, Status status) throws ClassNotFoundException, SQLException {
+    int success = CartDAO.getInstance().updateStatus(userId, status);
+    if (success == 1) {
+      for (CartModel cart : cartList) {
+        if (cart.getUserId() == userId) {
+          cart.setStatus(status);
+          return 1;
+        }
+      }
+    }
+    return 0;
   }
 
   @Override
   public int deleteModel(int id) throws SQLException, ClassNotFoundException {
-    return delete(id);
+    CartModel cartModel = getModelById(id);
+    if (cartModel == null) {
+      throw new IllegalArgumentException("Cart with ID " + id + " does not exist.");
+    }
+    int deletedRows = CartDAO.getInstance().delete(id);
+    if (deletedRows > 0) {
+      cartList.remove(cartModel);
+    }
+    return deletedRows;
   }
 
-  public List<CartModel> searchModel(String value, String columns) {
-    return search(value, columns);
+  @Override
+  public List<CartModel> searchModel(String value, String columns) throws SQLException, ClassNotFoundException {
+    List<CartModel> results = new ArrayList<>();
+    try {
+      List<CartModel> entities = CartDAO.getInstance().search(value, columns);
+      for (CartModel entity : entities) {
+        CartModel model = mapToEntity(entity);
+        if (checkFilter(model, value, columns)) {
+          results.add(model);
+        }
+      }
+    } catch (SQLException e) {
+      throw new SQLException("Failed to search for cart: " + e.getMessage());
+    } catch (ClassNotFoundException e) {
+      throw new ClassNotFoundException("Failed to search for cart: " + e.getMessage());
+    }
+
+    if (results.isEmpty()) {
+      throw new IllegalArgumentException("No cart found with the specified search criteria.");
+    }
+
+    return results;
   }
 
 }

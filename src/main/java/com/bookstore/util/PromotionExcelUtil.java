@@ -37,11 +37,11 @@ public class PromotionExcelUtil extends ExcelUtil {
         List<PromotionModel> promotionModels = convertToPromotionModelList(promotionData);
         PromotionBUS promotionBUS = new PromotionBUS();
         for (PromotionModel model : promotionModels) {
-          PromotionModel existingPromotion = promotionBUS.getPromotionModel(model.getId());
+          PromotionModel existingPromotion = promotionBUS.getModelById(model.getId());
           if (existingPromotion != null) {
             handleDuplicatePromotion(existingPromotion, model, promotionBUS);
           } else {
-            promotionBUS.insertModel(model);
+            promotionBUS.addModel(model);
           }
         }
         JOptionPane.showMessageDialog(null, "Data from " + file.getName() + " has been inserted successfully.");
@@ -101,7 +101,7 @@ public class PromotionExcelUtil extends ExcelUtil {
         promotionBUS.updateModel(newPromotion);
       } else {
         promotionBUS.deleteModel(existingPromotion.getId());
-        promotionBUS.insertModel(newPromotion);
+        promotionBUS.addModel(newPromotion);
       }
     }
   }

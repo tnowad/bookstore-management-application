@@ -6,9 +6,10 @@ import java.util.Collections;
 import java.util.List;
 
 import com.bookstore.dao.PromotionDAO;
+import com.bookstore.interfaces.IBUS;
 import com.bookstore.model.PromotionModel;
 
-public class PromotionBUS implements BUSInterface<PromotionModel> {
+public class PromotionBUS implements IBUS<PromotionModel> {
 
   private final List<PromotionModel> promotionList = new ArrayList<>();
 
@@ -105,19 +106,16 @@ public class PromotionBUS implements BUSInterface<PromotionModel> {
 
   @Override
   public int updateModel(PromotionModel promotionModel) throws SQLException, ClassNotFoundException {
-    PromotionModel existingPromotion = getModelById(promotionModel.getId());
-    if (existingPromotion == null) {
-      return 0;
+    int updatedRows = PromotionDAO.getInstance().update(promotionModel);
+    if (updatedRows > 0) {
+      for (int i = 0; i < promotionList.size(); i++) {
+        if (promotionList.get(i).getId() == promotionModel.getId()) {
+          promotionList.set(i, promotionModel);
+          break;
+        }
+      }
     }
-
-    updateEntityFields(promotionModel, existingPromotion);
-    try {
-      PromotionDAO.getInstance().update(mapToEntity(existingPromotion));
-      return 1;
-    } catch (SQLException e) {
-      e.printStackTrace();
-      throw new SQLException("Failed to update promotion: " + e.getMessage());
-    }
+    return updatedRows;
   }
 
   @Override

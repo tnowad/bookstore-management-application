@@ -6,9 +6,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.bookstore.interfaces.IDAO;
 import com.bookstore.model.CategoryModel;
 
-public class CategoryDAO implements DAOInterface<CategoryModel> {
+public class CategoryDAO implements IDAO<CategoryModel> {
 
   public static CategoryDAO getInstance() {
     return new CategoryDAO();

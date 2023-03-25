@@ -35,11 +35,11 @@ public class PublisherExcelUtil extends ExcelUtil {
         List<PublisherModel> publisherModels = convertToPublisherModelList(publisherData);
         PublisherBUS publisherBUS = new PublisherBUS();
         for (PublisherModel model : publisherModels) {
-          PublisherModel existingPublisher = publisherBUS.getPublisherModel(model.getId());
+          PublisherModel existingPublisher = publisherBUS.getModelById(model.getId());
           if (existingPublisher != null) {
             handleDuplicatePublisher(existingPublisher, model, publisherBUS);
           } else {
-            publisherBUS.insertModel(model);
+            publisherBUS.addModel(model);
           }
         }
         JOptionPane.showMessageDialog(null, "Data from " + file.getName() + " has been inserted successfully.");
@@ -93,7 +93,7 @@ public class PublisherExcelUtil extends ExcelUtil {
         publisherBUS.updateModel(newPublisher);
       } else {
         publisherBUS.deleteModel(existingPublisher.getId());
-        publisherBUS.insertModel(newPublisher);
+        publisherBUS.addModel(newPublisher);
       }
     }
   }

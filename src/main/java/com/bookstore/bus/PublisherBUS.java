@@ -6,9 +6,10 @@ import java.util.Collections;
 import java.util.List;
 
 import com.bookstore.dao.PublisherDAO;
+import com.bookstore.interfaces.IBUS;
 import com.bookstore.model.PublisherModel;
 
-public class PublisherBUS implements BUSInterface<PublisherModel> {
+public class PublisherBUS implements IBUS<PublisherModel> {
 
   private final List<PublisherModel> publisherList = new ArrayList<>();
 
@@ -78,19 +79,16 @@ public class PublisherBUS implements BUSInterface<PublisherModel> {
 
   @Override
   public int updateModel(PublisherModel publisherModel) throws SQLException, ClassNotFoundException {
-    PublisherModel existingPublisher = getModelById(publisherModel.getId());
-    if (existingPublisher == null) {
-      return 0;
+    int updatedRows = PublisherDAO.getInstance().update(publisherModel);
+    if (updatedRows > 0) {
+      for (int i = 0; i < publisherList.size(); i++) {
+        if (publisherList.get(i).getId() == publisherModel.getId()) {
+          publisherList.set(i, publisherModel);
+          break;
+        }
+      }
     }
-
-    updateEntityFields(publisherModel, existingPublisher);
-    try {
-      PublisherDAO.getInstance().update(mapToEntity(existingPublisher));
-      return 1;
-    } catch (SQLException e) {
-      e.printStackTrace();
-      throw new SQLException("Failed to update publisher: " + e.getMessage());
-    }
+    return updatedRows;
   }
 
   @Override

@@ -6,9 +6,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.bookstore.interfaces.IDAO;
 import com.bookstore.model.ProviderModel;
 
-public class ProviderDAO implements DAOInterface<ProviderModel> {
+public class ProviderDAO implements IDAO<ProviderModel> {
 
   public static ProviderDAO getInstance() {
     return new ProviderDAO();

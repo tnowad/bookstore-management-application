@@ -23,7 +23,7 @@ public class UserExcelUtil extends ExcelUtil {
   private static final String[] EXCEL_EXTENSIONS = { "xls", "xlsx", "xlsm" };
   private static final Logger LOGGER = Logger.getLogger(UserExcelUtil.class.getName());
 
-  public static void selectAndProcessUsersExcelFile() {
+  static void selectAndProcessUsersExcelFile() {
     JFileChooser fileChooser = new JFileChooser();
     FileNameExtensionFilter excelFilter = new FileNameExtensionFilter("Users", EXCEL_EXTENSIONS);
     fileChooser.setFileFilter(excelFilter);
@@ -38,11 +38,11 @@ public class UserExcelUtil extends ExcelUtil {
         List<UserModel> userModels = convertToUserModelList(userData);
         UserBUS userBUS = new UserBUS();
         for (UserModel model : userModels) {
-          UserModel existingUser = userBUS.getUserModel(model.getId());
+          UserModel existingUser = userBUS.getModelById(model.getId());
           if (existingUser != null) {
             handleDuplicateUser(existingUser, model, userBUS);
           } else {
-            userBUS.insertModel(model);
+            userBUS.addModel(model);
           }
         }
         JOptionPane.showMessageDialog(null, "Data from " + file.getName() + " has been inserted successfully.");
@@ -58,7 +58,7 @@ public class UserExcelUtil extends ExcelUtil {
     }
   }
 
-  private static void handleDuplicateUser(UserModel existingUser, UserModel newUser,
+  static void handleDuplicateUser(UserModel existingUser, UserModel newUser,
       UserBUS userBUS) throws ClassNotFoundException, SQLException {
     Object[] options = { "Update", "Delete" };
     int choice = JOptionPane.showOptionDialog(
@@ -102,7 +102,7 @@ public class UserExcelUtil extends ExcelUtil {
         userBUS.updateModel(newUser);
       } else {
         userBUS.deleteModel(existingUser.getId());
-        userBUS.insertModel(newUser);
+        userBUS.addModel(newUser);
       }
     }
   }
@@ -112,7 +112,7 @@ public class UserExcelUtil extends ExcelUtil {
     JOptionPane.showMessageDialog(null, "Error: " + message, title, JOptionPane.ERROR_MESSAGE);
   }
 
-  private static List<UserModel> convertToUserModelList(List<List<String>> data) throws IllegalArgumentException {
+  public static List<UserModel> convertToUserModelList(List<List<String>> data) throws IllegalArgumentException {
     List<UserModel> userModels = new ArrayList<>();
     for (List<String> row : data) {
       int id = Integer.parseInt(row.get(0));

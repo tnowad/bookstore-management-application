@@ -1,49 +1,48 @@
 package com.bookstore.bus;
 
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import com.bookstore.dao.PaymentDAO;
+import com.bookstore.interfaces.IBUS;
 import com.bookstore.model.PaymentModel;
+import com.bookstore.model.PaymentModel.PaymentMethod;
+import com.bookstore.model.PaymentModel.PaymentStatus;
 
-public class PaymentBUS extends BUSInterface<PaymentModel> {
+public class PaymentBUS implements IBUS<PaymentModel> {
 
   private final List<PaymentModel> paymentList = new ArrayList<>();
-  private final PaymentDAO paymentDAO = PaymentDAO.getInstance();
 
   public PaymentBUS() throws SQLException, ClassNotFoundException {
-    this.paymentList.addAll(paymentDAO.readDatabase());
+    this.paymentList.addAll(PaymentDAO.getInstance().readDatabase());
   }
 
   @Override
-  protected ArrayList<PaymentModel> readFromDatabase() throws SQLException, ClassNotFoundException {
-    return paymentDAO.readDatabase();
-  }
-
-  @Override
-  protected int getId(PaymentModel paymentModel) {
-    return paymentModel.getId();
-  }
-
-  public PaymentModel getPaymentModel(int id) {
-    return getModel(id);
-  }
-
-  public List<PaymentModel> getPaymentList() {
+  public List<PaymentModel> getAllModels() {
     return Collections.unmodifiableList(paymentList);
   }
 
   @Override
-  protected PaymentModel mapToEntity(PaymentModel from) {
+  public PaymentModel getModelById(int id) throws SQLException, ClassNotFoundException {
+    for (PaymentModel paymentModel : paymentList) {
+      if (paymentModel.getId() == id) {
+        return paymentModel;
+      }
+    }
+    return null;
+  }
+
+  private PaymentModel mapToEntity(PaymentModel from) {
     PaymentModel to = new PaymentModel();
     updateEntityFields(from, to);
     return to;
   }
 
-  @Override
-  protected void updateEntityFields(PaymentModel from, PaymentModel to) {
+  private void updateEntityFields(PaymentModel from, PaymentModel to) {
+    to.setId(from.getId());
     to.setOrderId(from.getOrderId());
     to.setUserId(from.getUserId());
     to.setAmount(from.getAmount());
@@ -55,57 +54,7 @@ public class PaymentBUS extends BUSInterface<PaymentModel> {
   }
 
   @Override
-  protected boolean checkFilter(PaymentModel paymentModel, String value, String column) {
-    switch (column.toLowerCase()) {
-      case "id" -> {
-        return paymentModel.getId() == Integer.parseInt(value);
-      }
-      case "order_id" -> {
-        return paymentModel.getOrderId() == Integer.parseInt(value);
-      }
-      case "user_id" -> {
-        return paymentModel.getUserId() == Integer.parseInt(value);
-      }
-      case "amount" -> {
-        return paymentModel.getAmount() == Integer.parseInt(value);
-      }
-      case "payment_method" -> {
-        return paymentModel.getPaymentMethod().toString().equalsIgnoreCase(value);
-      }
-      case "payment_method_id" -> {
-        return paymentModel.getPaymentMethodId() == Integer.parseInt(value);
-      }
-      case "status" -> {
-        return paymentModel.getStatus().toString().equalsIgnoreCase(value);
-      }
-      case "created_at" -> {
-        long createdAtTimestamp = paymentModel.getCreatedAt().getTime() / 1000;
-        return createdAtTimestamp == Long.parseLong(value);
-      }
-      case "updated_at" -> {
-        long updatedAtTimestamp = paymentModel.getUpdatedAt().getTime() / 1000;
-        return updatedAtTimestamp == Long.parseLong(value);
-      }
-      default -> {
-        return checkAllColumns(paymentModel, value);
-      }
-    }
-  }
-
-  private boolean checkAllColumns(PaymentModel paymentModel, String value) {
-    return paymentModel.getId() == Integer.parseInt(value)
-        || paymentModel.getOrderId() == Integer.parseInt(value)
-        || paymentModel.getUserId() == Integer.parseInt(value)
-        || paymentModel.getAmount() == Integer.parseInt(value)
-        || paymentModel.getPaymentMethod().toString().equalsIgnoreCase(value)
-        || paymentModel.getPaymentMethodId() == Integer.parseInt(value)
-        || paymentModel.getStatus().toString().equalsIgnoreCase(value)
-        || paymentModel.getCreatedAt().toString().contains(value)
-        || paymentModel.getUpdatedAt().toString().contains(value);
-  }
-
-  @Override
-  public int insertModel(PaymentModel paymentModel) throws SQLException, ClassNotFoundException {
+  public int addModel(PaymentModel paymentModel) throws SQLException, ClassNotFoundException {
     if (paymentModel.getOrderId() <= 0) {
       throw new IllegalArgumentException("Order ID must be greater than 0!");
     }
@@ -115,24 +64,64 @@ public class PaymentBUS extends BUSInterface<PaymentModel> {
     if (paymentModel.getAmount() <= 0) {
       throw new IllegalArgumentException("Amount must be greater than 0!");
     }
-    if (paymentModel.getPaymentMethod() == null) {
-      throw new IllegalArgumentException("Payment method cannot be null or empty!");
+    if (paymentModel.getPaymentMethodId() <= 0) {
+      throw new IllegalArgumentException("Payment method ID must be greater than 0!");
     }
-    return add(paymentModel);
+
+    paymentModel.setPaymentMethod(
+        paymentModel.getPaymentMethod() != null ? paymentModel.getPaymentMethod() : PaymentMethod.cash);
+    paymentModel.setStatus(paymentModel.getStatus() != null ? paymentModel.getStatus() : PaymentStatus.pending);
+
+    int id = PaymentDAO.getInstance().insert(mapToEntity(paymentModel));
+    paymentModel.setId(id);
+    paymentList.add(paymentModel);
+    return id;
   }
 
   @Override
   public int updateModel(PaymentModel paymentModel) throws SQLException, ClassNotFoundException {
-    return update(paymentModel);
+    int updatedRows = PaymentDAO.getInstance().update(paymentModel);
+    if (updatedRows > 0) {
+      for (int i = 0; i < paymentList.size(); i++) {
+        if (paymentList.get(i).getOrderId() == paymentModel.getOrderId()) {
+          paymentList.set(i, paymentModel);
+          break;
+        }
+      }
+    }
+    return updatedRows;
+  }
+
+  public int updateStatus(int orderId, PaymentStatus status) throws ClassNotFoundException, SQLException {
+    int success = PaymentDAO.getInstance().updateStatus(orderId, status);
+    if (success == 1) {
+      for (PaymentModel payment : paymentList) {
+        if (payment.getOrderId() == orderId) {
+          payment.setStatus(status);
+          payment.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
+          return 1;
+        }
+      }
+    }
+    return 0;
   }
 
   @Override
   public int deleteModel(int id) throws SQLException, ClassNotFoundException {
-    return delete(id);
+    PaymentModel paymentModel = getModelById(id);
+    if (paymentModel == null) {
+      throw new IllegalArgumentException("Payment with ID " + id + " does not exist.");
+    }
+    int deletedRows = PaymentDAO.getInstance().delete(id);
+    if (deletedRows > 0) {
+      paymentList.remove(paymentModel);
+    }
+    return deletedRows;
   }
 
-  public List<PaymentModel> searchModel(String value, String columns) {
-    return search(value, columns);
+  @Override
+  public List<PaymentModel> searchModel(String value, String columns) throws SQLException, ClassNotFoundException {
+    throw new UnsupportedOperationException("Search is not supported for PaymentBUS.");
   }
 
 }

@@ -6,9 +6,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.bookstore.interfaces.IDAO;
 import com.bookstore.model.*;
 
-public class CustomerDAO implements DAOInterface<CustomerModel> {
+public class CustomerDAO implements IDAO<CustomerModel> {
 
   public static CustomerDAO getInstance() {
     return new CustomerDAO();

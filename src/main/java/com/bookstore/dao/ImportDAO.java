@@ -1,5 +1,6 @@
 package com.bookstore.dao;
 
+import com.bookstore.interfaces.IDAO;
 import com.bookstore.model.ImportModel;
 
 import java.math.BigDecimal;
@@ -10,7 +11,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ImportDAO implements DAOInterface<ImportModel> {
+public class ImportDAO implements IDAO<ImportModel> {
 
   public static ImportDAO getInstance() {
     return new ImportDAO();

@@ -36,11 +36,11 @@ public class EmployeeExcelUtil extends ExcelUtil {
         List<EmployeeModel> employeeModels = convertToEmployeeModelList(employeeData);
         EmployeeBUS employeeBUS = new EmployeeBUS();
         for (EmployeeModel model : employeeModels) {
-          EmployeeModel existingEmployee = employeeBUS.getEmployeeModel(model.getUserId());
+          EmployeeModel existingEmployee = employeeBUS.getModelById(model.getUserId());
           if (existingEmployee != null) {
             handleDuplicateEmployee(existingEmployee, model, employeeBUS);
           } else {
-            employeeBUS.insertModel(model);
+            employeeBUS.addModel(model);
           }
         }
         JOptionPane.showMessageDialog(null, "Data from " + file.getName() + " has been inserted successfully.");
@@ -96,7 +96,7 @@ public class EmployeeExcelUtil extends ExcelUtil {
         employeeBUS.updateModel(newEmployee);
       } else {
         employeeBUS.deleteModel(existingEmployee.getUserId());
-        employeeBUS.insertModel(newEmployee);
+        employeeBUS.addModel(newEmployee);
       }
     }
   }

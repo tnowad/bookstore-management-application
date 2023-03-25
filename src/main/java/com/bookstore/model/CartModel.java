@@ -10,6 +10,13 @@ public class CartModel {
   private Timestamp expires;
   private int promotionId;
 
+  public enum Status {
+    shopping,
+    pending,
+    reject,
+    accept;
+  }
+
   public CartModel() {
   }
 
@@ -68,12 +75,5 @@ public class CartModel {
 
   public void setPromotionId(Integer promotionId) {
     this.promotionId = promotionId;
-  }
-
-  public enum Status {
-    SHOPPING,
-    PENDING,
-    REJECT,
-    ACCEPT;
   }
 }

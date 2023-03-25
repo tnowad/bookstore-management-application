@@ -35,11 +35,11 @@ public class CategoryExcelReader extends ExcelUtil {
         List<CategoryModel> categoryModels = convertToCategoryModelList(categoryData);
         CategoryBUS categoryBUS = new CategoryBUS();
         for (CategoryModel model : categoryModels) {
-          CategoryModel existingCategory = categoryBUS.getCategoryModel(model.getId());
+          CategoryModel existingCategory = categoryBUS.getModelById(model.getId());
           if (existingCategory != null) {
             handleDuplicateCategory(existingCategory, model, categoryBUS);
           } else {
-            categoryBUS.insertModel(model);
+            categoryBUS.addModel(model);
           }
         }
         JOptionPane.showMessageDialog(null, "Data from " + file.getName() + " has been inserted successfully.");
@@ -99,7 +99,7 @@ public class CategoryExcelReader extends ExcelUtil {
         categoryBUS.updateModel(newCategory);
       } else {
         categoryBUS.deleteModel(existingCategory.getId());
-        categoryBUS.insertModel(newCategory);
+        categoryBUS.addModel(newCategory);
       }
     }
   }

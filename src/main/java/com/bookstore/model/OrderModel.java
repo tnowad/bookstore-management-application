@@ -14,8 +14,8 @@ public class OrderModel {
   private Status status;
 
   public enum Status {
-    PENDING,
-    SOLVED;
+    pending,
+    solved;
   }
 
   public OrderModel() {

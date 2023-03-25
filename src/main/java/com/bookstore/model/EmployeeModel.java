@@ -6,6 +6,13 @@ public class EmployeeModel {
   private EmployeeType employeeType;
   private String contactInformation;
 
+  public enum EmployeeType {
+    employee_manager,
+    employee_sales,
+    employee_inventory,
+    employee_order
+  }
+
   public EmployeeModel(int userId, int salary, EmployeeType employeeType, String contactInformation) {
     this.userId = userId;
     this.salary = salary;
@@ -48,10 +55,4 @@ public class EmployeeModel {
     this.contactInformation = contactInformation;
   }
 
-  public enum EmployeeType {
-    EMPLOYEE_MANAGER,
-    EMPLOYEE_SALES,
-    EMPLOYEE_INVENTORY,
-    EMPLOYEE_ORDER
-  }
 }
