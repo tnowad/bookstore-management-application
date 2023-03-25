@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package com.bookstore.gui.main;
 
 import java.awt.Color;
@@ -17,7 +13,6 @@ import javax.swing.JLayeredPane;
 import javax.swing.UIManager;
 
 import com.bookstore.gui.component.Header;
-import com.bookstore.gui.component.Layout;
 import com.bookstore.gui.component.Menu;
 import com.bookstore.gui.form.MainForm;
 import com.bookstore.gui.model.MenuItemModel;
@@ -39,24 +34,25 @@ public class Main extends JFrame {
     initFrame();
   }
 
-  public Main(Layout layout) {
+  public Main(Menu menu, Header header, MainForm main) {
+
+    this.menu = menu;
+    this.header = header;
+    this.main = main;
+
     initComponents();
     initFrame();
-    initLayout(layout);
-  }
-
-  private void initLayout(Layout layout) {
-    for (MenuModel menuModel : layout.getMenuModel()) {
-      menu.addMenu(menuModel);
-    }
   }
 
   private void initFrame() {
     layout = new MigLayout("fill", "0[]0[100%, fill]0", "0[fill, top]0");
     background.setLayout(layout);
-    menu = new Menu();
-    header = new Header();
-    main = new MainForm();
+    if (menu == null)
+      menu = new Menu();
+    if (header == null)
+      header = new Header();
+    if (main == null)
+      main = new MainForm();
 
     background.add(menu, "w 230!");
     background.add(header, "h 50!, w 1050!");
