@@ -11,7 +11,7 @@ import java.util.List;
 import com.bookstore.dao.ImportDAO;
 import com.bookstore.model.ImportModel;
 
-public class ImportBUS extends BUSAbstract<ImportModel> {
+public class ImportBUS extends BUSInterface<ImportModel> {
 
   private final List<ImportModel> importList = new ArrayList<>();
   private final ImportDAO importDAO = ImportDAO.getInstance();

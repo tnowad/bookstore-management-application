@@ -9,7 +9,7 @@ import java.util.List;
 import com.bookstore.dao.CartDAO;
 import com.bookstore.model.CartModel;
 
-public class CartBUS extends BUSAbstract<CartModel> {
+public class CartBUS extends BUSInterface<CartModel> {
 
   private final List<CartModel> cartList = new ArrayList<>();
   private final CartDAO cartDAO = CartDAO.getInstance();

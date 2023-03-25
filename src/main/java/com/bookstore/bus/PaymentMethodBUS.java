@@ -9,7 +9,7 @@ import java.util.List;
 import com.bookstore.dao.PaymentMethodDAO;
 import com.bookstore.model.PaymentMethodModel;
 
-public class PaymentMethodBUS extends BUSAbstract<PaymentMethodModel> {
+public class PaymentMethodBUS extends BUSInterface<PaymentMethodModel> {
 
   private final List<PaymentMethodModel> paymentMethodList = new ArrayList<>();
   private final PaymentMethodDAO paymentMethodDAO = PaymentMethodDAO.getInstance();

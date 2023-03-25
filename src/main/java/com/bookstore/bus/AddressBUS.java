@@ -8,7 +8,7 @@ import java.util.List;
 import com.bookstore.dao.AddressDAO;
 import com.bookstore.model.AddressModel;
 
-public class AddressBUS extends BUSAbstract<AddressModel> {
+public class AddressBUS extends BUSInterface<AddressModel> {
 
   private final List<AddressModel> addressList = new ArrayList<>();
   private final AddressDAO addressDAO = AddressDAO.getInstance();

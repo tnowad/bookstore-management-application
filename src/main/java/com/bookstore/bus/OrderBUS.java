@@ -10,7 +10,7 @@ import java.util.List;
 import com.bookstore.dao.OrderDAO;
 import com.bookstore.model.OrderModel;
 
-public class OrderBUS extends BUSAbstract<OrderModel> {
+public class OrderBUS extends BUSInterface<OrderModel> {
 
   private final List<OrderModel> orderList = new ArrayList<>();
   private final OrderDAO orderDAO = OrderDAO.getInstance();

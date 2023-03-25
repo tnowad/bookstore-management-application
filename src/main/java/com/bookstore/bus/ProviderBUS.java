@@ -8,7 +8,7 @@ import java.util.List;
 import com.bookstore.dao.ProviderDAO;
 import com.bookstore.model.ProviderModel;
 
-public class ProviderBUS extends BUSAbstract<ProviderModel> {
+public class ProviderBUS extends BUSInterface<ProviderModel> {
 
   private final List<ProviderModel> providerList = new ArrayList<>();
   private final ProviderDAO providerDAO = ProviderDAO.getInstance();

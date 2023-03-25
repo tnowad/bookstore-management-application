@@ -8,7 +8,7 @@ import java.util.List;
 import com.bookstore.dao.CategoryDAO;
 import com.bookstore.model.CategoryModel;
 
-public class CategoryBUS extends BUSAbstract<CategoryModel> {
+public class CategoryBUS extends BUSInterface<CategoryModel> {
 
   private final List<CategoryModel> categoryList = new ArrayList<>();
   private final CategoryDAO categoryDAO = CategoryDAO.getInstance();

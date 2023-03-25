@@ -8,7 +8,7 @@ import java.util.List;
 import com.bookstore.dao.AuthorDAO;
 import com.bookstore.model.AuthorModel;
 
-public class AuthorBUS extends BUSAbstract<AuthorModel> {
+public class AuthorBUS extends BUSInterface<AuthorModel> {
 
   private final List<AuthorModel> authorList = new ArrayList<>();
   private final AuthorDAO authorDAO = AuthorDAO.getInstance();

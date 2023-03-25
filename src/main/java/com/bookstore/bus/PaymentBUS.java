@@ -8,7 +8,7 @@ import java.util.List;
 import com.bookstore.dao.PaymentDAO;
 import com.bookstore.model.PaymentModel;
 
-public class PaymentBUS extends BUSAbstract<PaymentModel> {
+public class PaymentBUS extends BUSInterface<PaymentModel> {
 
   private final List<PaymentModel> paymentList = new ArrayList<>();
   private final PaymentDAO paymentDAO = PaymentDAO.getInstance();

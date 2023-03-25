@@ -12,7 +12,7 @@ import com.bookstore.model.EmployeeModel.EmployeeType;
 import com.bookstore.model.UserModel;
 import com.bookstore.model.UserModel.Status;
 
-public class EmployeeBUS extends BUSAbstract<EmployeeModel> {
+public class EmployeeBUS extends BUSInterface<EmployeeModel> {
   private final List<EmployeeModel> employeeList = new ArrayList<>();
   private final EmployeeDAO employeeDao = EmployeeDAO.getInstance();
 

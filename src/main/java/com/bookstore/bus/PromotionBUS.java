@@ -8,7 +8,7 @@ import java.util.List;
 import com.bookstore.dao.PromotionDAO;
 import com.bookstore.model.PromotionModel;
 
-public class PromotionBUS extends BUSAbstract<PromotionModel> {
+public class PromotionBUS extends BUSInterface<PromotionModel> {
 
   private final List<PromotionModel> promotionList = new ArrayList<>();
   private final PromotionDAO promotionDAO = PromotionDAO.getInstance();

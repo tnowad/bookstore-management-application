@@ -8,7 +8,7 @@ import java.util.List;
 import com.bookstore.dao.ShippingDAO;
 import com.bookstore.model.ShippingModel;
 
-public class ShippingBUS extends BUSAbstract<ShippingModel> {
+public class ShippingBUS extends BUSInterface<ShippingModel> {
 
   private final List<ShippingModel> shippingList = new ArrayList<>();
   private final ShippingDAO shippingDAO = ShippingDAO.getInstance();
