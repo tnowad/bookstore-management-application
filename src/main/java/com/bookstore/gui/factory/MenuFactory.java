@@ -32,7 +32,7 @@ public class MenuFactory {
               IconFactory.createIcon("product"),
               "Product",
               MenuItemFactory.createMenuItemModel(
-                  "customer.search",
+                  "customer.product",
                   "customer.cart")));
       menu.addMenu(
           new MenuModel(
