@@ -39,7 +39,7 @@ public class UserDAO implements IDAO<UserModel> {
   @Override
   public ArrayList<UserModel> readDatabase() throws SQLException, ClassNotFoundException {
     ArrayList<UserModel> userList = new ArrayList<>();
-    
+
     try (ResultSet rs = DatabaseConnect.executeQuery("SELECT * FROM users")) {
       while (rs.next()) {
         UserModel userModel = createUserModelFromResultSet(rs);
@@ -79,13 +79,8 @@ public class UserDAO implements IDAO<UserModel> {
 
   @Override
   public int delete(int id) throws SQLException, ClassNotFoundException {
-<<<<<<< HEAD
-    String updateStatusSql = "UPDATE users SET status = ? WHERE username = ?";
-    Object[] args = { UserModel.Status.DELETED, id };
-=======
     String updateStatusSql = "UPDATE users SET status = ? WHERE id = ?";
     Object[] args = { UserModel.Status.banned.toString().toLowerCase(), id };
->>>>>>> 563e04fb5c081508ef69d168f535bf84dcec4cc4
     return DatabaseConnect.executeUpdate(updateStatusSql, args);
   }
 
