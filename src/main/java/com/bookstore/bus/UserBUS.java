@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import com.bookstore.dao.UserDAO;
 import com.bookstore.interfaces.IBUS;
@@ -167,9 +168,9 @@ public class UserBUS implements IBUS<UserModel> {
     if (!hasPhone && !hasEmail) {
       throw new IllegalArgumentException("At least one of 'phone' or 'email' is required.");
     }
-    // if (hasEmail && !isValidEmailAddress(userModel.getEmail())) {
-    // throw new IllegalArgumentException("Invalid email address.");
-    // }
+    if (hasEmail && !isValidEmailAddress(userModel.getEmail())) {
+      throw new IllegalArgumentException("Invalid email address.");
+    }
     userModel.setRole(userModel.getRole() != null ? userModel.getRole() : Role.customer);
     userModel.setStatus(userModel.getStatus() != null ? userModel.getStatus() : Status.active);
 
@@ -179,9 +180,20 @@ public class UserBUS implements IBUS<UserModel> {
     return id;
   }
 
-  // private boolean isValidEmailAddress(String email) {
-  // return true;
-  // }
+  private static boolean isValidEmailAddress(String email) {
+    Pattern pattern = Pattern.compile("^\\S+@\\S+\\.\\S+$");
+
+    if (email == null) {
+      return false;
+    }
+
+    return pattern.matcher(email).matches();
+  }
+
+  public static void main(String[] args) {
+
+    System.out.println(UserBUS.isValidEmailAddress("tnow@gn.com"));
+  }
 
   @Override
   public int updateModel(UserModel userModel) throws SQLException, ClassNotFoundException {

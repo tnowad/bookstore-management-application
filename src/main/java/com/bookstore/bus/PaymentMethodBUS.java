@@ -1,9 +1,9 @@
 package com.bookstore.bus;
 
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 import com.bookstore.dao.PaymentMethodDAO;
@@ -83,7 +83,7 @@ public class PaymentMethodBUS implements IBUS<PaymentMethodModel> {
           }
           break;
         case "expiration_date":
-          if (paymentMethodModel.getExpirationDate().equals(Date.parse(value))) {
+          if (new SimpleDateFormat().format(paymentMethodModel.getExpirationDate()).equals(value)) {
             return true;
           }
           break;
@@ -107,7 +107,7 @@ public class PaymentMethodBUS implements IBUS<PaymentMethodModel> {
         || paymentMethodModel.getPaymentId().toLowerCase().contains(value.toLowerCase())
         || paymentMethodModel.getCardNumber().toLowerCase().contains(value.toLowerCase())
         || paymentMethodModel.getCardHolder().toLowerCase().contains(value.toLowerCase())
-        || paymentMethodModel.getExpirationDate().equals(Date.parse(value))
+        || new SimpleDateFormat().format(paymentMethodModel.getExpirationDate()).equals(value)
         || paymentMethodModel.getCustomerId() == Integer.parseInt(value);
   }
 
