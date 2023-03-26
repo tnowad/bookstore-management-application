@@ -91,15 +91,15 @@ public class Menu extends JPanel {
 
     scrollPane.setViewportView(panel);
 
-    GroupLayout MenuLayout = new GroupLayout(this);
-    this.setLayout(MenuLayout);
-    MenuLayout.setHorizontalGroup(
-        MenuLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+    GroupLayout menuLayout = new GroupLayout(this);
+    this.setLayout(menuLayout);
+    menuLayout.setHorizontalGroup(
+        menuLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
             .addComponent(profile, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE));
-    MenuLayout.setVerticalGroup(
-        MenuLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGroup(GroupLayout.Alignment.TRAILING, MenuLayout.createSequentialGroup()
+    menuLayout.setVerticalGroup(
+        menuLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(GroupLayout.Alignment.TRAILING, menuLayout.createSequentialGroup()
                 .addComponent(profile, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
                     GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)

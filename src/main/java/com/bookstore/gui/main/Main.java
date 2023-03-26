@@ -1,5 +1,7 @@
 package com.bookstore.gui.main;
 
+import java.awt.BorderLayout;
+
 import javax.swing.GroupLayout;
 import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
@@ -34,8 +36,7 @@ public class Main extends JFrame {
   }
 
   private void initFrame() {
-    MigLayout layout = new MigLayout("fill", "0[]0[100%, fill]0", "0[fill, top]0");
-    backgroundLayer.setLayout(layout);
+    backgroundLayer.setLayout(new BorderLayout());
     if (menu == null)
       menu = new Menu();
     if (header == null)
@@ -43,10 +44,9 @@ public class Main extends JFrame {
     if (mainForm == null)
       mainForm = MainForm.getInstance();
 
-    backgroundLayer.add(menu, "w 230!");
-    backgroundLayer.add(header, "h 50!, growx, wrap");
-    backgroundLayer.add(mainForm, "grow");
-    mainForm.getInstance().showForm(new com.bookstore.gui.form.customer.CustomerForm());
+    backgroundLayer.add(menu, BorderLayout.WEST);
+    backgroundLayer.add(header, BorderLayout.NORTH);
+    backgroundLayer.add(mainForm, BorderLayout.CENTER);
   }
 
   private void initComponents() {

@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "MyLayout",
+            "request": "launch",
+            "mainClass": "com.bookstore.MyLayout",
+            "projectName": "bookstore-management-application"
+        },
+        {
+            "type": "java",
             "name": "ScrollBarCustom",
             "request": "launch",
             "mainClass": "com.bookstore.gui.swing.scrollbar.ScrollBarCustom",
