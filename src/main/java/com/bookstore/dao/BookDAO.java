@@ -28,7 +28,7 @@ public class BookDAO implements IDAO<BookModel> {
         rs.getString("image"),
         rs.getInt("price"),
         rs.getInt("quantity"),
-        BookModel.Status.valueOf(rs.getString("status").toUpperCase()),
+        BookModel.Status.valueOf(rs.getString("status").toLowerCase()),
         rs.getInt("publisher_id"),
         rs.getInt("author_id"));
   }
@@ -81,15 +81,26 @@ public class BookDAO implements IDAO<BookModel> {
   }
 
   @Override
-  public List<BookModel> search(String condition, String columnName)
+  public List<BookModel> search(String condition, String[] columnNames)
       throws SQLException, ClassNotFoundException {
-    if (columnName == null || columnName.isEmpty()) {
-      throw new IllegalArgumentException("Column name cannot be empty");
-    } else if (condition == null || condition.isEmpty()) {
-      throw new IllegalArgumentException("Condition cannot be empty");
+
+    if (condition == null || condition.trim().isEmpty()) {
+      throw new IllegalArgumentException("Search condition cannot be empty or null");
     }
 
-    String query = "SELECT * FROM books WHERE " + columnName + " LIKE ?";
+    String query;
+    if (columnNames == null || columnNames.length == 0) {
+      // Search all columns
+      query = "SELECT * FROM books WHERE CONCAT(isbn, title, description, image, price, quantity, status, publisher_id, author_id) LIKE ?";
+    } else if (columnNames.length == 1) {
+      // Search specific column in books table
+      String column = columnNames[0];
+      query = "SELECT * FROM books WHERE " + column + " LIKE ?";
+    } else {
+      // Search specific columns in books table
+      query = "SELECT isbn, title, description, image, price, quantity, status, publisher_id, author_id FROM books WHERE CONCAT("
+          + String.join(", ", columnNames) + ") LIKE ?";
+    }
     try (PreparedStatement pst = DatabaseConnect.getPreparedStatement(query, "%" + condition + "%")) {
       try (ResultSet rs = pst.executeQuery()) {
         List<BookModel> bookList = new ArrayList<>();

@@ -13,8 +13,16 @@ import com.bookstore.model.EmployeeModel.EmployeeType;
 public class EmployeeBUS implements IBUS<EmployeeModel> {
 
   private final List<EmployeeModel> employeeList = new ArrayList<>();
+  private static EmployeeBUS instance;
 
-  public EmployeeBUS() throws SQLException, ClassNotFoundException {
+  public static EmployeeBUS getInstance() throws ClassNotFoundException, SQLException {
+    if (instance == null) {
+      instance = new EmployeeBUS();
+    }
+    return instance;
+  }
+
+  private EmployeeBUS() throws SQLException, ClassNotFoundException {
     this.employeeList.addAll(EmployeeDAO.getInstance().readDatabase());
   }
 
@@ -50,14 +58,37 @@ public class EmployeeBUS implements IBUS<EmployeeModel> {
     to.setContactInformation(from.getContactInformation());
   }
 
-  private boolean checkFilter(EmployeeModel employeeModel, String value, String column) {
-    return switch (column.toLowerCase()) {
-      case "user_id" -> employeeModel.getUserId() == Integer.parseInt(value);
-      case "salary" -> employeeModel.getSalary() == Integer.parseInt(value);
-      case "employee_type" -> employeeModel.getEmployeeType().toString().toLowerCase().contains(value.toLowerCase());
-      case "contact_information" -> employeeModel.getContactInformation().toLowerCase().contains(value.toLowerCase());
-      default -> checkAllColumns(employeeModel, value);
-    };
+  private boolean checkFilter(EmployeeModel employeeModel, String value, String[] columns) {
+    for (String column : columns) {
+      switch (column.toLowerCase()) {
+        case "user_id":
+          if (employeeModel.getUserId() == Integer.parseInt(value)) {
+            return true;
+          }
+          break;
+        case "salary":
+          if (employeeModel.getSalary() == Integer.parseInt(value)) {
+            return true;
+          }
+          break;
+        case "employee_type":
+          if (employeeModel.getEmployeeType().toString().toLowerCase().contains(value.toLowerCase())) {
+            return true;
+          }
+          break;
+        case "contact_information":
+          if (employeeModel.getContactInformation().toLowerCase().contains(value.toLowerCase())) {
+            return true;
+          }
+          break;
+        default:
+          if (checkAllColumns(employeeModel, value)) {
+            return true;
+          }
+          break;
+      }
+    }
+    return false;
   }
 
   private boolean checkAllColumns(EmployeeModel employeeModel, String value) {
@@ -128,7 +159,7 @@ public class EmployeeBUS implements IBUS<EmployeeModel> {
   }
 
   @Override
-  public List<EmployeeModel> searchModel(String value, String columns) throws SQLException, ClassNotFoundException {
+  public List<EmployeeModel> searchModel(String value, String[] columns) throws SQLException, ClassNotFoundException {
     List<EmployeeModel> results = new ArrayList<>();
     try {
       List<EmployeeModel> entities = EmployeeDAO.getInstance().search(value, columns);

@@ -11,16 +11,20 @@ import com.bookstore.model.EmployeeModel;
 import com.bookstore.model.EmployeeModel.EmployeeType;
 
 public class EmployeeDAO implements IDAO<EmployeeModel> {
+  private static EmployeeDAO instance;
 
   public static EmployeeDAO getInstance() {
-    return new EmployeeDAO();
+    if (instance == null) {
+      instance = new EmployeeDAO();
+    }
+    return instance;
   }
 
   private EmployeeModel createEmployeeModelFromResultSet(ResultSet rs) throws SQLException {
     return new EmployeeModel(
         rs.getInt("user_id"),
         rs.getInt("salary"),
-        EmployeeType.valueOf(rs.getString("employee_type").toUpperCase()),
+        EmployeeType.valueOf(rs.getString("employee_type").toLowerCase()),
         rs.getString("contact_information"));
   }
 
@@ -66,15 +70,27 @@ public class EmployeeDAO implements IDAO<EmployeeModel> {
   }
 
   @Override
-  public List<EmployeeModel> search(String condition, String columnName)
+  public List<EmployeeModel> search(String condition, String[] columnNames)
       throws SQLException, ClassNotFoundException {
-    if (columnName == null || columnName.isEmpty()) {
-      throw new IllegalArgumentException("Column name cannot be empty");
-    } else if (condition == null || condition.isEmpty()) {
-      throw new IllegalArgumentException("Condition cannot be empty");
+
+    if (condition == null || condition.trim().isEmpty()) {
+      throw new IllegalArgumentException("Search condition cannot be empty or null");
     }
 
-    String query = "SELECT * FROM employees WHERE " + columnName + " LIKE ?";
+    String query;
+    if (columnNames == null || columnNames.length == 0) {
+      // Search all columns
+      query = "SELECT * FROM employees WHERE CONCAT(user_id, salary, employee_type, contact_information) LIKE ?";
+    } else if (columnNames.length == 1) {
+      // Search specific column in employees table
+      String column = columnNames[0];
+      query = "SELECT * FROM employees WHERE " + column + " LIKE ?";
+    } else {
+      // Search specific columns in employees table
+      query = "SELECT user_id, salary, employee_type, contact_information FROM employees WHERE CONCAT("
+          + String.join(", ", columnNames) + ") LIKE ?";
+    }
+
     try (PreparedStatement pst = DatabaseConnect.getPreparedStatement(query, "%" + condition + "%")) {
       try (ResultSet rs = pst.executeQuery()) {
         List<EmployeeModel> employeesList = new ArrayList<>();

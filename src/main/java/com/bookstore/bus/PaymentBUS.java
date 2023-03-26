@@ -15,8 +15,16 @@ import com.bookstore.model.PaymentModel.PaymentStatus;
 public class PaymentBUS implements IBUS<PaymentModel> {
 
   private final List<PaymentModel> paymentList = new ArrayList<>();
+  private static PaymentBUS instance;
 
-  public PaymentBUS() throws SQLException, ClassNotFoundException {
+  public static PaymentBUS getInstance() throws ClassNotFoundException, SQLException {
+    if (instance == null) {
+      instance = new PaymentBUS();
+    }
+    return instance;
+  }
+
+  private PaymentBUS() throws SQLException, ClassNotFoundException {
     this.paymentList.addAll(PaymentDAO.getInstance().readDatabase());
   }
 
@@ -120,7 +128,7 @@ public class PaymentBUS implements IBUS<PaymentModel> {
   }
 
   @Override
-  public List<PaymentModel> searchModel(String value, String columns) throws SQLException, ClassNotFoundException {
+  public List<PaymentModel> searchModel(String value, String[] columns) throws SQLException, ClassNotFoundException {
     throw new UnsupportedOperationException("Search is not supported for PaymentBUS.");
   }
 

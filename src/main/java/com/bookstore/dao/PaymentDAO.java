@@ -12,8 +12,13 @@ import com.bookstore.model.PaymentModel.*;
 
 public class PaymentDAO implements IDAO<PaymentModel> {
 
+  private static PaymentDAO instance;
+
   public static PaymentDAO getInstance() {
-    return new PaymentDAO();
+    if (instance == null) {
+      instance = new PaymentDAO();
+    }
+    return instance;
   }
 
   private PaymentModel createPaymentModelFromResultSet(ResultSet rs) throws SQLException {
@@ -73,15 +78,27 @@ public class PaymentDAO implements IDAO<PaymentModel> {
   }
 
   @Override
-  public List<PaymentModel> search(String condition, String columnName)
+  public List<PaymentModel> search(String condition, String[] columnNames)
       throws SQLException, ClassNotFoundException {
-    if (columnName == null || columnName.isEmpty()) {
-      throw new IllegalArgumentException("Column name cannot be empty");
-    } else if (condition == null || condition.isEmpty()) {
-      throw new IllegalArgumentException("Condition cannot be empty");
+
+    if (condition == null || condition.trim().isEmpty()) {
+      throw new IllegalArgumentException("Search condition cannot be empty or null");
     }
 
-    String query = "SELECT * FROM payments WHERE " + columnName + " LIKE ?";
+    String query;
+    if (columnNames == null || columnNames.length == 0) {
+      // Search all columns
+      query = "SELECT * FROM payments WHERE CONCAT(id, order_id, user_id, amount, payment_method, payment_method_id, status, created_at, updated_at) LIKE ?";
+    } else if (columnNames.length == 1) {
+      // Search specific column in payments table
+      String column = columnNames[0];
+      query = "SELECT * FROM payments WHERE " + column + " LIKE ?";
+    } else {
+      // Search specific columns in payments table
+      query = "SELECT id, order_id, user_id, amount, payment_method, payment_method_id, status, created_at, updated_at FROM payments WHERE CONCAT("
+          + String.join(", ", columnNames) + ") LIKE ?";
+    }
+
     try (PreparedStatement pst = DatabaseConnect.getPreparedStatement(query, "%" + condition + "%")) {
       try (ResultSet rs = pst.executeQuery()) {
         List<PaymentModel> paymentList = new ArrayList<>();

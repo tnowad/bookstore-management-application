@@ -12,8 +12,16 @@ import com.bookstore.model.CategoryModel;
 public class CategoryBUS implements IBUS<CategoryModel> {
 
   private final List<CategoryModel> categoryList = new ArrayList<>();
+  private static CategoryBUS instance;
 
-  public CategoryBUS() throws SQLException, ClassNotFoundException {
+  public static CategoryBUS getInstance() throws ClassNotFoundException, SQLException {
+    if (instance == null) {
+      instance = new CategoryBUS();
+    }
+    return instance;
+  }
+
+  private CategoryBUS() throws SQLException, ClassNotFoundException {
     this.categoryList.addAll(CategoryDAO.getInstance().readDatabase());
   }
 
@@ -46,12 +54,27 @@ public class CategoryBUS implements IBUS<CategoryModel> {
     to.setName(from.getName());
   }
 
-  private boolean checkFilter(CategoryModel categoryModel, String value, String column) {
-    return switch (column.toLowerCase()) {
-      case "id" -> categoryModel.getId() == Integer.parseInt(value);
-      case "name" -> categoryModel.getName().toLowerCase().contains(value.toLowerCase());
-      default -> checkAllColumns(categoryModel, value);
-    };
+  private boolean checkFilter(CategoryModel categoryModel, String value, String[] column) {
+    for (String col : column) {
+      switch (col.toLowerCase()) {
+        case "id":
+          if (categoryModel.getId() == Integer.parseInt(value)) {
+            return true;
+          }
+          break;
+        case "name":
+          if (categoryModel.getName().toLowerCase().contains(value.toLowerCase())) {
+            return true;
+          }
+          break;
+        default:
+          if (checkAllColumns(categoryModel, value)) {
+            return true;
+          }
+          break;
+      }
+    }
+    return false;
   }
 
   private boolean checkAllColumns(CategoryModel categoryModel, String value) {
@@ -99,7 +122,7 @@ public class CategoryBUS implements IBUS<CategoryModel> {
   }
 
   @Override
-  public List<CategoryModel> searchModel(String value, String columns) throws SQLException, ClassNotFoundException {
+  public List<CategoryModel> searchModel(String value, String[] columns) throws SQLException, ClassNotFoundException {
     List<CategoryModel> results = new ArrayList<>();
     try {
       List<CategoryModel> entities = CategoryDAO.getInstance().search(value, columns);

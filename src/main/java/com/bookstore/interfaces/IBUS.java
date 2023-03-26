@@ -61,5 +61,5 @@ public interface IBUS<T> {
    * @throws SQLException           if there is an error accessing the database
    * @throws ClassNotFoundException if the driver class cannot be found
    */
-  List<T> searchModel(String value, String columns) throws SQLException, ClassNotFoundException;
+  List<T> searchModel(String value, String[] columns) throws SQLException, ClassNotFoundException;
 }

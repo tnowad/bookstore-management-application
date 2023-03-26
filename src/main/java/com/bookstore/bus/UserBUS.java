@@ -14,8 +14,16 @@ import com.bookstore.util.PasswordUtil;
 
 public class UserBUS implements IBUS<UserModel> {
   private final List<UserModel> userList = new ArrayList<>();
+  private static UserBUS instance;
 
-  public UserBUS() throws SQLException, ClassNotFoundException {
+  public static UserBUS getInstance() throws ClassNotFoundException, SQLException {
+    if (instance == null) {
+      instance = new UserBUS();
+    }
+    return instance;
+  }
+
+  private UserBUS() throws SQLException, ClassNotFoundException {
     this.userList.addAll(UserDAO.getInstance().readDatabase());
   }
 
@@ -63,17 +71,52 @@ public class UserBUS implements IBUS<UserModel> {
     to.setRole(from.getRole());
   }
 
-  private boolean checkFilter(UserModel userModel, String value, String column) {
-    return switch (column.toLowerCase()) {
-      case "id" -> userModel.getId() == Integer.parseInt(value);
-      case "username" -> userModel.getUsername().equalsIgnoreCase(value);
-      case "status" -> userModel.getStatus().toString().equalsIgnoreCase(value);
-      case "name" -> userModel.getName().equalsIgnoreCase(value);
-      case "email" -> userModel.getEmail().equalsIgnoreCase(value);
-      case "phone" -> userModel.getPhone().equals(value);
-      case "role" -> userModel.getRole().toString().equalsIgnoreCase(value);
-      default -> checkAllColumns(userModel, value);
-    };
+  private boolean checkFilter(UserModel userModel, String value, String[] columns) {
+    for (String column : columns) {
+      switch (column.toLowerCase()) {
+        case "id":
+          if (userModel.getId() == Integer.parseInt(value)) {
+            return true;
+          }
+          break;
+        case "username":
+          if (userModel.getUsername().equalsIgnoreCase(value)) {
+            return true;
+          }
+          break;
+        case "status":
+          if (userModel.getStatus().toString().equalsIgnoreCase(value)) {
+            return true;
+          }
+          break;
+        case "name":
+          if (userModel.getName().equalsIgnoreCase(value)) {
+            return true;
+          }
+          break;
+        case "email":
+          if (userModel.getEmail().equalsIgnoreCase(value)) {
+            return true;
+          }
+          break;
+        case "phone":
+          if (userModel.getPhone().equals(value)) {
+            return true;
+          }
+          break;
+        case "role":
+          if (userModel.getRole().toString().equalsIgnoreCase(value)) {
+            return true;
+          }
+          break;
+        default:
+          if (checkAllColumns(userModel, value)) {
+            return true;
+          }
+          break;
+      }
+    }
+    return false;
   }
 
   private boolean checkAllColumns(UserModel userModel, String value) {
@@ -171,7 +214,7 @@ public class UserBUS implements IBUS<UserModel> {
   }
 
   @Override
-  public List<UserModel> searchModel(String value, String columns) throws SQLException, ClassNotFoundException {
+  public List<UserModel> searchModel(String value, String[] columns) throws SQLException, ClassNotFoundException {
     List<UserModel> results = new ArrayList<>();
     try {
       List<UserModel> entities = UserDAO.getInstance().search(value, columns);

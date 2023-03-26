@@ -10,10 +10,17 @@ import com.bookstore.interfaces.IBUS;
 import com.bookstore.model.AddressModel;
 
 public class AddressBUS implements IBUS<AddressModel> {
-
   private final List<AddressModel> addressList = new ArrayList<>();
+  private static AddressBUS instance;
 
-  public AddressBUS() throws SQLException, ClassNotFoundException {
+  public static AddressBUS getInstance() throws ClassNotFoundException, SQLException {
+    if (instance == null) {
+      instance = new AddressBUS();
+    }
+    return instance;
+  }
+
+  private AddressBUS() throws SQLException, ClassNotFoundException {
     this.addressList.addAll(AddressDAO.getInstance().readDatabase());
   }
 
@@ -50,16 +57,47 @@ public class AddressBUS implements IBUS<AddressModel> {
     to.setZip(from.getZip());
   }
 
-  private boolean checkFilter(AddressModel addressModel, String value, String column) {
-    return switch (column.toLowerCase()) {
-      case "id" -> addressModel.getId() == Integer.parseInt(value);
-      case "user_id" -> addressModel.getUserId() == Integer.parseInt(value);
-      case "street" -> addressModel.getStreet().toLowerCase().contains(value.toLowerCase());
-      case "city" -> addressModel.getCity().toLowerCase().contains(value.toLowerCase());
-      case "state" -> addressModel.getState().toLowerCase().contains(value.toLowerCase());
-      case "zip" -> addressModel.getZip().toLowerCase().contains(value.toLowerCase());
-      default -> checkAllColumns(addressModel, value);
-    };
+  private boolean checkFilter(AddressModel addressModel, String value, String[] columns) {
+    for (String column : columns) {
+      switch (column.toLowerCase()) {
+        case "id":
+          if (addressModel.getId() == Integer.parseInt(value)) {
+            return true;
+          }
+          break;
+        case "user_id":
+          if (addressModel.getUserId() == Integer.parseInt(value)) {
+            return true;
+          }
+          break;
+        case "street":
+          if (addressModel.getStreet().toLowerCase().contains(value.toLowerCase())) {
+            return true;
+          }
+          break;
+        case "city":
+          if (addressModel.getCity().toLowerCase().contains(value.toLowerCase())) {
+            return true;
+          }
+          break;
+        case "state":
+          if (addressModel.getState().toLowerCase().contains(value.toLowerCase())) {
+            return true;
+          }
+          break;
+        case "zip":
+          if (addressModel.getZip().toLowerCase().contains(value.toLowerCase())) {
+            return true;
+          }
+          break;
+        default:
+          if (checkAllColumns(addressModel, value)) {
+            return true;
+          }
+          break;
+      }
+    }
+    return false;
   }
 
   private boolean checkAllColumns(AddressModel addressModel, String value) {
@@ -117,7 +155,7 @@ public class AddressBUS implements IBUS<AddressModel> {
   }
 
   @Override
-  public List<AddressModel> searchModel(String value, String columns) throws SQLException, ClassNotFoundException {
+  public List<AddressModel> searchModel(String value, String[] columns) throws SQLException, ClassNotFoundException {
     List<AddressModel> results = new ArrayList<>();
     try {
       List<AddressModel> entities = AddressDAO.getInstance().search(value, columns);

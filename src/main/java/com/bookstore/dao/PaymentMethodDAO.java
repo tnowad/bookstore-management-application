@@ -11,8 +11,13 @@ import com.bookstore.model.PaymentMethodModel;
 
 public class PaymentMethodDAO implements IDAO<PaymentMethodModel> {
 
+  private static PaymentMethodDAO instance;
+
   public static PaymentMethodDAO getInstance() {
-    return new PaymentMethodDAO();
+    if (instance == null) {
+      instance = new PaymentMethodDAO();
+    }
+    return instance;
   }
 
   private PaymentMethodModel createPaymentMethodModelFromResultSet(ResultSet rs) throws SQLException {
@@ -68,15 +73,26 @@ public class PaymentMethodDAO implements IDAO<PaymentMethodModel> {
   }
 
   @Override
-  public List<PaymentMethodModel> search(String condition, String columnName)
+  public List<PaymentMethodModel> search(String condition, String[] columnNames)
       throws SQLException, ClassNotFoundException {
-    if (columnName == null || columnName.isEmpty()) {
-      throw new IllegalArgumentException("Column name cannot be empty");
-    } else if (condition == null || condition.isEmpty()) {
-      throw new IllegalArgumentException("Condition cannot be empty");
+    if (condition == null || condition.trim().isEmpty()) {
+      throw new IllegalArgumentException("Search condition cannot be empty or null");
     }
 
-    String query = "SELECT * FROM payment_methods WHERE " + columnName + " LIKE ?";
+    String query;
+    if (columnNames == null || columnNames.length == 0) {
+      // Search all columns
+      query = "SELECT * FROM payment_methods WHERE CONCAT(id, payment_id, card_number, card_holder, expiration_date, customer_id) LIKE ?";
+    } else if (columnNames.length == 1) {
+      // Search specific column in payment_methods table
+      String column = columnNames[0];
+      query = "SELECT * FROM payment_methods WHERE " + column + " LIKE ?";
+    } else {
+      // Search specific columns in payment_methods table
+      query = "SELECT id, payment_id, card_number, card_holder, expiration_date, customer_id FROM payment_methods WHERE CONCAT("
+          + String.join(", ", columnNames) + ") LIKE ?";
+    }
+
     try (PreparedStatement pst = DatabaseConnect.getPreparedStatement(query, "%" + condition + "%")) {
       try (ResultSet rs = pst.executeQuery()) {
         List<PaymentMethodModel> paymentMethodList = new ArrayList<>();

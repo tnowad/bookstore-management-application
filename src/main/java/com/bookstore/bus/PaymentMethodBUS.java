@@ -13,8 +13,16 @@ import com.bookstore.model.PaymentMethodModel;
 public class PaymentMethodBUS implements IBUS<PaymentMethodModel> {
 
   private final List<PaymentMethodModel> paymentMethodList = new ArrayList<>();
+  private static PaymentMethodBUS instance;
 
-  public PaymentMethodBUS() throws SQLException, ClassNotFoundException {
+  public static PaymentMethodBUS getInstance() throws ClassNotFoundException, SQLException {
+    if (instance == null) {
+      instance = new PaymentMethodBUS();
+    }
+    return instance;
+  }
+
+  private PaymentMethodBUS() throws SQLException, ClassNotFoundException {
     this.paymentMethodList.addAll(PaymentMethodDAO.getInstance().readDatabase());
   }
 
@@ -51,16 +59,47 @@ public class PaymentMethodBUS implements IBUS<PaymentMethodModel> {
     to.setCustomerId(from.getCustomerId());
   }
 
-  private boolean checkFilter(PaymentMethodModel paymentMethodModel, String value, String column) {
-    return switch (column.toLowerCase()) {
-      case "id" -> paymentMethodModel.getId() == Integer.parseInt(value);
-      case "payment_id" -> paymentMethodModel.getPaymentId().toLowerCase().contains(value.toLowerCase());
-      case "card_number" -> paymentMethodModel.getCardNumber().toLowerCase().contains(value.toLowerCase());
-      case "card_holder" -> paymentMethodModel.getCardHolder().toLowerCase().contains(value.toLowerCase());
-      case "expiration_date" -> paymentMethodModel.getExpirationDate().equals(Date.parse(value));
-      case "customer_id" -> paymentMethodModel.getCustomerId() == Integer.parseInt(value);
-      default -> checkAllColumns(paymentMethodModel, value);
-    };
+  private boolean checkFilter(PaymentMethodModel paymentMethodModel, String value, String[] columns) {
+    for (String column : columns) {
+      switch (column.toLowerCase()) {
+        case "id":
+          if (paymentMethodModel.getId() == Integer.parseInt(value)) {
+            return true;
+          }
+          break;
+        case "payment_id":
+          if (paymentMethodModel.getPaymentId().toLowerCase().contains(value.toLowerCase())) {
+            return true;
+          }
+          break;
+        case "card_number":
+          if (paymentMethodModel.getCardNumber().toLowerCase().contains(value.toLowerCase())) {
+            return true;
+          }
+          break;
+        case "card_holder":
+          if (paymentMethodModel.getCardHolder().toLowerCase().contains(value.toLowerCase())) {
+            return true;
+          }
+          break;
+        case "expiration_date":
+          if (paymentMethodModel.getExpirationDate().equals(Date.parse(value))) {
+            return true;
+          }
+          break;
+        case "customer_id":
+          if (paymentMethodModel.getCustomerId() == Integer.parseInt(value)) {
+            return true;
+          }
+          break;
+        default:
+          if (checkAllColumns(paymentMethodModel, value)) {
+            return true;
+          }
+          break;
+      }
+    }
+    return false;
   }
 
   private boolean checkAllColumns(PaymentMethodModel paymentMethodModel, String value) {
@@ -121,7 +160,7 @@ public class PaymentMethodBUS implements IBUS<PaymentMethodModel> {
   }
 
   @Override
-  public List<PaymentMethodModel> searchModel(String value, String columns)
+  public List<PaymentMethodModel> searchModel(String value, String[] columns)
       throws SQLException, ClassNotFoundException {
     List<PaymentMethodModel> results = new ArrayList<>();
     try {

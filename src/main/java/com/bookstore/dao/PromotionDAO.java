@@ -10,9 +10,13 @@ import com.bookstore.interfaces.IDAO;
 import com.bookstore.model.PromotionModel;
 
 public class PromotionDAO implements IDAO<PromotionModel> {
+  private static PromotionDAO instance;
 
   public static PromotionDAO getInstance() {
-    return new PromotionDAO();
+    if (instance == null) {
+      instance = new PromotionDAO();
+    }
+    return instance;
   }
 
   private PromotionModel createPromotionModelFromResultSet(ResultSet rs) throws SQLException {
@@ -80,15 +84,26 @@ public class PromotionDAO implements IDAO<PromotionModel> {
   }
 
   @Override
-  public List<PromotionModel> search(String condition, String columnName)
+  public List<PromotionModel> search(String condition, String[] columnNames)
       throws SQLException, ClassNotFoundException {
-    if (columnName == null || columnName.isEmpty()) {
-      throw new IllegalArgumentException("Column name cannot be empty");
-    } else if (condition == null || condition.isEmpty()) {
-      throw new IllegalArgumentException("Condition cannot be empty");
+    if (condition == null || condition.trim().isEmpty()) {
+      throw new IllegalArgumentException("Search condition cannot be empty or null");
     }
 
-    String query = "SELECT * FROM promotions WHERE " + columnName + " LIKE ?";
+    String query;
+    if (columnNames == null || columnNames.length == 0) {
+      // Search all columns
+      query = "SELECT * FROM promotions WHERE CONCAT(id, description, quantity, start_date, end_date, condition_apply, discount_percent, discount_amount) LIKE ?";
+    } else if (columnNames.length == 1) {
+      // Search specific column in promotions table
+      String column = columnNames[0];
+      query = "SELECT * FROM promotions WHERE " + column + " LIKE ?";
+    } else {
+      // Search specific columns in promotions table
+      query = "SELECT id, description, quantity, start_date, end_date, condition_apply, discount_percent, discount_amount FROM promotions WHERE CONCAT("
+          + String.join(", ", columnNames) + ") LIKE ?";
+    }
+
     try (PreparedStatement pst = DatabaseConnect.getPreparedStatement(query, "%" + condition + "%")) {
       try (ResultSet rs = pst.executeQuery()) {
         List<PromotionModel> promotionList = new ArrayList<>();

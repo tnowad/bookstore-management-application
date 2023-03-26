@@ -11,9 +11,13 @@ import com.bookstore.model.CartModel;
 import com.bookstore.model.CartModel.Status;
 
 public class CartDAO implements IDAO<CartModel> {
+  private static CartDAO instance;
 
   public static CartDAO getInstance() {
-    return new CartDAO();
+    if (instance == null) {
+      instance = new CartDAO();
+    }
+    return instance;
   }
 
   private CartModel createCartModelFromResultSet(ResultSet rs) throws SQLException {
@@ -21,7 +25,7 @@ public class CartDAO implements IDAO<CartModel> {
         rs.getInt("id"),
         rs.getInt("user_id"),
         rs.getTimestamp("created_at"),
-        CartModel.Status.valueOf(rs.getString("status").toUpperCase()),
+        CartModel.Status.valueOf(rs.getString("status").toLowerCase()),
         rs.getTimestamp("expires"),
         rs.getInt("promotion_id"));
   }
@@ -67,15 +71,26 @@ public class CartDAO implements IDAO<CartModel> {
   }
 
   @Override
-  public List<CartModel> search(String condition, String columnName)
+  public List<CartModel> search(String condition, String[] columnNames)
       throws SQLException, ClassNotFoundException {
-    if (columnName == null || columnName.isEmpty()) {
-      throw new IllegalArgumentException("Column name cannot be empty");
-    } else if (condition == null || condition.isEmpty()) {
-      throw new IllegalArgumentException("Condition cannot be empty");
+    if (condition == null || condition.trim().isEmpty()) {
+      throw new IllegalArgumentException("Search condition cannot be empty or null");
     }
 
-    String query = "SELECT * FROM carts WHERE " + columnName + " LIKE ?";
+    String query;
+    if (columnNames == null || columnNames.length == 0) {
+      // Search all columns
+      query = "SELECT * FROM carts WHERE CONCAT(id, user_id, created_at, status, promotion_id, expires) LIKE ?";
+    } else if (columnNames.length == 1) {
+      // Search specific column in carts table
+      String column = columnNames[0];
+      query = "SELECT * FROM carts WHERE " + column + " LIKE ?";
+    } else {
+      // Search specific columns in carts table
+      query = "SELECT id, user_id, created_at, status, promotion_id, expires FROM carts WHERE CONCAT("
+          + String.join(", ", columnNames) + ") LIKE ?";
+    }
+
     try (PreparedStatement pst = DatabaseConnect.getPreparedStatement(query, "%" + condition + "%")) {
       try (ResultSet rs = pst.executeQuery()) {
         List<CartModel> cartList = new ArrayList<>();

@@ -13,8 +13,16 @@ import com.bookstore.model.ShippingModel.Status;
 public class ShippingBUS implements IBUS<ShippingModel> {
 
   private final List<ShippingModel> shippingList = new ArrayList<>();
+  private static ShippingBUS instance;
 
-  public ShippingBUS() throws SQLException, ClassNotFoundException {
+  public static ShippingBUS getInstance() throws ClassNotFoundException, SQLException {
+    if (instance == null) {
+      instance = new ShippingBUS();
+    }
+    return instance;
+  }
+
+  private ShippingBUS() throws SQLException, ClassNotFoundException {
     this.shippingList.addAll(ShippingDAO.getInstance().readDatabase());
   }
 
@@ -50,15 +58,42 @@ public class ShippingBUS implements IBUS<ShippingModel> {
     to.setStatus(from.getStatus());
   }
 
-  private boolean checkFilter(ShippingModel shippingModel, String value, String column) {
-    return switch (column.toLowerCase()) {
-      case "id" -> shippingModel.getId() == Integer.parseInt(value);
-      case "order_id" -> shippingModel.getOrderId() == Integer.parseInt(value);
-      case "shipping_method" -> shippingModel.getShippingMethod().toLowerCase().contains(value.toLowerCase());
-      case "address_id" -> shippingModel.getAddressId() == Integer.parseInt(value);
-      case "status" -> shippingModel.getStatus().toString().equalsIgnoreCase(value);
-      default -> checkAllColumns(shippingModel, value);
-    };
+  private boolean checkFilter(ShippingModel shippingModel, String value, String[] columns) {
+    for (String column : columns) {
+      switch (column.toLowerCase()) {
+        case "id":
+          if (shippingModel.getId() == Integer.parseInt(value)) {
+            return true;
+          }
+          break;
+        case "order_id":
+          if (shippingModel.getOrderId() == Integer.parseInt(value)) {
+            return true;
+          }
+          break;
+        case "shipping_method":
+          if (shippingModel.getShippingMethod().toLowerCase().contains(value.toLowerCase())) {
+            return true;
+          }
+          break;
+        case "address_id":
+          if (shippingModel.getAddressId() == Integer.parseInt(value)) {
+            return true;
+          }
+          break;
+        case "status":
+          if (shippingModel.getStatus().toString().equalsIgnoreCase(value)) {
+            return true;
+          }
+          break;
+        default:
+          if (checkAllColumns(shippingModel, value)) {
+            return true;
+          }
+          break;
+      }
+    }
+    return false;
   }
 
   private boolean checkAllColumns(ShippingModel shippingModel, String value) {
@@ -131,7 +166,7 @@ public class ShippingBUS implements IBUS<ShippingModel> {
   }
 
   @Override
-  public List<ShippingModel> searchModel(String value, String columns) throws SQLException, ClassNotFoundException {
+  public List<ShippingModel> searchModel(String value, String[] columns) throws SQLException, ClassNotFoundException {
     List<ShippingModel> results = new ArrayList<>();
     try {
       List<ShippingModel> entities = ShippingDAO.getInstance().search(value, columns);

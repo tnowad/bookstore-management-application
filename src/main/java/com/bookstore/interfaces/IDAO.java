@@ -57,19 +57,16 @@ public interface IDAO<Entity> {
   int delete(int id) throws SQLException, ClassNotFoundException;
 
   /**
-   * Searches the database table associated with this DAO for rows matching a
-   * particular condition and column.
+   * Searches the database table associated with this DAO for entities that match
+   * the given condition
+   * in the specified columns.
    *
-   * @param condition  the SQL WHERE clause used in the SELECT query, without the
-   *                   WHERE keyword itself
-   * @param columnName the name of the database column to restrict the search to
-   * @return a List of Entity objects representing all rows that match the search
-   *         condition and have the
-   *         specified column value
-   * @throws SQLException           on any exception arising from database access
-   *                                errors
-   * @throws ClassNotFoundException if driver class not found
+   * @param condition   the search condition to use
+   * @param columnNames the names of the columns to search in
+   * @return a list of entities that match the search condition
+   * @throws SQLException           if there is any error accessing the database
+   * @throws ClassNotFoundException if the database driver class cannot be found
    */
-  List<Entity> search(String condition, String columnName)
+  List<Entity> search(String condition, String[] columnName)
       throws SQLException, ClassNotFoundException;
 }

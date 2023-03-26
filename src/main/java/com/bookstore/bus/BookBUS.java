@@ -13,8 +13,16 @@ import com.bookstore.model.BookModel.Status;
 public class BookBUS implements IBUS<BookModel> {
 
   private final List<BookModel> bookList = new ArrayList<>();
+  private static BookBUS instance;
 
-  public BookBUS() throws SQLException, ClassNotFoundException {
+  public static BookBUS getInstance() throws ClassNotFoundException, SQLException {
+    if (instance == null) {
+      instance = new BookBUS();
+    }
+    return instance;
+  }
+
+  private BookBUS() throws SQLException, ClassNotFoundException {
     this.bookList.addAll(BookDAO.getInstance().readDatabase());
   }
 
@@ -55,19 +63,62 @@ public class BookBUS implements IBUS<BookModel> {
     to.setAuthorId(from.getAuthorId());
   }
 
-  private boolean checkFilter(BookModel bookModel, String value, String column) {
-    return switch (column.toLowerCase()) {
-      case "isbn" -> bookModel.getIsbn().toLowerCase().contains(value.toLowerCase());
-      case "title" -> bookModel.getTitle().toLowerCase().contains(value.toLowerCase());
-      case "description" -> bookModel.getDescription().toLowerCase().contains(value.toLowerCase());
-      case "image" -> bookModel.getImage().toLowerCase().contains(value.toLowerCase());
-      case "quantity" -> bookModel.getQuantity() > 0;
-      case "price" -> bookModel.getPrice() > 0;
-      case "status" -> bookModel.getStatus().toString().equalsIgnoreCase(value);
-      case "publisher_id" -> Integer.parseInt(value) == bookModel.getPublisherId();
-      case "author_id" -> Integer.parseInt(value) == bookModel.getAuthorId();
-      default -> checkAllColumns(bookModel, value);
-    };
+  private boolean checkFilter(BookModel bookModel, String value, String[] columns) {
+    for (String column : columns) {
+      switch (column.toLowerCase()) {
+        case "isbn":
+          if (bookModel.getIsbn().toLowerCase().contains(value.toLowerCase())) {
+            return true;
+          }
+          break;
+        case "title":
+          if (bookModel.getTitle().toLowerCase().contains(value.toLowerCase())) {
+            return true;
+          }
+          break;
+        case "description":
+          if (bookModel.getDescription().toLowerCase().contains(value.toLowerCase())) {
+            return true;
+          }
+          break;
+        case "image":
+          if (bookModel.getImage().toLowerCase().contains(value.toLowerCase())) {
+            return true;
+          }
+          break;
+        case "quantity":
+          if (bookModel.getQuantity() > 0) {
+            return true;
+          }
+          break;
+        case "price":
+          if (bookModel.getPrice() > 0) {
+            return true;
+          }
+          break;
+        case "status":
+          if (bookModel.getStatus().toString().equalsIgnoreCase(value)) {
+            return true;
+          }
+          break;
+        case "publisher_id":
+          if (Integer.parseInt(value) == bookModel.getPublisherId()) {
+            return true;
+          }
+          break;
+        case "author_id":
+          if (Integer.parseInt(value) == bookModel.getAuthorId()) {
+            return true;
+          }
+          break;
+        default:
+          if (checkAllColumns(bookModel, value)) {
+            return true;
+          }
+          break;
+      }
+    }
+    return false;
   }
 
   private boolean checkAllColumns(BookModel bookModel, String value) {
@@ -172,7 +223,7 @@ public class BookBUS implements IBUS<BookModel> {
   }
 
   @Override
-  public List<BookModel> searchModel(String value, String columns) throws SQLException, ClassNotFoundException {
+  public List<BookModel> searchModel(String value, String[] columns) throws SQLException, ClassNotFoundException {
     List<BookModel> results = new ArrayList<>();
     try {
       List<BookModel> entities = BookDAO.getInstance().search(value, columns);

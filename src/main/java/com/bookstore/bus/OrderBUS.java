@@ -14,8 +14,16 @@ import com.bookstore.model.OrderModel.Status;
 public class OrderBUS implements IBUS<OrderModel> {
 
   private final List<OrderModel> orderList = new ArrayList<>();
+  private static OrderBUS instance;
 
-  public OrderBUS() throws SQLException, ClassNotFoundException {
+  public static OrderBUS getInstance() throws ClassNotFoundException, SQLException {
+    if (instance == null) {
+      instance = new OrderBUS();
+    }
+    return instance;
+  }
+
+  private OrderBUS() throws SQLException, ClassNotFoundException {
     this.orderList.addAll(OrderDAO.getInstance().readDatabase());
   }
 
@@ -55,19 +63,62 @@ public class OrderBUS implements IBUS<OrderModel> {
     to.setStatus(from.getStatus());
   }
 
-  private boolean checkFilter(OrderModel orderModel, String value, String column) {
-    return switch (column.toLowerCase()) {
-      case "id" -> orderModel.getId() == Integer.parseInt(value);
-      case "cart_id" -> orderModel.getCart_id() == Integer.parseInt(value);
-      case "customer_id" -> orderModel.getCustomer_id() == Integer.parseInt(value);
-      case "employee_id" -> orderModel.getEmployee_id() == Integer.parseInt(value);
-      case "total" -> orderModel.getTotal() == Integer.parseInt(value);
-      case "paid" -> orderModel.getPaid() == Integer.parseInt(value);
-      case "created_at" -> orderModel.getCreated_at().toString().toLowerCase().contains(value.toLowerCase());
-      case "updated_at" -> orderModel.getUpdated_at().toString().toLowerCase().contains(value.toLowerCase());
-      case "status" -> orderModel.getStatus().toString().toLowerCase().contains(value.toLowerCase());
-      default -> checkAllColumns(orderModel, value);
-    };
+  private boolean checkFilter(OrderModel orderModel, String value, String[] columns) {
+    for (String column : columns) {
+      switch (column.toLowerCase()) {
+        case "id":
+          if (orderModel.getId() == Integer.parseInt(value)) {
+            return true;
+          }
+          break;
+        case "cart_id":
+          if (orderModel.getCart_id() == Integer.parseInt(value)) {
+            return true;
+          }
+          break;
+        case "customer_id":
+          if (orderModel.getCustomer_id() == Integer.parseInt(value)) {
+            return true;
+          }
+          break;
+        case "employee_id":
+          if (orderModel.getEmployee_id() == Integer.parseInt(value)) {
+            return true;
+          }
+          break;
+        case "total":
+          if (orderModel.getTotal() == Integer.parseInt(value)) {
+            return true;
+          }
+          break;
+        case "paid":
+          if (orderModel.getPaid() == Integer.parseInt(value)) {
+            return true;
+          }
+          break;
+        case "created_at":
+          if (orderModel.getCreated_at().toString().toLowerCase().contains(value.toLowerCase())) {
+            return true;
+          }
+          break;
+        case "updated_at":
+          if (orderModel.getUpdated_at().toString().toLowerCase().contains(value.toLowerCase())) {
+            return true;
+          }
+          break;
+        case "status":
+          if (orderModel.getStatus().toString().toLowerCase().contains(value.toLowerCase())) {
+            return true;
+          }
+          break;
+        default:
+          if (checkAllColumns(orderModel, value)) {
+            return true;
+          }
+          break;
+      }
+    }
+    return false;
   }
 
   private boolean checkAllColumns(OrderModel orderModel, String value) {
@@ -162,7 +213,7 @@ public class OrderBUS implements IBUS<OrderModel> {
   }
 
   @Override
-  public List<OrderModel> searchModel(String value, String columns) throws SQLException, ClassNotFoundException {
+  public List<OrderModel> searchModel(String value, String[] columns) throws SQLException, ClassNotFoundException {
     List<OrderModel> results = new ArrayList<>();
     try {
       List<OrderModel> entities = OrderDAO.getInstance().search(value, columns);

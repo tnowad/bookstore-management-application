@@ -12,8 +12,16 @@ import com.bookstore.model.PromotionModel;
 public class PromotionBUS implements IBUS<PromotionModel> {
 
   private final List<PromotionModel> promotionList = new ArrayList<>();
+  private static PromotionBUS instance;
 
-  public PromotionBUS() throws SQLException, ClassNotFoundException {
+  public static PromotionBUS getInstance() throws ClassNotFoundException, SQLException {
+    if (instance == null) {
+      instance = new PromotionBUS();
+    }
+    return instance;
+  }
+
+  private PromotionBUS() throws SQLException, ClassNotFoundException {
     this.promotionList.addAll(PromotionDAO.getInstance().readDatabase());
   }
 
@@ -52,18 +60,57 @@ public class PromotionBUS implements IBUS<PromotionModel> {
     to.setDiscountAmount(from.getDiscountAmount());
   }
 
-  private boolean checkFilter(PromotionModel promotionModel, String value, String column) {
-    return switch (column.toLowerCase()) {
-      case "id" -> promotionModel.getId() == Integer.parseInt(value);
-      case "description" -> promotionModel.getDescription().toLowerCase().contains(value.toLowerCase());
-      case "quantity" -> promotionModel.getQuantity() == Integer.parseInt(value);
-      case "start_date" -> promotionModel.getStartDate().toString().toLowerCase().contains(value.toLowerCase());
-      case "end_date" -> promotionModel.getEndDate().toString().toLowerCase().contains(value.toLowerCase());
-      case "condition_apply" -> promotionModel.getConditionApply().toLowerCase().contains(value.toLowerCase());
-      case "discount_percent" -> promotionModel.getDiscountPercent() == Integer.parseInt(value);
-      case "discount_amount" -> promotionModel.getDiscountAmount() == Integer.parseInt(value);
-      default -> checkAllColumns(promotionModel, value);
-    };
+  private boolean checkFilter(PromotionModel promotionModel, String value, String[] columns) {
+    for (String column : columns) {
+      switch (column.toLowerCase()) {
+        case "id":
+          if (promotionModel.getId() == Integer.parseInt(value)) {
+            return true;
+          }
+          break;
+        case "description":
+          if (promotionModel.getDescription().toLowerCase().contains(value.toLowerCase())) {
+            return true;
+          }
+          break;
+        case "quantity":
+          if (promotionModel.getQuantity() == Integer.parseInt(value)) {
+            return true;
+          }
+          break;
+        case "start_date":
+          if (promotionModel.getStartDate().toString().toLowerCase().contains(value.toLowerCase())) {
+            return true;
+          }
+          break;
+        case "end_date":
+          if (promotionModel.getEndDate().toString().toLowerCase().contains(value.toLowerCase())) {
+            return true;
+          }
+          break;
+        case "condition_apply":
+          if (promotionModel.getConditionApply().toLowerCase().contains(value.toLowerCase())) {
+            return true;
+          }
+          break;
+        case "discount_percent":
+          if (promotionModel.getDiscountPercent() == Integer.parseInt(value)) {
+            return true;
+          }
+          break;
+        case "discount_amount":
+          if (promotionModel.getDiscountAmount() == Integer.parseInt(value)) {
+            return true;
+          }
+          break;
+        default:
+          if (checkAllColumns(promotionModel, value)) {
+            return true;
+          }
+          break;
+      }
+    }
+    return false;
   }
 
   private boolean checkAllColumns(PromotionModel promotionModel, String value) {
@@ -132,7 +179,7 @@ public class PromotionBUS implements IBUS<PromotionModel> {
   }
 
   @Override
-  public List<PromotionModel> searchModel(String value, String columns) throws SQLException, ClassNotFoundException {
+  public List<PromotionModel> searchModel(String value, String[] columns) throws SQLException, ClassNotFoundException {
     List<PromotionModel> results = new ArrayList<>();
     try {
       List<PromotionModel> entities = PromotionDAO.getInstance().search(value, columns);

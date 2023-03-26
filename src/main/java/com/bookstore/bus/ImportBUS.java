@@ -13,8 +13,16 @@ import com.bookstore.model.ImportModel;
 public class ImportBUS implements IBUS<ImportModel> {
 
   private final List<ImportModel> importList = new ArrayList<>();
+  private static ImportBUS instance;
 
-  public ImportBUS() throws SQLException, ClassNotFoundException {
+  public static ImportBUS getInstance() throws ClassNotFoundException, SQLException {
+    if (instance == null) {
+      instance = new ImportBUS();
+    }
+    return instance;
+  }
+
+  private ImportBUS() throws SQLException, ClassNotFoundException {
     this.importList.addAll(ImportDAO.getInstance().readDatabase());
   }
 
@@ -51,16 +59,47 @@ public class ImportBUS implements IBUS<ImportModel> {
     to.setUpdatedAt(from.getUpdatedAt());
   }
 
-  private boolean checkFilter(ImportModel importModel, String value, String column) {
-    return switch (column.toLowerCase()) {
-      case "id" -> importModel.getId() == Integer.parseInt(value);
-      case "provider_id" -> importModel.getProviderId() == Integer.parseInt(value);
-      case "employee_id" -> importModel.getEmployeeId() == Integer.parseInt(value);
-      case "total_price" -> importModel.getTotalPrice().equals(new BigDecimal(value));
-      case "created_at" -> importModel.getCreatedAt().toString().contains(value);
-      case "updated_at" -> importModel.getUpdatedAt().toString().contains(value);
-      default -> checkAllColumns(importModel, value);
-    };
+  private boolean checkFilter(ImportModel importModel, String value, String[] columns) {
+    for (String column : columns) {
+      switch (column.toLowerCase()) {
+        case "id":
+          if (importModel.getId() == Integer.parseInt(value)) {
+            return true;
+          }
+          break;
+        case "provider_id":
+          if (importModel.getProviderId() == Integer.parseInt(value)) {
+            return true;
+          }
+          break;
+        case "employee_id":
+          if (importModel.getEmployeeId() == Integer.parseInt(value)) {
+            return true;
+          }
+          break;
+        case "total_price":
+          if (importModel.getTotalPrice().equals(new BigDecimal(value))) {
+            return true;
+          }
+          break;
+        case "created_at":
+          if (importModel.getCreatedAt().toString().contains(value)) {
+            return true;
+          }
+          break;
+        case "updated_at":
+          if (importModel.getUpdatedAt().toString().contains(value)) {
+            return true;
+          }
+          break;
+        default:
+          if (checkAllColumns(importModel, value)) {
+            return true;
+          }
+          break;
+      }
+    }
+    return false;
   }
 
   private boolean checkAllColumns(ImportModel importModel, String value) {
@@ -136,7 +175,7 @@ public class ImportBUS implements IBUS<ImportModel> {
   }
 
   @Override
-  public List<ImportModel> searchModel(String value, String columns) throws SQLException, ClassNotFoundException {
+  public List<ImportModel> searchModel(String value, String[] columns) throws SQLException, ClassNotFoundException {
     List<ImportModel> results = new ArrayList<>();
     try {
       List<ImportModel> entities = ImportDAO.getInstance().search(value, columns);

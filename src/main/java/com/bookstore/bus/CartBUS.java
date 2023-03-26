@@ -14,8 +14,16 @@ import com.bookstore.model.CartModel.Status;
 public class CartBUS implements IBUS<CartModel> {
 
   private final List<CartModel> cartList = new ArrayList<>();
+  private static CartBUS instance;
 
-  public CartBUS() throws SQLException, ClassNotFoundException {
+  public static CartBUS getInstance() throws ClassNotFoundException, SQLException {
+    if (instance == null) {
+      instance = new CartBUS();
+    }
+    return instance;
+  }
+
+  private CartBUS() throws SQLException, ClassNotFoundException {
     this.cartList.addAll(CartDAO.getInstance().readDatabase());
   }
 
@@ -53,16 +61,47 @@ public class CartBUS implements IBUS<CartModel> {
     to.setPromotionId(from.getPromotionId());
   }
 
-  private boolean checkFilter(CartModel cartModel, String value, String column) {
-    return switch (column.toLowerCase()) {
-      case "id" -> cartModel.getId() == Integer.parseInt(value);
-      case "user_id" -> cartModel.getUserId() == Integer.parseInt(value);
-      case "created_at" -> cartModel.getCreatedAt().toString().toLowerCase().contains(value.toLowerCase());
-      case "status" -> cartModel.getStatus().toString().equalsIgnoreCase(value);
-      case "expires" -> cartModel.getExpires().toString().toLowerCase().contains(value.toLowerCase());
-      case "promotion_id" -> cartModel.getPromotionId() == Integer.parseInt(value);
-      default -> checkAllColumns(cartModel, value);
-    };
+  private boolean checkFilter(CartModel cartModel, String value, String[] columns) {
+    for (String column : columns) {
+      switch (column.toLowerCase()) {
+        case "id":
+          if (cartModel.getId() == Integer.parseInt(value)) {
+            return true;
+          }
+          break;
+        case "user_id":
+          if (cartModel.getUserId() == Integer.parseInt(value)) {
+            return true;
+          }
+          break;
+        case "created_at":
+          if (cartModel.getCreatedAt().toString().toLowerCase().contains(value.toLowerCase())) {
+            return true;
+          }
+          break;
+        case "status":
+          if (cartModel.getStatus().toString().equalsIgnoreCase(value)) {
+            return true;
+          }
+          break;
+        case "expires":
+          if (cartModel.getExpires().toString().toLowerCase().contains(value.toLowerCase())) {
+            return true;
+          }
+          break;
+        case "promotion_id":
+          if (cartModel.getPromotionId() == Integer.parseInt(value)) {
+            return true;
+          }
+          break;
+        default:
+          if (checkAllColumns(cartModel, value)) {
+            return true;
+          }
+          break;
+      }
+    }
+    return false;
   }
 
   private boolean checkAllColumns(CartModel cartModel, String value) {
@@ -136,7 +175,7 @@ public class CartBUS implements IBUS<CartModel> {
   }
 
   @Override
-  public List<CartModel> searchModel(String value, String columns) throws SQLException, ClassNotFoundException {
+  public List<CartModel> searchModel(String value, String[] columns) throws SQLException, ClassNotFoundException {
     List<CartModel> results = new ArrayList<>();
     try {
       List<CartModel> entities = CartDAO.getInstance().search(value, columns);

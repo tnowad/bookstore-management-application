@@ -58,9 +58,54 @@ public class AddressDAOTest {
   }
 
   @Test
-  public void testSearchByCondition() throws SQLException, ClassNotFoundException {
-    List<AddressModel> addressList = addressDAO.search("San", "city");
-    Assertions.assertFalse(addressList.isEmpty());
-    Assertions.assertEquals(4, addressList.size());
+  public void testSearchWithNullCondition() {
+    AddressDAO dao = new AddressDAO();
+    String[] columns = { "id", "user_id" };
+    Assertions.assertThrows(IllegalArgumentException.class, () -> {
+      dao.search(null, columns);
+    });
+  }
+
+  @Test
+  public void testSearchWithEmptyCondition() {
+    AddressDAO dao = new AddressDAO();
+    String[] columns = { "id", "user_id" };
+    Assertions.assertThrows(IllegalArgumentException.class, () -> {
+      dao.search("", columns);
+    });
+  }
+
+  @Test
+  public void testSearchAllColumns() throws SQLException, ClassNotFoundException {
+    AddressDAO dao = new AddressDAO();
+    List<AddressModel> result = dao.search("123 Main St", null);
+    Assertions.assertFalse(result.isEmpty());
+
+  }
+
+  @Test
+  public void testSearchSpecificColumns() throws SQLException, ClassNotFoundException {
+    AddressDAO dao = new AddressDAO();
+    String[] columns = { "street", "city", "state" };
+    List<AddressModel> result = dao.search("123 Main St", columns);
+    Assertions.assertFalse(result.isEmpty());
+  }
+
+  @Test
+  public void testSearchNoResults() {
+    AddressDAO dao = new AddressDAO();
+    String[] columns = { "id", "user_id" };
+    Assertions.assertThrows(SQLException.class, () -> {
+      dao.search("nonexistent address", columns);
+    });
+  }
+
+  @Test
+  public void testSearchSpecificColumn() throws SQLException, ClassNotFoundException {
+    AddressDAO dao = new AddressDAO();
+    String[] columns = { "street", "city" };
+    List<AddressModel> result = dao.search("Los Angeles", columns);
+    // Assertions.assertFalse(result.isEmpty());
+    Assertions.assertEquals(1, result.size());
   }
 }

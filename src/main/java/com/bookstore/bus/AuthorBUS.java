@@ -12,8 +12,16 @@ import com.bookstore.model.AuthorModel;
 public class AuthorBUS implements IBUS<AuthorModel> {
 
   private final List<AuthorModel> authorList = new ArrayList<>();
+  private static AuthorBUS instance;
 
-  public AuthorBUS() throws SQLException, ClassNotFoundException {
+  public static AuthorBUS getInstance() throws ClassNotFoundException, SQLException {
+    if (instance == null) {
+      instance = new AuthorBUS();
+    }
+    return instance;
+  }
+
+  private AuthorBUS() throws SQLException, ClassNotFoundException {
     this.authorList.addAll(AuthorDAO.getInstance().readDatabase());
   }
 
@@ -47,13 +55,32 @@ public class AuthorBUS implements IBUS<AuthorModel> {
     to.setDescription(from.getDescription());
   }
 
-  private boolean checkFilter(AuthorModel authorModel, String value, String column) {
-    return switch (column.toLowerCase()) {
-      case "id" -> authorModel.getId() == Integer.parseInt(value);
-      case "name" -> authorModel.getName().toLowerCase().contains(value.toLowerCase());
-      case "description" -> authorModel.getDescription().toLowerCase().contains(value.toLowerCase());
-      default -> checkAllColumns(authorModel, value);
-    };
+  private boolean checkFilter(AuthorModel authorModel, String value, String[] columns) {
+    for (String column : columns) {
+      switch (column.toLowerCase()) {
+        case "id":
+          if (authorModel.getId() == Integer.parseInt(value)) {
+            return true;
+          }
+          break;
+        case "name":
+          if (authorModel.getName().toLowerCase().contains(value.toLowerCase())) {
+            return true;
+          }
+          break;
+        case "description":
+          if (authorModel.getDescription().toLowerCase().contains(value.toLowerCase())) {
+            return true;
+          }
+          break;
+        default:
+          if (checkAllColumns(authorModel, value)) {
+            return true;
+          }
+          break;
+      }
+    }
+    return false;
   }
 
   private boolean checkAllColumns(AuthorModel authorModel, String value) {
@@ -105,7 +132,7 @@ public class AuthorBUS implements IBUS<AuthorModel> {
   }
 
   @Override
-  public List<AuthorModel> searchModel(String value, String columns) throws SQLException, ClassNotFoundException {
+  public List<AuthorModel> searchModel(String value, String[] columns) throws SQLException, ClassNotFoundException {
     List<AuthorModel> results = new ArrayList<>();
     try {
       List<AuthorModel> entities = AuthorDAO.getInstance().search(value, columns);

@@ -12,8 +12,16 @@ import com.bookstore.model.ProviderModel;
 public class ProviderBUS implements IBUS<ProviderModel> {
 
   private final List<ProviderModel> providerList = new ArrayList<>();
+  private static ProviderBUS instance;
 
-  public ProviderBUS() throws SQLException, ClassNotFoundException {
+  public static ProviderBUS getInstance() throws ClassNotFoundException, SQLException {
+    if (instance == null) {
+      instance = new ProviderBUS();
+    }
+    return instance;
+  }
+
+  private ProviderBUS() throws SQLException, ClassNotFoundException {
     this.providerList.addAll(ProviderDAO.getInstance().readDatabase());
   }
 
@@ -47,13 +55,32 @@ public class ProviderBUS implements IBUS<ProviderModel> {
     to.setDescription(from.getDescription());
   }
 
-  private boolean checkFilter(ProviderModel providerModel, String value, String column) {
-    return switch (column.toLowerCase()) {
-      case "id" -> providerModel.getId() == Integer.parseInt(value);
-      case "name" -> providerModel.getName().toLowerCase().contains(value.toLowerCase());
-      case "description" -> providerModel.getDescription().toLowerCase().contains(value.toLowerCase());
-      default -> checkAllColumns(providerModel, value);
-    };
+  private boolean checkFilter(ProviderModel providerModel, String value, String[] columns) {
+    for (String column : columns) {
+      switch (column.toLowerCase()) {
+        case "id":
+          if (providerModel.getId() == Integer.parseInt(value)) {
+            return true;
+          }
+          break;
+        case "name":
+          if (providerModel.getName().toLowerCase().contains(value.toLowerCase())) {
+            return true;
+          }
+          break;
+        case "description":
+          if (providerModel.getDescription().toLowerCase().contains(value.toLowerCase())) {
+            return true;
+          }
+          break;
+        default:
+          if (checkAllColumns(providerModel, value)) {
+            return true;
+          }
+          break;
+      }
+    }
+    return false;
   }
 
   private boolean checkAllColumns(ProviderModel providerModel, String value) {
@@ -105,7 +132,7 @@ public class ProviderBUS implements IBUS<ProviderModel> {
   }
 
   @Override
-  public List<ProviderModel> searchModel(String value, String columns) throws SQLException, ClassNotFoundException {
+  public List<ProviderModel> searchModel(String value, String[] columns) throws SQLException, ClassNotFoundException {
     List<ProviderModel> results = new ArrayList<>();
     try {
       List<ProviderModel> entities = ProviderDAO.getInstance().search(value, columns);
