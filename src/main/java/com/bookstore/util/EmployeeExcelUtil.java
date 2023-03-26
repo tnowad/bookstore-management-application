@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,84 +22,35 @@ public class EmployeeExcelUtil extends ExcelUtil {
   private static final String[] EXCEL_EXTENSIONS = { "xls", "xlsx", "xlsm" };
   private static final Logger LOGGER = Logger.getLogger(EmployeeExcelUtil.class.getName());
 
-  public static void selectAndProcessEmployeesExcelFile() {
+  public static List<EmployeeModel> readEmployeesFromExcel() throws IOException, ClassNotFoundException, SQLException {
     JFileChooser fileChooser = new JFileChooser();
-    FileNameExtensionFilter excelFilter = new FileNameExtensionFilter("Employees", EXCEL_EXTENSIONS);
-    fileChooser.setFileFilter(excelFilter);
+    FileNameExtensionFilter filter = new FileNameExtensionFilter("Excel File", EXCEL_EXTENSIONS);
+    fileChooser.setFileFilter(filter);
     int option = fileChooser.showOpenDialog(null);
-    if (option == JFileChooser.APPROVE_OPTION) {
-      File file = fileChooser.getSelectedFile();
-      try {
-        List<List<String>> employeeData = readExcel(file.getAbsolutePath(), 1);
-        if (employeeData.isEmpty()) {
-          throw new IllegalArgumentException("No data found in file.");
-        }
-        List<EmployeeModel> employeeModels = convertToEmployeeModelList(employeeData);
-        EmployeeBUS employeeBUS = new EmployeeBUS();
-        for (EmployeeModel model : employeeModels) {
-          EmployeeModel existingEmployee = employeeBUS.getModelById(model.getUserId());
-          if (existingEmployee != null) {
-            handleDuplicateEmployee(existingEmployee, model, employeeBUS);
-          } else {
-            employeeBUS.addModel(model);
-          }
-        }
-        JOptionPane.showMessageDialog(null, "Data from " + file.getName() + " has been inserted successfully.");
-      } catch (IOException | SQLException | ClassNotFoundException e) {
-        LOGGER.log(Level.SEVERE, "Error occurred while processing file: " + file.getName(), e);
-        showErrorDialog("An error occurred while processing the file.", "Error");
-      } catch (IllegalArgumentException e) {
-        LOGGER.log(Level.WARNING, "Invalid data found in file: " + file.getName(), e);
-        showErrorDialog(e.getMessage(), "Invalid Data");
-      }
-    } else if (option == JFileChooser.CANCEL_OPTION) {
-      LOGGER.log(Level.INFO, "User cancelled file selection dialog.");
-    }
-  }
 
-  private static void handleDuplicateEmployee(EmployeeModel existingEmployee, EmployeeModel newEmployee,
-      EmployeeBUS employeeBUS) throws ClassNotFoundException, SQLException {
-    Object[] options = { "Update", "Delete" };
-    int choice = JOptionPane.showOptionDialog(
-        null,
-        "A duplicate employee with ID: " + existingEmployee.getUserId()
-            + " was found. Would you like to update or delete this employee?",
-        "Duplicate Employee Found",
-        JOptionPane.YES_NO_OPTION,
-        JOptionPane.QUESTION_MESSAGE,
-        null,
-        options,
-        options[0]);
-    if (choice == JOptionPane.NO_OPTION) {
-      employeeBUS.deleteModel(existingEmployee.getUserId());
-    } else {
-      String oldData = "Old Data:\nID: " + existingEmployee.getUserId() + "\nSalary: " + existingEmployee.getSalary()
-          + "\nEmployee Type: " + existingEmployee.getEmployeeType() + "\nContact Information: "
-          + existingEmployee.getContactInformation();
-      String newData = "New Data:\nID: " + newEmployee.getUserId() + "\nSalary: " + newEmployee.getSalary()
-          + "\nEmployee Type: " + newEmployee.getEmployeeType() + "\nContact Information: "
-          + newEmployee.getContactInformation();
-      Object[] message = { oldData, newData };
-      int updateChoice = JOptionPane.showOptionDialog(null, message, "Update Employee", JOptionPane.YES_NO_OPTION,
-          JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-      while (updateChoice == JOptionPane.CLOSED_OPTION) {
-        updateChoice = JOptionPane.showOptionDialog(
-            null,
-            "Please choose to update or delete the duplicate employee.",
-            "Duplicate Employee Found",
-            JOptionPane.YES_NO_OPTION,
-            JOptionPane.QUESTION_MESSAGE,
-            null,
-            options,
-            options[0]);
-      }
-      if (updateChoice == JOptionPane.YES_OPTION) {
-        employeeBUS.updateModel(newEmployee);
-      } else {
-        employeeBUS.deleteModel(existingEmployee.getUserId());
-        employeeBUS.addModel(newEmployee);
+    if (option == JFileChooser.APPROVE_OPTION) {
+      File inputFile = fileChooser.getSelectedFile();
+      String filePath = inputFile.getAbsolutePath();
+
+      try {
+        List<List<String>> data = ExcelUtil.readExcel(filePath, 0);
+        List<EmployeeModel> employees = convertToEmployeeModelList(data);
+
+        JOptionPane.showMessageDialog(null,
+            "Data has been read successfully from " + inputFile.getName() + ".");
+        return employees;
+      } catch (IOException e) {
+        LOGGER.log(Level.SEVERE, "Error occurred while reading data from file: " + inputFile.getName(), e);
+        showErrorDialog(e.getMessage(), "File Input Error");
+        throw e;
+      } catch (IllegalArgumentException e) {
+        LOGGER.log(Level.SEVERE, "Error occurred while converting data to EmployeeModel: " + e.getMessage());
+        showErrorDialog(e.getMessage(), "Data Conversion Error");
+        throw e;
       }
     }
+
+    return null;
   }
 
   private static void showErrorDialog(String message, String title) {
@@ -107,17 +59,77 @@ public class EmployeeExcelUtil extends ExcelUtil {
   }
 
   private static List<EmployeeModel> convertToEmployeeModelList(List<List<String>> data)
-      throws IllegalArgumentException {
+      throws IllegalArgumentException, ClassNotFoundException, SQLException {
     List<EmployeeModel> employeeModels = new ArrayList<>();
     for (List<String> row : data) {
-      int userId = Integer.parseInt(row.get(0));
-      int salary = Integer.parseInt(row.get(1));
-      EmployeeType employeeType = EmployeeType.valueOf(row.get(2));
-      String contactInformation = row.get(3);
+      int userId;
+      int salary;
+      EmployeeType employeeType;
+      String contactInformation;
+
+      try {
+        userId = Integer.parseInt(row.get(0));
+        salary = Integer.parseInt(row.get(1));
+        employeeType = EmployeeType.valueOf(row.get(2));
+        contactInformation = row.get(3);
+      } catch (NumberFormatException e) {
+        throw new IllegalArgumentException("Invalid integer value in input data", e);
+      } catch (IllegalArgumentException e) {
+        throw new IllegalArgumentException("Invalid employee type in input data", e);
+      }
+
       EmployeeModel model = new EmployeeModel(userId, salary, employeeType, contactInformation);
       employeeModels.add(model);
+      EmployeeBUS.getInstance().addModel(model);
     }
     return employeeModels;
+  }
+
+  public static void writeEmployeesToExcel(List<EmployeeModel> employees) throws IOException {
+    List<List<String>> data = new ArrayList<>();
+
+    // Create header row
+    List<String> headerValues = Arrays.asList("userId", "salary", "employeeType", "contactInformation");
+    data.add(headerValues);
+
+    // Write data rows
+    for (EmployeeModel employee : employees) {
+      List<String> values = Arrays.asList(
+          Integer.toString(employee.getUserId()),
+          Integer.toString(employee.getSalary()),
+          employee.getEmployeeType().toString(),
+          employee.getContactInformation());
+      data.add(values);
+    }
+
+    JFileChooser fileChooser = new JFileChooser();
+    FileNameExtensionFilter filter = new FileNameExtensionFilter("Excel File", EXCEL_EXTENSIONS);
+    fileChooser.setFileFilter(filter);
+    int option = fileChooser.showSaveDialog(null);
+
+    if (option == JFileChooser.APPROVE_OPTION) {
+      File outputFile = fileChooser.getSelectedFile();
+      String filePath = outputFile.getAbsolutePath();
+
+      if (outputFile.exists()) {
+        int overwriteOption = JOptionPane.showConfirmDialog(null,
+            "The file already exists. Do you want to overwrite it?", "File Exists", JOptionPane.YES_NO_OPTION);
+        if (overwriteOption == JOptionPane.NO_OPTION) {
+          return;
+        }
+      }
+
+      try {
+        writeExcel(data, filePath, "Employees");
+        JOptionPane.showMessageDialog(null,
+            "Data has been written successfully to " + outputFile.getName() + ".");
+      } catch (IOException e) {
+        LOGGER.log(Level.SEVERE, "Error occurred while writing data to file: " + outputFile.getName(), e);
+        JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), "File Output Error",
+            JOptionPane.ERROR_MESSAGE);
+        throw e;
+      }
+    }
   }
 
 }

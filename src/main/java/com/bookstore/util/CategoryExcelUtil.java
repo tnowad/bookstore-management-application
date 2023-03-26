@@ -2,9 +2,7 @@ package com.bookstore.util;
 
 import java.io.File;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -15,15 +13,15 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import com.bookstore.bus.ImportBUS;
-import com.bookstore.model.ImportModel;
+import com.bookstore.bus.CategoryBUS;
+import com.bookstore.model.CategoryModel;
 
-public class ImportModelExcelUtil extends ExcelUtil {
+public class CategoryExcelUtil extends ExcelUtil {
 
   private static final String[] EXCEL_EXTENSIONS = { "xls", "xlsx", "xlsm" };
-  private static final Logger LOGGER = Logger.getLogger(ImportModelExcelUtil.class.getName());
+  private static final Logger LOGGER = Logger.getLogger(CategoryExcelUtil.class.getName());
 
-  public static List<ImportModel> readImportsFromExcel() throws IOException, ClassNotFoundException, SQLException {
+  public static List<CategoryModel> readCategoriesFromExcel() throws IOException, ClassNotFoundException, SQLException {
     JFileChooser fileChooser = new JFileChooser();
     FileNameExtensionFilter filter = new FileNameExtensionFilter("Excel File", EXCEL_EXTENSIONS);
     fileChooser.setFileFilter(filter);
@@ -35,17 +33,17 @@ public class ImportModelExcelUtil extends ExcelUtil {
 
       try {
         List<List<String>> data = ExcelUtil.readExcel(filePath, 0);
-        List<ImportModel> imports = convertToImportModelList(data);
+        List<CategoryModel> categories = convertToCategoryModelList(data);
 
         JOptionPane.showMessageDialog(null,
             "Data has been read successfully from " + inputFile.getName() + ".");
-        return imports;
+        return categories;
       } catch (IOException e) {
         LOGGER.log(Level.SEVERE, "Error occurred while reading data from file: " + inputFile.getName(), e);
         showErrorDialog(e.getMessage(), "File Input Error");
         throw e;
       } catch (IllegalArgumentException e) {
-        LOGGER.log(Level.SEVERE, "Error occurred while converting data to ImportModel: " + e.getMessage());
+        LOGGER.log(Level.SEVERE, "Error occurred while converting data to CategoryModel: " + e.getMessage());
         showErrorDialog(e.getMessage(), "Data Conversion Error");
         throw e;
       }
@@ -59,49 +57,36 @@ public class ImportModelExcelUtil extends ExcelUtil {
     JOptionPane.showMessageDialog(null, "Error: " + message, title, JOptionPane.ERROR_MESSAGE);
   }
 
-  private static List<ImportModel> convertToImportModelList(List<List<String>> data)
+  private static List<CategoryModel> convertToCategoryModelList(List<List<String>> data)
       throws IllegalArgumentException, ClassNotFoundException, SQLException {
-    List<ImportModel> importModels = new ArrayList<>();
+    List<CategoryModel> categoryModels = new ArrayList<>();
     for (List<String> row : data) {
       int id;
-      int providerId;
-      int employeeId;
-      BigDecimal totalPrice;
-      Timestamp createdAt;
-      Timestamp updatedAt;
       try {
         id = Integer.parseInt(row.get(0));
-        providerId = Integer.parseInt(row.get(1));
-        employeeId = Integer.parseInt(row.get(2));
-        totalPrice = new BigDecimal(row.get(3));
-        createdAt = Timestamp.valueOf(row.get(4));
-        updatedAt = Timestamp.valueOf(row.get(5));
-      } catch (IllegalArgumentException e) {
-        throw new IllegalArgumentException("Invalid value in input data", e);
+      } catch (NumberFormatException e) {
+        throw new IllegalArgumentException("Invalid integer value in input data", e);
       }
-      ImportModel model = new ImportModel(id, providerId, employeeId, totalPrice, createdAt, updatedAt);
-      importModels.add(model);
-      ImportBUS.getInstance().addModel(model);
+      String name = row.get(1);
+      CategoryModel model = new CategoryModel(id, name);
+      categoryModels.add(model);
+      CategoryBUS.getInstance().addModel(model);
     }
-    return importModels;
+    return categoryModels;
   }
 
-  public static void writeImportsToExcel(List<ImportModel> imports) throws IOException {
+  public static void writeCategoriesToExcel(List<CategoryModel> categories) throws IOException {
     List<List<String>> data = new ArrayList<>();
 
     // Create header row
-    List<String> headerValues = Arrays.asList("id", "providerId", "employeeId", "totalPrice", "createdAt", "updatedAt");
+    List<String> headerValues = Arrays.asList("id", "name");
     data.add(headerValues);
 
     // Write data rows
-    for (ImportModel importModel : imports) {
+    for (CategoryModel category : categories) {
       List<String> values = Arrays.asList(
-          Integer.toString(importModel.getId()),
-          Integer.toString(importModel.getProviderId()),
-          Integer.toString(importModel.getEmployeeId()),
-          importModel.getTotalPrice().toString(),
-          importModel.getCreatedAt().toString(),
-          importModel.getUpdatedAt().toString());
+          Integer.toString(category.getId()),
+          category.getName());
       data.add(values);
     }
 
@@ -123,7 +108,7 @@ public class ImportModelExcelUtil extends ExcelUtil {
       }
 
       try {
-        writeExcel(data, filePath, "Imports");
+        writeExcel(data, filePath, "Categories");
         JOptionPane.showMessageDialog(null,
             "Data has been written successfully to " + outputFile.getName() + ".");
       } catch (IOException e) {

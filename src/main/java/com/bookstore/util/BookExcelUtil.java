@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,96 +22,36 @@ public class BookExcelUtil extends ExcelUtil {
   private static final String[] EXCEL_EXTENSIONS = { "xls", "xlsx", "xlsm" };
   private static final Logger LOGGER = Logger.getLogger(BookExcelUtil.class.getName());
 
-  public static void selectAndProcessBooksExcelFile() {
+  public static List<BookModel> readBooksFromExcel() throws IOException, ClassNotFoundException, SQLException {
+    // BookBUS bookBUS = BookBUS.getInstance();
     JFileChooser fileChooser = new JFileChooser();
-    FileNameExtensionFilter excelFilter = new FileNameExtensionFilter("Books", EXCEL_EXTENSIONS);
-    fileChooser.setFileFilter(excelFilter);
+    FileNameExtensionFilter filter = new FileNameExtensionFilter("Excel File", EXCEL_EXTENSIONS);
+    fileChooser.setFileFilter(filter);
     int option = fileChooser.showOpenDialog(null);
+
     if (option == JFileChooser.APPROVE_OPTION) {
-      File file = fileChooser.getSelectedFile();
+      File inputFile = fileChooser.getSelectedFile();
+      String filePath = inputFile.getAbsolutePath();
+
       try {
-        List<List<String>> bookData = ExcelUtil.readExcel(file.getAbsolutePath(), 1);
-        if (bookData.isEmpty()) {
-          throw new IllegalArgumentException("No data found in file.");
-        }
-        List<BookModel> bookModels = convertToBookModelList(bookData);
-        BookBUS bookBUS = new BookBUS();
-        for (BookModel model : bookModels) {
-          BookModel existingBook = bookBUS.getModelById(Integer.parseInt(model.getIsbn()));
-          if (existingBook != null) {
-            handleDuplicateBook(existingBook, model, bookBUS);
-          } else {
-            bookBUS.addModel(model);
-          }
-        }
-        JOptionPane.showMessageDialog(null, "Data from " + file.getName() + " has been inserted successfully.");
-      } catch (IOException | SQLException | ClassNotFoundException e) {
-        LOGGER.log(Level.SEVERE, "Error occurred while processing file: " + file.getName(), e);
-        showErrorDialog("An error occurred while processing the file.", "Error");
+        List<List<String>> data = ExcelUtil.readExcel(filePath, 0);
+        List<BookModel> books = convertToBookModelList(data);
+
+        JOptionPane.showMessageDialog(null,
+            "Data has been read successfully from " + inputFile.getName() + ".");
+        return books;
+      } catch (IOException e) {
+        LOGGER.log(Level.SEVERE, "Error occurred while reading data from file: " + inputFile.getName(), e);
+        showErrorDialog(e.getMessage(), "File Input Error");
+        throw e;
       } catch (IllegalArgumentException e) {
-        LOGGER.log(Level.WARNING, "Invalid data found in file: " + file.getName(), e);
-        showErrorDialog(e.getMessage(), "Invalid Data");
-      }
-    } else if (option == JFileChooser.CANCEL_OPTION) {
-      LOGGER.log(Level.INFO, "User cancelled file selection dialog.");
-    }
-  }
-
-  private static void handleDuplicateBook(BookModel existingBook, BookModel newBook, BookBUS bookBUS)
-      throws ClassNotFoundException, SQLException {
-    Object[] options = { "Update", "Delete" };
-    int choice = JOptionPane.showOptionDialog(
-        null,
-        "A duplicate book with ISBN: " + existingBook.getIsbn()
-            + " was found. Would you like to update or delete this book?",
-        "Duplicate Book Found",
-        JOptionPane.YES_NO_OPTION,
-        JOptionPane.QUESTION_MESSAGE,
-        null,
-        options,
-        options[0]);
-
-    if (choice == JOptionPane.NO_OPTION) {
-      bookBUS.deleteModel(Integer.parseInt(existingBook.getIsbn()));
-    } else {
-      String oldData = "Old Data:\nISBN: " + existingBook.getIsbn() + "\nTitle: " + existingBook.getTitle()
-          + "\nDescription: " + existingBook.getDescription() + "\nImage: " + existingBook.getImage()
-          + "\nPrice: " + existingBook.getPrice() + "\nQuantity: " + existingBook.getQuantity() + "\nStatus: "
-          + existingBook.getStatus().toString() + "\nPublisher ID: " + existingBook.getPublisherId()
-          + "\nAuthor ID: " + existingBook.getAuthorId();
-      String newData = "New Data:\nISBN: " + newBook.getIsbn() + "\nTitle: " + newBook.getTitle()
-          + "\nDescription: " + newBook.getDescription() + "\nImage: " + newBook.getImage() + "\nPrice: "
-          + newBook.getPrice() + "\nQuantity: " + newBook.getQuantity() + "\nStatus: "
-          + newBook.getStatus().toString() + "\nPublisher ID: " + newBook.getPublisherId() + "\nAuthor ID: "
-          + newBook.getAuthorId();
-      Object[] message = { oldData, newData };
-      int updateChoice = JOptionPane.showOptionDialog(
-          null,
-          message,
-          "Update Book",
-          JOptionPane.YES_NO_OPTION,
-          JOptionPane.QUESTION_MESSAGE,
-          null,
-          options,
-          options[0]);
-      while (updateChoice == JOptionPane.CLOSED_OPTION) {
-        updateChoice = JOptionPane.showOptionDialog(
-            null,
-            "Please choose to update or delete the duplicate book.",
-            "Duplicate Book Found",
-            JOptionPane.YES_NO_OPTION,
-            JOptionPane.QUESTION_MESSAGE,
-            null,
-            options,
-            options[0]);
-      }
-      if (updateChoice == JOptionPane.YES_OPTION) {
-        bookBUS.updateModel(newBook);
-      } else {
-        bookBUS.deleteModel(Integer.parseInt(existingBook.getIsbn()));
-        bookBUS.addModel(newBook);
+        LOGGER.log(Level.SEVERE, "Error occurred while converting data to BookModel: " + e.getMessage());
+        showErrorDialog(e.getMessage(), "Data Conversion Error");
+        throw e;
       }
     }
+
+    return null;
   }
 
   private static void showErrorDialog(String message, String title) {
@@ -118,23 +59,95 @@ public class BookExcelUtil extends ExcelUtil {
     JOptionPane.showMessageDialog(null, "Error: " + message, title, JOptionPane.ERROR_MESSAGE);
   }
 
-  private static List<BookModel> convertToBookModelList(List<List<String>> data) throws IllegalArgumentException {
+  private static List<BookModel> convertToBookModelList(List<List<String>> data)
+      throws IllegalArgumentException, ClassNotFoundException, SQLException {
     List<BookModel> bookModels = new ArrayList<>();
     for (List<String> row : data) {
       String isbn = row.get(0);
       String title = row.get(1);
       String description = row.get(2);
       String image = row.get(3);
-      int price = Integer.parseInt(row.get(4));
-      int quantity = Integer.parseInt(row.get(5));
-      Status status = Status.valueOf(row.get(6).toUpperCase());
-      int publisherId = Integer.parseInt(row.get(7));
-      int authorId = Integer.parseInt(row.get(8));
-      BookModel model = new BookModel(isbn, title, description, image, price, quantity, status, publisherId,
-          authorId);
+      int price;
+      int quantity;
+      try {
+        price = Integer.parseInt(row.get(4));
+        quantity = Integer.parseInt(row.get(5));
+      } catch (NumberFormatException e) {
+        throw new IllegalArgumentException("Invalid integer value in input data", e);
+      }
+      String statusStr = row.get(6);
+      Status status;
+      try {
+        status = Status.valueOf(statusStr);
+      } catch (IllegalArgumentException e) {
+        throw new IllegalArgumentException("Invalid status value in row: " + row);
+      }
+      int publisherId;
+      int authorId;
+      try {
+        publisherId = Integer.parseInt(row.get(7));
+        authorId = Integer.parseInt(row.get(8));
+      } catch (NumberFormatException e) {
+        throw new IllegalArgumentException("Invalid integer value in input data", e);
+      }
+      BookModel model = new BookModel(isbn, title, description, image, price, quantity, status, publisherId, authorId);
       bookModels.add(model);
+      BookBUS.getInstance().addModel(model);
     }
     return bookModels;
+  }
+
+  public static void writeBooksToExcel(List<BookModel> books) throws IOException {
+    List<List<String>> data = new ArrayList<>();
+
+    // Create header row
+    List<String> headerValues = Arrays.asList("isbn", "title", "description", "image", "price", "quantity", "status",
+        "publisherId", "authorId");
+    data.add(headerValues);
+
+    // Write data rows
+    for (BookModel book : books) {
+      List<String> values = Arrays.asList(
+          book.getIsbn(),
+          book.getTitle(),
+          book.getDescription(),
+          book.getImage(),
+          Integer.toString(book.getPrice()),
+          Integer.toString(book.getQuantity()),
+          book.getStatus().toString(),
+          Integer.toString(book.getPublisherId()),
+          Integer.toString(book.getAuthorId()));
+      data.add(values);
+    }
+
+    JFileChooser fileChooser = new JFileChooser();
+    FileNameExtensionFilter filter = new FileNameExtensionFilter("Excel File", EXCEL_EXTENSIONS);
+    fileChooser.setFileFilter(filter);
+    int option = fileChooser.showSaveDialog(null);
+
+    if (option == JFileChooser.APPROVE_OPTION) {
+      File outputFile = fileChooser.getSelectedFile();
+      String filePath = outputFile.getAbsolutePath();
+
+      if (outputFile.exists()) {
+        int overwriteOption = JOptionPane.showConfirmDialog(null,
+            "The file already exists. Do you want to overwrite it?", "File Exists", JOptionPane.YES_NO_OPTION);
+        if (overwriteOption == JOptionPane.NO_OPTION) {
+          return;
+        }
+      }
+
+      try {
+        writeExcel(data, filePath, "Books");
+        JOptionPane.showMessageDialog(null,
+            "Data has been written successfully to " + outputFile.getName() + ".");
+      } catch (IOException e) {
+        LOGGER.log(Level.SEVERE, "Error occurred while writing data to file: " + outputFile.getName(), e);
+        JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), "File Output Error",
+            JOptionPane.ERROR_MESSAGE);
+        throw e;
+      }
+    }
   }
 
 }

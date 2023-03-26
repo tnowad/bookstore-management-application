@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,82 +21,35 @@ public class ProviderExcelUtil extends ExcelUtil {
   private static final String[] EXCEL_EXTENSIONS = { "xls", "xlsx", "xlsm" };
   private static final Logger LOGGER = Logger.getLogger(ProviderExcelUtil.class.getName());
 
-  public static void selectAndProcessProvidersExcelFile() {
+  public static List<ProviderModel> readProvidersFromExcel() throws IOException, ClassNotFoundException, SQLException {
     JFileChooser fileChooser = new JFileChooser();
-    FileNameExtensionFilter excelFilter = new FileNameExtensionFilter("Providers", EXCEL_EXTENSIONS);
-    fileChooser.setFileFilter(excelFilter);
+    FileNameExtensionFilter filter = new FileNameExtensionFilter("Excel File", EXCEL_EXTENSIONS);
+    fileChooser.setFileFilter(filter);
     int option = fileChooser.showOpenDialog(null);
-    if (option == JFileChooser.APPROVE_OPTION) {
-      File file = fileChooser.getSelectedFile();
-      try {
-        List<List<String>> providerData = readExcel(file.getAbsolutePath(), 1);
-        if (providerData.isEmpty()) {
-          throw new IllegalArgumentException("No data found in file.");
-        }
-        List<ProviderModel> providerModels = convertToProviderModelList(providerData);
-        ProviderBUS providerBUS = new ProviderBUS();
-        for (ProviderModel model : providerModels) {
-          ProviderModel existingProvider = providerBUS.getModelById(model.getId());
-          if (existingProvider != null) {
-            handleDuplicateProvider(existingProvider, model, providerBUS);
-          } else {
-            providerBUS.addModel(model);
-          }
-        }
-        JOptionPane.showMessageDialog(null, "Data from " + file.getName() + " has been inserted successfully.");
-      } catch (IOException | SQLException | ClassNotFoundException e) {
-        LOGGER.log(Level.SEVERE, "Error occurred while processing file: " + file.getName(), e);
-        showErrorDialog("An error occurred while processing the file.", "Error");
-      } catch (IllegalArgumentException e) {
-        LOGGER.log(Level.WARNING, "Invalid data found in file: " + file.getName(), e);
-        showErrorDialog(e.getMessage(), "Invalid Data");
-      }
-    } else if (option == JFileChooser.CANCEL_OPTION) {
-      LOGGER.log(Level.INFO, "User cancelled file selection dialog.");
-    }
-  }
 
-  private static void handleDuplicateProvider(ProviderModel existingProvider, ProviderModel newProvider,
-      ProviderBUS providerBUS) throws ClassNotFoundException, SQLException {
-    Object[] options = { "Update", "Delete" };
-    int choice = JOptionPane.showOptionDialog(
-        null,
-        "A duplicate provider with ID: " + existingProvider.getId()
-            + " was found. Would you like to update or delete this provider?",
-        "Duplicate Provider Found",
-        JOptionPane.YES_NO_OPTION,
-        JOptionPane.QUESTION_MESSAGE,
-        null,
-        options,
-        options[0]);
-    if (choice == JOptionPane.NO_OPTION) {
-      providerBUS.deleteModel(existingProvider.getId());
-    } else {
-      String oldData = "Old Data:\nID: " + existingProvider.getId() + "\nName: " + existingProvider.getName()
-          + "\nDescription: " + existingProvider.getDescription();
-      String newData = "New Data:\nID: " + newProvider.getId() + "\nName: " + newProvider.getName()
-          + "\nDescription: " + newProvider.getDescription();
-      Object[] message = { oldData, newData };
-      int updateChoice = JOptionPane.showOptionDialog(null, message, "Update Provider", JOptionPane.YES_NO_OPTION,
-          JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-      while (updateChoice == JOptionPane.CLOSED_OPTION) {
-        updateChoice = JOptionPane.showOptionDialog(
-            null,
-            "Please choose to update or delete the duplicate provider.",
-            "Duplicate Provider Found",
-            JOptionPane.YES_NO_OPTION,
-            JOptionPane.QUESTION_MESSAGE,
-            null,
-            options,
-            options[0]);
-      }
-      if (updateChoice == JOptionPane.YES_OPTION) {
-        providerBUS.updateModel(newProvider);
-      } else {
-        providerBUS.deleteModel(existingProvider.getId());
-        providerBUS.addModel(newProvider);
+    if (option == JFileChooser.APPROVE_OPTION) {
+      File inputFile = fileChooser.getSelectedFile();
+      String filePath = inputFile.getAbsolutePath();
+
+      try {
+        List<List<String>> data = ExcelUtil.readExcel(filePath, 0);
+        List<ProviderModel> providers = convertToProviderModelList(data);
+
+        JOptionPane.showMessageDialog(null,
+            "Data has been read successfully from " + inputFile.getName() + ".");
+        return providers;
+      } catch (IOException e) {
+        LOGGER.log(Level.SEVERE, "Error occurred while reading data from file: " + inputFile.getName(), e);
+        showErrorDialog(e.getMessage(), "File Input Error");
+        throw e;
+      } catch (IllegalArgumentException e) {
+        LOGGER.log(Level.SEVERE, "Error occurred while converting data to ProviderModel: " + e.getMessage());
+        showErrorDialog(e.getMessage(), "Data Conversion Error");
+        throw e;
       }
     }
+
+    return null;
   }
 
   private static void showErrorDialog(String message, String title) {
@@ -104,16 +58,68 @@ public class ProviderExcelUtil extends ExcelUtil {
   }
 
   private static List<ProviderModel> convertToProviderModelList(List<List<String>> data)
-      throws IllegalArgumentException {
+      throws IllegalArgumentException, ClassNotFoundException, SQLException {
     List<ProviderModel> providerModels = new ArrayList<>();
     for (List<String> row : data) {
-      int id = Integer.parseInt(row.get(0));
+      int id;
+      try {
+        id = Integer.parseInt(row.get(0));
+      } catch (NumberFormatException e) {
+        throw new IllegalArgumentException("Invalid integer value in input data", e);
+      }
       String name = row.get(1);
       String description = row.get(2);
       ProviderModel model = new ProviderModel(id, name, description);
       providerModels.add(model);
+      ProviderBUS.getInstance().addModel(model);
     }
     return providerModels;
+  }
+
+  public static void writeProvidersToExcel(List<ProviderModel> providers) throws IOException {
+    List<List<String>> data = new ArrayList<>();
+
+    // Create header row
+    List<String> headerValues = Arrays.asList("id", "name", "description");
+    data.add(headerValues);
+
+    // Write data rows
+    for (ProviderModel provider : providers) {
+      List<String> values = Arrays.asList(
+          Integer.toString(provider.getId()),
+          provider.getName(),
+          provider.getDescription());
+      data.add(values);
+    }
+
+    JFileChooser fileChooser = new JFileChooser();
+    FileNameExtensionFilter filter = new FileNameExtensionFilter("Excel File", EXCEL_EXTENSIONS);
+    fileChooser.setFileFilter(filter);
+    int option = fileChooser.showSaveDialog(null);
+
+    if (option == JFileChooser.APPROVE_OPTION) {
+      File outputFile = fileChooser.getSelectedFile();
+      String filePath = outputFile.getAbsolutePath();
+
+      if (outputFile.exists()) {
+        int overwriteOption = JOptionPane.showConfirmDialog(null,
+            "The file already exists. Do you want to overwrite it?", "File Exists", JOptionPane.YES_NO_OPTION);
+        if (overwriteOption == JOptionPane.NO_OPTION) {
+          return;
+        }
+      }
+
+      try {
+        writeExcel(data, filePath, "Providers");
+        JOptionPane.showMessageDialog(null,
+            "Data has been written successfully to " + outputFile.getName() + ".");
+      } catch (IOException e) {
+        LOGGER.log(Level.SEVERE, "Error occurred while writing data to file: " + outputFile.getName(), e);
+        JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), "File Output Error",
+            JOptionPane.ERROR_MESSAGE);
+        throw e;
+      }
+    }
   }
 
 }

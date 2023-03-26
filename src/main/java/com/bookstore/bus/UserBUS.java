@@ -55,6 +55,20 @@ public class UserBUS implements IBUS<UserModel> {
     return userModel;
   }
 
+  public UserModel getModelByUsername(String username) throws SQLException, ClassNotFoundException {
+    for (UserModel userModel : userList) {
+      if (userModel.getUsername().equals(username)) {
+        return userModel;
+      }
+    }
+
+    UserModel userModel = UserDAO.getInstance().getUserByUsername(username);
+    if (userModel != null) {
+      userList.add(userModel);
+    }
+    return userModel;
+  }
+
   private UserModel mapToEntity(UserModel from) {
     UserModel to = new UserModel();
     updateEntityFields(from, to);

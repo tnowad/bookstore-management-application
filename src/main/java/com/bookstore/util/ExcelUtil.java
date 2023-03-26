@@ -88,6 +88,8 @@ public abstract class ExcelUtil {
       workbook.write(fos);
     } catch (IOException e) {
       throw new IOException("Error writing to spreadsheet", e);
+    } catch (Exception e) {
+      throw new IOException("An error occurred while writing to the spreadsheet", e);
     }
   }
 
