@@ -3,7 +3,6 @@ package com.bookstore.gui.swing.scrollbar;
 import java.awt.Color;
 import java.awt.Dimension;
 
-import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 
 public class ScrollBarCustom extends JScrollBar {
@@ -16,14 +15,4 @@ public class ScrollBarCustom extends JScrollBar {
     setOpaque(false);
   }
 
-  public static void main(String[] args) {
-    new JPanel() {
-      {
-        setPreferredSize(new Dimension(200, 200));
-        setLayout(null);
-        add(new ScrollBarCustom());
-      }
-    }.setVisible(true);
-
-  }
 }

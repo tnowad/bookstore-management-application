@@ -1,27 +1,17 @@
 package com.bookstore.database.factories;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import com.bookstore.dao.DatabaseConnection;
+import com.bookstore.dao.ImportDAO;
 import com.github.javafaker.Faker;
 
-public class ImportItemFactory implements IFactory {
-  static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-  static final String DB_URL = "jdbc:mysql://localhost/bookstore";
-
-  static final String USER = "root";
-  static final String PASS = "admin123";
+public class ImportItemFactory implements IFactory<ImportDAO> {
 
   @Override
-  public Object create() {
+  public ImportDAO create() {
 
     Faker faker = new Faker();
     try (ResultSet rs = DatabaseConnection.executeQuery("SELECT * FROM books")) {
-      Class.forName(JDBC_DRIVER);
-      Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-      Statement stmt = conn.createStatement();
       int count = 0;
       while (rs.next()
           || count < 10) {
@@ -32,10 +22,11 @@ public class ImportItemFactory implements IFactory {
         String sql = "INSERT INTO `import_items` (`import_id`, `book_isbn`, `quantity`, `price`) VALUES (" + importId
             + ", '"
             + bookIsbn + "', " + quantity + ", " + price + ")";
-        stmt.executeUpdate(sql);
+        DatabaseConnection.executeUpdate(sql);
         count++;
       }
     } catch (Exception e) {
+      e.printStackTrace();
     }
     return null;
   }

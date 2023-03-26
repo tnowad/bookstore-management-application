@@ -28,8 +28,7 @@ public class Header extends JPanel {
   public static Header getInstance() {
     if (ProfileModel.getInstance().getUser() == null) {
       instance = null;
-      // !TODO: remove this line to show header when user is not logged in
-      // return null;
+      return null;
     }
     if (instance == null) {
       instance = new Header();

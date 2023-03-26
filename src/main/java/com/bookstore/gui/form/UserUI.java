@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.*;
-import javax.swing.border.*;
 
 import com.bookstore.dao.UserDAO;
 import com.bookstore.model.UserModel;
@@ -52,7 +51,7 @@ public class UserUI implements MouseListener {
     frame.setLayout(new FlowLayout());
     orderUI();
     count();
-    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     frame.pack();
     frame.setLocationRelativeTo(null);
     frame.setVisible(true);
@@ -67,9 +66,8 @@ public class UserUI implements MouseListener {
     title = new JPanel();
     title.setPreferredSize(new Dimension(1030, 40));
     title.setLayout(new BorderLayout());
-    // title.setBackground(Color.red);
 
-    title_Now = new JLabel("User List", JLabel.CENTER);
+    title_Now = new JLabel("User List", SwingConstants.CENTER);
     title_Now.setFont(new Font("sansserif", Font.BOLD, 18));
     title_Now.setPreferredSize(new Dimension(90, 40));
     title.add(title_Now, BorderLayout.WEST);
@@ -97,7 +95,7 @@ public class UserUI implements MouseListener {
     icon.setIcon(new ImageIcon(getClass().getResource("/resources/image/admin.png")));
     contendRole = new JLabel();
     contendRole.setLayout(new FlowLayout());
-    title_Now = new JLabel("Admin", JLabel.CENTER);
+    title_Now = new JLabel("Admin", SwingConstants.CENTER);
     title_Now.setFont(new Font("sansserif", Font.BOLD, 16));
     title_Now.setPreferredSize(new Dimension(90, 20));
     valueAdmin = new JLabel("100");
@@ -116,7 +114,7 @@ public class UserUI implements MouseListener {
     icon.setIcon(new ImageIcon(getClass().getResource("/resources/image/customer.png")));
     contendRole = new JLabel();
     contendRole.setLayout(new FlowLayout());
-    title_Now = new JLabel("Customer", JLabel.CENTER);
+    title_Now = new JLabel("Customer", SwingConstants.CENTER);
     title_Now.setFont(new Font("sansserif", Font.BOLD, 16));
     title_Now.setPreferredSize(new Dimension(90, 20));
     valueCus = new JLabel("100");
@@ -136,7 +134,7 @@ public class UserUI implements MouseListener {
     icon.setIcon(new ImageIcon(getClass().getResource("/resources/image/Employee.png")));
     contendRole = new JLabel();
     contendRole.setLayout(new FlowLayout());
-    title_Now = new JLabel("Employee", JLabel.CENTER);
+    title_Now = new JLabel("Employee", SwingConstants.CENTER);
     title_Now.setFont(new Font("sansserif", Font.BOLD, 16));
     title_Now.setPreferredSize(new Dimension(90, 20));
     valueEm = new JLabel("100");
@@ -149,7 +147,6 @@ public class UserUI implements MouseListener {
 
     filtering = new JPanel();
     filtering.setPreferredSize(new Dimension(900, 40));
-    // filtering.setBackground(Color.black);
     filtering.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.gray));
     filtering.setLayout(new FlowLayout(FlowLayout.LEFT));
 
@@ -247,17 +244,25 @@ public class UserUI implements MouseListener {
 
   @Override
   public void mousePressed(MouseEvent e) {
+    throw new UnsupportedOperationException("Not supported yet."); // To change body of generated methods, choose Tools
+                                                                   // | Templates.
   }
 
   @Override
   public void mouseReleased(MouseEvent e) {
+    throw new UnsupportedOperationException("Not supported yet."); // To change body of generated methods, choose Tools
+                                                                   // | Templates.
   }
 
   @Override
   public void mouseEntered(MouseEvent e) {
+    throw new UnsupportedOperationException("Not supported yet."); // To change body of generated methods, choose Tools
+                                                                   // | Templates.
   }
 
   @Override
   public void mouseExited(MouseEvent e) {
+    throw new UnsupportedOperationException("Not supported yet."); // To change body of generated methods, choose Tools
+                                                                   // | Templates.
   }
 }

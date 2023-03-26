@@ -171,8 +171,8 @@ public class UserBUS implements IBUS<UserModel> {
     if (hasEmail && !isValidEmailAddress(userModel.getEmail())) {
       throw new IllegalArgumentException("Invalid email address.");
     }
-    userModel.setRole(userModel.getRole() != null ? userModel.getRole() : Role.customer);
-    userModel.setStatus(userModel.getStatus() != null ? userModel.getStatus() : Status.active);
+    userModel.setRole(userModel.getRole() != null ? userModel.getRole() : Role.CUSTOMER);
+    userModel.setStatus(userModel.getStatus() != null ? userModel.getStatus() : Status.ACTIVE);
 
     int id = UserDAO.getInstance().insert(mapToEntity(userModel));
     userModel.setId(id);
@@ -188,11 +188,6 @@ public class UserBUS implements IBUS<UserModel> {
     }
 
     return pattern.matcher(email).matches();
-  }
-
-  public static void main(String[] args) {
-
-    System.out.println(UserBUS.isValidEmailAddress("tnow@gn.com"));
   }
 
   @Override

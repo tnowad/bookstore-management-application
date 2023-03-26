@@ -1,28 +1,16 @@
 package com.bookstore.database.factories;
 
-import java.sql.Connection;
-
-import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import com.bookstore.dao.DatabaseConnection;
+import com.bookstore.model.CategoryModel;
 import com.github.javafaker.Faker;
 
-public class CategoriesFactory implements IFactory {
-  static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-  static final String DB_URL = "jdbc:mysql://localhost/bookstore";
-
-  static final String USER = "root";
-  static final String PASS = "admin123";
-
+public class CategoriesFactory implements IFactory<CategoryModel> {
   @Override
-  public Object create() {
+  public CategoryModel create() {
     Faker faker = new Faker();
 
     try (ResultSet rs = DatabaseConnection.executeQuery("SELECT * FROM books")) {
-      Class.forName(JDBC_DRIVER);
-      Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-      Statement stmt = conn.createStatement();
       int count = 0;
       while (rs.next()
           || count < 10) {
@@ -31,10 +19,11 @@ public class CategoriesFactory implements IFactory {
         String sql = "INSERT INTO `categories_books` (`categories_id`, `books_isbn`) VALUES (" + categoryId
             + ", '"
             + bookIsbn + "')";
-        stmt.executeUpdate(sql);
+        DatabaseConnection.executeUpdate(sql);
         count++;
       }
     } catch (Exception e) {
+      e.printStackTrace();
     }
     return null;
   }

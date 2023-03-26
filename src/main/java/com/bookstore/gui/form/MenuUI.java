@@ -1,6 +1,5 @@
 package com.bookstore.gui.form;
 
-import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
@@ -79,7 +78,6 @@ public class MenuUI extends JFrame implements MouseListener {
 
     jButton_MenuTable.setBorder(new EmptyBorder(0, 14, 0, 0));
     jButton_MenuTable.setName("MenuTable");
-    // homeMenu.add(jButton_MenuTable);
 
     jButton_Menu = new JLabel("Messenger");
     jButton_Menu.setName("Messenger");
@@ -159,22 +157,28 @@ public class MenuUI extends JFrame implements MouseListener {
 
   @Override
   public void mousePressed(MouseEvent e) {
+    throw new UnsupportedOperationException("Not supported yet."); // To change body of generated methods, choose Tools
+                                                                   // | Templates.
 
   }
 
   @Override
   public void mouseReleased(MouseEvent e) {
+    throw new UnsupportedOperationException("Not supported yet."); // To change body of generated methods, choose Tools
+                                                                   // | Templates.
 
   }
 
   @Override
   public void mouseEntered(MouseEvent e) {
-
+    throw new UnsupportedOperationException("Not supported yet."); // To change body of generated methods, choose Tools
+                                                                   // | Templates.
   }
 
   @Override
   public void mouseExited(MouseEvent e) {
-
+    throw new UnsupportedOperationException("Not supported yet."); // To change body of generated methods, choose Tools
+                                                                   // | Templates.
   }
 
 }

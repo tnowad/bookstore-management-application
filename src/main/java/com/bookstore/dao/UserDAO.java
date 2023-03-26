@@ -80,7 +80,7 @@ public class UserDAO implements IDAO<UserModel> {
   @Override
   public int delete(int id) throws SQLException, ClassNotFoundException {
     String updateStatusSql = "UPDATE users SET status = ? WHERE id = ?";
-    Object[] args = { UserModel.Status.banned.toString().toLowerCase(), id };
+    Object[] args = { UserModel.Status.BANNED.toString().toLowerCase(), id };
     return DatabaseConnection.executeUpdate(updateStatusSql, args);
   }
 

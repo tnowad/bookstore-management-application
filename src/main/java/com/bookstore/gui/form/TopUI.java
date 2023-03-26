@@ -10,7 +10,6 @@ import com.formdev.flatlaf.FlatLightLaf;
 
 public class TopUI extends JFrame implements MouseListener {
 
-  private JPanel topUI;
   JFrame frame = new JFrame();
   private JLabel actionMenu;
   private JPanel contend;
@@ -31,13 +30,14 @@ public class TopUI extends JFrame implements MouseListener {
     frame.setPreferredSize(new Dimension(1160, 550));
     frame.setBackground(Color.BLACK);
     frame.setLayout(new FlowLayout());
-    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     frame.pack();
     frame.setLocationRelativeTo(null);
     frame.setVisible(true);
   }
 
   public JPanel topUI(int width, int height) {
+    JPanel topUI;
     topUI = new JPanel();
     topUI.setPreferredSize(new Dimension(width, height));
     topUI.setLayout(new BorderLayout());
@@ -64,7 +64,6 @@ public class TopUI extends JFrame implements MouseListener {
 
     topUI.add(contend, BorderLayout.EAST);
 
-    // frame.add(topUI);
     return topUI;
   }
 
@@ -74,23 +73,32 @@ public class TopUI extends JFrame implements MouseListener {
 
   @Override
   public void mouseClicked(MouseEvent e) {
+    throw new UnsupportedOperationException("Not supported yet."); // To change body of generated methods, choose Tools
+                                                                   // | Templates.
   }
 
   @Override
   public void mousePressed(MouseEvent e) {
+    throw new UnsupportedOperationException("Not supported yet."); // To change body of generated methods, choose Tools
+                                                                   // | Templates.
   }
 
   @Override
   public void mouseReleased(MouseEvent e) {
+    throw new UnsupportedOperationException("Not supported yet."); // To change body of generated methods, choose Tools
+                                                                   // | Templates.
   }
 
   @Override
   public void mouseEntered(MouseEvent e) {
+    throw new UnsupportedOperationException("Not supported yet."); // To change body of generated methods, choose Tools
+                                                                   // | Templates.
   }
 
   @Override
   public void mouseExited(MouseEvent e) {
-
+    throw new UnsupportedOperationException("Not supported yet."); // To change body of generated methods, choose Tools
+                                                                   // | Templates.
   }
 
 }
