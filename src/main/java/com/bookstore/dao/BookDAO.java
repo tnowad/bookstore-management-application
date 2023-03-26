@@ -6,12 +6,18 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.bookstore.interfaces.IDAO;
 import com.bookstore.model.BookModel;
+import com.bookstore.model.BookModel.Status;
 
-public class BookDAO implements DAOInterface<BookModel> {
+public class BookDAO implements IDAO<BookModel> {
+  private static BookDAO instance;
 
   public static BookDAO getInstance() {
-    return new BookDAO();
+    if (instance == null) {
+      instance = new BookDAO();
+    }
+    return instance;
   }
 
   private BookModel createBookModelFromResultSet(ResultSet rs) throws SQLException {
@@ -22,7 +28,7 @@ public class BookDAO implements DAOInterface<BookModel> {
         rs.getString("image"),
         rs.getInt("price"),
         rs.getInt("quantity"),
-        BookModel.Status.valueOf(rs.getString("status").toUpperCase()),
+        BookModel.Status.valueOf(rs.getString("status").toLowerCase()),
         rs.getInt("publisher_id"),
         rs.getInt("author_id"));
   }
@@ -55,6 +61,18 @@ public class BookDAO implements DAOInterface<BookModel> {
     return DatabaseConnect.executeUpdate(updateSql, args);
   }
 
+  public int updateQuantity(String isbn, int quantity) throws SQLException, ClassNotFoundException {
+    String updateSql = "UPDATE books SET quantity = ? WHERE isbn = ?";
+    Object[] args = { quantity, isbn };
+    return DatabaseConnect.executeUpdate(updateSql, args);
+  }
+
+  public int updateStatus(String isbn, Status status) throws SQLException, ClassNotFoundException {
+    String updateSql = "UPDATE books SET status = ? WHERE isbn = ?";
+    Object[] args = { status, isbn };
+    return DatabaseConnect.executeUpdate(updateSql, args);
+  }
+
   @Override
   public int delete(int ISBN) throws SQLException, ClassNotFoundException {
     String deleteSql = "DELETE FROM books WHERE isbn = ?";
@@ -63,28 +81,26 @@ public class BookDAO implements DAOInterface<BookModel> {
   }
 
   @Override
-  public List<BookModel> searchByCondition(String condition) throws SQLException, ClassNotFoundException {
-    String query = "SELECT * FROM books";
-    if (condition != null && !condition.isEmpty()) {
-      query += " WHERE " + condition;
-    }
-    try (ResultSet rs = DatabaseConnect.executeQuery(query)) {
-      List<BookModel> bookList = new ArrayList<>();
-      while (rs.next()) {
-        BookModel bookModel = createBookModelFromResultSet(rs);
-        bookList.add(bookModel);
-      }
-      if (bookList.isEmpty()) {
-        System.out.println("No records found for the given condition: " + condition);
-      }
-      return bookList;
-    }
-  }
-
-  @Override
-  public List<BookModel> searchByCondition(String condition, String columnName)
+  public List<BookModel> search(String condition, String[] columnNames)
       throws SQLException, ClassNotFoundException {
-    String query = "SELECT * FROM books WHERE " + columnName + " LIKE ?";
+
+    if (condition == null || condition.trim().isEmpty()) {
+      throw new IllegalArgumentException("Search condition cannot be empty or null");
+    }
+
+    String query;
+    if (columnNames == null || columnNames.length == 0) {
+      // Search all columns
+      query = "SELECT * FROM books WHERE CONCAT(isbn, title, description, image, price, quantity, status, publisher_id, author_id) LIKE ?";
+    } else if (columnNames.length == 1) {
+      // Search specific column in books table
+      String column = columnNames[0];
+      query = "SELECT * FROM books WHERE " + column + " LIKE ?";
+    } else {
+      // Search specific columns in books table
+      query = "SELECT isbn, title, description, image, price, quantity, status, publisher_id, author_id FROM books WHERE CONCAT("
+          + String.join(", ", columnNames) + ") LIKE ?";
+    }
     try (PreparedStatement pst = DatabaseConnect.getPreparedStatement(query, "%" + condition + "%")) {
       try (ResultSet rs = pst.executeQuery()) {
         List<BookModel> bookList = new ArrayList<>();

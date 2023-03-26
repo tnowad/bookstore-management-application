@@ -6,21 +6,25 @@ import java.util.Collections;
 import java.util.List;
 
 import com.bookstore.dao.UserDAO;
+import com.bookstore.interfaces.IBUS;
 import com.bookstore.model.UserModel;
 import com.bookstore.model.UserModel.Role;
+import com.bookstore.model.UserModel.Status;
 import com.bookstore.util.PasswordUtil;
 
-public class UserBUS extends BUSAbstract<UserModel> {
+public class UserBUS implements IBUS<UserModel> {
   private final List<UserModel> userList = new ArrayList<>();
-  private final UserDAO userDAO = UserDAO.getInstance();
+  private static UserBUS instance;
 
-  public UserBUS() throws SQLException, ClassNotFoundException {
-    this.userList.addAll(userDAO.readDatabase());
+  public static UserBUS getInstance() throws ClassNotFoundException, SQLException {
+    if (instance == null) {
+      instance = new UserBUS();
+    }
+    return instance;
   }
 
-  @Override
-  protected ArrayList<UserModel> readFromDatabase() throws SQLException, ClassNotFoundException {
-    return userDAO.readDatabase();
+  private UserBUS() throws SQLException, ClassNotFoundException {
+    this.userList.addAll(UserDAO.getInstance().readDatabase());
   }
 
   public UserModel login(String username, String password) throws SQLException, ClassNotFoundException {
@@ -32,28 +36,34 @@ public class UserBUS extends BUSAbstract<UserModel> {
   }
 
   @Override
-  protected int getId(UserModel t) {
-    return t.getId();
-  }
-
-  public UserModel getUserModel(int id) {
-    return getModel(id);
-  }
-
-  public List<UserModel> getUserList() {
+  public List<UserModel> getAllModels() {
     return Collections.unmodifiableList(userList);
   }
 
   @Override
-  protected UserModel mapToEntity(UserModel from) {
+  public UserModel getModelById(int id) throws SQLException, ClassNotFoundException {
+    for (UserModel userModel : userList) {
+      if (userModel.getId() == id) {
+        return userModel;
+      }
+    }
+
+    UserModel userModel = UserDAO.getInstance().getUserById(id);
+    if (userModel != null) {
+      userList.add(userModel);
+    }
+    return userModel;
+  }
+
+  private UserModel mapToEntity(UserModel from) {
     UserModel to = new UserModel();
     updateEntityFields(from, to);
     return to;
   }
 
-  @Override
-  protected void updateEntityFields(UserModel from, UserModel to) {
+  private void updateEntityFields(UserModel from, UserModel to) {
     to.setUsername(from.getUsername());
+    to.setPassword(from.getPassword());
     to.setStatus(from.getStatus());
     to.setName(from.getName());
     to.setEmail(from.getEmail());
@@ -61,18 +71,52 @@ public class UserBUS extends BUSAbstract<UserModel> {
     to.setRole(from.getRole());
   }
 
-  @Override
-  protected boolean checkFilter(UserModel userModel, String value, String column) {
-    return switch (column.toLowerCase()) {
-      case "id" -> userModel.getId() == Integer.parseInt(value);
-      case "username" -> userModel.getUsername().equalsIgnoreCase(value);
-      case "status" -> userModel.getStatus().toString().equalsIgnoreCase(value);
-      case "name" -> userModel.getName().equalsIgnoreCase(value);
-      case "email" -> userModel.getEmail().equalsIgnoreCase(value);
-      case "phone" -> userModel.getPhone().equals(value);
-      case "role" -> userModel.getRole().toString().equalsIgnoreCase(value);
-      default -> checkAllColumns(userModel, value);
-    };
+  private boolean checkFilter(UserModel userModel, String value, String[] columns) {
+    for (String column : columns) {
+      switch (column.toLowerCase()) {
+        case "id":
+          if (userModel.getId() == Integer.parseInt(value)) {
+            return true;
+          }
+          break;
+        case "username":
+          if (userModel.getUsername().equalsIgnoreCase(value)) {
+            return true;
+          }
+          break;
+        case "status":
+          if (userModel.getStatus().toString().equalsIgnoreCase(value)) {
+            return true;
+          }
+          break;
+        case "name":
+          if (userModel.getName().equalsIgnoreCase(value)) {
+            return true;
+          }
+          break;
+        case "email":
+          if (userModel.getEmail().equalsIgnoreCase(value)) {
+            return true;
+          }
+          break;
+        case "phone":
+          if (userModel.getPhone().equals(value)) {
+            return true;
+          }
+          break;
+        case "role":
+          if (userModel.getRole().toString().equalsIgnoreCase(value)) {
+            return true;
+          }
+          break;
+        default:
+          if (checkAllColumns(userModel, value)) {
+            return true;
+          }
+          break;
+      }
+    }
+    return false;
   }
 
   private boolean checkAllColumns(UserModel userModel, String value) {
@@ -86,50 +130,110 @@ public class UserBUS extends BUSAbstract<UserModel> {
   }
 
   @Override
-  public int insertModel(UserModel userModel) throws SQLException, ClassNotFoundException {
-    if (userModel.getUsername() == null || userModel.getUsername().isEmpty() ||
-        userModel.getStatus() == null || userModel.getName() == null || userModel.getName().isEmpty() ||
-        userModel.getPassword() == null || userModel.getPassword().isEmpty() ||
-        userModel.getRole() == null) {
-      throw new IllegalArgumentException("Invalid input values. Please check the input and try again.");
+  public int addModel(UserModel userModel) throws SQLException, ClassNotFoundException {
+    if (userModel.getUsername() == null || userModel.getUsername().isEmpty()
+        || userModel.getName() == null || userModel.getName().isEmpty()
+        || userModel.getPassword() == null || userModel.getPassword().isEmpty()) {
+      throw new IllegalArgumentException(
+          "Username, name and password cannot be empty. Please check the input and try again.");
     }
+
     boolean hasPhone = userModel.getPhone() != null && !userModel.getPhone().isEmpty();
     boolean hasEmail = userModel.getEmail() != null && !userModel.getEmail().isEmpty();
+
     if (!hasPhone && !hasEmail) {
       throw new IllegalArgumentException("At least one of 'phone' or 'email' is required.");
     }
-    if (hasEmail && !isValidEmailAddress(userModel.getEmail())) {
-      throw new IllegalArgumentException("Invalid email address.");
-    }
-    userModel.setRole(userModel.getRole() != null ? userModel.getRole() : Role.CUSTOMER);
-    return add(userModel);
+    // if (hasEmail && !isValidEmailAddress(userModel.getEmail())) {
+    // throw new IllegalArgumentException("Invalid email address.");
+    // }
+    userModel.setRole(userModel.getRole() != null ? userModel.getRole() : Role.customer);
+    userModel.setStatus(userModel.getStatus() != null ? userModel.getStatus() : Status.active);
+
+    int id = UserDAO.getInstance().insert(mapToEntity(userModel));
+    userModel.setId(id);
+    userList.add(userModel);
+    return id;
   }
+
+  // private boolean isValidEmailAddress(String email) {
+  // return true;
+  // }
 
   @Override
   public int updateModel(UserModel userModel) throws SQLException, ClassNotFoundException {
-    return update(userModel);
+    int updatedRows = UserDAO.getInstance().update(userModel);
+    if (updatedRows > 0) {
+      for (int i = 0; i < userList.size(); i++) {
+        if (userList.get(i).getId() == userModel.getId()) {
+          userList.set(i, userModel);
+          break;
+        }
+      }
+    }
+    return updatedRows;
   }
 
-  private boolean isValidEmailAddress(String email) {
-    String regex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
-    return email.matches(regex);
+  public int updateStatus(String username, Status status) throws ClassNotFoundException, SQLException {
+    int success = UserDAO.getInstance().updateStatus(username, status);
+    if (success == 1) {
+      for (UserModel user : userList) {
+        if (user.getUsername().equals(username)) {
+          user.setStatus(status);
+          return 1;
+        }
+      }
+    }
+    return 0;
+  }
+
+  public int updateRole(String username, Role role) throws ClassNotFoundException, SQLException {
+    int success = UserDAO.getInstance().updateRole(username, role);
+    if (success == 1) {
+      for (UserModel user : userList) {
+        if (user.getUsername().equals(username)) {
+          user.setRole(role);
+          return 1;
+        }
+      }
+    }
+    return 0;
   }
 
   @Override
   public int deleteModel(int id) throws SQLException, ClassNotFoundException {
-    UserModel userModel = getModel(id);
+    UserModel userModel = getModelById(id);
     if (userModel == null) {
-      return 0;
+      throw new IllegalArgumentException("User with ID " + id + " does not exist.");
     }
-    int deleted = userDAO.delete(userModel.getId());
-    if (deleted > 0) {
-      userList.removeIf(user -> user.getId() == id);
+    int deletedRows = UserDAO.getInstance().delete(id);
+    if (deletedRows > 0) {
+      userList.remove(userModel);
     }
-    return deleted;
+    return deletedRows;
   }
 
-  public List<UserModel> searchModel(String value, String columns) {
-    return search(value, columns);
-  }
+  @Override
+  public List<UserModel> searchModel(String value, String[] columns) throws SQLException, ClassNotFoundException {
+    List<UserModel> results = new ArrayList<>();
+    try {
+      List<UserModel> entities = UserDAO.getInstance().search(value, columns);
+      for (UserModel entity : entities) {
+        UserModel model = mapToEntity(entity);
+        if (checkFilter(model, value, columns)) {
+          results.add(model);
+        }
+      }
+    } catch (SQLException e) {
+      throw new SQLException("Failed to search for users: " + e.getMessage());
+    } catch (ClassNotFoundException e) {
+      throw new ClassNotFoundException("Failed to search for users: " + e.getMessage());
+    }
 
+    if (results.isEmpty()) {
+      throw new IllegalArgumentException("No users found with the specified search criteria.");
+    }
+
+    return results;
+  }
 }

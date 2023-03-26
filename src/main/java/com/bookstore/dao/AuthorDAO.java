@@ -6,9 +6,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.bookstore.interfaces.IDAO;
 import com.bookstore.model.AuthorModel;
 
-public class AuthorDAO implements DAOInterface<AuthorModel> {
+public class AuthorDAO implements IDAO<AuthorModel> {
   private static AuthorDAO instance;
 
   public static AuthorDAO getInstance() {
@@ -59,28 +60,26 @@ public class AuthorDAO implements DAOInterface<AuthorModel> {
   }
 
   @Override
-  public List<AuthorModel> searchByCondition(String condition) throws SQLException, ClassNotFoundException {
-    String query = "SELECT * FROM authors";
-    if (condition != null && !condition.isEmpty()) {
-      query += " WHERE " + condition;
-    }
-    try (ResultSet rs = DatabaseConnect.executeQuery(query)) {
-      List<AuthorModel> authorList = new ArrayList<>();
-      while (rs.next()) {
-        AuthorModel authorModel = createAuthorModelFromResultSet(rs);
-        authorList.add(authorModel);
-      }
-      if (authorList.isEmpty()) {
-        System.out.println("No records found for the given condition: " + condition);
-      }
-      return authorList;
-    }
-  }
-
-  @Override
-  public List<AuthorModel> searchByCondition(String condition, String columnName)
+  public List<AuthorModel> search(String condition, String[] columnNames)
       throws SQLException, ClassNotFoundException {
-    String query = "SELECT * FROM authors WHERE " + columnName + " LIKE ?";
+    if (condition == null || condition.trim().isEmpty()) {
+      throw new IllegalArgumentException("Search condition cannot be empty or null");
+    }
+
+    String query;
+    if (columnNames == null || columnNames.length == 0) {
+      // Search all columns
+      query = "SELECT * FROM authors WHERE CONCAT(id, name, description) LIKE ?";
+    } else if (columnNames.length == 1) {
+      // Search specific column in authors table
+      String column = columnNames[0];
+      query = "SELECT * FROM authors WHERE " + column + " LIKE ?";
+    } else {
+      // Search specific columns in authors table
+      query = "SELECT id, name, description FROM authors WHERE CONCAT("
+          + String.join(", ", columnNames) + ") LIKE ?";
+    }
+
     try (PreparedStatement pst = DatabaseConnect.getPreparedStatement(query, "%" + condition + "%")) {
       try (ResultSet rs = pst.executeQuery()) {
         List<AuthorModel> authorList = new ArrayList<>();

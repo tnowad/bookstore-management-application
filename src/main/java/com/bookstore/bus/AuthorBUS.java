@@ -6,56 +6,81 @@ import java.util.Collections;
 import java.util.List;
 
 import com.bookstore.dao.AuthorDAO;
+import com.bookstore.interfaces.IBUS;
 import com.bookstore.model.AuthorModel;
 
-public class AuthorBUS extends BUSAbstract<AuthorModel> {
+public class AuthorBUS implements IBUS<AuthorModel> {
 
   private final List<AuthorModel> authorList = new ArrayList<>();
-  private final AuthorDAO authorDAO = AuthorDAO.getInstance();
+  private static AuthorBUS instance;
 
-  public AuthorBUS() throws SQLException, ClassNotFoundException {
-    this.authorList.addAll(authorDAO.readDatabase());
+  public static AuthorBUS getInstance() throws ClassNotFoundException, SQLException {
+    if (instance == null) {
+      instance = new AuthorBUS();
+    }
+    return instance;
+  }
+
+  private AuthorBUS() throws SQLException, ClassNotFoundException {
+    this.authorList.addAll(AuthorDAO.getInstance().readDatabase());
   }
 
   @Override
-  protected ArrayList<AuthorModel> readFromDatabase() throws SQLException, ClassNotFoundException {
-    return authorDAO.readDatabase();
+  public List<AuthorModel> getAllModels() {
+    return Collections.unmodifiableList(authorList);
   }
 
   @Override
-  public int getId(AuthorModel authorModel) {
-    return authorModel.getId();
-  }
-
-  public AuthorModel getAuthorModel(int id) {
-    return getModel(id);
+  public AuthorModel getModelById(int id) throws SQLException, ClassNotFoundException {
+    for (AuthorModel authorModel : authorList) {
+      if (authorModel.getId() == id) {
+        return authorModel;
+      }
+    }
+    return null;
   }
 
   public List<AuthorModel> getAuthorList() throws NullPointerException {
     return Collections.unmodifiableList(authorList);
   }
 
-  @Override
-  protected AuthorModel mapToEntity(AuthorModel from) {
+  private AuthorModel mapToEntity(AuthorModel from) {
     AuthorModel to = new AuthorModel();
     updateEntityFields(from, to);
     return to;
   }
 
-  @Override
-  protected void updateEntityFields(AuthorModel from, AuthorModel to) {
+  private void updateEntityFields(AuthorModel from, AuthorModel to) {
     to.setName(from.getName());
     to.setDescription(from.getDescription());
   }
 
-  @Override
-  protected boolean checkFilter(AuthorModel authorModel, String value, String column) {
-    return switch (column.toLowerCase()) {
-      case "id" -> authorModel.getId() == Integer.parseInt(value);
-      case "name" -> authorModel.getName().toLowerCase().contains(value.toLowerCase());
-      case "description" -> authorModel.getDescription().toLowerCase().contains(value.toLowerCase());
-      default -> checkAllColumns(authorModel, value);
-    };
+  private boolean checkFilter(AuthorModel authorModel, String value, String[] columns) {
+    for (String column : columns) {
+      switch (column.toLowerCase()) {
+        case "id":
+          if (authorModel.getId() == Integer.parseInt(value)) {
+            return true;
+          }
+          break;
+        case "name":
+          if (authorModel.getName().toLowerCase().contains(value.toLowerCase())) {
+            return true;
+          }
+          break;
+        case "description":
+          if (authorModel.getDescription().toLowerCase().contains(value.toLowerCase())) {
+            return true;
+          }
+          break;
+        default:
+          if (checkAllColumns(authorModel, value)) {
+            return true;
+          }
+          break;
+      }
+    }
+    return false;
   }
 
   private boolean checkAllColumns(AuthorModel authorModel, String value) {
@@ -65,28 +90,68 @@ public class AuthorBUS extends BUSAbstract<AuthorModel> {
   }
 
   @Override
-  public int insertModel(AuthorModel authorModel) throws SQLException, ClassNotFoundException {
+  public int addModel(AuthorModel authorModel) throws SQLException, ClassNotFoundException {
     if (authorModel.getName() == null || authorModel.getName().isEmpty()) {
       throw new IllegalArgumentException("Name cannot be null or empty!");
     }
     if (authorModel.getDescription() == null || authorModel.getDescription().isEmpty()) {
       throw new IllegalArgumentException("Description cannot be null or empty!");
     }
-    return add(authorModel);
+
+    int id = AuthorDAO.getInstance().insert(mapToEntity(authorModel));
+    authorModel.setId(id);
+    authorList.add(authorModel);
+    return id;
   }
 
   @Override
   public int updateModel(AuthorModel authorModel) throws SQLException, ClassNotFoundException {
-    return update(authorModel);
+    int updatedRows = AuthorDAO.getInstance().update(authorModel);
+    if (updatedRows > 0) {
+      for (int i = 0; i < authorList.size(); i++) {
+        if (authorList.get(i).getId() == authorModel.getId()) {
+          authorList.set(i, authorModel);
+          break;
+        }
+      }
+    }
+    return updatedRows;
   }
 
   @Override
   public int deleteModel(int id) throws SQLException, ClassNotFoundException {
-    return delete(id);
+    AuthorModel authorModel = getModelById(id);
+    if (authorModel == null) {
+      throw new IllegalArgumentException("Author with ID " + id + " does not exist.");
+    }
+    int deletedRows = AuthorDAO.getInstance().delete(id);
+    if (deletedRows > 0) {
+      authorList.remove(authorModel);
+    }
+    return deletedRows;
   }
 
-  public List<AuthorModel> searchModel(String value, String columns) {
-    return search(value, columns);
-  }
+  @Override
+  public List<AuthorModel> searchModel(String value, String[] columns) throws SQLException, ClassNotFoundException {
+    List<AuthorModel> results = new ArrayList<>();
+    try {
+      List<AuthorModel> entities = AuthorDAO.getInstance().search(value, columns);
+      for (AuthorModel entity : entities) {
+        AuthorModel model = mapToEntity(entity);
+        if (checkFilter(model, value, columns)) {
+          results.add(model);
+        }
+      }
+    } catch (SQLException e) {
+      throw new SQLException("Failed to search for author: " + e.getMessage());
+    } catch (ClassNotFoundException e) {
+      throw new ClassNotFoundException("Failed to search for author: " + e.getMessage());
+    }
 
+    if (results.isEmpty()) {
+      throw new IllegalArgumentException("No author found with the specified search criteria.");
+    }
+
+    return results;
+  }
 }

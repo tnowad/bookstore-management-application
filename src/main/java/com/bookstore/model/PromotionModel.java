@@ -12,6 +12,9 @@ public class PromotionModel {
   private int discountPercent;
   private int discountAmount;
 
+  public PromotionModel() {
+  }
+
   public PromotionModel(int id, String description, int quantity, Date startDate, Date endDate,
       String conditionApply, int discountPercent, int discountAmount) {
     this.id = id;

@@ -6,12 +6,17 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.bookstore.interfaces.IDAO;
 import com.bookstore.model.PromotionModel;
 
-public class PromotionDAO implements DAOInterface<PromotionModel> {
+public class PromotionDAO implements IDAO<PromotionModel> {
+  private static PromotionDAO instance;
 
   public static PromotionDAO getInstance() {
-    return new PromotionDAO();
+    if (instance == null) {
+      instance = new PromotionDAO();
+    }
+    return instance;
   }
 
   private PromotionModel createPromotionModelFromResultSet(ResultSet rs) throws SQLException {
@@ -79,28 +84,26 @@ public class PromotionDAO implements DAOInterface<PromotionModel> {
   }
 
   @Override
-  public List<PromotionModel> searchByCondition(String condition) throws SQLException, ClassNotFoundException {
-    String query = "SELECT * FROM promotions";
-    if (condition != null && !condition.isEmpty()) {
-      query += " WHERE " + condition;
-    }
-    try (ResultSet rs = DatabaseConnect.executeQuery(query)) {
-      List<PromotionModel> promotionList = new ArrayList<>();
-      while (rs.next()) {
-        PromotionModel promotionModel = createPromotionModelFromResultSet(rs);
-        promotionList.add(promotionModel);
-      }
-      if (promotionList.isEmpty()) {
-        System.out.println("No records found for the given condition: " + condition);
-      }
-      return promotionList;
-    }
-  }
-
-  @Override
-  public List<PromotionModel> searchByCondition(String condition, String columnName)
+  public List<PromotionModel> search(String condition, String[] columnNames)
       throws SQLException, ClassNotFoundException {
-    String query = "SELECT * FROM promotions WHERE " + columnName + " LIKE ?";
+    if (condition == null || condition.trim().isEmpty()) {
+      throw new IllegalArgumentException("Search condition cannot be empty or null");
+    }
+
+    String query;
+    if (columnNames == null || columnNames.length == 0) {
+      // Search all columns
+      query = "SELECT * FROM promotions WHERE CONCAT(id, description, quantity, start_date, end_date, condition_apply, discount_percent, discount_amount) LIKE ?";
+    } else if (columnNames.length == 1) {
+      // Search specific column in promotions table
+      String column = columnNames[0];
+      query = "SELECT * FROM promotions WHERE " + column + " LIKE ?";
+    } else {
+      // Search specific columns in promotions table
+      query = "SELECT id, description, quantity, start_date, end_date, condition_apply, discount_percent, discount_amount FROM promotions WHERE CONCAT("
+          + String.join(", ", columnNames) + ") LIKE ?";
+    }
+
     try (PreparedStatement pst = DatabaseConnect.getPreparedStatement(query, "%" + condition + "%")) {
       try (ResultSet rs = pst.executeQuery()) {
         List<PromotionModel> promotionList = new ArrayList<>();

@@ -6,9 +6,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.bookstore.interfaces.IDAO;
 import com.bookstore.model.AddressModel;
 
-public class AddressDAO implements DAOInterface<AddressModel> {
+public class AddressDAO implements IDAO<AddressModel> {
   private static AddressDAO instance;
 
   public static AddressDAO getInstance() {
@@ -64,28 +65,26 @@ public class AddressDAO implements DAOInterface<AddressModel> {
   }
 
   @Override
-  public List<AddressModel> searchByCondition(String condition) throws SQLException, ClassNotFoundException {
-    String query = "SELECT * FROM addresses";
-    if (condition != null && !condition.isEmpty()) {
-      query += " WHERE " + condition;
-    }
-    try (ResultSet rs = DatabaseConnect.executeQuery(query)) {
-      List<AddressModel> addressList = new ArrayList<>();
-      while (rs.next()) {
-        AddressModel addressModel = createAddressModelFromResultSet(rs);
-        addressList.add(addressModel);
-      }
-      if (addressList.isEmpty()) {
-        System.out.println("No records found for the given condition: " + condition);
-      }
-      return addressList;
-    }
-  }
-
-  @Override
-  public List<AddressModel> searchByCondition(String condition, String columnName)
+  public List<AddressModel> search(String condition, String[] columnNames)
       throws SQLException, ClassNotFoundException {
-    String query = "SELECT * FROM addresses WHERE " + columnName + " LIKE ?";
+    if (condition == null || condition.trim().isEmpty()) {
+      throw new IllegalArgumentException("Search condition cannot be empty or null");
+    }
+
+    String query;
+    if (columnNames == null || columnNames.length == 0) {
+      // Search all columns
+      query = "SELECT * FROM addresses WHERE CONCAT(id, user_id, street, city, state, zip) LIKE ?";
+    } else if (columnNames.length == 1) {
+      // Search specific column in addresses table
+      String column = columnNames[0];
+      query = "SELECT * FROM addresses WHERE " + column + " LIKE ?";
+    } else {
+      // Search specific columns in addresses table
+      query = "SELECT id, user_id, street, city, state, zip FROM addresses WHERE CONCAT("
+          + String.join(", ", columnNames) + ") LIKE ?";
+    }
+
     try (PreparedStatement pst = DatabaseConnect.getPreparedStatement(query, "%" + condition + "%")) {
       try (ResultSet rs = pst.executeQuery()) {
         List<AddressModel> addressList = new ArrayList<>();
@@ -94,10 +93,11 @@ public class AddressDAO implements DAOInterface<AddressModel> {
           addressList.add(addressModel);
         }
         if (addressList.isEmpty()) {
-          throw new SQLException("No records found for the given condition: " + condition);
+          throw new SQLException("No addresses found for the given search condition: " + condition);
         }
         return addressList;
       }
     }
   }
+
 }

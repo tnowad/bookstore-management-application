@@ -6,12 +6,17 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.bookstore.interfaces.IDAO;
 import com.bookstore.model.ProviderModel;
 
-public class ProviderDAO implements DAOInterface<ProviderModel> {
+public class ProviderDAO implements IDAO<ProviderModel> {
+  private static ProviderDAO instance;
 
   public static ProviderDAO getInstance() {
-    return new ProviderDAO();
+    if (instance == null) {
+      instance = new ProviderDAO();
+    }
+    return instance;
   }
 
   private ProviderModel createProviderModelFromResultSet(ResultSet rs) throws SQLException {
@@ -55,28 +60,26 @@ public class ProviderDAO implements DAOInterface<ProviderModel> {
   }
 
   @Override
-  public List<ProviderModel> searchByCondition(String condition) throws SQLException, ClassNotFoundException {
-    String query = "SELECT * FROM providers";
-    if (condition != null && !condition.isEmpty()) {
-      query += " WHERE " + condition;
-    }
-    try (ResultSet rs = DatabaseConnect.executeQuery(query)) {
-      List<ProviderModel> providerList = new ArrayList<>();
-      while (rs.next()) {
-        ProviderModel providerModel = createProviderModelFromResultSet(rs);
-        providerList.add(providerModel);
-      }
-      if (providerList.isEmpty()) {
-        System.out.println("No records found for the given condition: " + condition);
-      }
-      return providerList;
-    }
-  }
-
-  @Override
-  public List<ProviderModel> searchByCondition(String condition, String columnName)
+  public List<ProviderModel> search(String condition, String[] columnNames)
       throws SQLException, ClassNotFoundException {
-    String query = "SELECT * FROM providers WHERE " + columnName + " LIKE ?";
+    if (condition == null || condition.trim().isEmpty()) {
+      throw new IllegalArgumentException("Search condition cannot be empty or null");
+    }
+
+    String query;
+    if (columnNames == null || columnNames.length == 0) {
+      // Search all columns
+      query = "SELECT * FROM providers WHERE CONCAT(id, name, description) LIKE ?";
+    } else if (columnNames.length == 1) {
+      // Search specific column in providers table
+      String column = columnNames[0];
+      query = "SELECT * FROM providers WHERE " + column + " LIKE ?";
+    } else {
+      // Search specific columns in providers table
+      query = "SELECT id, name, description FROM providers WHERE CONCAT("
+          + String.join(", ", columnNames) + ") LIKE ?";
+    }
+
     try (PreparedStatement pst = DatabaseConnect.getPreparedStatement(query, "%" + condition + "%")) {
       try (ResultSet rs = pst.executeQuery()) {
         List<ProviderModel> providerList = new ArrayList<>();

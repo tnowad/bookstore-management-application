@@ -6,12 +6,18 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.bookstore.interfaces.IDAO;
 import com.bookstore.model.PaymentMethodModel;
 
-public class PaymentMethodDAO implements DAOInterface<PaymentMethodModel> {
+public class PaymentMethodDAO implements IDAO<PaymentMethodModel> {
+
+  private static PaymentMethodDAO instance;
 
   public static PaymentMethodDAO getInstance() {
-    return new PaymentMethodDAO();
+    if (instance == null) {
+      instance = new PaymentMethodDAO();
+    }
+    return instance;
   }
 
   private PaymentMethodModel createPaymentMethodModelFromResultSet(ResultSet rs) throws SQLException {
@@ -67,29 +73,26 @@ public class PaymentMethodDAO implements DAOInterface<PaymentMethodModel> {
   }
 
   @Override
-  public List<PaymentMethodModel> searchByCondition(String condition)
+  public List<PaymentMethodModel> search(String condition, String[] columnNames)
       throws SQLException, ClassNotFoundException {
-    String query = "SELECT * FROM payment_methods";
-    if (condition != null && !condition.isEmpty()) {
-      query += " WHERE " + condition;
+    if (condition == null || condition.trim().isEmpty()) {
+      throw new IllegalArgumentException("Search condition cannot be empty or null");
     }
-    try (ResultSet rs = DatabaseConnect.executeQuery(query)) {
-      List<PaymentMethodModel> paymentMethodList = new ArrayList<>();
-      while (rs.next()) {
-        PaymentMethodModel paymentMethodModel = createPaymentMethodModelFromResultSet(rs);
-        paymentMethodList.add(paymentMethodModel);
-      }
-      if (paymentMethodList.isEmpty()) {
-        System.out.println("No records found for the given condition: " + condition);
-      }
-      return paymentMethodList;
-    }
-  }
 
-  @Override
-  public List<PaymentMethodModel> searchByCondition(String condition, String columnName)
-      throws SQLException, ClassNotFoundException {
-    String query = "SELECT * FROM payment_methods WHERE " + columnName + " LIKE ?";
+    String query;
+    if (columnNames == null || columnNames.length == 0) {
+      // Search all columns
+      query = "SELECT * FROM payment_methods WHERE CONCAT(id, payment_id, card_number, card_holder, expiration_date, customer_id) LIKE ?";
+    } else if (columnNames.length == 1) {
+      // Search specific column in payment_methods table
+      String column = columnNames[0];
+      query = "SELECT * FROM payment_methods WHERE " + column + " LIKE ?";
+    } else {
+      // Search specific columns in payment_methods table
+      query = "SELECT id, payment_id, card_number, card_holder, expiration_date, customer_id FROM payment_methods WHERE CONCAT("
+          + String.join(", ", columnNames) + ") LIKE ?";
+    }
+
     try (PreparedStatement pst = DatabaseConnect.getPreparedStatement(query, "%" + condition + "%")) {
       try (ResultSet rs = pst.executeQuery()) {
         List<PaymentMethodModel> paymentMethodList = new ArrayList<>();

@@ -6,44 +6,51 @@ import java.util.Collections;
 import java.util.List;
 
 import com.bookstore.dao.PromotionDAO;
+import com.bookstore.interfaces.IBUS;
 import com.bookstore.model.PromotionModel;
 
-public class PromotionBUS extends BUSAbstract<PromotionModel> {
+public class PromotionBUS implements IBUS<PromotionModel> {
 
   private final List<PromotionModel> promotionList = new ArrayList<>();
-  private final PromotionDAO promotionDAO = PromotionDAO.getInstance();
+  private static PromotionBUS instance;
 
-  public PromotionBUS() throws SQLException, ClassNotFoundException {
-    this.promotionList.addAll(promotionDAO.readDatabase());
+  public static PromotionBUS getInstance() throws ClassNotFoundException, SQLException {
+    if (instance == null) {
+      instance = new PromotionBUS();
+    }
+    return instance;
+  }
+
+  private PromotionBUS() throws SQLException, ClassNotFoundException {
+    this.promotionList.addAll(PromotionDAO.getInstance().readDatabase());
   }
 
   @Override
-  protected ArrayList<PromotionModel> readFromDatabase() throws SQLException, ClassNotFoundException {
-    return promotionDAO.readDatabase();
-  }
-
-  @Override
-  public int getId(PromotionModel promotionModel) {
-    return promotionModel.getId();
-  }
-
-  public PromotionModel getPromotionModel(int id) {
-    return getModel(id);
-  }
-
-  public List<PromotionModel> getPromotionList() {
+  public List<PromotionModel> getAllModels() {
     return Collections.unmodifiableList(promotionList);
   }
 
   @Override
-  protected PromotionModel mapToEntity(PromotionModel from) {
-    return new PromotionModel(from.getId(), from.getDescription(), from.getQuantity(),
-        from.getStartDate(), from.getEndDate(), from.getConditionApply(), from.getDiscountPercent(),
-        from.getDiscountAmount());
+  public PromotionModel getModelById(int id) throws SQLException, ClassNotFoundException {
+    for (PromotionModel promotionModel : promotionList) {
+      if (promotionModel.getId() == id) {
+        return promotionModel;
+      }
+    }
+    return null;
   }
 
-  @Override
-  protected void updateEntityFields(PromotionModel from, PromotionModel to) {
+  public List<PromotionModel> getPromotionList() throws NullPointerException {
+    return Collections.unmodifiableList(promotionList);
+  }
+
+  private PromotionModel mapToEntity(PromotionModel from) {
+    PromotionModel to = new PromotionModel();
+    updateEntityFields(from, to);
+    return to;
+  }
+
+  private void updateEntityFields(PromotionModel from, PromotionModel to) {
     to.setDescription(from.getDescription());
     to.setQuantity(from.getQuantity());
     to.setStartDate(from.getStartDate());
@@ -53,75 +60,77 @@ public class PromotionBUS extends BUSAbstract<PromotionModel> {
     to.setDiscountAmount(from.getDiscountAmount());
   }
 
-  @Override
-  protected boolean checkFilter(PromotionModel promotionModel, String value, String column) {
-    switch (column.toLowerCase()) {
-      case "id" -> {
-        try {
-          return Integer.parseInt(value) == promotionModel.getId();
-        } catch (NumberFormatException e) {
-          return false;
-        }
-      }
-      case "description" -> {
-        return promotionModel.getDescription().toLowerCase().contains(value.toLowerCase());
-      }
-      case "quantity" -> {
-        try {
-          return Integer.parseInt(value) > 0 && promotionModel.getQuantity() == Integer.parseInt(value);
-        } catch (NumberFormatException e) {
-          return false;
-        }
-      }
-      case "start_date" -> {
-        return promotionModel.getStartDate().equals(value);
-      }
-      case "end_date" -> {
-        return promotionModel.getEndDate().equals(value);
-      }
-      case "condition_apply" -> {
-        return promotionModel.getConditionApply() != null
-            && promotionModel.getConditionApply().toLowerCase().contains(value.toLowerCase());
-      }
-      case "discount_percent" -> {
-        try {
-          return Integer.parseInt(value) >= 0 && promotionModel.getDiscountPercent() == Integer.parseInt(value);
-        } catch (NumberFormatException e) {
-          return false;
-        }
-      }
-      case "discount_amount" -> {
-        try {
-          return Integer.parseInt(value) >= 0 && promotionModel.getDiscountAmount() == Integer.parseInt(value);
-        } catch (NumberFormatException e) {
-          return false;
-        }
-      }
-      default -> {
-        return checkAllColumns(promotionModel, value);
+  private boolean checkFilter(PromotionModel promotionModel, String value, String[] columns) {
+    for (String column : columns) {
+      switch (column.toLowerCase()) {
+        case "id":
+          if (promotionModel.getId() == Integer.parseInt(value)) {
+            return true;
+          }
+          break;
+        case "description":
+          if (promotionModel.getDescription().toLowerCase().contains(value.toLowerCase())) {
+            return true;
+          }
+          break;
+        case "quantity":
+          if (promotionModel.getQuantity() == Integer.parseInt(value)) {
+            return true;
+          }
+          break;
+        case "start_date":
+          if (promotionModel.getStartDate().toString().toLowerCase().contains(value.toLowerCase())) {
+            return true;
+          }
+          break;
+        case "end_date":
+          if (promotionModel.getEndDate().toString().toLowerCase().contains(value.toLowerCase())) {
+            return true;
+          }
+          break;
+        case "condition_apply":
+          if (promotionModel.getConditionApply().toLowerCase().contains(value.toLowerCase())) {
+            return true;
+          }
+          break;
+        case "discount_percent":
+          if (promotionModel.getDiscountPercent() == Integer.parseInt(value)) {
+            return true;
+          }
+          break;
+        case "discount_amount":
+          if (promotionModel.getDiscountAmount() == Integer.parseInt(value)) {
+            return true;
+          }
+          break;
+        default:
+          if (checkAllColumns(promotionModel, value)) {
+            return true;
+          }
+          break;
       }
     }
+    return false;
   }
 
   private boolean checkAllColumns(PromotionModel promotionModel, String value) {
-    return Integer.toString(promotionModel.getId()).equals(value)
+    return promotionModel.getId() == Integer.parseInt(value)
         || promotionModel.getDescription().toLowerCase().contains(value.toLowerCase())
-        || (Integer.toString(promotionModel.getQuantity())).equals(value)
-        || promotionModel.getStartDate().equals(value)
-        || promotionModel.getEndDate().equals(value)
-        || promotionModel.getConditionApply() != null
-            && promotionModel.getConditionApply().toLowerCase().contains(value.toLowerCase())
-        || (promotionModel.getDiscountPercent() >= 0 && promotionModel.getDiscountPercent() == Integer.parseInt(value))
-        || (promotionModel.getDiscountAmount() >= 0 && promotionModel.getDiscountAmount() == Integer.parseInt(value));
+        || promotionModel.getQuantity() == Integer.parseInt(value)
+        || promotionModel.getStartDate().toString().toLowerCase().contains(value.toLowerCase())
+        || promotionModel.getEndDate().toString().toLowerCase().contains(value.toLowerCase())
+        || promotionModel.getConditionApply().toLowerCase().contains(value.toLowerCase())
+        || promotionModel.getDiscountPercent() == Integer.parseInt(value)
+        || promotionModel.getDiscountAmount() == Integer.parseInt(value);
   }
 
   @Override
-  public int insertModel(PromotionModel promotionModel) throws SQLException, ClassNotFoundException {
+  public int addModel(PromotionModel promotionModel) throws SQLException, ClassNotFoundException {
     if (promotionModel.getDescription() == null || promotionModel.getDescription().isEmpty()) {
       throw new IllegalArgumentException("Description cannot be null or empty!");
     }
     if (promotionModel.getQuantity() <= 0) {
-      throw new IllegalArgumentException("Quantity must be greater than zero!");
+      throw new IllegalArgumentException("Quantity must be greater than 0!");
     }
     if (promotionModel.getStartDate() == null) {
       throw new IllegalArgumentException("Start date cannot be null!");
@@ -129,24 +138,67 @@ public class PromotionBUS extends BUSAbstract<PromotionModel> {
     if (promotionModel.getEndDate() == null) {
       throw new IllegalArgumentException("End date cannot be null!");
     }
-    if (promotionModel.getDiscountPercent() == 0 && promotionModel.getDiscountAmount() == 0) {
-      throw new IllegalArgumentException("At least one discount amount must be specified!");
+    if (promotionModel.getDiscountPercent() < 0 || promotionModel.getDiscountPercent() > 100) {
+      throw new IllegalArgumentException("Discount percent must be between 0 and 100!");
     }
-    return add(promotionModel);
+    if (promotionModel.getDiscountAmount() < 0) {
+      throw new IllegalArgumentException("Discount amount cannot be negative!");
+    }
+
+    int id = PromotionDAO.getInstance().insert(mapToEntity(promotionModel));
+    promotionModel.setId(id);
+    promotionList.add(promotionModel);
+    return id;
   }
 
   @Override
   public int updateModel(PromotionModel promotionModel) throws SQLException, ClassNotFoundException {
-    return update(promotionModel);
+    int updatedRows = PromotionDAO.getInstance().update(promotionModel);
+    if (updatedRows > 0) {
+      for (int i = 0; i < promotionList.size(); i++) {
+        if (promotionList.get(i).getId() == promotionModel.getId()) {
+          promotionList.set(i, promotionModel);
+          break;
+        }
+      }
+    }
+    return updatedRows;
   }
 
   @Override
   public int deleteModel(int id) throws SQLException, ClassNotFoundException {
-    return delete(id);
+    PromotionModel promotionModel = getModelById(id);
+    if (promotionModel == null) {
+      throw new IllegalArgumentException("Promotion with ID " + id + " does not exist.");
+    }
+    int deletedRows = PromotionDAO.getInstance().delete(id);
+    if (deletedRows > 0) {
+      promotionList.remove(promotionModel);
+    }
+    return deletedRows;
   }
 
-  public List<PromotionModel> searchModel(String value, String columns) {
-    return search(value, columns);
-  }
+  @Override
+  public List<PromotionModel> searchModel(String value, String[] columns) throws SQLException, ClassNotFoundException {
+    List<PromotionModel> results = new ArrayList<>();
+    try {
+      List<PromotionModel> entities = PromotionDAO.getInstance().search(value, columns);
+      for (PromotionModel entity : entities) {
+        PromotionModel model = mapToEntity(entity);
+        if (checkFilter(model, value, columns)) {
+          results.add(model);
+        }
+      }
+    } catch (SQLException e) {
+      throw new SQLException("Failed to search for promotion: " + e.getMessage());
+    } catch (ClassNotFoundException e) {
+      throw new ClassNotFoundException("Failed to search for promotion: " + e.getMessage());
+    }
 
+    if (results.isEmpty()) {
+      throw new IllegalArgumentException("No promotion found with the specified search criteria.");
+    }
+
+    return results;
+  }
 }

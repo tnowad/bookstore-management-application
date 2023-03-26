@@ -13,6 +13,17 @@ public class PaymentModel {
   private Timestamp createdAt;
   private Timestamp updatedAt;
 
+  public enum PaymentMethod {
+    cash,
+    credit
+  }
+
+  public enum PaymentStatus {
+    pending,
+    success,
+    failed
+  }
+
   public PaymentModel() {
   }
 
@@ -100,17 +111,6 @@ public class PaymentModel {
 
   public void setUpdatedAt(Timestamp updatedAt) {
     this.updatedAt = updatedAt;
-  }
-
-  public enum PaymentMethod {
-    CASH,
-    CREDIT
-  }
-
-  public enum PaymentStatus {
-    PENDING,
-    SUCCESS,
-    FAILED
   }
 
 }

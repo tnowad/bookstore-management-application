@@ -6,123 +6,179 @@ import java.util.Collections;
 import java.util.List;
 
 import com.bookstore.dao.EmployeeDAO;
-import com.bookstore.dao.UserDAO;
+import com.bookstore.interfaces.IBUS;
 import com.bookstore.model.EmployeeModel;
 import com.bookstore.model.EmployeeModel.EmployeeType;
-import com.bookstore.model.UserModel;
-import com.bookstore.model.UserModel.Status;
 
-public class EmployeeBUS extends BUSAbstract<EmployeeModel> {
+public class EmployeeBUS implements IBUS<EmployeeModel> {
+
   private final List<EmployeeModel> employeeList = new ArrayList<>();
-  private final EmployeeDAO employeeDao = EmployeeDAO.getInstance();
+  private static EmployeeBUS instance;
 
-  public EmployeeBUS() throws SQLException, ClassNotFoundException {
-    this.employeeList.addAll(employeeDao.readDatabase());
+  public static EmployeeBUS getInstance() throws ClassNotFoundException, SQLException {
+    if (instance == null) {
+      instance = new EmployeeBUS();
+    }
+    return instance;
+  }
+
+  private EmployeeBUS() throws SQLException, ClassNotFoundException {
+    this.employeeList.addAll(EmployeeDAO.getInstance().readDatabase());
   }
 
   @Override
-  protected ArrayList<EmployeeModel> readFromDatabase() throws SQLException, ClassNotFoundException {
-    return employeeDao.readDatabase();
-  }
-
-  @Override
-  public int getId(EmployeeModel t) {
-    return t.getUserId();
-  }
-
-  public EmployeeModel getEmployeeModel(int userId) {
-    return getModel(userId);
-  }
-
-  public List<EmployeeModel> getEmployeeList() {
+  public List<EmployeeModel> getAllModels() {
     return Collections.unmodifiableList(employeeList);
   }
 
   @Override
-  protected EmployeeModel mapToEntity(EmployeeModel from) {
+  public EmployeeModel getModelById(int id) throws SQLException, ClassNotFoundException {
+    for (EmployeeModel employeeModel : employeeList) {
+      if (employeeModel.getUserId() == id) {
+        return employeeModel;
+      }
+    }
+    return null;
+  }
+
+  public List<EmployeeModel> getEmployeeList() throws NullPointerException {
+    return Collections.unmodifiableList(employeeList);
+  }
+
+  private EmployeeModel mapToEntity(EmployeeModel from) {
     EmployeeModel to = new EmployeeModel();
     updateEntityFields(from, to);
     return to;
   }
 
-  @Override
-  protected void updateEntityFields(EmployeeModel from, EmployeeModel to) {
+  private void updateEntityFields(EmployeeModel from, EmployeeModel to) {
+    to.setUserId(from.getUserId());
     to.setSalary(from.getSalary());
     to.setEmployeeType(from.getEmployeeType());
     to.setContactInformation(from.getContactInformation());
   }
 
-  @Override
-  protected boolean checkFilter(EmployeeModel employeeModel, String value, String column) {
-    switch (column.toLowerCase()) {
-      case "user_id" -> {
-        return employeeModel.getUserId() == Integer.parseInt(value);
-      }
-      case "salary" -> {
-        int salaryValue = Integer.parseInt(value);
-        if (salaryValue <= 0) {
-          throw new IllegalArgumentException("Invalid salary value: must be greater than zero!");
-        }
-        return employeeModel.getSalary() == salaryValue;
-      }
-      case "employee_type" -> {
-        return employeeModel.getEmployeeType().toString().equalsIgnoreCase(value);
-      }
-      case "contact_information" -> {
-        return employeeModel.getContactInformation().toLowerCase().contains(value.toLowerCase());
-      }
-      default -> {
-        return checkAllColumns(employeeModel, value);
+  private boolean checkFilter(EmployeeModel employeeModel, String value, String[] columns) {
+    for (String column : columns) {
+      switch (column.toLowerCase()) {
+        case "user_id":
+          if (employeeModel.getUserId() == Integer.parseInt(value)) {
+            return true;
+          }
+          break;
+        case "salary":
+          if (employeeModel.getSalary() == Integer.parseInt(value)) {
+            return true;
+          }
+          break;
+        case "employee_type":
+          if (employeeModel.getEmployeeType().toString().toLowerCase().contains(value.toLowerCase())) {
+            return true;
+          }
+          break;
+        case "contact_information":
+          if (employeeModel.getContactInformation().toLowerCase().contains(value.toLowerCase())) {
+            return true;
+          }
+          break;
+        default:
+          if (checkAllColumns(employeeModel, value)) {
+            return true;
+          }
+          break;
       }
     }
+    return false;
   }
 
   private boolean checkAllColumns(EmployeeModel employeeModel, String value) {
     return employeeModel.getUserId() == Integer.parseInt(value)
         || employeeModel.getSalary() == Integer.parseInt(value)
-        || employeeModel.getEmployeeType().toString().equalsIgnoreCase(value)
+        || employeeModel.getEmployeeType().toString().toLowerCase().contains(value.toLowerCase())
         || employeeModel.getContactInformation().toLowerCase().contains(value.toLowerCase());
   }
 
   @Override
-  public int insertModel(EmployeeModel employeeModel) throws SQLException, ClassNotFoundException {
-    if (employeeModel.getSalary() < 0 || employeeModel.getContactInformation().isEmpty()) {
-      throw new IllegalArgumentException("Invalid input. Please check the input and try again.");
+  public int addModel(EmployeeModel employeeModel) throws SQLException, ClassNotFoundException {
+    if (employeeModel.getUserId() <= 0) {
+      throw new IllegalArgumentException("Invalid user ID!");
+    }
+    if (employeeModel.getSalary() < 0) {
+      throw new IllegalArgumentException("Salary cannot be negative!");
+    }
+    if (employeeModel.getContactInformation() == null || employeeModel.getContactInformation().isEmpty()) {
+      throw new IllegalArgumentException("Contact information cannot be null or empty!");
     }
     employeeModel.setEmployeeType(
-        employeeModel.getEmployeeType() != null ? employeeModel.getEmployeeType() : EmployeeType.EMPLOYEE_SALES);
-    return add(employeeModel);
+        employeeModel.getEmployeeType() != null ? employeeModel.getEmployeeType() : EmployeeType.employee_sales);
+
+    int userId = EmployeeDAO.getInstance().insert(mapToEntity(employeeModel));
+    employeeModel.setUserId(userId);
+    employeeList.add(employeeModel);
+    return userId;
   }
 
   @Override
   public int updateModel(EmployeeModel employeeModel) throws SQLException, ClassNotFoundException {
-    return update(employeeModel);
+    int updatedRows = EmployeeDAO.getInstance().update(employeeModel);
+    if (updatedRows > 0) {
+      for (int i = 0; i < employeeList.size(); i++) {
+        if (employeeList.get(i).getUserId() == employeeModel.getUserId()) {
+          employeeList.set(i, employeeModel);
+          break;
+        }
+      }
+    }
+    return updatedRows;
+  }
+
+  public int updateStatus(int userId, EmployeeType role) throws ClassNotFoundException, SQLException {
+    int success = EmployeeDAO.getInstance().updateStatus(userId, role);
+    if (success == 1) {
+      for (EmployeeModel employee : employeeList) {
+        if (employee.getUserId() == userId) {
+          employee.setEmployeeType(role);
+          return 1;
+        }
+      }
+    }
+    return 0;
   }
 
   @Override
   public int deleteModel(int id) throws SQLException, ClassNotFoundException {
-    EmployeeModel employeeModel = getModel(id);
+    EmployeeModel employeeModel = getModelById(id);
     if (employeeModel == null) {
-      return 0;
+      throw new IllegalArgumentException("Employee with ID " + id + " does not exist.");
     }
-    UserDAO userDao = UserDAO.getInstance();
-    UserModel userModel = userDao.getUserById(employeeModel.getUserId());
-    if (userModel != null) {
-      userModel.setStatus(Status.DELETED);
-      userDao.update(userModel);
+    int deletedRows = EmployeeDAO.getInstance().delete(id);
+    if (deletedRows > 0) {
+      employeeList.remove(employeeModel);
     }
-    int deleted = employeeDao.delete(employeeModel.getUserId());
-    if (deleted > 0) {
-      boolean removed = employeeList.removeIf(emp -> emp.getUserId() == employeeModel.getUserId());
-      if (!removed) {
-        System.out.println("The employee with ID " + id + " was not found in the employeeList.");
+    return deletedRows;
+  }
+
+  @Override
+  public List<EmployeeModel> searchModel(String value, String[] columns) throws SQLException, ClassNotFoundException {
+    List<EmployeeModel> results = new ArrayList<>();
+    try {
+      List<EmployeeModel> entities = EmployeeDAO.getInstance().search(value, columns);
+      for (EmployeeModel entity : entities) {
+        EmployeeModel model = mapToEntity(entity);
+        if (checkFilter(model, value, columns)) {
+          results.add(model);
+        }
       }
+    } catch (SQLException e) {
+      throw new SQLException("Failed to search for employee: " + e.getMessage());
+    } catch (ClassNotFoundException e) {
+      throw new ClassNotFoundException("Failed to search for employee: " + e.getMessage());
     }
-    return deleted;
-  }
 
-  public List<EmployeeModel> searchModel(String value, String columns) {
-    return search(value, columns);
-  }
+    if (results.isEmpty()) {
+      throw new IllegalArgumentException("No employee found with the specified search criteria.");
+    }
 
+    return results;
+  }
 }

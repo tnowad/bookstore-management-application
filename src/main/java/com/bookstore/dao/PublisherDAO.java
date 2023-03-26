@@ -5,12 +5,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.bookstore.interfaces.IDAO;
 import com.bookstore.model.PublisherModel;
 
-public class PublisherDAO implements DAOInterface<PublisherModel> {
+public class PublisherDAO implements IDAO<PublisherModel> {
+  private static PublisherDAO instance;
 
   public static PublisherDAO getInstance() {
-    return new PublisherDAO();
+    if (instance == null) {
+      instance = new PublisherDAO();
+    }
+    return instance;
   }
 
   private PublisherModel createPublisherModelFromResultSet(ResultSet rs) throws SQLException {
@@ -54,28 +60,26 @@ public class PublisherDAO implements DAOInterface<PublisherModel> {
   }
 
   @Override
-  public List<PublisherModel> searchByCondition(String condition) throws SQLException, ClassNotFoundException {
-    String query = "SELECT * FROM publishers";
-    if (condition != null && !condition.isEmpty()) {
-      query += " WHERE " + condition;
-    }
-    try (ResultSet rs = DatabaseConnect.executeQuery(query)) {
-      List<PublisherModel> publisherList = new ArrayList<>();
-      while (rs.next()) {
-        PublisherModel publisherModel = createPublisherModelFromResultSet(rs);
-        publisherList.add(publisherModel);
-      }
-      if (publisherList.isEmpty()) {
-        System.out.println("No records found for the given condition: " + condition);
-      }
-      return publisherList;
-    }
-  }
-
-  @Override
-  public List<PublisherModel> searchByCondition(String condition, String columnName)
+  public List<PublisherModel> search(String condition, String[] columnNames)
       throws SQLException, ClassNotFoundException {
-    String query = "SELECT * FROM publishers WHERE " + columnName + " LIKE ?";
+    if (condition == null || condition.trim().isEmpty()) {
+      throw new IllegalArgumentException("Search condition cannot be empty or null");
+    }
+
+    String query;
+    if (columnNames == null || columnNames.length == 0) {
+      // Search all columns
+      query = "SELECT * FROM publishers WHERE CONCAT(id, name, description) LIKE ?";
+    } else if (columnNames.length == 1) {
+      // Search specific column in publishers table
+      String column = columnNames[0];
+      query = "SELECT * FROM publishers WHERE " + column + " LIKE ?";
+    } else {
+      // Search specific columns in publishers table
+      query = "SELECT id, name, description FROM publishers WHERE CONCAT("
+          + String.join(", ", columnNames) + ") LIKE ?";
+    }
+
     try (PreparedStatement pst = DatabaseConnect.getPreparedStatement(query, "%" + condition + "%")) {
       try (ResultSet rs = pst.executeQuery()) {
         List<PublisherModel> publisherList = new ArrayList<>();

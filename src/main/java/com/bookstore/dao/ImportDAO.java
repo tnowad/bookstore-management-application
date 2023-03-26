@@ -1,5 +1,6 @@
 package com.bookstore.dao;
 
+import com.bookstore.interfaces.IDAO;
 import com.bookstore.model.ImportModel;
 
 import java.math.BigDecimal;
@@ -10,10 +11,14 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ImportDAO implements DAOInterface<ImportModel> {
+public class ImportDAO implements IDAO<ImportModel> {
+  private static ImportDAO instance;
 
   public static ImportDAO getInstance() {
-    return new ImportDAO();
+    if (instance == null) {
+      instance = new ImportDAO();
+    }
+    return instance;
   }
 
   private ImportModel createImportModelFromResultSet(ResultSet rs) throws SQLException {
@@ -63,32 +68,26 @@ public class ImportDAO implements DAOInterface<ImportModel> {
   }
 
   @Override
-  public List<ImportModel> searchByCondition(String condition) throws SQLException, ClassNotFoundException {
-    String query = "SELECT * FROM imports";
-
-    if (condition != null && !condition.isEmpty()) {
-      query += " WHERE " + condition;
-    }
-
-    try (ResultSet rs = DatabaseConnect.executeQuery(query)) {
-      List<ImportModel> importsList = new ArrayList<>();
-      while (rs.next()) {
-        ImportModel ImportModel = createImportModelFromResultSet(rs);
-        importsList.add(ImportModel);
-      }
-
-      if (importsList.isEmpty()) {
-        System.out.println("No records found for the given condition: " + condition);
-      }
-
-      return importsList;
-    }
-  }
-
-  @Override
-  public List<ImportModel> searchByCondition(String condition, String columnName)
+  public List<ImportModel> search(String condition, String[] columnNames)
       throws SQLException, ClassNotFoundException {
-    String query = "SELECT * FROM imports WHERE " + columnName + " LIKE ?";
+
+    if (condition == null || condition.trim().isEmpty()) {
+      throw new IllegalArgumentException("Search condition cannot be empty or null");
+    }
+
+    String query;
+    if (columnNames == null || columnNames.length == 0) {
+      // Search all columns
+      query = "SELECT * FROM imports WHERE CONCAT(id, provider_id, employee_id, total_price, created_at, updated_at) LIKE ?";
+    } else if (columnNames.length == 1) {
+      // Search specific column in imports table
+      String column = columnNames[0];
+      query = "SELECT * FROM imports WHERE " + column + " LIKE ?";
+    } else {
+      // Search specific columns in imports table
+      query = "SELECT id, provider_id, employee_id, total_price, created_at, updated_at FROM imports WHERE CONCAT("
+          + String.join(", ", columnNames) + ") LIKE ?";
+    }
 
     try (PreparedStatement pst = DatabaseConnect.getPreparedStatement(query, "%" + condition + "%")) {
       try (ResultSet rs = pst.executeQuery()) {

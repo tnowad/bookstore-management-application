@@ -6,12 +6,18 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.bookstore.interfaces.IDAO;
 import com.bookstore.model.ShippingModel;
+import com.bookstore.model.ShippingModel.Status;
 
-public class ShippingDAO implements DAOInterface<ShippingModel> {
+public class ShippingDAO implements IDAO<ShippingModel> {
+  private static ShippingDAO instance;
 
   public static ShippingDAO getInstance() {
-    return new ShippingDAO();
+    if (instance == null) {
+      instance = new ShippingDAO();
+    }
+    return instance;
   }
 
   private ShippingModel createShippingModelFromResultSet(ResultSet rs) throws SQLException {
@@ -20,7 +26,7 @@ public class ShippingDAO implements DAOInterface<ShippingModel> {
         rs.getInt("order_id"),
         rs.getString("shipping_method"),
         rs.getInt("address_id"),
-        ShippingModel.Status.valueOf(rs.getString("status").toUpperCase()));
+        ShippingModel.Status.valueOf(rs.getString("status").toLowerCase()));
   }
 
   @Override
@@ -51,6 +57,12 @@ public class ShippingDAO implements DAOInterface<ShippingModel> {
     return DatabaseConnect.executeUpdate(updateSql, args);
   }
 
+  public int updateStatus(int orderId, Status status) throws SQLException, ClassNotFoundException {
+    String updateSql = "UPDATE shipping SET status = ? WHERE status = ?";
+    Object[] args = { status, status };
+    return DatabaseConnect.executeUpdate(updateSql, args);
+  }
+
   @Override
   public int delete(int id) throws SQLException, ClassNotFoundException {
     String deleteSql = "DELETE FROM shipping WHERE id = ?";
@@ -59,28 +71,26 @@ public class ShippingDAO implements DAOInterface<ShippingModel> {
   }
 
   @Override
-  public List<ShippingModel> searchByCondition(String condition) throws SQLException, ClassNotFoundException {
-    String query = "SELECT * FROM shipping";
-    if (condition != null && !condition.isEmpty()) {
-      query += " WHERE " + condition;
-    }
-    try (ResultSet rs = DatabaseConnect.executeQuery(query)) {
-      List<ShippingModel> shippingList = new ArrayList<>();
-      while (rs.next()) {
-        ShippingModel shippingModel = createShippingModelFromResultSet(rs);
-        shippingList.add(shippingModel);
-      }
-      if (shippingList.isEmpty()) {
-        System.out.println("No records found for the given condition: " + condition);
-      }
-      return shippingList;
-    }
-  }
-
-  @Override
-  public List<ShippingModel> searchByCondition(String condition, String columnName)
+  public List<ShippingModel> search(String condition, String[] columnNames)
       throws SQLException, ClassNotFoundException {
-    String query = "SELECT * FROM shipping WHERE " + columnName + " LIKE ?";
+    if (condition == null || condition.trim().isEmpty()) {
+      throw new IllegalArgumentException("Search condition cannot be empty or null");
+    }
+
+    String query;
+    if (columnNames == null || columnNames.length == 0) {
+      // Search all columns
+      query = "SELECT * FROM shipping WHERE CONCAT(id, order_id, shipping_method, address_id, status) LIKE ?";
+    } else if (columnNames.length == 1) {
+      // Search specific column in shipping table
+      String column = columnNames[0];
+      query = "SELECT * FROM shipping WHERE " + column + " LIKE ?";
+    } else {
+      // Search specific columns in shipping table
+      query = "SELECT id, order_id, shipping_method, address_id, status FROM shipping WHERE CONCAT("
+          + String.join(", ", columnNames) + ") LIKE ?";
+    }
+
     try (PreparedStatement pst = DatabaseConnect.getPreparedStatement(query, "%" + condition + "%")) {
       try (ResultSet rs = pst.executeQuery()) {
         List<ShippingModel> shippingList = new ArrayList<>();

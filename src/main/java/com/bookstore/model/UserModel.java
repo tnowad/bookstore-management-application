@@ -15,16 +15,15 @@ public class UserModel {
   private Role role;
 
   public enum Status {
-    ACTIVE,
-    INACTIVE,
-    BANNED,
-    DELETED
+    active,
+    inactive,
+    banned,
   }
 
   public enum Role {
-    CUSTOMER,
-    EMPLOYEE,
-    ADMIN
+    customer,
+    employee,
+    admin
   }
 
   public UserModel() {
@@ -69,6 +68,9 @@ public class UserModel {
   }
 
   public Status getStatus() {
+    if (status == null) {
+      status = Status.active;
+    }
     return status;
   }
 
@@ -123,6 +125,7 @@ public class UserModel {
   public void setRole(Role role) {
     this.role = role;
   }
+<<<<<<< HEAD
   
   @Override
   public String toString() {
@@ -140,4 +143,7 @@ public class UserModel {
         '}';
   }
   
+=======
+
+>>>>>>> 563e04fb5c081508ef69d168f535bf84dcec4cc4
 }

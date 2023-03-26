@@ -1,6 +1,6 @@
 package com.bookstore.model;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class PaymentMethodModel {
   private int id;
@@ -15,6 +15,17 @@ public class PaymentMethodModel {
 
   public PaymentMethodModel(String paymentId, String cardNumber, String cardHolder,
       Date expirationDate, int customerId) {
+    this.paymentId = paymentId;
+    this.cardNumber = cardNumber;
+    this.cardHolder = cardHolder;
+    this.expirationDate = expirationDate;
+    this.customerId = customerId;
+  }
+
+  public PaymentMethodModel(int id, String paymentId, String cardNumber, String cardHolder,
+      Date expirationDate,
+      int customerId) {
+    this.id = id;
     this.paymentId = paymentId;
     this.cardNumber = cardNumber;
     this.cardHolder = cardHolder;

@@ -7,11 +7,12 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.bookstore.interfaces.IDAO;
 import com.bookstore.model.UserModel;
 import com.bookstore.model.UserModel.Role;
 import com.bookstore.model.UserModel.Status;
 
-public class UserDAO implements DAOInterface<UserModel> {
+public class UserDAO implements IDAO<UserModel> {
   private static UserDAO instance;
 
   public static UserDAO getInstance() {
@@ -21,19 +22,17 @@ public class UserDAO implements DAOInterface<UserModel> {
     return instance;
   }
 
-  private UserModel createUserModelFromResultSet(ResultSet rs) throws SQLException {
-
+  private static UserModel createUserModelFromResultSet(ResultSet rs) throws SQLException {
     int id = rs.getInt("id");
     String username = rs.getString("username");
     String password = rs.getString("password");
-    Status status = Status.valueOf(rs.getString("status").toUpperCase());
+    Status status = Status.valueOf(rs.getString("status").toLowerCase());
     String name = rs.getString("name");
     String email = rs.getString("email");
     String phone = rs.getString("phone");
     Timestamp createdAt = rs.getTimestamp("created_at");
     Timestamp updatedAt = rs.getTimestamp("updated_at");
-    Role role = Role.valueOf(rs.getString("role").toUpperCase());
-
+    Role role = Role.valueOf(rs.getString("role").toLowerCase());
     return new UserModel(id, username, password, status, name, email, phone, createdAt, updatedAt, role);
   }
 
@@ -47,7 +46,6 @@ public class UserDAO implements DAOInterface<UserModel> {
         userList.add(userModel);
       }
     }
-
     return userList;
   }
 
@@ -61,46 +59,57 @@ public class UserDAO implements DAOInterface<UserModel> {
 
   @Override
   public int update(UserModel user) throws SQLException, ClassNotFoundException {
-    String updateSql = "UPDATE users SET password = ?, status = ?, name = ?, email = ?, phone = ?, role = ? WHERE username = ?";
+    String updateSql = "UPDATE users SET username = ?, password = ?, status = ?, name = ?, email = ?, phone = ?, role = ? WHERE id = ?";
     Object[] args = { user.getUsername(), user.getPassword(), user.getStatus().toString().toLowerCase(),
         user.getName(), user.getEmail(), user.getPhone(), user.getRole().toString().toLowerCase(), user.getId() };
     return DatabaseConnect.executeUpdate(updateSql, args);
   }
 
+  public int updateStatus(String username, Status status) throws SQLException, ClassNotFoundException {
+    String updateSql = "UPDATE books SET status = ? WHERE username = ?";
+    Object[] args = { status, username };
+    return DatabaseConnect.executeUpdate(updateSql, args);
+  }
+
+  public int updateRole(String username, Role role) throws SQLException, ClassNotFoundException {
+    String updateSql = "UPDATE books SET role = ? WHERE username = ?";
+    Object[] args = { role, username };
+    return DatabaseConnect.executeUpdate(updateSql, args);
+  }
+
   @Override
   public int delete(int id) throws SQLException, ClassNotFoundException {
+<<<<<<< HEAD
     String updateStatusSql = "UPDATE users SET status = ? WHERE username = ?";
     Object[] args = { UserModel.Status.DELETED, id };
+=======
+    String updateStatusSql = "UPDATE users SET status = ? WHERE id = ?";
+    Object[] args = { UserModel.Status.banned.toString().toLowerCase(), id };
+>>>>>>> 563e04fb5c081508ef69d168f535bf84dcec4cc4
     return DatabaseConnect.executeUpdate(updateStatusSql, args);
   }
 
   @Override
-  public List<UserModel> searchByCondition(String condition) throws SQLException, ClassNotFoundException {
-    String query = "SELECT * FROM users";
-
-    if (condition != null && !condition.isEmpty()) {
-      query += " WHERE " + condition;
-    }
-
-    try (ResultSet rs = DatabaseConnect.executeQuery(query)) {
-      List<UserModel> userList = new ArrayList<>();
-      while (rs.next()) {
-        UserModel userModel = createUserModelFromResultSet(rs);
-        userList.add(userModel);
-      }
-
-      if (userList.isEmpty()) {
-        System.out.println("No records found for the given condition: " + condition);
-      }
-
-      return userList;
-    }
-  }
-
-  @Override
-  public List<UserModel> searchByCondition(String condition, String columnName)
+  public List<UserModel> search(String condition, String[] columnNames)
       throws SQLException, ClassNotFoundException {
-    String query = "SELECT * FROM users WHERE " + columnName + " LIKE ?";
+
+    if (condition == null || condition.trim().isEmpty()) {
+      throw new IllegalArgumentException("Search condition cannot be empty or null");
+    }
+
+    String query;
+    if (columnNames == null || columnNames.length == 0) {
+      // Search all columns
+      query = "SELECT * FROM users WHERE CONCAT(id, username, password, status, name, email, phone, created_at, updated_at, role) LIKE ?";
+    } else if (columnNames.length == 1) {
+      // Search specific column in users table
+      String column = columnNames[0];
+      query = "SELECT * FROM users WHERE " + column + " LIKE ?";
+    } else {
+      // Search specific columns in users table
+      query = "SELECT id, username, password, status, name, email, phone, created_at, updated_at, role FROM users WHERE CONCAT("
+          + String.join(", ", columnNames) + ") LIKE ?";
+    }
 
     try (PreparedStatement pst = DatabaseConnect.getPreparedStatement(query, "%" + condition + "%")) {
       try (ResultSet rs = pst.executeQuery()) {
@@ -140,4 +149,5 @@ public class UserDAO implements DAOInterface<UserModel> {
     }
     return null;
   }
+
 }

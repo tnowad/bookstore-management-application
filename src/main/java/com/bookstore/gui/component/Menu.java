@@ -15,12 +15,16 @@ import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import net.miginfocom.swing.MigLayout;
 
 import com.bookstore.gui.event.EventMenu;
 import com.bookstore.gui.event.EventMenuSelected;
 import com.bookstore.gui.event.EventShowPopupMenu;
+import com.bookstore.gui.form.Form;
+import com.bookstore.gui.model.MenuItemModel;
 import com.bookstore.gui.model.MenuModel;
 import com.bookstore.gui.swing.MenuAnimation;
 import com.bookstore.gui.swing.MenuItem;
@@ -91,7 +95,7 @@ public class Menu extends JPanel {
     };
   }
 
-  public void hideallMenu() {
+  public void hideAllMenu() {
     for (Component com : panel.getComponents()) {
       MenuItem item = (MenuItem) com;
       if (item.isOpen()) {
@@ -140,56 +144,13 @@ public class Menu extends JPanel {
   }
 
   @Override
-  protected void paintComponent(Graphics grphcs) {
-    Graphics2D g2 = (Graphics2D) grphcs;
-    g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-    GradientPaint gra = new GradientPaint(0, 0, new Color(33, 105, 249), getWidth(), 0, new Color(93, 58, 196));
-    g2.setPaint(gra);
-    g2.fillRect(0, 0, getWidth(), getHeight());
-    super.paintComponent(grphcs);
-  }
-
-  public static void main(String[] args) {
-    // Set look and feel
-    try {
-      UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    new JFrame() {
-      {
-        Menu menu = new Menu();
-        MenuModel modelMenu = new MenuModel(
-            new Icon() {
-              @Override
-              public void paintIcon(Component c, Graphics g, int x, int y) {
-                g.setColor(Color.WHITE);
-                g.fillRect(x, y, getIconWidth(), getIconHeight());
-                g.setColor(Color.BLACK);
-                g.fillRect(x + 5, y + 5, getIconWidth() - 10, getIconHeight() - 10);
-              }
-
-              @Override
-              public int getIconWidth() {
-                return 20;
-              }
-
-              @Override
-              public int getIconHeight() {
-                return 20;
-              }
-            },
-            "Home",
-            new String[] { "1", "2" });
-        for (int i = 0; i < 10; i++) {
-          menu.addMenu(modelMenu);
-        }
-        add(menu);
-        setSize(300, 600);
-        setLocationRelativeTo(null);
-        setVisible(true);
-      }
-    };
+  protected void paintComponent(Graphics graphics) {
+    Graphics2D graphics2d = (Graphics2D) graphics;
+    graphics2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+    GradientPaint gradientPaint = new GradientPaint(0, 0, new Color(33, 105, 249), getWidth(), 0,
+        new Color(93, 58, 196));
+    graphics2d.setPaint(gradientPaint);
+    graphics2d.fillRect(0, 0, getWidth(), getHeight());
+    super.paintComponent(graphics);
   }
 }

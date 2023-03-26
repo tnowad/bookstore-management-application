@@ -6,12 +6,17 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.bookstore.interfaces.IDAO;
 import com.bookstore.model.CategoryModel;
 
-public class CategoryDAO implements DAOInterface<CategoryModel> {
+public class CategoryDAO implements IDAO<CategoryModel> {
+  private static CategoryDAO instance;
 
   public static CategoryDAO getInstance() {
-    return new CategoryDAO();
+    if (instance == null) {
+      instance = new CategoryDAO();
+    }
+    return instance;
   }
 
   private CategoryModel createCategoryModelFromResultSet(ResultSet rs) throws SQLException {
@@ -54,28 +59,26 @@ public class CategoryDAO implements DAOInterface<CategoryModel> {
   }
 
   @Override
-  public List<CategoryModel> searchByCondition(String condition) throws SQLException, ClassNotFoundException {
-    String query = "SELECT * FROM categories";
-    if (condition != null && !condition.isEmpty()) {
-      query += " WHERE " + condition;
-    }
-    try (ResultSet rs = DatabaseConnect.executeQuery(query)) {
-      List<CategoryModel> categoryList = new ArrayList<>();
-      while (rs.next()) {
-        CategoryModel categoryModel = createCategoryModelFromResultSet(rs);
-        categoryList.add(categoryModel);
-      }
-      if (categoryList.isEmpty()) {
-        System.out.println("No records found for the given condition: " + condition);
-      }
-      return categoryList;
-    }
-  }
-
-  @Override
-  public List<CategoryModel> searchByCondition(String condition, String columnName)
+  public List<CategoryModel> search(String condition, String[] columnNames)
       throws SQLException, ClassNotFoundException {
-    String query = "SELECT * FROM categories WHERE " + columnName + " LIKE ?";
+    if (condition == null || condition.trim().isEmpty()) {
+      throw new IllegalArgumentException("Search condition cannot be empty or null");
+    }
+
+    String query;
+    if (columnNames == null || columnNames.length == 0) {
+      // Search all columns
+      query = "SELECT * FROM categories WHERE CONCAT(id, name) LIKE ?";
+    } else if (columnNames.length == 1) {
+      // Search specific column in categories table
+      String column = columnNames[0];
+      query = "SELECT * FROM categories WHERE " + column + " LIKE ?";
+    } else {
+      // Search specific columns in categories table
+      query = "SELECT id, name FROM categories WHERE CONCAT("
+          + String.join(", ", columnNames) + ") LIKE ?";
+    }
+
     try (PreparedStatement pst = DatabaseConnect.getPreparedStatement(query, "%" + condition + "%")) {
       try (ResultSet rs = pst.executeQuery()) {
         List<CategoryModel> categoryList = new ArrayList<>();

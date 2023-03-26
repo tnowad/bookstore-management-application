@@ -1,8 +1,6 @@
 package com.bookstore.util;
 
 import org.apache.poi.ss.usermodel.*;
-
-import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -61,58 +59,36 @@ public abstract class ExcelUtil {
    * @param data      The data to write.
    * @param filePath  The path where the file should be saved.
    * @param sheetName The name of the sheet to create.
-   * @throws SpreadsheetIOException If an error occurs while creating the file or
-   *                                writing to it.
+   * @throws IOException If an error occurs while creating the file or
+   *                     writing to it.
    */
-  public static void writeExcel(List<RowData> data, String filePath, String sheetName) throws SpreadsheetIOException {
+  public static void writeExcel(List<List<String>> data, String filePath, String sheetName) throws IOException {
     Objects.requireNonNull(data, "Data cannot be null");
     Objects.requireNonNull(filePath, "File path cannot be null");
     Objects.requireNonNull(sheetName, "Sheet name cannot be null");
 
     Path parentDirectory = Paths.get(filePath).getParent();
-    try {
-      if (parentDirectory != null && !Files.exists(parentDirectory)) {
-        Files.createDirectories(parentDirectory);
-      }
+    if (parentDirectory != null && !Files.exists(parentDirectory)) {
+      Files.createDirectories(parentDirectory);
+    }
 
-      try (Workbook workbook = WorkbookFactory.create(true);
-          BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(filePath))) {
-        Sheet sheet = workbook.createSheet(sheetName);
-        for (RowData rowData : data) {
-          Row row = sheet.createRow(sheet.getLastRowNum() + 1);
+    try (Workbook workbook = WorkbookFactory.create(true);
+        FileOutputStream fos = new FileOutputStream(filePath)) {
+      Sheet sheet = workbook.createSheet(sheetName);
+      for (List<String> rowData : data) {
+        Row row = sheet.createRow(sheet.getLastRowNum() + 1);
 
-          int columnIndex = 0;
-          for (String cellData : rowData.getValues()) {
-            Cell cell = row.createCell(columnIndex++);
-            Optional.ofNullable(cellData).ifPresent(cell::setCellValue);
-          }
+        int columnIndex = 0;
+        for (String cellData : rowData) {
+          Cell cell = row.createCell(columnIndex++);
+          Optional.ofNullable(cellData).ifPresent(cell::setCellValue);
         }
-
-        workbook.write(bos);
       }
+
+      workbook.write(fos);
     } catch (IOException e) {
-      throw new SpreadsheetIOException("Error writing to spreadsheet", e);
+      throw new IOException("Error writing to spreadsheet", e);
     }
   }
 
-  public static class RowData {
-    /**
-     * Getter method for retrieving the row values
-     */
-    private final List<String> values;
-
-    public RowData(List<String> values) {
-      this.values = values;
-    }
-
-    public List<String> getValues() {
-      return values;
-    }
-  }
-
-  public static class SpreadsheetIOException extends RuntimeException {
-    public SpreadsheetIOException(String message, Throwable cause) {
-      super(message, cause);
-    }
-  }
 }

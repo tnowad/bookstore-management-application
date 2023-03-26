@@ -1,4 +1,4 @@
-package com.bookstore.dao;
+package com.bookstore.interfaces;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -9,7 +9,7 @@ import java.util.List;
  *
  * @param <Entity> the entity type that this DAO interface will handle
  */
-public interface DAOInterface<Entity> {
+public interface IDAO<Entity> {
 
   /**
    * Reads all entries from the database table associated with this DAO.
@@ -57,33 +57,16 @@ public interface DAOInterface<Entity> {
   int delete(int id) throws SQLException, ClassNotFoundException;
 
   /**
-   * Searches the database table associated with this DAO for rows matching a
-   * particular condition.
+   * Searches the database table associated with this DAO for entities that match
+   * the given condition
+   * in the specified columns.
    *
-   * @param condition the SQL WHERE clause used in the SELECT query, without the
-   *                  WHERE keyword itself
-   * @return a List of Entity objects representing all rows that match the search
-   *         condition
-   * @throws SQLException           on any exception arising from database access
-   *                                errors
-   * @throws ClassNotFoundException if driver class not found
+   * @param condition   the search condition to use
+   * @param columnNames the names of the columns to search in
+   * @return a list of entities that match the search condition
+   * @throws SQLException           if there is any error accessing the database
+   * @throws ClassNotFoundException if the database driver class cannot be found
    */
-  List<Entity> searchByCondition(String condition) throws SQLException, ClassNotFoundException;
-
-  /**
-   * Searches the database table associated with this DAO for rows matching a
-   * particular condition and column.
-   *
-   * @param condition  the SQL WHERE clause used in the SELECT query, without the
-   *                   WHERE keyword itself
-   * @param columnName the name of the database column to restrict the search to
-   * @return a List of Entity objects representing all rows that match the search
-   *         condition and have the
-   *         specified column value
-   * @throws SQLException           on any exception arising from database access
-   *                                errors
-   * @throws ClassNotFoundException if driver class not found
-   */
-  List<Entity> searchByCondition(String condition, String columnName)
+  List<Entity> search(String condition, String[] columnName)
       throws SQLException, ClassNotFoundException;
 }

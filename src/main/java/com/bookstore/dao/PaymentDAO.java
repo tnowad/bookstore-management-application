@@ -6,13 +6,19 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.bookstore.interfaces.IDAO;
 import com.bookstore.model.PaymentModel;
 import com.bookstore.model.PaymentModel.*;
 
-public class PaymentDAO implements DAOInterface<PaymentModel> {
+public class PaymentDAO implements IDAO<PaymentModel> {
+
+  private static PaymentDAO instance;
 
   public static PaymentDAO getInstance() {
-    return new PaymentDAO();
+    if (instance == null) {
+      instance = new PaymentDAO();
+    }
+    return instance;
   }
 
   private PaymentModel createPaymentModelFromResultSet(ResultSet rs) throws SQLException {
@@ -58,6 +64,12 @@ public class PaymentDAO implements DAOInterface<PaymentModel> {
     return DatabaseConnect.executeUpdate(updateSql, args);
   }
 
+  public int updateStatus(int orderId, PaymentStatus status) throws SQLException, ClassNotFoundException {
+    String updateSql = "UPDATE payments SET status = ? WHERE order_id = ?";
+    Object[] args = { status, orderId };
+    return DatabaseConnect.executeUpdate(updateSql, args);
+  }
+
   @Override
   public int delete(int id) throws SQLException, ClassNotFoundException {
     String deleteSql = "DELETE FROM payments WHERE id = ?";
@@ -66,29 +78,27 @@ public class PaymentDAO implements DAOInterface<PaymentModel> {
   }
 
   @Override
-  public List<PaymentModel> searchByCondition(String condition)
+  public List<PaymentModel> search(String condition, String[] columnNames)
       throws SQLException, ClassNotFoundException {
-    String query = "SELECT * FROM payments";
-    if (condition != null && !condition.isEmpty()) {
-      query += " WHERE " + condition;
-    }
-    try (ResultSet rs = DatabaseConnect.executeQuery(query)) {
-      List<PaymentModel> paymentList = new ArrayList<>();
-      while (rs.next()) {
-        PaymentModel paymentModel = createPaymentModelFromResultSet(rs);
-        paymentList.add(paymentModel);
-      }
-      if (paymentList.isEmpty()) {
-        System.out.println("No records found for the given condition: " + condition);
-      }
-      return paymentList;
-    }
-  }
 
-  @Override
-  public List<PaymentModel> searchByCondition(String condition, String columnName)
-      throws SQLException, ClassNotFoundException {
-    String query = "SELECT * FROM payments WHERE " + columnName + " LIKE ?";
+    if (condition == null || condition.trim().isEmpty()) {
+      throw new IllegalArgumentException("Search condition cannot be empty or null");
+    }
+
+    String query;
+    if (columnNames == null || columnNames.length == 0) {
+      // Search all columns
+      query = "SELECT * FROM payments WHERE CONCAT(id, order_id, user_id, amount, payment_method, payment_method_id, status, created_at, updated_at) LIKE ?";
+    } else if (columnNames.length == 1) {
+      // Search specific column in payments table
+      String column = columnNames[0];
+      query = "SELECT * FROM payments WHERE " + column + " LIKE ?";
+    } else {
+      // Search specific columns in payments table
+      query = "SELECT id, order_id, user_id, amount, payment_method, payment_method_id, status, created_at, updated_at FROM payments WHERE CONCAT("
+          + String.join(", ", columnNames) + ") LIKE ?";
+    }
+
     try (PreparedStatement pst = DatabaseConnect.getPreparedStatement(query, "%" + condition + "%")) {
       try (ResultSet rs = pst.executeQuery()) {
         List<PaymentModel> paymentList = new ArrayList<>();

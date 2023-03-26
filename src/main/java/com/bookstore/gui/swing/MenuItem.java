@@ -2,6 +2,7 @@ package com.bookstore.gui.swing;
 
 import com.bookstore.gui.event.EventMenu;
 import com.bookstore.gui.event.EventMenuSelected;
+import com.bookstore.gui.model.MenuItemModel;
 import com.bookstore.gui.model.MenuModel;
 import java.awt.AlphaComposite;
 import java.awt.Color;
@@ -69,15 +70,10 @@ public class MenuItem extends javax.swing.JPanel {
     });
     add(firstItem);
     int subMenuIndex = -1;
-    for (String st : menu.getSubMenu()) {
-      MenuButton item = new MenuButton(st);
+    for (MenuItemModel menuItemModel : menu.getSubMenu()) {
+      MenuButton item = new MenuButton(menuItemModel.getName());
       item.setIndex(++subMenuIndex);
-      item.addActionListener(new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent ae) {
-          eventSelected.menuSelected(index, item.getIndex());
-        }
-      });
+      item.addActionListener(menuItemModel.getActionListener());
       add(item);
     }
   }
@@ -95,10 +91,10 @@ public class MenuItem extends javax.swing.JPanel {
   }// </editor-fold>//GEN-END:initComponents
 
   @Override
-  protected void paintComponent(Graphics grphcs) {
+  protected void paintComponent(Graphics graphics) {
     int width = getWidth();
     int height = getPreferredSize().height;
-    Graphics2D g2 = (Graphics2D) grphcs;
+    Graphics2D g2 = (Graphics2D) graphics;
     g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
     g2.setColor(new Color(50, 50, 50));
     g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
@@ -114,7 +110,7 @@ public class MenuItem extends javax.swing.JPanel {
     if (menu.getSubMenu().length > 0) {
       createArrowButton(g2);
     }
-    super.paintComponent(grphcs);
+    super.paintComponent(graphics);
   }
 
   private void createArrowButton(Graphics2D g2) {

@@ -180,31 +180,20 @@ public class RegisterUI {
   }
 
   private void handleEvent() {
-    usernameTextField.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent evt) {
+    usernameTextField.addActionListener(evt -> {
 
-      }
     });
 
-    passwordField.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent evt) {
+    passwordField.addActionListener(evt -> {
 
-      }
     });
 
-    loginButton.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-
-      }
+    loginButton.addActionListener(e -> {
+      frame.setVisible(false);
+      new LoginUI();
     });
 
-    cancelButton.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        frame.dispose();
-      }
-    });
+    cancelButton.addActionListener(e -> frame.dispose());
 
     frame.addComponentListener(new ComponentAdapter() {
       public void componentResized(ComponentEvent e) {

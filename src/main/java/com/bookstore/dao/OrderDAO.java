@@ -1,16 +1,23 @@
 package com.bookstore.dao;
 
+import com.bookstore.interfaces.IDAO;
 import com.bookstore.model.OrderModel;
+import com.bookstore.model.OrderModel.Status;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderDAO implements DAOInterface<OrderModel> {
+public class OrderDAO implements IDAO<OrderModel> {
+  private static OrderDAO instance;
 
   public static OrderDAO getInstance() {
-    return new OrderDAO();
+    if (instance == null) {
+      instance = new OrderDAO();
+    }
+    return instance;
   }
 
   private OrderModel createOrderModelFromResultSet(ResultSet rs) throws SQLException {
@@ -52,10 +59,15 @@ public class OrderDAO implements DAOInterface<OrderModel> {
 
   @Override
   public int update(OrderModel order) throws SQLException, ClassNotFoundException {
-    String updateSql = "UPDATE orders SET cart_id=?, customer_id=?, employee_id=?, total=?, paid=?, "
-        + "status=? WHERE id=?";
+    String updateSql = "UPDATE orders SET cart_id=?, customer_id=?, employee_id=?, total=?, paid=?, status=? WHERE id=?";
     Object[] args = { order.getCart_id(), order.getCustomer_id(), order.getEmployee_id(), order.getTotal(),
         order.getPaid(), order.getStatus().name(), order.getId() };
+    return DatabaseConnect.executeUpdate(updateSql, args);
+  }
+
+  public int updateStatus(int cartId, Status status) throws SQLException, ClassNotFoundException {
+    String updateSql = "UPDATE orders SET status = ? WHERE cart_id = ?";
+    Object[] args = { status, cartId };
     return DatabaseConnect.executeUpdate(updateSql, args);
   }
 
@@ -67,28 +79,26 @@ public class OrderDAO implements DAOInterface<OrderModel> {
   }
 
   @Override
-  public List<OrderModel> searchByCondition(String condition) throws SQLException, ClassNotFoundException {
-    String query = "SELECT * FROM orders";
-    if (condition != null && !condition.isEmpty()) {
-      query += " WHERE " + condition;
-    }
-    try (ResultSet rs = DatabaseConnect.executeQuery(query)) {
-      List<OrderModel> orderList = new ArrayList<>();
-      while (rs.next()) {
-        OrderModel orderModel = createOrderModelFromResultSet(rs);
-        orderList.add(orderModel);
-      }
-      if (orderList.isEmpty()) {
-        System.out.println("No records found for the given condition: " + condition);
-      }
-      return orderList;
-    }
-  }
-
-  @Override
-  public List<OrderModel> searchByCondition(String condition, String columnName)
+  public List<OrderModel> search(String condition, String[] columnNames)
       throws SQLException, ClassNotFoundException {
-    String query = "SELECT * FROM orders WHERE " + columnName + " LIKE ?";
+
+    if (condition == null || condition.trim().isEmpty()) {
+      throw new IllegalArgumentException("Search condition cannot be empty or null");
+    }
+
+    String query;
+    if (columnNames == null || columnNames.length == 0) {
+      // Search all columns
+      query = "SELECT * FROM orders WHERE CONCAT(cart_id, customer_id, employee_id, total, paid, status, created_at, updated_at) LIKE ?";
+    } else if (columnNames.length == 1) {
+      // Search specific column in orders table
+      String column = columnNames[0];
+      query = "SELECT * FROM orders WHERE " + column + " LIKE ?";
+    } else {
+      // Search specific columns in orders table
+      query = "SELECT cart_id, customer_id, employee_id, total, paid, status, created_at, updated_at FROM orders WHERE CONCAT("
+          + String.join(", ", columnNames) + ") LIKE ?";
+    }
     try (PreparedStatement pst = DatabaseConnect.getPreparedStatement(query, "%" + condition + "%")) {
       try (ResultSet rs = pst.executeQuery()) {
         List<OrderModel> orderList = new ArrayList<>();
