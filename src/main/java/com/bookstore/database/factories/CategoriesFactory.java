@@ -5,7 +5,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import com.bookstore.dao.DatabaseConnect;
+import com.bookstore.dao.DatabaseConnection;
 import com.github.javafaker.Faker;
 
 public class CategoriesFactory implements IFactory {
@@ -19,7 +19,7 @@ public class CategoriesFactory implements IFactory {
   public Object create() {
     Faker faker = new Faker();
 
-    try (ResultSet rs = DatabaseConnect.executeQuery("SELECT * FROM books")) {
+    try (ResultSet rs = DatabaseConnection.executeQuery("SELECT * FROM books")) {
       Class.forName(JDBC_DRIVER);
       Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
       Statement stmt = conn.createStatement();

@@ -3,14 +3,14 @@ package com.bookstore;
 import javax.swing.UIManager;
 import java.awt.EventQueue;
 
-import com.bookstore.dao.DatabaseConnect;
+import com.bookstore.dao.DatabaseConnection;
 import com.bookstore.gui.LoginUI;
 import com.formdev.flatlaf.FlatLightLaf;
 
 public class App {
   private static boolean checkConnection() {
     try {
-      DatabaseConnect.getConnection();
+      DatabaseConnection.getInstance();
     } catch (Exception e) {
       return false;
     }
@@ -24,13 +24,14 @@ public class App {
     } catch (Exception e) {
       e.printStackTrace();
     }
-    EventQueue.invokeLater(() -> {
-      if (checkConnection()) {
-        new LoginUI();
-      } else {
+
+    new Thread(() -> {
+      if (!checkConnection()) {
         System.out.println("Connection failed");
         System.exit(0);
+      } else {
+        EventQueue.invokeLater(() -> LoginUI.getInstance().setVisible(true));
       }
-    });
+    }).start();
   }
 }

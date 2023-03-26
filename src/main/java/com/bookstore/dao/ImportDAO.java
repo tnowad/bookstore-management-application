@@ -36,7 +36,7 @@ public class ImportDAO implements IDAO<ImportModel> {
   public ArrayList<ImportModel> readDatabase() throws SQLException, ClassNotFoundException {
     ArrayList<ImportModel> importsList = new ArrayList<>();
 
-    try (ResultSet rs = DatabaseConnect.executeQuery("SELECT * FROM imports")) {
+    try (ResultSet rs = DatabaseConnection.executeQuery("SELECT * FROM imports")) {
       while (rs.next()) {
         ImportModel ImportModel = createImportModelFromResultSet(rs);
         importsList.add(ImportModel);
@@ -50,21 +50,21 @@ public class ImportDAO implements IDAO<ImportModel> {
   public int insert(ImportModel imports) throws SQLException, ClassNotFoundException {
     String insertSql = "INSERT INTO imports (provider_id, employee_id, total_price) VALUES (?, ?, ?)";
     Object[] args = { imports.getProviderId(), imports.getEmployeeId(), imports.getTotalPrice() };
-    return DatabaseConnect.executeUpdate(insertSql, args);
+    return DatabaseConnection.executeUpdate(insertSql, args);
   }
 
   @Override
   public int update(ImportModel imports) throws SQLException, ClassNotFoundException {
     String updateSql = "UPDATE imports SET provider_id = ?, employee_id = ?, total_price = ? WHERE id = ?";
     Object[] args = { imports.getProviderId(), imports.getEmployeeId(), imports.getTotalPrice(), imports.getId() };
-    return DatabaseConnect.executeUpdate(updateSql, args);
+    return DatabaseConnection.executeUpdate(updateSql, args);
   }
 
   @Override
   public int delete(int id) throws SQLException, ClassNotFoundException {
     String deleteSql = "DELETE FROM imports WHERE id = ?";
     Object[] args = { id };
-    return DatabaseConnect.executeUpdate(deleteSql, args);
+    return DatabaseConnection.executeUpdate(deleteSql, args);
   }
 
   @Override
@@ -89,7 +89,7 @@ public class ImportDAO implements IDAO<ImportModel> {
           + String.join(", ", columnNames) + ") LIKE ?";
     }
 
-    try (PreparedStatement pst = DatabaseConnect.getPreparedStatement(query, "%" + condition + "%")) {
+    try (PreparedStatement pst = DatabaseConnection.getPreparedStatement(query, "%" + condition + "%")) {
       try (ResultSet rs = pst.executeQuery()) {
         List<ImportModel> importsList = new ArrayList<>();
         while (rs.next()) {

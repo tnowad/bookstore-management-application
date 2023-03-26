@@ -32,7 +32,7 @@ public class ShippingDAO implements IDAO<ShippingModel> {
   @Override
   public ArrayList<ShippingModel> readDatabase() throws SQLException, ClassNotFoundException {
     ArrayList<ShippingModel> shippingList = new ArrayList<>();
-    try (ResultSet rs = DatabaseConnect.executeQuery("SELECT * FROM shipping")) {
+    try (ResultSet rs = DatabaseConnection.executeQuery("SELECT * FROM shipping")) {
       while (rs.next()) {
         ShippingModel shippingModel = createShippingModelFromResultSet(rs);
         shippingList.add(shippingModel);
@@ -46,7 +46,7 @@ public class ShippingDAO implements IDAO<ShippingModel> {
     String insertSql = "INSERT INTO shipping (order_id, shipping_method, address_id, status) VALUES (?, ?, ?, ?)";
     Object[] args = { shipping.getOrderId(), shipping.getShippingMethod(), shipping.getAddressId(),
         shipping.getStatus().name() };
-    return DatabaseConnect.executeUpdate(insertSql, args);
+    return DatabaseConnection.executeUpdate(insertSql, args);
   }
 
   @Override
@@ -54,20 +54,20 @@ public class ShippingDAO implements IDAO<ShippingModel> {
     String updateSql = "UPDATE shipping SET shipping_method = ?, address_id = ?, status = ? WHERE id = ?";
     Object[] args = { shipping.getShippingMethod(), shipping.getAddressId(), shipping.getStatus().name(),
         shipping.getId() };
-    return DatabaseConnect.executeUpdate(updateSql, args);
+    return DatabaseConnection.executeUpdate(updateSql, args);
   }
 
   public int updateStatus(int orderId, Status status) throws SQLException, ClassNotFoundException {
     String updateSql = "UPDATE shipping SET status = ? WHERE status = ?";
     Object[] args = { status, status };
-    return DatabaseConnect.executeUpdate(updateSql, args);
+    return DatabaseConnection.executeUpdate(updateSql, args);
   }
 
   @Override
   public int delete(int id) throws SQLException, ClassNotFoundException {
     String deleteSql = "DELETE FROM shipping WHERE id = ?";
     Object[] args = { id };
-    return DatabaseConnect.executeUpdate(deleteSql, args);
+    return DatabaseConnection.executeUpdate(deleteSql, args);
   }
 
   @Override
@@ -91,7 +91,7 @@ public class ShippingDAO implements IDAO<ShippingModel> {
           + String.join(", ", columnNames) + ") LIKE ?";
     }
 
-    try (PreparedStatement pst = DatabaseConnect.getPreparedStatement(query, "%" + condition + "%")) {
+    try (PreparedStatement pst = DatabaseConnection.getPreparedStatement(query, "%" + condition + "%")) {
       try (ResultSet rs = pst.executeQuery()) {
         List<ShippingModel> shippingList = new ArrayList<>();
         while (rs.next()) {

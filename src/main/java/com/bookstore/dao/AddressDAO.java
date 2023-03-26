@@ -32,7 +32,7 @@ public class AddressDAO implements IDAO<AddressModel> {
   @Override
   public ArrayList<AddressModel> readDatabase() throws SQLException, ClassNotFoundException {
     ArrayList<AddressModel> addressList = new ArrayList<>();
-    try (ResultSet rs = DatabaseConnect.executeQuery("SELECT * FROM addresses")) {
+    try (ResultSet rs = DatabaseConnection.executeQuery("SELECT * FROM addresses")) {
       while (rs.next()) {
         AddressModel addressModel = createAddressModelFromResultSet(rs);
         addressList.add(addressModel);
@@ -46,7 +46,7 @@ public class AddressDAO implements IDAO<AddressModel> {
     String insertSql = "INSERT INTO addresses (user_id, street, city, state, zip) VALUES (?, ?, ?, ?, ?)";
     Object[] args = { address.getUserId(), address.getStreet(), address.getCity(),
         address.getState(), address.getZip() };
-    return DatabaseConnect.executeUpdate(insertSql, args);
+    return DatabaseConnection.executeUpdate(insertSql, args);
   }
 
   @Override
@@ -54,14 +54,14 @@ public class AddressDAO implements IDAO<AddressModel> {
     String updateSql = "UPDATE addresses SET user_id = ?, street = ?, city = ?, state = ?, zip = ? WHERE id = ?";
     Object[] args = { address.getUserId(), address.getStreet(), address.getCity(),
         address.getState(), address.getZip(), address.getId() };
-    return DatabaseConnect.executeUpdate(updateSql, args);
+    return DatabaseConnection.executeUpdate(updateSql, args);
   }
 
   @Override
   public int delete(int id) throws SQLException, ClassNotFoundException {
     String deleteSql = "DELETE FROM addresses WHERE id = ?";
     Object[] args = { id };
-    return DatabaseConnect.executeUpdate(deleteSql, args);
+    return DatabaseConnection.executeUpdate(deleteSql, args);
   }
 
   @Override
@@ -85,7 +85,7 @@ public class AddressDAO implements IDAO<AddressModel> {
           + String.join(", ", columnNames) + ") LIKE ?";
     }
 
-    try (PreparedStatement pst = DatabaseConnect.getPreparedStatement(query, "%" + condition + "%")) {
+    try (PreparedStatement pst = DatabaseConnection.getPreparedStatement(query, "%" + condition + "%")) {
       try (ResultSet rs = pst.executeQuery()) {
         List<AddressModel> addressList = new ArrayList<>();
         while (rs.next()) {

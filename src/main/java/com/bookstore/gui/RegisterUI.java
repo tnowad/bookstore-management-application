@@ -5,8 +5,8 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.border.*;
 
-public class RegisterUI {
-  JFrame frame = new JFrame();
+public class RegisterUI extends JFrame {
+  private static RegisterUI instance;
   private JPanel groupAccount;
   private JPanel groupContent;
   private JPanel groupLogo;
@@ -28,10 +28,16 @@ public class RegisterUI {
   private JLabel iconLabel;
   private JLabel nameStoreLabel;
 
-  public RegisterUI() {
+  private RegisterUI() {
     initComponent();
     handleEvent();
     initFrame();
+  }
+
+  public static RegisterUI getInstance() {
+    if (instance == null)
+      instance = new RegisterUI();
+    return instance;
   }
 
   private void initComponent() {
@@ -56,19 +62,12 @@ public class RegisterUI {
     iconLabel = new JLabel(icon);
     nameStoreLabel = new JLabel("Bookstore Management Application");
 
-    frame.getContentPane().setLayout(new FlowLayout());
+    getContentPane().setLayout(new FlowLayout());
 
     setBackground();
     initGroupContent();
     initGroupLogo();
-    // setResponsive();
   }
-
-  // private void setResponsive() {
-  // if(frame.getPreferredSize().getWidth()<400){
-  // frame.setPreferredSize(new Dimension(300,1200));
-  // }
-  // }
 
   private void initGroupLogo() {
     groupLogo.setLayout(new BorderLayout());
@@ -83,7 +82,7 @@ public class RegisterUI {
     groupLogo.add(nameStoreLabel, BorderLayout.CENTER);
     groupLogo.add(iconLabel, BorderLayout.PAGE_START);
 
-    frame.getContentPane().add(groupLogo, BoxLayout.X_AXIS);
+    getContentPane().add(groupLogo, BoxLayout.X_AXIS);
   }
 
   private void initGroupContent() {
@@ -162,11 +161,11 @@ public class RegisterUI {
 
     groupContent.add(groupButton, BorderLayout.PAGE_END);
 
-    frame.getContentPane().add(groupContent, BoxLayout.X_AXIS);
+    getContentPane().add(groupContent, BoxLayout.X_AXIS);
   }
 
   private void setBackground() {
-    frame.getContentPane().setBackground(Color.white);
+    getContentPane().setBackground(Color.white);
     groupLogo.setBackground(Color.white);
     groupContent.setBackground(Color.white);
     groupAccount.setBackground(Color.white);
@@ -180,24 +179,19 @@ public class RegisterUI {
   }
 
   private void handleEvent() {
-    usernameTextField.addActionListener(evt -> {
-
-    });
-
-    passwordField.addActionListener(evt -> {
-
-    });
 
     loginButton.addActionListener(e -> {
-      frame.setVisible(false);
-      new LoginUI();
+      LoginUI.getInstance().setVisible(true);
+      setVisible(false);
     });
 
-    cancelButton.addActionListener(e -> frame.dispose());
+    cancelButton.addActionListener(e -> {
+      System.exit(0);
+    });
 
-    frame.addComponentListener(new ComponentAdapter() {
+    addComponentListener(new ComponentAdapter() {
       public void componentResized(ComponentEvent e) {
-        int width = frame.getContentPane().getWidth();
+        int width = getContentPane().getWidth();
         if (width < 1020) {
           groupLogo.setPreferredSize(new Dimension(500, 200));
 
@@ -238,23 +232,20 @@ public class RegisterUI {
           initGroupContent();
           initGroupLogo();
         }
-        frame.revalidate();
-        frame.repaint();
+        revalidate();
+        repaint();
       }
     });
 
   }
 
   private void initFrame() {
-    frame.setPreferredSize(new Dimension(1150, 625));
-    frame.setMinimumSize(new Dimension(700, 600));
-    frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-    frame.pack();
-    frame.setLocationRelativeTo(null);
-    frame.setVisible(true);
+    setPreferredSize(new Dimension(1150, 625));
+    setMinimumSize(new Dimension(700, 600));
+    setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+    pack();
+    setLocationRelativeTo(null);
+    setVisible(true);
   }
 
-  public static void main(String[] args) {
-    new RegisterUI();
-  }
 }

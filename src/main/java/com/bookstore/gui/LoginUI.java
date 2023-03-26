@@ -3,10 +3,15 @@ package com.bookstore.gui;
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
+import java.sql.SQLException;
+
 import javax.swing.border.*;
 
-public class LoginUI extends JFrame {
+import com.bookstore.bus.UserBUS;
+import com.bookstore.model.ProfileModel;
 
+public class LoginUI extends JFrame {
+  private static LoginUI instance;
   private JPanel groupAccount;
   private JPanel groupContent;
   private JPanel groupLogo;
@@ -25,10 +30,17 @@ public class LoginUI extends JFrame {
   private JLabel iconLabel;
   private JLabel nameStoreLabel;
 
-  public LoginUI() {
+  private LoginUI() {
     initComponent();
     handleEvent();
     initFrame();
+  }
+
+  public static LoginUI getInstance() {
+    if (instance == null) {
+      instance = new LoginUI();
+    }
+    return instance;
   }
 
   private void initComponent() {
@@ -145,25 +157,23 @@ public class LoginUI extends JFrame {
   }
 
   private void handleEvent() {
-    usernameTextField.addActionListener(evt -> {
-
-    });
-
-    passwordField.addActionListener(evt -> {
-
-    });
-
     loginButton.addActionListener(e -> {
       String username = usernameTextField.getText();
       char[] password = passwordField.getPassword();
       String passwordText = new String(password);
-
+      ProfileModel.getInstance().setUser(UserBUS.getInstance().login(username, passwordText));
+      if (ProfileModel.getInstance().getUser() != null) {
+        dispose();
+      } else {
+        JOptionPane.showMessageDialog(null, "Login fail");
+      }
     });
 
     cancelButton.addActionListener(e -> dispose());
 
     registerButton.addActionListener(e -> {
-      new RegisterUI();
+      RegisterUI.getInstance().setVisible(true);
+      setVisible(false);
     });
 
     addComponentListener(new ComponentAdapter() {

@@ -29,7 +29,7 @@ public class ProviderDAO implements IDAO<ProviderModel> {
   @Override
   public ArrayList<ProviderModel> readDatabase() throws SQLException, ClassNotFoundException {
     ArrayList<ProviderModel> providerList = new ArrayList<>();
-    try (ResultSet rs = DatabaseConnect.executeQuery("SELECT * FROM providers")) {
+    try (ResultSet rs = DatabaseConnection.executeQuery("SELECT * FROM providers")) {
       while (rs.next()) {
         ProviderModel providerModel = createProviderModelFromResultSet(rs);
         providerList.add(providerModel);
@@ -42,21 +42,21 @@ public class ProviderDAO implements IDAO<ProviderModel> {
   public int insert(ProviderModel provider) throws SQLException, ClassNotFoundException {
     String insertSql = "INSERT INTO providers (name, description) VALUES (?, ?)";
     Object[] args = { provider.getName(), provider.getDescription() };
-    return DatabaseConnect.executeUpdate(insertSql, args);
+    return DatabaseConnection.executeUpdate(insertSql, args);
   }
 
   @Override
   public int update(ProviderModel provider) throws SQLException, ClassNotFoundException {
     String updateSql = "UPDATE providers SET name = ?, description = ? WHERE id = ?";
     Object[] args = { provider.getName(), provider.getDescription(), provider.getId() };
-    return DatabaseConnect.executeUpdate(updateSql, args);
+    return DatabaseConnection.executeUpdate(updateSql, args);
   }
 
   @Override
   public int delete(int id) throws SQLException, ClassNotFoundException {
     String deleteSql = "DELETE FROM providers WHERE id = ?";
     Object[] args = { id };
-    return DatabaseConnect.executeUpdate(deleteSql, args);
+    return DatabaseConnection.executeUpdate(deleteSql, args);
   }
 
   @Override
@@ -80,7 +80,7 @@ public class ProviderDAO implements IDAO<ProviderModel> {
           + String.join(", ", columnNames) + ") LIKE ?";
     }
 
-    try (PreparedStatement pst = DatabaseConnect.getPreparedStatement(query, "%" + condition + "%")) {
+    try (PreparedStatement pst = DatabaseConnection.getPreparedStatement(query, "%" + condition + "%")) {
       try (ResultSet rs = pst.executeQuery()) {
         List<ProviderModel> providerList = new ArrayList<>();
         while (rs.next()) {
@@ -98,7 +98,8 @@ public class ProviderDAO implements IDAO<ProviderModel> {
   public ProviderModel getProviderById(int id) throws SQLException, ClassNotFoundException {
     String query = "SELECT * FROM providers WHERE id = ?";
     Object[] args = { id };
-    try (PreparedStatement pst = DatabaseConnect.getPreparedStatement(query, args); ResultSet rs = pst.executeQuery()) {
+    try (PreparedStatement pst = DatabaseConnection.getPreparedStatement(query, args);
+        ResultSet rs = pst.executeQuery()) {
       if (rs.next()) {
         return createProviderModelFromResultSet(rs);
       }

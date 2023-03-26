@@ -35,7 +35,7 @@ public class OrderDAO implements IDAO<OrderModel> {
   @Override
   public ArrayList<OrderModel> readDatabase() throws SQLException, ClassNotFoundException {
     String query = "SELECT * FROM orders";
-    try (ResultSet rs = DatabaseConnect.executeQuery(query)) {
+    try (ResultSet rs = DatabaseConnection.executeQuery(query)) {
       ArrayList<OrderModel> orderList = new ArrayList<>();
       while (rs.next()) {
         OrderModel orderModel = createOrderModelFromResultSet(rs);
@@ -54,7 +54,7 @@ public class OrderDAO implements IDAO<OrderModel> {
         + "VALUES (?, ?, ?, ?, ?, ?)";
     Object[] args = { order.getCart_id(), order.getCustomer_id(), order.getEmployee_id(), order.getTotal(),
         order.getPaid(), order.getStatus().name() };
-    return DatabaseConnect.executeUpdate(insertSql, args);
+    return DatabaseConnection.executeUpdate(insertSql, args);
   }
 
   @Override
@@ -62,20 +62,20 @@ public class OrderDAO implements IDAO<OrderModel> {
     String updateSql = "UPDATE orders SET cart_id=?, customer_id=?, employee_id=?, total=?, paid=?, status=? WHERE id=?";
     Object[] args = { order.getCart_id(), order.getCustomer_id(), order.getEmployee_id(), order.getTotal(),
         order.getPaid(), order.getStatus().name(), order.getId() };
-    return DatabaseConnect.executeUpdate(updateSql, args);
+    return DatabaseConnection.executeUpdate(updateSql, args);
   }
 
   public int updateStatus(int cartId, Status status) throws SQLException, ClassNotFoundException {
     String updateSql = "UPDATE orders SET status = ? WHERE cart_id = ?";
     Object[] args = { status, cartId };
-    return DatabaseConnect.executeUpdate(updateSql, args);
+    return DatabaseConnection.executeUpdate(updateSql, args);
   }
 
   @Override
   public int delete(int id) throws SQLException, ClassNotFoundException {
     String deleteSql = "DELETE FROM orders WHERE id = ?";
     Object[] args = { id };
-    return DatabaseConnect.executeUpdate(deleteSql, args);
+    return DatabaseConnection.executeUpdate(deleteSql, args);
   }
 
   @Override
@@ -99,7 +99,7 @@ public class OrderDAO implements IDAO<OrderModel> {
       query = "SELECT cart_id, customer_id, employee_id, total, paid, status, created_at, updated_at FROM orders WHERE CONCAT("
           + String.join(", ", columnNames) + ") LIKE ?";
     }
-    try (PreparedStatement pst = DatabaseConnect.getPreparedStatement(query, "%" + condition + "%")) {
+    try (PreparedStatement pst = DatabaseConnection.getPreparedStatement(query, "%" + condition + "%")) {
       try (ResultSet rs = pst.executeQuery()) {
         List<OrderModel> orderList = new ArrayList<>();
         while (rs.next()) {

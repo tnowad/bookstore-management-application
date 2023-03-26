@@ -16,9 +16,13 @@ public class UserBUS implements IBUS<UserModel> {
   private final List<UserModel> userList = new ArrayList<>();
   private static UserBUS instance;
 
-  public static UserBUS getInstance() throws ClassNotFoundException, SQLException {
+  public static UserBUS getInstance() {
     if (instance == null) {
-      instance = new UserBUS();
+      try {
+        instance = new UserBUS();
+      } catch (ClassNotFoundException | SQLException e) {
+        e.printStackTrace();
+      }
     }
     return instance;
   }
@@ -27,10 +31,15 @@ public class UserBUS implements IBUS<UserModel> {
     this.userList.addAll(UserDAO.getInstance().readDatabase());
   }
 
-  public UserModel login(String username, String password) throws SQLException, ClassNotFoundException {
-    UserModel userModel = UserDAO.getInstance().getUserByUsername(username);
-    if (userModel != null && PasswordUtil.checkPassword(password, userModel.getPassword())) {
-      return userModel;
+  public UserModel login(String username, String password) {
+    UserModel userModel;
+    try {
+      userModel = UserDAO.getInstance().getUserByUsername(username);
+      if (userModel != null && PasswordUtil.checkPassword(password, userModel.getPassword())) {
+        return userModel;
+      }
+    } catch (ClassNotFoundException | SQLException e) {
+      e.printStackTrace();
     }
     return null;
   }
@@ -250,4 +259,5 @@ public class UserBUS implements IBUS<UserModel> {
 
     return results;
   }
+
 }
