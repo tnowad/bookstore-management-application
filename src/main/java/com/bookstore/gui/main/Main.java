@@ -133,6 +133,20 @@ public class Main extends JFrame {
               }
             },
             "Home",
+<<<<<<< HEAD
+            new String[] { "1", "2" });
+        for (int i = 0; i < 10; i++) {
+          menu.addMenu(modelMenu);
+        }
+        background.add(menu, "w 230!");
+        background.add(header, "h 50!, w 340!");
+        background.add(main, "w 100%, h 100%");
+    }
+    
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+=======
             new MenuItemModel[] {
                 menuItemModel,
                 menuItemModel,
@@ -140,6 +154,7 @@ public class Main extends JFrame {
                 menuItemModel,
                 menuItemModel
             });
+>>>>>>> 563e04fb5c081508ef69d168f535bf84dcec4cc4
 
         Main main = new Main();
         main.setVisible(true);

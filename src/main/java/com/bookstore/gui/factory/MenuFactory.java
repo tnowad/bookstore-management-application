@@ -62,14 +62,61 @@ public class MenuFactory {
               MenuItemFactory.createMenuItemModel(
                   "customer.logout")));
     } else if (name.equals("admin")) {
-
+      menu.addMenu(
+          new MenuModel(
+              IconFactory.createIcon("dashboard"),
+              "Dashboard",
+              MenuItemFactory.createMenuItemModel(
+                  "admin.dashboard", "admin.order", "admin.product", "admin.import", "admin.employee",
+                  "admin.customer")));
+      menu.addMenu(
+          new MenuModel(
+              IconFactory.createIcon("promotion"),
+              "Promotion",
+              MenuItemFactory.createMenuItemModel(
+                  "admin.promotionList",
+                  "admin.promotionHistory")));
+      menu.addMenu(
+          new MenuModel(
+              IconFactory.createIcon("employee"),
+              "Employee",
+              MenuItemFactory.createMenuItemModel(
+                  "admin.employeeList",
+                  "admin.employeeHistory")));
+      menu.addMenu(
+          new MenuModel(
+              IconFactory.createIcon("customer"),
+              "Customer",
+              MenuItemFactory.createMenuItemModel(
+                  "admin.customerList",
+                  "admin.customerHistory")));
+      menu.addMenu(
+          new MenuModel(
+              IconFactory.createIcon("import"),
+              "Import",
+              MenuItemFactory.createMenuItemModel(
+                  "admin.importList",
+                  "admin.importHistory")));
+      menu.addMenu(
+          new MenuModel(
+              IconFactory.createIcon("order"),
+              "Order",
+              MenuItemFactory.createMenuItemModel(
+                  "admin.orderList",
+                  "admin.orderHistory")));
+      menu.addMenu(
+          new MenuModel(
+              IconFactory.createIcon("other"),
+              "Other",
+              MenuItemFactory.createMenuItemModel(
+                  "admin.about", "admin.settings", "admin.logout")));
     }
     return menu;
   }
 
   public static void main(String[] args) {
     JFrame frame = new JFrame();
-    frame.add(MenuFactory.createMenu("customer"));
+    frame.add(MenuFactory.createMenu("admin"));
     frame.pack();
     frame.setVisible(true);
   }

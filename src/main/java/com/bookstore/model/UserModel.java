@@ -125,5 +125,25 @@ public class UserModel {
   public void setRole(Role role) {
     this.role = role;
   }
+<<<<<<< HEAD
+  
+  @Override
+  public String toString() {
+    return "UserModel{" +
+        "id=" + id +
+        ", username='" + username + '\'' +
+        ", password='" + password + '\'' +
+        ", status=" + status +
+        ", name='" + name + '\'' +
+        ", email='" + email + '\'' +
+        ", phone='" + phone + '\'' +
+        ", createdAt=" + createdAt +
+        ", updatedAt=" + updatedAt +
+        ", role=" + role +
+        '}';
+  }
+  
+=======
 
+>>>>>>> 563e04fb5c081508ef69d168f535bf84dcec4cc4
 }

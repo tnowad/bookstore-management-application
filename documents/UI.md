@@ -103,7 +103,7 @@ Shipping Employee:
 - [ ] Employee
   - [ ] Employee List
     - [ ] (Hide)Employee Detail
-  - [ ] Employee History
+    - [ ] Employee History
 - [ ] Customer
   - [ ] Customer List
     - [ ] (Hide)Customer Detail
