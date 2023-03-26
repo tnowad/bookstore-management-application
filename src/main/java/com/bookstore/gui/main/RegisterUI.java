@@ -11,7 +11,6 @@ public class RegisterUI extends JFrame {
   private JPanel groupContent;
   private JPanel groupLogo;
   private JLabel titleLogin;
-  private ImageIcon icon;
   private JPanel groupUsername;
   private JLabel usernameLabel;
   private JTextField usernameTextField;
@@ -41,6 +40,7 @@ public class RegisterUI extends JFrame {
   }
 
   private void initComponent() {
+    ImageIcon icon;
     groupLogo = new JPanel();
     groupContent = new JPanel();
     titleLogin = new JLabel();
@@ -185,11 +185,10 @@ public class RegisterUI extends JFrame {
       setVisible(false);
     });
 
-    cancelButton.addActionListener(e -> {
-      System.exit(0);
-    });
+    cancelButton.addActionListener(e -> System.exit(0));
 
     addComponentListener(new ComponentAdapter() {
+      @Override
       public void componentResized(ComponentEvent e) {
         int width = getContentPane().getWidth();
         if (width < 1020) {

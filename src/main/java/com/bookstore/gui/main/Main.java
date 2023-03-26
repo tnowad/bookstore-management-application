@@ -11,12 +11,12 @@ import com.bookstore.gui.form.MainForm;
 import net.miginfocom.swing.MigLayout;
 
 public class Main extends JFrame {
-  private MigLayout layout;
-  private JLayeredPane background;
+
+  private JLayeredPane backgroundLayer;
 
   private Menu menu;
   private Header header;
-  private MainForm main;
+  private MainForm mainForm;
 
   public Main() {
     initComponents();
@@ -27,35 +27,36 @@ public class Main extends JFrame {
 
     this.menu = menu;
     this.header = header;
-    this.main = main;
+    this.mainForm = main;
 
     initComponents();
     initFrame();
   }
 
   private void initFrame() {
-    layout = new MigLayout("fill", "0[]0[100%, fill]0", "0[fill, top]0");
-    background.setLayout(layout);
+    MigLayout layout = new MigLayout("fill", "0[]0[100%, fill]0", "0[fill, top]0");
+    backgroundLayer.setLayout(layout);
     if (menu == null)
       menu = new Menu();
     if (header == null)
-      header = new Header();
-    if (main == null)
-      main = new MainForm();
+      header = Header.getInstance();
+    if (mainForm == null)
+      mainForm = MainForm.getInstance();
 
-    background.add(menu, "w 230!");
-    background.add(header, "h 50!, w 1050!");
-    background.add(main, "w 100%, h 100%");
+    backgroundLayer.add(menu, "w 230!");
+    backgroundLayer.add(header, "h 50!, growx, wrap");
+    backgroundLayer.add(mainForm, "grow");
+    mainForm.getInstance().showForm(new com.bookstore.gui.form.customer.CustomerForm());
   }
 
   private void initComponents() {
 
-    background = new JLayeredPane();
+    backgroundLayer = new JLayeredPane();
 
     setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-    GroupLayout backgroundLayout = new GroupLayout(background);
-    background.setLayout(backgroundLayout);
+    GroupLayout backgroundLayout = new GroupLayout(backgroundLayer);
+    backgroundLayer.setLayout(backgroundLayout);
     backgroundLayout.setHorizontalGroup(
         backgroundLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGap(0, 1345, Short.MAX_VALUE));
@@ -67,10 +68,10 @@ public class Main extends JFrame {
     getContentPane().setLayout(layout);
     layout.setHorizontalGroup(
         layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addComponent(background));
+            .addComponent(backgroundLayer));
     layout.setVerticalGroup(
         layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addComponent(background));
+            .addComponent(backgroundLayer));
 
     pack();
   }

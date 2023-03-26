@@ -10,18 +10,18 @@ public class UIComponentFactory {
     return MenuFactory.createMenu(name);
   }
 
-  public static Header createHeader(String name) {
-    return new Header();
+  public static Header createHeader() {
+    return Header.getInstance();
   }
 
-  public static MainForm createMainForm(String name) {
-    return new MainForm();
+  public static MainForm createMainForm() {
+    return MainForm.getInstance();
   }
 
   public static Main createMain(String name) {
     return new Main(UIComponentFactory.createMenu(name),
-        UIComponentFactory.createHeader(name),
-        UIComponentFactory.createMainForm(name));
+        UIComponentFactory.createHeader(),
+        UIComponentFactory.createMainForm());
   }
 
   public static void main(String[] args) {

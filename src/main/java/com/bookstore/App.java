@@ -1,8 +1,6 @@
 package com.bookstore;
 
 import java.awt.EventQueue;
-import java.sql.SQLException;
-
 import javax.swing.UIManager;
 
 import com.bookstore.dao.DatabaseConnection;
@@ -24,6 +22,5 @@ public class App {
       if (DatabaseConnection.getInstance() != null)
         LoginUI.getInstance().setVisible(true);
     });
-
   }
 }

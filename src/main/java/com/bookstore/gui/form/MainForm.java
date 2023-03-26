@@ -8,12 +8,20 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 public class MainForm extends JPanel {
+  private static MainForm instance;
 
-  public MainForm() {
+  private MainForm() {
     initComponents();
     setOpaque(false);
     setLayout(new BorderLayout());
     setBorder(new EmptyBorder(10, 20, 10, 20));
+  }
+
+  public static MainForm getInstance() {
+    if (instance == null) {
+      instance = new MainForm();
+    }
+    return instance;
   }
 
   public void showForm(Component form) {
