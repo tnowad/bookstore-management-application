@@ -1,13 +1,10 @@
 package com.bookstore.gui.component;
 
 import javax.swing.GroupLayout;
-import javax.swing.Icon;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.LayoutStyle;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.UIManager;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -15,16 +12,11 @@ import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import net.miginfocom.swing.MigLayout;
 
 import com.bookstore.gui.event.EventMenu;
 import com.bookstore.gui.event.EventMenuSelected;
 import com.bookstore.gui.event.EventShowPopupMenu;
-import com.bookstore.gui.form.Form;
-import com.bookstore.gui.model.MenuItemModel;
 import com.bookstore.gui.model.MenuModel;
 import com.bookstore.gui.swing.MenuAnimation;
 import com.bookstore.gui.swing.MenuItem;
@@ -34,26 +26,6 @@ public class Menu extends JPanel {
   private JPanel panel;
   private Profile profile;
   private JScrollPane scrollPane;
-
-  public boolean isShowMenu() {
-    return showMenu;
-  }
-
-  public void addEvent(EventMenuSelected event) {
-    this.event = event;
-  }
-
-  public void setEnableMenu(boolean enableMenu) {
-    this.enableMenu = enableMenu;
-  }
-
-  public void setShowMenu(boolean showMenu) {
-    this.showMenu = showMenu;
-  }
-
-  public void addEventShowPopup(EventShowPopupMenu eventShowPopup) {
-    this.eventShowPopup = eventShowPopup;
-  }
 
   private final MigLayout layout;
   private EventMenuSelected event;
@@ -75,31 +47,28 @@ public class Menu extends JPanel {
   }
 
   private EventMenu getEventMenu() {
-    return new EventMenu() {
-      @Override
-      public boolean menuPressed(Component com, boolean open) {
-        if (enableMenu) {
-          if (isShowMenu()) {
-            if (open) {
-              new MenuAnimation(layout, com).openMenu();
-            } else {
-              new MenuAnimation(layout, com).closeMenu();
-            }
-            return true;
+    return (com, open) -> {
+      if (enableMenu) {
+        if (isShowMenu()) {
+          if (open) {
+            new MenuAnimation(layout, com).openMenu();
           } else {
-            eventShowPopup.showPopup(com);
+            new MenuAnimation(layout, com).closeMenu();
           }
+          return true;
+        } else {
+          eventShowPopup.showPopup(com);
         }
-        return false;
       }
+      return false;
     };
   }
 
   public void hideAllMenu() {
-    for (Component com : panel.getComponents()) {
-      MenuItem item = (MenuItem) com;
+    for (Component component : panel.getComponents()) {
+      MenuItem item = (MenuItem) component;
       if (item.isOpen()) {
-        new MenuAnimation(layout, com, 500).closeMenu();
+        new MenuAnimation(layout, component, 500).closeMenu();
         item.setOpen(false);
       }
     }
@@ -153,4 +122,25 @@ public class Menu extends JPanel {
     graphics2d.fillRect(0, 0, getWidth(), getHeight());
     super.paintComponent(graphics);
   }
+
+  public boolean isShowMenu() {
+    return showMenu;
+  }
+
+  public void addEvent(EventMenuSelected event) {
+    this.event = event;
+  }
+
+  public void setEnableMenu(boolean enableMenu) {
+    this.enableMenu = enableMenu;
+  }
+
+  public void setShowMenu(boolean showMenu) {
+    this.showMenu = showMenu;
+  }
+
+  public void addEventShowPopup(EventShowPopupMenu eventShowPopup) {
+    this.eventShowPopup = eventShowPopup;
+  }
+
 }

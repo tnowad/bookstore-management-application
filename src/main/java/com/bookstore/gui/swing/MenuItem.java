@@ -2,6 +2,8 @@ package com.bookstore.gui.swing;
 
 import com.bookstore.gui.event.EventMenu;
 import com.bookstore.gui.event.EventMenuSelected;
+import com.bookstore.gui.factory.IconFactory;
+import com.bookstore.gui.factory.MenuItemFactory;
 import com.bookstore.gui.model.MenuItemModel;
 import com.bookstore.gui.model.MenuModel;
 import java.awt.AlphaComposite;
@@ -11,6 +13,9 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.GroupLayout;
+
 import net.miginfocom.swing.MigLayout;
 
 public class MenuItem extends javax.swing.JPanel {
@@ -57,17 +62,14 @@ public class MenuItem extends javax.swing.JPanel {
     setOpaque(false);
     setLayout(new MigLayout("wrap, fillx, insets 0", "[fill]", "[fill, 40!]0[fill, 35!]"));
     MenuButton firstItem = new MenuButton(menu.getIcon(), "      " + menu.getMenuName());
-    firstItem.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent ae) {
-        if (menu.getSubMenu().length > 0) {
-          if (event.menuPressed(MenuItem.this, !open)) {
-            open = !open;
-          }
-        }
-        eventSelected.menuSelected(index, -1);
+
+    firstItem.addActionListener(ae -> {
+      if (menu.getSubMenu().length > 0 && (event.menuPressed(MenuItem.this, !open))) {
+        open = !open;
       }
+      eventSelected.menuSelected(index, -1);
     });
+
     add(firstItem);
     int subMenuIndex = -1;
     for (MenuItemModel menuItemModel : menu.getSubMenu()) {
@@ -79,16 +81,15 @@ public class MenuItem extends javax.swing.JPanel {
   }
 
   private void initComponents() {
-
-    javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+    GroupLayout layout = new GroupLayout(this);
     this.setLayout(layout);
     layout.setHorizontalGroup(
-        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGap(0, 400, Short.MAX_VALUE));
     layout.setVerticalGroup(
-        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGap(0, 300, Short.MAX_VALUE));
-  }// </editor-fold>//GEN-END:initComponents
+  }
 
   @Override
   protected void paintComponent(Graphics graphics) {
@@ -124,6 +125,12 @@ public class MenuItem extends javax.swing.JPanel {
     g2.drawLine(x + 4, (int) (y + ay1), x + 8, (int) (y + ay));
   }
 
-  // Variables declaration - do not modify//GEN-BEGIN:variables
-  // End of variables declaration//GEN-END:variables
+  public static void main(String[] args) {
+    javax.swing.JFrame frame = new javax.swing.JFrame();
+    frame.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+    frame.getContentPane().add(new MenuItem(new MenuModel(
+        IconFactory.createIcon(""), "Home", MenuItemFactory.createMenuItemModel("!23", "123")), null, null, 0));
+    frame.pack();
+    frame.setVisible(true);
+  }
 }

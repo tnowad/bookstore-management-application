@@ -1,0 +1,112 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "MenuItem",
+            "request": "launch",
+            "mainClass": "com.bookstore.gui.swing.MenuItem",
+            "projectName": "bookstore-management-application"
+        },
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "App",
+            "request": "launch",
+            "mainClass": "com.bookstore.App",
+            "projectName": "bookstore-management-application"
+        },
+        {
+            "type": "java",
+            "name": "CreateTable",
+            "request": "launch",
+            "mainClass": "com.bookstore.database.migrations.CreateTable",
+            "projectName": "bookstore-management-application"
+        },
+        {
+            "type": "java",
+            "name": "DatabaseSeeder",
+            "request": "launch",
+            "mainClass": "com.bookstore.database.seeders.DatabaseSeeder",
+            "projectName": "bookstore-management-application"
+        },
+        {
+            "type": "java",
+            "name": "CartUI",
+            "request": "launch",
+            "mainClass": "com.bookstore.gui.CartUI",
+            "projectName": "bookstore-management-application"
+        },
+        {
+            "type": "java",
+            "name": "CustomerUI",
+            "request": "launch",
+            "mainClass": "com.bookstore.gui.CustomerUI",
+            "projectName": "bookstore-management-application"
+        },
+        {
+            "type": "java",
+            "name": "MenuUI",
+            "request": "launch",
+            "mainClass": "com.bookstore.gui.MenuUI",
+            "projectName": "bookstore-management-application"
+        },
+        {
+            "type": "java",
+            "name": "RegisterUI",
+            "request": "launch",
+            "mainClass": "com.bookstore.gui.RegisterUI",
+            "projectName": "bookstore-management-application"
+        },
+        {
+            "type": "java",
+            "name": "TopUI",
+            "request": "launch",
+            "mainClass": "com.bookstore.gui.TopUI",
+            "projectName": "bookstore-management-application"
+        },
+        {
+            "type": "java",
+            "name": "UserUI",
+            "request": "launch",
+            "mainClass": "com.bookstore.gui.UserUI",
+            "projectName": "bookstore-management-application"
+        },
+        {
+            "type": "java",
+            "name": "Header",
+            "request": "launch",
+            "mainClass": "com.bookstore.gui.component.Header",
+            "projectName": "bookstore-management-application"
+        },
+        {
+            "type": "java",
+            "name": "MenuFactory",
+            "request": "launch",
+            "mainClass": "com.bookstore.gui.factory.MenuFactory",
+            "projectName": "bookstore-management-application"
+        },
+        {
+            "type": "java",
+            "name": "UIComponentFactory",
+            "request": "launch",
+            "mainClass": "com.bookstore.gui.factory.UIComponentFactory",
+            "projectName": "bookstore-management-application"
+        },
+        {
+            "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "com.bookstore.gui.main.Main",
+            "projectName": "bookstore-management-application"
+        }
+    ]
+}

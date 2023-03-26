@@ -1,6 +1,5 @@
 package com.bookstore.gui.factory;
 
-import javax.swing.Icon;
 import javax.swing.JFrame;
 
 import com.bookstore.gui.component.Menu;
@@ -17,11 +16,7 @@ public class MenuFactory {
   }
 
   public static MenuModel createMenuModel(String icon, String name, MenuItemModel[] menuItemModel) {
-    MenuModel menuModel = new MenuModel(
-        IconFactory.createIcon(icon),
-        name,
-        menuItemModel);
-    return menuModel;
+    return new MenuModel(IconFactory.createIcon(icon), name, menuItemModel);
   }
 
   public static Menu createMenu(String name) {
