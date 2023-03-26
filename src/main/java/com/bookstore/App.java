@@ -2,10 +2,21 @@ package com.bookstore;
 
 import javax.swing.UIManager;
 import java.awt.EventQueue;
+
+import com.bookstore.dao.DatabaseConnect;
 import com.bookstore.gui.LoginUI;
 import com.formdev.flatlaf.FlatLightLaf;
 
 public class App {
+  private static boolean checkConnection() {
+    try {
+      DatabaseConnect.getConnection();
+    } catch (Exception e) {
+      return false;
+    }
+    return true;
+  }
+
   public static void main(String[] args) {
     try {
       UIManager.setLookAndFeel(new FlatLightLaf());
@@ -13,13 +24,12 @@ public class App {
     } catch (Exception e) {
       e.printStackTrace();
     }
-    EventQueue.invokeLater(new Runnable() {
-      public void run() {
-        try {
-          new LoginUI();
-        } catch (Exception e) {
-          System.exit(0);
-        }
+    EventQueue.invokeLater(() -> {
+      if (checkConnection()) {
+        new LoginUI();
+      } else {
+        System.out.println("Connection failed");
+        System.exit(0);
       }
     });
   }

@@ -3,21 +3,10 @@ package com.bookstore.gui;
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
-import java.sql.SQLException;
-import java.util.Arrays;
-
 import javax.swing.border.*;
 
-import com.bookstore.bus.UserBUS;
-import com.bookstore.dao.UserDAO;
-import com.bookstore.gui.main.Main;
-import com.bookstore.model.UserModel;
-import com.bookstore.model.UserModel.Role;
-import com.bookstore.gui.component.Layout;
+public class LoginUI extends JFrame {
 
-public class LoginUI {
-
-  JFrame frame = new JFrame();
   private JPanel groupAccount;
   private JPanel groupContent;
   private JPanel groupLogo;
@@ -62,7 +51,7 @@ public class LoginUI {
     nameStoreLabel = new JLabel("Bookstore Management Application");
     nameStoreLabel.setForeground(Color.BLUE);
 
-    frame.getContentPane().setLayout(new FlowLayout());
+    getContentPane().setLayout(new FlowLayout());
 
     setBackground();
     initGroupContent();
@@ -81,13 +70,12 @@ public class LoginUI {
     groupLogo.add(nameStoreLabel, BorderLayout.CENTER);
     groupLogo.add(iconLabel, BorderLayout.PAGE_START);
 
-    frame.getContentPane().add(groupLogo, BoxLayout.X_AXIS);
+    getContentPane().add(groupLogo, BoxLayout.X_AXIS);
   }
 
   private void initGroupContent() {
     groupContent.setLayout(new BorderLayout());
 
-    // titleLogin.setFont(new Font("sansserif", 0, 48));
     titleLogin.setHorizontalAlignment(SwingConstants.CENTER);
     titleLogin.setText("Login");
     titleLogin.setForeground(Color.BLUE);
@@ -98,12 +86,10 @@ public class LoginUI {
 
     groupUsername.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 50));
 
-    // usernameLabel.setFont(new Font("sansserif", 0, 24));
     usernameLabel.setText("Username");
     usernameLabel.setPreferredSize(new Dimension(120, 50));
     groupUsername.add(usernameLabel);
 
-    // usernameTextField.setFont(new Font("sansserif", 0, 24));
     usernameTextField.setPreferredSize(new Dimension(300, 50));
     Border borderUsernameTextField = BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLUE);
     usernameTextField.setBorder(borderUsernameTextField);
@@ -113,12 +99,10 @@ public class LoginUI {
 
     groupPassword.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));
 
-    // passwordLabel.setFont(new Font("sansserif", 0, 24));
     passwordLabel.setText("Password");
     passwordLabel.setPreferredSize(new Dimension(120, 50));
     groupPassword.add(passwordLabel);
 
-    // passwordField.setFont(new Font("sansserif", 0, 24));
     passwordField.setPreferredSize(new Dimension(300, 50));
     Border borderPasswordField = BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLUE);
     passwordField.setBorder(borderPasswordField);
@@ -144,11 +128,11 @@ public class LoginUI {
 
     groupContent.add(groupButton, BorderLayout.PAGE_END);
 
-    frame.getContentPane().add(groupContent, BoxLayout.X_AXIS);
+    getContentPane().add(groupContent, BoxLayout.X_AXIS);
   }
 
   private void setBackground() {
-    frame.getContentPane().setBackground(Color.white);
+    getContentPane().setBackground(Color.white);
     groupLogo.setBackground(Color.white);
     groupContent.setBackground(Color.white);
     groupAccount.setBackground(Color.white);
@@ -173,37 +157,19 @@ public class LoginUI {
       String username = usernameTextField.getText();
       char[] password = passwordField.getPassword();
       String passwordText = new String(password);
-      try {
-        UserBUS userBUS = new UserBUS();
-        UserModel user = userBUS.login(username, passwordText);
-        if (user != null) {
-          JOptionPane.showMessageDialog(null, "Login successfully", "Login Success",
-              JOptionPane.INFORMATION_MESSAGE);
-          frame.dispose();
-          EventQueue.invokeLater(() -> new Main(new Layout(user)));
-        } else {
-          JOptionPane.showMessageDialog(null, "Invalid username or password", "Login Failed",
-              JOptionPane.ERROR_MESSAGE);
-        }
-        Arrays.fill(password, '0');
-      } catch (SQLException ex) {
-        // handle database error (e.g. display error message)
-        ex.printStackTrace();
-      } catch (ClassNotFoundException ex) {
-        // handle missing class error (e.g. display error message)
-        ex.printStackTrace();
-      }
+
     });
 
-    cancelButton.addActionListener(e -> frame.dispose());
+    cancelButton.addActionListener(e -> dispose());
 
     registerButton.addActionListener(e -> {
       new RegisterUI();
     });
 
-    frame.addComponentListener(new ComponentAdapter() {
+    addComponentListener(new ComponentAdapter() {
+      @Override
       public void componentResized(ComponentEvent e) {
-        int width = frame.getContentPane().getWidth();
+        int width = getContentPane().getWidth();
         if (width < 1020) {
           groupLogo.setPreferredSize(new Dimension(500, 200));
 
@@ -236,22 +202,18 @@ public class LoginUI {
           initGroupContent();
           initGroupLogo();
         }
-        frame.revalidate();
-        frame.repaint();
+        revalidate();
+        repaint();
       }
     });
   }
 
-  private Layout Layout(Role role) {
-    return null;
-  }
-
   private void initFrame() {
-    frame.setPreferredSize(new Dimension(1100, 550));
-    frame.setMinimumSize(new Dimension(700, 600));
-    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    frame.pack();
-    frame.setLocationRelativeTo(null);
-    frame.setVisible(true);
+    setPreferredSize(new Dimension(1100, 550));
+    setMinimumSize(new Dimension(700, 600));
+    setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+    pack();
+    setLocationRelativeTo(null);
+    setVisible(true);
   }
 }
