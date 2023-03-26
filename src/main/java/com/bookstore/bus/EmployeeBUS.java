@@ -41,10 +41,6 @@ public class EmployeeBUS implements IBUS<EmployeeModel> {
     return null;
   }
 
-  public List<EmployeeModel> getEmployeeList() throws NullPointerException {
-    return Collections.unmodifiableList(employeeList);
-  }
-
   private EmployeeModel mapToEntity(EmployeeModel from) {
     EmployeeModel to = new EmployeeModel();
     updateEntityFields(from, to);

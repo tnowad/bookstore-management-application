@@ -41,10 +41,6 @@ public class ImportBUS implements IBUS<ImportModel> {
     return null;
   }
 
-  public List<ImportModel> getImportList() throws NullPointerException {
-    return Collections.unmodifiableList(importList);
-  }
-
   private ImportModel mapToEntity(ImportModel from) {
     ImportModel to = new ImportModel();
     updateEntityFields(from, to);

@@ -60,7 +60,8 @@ public class ProviderExcelUtil extends ExcelUtil {
   private static List<ProviderModel> convertToProviderModelList(List<List<String>> data)
       throws IllegalArgumentException, ClassNotFoundException, SQLException {
     List<ProviderModel> providerModels = new ArrayList<>();
-    for (List<String> row : data) {
+    for (int i = 1; i < data.size(); i++) {
+      List<String> row = data.get(i);
       int id;
       try {
         id = Integer.parseInt(row.get(0));

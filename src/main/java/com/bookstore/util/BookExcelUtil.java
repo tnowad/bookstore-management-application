@@ -62,7 +62,8 @@ public class BookExcelUtil extends ExcelUtil {
   private static List<BookModel> convertToBookModelList(List<List<String>> data)
       throws IllegalArgumentException, ClassNotFoundException, SQLException {
     List<BookModel> bookModels = new ArrayList<>();
-    for (List<String> row : data) {
+    for (int i = 1; i < data.size(); i++) {
+      List<String> row = data.get(i);
       String isbn = row.get(0);
       String title = row.get(1);
       String description = row.get(2);

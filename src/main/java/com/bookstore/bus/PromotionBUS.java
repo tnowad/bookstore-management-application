@@ -40,10 +40,6 @@ public class PromotionBUS implements IBUS<PromotionModel> {
     return null;
   }
 
-  public List<PromotionModel> getPromotionList() throws NullPointerException {
-    return Collections.unmodifiableList(promotionList);
-  }
-
   private PromotionModel mapToEntity(PromotionModel from) {
     PromotionModel to = new PromotionModel();
     updateEntityFields(from, to);

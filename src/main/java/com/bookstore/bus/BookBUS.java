@@ -41,10 +41,6 @@ public class BookBUS implements IBUS<BookModel> {
     return null;
   }
 
-  public List<BookModel> getBookList() throws NullPointerException {
-    return Collections.unmodifiableList(bookList);
-  }
-
   private BookModel mapToEntity(BookModel from) {
     BookModel to = new BookModel();
     updateEntityFields(from, to);

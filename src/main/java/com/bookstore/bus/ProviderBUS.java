@@ -40,10 +40,6 @@ public class ProviderBUS implements IBUS<ProviderModel> {
     return null;
   }
 
-  public List<ProviderModel> getProviderList() throws NullPointerException {
-    return Collections.unmodifiableList(providerList);
-  }
-
   private ProviderModel mapToEntity(ProviderModel from) {
     ProviderModel to = new ProviderModel();
     updateEntityFields(from, to);

@@ -62,7 +62,8 @@ public class ImportModelExcelUtil extends ExcelUtil {
   private static List<ImportModel> convertToImportModelList(List<List<String>> data)
       throws IllegalArgumentException, ClassNotFoundException, SQLException {
     List<ImportModel> importModels = new ArrayList<>();
-    for (List<String> row : data) {
+    for (int i = 1; i < data.size(); i++) {
+      List<String> row = data.get(i);
       int id;
       int providerId;
       int employeeId;
@@ -70,7 +71,7 @@ public class ImportModelExcelUtil extends ExcelUtil {
       Timestamp createdAt;
       Timestamp updatedAt;
       try {
-        id = Integer.parseInt(row.get(0));
+        id = Integer.parseInt(row.get(0)) + 1;
         providerId = Integer.parseInt(row.get(1));
         employeeId = Integer.parseInt(row.get(2));
         totalPrice = new BigDecimal(row.get(3));

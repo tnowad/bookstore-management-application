@@ -22,7 +22,6 @@ public class AddressExcelUtil extends ExcelUtil {
   private static final Logger LOGGER = Logger.getLogger(AddressExcelUtil.class.getName());
 
   public static List<AddressModel> readAddressesFromExcel() throws IOException, ClassNotFoundException, SQLException {
-    // AddressBUS addressBUS = AddressBUS.getInstance();
     JFileChooser fileChooser = new JFileChooser();
     FileNameExtensionFilter filter = new FileNameExtensionFilter("Excel File", EXCEL_EXTENSIONS);
     fileChooser.setFileFilter(filter);
@@ -61,12 +60,13 @@ public class AddressExcelUtil extends ExcelUtil {
   private static List<AddressModel> convertToAddressModelList(List<List<String>> data)
       throws IllegalArgumentException, ClassNotFoundException, SQLException {
     List<AddressModel> addressModels = new ArrayList<>();
-    for (List<String> row : data) {
+    for (int i = 1; i < data.size(); i++) {
+      List<String> row = data.get(i);
       int id;
-      int addressId;
+      int userId;
       try {
-        id = Integer.parseInt(row.get(0));
-        addressId = Integer.parseInt(row.get(1));
+        id = Integer.parseInt(row.get(0) + 1);
+        userId = Integer.parseInt(row.get(1));
       } catch (NumberFormatException e) {
         throw new IllegalArgumentException("Invalid integer value in input data", e);
       }
@@ -74,7 +74,7 @@ public class AddressExcelUtil extends ExcelUtil {
       String city = row.get(3);
       String state = row.get(4);
       String zip = row.get(5);
-      AddressModel model = new AddressModel(id, addressId, street, city, state, zip);
+      AddressModel model = new AddressModel(id, userId, street, city, state, zip);
       addressModels.add(model);
       AddressBUS.getInstance().addModel(model);
     }

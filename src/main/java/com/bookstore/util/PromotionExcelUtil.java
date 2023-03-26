@@ -78,7 +78,8 @@ public class PromotionExcelUtil extends ExcelUtil {
   private static List<PromotionModel> convertToPromotionModelList(List<List<String>> data)
       throws IllegalArgumentException, ClassNotFoundException, SQLException {
     List<PromotionModel> promotionModels = new ArrayList<>();
-    for (List<String> row : data) {
+    for (int i = 1; i < data.size(); i++) {
+      List<String> row = data.get(i);
       int id;
       int quantity;
       int discountPercent;
@@ -86,7 +87,7 @@ public class PromotionExcelUtil extends ExcelUtil {
       Date startDate;
       Date endDate;
       try {
-        id = Integer.parseInt(row.get(0));
+        id = Integer.parseInt(row.get(0)) + 1;
         quantity = Integer.parseInt(row.get(2));
         discountPercent = Integer.parseInt(row.get(6));
         discountAmount = Integer.parseInt(row.get(7));

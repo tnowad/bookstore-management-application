@@ -61,7 +61,8 @@ public class EmployeeExcelUtil extends ExcelUtil {
   private static List<EmployeeModel> convertToEmployeeModelList(List<List<String>> data)
       throws IllegalArgumentException, ClassNotFoundException, SQLException {
     List<EmployeeModel> employeeModels = new ArrayList<>();
-    for (List<String> row : data) {
+    for (int i = 1; i < data.size(); i++) {
+      List<String> row = data.get(i);
       int userId;
       int salary;
       EmployeeType employeeType;

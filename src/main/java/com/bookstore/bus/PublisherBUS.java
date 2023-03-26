@@ -40,10 +40,6 @@ public class PublisherBUS implements IBUS<PublisherModel> {
     return null;
   }
 
-  public List<PublisherModel> getPublisherList() throws NullPointerException {
-    return Collections.unmodifiableList(publisherList);
-  }
-
   private PublisherModel mapToEntity(PublisherModel from) {
     PublisherModel to = new PublisherModel();
     updateEntityFields(from, to);

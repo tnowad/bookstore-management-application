@@ -39,10 +39,6 @@ public class AddressBUS implements IBUS<AddressModel> {
     return null;
   }
 
-  public List<AddressModel> getAddressList() throws NullPointerException {
-    return Collections.unmodifiableList(addressList);
-  }
-
   private AddressModel mapToEntity(AddressModel from) {
     AddressModel to = new AddressModel();
     updateEntityFields(from, to);

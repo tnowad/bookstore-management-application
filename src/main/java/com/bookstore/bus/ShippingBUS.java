@@ -41,10 +41,6 @@ public class ShippingBUS implements IBUS<ShippingModel> {
     return null;
   }
 
-  public List<ShippingModel> getShippingList() throws NullPointerException {
-    return Collections.unmodifiableList(shippingList);
-  }
-
   private ShippingModel mapToEntity(ShippingModel from) {
     ShippingModel to = new ShippingModel();
     updateEntityFields(from, to);

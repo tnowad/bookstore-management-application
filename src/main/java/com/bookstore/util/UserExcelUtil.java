@@ -86,7 +86,6 @@ public class UserExcelUtil extends ExcelUtil {
   // }
 
   public static List<UserModel> readUsersFromExcel() throws IOException, ClassNotFoundException, SQLException {
-    // UserBUS userBUS = UserBUS.getInstance();
     JFileChooser fileChooser = new JFileChooser();
     FileNameExtensionFilter filter = new FileNameExtensionFilter("Excel File", EXCEL_EXTENSIONS);
     fileChooser.setFileFilter(filter);

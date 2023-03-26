@@ -42,10 +42,6 @@ public class CartBUS implements IBUS<CartModel> {
     return null;
   }
 
-  public List<CartModel> getCartList() throws NullPointerException {
-    return Collections.unmodifiableList(cartList);
-  }
-
   private CartModel mapToEntity(CartModel from) {
     CartModel to = new CartModel();
     updateEntityFields(from, to);

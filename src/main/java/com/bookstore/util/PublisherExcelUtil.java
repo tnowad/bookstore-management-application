@@ -61,10 +61,11 @@ public class PublisherExcelUtil extends ExcelUtil {
   private static List<PublisherModel> convertToPublisherModelList(List<List<String>> data)
       throws IllegalArgumentException, ClassNotFoundException, SQLException {
     List<PublisherModel> publisherModels = new ArrayList<>();
-    for (List<String> row : data) {
+    for (int i = 1; i < data.size(); i++) {
+      List<String> row = data.get(i);
       int id;
       try {
-        id = Integer.parseInt(row.get(0));
+        id = Integer.parseInt(row.get(0)) + 1;
       } catch (NumberFormatException e) {
         throw new IllegalArgumentException("Invalid integer value in input data", e);
       }

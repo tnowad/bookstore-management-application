@@ -42,10 +42,6 @@ public class OrderBUS implements IBUS<OrderModel> {
     return null;
   }
 
-  public List<OrderModel> getOrderList() throws NullPointerException {
-    return Collections.unmodifiableList(orderList);
-  }
-
   private OrderModel mapToEntity(OrderModel from) {
     OrderModel to = new OrderModel();
     updateEntityFields(from, to);

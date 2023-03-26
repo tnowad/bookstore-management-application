@@ -40,10 +40,6 @@ public class CategoryBUS implements IBUS<CategoryModel> {
     return null;
   }
 
-  public List<CategoryModel> getCategoryList() throws NullPointerException {
-    return Collections.unmodifiableList(categoryList);
-  }
-
   private CategoryModel mapToEntity(CategoryModel from) {
     CategoryModel to = new CategoryModel();
     updateEntityFields(from, to);

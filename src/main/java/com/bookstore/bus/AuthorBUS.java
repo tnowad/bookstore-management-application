@@ -40,10 +40,6 @@ public class AuthorBUS implements IBUS<AuthorModel> {
     return null;
   }
 
-  public List<AuthorModel> getAuthorList() throws NullPointerException {
-    return Collections.unmodifiableList(authorList);
-  }
-
   private AuthorModel mapToEntity(AuthorModel from) {
     AuthorModel to = new AuthorModel();
     updateEntityFields(from, to);
