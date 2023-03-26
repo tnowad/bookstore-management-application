@@ -40,7 +40,7 @@ public class UserDAO implements DAOInterface<UserModel> {
   @Override
   public ArrayList<UserModel> readDatabase() throws SQLException, ClassNotFoundException {
     ArrayList<UserModel> userList = new ArrayList<>();
-
+    
     try (ResultSet rs = DatabaseConnect.executeQuery("SELECT * FROM users")) {
       while (rs.next()) {
         UserModel userModel = createUserModelFromResultSet(rs);
@@ -68,9 +68,9 @@ public class UserDAO implements DAOInterface<UserModel> {
   }
 
   @Override
-  public int delete(int username) throws SQLException, ClassNotFoundException {
+  public int delete(int id) throws SQLException, ClassNotFoundException {
     String updateStatusSql = "UPDATE users SET status = ? WHERE username = ?";
-    Object[] args = { UserModel.Status.DELETED, username };
+    Object[] args = { UserModel.Status.DELETED, id };
     return DatabaseConnect.executeUpdate(updateStatusSql, args);
   }
 

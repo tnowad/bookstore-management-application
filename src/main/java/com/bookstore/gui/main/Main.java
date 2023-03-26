@@ -71,7 +71,7 @@ public class Main extends javax.swing.JFrame {
           menu.addMenu(modelMenu);
         }
         background.add(menu, "w 230!");
-        background.add(header, "h 50!, w 1050!");
+        background.add(header, "h 50!, w 340!");
         background.add(main, "w 100%, h 100%");
     }
     

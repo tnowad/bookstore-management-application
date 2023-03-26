@@ -15,7 +15,7 @@ public class DatabaseSeeder {
         // new PublisherSeeder(),
         // new ProvidersSeeder(),
         // new ShippingSeeder(),
-        // new OrderSeeder(),
+        new OrderSeeder(),
         // new EmployeeSeeder(),
 
     };
