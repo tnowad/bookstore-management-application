@@ -25,7 +25,7 @@ public class DatabaseConnection {
    * @return a connection to the database or null if there was an error connecting
    *         to the database or if the connection could not be
    */
-  public static Connection getConnection() {
+  public static Connection getInstance() {
     try {
       if (connection == null) {
         Class.forName(driver);
@@ -47,7 +47,7 @@ public class DatabaseConnection {
    *         established or the SQL is not valid for the
    */
   public static PreparedStatement getPreparedStatement(String sql, Object... args) {
-    Connection connection = getConnection();
+    Connection connection = getInstance();
     if (connection == null)
       return null;
     try (PreparedStatement preparedStatement = connection.prepareStatement(sql);) {
