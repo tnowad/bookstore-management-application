@@ -31,6 +31,44 @@ public class MenuItemFactory {
         return "Profile";
       // Case for employee
       // Case for admin
+      case "admin.dashboard":
+        return "Dashboard";
+      case "admin.order":
+        return "Order";
+      case "admin.product":
+        return "Product";
+      case "admin.import":
+        return "Import";
+      case "admin.employee":
+        return "Employee";
+      case "admin.customer":
+        return "Customer";
+      case "admin.promotionList":
+        return "Promotion List";
+      case "admin.promotionHistory":
+        return "Promotion History";
+      case "admin.employeeList":
+        return "Employee List";
+      case "admin.employeeHistory":
+        return "Employee History";
+      case "admin.customerList":
+        return "Customer List";
+      case "admin.customerHistory":
+        return "Customer History";
+      case "admin.importList":
+        return "Import List";
+      case "admin.importHistory":
+        return "Import History";
+      case "admin.orderList":
+        return "Order List";
+      case "admin.orderHistory":
+        return "Order History";
+      case "admin.about":
+        return "About";
+      case "admin.settings":
+        return "Settings";
+      case "admin.logout":
+        return "Logout";
     }
     return id;
   }
