@@ -1,4 +1,4 @@
-package com.bookstore.gui;
+package com.bookstore.gui.form;
 
 import com.bookstore.model.UserModel;
 

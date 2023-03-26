@@ -16,7 +16,7 @@ public class DatabaseConnectTest {
 
   @BeforeAll
   public static void setUp() throws Exception {
-    DatabaseConnection.getInstance();
+    DatabaseConnection.getConnection();
     createTable();
   }
 

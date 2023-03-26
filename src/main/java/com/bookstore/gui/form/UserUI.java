@@ -1,4 +1,4 @@
-package com.bookstore.gui;
+package com.bookstore.gui.form;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;

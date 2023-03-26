@@ -1,4 +1,4 @@
-package com.bookstore.gui;
+package com.bookstore.gui.form;
 
 import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.*;
@@ -10,7 +10,6 @@ import java.awt.event.*;
 public class MenuUI extends JFrame implements MouseListener {
 
   Dashboard db = new Dashboard();
-  UserUI us = new UserUI();
   JFrame frame = new JFrame();
   private JPanel homeMenu;
   private JLabel jButton_Menu;
@@ -116,7 +115,6 @@ public class MenuUI extends JFrame implements MouseListener {
     Component[] components = contentPane.getComponents(); // Lấy tất cả các thành phần con
     if (name.equals("User")) {
       frame.getContentPane().remove(components[2]);
-      frame.getContentPane().add(us.User(), BorderLayout.CENTER);
       System.out.println(components[2].getName());
       frame.revalidate();
       frame.repaint();
