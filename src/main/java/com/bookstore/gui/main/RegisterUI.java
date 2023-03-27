@@ -30,6 +30,9 @@ public class RegisterUI extends JFrame {
   private JButton registerButton;
   private JLabel iconLabel;
   private JLabel nameStoreLabel;
+  private JLabel nameTextField;
+  private JLabel emailTextField;
+  private JLabel phoneTextField;
 
   private RegisterUI() {
     initComponent();

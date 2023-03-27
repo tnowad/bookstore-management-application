@@ -14,11 +14,11 @@ import org.junit.jupiter.api.Test;
 
 public class DatabaseConnectTest {
 
-  // @BeforeAll
-  // public static void setUp() throws Exception {
-  // DatabaseConnection.getInstance();
-  // createTable();
-  // }
+  @BeforeAll
+  public static void setUp() throws Exception {
+    DatabaseConnection.getInstance();
+    createTable();
+  }
 
   @AfterAll
   public static void tearDown() throws Exception {
@@ -26,7 +26,7 @@ public class DatabaseConnectTest {
     DatabaseConnection.closeConnection();
   }
 
-  private static void createTable() throws SQLException, ClassNotFoundException {
+  private static void createTable() {
     String createTableQuery = "CREATE TABLE test (id INT PRIMARY KEY, title VARCHAR(255), author VARCHAR(255), price DOUBLE)";
     DatabaseConnection.executeUpdate(createTableQuery);
   }

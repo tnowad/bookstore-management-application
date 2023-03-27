@@ -1,10 +1,27 @@
 package com.bookstore.gui.main;
 
-import java.awt.*;
-import javax.swing.*;
-import java.awt.event.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.util.Arrays;
 
-import javax.swing.border.*;
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.WindowConstants;
+import javax.swing.border.Border;
 
 import com.bookstore.bus.UserBUS;
 import com.bookstore.model.ProfileModel;
@@ -157,32 +174,17 @@ public class LoginUI extends JFrame {
   }
 
   private void handleEvent() {
-    // loginButton.addActionListener(e -> {
-    // String username = usernameTextField.getText();
-    // char[] password = passwordField.getPassword();
-    // String passwordText = new String(password);
-    // ProfileModel.getInstance().setUser(UserBUS.getInstance().login(username,
-    // passwordText));
-    // if (ProfileModel.getInstance().getUser() != null) {
-    // dispose();
-    // } else {
-    // JOptionPane.showMessageDialog(null, "Login fail");
-    // }
-    // });
     loginButton.addActionListener(e -> {
 
       System.out.println("Debug: Login button clicked.");
       String username = usernameTextField.getText();
-      // char[] password = passwordField.getPassword();
-      String password = passwordField.getText();
-      System.out.println("Debug: Username: " + username + ", Password: " + password);
+      char[] password = passwordField.getPassword();
       if (username == null || password == null) {
         JOptionPane.showMessageDialog(null, "Please enter username and password");
         return;
       }
-      // String passwordText = new String(password);
       try {
-        UserModel user = UserBUS.getInstance().login(username, password);
+        UserModel user = UserBUS.getInstance().login(username, Arrays.toString(password));
         if (user != null) {
           System.out.println("Debug: User found, login successful.");
           ProfileModel.getInstance().setUser(user);
@@ -253,9 +255,5 @@ public class LoginUI extends JFrame {
     pack();
     setLocationRelativeTo(null);
     setVisible(true);
-  }
-
-  public static void main(String[] args) {
-    new LoginUI().setVisible(true);
   }
 }
