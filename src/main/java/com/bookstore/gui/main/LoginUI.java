@@ -34,15 +34,20 @@ public class LoginUI extends JFrame {
   private JPanel groupLogo;
   private JPanel groupPassword;
   private JPanel groupUsername;
+
+  private JLabel titleLogin;
+  private JLabel usernameLabel;
+  private JTextField usernameTextField;
+  private JPasswordField passwordField;
+  private JLabel passwordLabel;
+  private JPanel groupForgetPassword;
+  private JTextField forgetPasswordField;
+  private JLabel forgetPasswordLabel;
+
   private JPanel groupButton;
   private JButton loginButton;
   private JButton cancelButton;
   private JButton registerButton;
-  private JPasswordField passwordField;
-  private JLabel passwordLabel;
-  private JLabel titleLogin;
-  private JLabel usernameLabel;
-  private JTextField usernameTextField;
   private JLabel iconLabel;
   private JLabel nameStoreLabel;
 
@@ -107,15 +112,18 @@ public class LoginUI extends JFrame {
 
     titleLogin.setHorizontalAlignment(SwingConstants.CENTER);
     titleLogin.setText("Login");
+    titleLogin.setFont(new Font("sansserif", 0, 50));
     titleLogin.setForeground(Color.BLUE);
     titleLogin.setPreferredSize(new Dimension(100, 100));
     groupContent.add(titleLogin, BorderLayout.PAGE_START);
 
     groupAccount.setLayout(new BoxLayout(groupAccount, BoxLayout.Y_AXIS));
 
+    // group username
     groupUsername.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 50));
 
     usernameLabel.setText("Username");
+    usernameLabel.setFont(new Font("sansserif", 0, 24));
     usernameLabel.setPreferredSize(new Dimension(120, 50));
     groupUsername.add(usernameLabel);
 
@@ -126,9 +134,11 @@ public class LoginUI extends JFrame {
 
     groupAccount.add(groupUsername);
 
+    // group password
     groupPassword.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));
 
     passwordLabel.setText("Password");
+    passwordLabel.setFont(new Font("sansserif", 0, 24));
     passwordLabel.setPreferredSize(new Dimension(120, 50));
     groupPassword.add(passwordLabel);
 
@@ -138,6 +148,23 @@ public class LoginUI extends JFrame {
     groupPassword.add(passwordField);
 
     groupAccount.add(groupPassword);
+
+    // group forget password
+    groupForgetPassword.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));
+
+    forgetPasswordLabel.setFont(new Font("sansserif", 0, 24));
+    forgetPasswordLabel.setText("Password Again");
+    forgetPasswordLabel.setPreferredSize(new Dimension(250, 50));
+    groupForgetPassword.add(forgetPasswordLabel);
+
+    forgetPasswordField.setFont(new Font("sansserif", 0, 24));
+    forgetPasswordField.setPreferredSize(new Dimension(300, 50));
+    Border borderforgetPasswordField = BorderFactory.createMatteBorder(0, 0, 1,
+        0, Color.BLUE);
+    forgetPasswordField.setBorder(borderforgetPasswordField);
+    groupForgetPassword.add(forgetPasswordField);
+
+    groupAccount.add(groupForgetPassword);
 
     groupContent.add(groupAccount, BorderLayout.CENTER);
 

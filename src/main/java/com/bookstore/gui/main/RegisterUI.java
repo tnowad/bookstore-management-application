@@ -14,7 +14,7 @@ public class RegisterUI extends JFrame {
   private JPanel groupAccount;
   private JPanel groupContent;
   private JPanel groupLogo;
-  private JLabel titleLogin;
+  private JLabel titleRegister;
   private JPanel groupUsername;
   private JLabel usernameLabel;
   private JTextField usernameTextField;
@@ -50,7 +50,7 @@ public class RegisterUI extends JFrame {
     ImageIcon icon;
     groupLogo = new JPanel();
     groupContent = new JPanel();
-    titleLogin = new JLabel();
+    titleRegister = new JLabel();
     groupAccount = new JPanel();
     groupUsername = new JPanel();
     usernameLabel = new JLabel();
@@ -95,12 +95,13 @@ public class RegisterUI extends JFrame {
   private void initGroupContent() {
     groupContent.setLayout(new BorderLayout());
 
-    titleLogin.setFont(new Font("sansserif", 0, 48));
-    titleLogin.setHorizontalAlignment(SwingConstants.CENTER);
-    titleLogin.setText("Register");
-    titleLogin.setForeground(Color.BLUE);
-    titleLogin.setPreferredSize(new Dimension(100, 100));
-    groupContent.add(titleLogin, BorderLayout.PAGE_START);
+    titleRegister.setFont(new Font("sansserif", 0, 48));
+    titleRegister.setHorizontalAlignment(SwingConstants.CENTER);
+    titleRegister.setText("Register");
+    titleRegister.setFont(new Font("sansserif", 0, 50));
+    titleRegister.setForeground(Color.BLUE);
+    titleRegister.setPreferredSize(new Dimension(100, 100));
+    groupContent.add(titleRegister, BorderLayout.PAGE_START);
 
     groupAccount.setLayout(new BoxLayout(groupAccount, BoxLayout.Y_AXIS));
 
@@ -137,7 +138,7 @@ public class RegisterUI extends JFrame {
     groupPasswordAgain.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));
 
     passwordLabelAgain.setFont(new Font("sansserif", 0, 24));
-    passwordLabelAgain.setText("Enter Password Again");
+    passwordLabelAgain.setText("Password Again");
     passwordLabelAgain.setPreferredSize(new Dimension(250, 50));
     groupPasswordAgain.add(passwordLabelAgain);
 
@@ -226,7 +227,7 @@ public class RegisterUI extends JFrame {
           groupLogo.setPreferredSize(new Dimension(500, 200));
 
           nameStoreLabel.setFont(new Font("sansserif", 0, 16));
-          titleLogin.setFont(new Font("sansserif", 0, 24));
+          titleRegister.setFont(new Font("sansserif", 0, 24));
           nameStoreLabel.setPreferredSize(new Dimension(100, 20));
           iconLabel.setIcon(new ImageIcon(getClass().getResource("/resources/book_logo_responsive.png")));
 
