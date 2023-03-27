@@ -7,10 +7,7 @@ public class AuthorSeeder implements ISeeder {
 
   public void run() {
     for (int i = 0; i < 100; i++) {
-      try {
-        AuthorDAO.getInstance().insert(new AuthorFactory().create());
-      } catch (Exception e) {
-      }
+      AuthorDAO.getInstance().insert(new AuthorFactory().create());
     }
   }
 }

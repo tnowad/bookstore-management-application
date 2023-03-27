@@ -9,9 +9,13 @@ public class PromotionFactory implements IFactory<PromotionModel> {
   private static final Faker faker = new Faker();
   private static int id = 0;
 
+  private static int getNewId() {
+    return ++id;
+  }
+
   public PromotionModel create() {
     return new PromotionModel(
-        ++id,
+        getNewId(),
         faker.commerce().productName(),
         faker.number().numberBetween(1, 100),
         faker.date().future(10, TimeUnit.DAYS),

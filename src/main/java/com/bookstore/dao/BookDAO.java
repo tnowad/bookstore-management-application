@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.bookstore.interfaces.IDAO;
@@ -34,19 +35,21 @@ public class BookDAO implements IDAO<BookModel> {
   }
 
   @Override
-  public ArrayList<BookModel> readDatabase() throws SQLException, ClassNotFoundException {
+  public ArrayList<BookModel> readDatabase() {
     ArrayList<BookModel> bookList = new ArrayList<>();
     try (ResultSet rs = DatabaseConnection.executeQuery("SELECT * FROM books")) {
       while (rs.next()) {
         BookModel bookModel = createBookModelFromResultSet(rs);
         bookList.add(bookModel);
       }
+    } catch (SQLException e) {
+      e.printStackTrace();
     }
     return bookList;
   }
 
   @Override
-  public int insert(BookModel book) throws SQLException, ClassNotFoundException {
+  public int insert(BookModel book) {
     String insertSql = "INSERT INTO books (isbn, title, description, image, price, quantity, status, publisher_id, author_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     Object[] args = { book.getIsbn(), book.getTitle(), book.getDescription(), book.getImage(), book.getPrice(),
         book.getQuantity(), book.getStatus().name(), book.getPublisherId(), book.getAuthorId() };
@@ -54,7 +57,7 @@ public class BookDAO implements IDAO<BookModel> {
   }
 
   @Override
-  public int update(BookModel book) throws SQLException, ClassNotFoundException {
+  public int update(BookModel book) {
     String updateSql = "UPDATE books SET title = ?, description = ?, image = ?, price = ?, quantity = ?, status = ?, publisher_id = ?, author_id = ? WHERE isbn = ?";
     Object[] args = { book.getTitle(), book.getDescription(), book.getImage(), book.getPrice(), book.getQuantity(),
         book.getStatus().name(), book.getPublisherId(), book.getAuthorId(), book.getIsbn() };
@@ -67,7 +70,7 @@ public class BookDAO implements IDAO<BookModel> {
     return DatabaseConnection.executeUpdate(updateSql, args);
   }
 
-  public int updateStatus(String isbn, Status status) throws SQLException, ClassNotFoundException {
+  public int updateStatus(String isbn, Status status) {
     String updateSql = "UPDATE books SET status = ? WHERE isbn = ?";
     Object[] args = { status, isbn };
     return DatabaseConnection.executeUpdate(updateSql, args);
@@ -80,15 +83,14 @@ public class BookDAO implements IDAO<BookModel> {
   }
 
   @Override
-  public int delete(int ISBN) throws SQLException, ClassNotFoundException {
+  public int delete(int isbn) {
     String deleteSql = "DELETE FROM books WHERE isbn = ?";
-    Object[] args = { ISBN };
+    Object[] args = { isbn };
     return DatabaseConnection.executeUpdate(deleteSql, args);
   }
 
   @Override
-  public List<BookModel> search(String condition, String[] columnNames)
-      throws SQLException, ClassNotFoundException {
+  public List<BookModel> search(String condition, String[] columnNames) {
 
     if (condition == null || condition.trim().isEmpty()) {
       throw new IllegalArgumentException("Search condition cannot be empty or null");
@@ -119,6 +121,9 @@ public class BookDAO implements IDAO<BookModel> {
         }
         return bookList;
       }
+    } catch (SQLException e) {
+      e.printStackTrace();
     }
+    return Collections.emptyList();
   }
 }

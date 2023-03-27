@@ -13,7 +13,7 @@ import javax.swing.plaf.basic.BasicScrollBarUI;
 
 public class ModernScrollBarUI extends BasicScrollBarUI {
 
-  private final int THUMB_SIZE = 80;
+  private static final int THUMB_SIZE = 80;
 
   @Override
   protected Dimension getMaximumThumbSize() {
@@ -44,14 +44,9 @@ public class ModernScrollBarUI extends BasicScrollBarUI {
   }
 
   @Override
-  protected void paintTrack(Graphics graphics, JComponent jc, Rectangle rectangle) {
-    // TODO document why this method is empty
-  }
-
-  @Override
-  protected void paintThumb(Graphics graphics, JComponent jcomponent, Rectangle rectangle) {
-    Graphics2D g2 = (Graphics2D) graphics;
-    g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+  protected void paintThumb(Graphics graphics, JComponent jComponent, Rectangle rectangle) {
+    Graphics2D graphics2d = (Graphics2D) graphics;
+    graphics2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
     int x = rectangle.x;
     int y = rectangle.y;
     int width = rectangle.width;
@@ -63,19 +58,14 @@ public class ModernScrollBarUI extends BasicScrollBarUI {
       x += 8;
       width -= 16;
     }
-    g2.setColor(scrollbar.getForeground());
-    g2.fillRoundRect(x, y, width, height, 1, 1);
+    graphics2d.setColor(scrollbar.getForeground());
+    graphics2d.fillRoundRect(x, y, width, height, 1, 1);
   }
 
   private class ScrollBarButton extends JButton {
 
     public ScrollBarButton() {
       setBorder(BorderFactory.createEmptyBorder());
-    }
-
-    @Override
-    public void paint(Graphics graphics) {
-      // TODO document why this method is empty
     }
   }
 }

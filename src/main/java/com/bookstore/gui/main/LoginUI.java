@@ -3,7 +3,6 @@ package com.bookstore.gui.main;
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
-import java.sql.SQLException;
 
 import javax.swing.border.*;
 
@@ -16,7 +15,6 @@ public class LoginUI extends JFrame {
   private JPanel groupAccount;
   private JPanel groupContent;
   private JPanel groupLogo;
-  private ImageIcon icon;
   private JPanel groupPassword;
   private JPanel groupUsername;
   private JPanel groupButton;
@@ -45,6 +43,7 @@ public class LoginUI extends JFrame {
   }
 
   private void initComponent() {
+    ImageIcon icon;
     groupLogo = new JPanel();
     groupContent = new JPanel();
     titleLogin = new JLabel();

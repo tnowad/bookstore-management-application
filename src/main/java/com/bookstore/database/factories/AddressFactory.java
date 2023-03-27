@@ -7,11 +7,15 @@ public class AddressFactory implements IFactory<AddressModel> {
   private static final Faker faker = new Faker();
   private static int id = 0;
 
+  private static int getNewId() {
+    return ++id;
+  }
+
   @Override
   public AddressModel create() {
-    id++;
+
     return new AddressModel(
-        id,
+        getNewId(),
         faker.number().numberBetween(1, 100),
         faker.address().streetAddress(),
         faker.address().city(),

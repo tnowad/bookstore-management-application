@@ -10,9 +10,13 @@ public class UserFactory implements IFactory<UserModel> {
   private static final Faker faker = new Faker();
   private static int id = 0;
 
+  private static int getNewId() {
+    return ++id;
+  }
+
   public UserModel create() {
     return new UserModel(
-        ++id,
+        getNewId(),
         faker.name().username(),
         PasswordUtil.hashPassword("password"),
         UserModel.Status.values()[faker.number().numberBetween(0, 3)],
