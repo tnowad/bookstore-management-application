@@ -23,12 +23,12 @@ public final class IconFontSwing {
   private static List<IconFont> fonts = new ArrayList<>();
 
   public static synchronized void register(IconFont iconFont) {
-    if (IconFontSwing.fonts.contains(iconFont) == false) {
+    if (!IconFontSwing.fonts.contains(iconFont)) {
       IconFontSwing.fonts.add(iconFont);
     }
   }
 
-  public static synchronized final Font buildFont(String fontFamily) {
+  public static final synchronized Font buildFont(String fontFamily) {
     try {
       for (IconFont iconFont : IconFontSwing.fonts) {
         if (iconFont.getFontFamily().equals(fontFamily)) {
@@ -40,8 +40,6 @@ public final class IconFontSwing {
           "Font load failure", ex);
     }
 
-    Logger.getLogger(IconFontSwing.class.getName()).log(Level.SEVERE,
-        "Font not found: " + fontFamily);
     throw new IllegalArgumentException("Font not found: " + fontFamily);
   }
 

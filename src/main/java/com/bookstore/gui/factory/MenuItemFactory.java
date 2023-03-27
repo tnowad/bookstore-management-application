@@ -1,11 +1,14 @@
 package com.bookstore.gui.factory;
 
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import com.bookstore.gui.model.MenuItemModel;
 
 public class MenuItemFactory {
+
+  private MenuItemFactory() {
+  }
+
   public static String getMenuItemName(String id) {
     // Switch case
     switch (id) {
@@ -67,28 +70,22 @@ public class MenuItemFactory {
         return "About";
       case "admin.settings":
         return "Settings";
-      // case "admin.logout":
-      // return "Logout";
+      default:
+        return id;
     }
-    return id;
   }
 
   private static ActionListener getMenuItemActionListener(String name) {
     switch (name) {
       case "general.logout":
-        return new ActionListener() {
-          @Override
-          public void actionPerformed(ActionEvent e) {
-            System.out.println("Logout");
-          }
-        };
+        return e -> System.out.println("Logout is clicked");
+      case "general.exit":
+        return e -> System.out.println("Exit is clicked");
+      case "customer.product":
+        return e -> System.out.println("Products is clicked");
+      default:
+        return e -> System.out.println(name + " is clicked");
     }
-    return new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        System.out.println(name + " is clicked");
-      }
-    };
   }
 
   public static MenuItemModel createMenuItemModel(String name) {

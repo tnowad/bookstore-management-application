@@ -15,14 +15,14 @@ public class BookBUS implements IBUS<BookModel> {
   private final List<BookModel> bookList = new ArrayList<>();
   private static BookBUS instance;
 
-  public static BookBUS getInstance() throws ClassNotFoundException, SQLException {
+  public static BookBUS getInstance() {
     if (instance == null) {
       instance = new BookBUS();
     }
     return instance;
   }
 
-  private BookBUS() throws SQLException, ClassNotFoundException {
+  private BookBUS() {
     this.bookList.addAll(BookDAO.getInstance().readDatabase());
   }
 
@@ -150,7 +150,7 @@ public class BookBUS implements IBUS<BookModel> {
       throw new IllegalArgumentException("Quantity must be greater than 0!");
     }
     if (bookModel.getStatus() == null || bookModel.getStatus().toString().isEmpty()) {
-      bookModel.setStatus(Status.available);
+      bookModel.setStatus(Status.AVAILABLE);
     }
     if (bookModel.getPublisherId() <= 0) {
       throw new IllegalArgumentException("Publisher ID must be greater than 0!");
@@ -192,7 +192,7 @@ public class BookBUS implements IBUS<BookModel> {
     return 0;
   }
 
-  public int updateStatus(String isbn, Status status) throws ClassNotFoundException, SQLException {
+  public int updateStatus(String isbn, Status status) {
     int success = BookDAO.getInstance().updateStatus(isbn, status);
     if (success == 1) {
       for (BookModel book : bookList) {

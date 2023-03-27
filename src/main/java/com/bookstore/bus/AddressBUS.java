@@ -13,14 +13,14 @@ public class AddressBUS implements IBUS<AddressModel> {
   private final List<AddressModel> addressList = new ArrayList<>();
   private static AddressBUS instance;
 
-  public static AddressBUS getInstance() throws ClassNotFoundException, SQLException {
+  public static AddressBUS getInstance() {
     if (instance == null) {
       instance = new AddressBUS();
     }
     return instance;
   }
 
-  private AddressBUS() throws SQLException, ClassNotFoundException {
+  private AddressBUS() {
     this.addressList.addAll(AddressDAO.getInstance().readDatabase());
   }
 

@@ -11,7 +11,7 @@ public class CartModel {
   private int promotionId;
 
   public enum Status {
-    shopping,
+    SHOPPING,
     pending,
     reject,
     accept;

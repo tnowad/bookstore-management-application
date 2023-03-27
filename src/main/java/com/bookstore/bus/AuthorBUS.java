@@ -14,14 +14,14 @@ public class AuthorBUS implements IBUS<AuthorModel> {
   private final List<AuthorModel> authorList = new ArrayList<>();
   private static AuthorBUS instance;
 
-  public static AuthorBUS getInstance() throws ClassNotFoundException, SQLException {
+  public static AuthorBUS getInstance() {
     if (instance == null) {
       instance = new AuthorBUS();
     }
     return instance;
   }
 
-  private AuthorBUS() throws SQLException, ClassNotFoundException {
+  private AuthorBUS() {
     this.authorList.addAll(AuthorDAO.getInstance().readDatabase());
   }
 

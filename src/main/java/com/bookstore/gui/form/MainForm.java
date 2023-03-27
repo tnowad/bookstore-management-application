@@ -42,7 +42,4 @@ public class MainForm extends JPanel {
             .addGap(0, 300, Short.MAX_VALUE));
   }
 
-  public static void main(String[] args) {
-  }
-
 }

@@ -7,10 +7,10 @@ public class EmployeeModel {
   private String contactInformation;
 
   public enum EmployeeType {
-    employee_manager,
-    employee_sales,
-    employee_inventory,
-    employee_order
+    EMPLOYEE_MANAGER,
+    EMPLOYEE_SALES,
+    EMPLOYEE_INVENTORY,
+    EMPLOYEE_ORDER
   }
 
   public EmployeeModel(int userId, int salary, EmployeeType employeeType, String contactInformation) {

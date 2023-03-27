@@ -98,23 +98,21 @@ public class Card extends javax.swing.JPanel {
                         .addComponent(pro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
                             javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap()))));
-  }// </editor-fold>//GEN-END:initComponents
-
-  @Override
-  protected void paintComponent(Graphics grphcs) {
-    Graphics2D g2 = (Graphics2D) grphcs;
-    g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-    GradientPaint gra = new GradientPaint(0, getHeight(), getBackground(), getWidth(), 0, colorGradient);
-    g2.setPaint(gra);
-    g2.fillRect(0, 0, getWidth(), getHeight());
-    super.paintComponent(grphcs);
   }
 
-  // Variables declaration - do not modify//GEN-BEGIN:variables
+  @Override
+  protected void paintComponent(Graphics graphics) {
+    Graphics2D graphics2d = (Graphics2D) graphics;
+    graphics2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+    GradientPaint gra = new GradientPaint(0, getHeight(), getBackground(), getWidth(), 0, colorGradient);
+    graphics2d.setPaint(gra);
+    graphics2d.fillRect(0, 0, getWidth(), getHeight());
+    super.paintComponent(graphics);
+  }
+
   private javax.swing.JLabel lbIcon;
   private javax.swing.JLabel lbPer;
   private javax.swing.JLabel lbTitle;
   private javax.swing.JLabel lbValues;
   private com.bookstore.gui.swing.ProgressBarCustom pro;
-  // End of variables declaration//GEN-END:variables
 }

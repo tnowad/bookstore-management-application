@@ -77,8 +77,8 @@ public class PaymentBUS implements IBUS<PaymentModel> {
     }
 
     paymentModel.setPaymentMethod(
-        paymentModel.getPaymentMethod() != null ? paymentModel.getPaymentMethod() : PaymentMethod.cash);
-    paymentModel.setStatus(paymentModel.getStatus() != null ? paymentModel.getStatus() : PaymentStatus.pending);
+        paymentModel.getPaymentMethod() != null ? paymentModel.getPaymentMethod() : PaymentMethod.CASH);
+    paymentModel.setStatus(paymentModel.getStatus() != null ? paymentModel.getStatus() : PaymentStatus.PENDING);
 
     int id = PaymentDAO.getInstance().insert(mapToEntity(paymentModel));
     paymentModel.setId(id);
@@ -100,7 +100,7 @@ public class PaymentBUS implements IBUS<PaymentModel> {
     return updatedRows;
   }
 
-  public int updateStatus(int orderId, PaymentStatus status) throws ClassNotFoundException, SQLException {
+  public int updateStatus(int orderId, PaymentStatus status) {
     int success = PaymentDAO.getInstance().updateStatus(orderId, status);
     if (success == 1) {
       for (PaymentModel payment : paymentList) {

@@ -24,9 +24,7 @@ public class DatabaseSeeder {
 
     };
     for (ISeeder seeder : seeders) {
-      new Thread(() -> {
-        seeder.run();
-      }).start();
+      new Thread(seeder::run).start();
     }
   }
 }

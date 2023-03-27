@@ -14,12 +14,12 @@ public class PaymentModel {
   private Timestamp updatedAt;
 
   public enum PaymentMethod {
-    cash,
-    credit
+    CASH,
+    CREDIT
   }
 
   public enum PaymentStatus {
-    pending,
+    PENDING,
     success,
     failed
   }

@@ -47,9 +47,9 @@ public class MenuItem extends javax.swing.JPanel {
   }
 
   private float alpha;
-  private MenuModel menu;
+  private transient MenuModel menu;
   private boolean open;
-  private EventMenuSelected eventSelected;
+  private transient EventMenuSelected eventSelected;
   private int index;
 
   public MenuItem(MenuModel menu, EventMenu event, EventMenuSelected eventSelected, int index) {

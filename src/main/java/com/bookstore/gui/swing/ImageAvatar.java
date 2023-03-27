@@ -32,7 +32,7 @@ public class ImageAvatar extends JComponent {
     this.borderSize = borderSize;
   }
 
-  private Icon icon;
+  private transient Icon icon;
   private int borderSize;
 
   @Override

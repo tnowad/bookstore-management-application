@@ -2,6 +2,7 @@ package com.bookstore.gui.swing.icon;
 
 import java.io.InputStream;
 
+@SuppressWarnings("all")
 public enum GoogleMaterialDesignIcons implements IconCode {
 
   ACCESSIBILITY('\uE84E'),

@@ -113,7 +113,7 @@ public class ShippingBUS implements IBUS<ShippingModel> {
     }
 
     shippingModel.setStatus(
-        shippingModel.getStatus() != null ? shippingModel.getStatus() : Status.pending);
+        shippingModel.getStatus() != null ? shippingModel.getStatus() : Status.PENDING);
 
     int id = ShippingDAO.getInstance().insert(mapToEntity(shippingModel));
     shippingModel.setId(id);
@@ -135,7 +135,7 @@ public class ShippingBUS implements IBUS<ShippingModel> {
     return updatedRows;
   }
 
-  public int updateStatus(int orderId, Status status) throws ClassNotFoundException, SQLException {
+  public int updateStatus(int orderId, Status status) {
     int success = ShippingDAO.getInstance().updateStatus(orderId, status);
     if (success == 1) {
       for (ShippingModel shipping : shippingList) {

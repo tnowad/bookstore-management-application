@@ -46,12 +46,7 @@ public class NoticeBoard extends javax.swing.JPanel {
   }
 
   public void scrollToTop() {
-    SwingUtilities.invokeLater(new Runnable() {
-      @Override
-      public void run() {
-        jScrollPane1.getVerticalScrollBar().setValue(0);
-      }
-    });
+    SwingUtilities.invokeLater(() -> jScrollPane1.getVerticalScrollBar().setValue(0));
   }
 
   private void initComponents() {

@@ -11,6 +11,7 @@ public class PaymentMethodSeeder implements ISeeder {
       try {
         PaymentMethodDAO.getInstance().insert(new PaymentMethodFactory().create());
       } catch (Exception e) {
+        e.printStackTrace();
       }
     }
   }

@@ -36,9 +36,9 @@ public class ButtonBadges extends JButton {
     this.effectColor = effectColor;
   }
 
-  private Animator animator;
+  private transient Animator animator;
   private int targetSize;
-  private float animatSize;
+  private float animatorSize;
   private Point pressedPoint;
   private float alpha;
   private Color effectColor = new Color(173, 173, 173);
@@ -53,7 +53,7 @@ public class ButtonBadges extends JButton {
       @Override
       public void mousePressed(MouseEvent me) {
         targetSize = Math.max(getWidth(), getHeight()) * 2;
-        animatSize = 0;
+        animatorSize = 0;
         pressedPoint = me.getPoint();
         alpha = 0.5f;
         if (animator.isRunning()) {
@@ -68,7 +68,7 @@ public class ButtonBadges extends JButton {
         if (fraction > 0.5f) {
           alpha = 1 - fraction;
         }
-        animatSize = fraction * targetSize;
+        animatorSize = fraction * targetSize;
         repaint();
       }
     };
@@ -77,7 +77,7 @@ public class ButtonBadges extends JButton {
   }
 
   @Override
-  protected void paintComponent(Graphics grphcs) {
+  protected void paintComponent(Graphics graphics) {
     int width = getWidth();
     int height = getHeight();
     BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
@@ -88,21 +88,22 @@ public class ButtonBadges extends JButton {
     if (pressedPoint != null) {
       g2.setColor(effectColor);
       g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, alpha));
-      g2.fillOval((int) (pressedPoint.x - animatSize / 2), (int) (pressedPoint.y - animatSize / 2), (int) animatSize,
-          (int) animatSize);
+      g2.fillOval((int) (pressedPoint.x - animatorSize / 2), (int) (pressedPoint.y - animatorSize / 2),
+          (int) animatorSize,
+          (int) animatorSize);
     }
     g2.dispose();
-    grphcs.drawImage(img, 0, 0, null);
-    super.paintComponent(grphcs);
+    graphics.drawImage(img, 0, 0, null);
+    super.paintComponent(graphics);
   }
 
   @Override
-  public void paint(Graphics grphcs) {
-    super.paint(grphcs);
+  public void paint(Graphics graphics) {
+    super.paint(graphics);
     if (badges > 0) {
       String value = badges > 9 ? "+9" : badges + "";
       int width = getWidth();
-      Graphics2D g2 = (Graphics2D) grphcs;
+      Graphics2D g2 = (Graphics2D) graphics;
       g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
       FontMetrics ft = g2.getFontMetrics();
       Rectangle2D r2 = ft.getStringBounds(value, g2);
