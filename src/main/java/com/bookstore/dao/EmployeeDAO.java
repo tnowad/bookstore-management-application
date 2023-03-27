@@ -24,7 +24,7 @@ public class EmployeeDAO implements IDAO<EmployeeModel> {
     return new EmployeeModel(
         rs.getInt("user_id"),
         rs.getInt("salary"),
-        EmployeeType.valueOf(rs.getString("employee_type").toLowerCase()),
+        EmployeeType.valueOf(rs.getString("employee_type").toUpperCase()),
         rs.getString("contact_information"));
   }
 

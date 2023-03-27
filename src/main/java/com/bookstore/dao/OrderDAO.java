@@ -29,7 +29,7 @@ public class OrderDAO implements IDAO<OrderModel> {
         rs.getInt("paid"),
         rs.getTimestamp("created_at"),
         rs.getTimestamp("updated_at"),
-        OrderModel.Status.valueOf(rs.getString("status")));
+        OrderModel.Status.valueOf(rs.getString("status").toUpperCase()));
   }
 
   @Override

@@ -29,7 +29,7 @@ public class PaymentDAO implements IDAO<PaymentModel> {
         rs.getInt("amount"),
         PaymentMethod.valueOf(rs.getString("payment_method")),
         rs.getInt("payment_method_id"),
-        PaymentStatus.valueOf(rs.getString("status")),
+        PaymentStatus.valueOf(rs.getString("status").toUpperCase()),
         rs.getTimestamp("created_at"),
         rs.getTimestamp("updated_at"));
   }
@@ -50,8 +50,8 @@ public class PaymentDAO implements IDAO<PaymentModel> {
   public int insert(PaymentModel payment) throws SQLException, ClassNotFoundException {
     String insertSql = "INSERT INTO payments (order_id, user_id, amount, payment_method, payment_method_id, status) VALUES (?, ?, ?, ?, ?, ?)";
     Object[] args = { payment.getOrderId(), payment.getUserId(), payment.getAmount(),
-        payment.getPaymentMethod().toString(), payment.getPaymentMethodId(),
-        payment.getStatus().toString() };
+        payment.getPaymentMethod().toString().toUpperCase(), payment.getPaymentMethodId(),
+        payment.getStatus().toString().toUpperCase() };
     return DatabaseConnection.executeUpdate(insertSql, args);
   }
 
@@ -59,8 +59,8 @@ public class PaymentDAO implements IDAO<PaymentModel> {
   public int update(PaymentModel payment) throws SQLException, ClassNotFoundException {
     String updateSql = "UPDATE payments SET order_id = ?, user_id = ?, amount = ?, payment_method = ?, payment_method_id = ?, status = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?";
     Object[] args = { payment.getOrderId(), payment.getUserId(), payment.getAmount(),
-        payment.getPaymentMethod().toString(), payment.getPaymentMethodId(),
-        payment.getStatus().toString(), payment.getId() };
+        payment.getPaymentMethod().toString().toUpperCase(), payment.getPaymentMethodId(),
+        payment.getStatus().toString().toUpperCase(), payment.getId() };
     return DatabaseConnection.executeUpdate(updateSql, args);
   }
 

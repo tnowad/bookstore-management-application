@@ -26,7 +26,7 @@ public class ShippingDAO implements IDAO<ShippingModel> {
         rs.getInt("order_id"),
         rs.getString("shipping_method"),
         rs.getInt("address_id"),
-        ShippingModel.Status.valueOf(rs.getString("status").toLowerCase()));
+        ShippingModel.Status.valueOf(rs.getString("status").toUpperCase()));
   }
 
   @Override

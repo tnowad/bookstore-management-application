@@ -26,13 +26,13 @@ public class UserDAO implements IDAO<UserModel> {
     int id = rs.getInt("id");
     String username = rs.getString("username");
     String password = rs.getString("password");
-    Status status = Status.valueOf(rs.getString("status").toLowerCase());
+    Status status = Status.valueOf(rs.getString("status").toUpperCase());
     String name = rs.getString("name");
     String email = rs.getString("email");
     String phone = rs.getString("phone");
     Timestamp createdAt = rs.getTimestamp("created_at");
     Timestamp updatedAt = rs.getTimestamp("updated_at");
-    Role role = Role.valueOf(rs.getString("role").toLowerCase());
+    Role role = Role.valueOf(rs.getString("role").toUpperCase());
     return new UserModel(id, username, password, status, name, email, phone, createdAt, updatedAt, role);
   }
 
@@ -52,16 +52,16 @@ public class UserDAO implements IDAO<UserModel> {
   @Override
   public int insert(UserModel user) throws SQLException, ClassNotFoundException {
     String insertSql = "INSERT INTO users (username, password, status, name, email, phone, role) VALUES (?, ?, ?, ?, ?, ?, ?)";
-    Object[] args = { user.getUsername(), user.getPassword(), user.getStatus().toString().toLowerCase(),
-        user.getName(), user.getEmail(), user.getPhone(), user.getRole().toString().toLowerCase() };
+    Object[] args = { user.getUsername(), user.getPassword(), user.getStatus().toString().toUpperCase(),
+        user.getName(), user.getEmail(), user.getPhone(), user.getRole().toString().toUpperCase() };
     return DatabaseConnection.executeUpdate(insertSql, args);
   }
 
   @Override
   public int update(UserModel user) throws SQLException, ClassNotFoundException {
     String updateSql = "UPDATE users SET username = ?, password = ?, status = ?, name = ?, email = ?, phone = ?, role = ? WHERE id = ?";
-    Object[] args = { user.getUsername(), user.getPassword(), user.getStatus().toString().toLowerCase(),
-        user.getName(), user.getEmail(), user.getPhone(), user.getRole().toString().toLowerCase(), user.getId() };
+    Object[] args = { user.getUsername(), user.getPassword(), user.getStatus().toString().toUpperCase(),
+        user.getName(), user.getEmail(), user.getPhone(), user.getRole().toString().toUpperCase(), user.getId() };
     return DatabaseConnection.executeUpdate(updateSql, args);
   }
 
@@ -80,7 +80,7 @@ public class UserDAO implements IDAO<UserModel> {
   @Override
   public int delete(int id) throws SQLException, ClassNotFoundException {
     String updateStatusSql = "UPDATE users SET status = ? WHERE id = ?";
-    Object[] args = { UserModel.Status.BANNED.toString().toLowerCase(), id };
+    Object[] args = { UserModel.Status.BANNED.toString().toUpperCase(), id };
     return DatabaseConnection.executeUpdate(updateStatusSql, args);
   }
 

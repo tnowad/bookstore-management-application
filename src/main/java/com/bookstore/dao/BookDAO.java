@@ -29,7 +29,7 @@ public class BookDAO implements IDAO<BookModel> {
         rs.getString("image"),
         rs.getInt("price"),
         rs.getInt("quantity"),
-        BookModel.Status.valueOf(rs.getString("status").toLowerCase()),
+        BookModel.Status.valueOf(rs.getString("status").toUpperCase()),
         rs.getInt("publisher_id"),
         rs.getInt("author_id"));
   }
