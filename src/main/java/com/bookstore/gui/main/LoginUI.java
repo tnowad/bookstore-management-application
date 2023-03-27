@@ -171,14 +171,15 @@ public class LoginUI extends JFrame {
     // });
     loginButton.addActionListener(e -> {
       String username = usernameTextField.getText();
-      char[] password = passwordField.getPassword();
+      // char[] password = passwordField.getPassword();
+      String password = passwordField.getText();
       if (username == null || password == null) {
         JOptionPane.showMessageDialog(null, "Please enter username and password");
         return;
       }
-      String passwordText = new String(password);
+      // String passwordText = new String(password);
       try {
-        UserModel user = UserBUS.getInstance().login(username, passwordText);
+        UserModel user = UserBUS.getInstance().login(username, password);
         if (user != null) {
           ProfileModel.getInstance().setUser(user);
           dispose();
