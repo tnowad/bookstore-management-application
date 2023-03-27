@@ -71,7 +71,7 @@ public class UserDAO implements IDAO<UserModel> {
     return DatabaseConnection.executeUpdate(updateSql, args);
   }
 
-  public int updateRole(String username, Role role) {
+  public int updateRole(String username, Role role) throws ClassNotFoundException, SQLException {
     String updateSql = "UPDATE books SET role = ? WHERE username = ?";
     Object[] args = { role, username };
     return DatabaseConnection.executeUpdate(updateSql, args);
@@ -135,7 +135,7 @@ public class UserDAO implements IDAO<UserModel> {
     return null;
   }
 
-  public UserModel getUserById(int id) throws SQLException {
+  public UserModel getUserById(int id) throws SQLException, ClassNotFoundException {
     String query = "SELECT * FROM users WHERE id = ?";
     Object[] args = { id };
     try (PreparedStatement pst = DatabaseConnection.getPreparedStatement(query, args);

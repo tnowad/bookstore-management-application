@@ -5,6 +5,10 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.border.*;
 
+import com.bookstore.bus.UserBUS;
+import com.bookstore.model.ProfileModel;
+import com.bookstore.model.UserModel;
+
 public class RegisterUI extends JFrame {
   private static RegisterUI instance;
   private JPanel groupAccount;
@@ -183,6 +187,30 @@ public class RegisterUI extends JFrame {
     loginButton.addActionListener(e -> {
       LoginUI.getInstance().setVisible(true);
       setVisible(false);
+    });
+
+    registerButton.addActionListener(e -> {
+      String username = usernameTextField.getText();
+      String name = nameTextField.getText();
+      String email = emailTextField.getText();
+      String phone = phoneTextField.getText();
+      char[] password = passwordField.getPassword();
+      String passwordText = new String(password);
+
+      if (UserBUS.getInstance().checkDuplicateUsername(username)) {
+        JOptionPane.showMessageDialog(null,
+            "The username is taken from different account, please try another username.");
+      } else {
+        UserModel newUser = new UserModel(0, username, passwordText, null, name, email, phone, null, null, null);
+        int added = UserBUS.getInstance().addModel(newUser);
+        if (added == 1) {
+          ProfileModel.getInstance().setUser(newUser);
+          JOptionPane.showMessageDialog(null, "You've successfully registered! You can log in now.");
+          dispose(); // close the registration UI
+        } else {
+          JOptionPane.showMessageDialog(null, "Registration failed. Please try again!");
+        }
+      }
     });
 
     cancelButton.addActionListener(e -> System.exit(0));

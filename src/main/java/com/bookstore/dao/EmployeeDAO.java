@@ -51,18 +51,19 @@ public class EmployeeDAO implements IDAO<EmployeeModel> {
   @Override
   public int update(EmployeeModel employee) throws SQLException, ClassNotFoundException {
     String updateSql = "UPDATE employees SET salary = ?, employee_type = ?, contact_information = ? WHERE user_id = ?";
-    Object[] args = { employee.getSalary(), employee.getEmployeeType().name(), employee.getContactInformation(),
+    Object[] args = { employee.getSalary(), employee.getEmployeeType().name(),
+        employee.getContactInformation(),
         employee.getUserId() };
     return DatabaseConnection.executeUpdate(updateSql, args);
   }
 
-  public int updateStatus(int userId, EmployeeType role) throws SQLException, ClassNotFoundException {
+  public int updateEmployeeType(int userId, EmployeeType role) throws SQLException, ClassNotFoundException {
     String updateSql = "UPDATE employees SET employee_type = ? WHERE user_id = ?";
     Object[] args = { role, userId };
     return DatabaseConnection.executeUpdate(updateSql, args);
   }
 
-  public int updateSalary(int userId, int salary) {
+  public int updateSalary(int userId, int salary) throws ClassNotFoundException, SQLException {
     String updateSql = "UPDATE employees SET salary = ? WHERE user_id = ?";
     Object[] args = { salary, userId };
     return DatabaseConnection.executeUpdate(updateSql, args);
@@ -112,7 +113,7 @@ public class EmployeeDAO implements IDAO<EmployeeModel> {
     }
   }
 
-  public EmployeeModel getEmployeeById(int id) throws SQLException {
+  public EmployeeModel getEmployeeById(int id) throws SQLException, ClassNotFoundException {
     String query = "SELECT * FROM employees WHERE user_id = ?";
     Object[] args = { id };
     try (PreparedStatement pst = DatabaseConnection.getPreparedStatement(query, args)) {

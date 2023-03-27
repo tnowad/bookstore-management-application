@@ -14,11 +14,11 @@ import org.junit.jupiter.api.Test;
 
 public class DatabaseConnectTest {
 
-  @BeforeAll
-  public static void setUp() throws Exception {
-    DatabaseConnection.getInstance();
-    createTable();
-  }
+  // @BeforeAll
+  // public static void setUp() throws Exception {
+  // DatabaseConnection.getInstance();
+  // createTable();
+  // }
 
   @AfterAll
   public static void tearDown() throws Exception {

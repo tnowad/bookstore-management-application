@@ -128,8 +128,8 @@ public class EmployeeBUS implements IBUS<EmployeeModel> {
     return updatedRows;
   }
 
-  public int updateStatus(int userId, EmployeeType role) throws ClassNotFoundException, SQLException {
-    int success = EmployeeDAO.getInstance().updateStatus(userId, role);
+  public int updateEmployeeType(int userId, EmployeeType role) throws ClassNotFoundException, SQLException {
+    int success = EmployeeDAO.getInstance().updateEmployeeType(userId, role);
     if (success == 1) {
       for (EmployeeModel employee : employeeList) {
         if (employee.getUserId() == userId) {

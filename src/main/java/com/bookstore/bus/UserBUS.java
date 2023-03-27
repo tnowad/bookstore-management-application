@@ -97,7 +97,7 @@ public class UserBUS implements IBUS<UserModel> {
 
   private boolean checkFilter(UserModel userModel, String value, String[] columns) {
     for (String column : columns) {
-      switch (column.toLowerCase()) {
+      switch (column.toUpperCase()) {
         case "id" -> {
           if (userModel.getId() == Integer.parseInt(value)) {
             return true;
@@ -188,6 +188,19 @@ public class UserBUS implements IBUS<UserModel> {
     }
 
     return pattern.matcher(email).matches();
+  }
+
+  // public boolean checkDuplicateUsername(String username) {
+  // for (int i = 0; i < userList.size(); i++) {
+  // if (userList.get(i).getUsername().equals(username)) {
+  // return true;
+  // }
+  // }
+  // return false;
+  // }
+
+  public boolean checkDuplicateUsername(String username) {
+    return userList.stream().anyMatch(user -> user.getUsername().equals(username));
   }
 
   @Override

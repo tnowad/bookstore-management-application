@@ -9,6 +9,7 @@ import javax.swing.border.*;
 
 import com.bookstore.bus.UserBUS;
 import com.bookstore.model.ProfileModel;
+import com.bookstore.model.UserModel;
 
 public class LoginUI extends JFrame {
   private static LoginUI instance;
@@ -157,15 +158,37 @@ public class LoginUI extends JFrame {
   }
 
   private void handleEvent() {
+    // loginButton.addActionListener(e -> {
+    // String username = usernameTextField.getText();
+    // char[] password = passwordField.getPassword();
+    // String passwordText = new String(password);
+    // ProfileModel.getInstance().setUser(UserBUS.getInstance().login(username,
+    // passwordText));
+    // if (ProfileModel.getInstance().getUser() != null) {
+    // dispose();
+    // } else {
+    // JOptionPane.showMessageDialog(null, "Login fail");
+    // }
+    // });
     loginButton.addActionListener(e -> {
       String username = usernameTextField.getText();
       char[] password = passwordField.getPassword();
+      if (username == null || password == null) {
+        JOptionPane.showMessageDialog(null, "Please enter username and password");
+        return;
+      }
       String passwordText = new String(password);
-      ProfileModel.getInstance().setUser(UserBUS.getInstance().login(username, passwordText));
-      if (ProfileModel.getInstance().getUser() != null) {
-        dispose();
-      } else {
-        JOptionPane.showMessageDialog(null, "Login fail");
+      try {
+        UserModel user = UserBUS.getInstance().login(username, passwordText);
+        if (user != null) {
+          ProfileModel.getInstance().setUser(user);
+          dispose();
+          JOptionPane.showMessageDialog(null, "Login successful");
+        } else {
+          JOptionPane.showMessageDialog(null, "Invalid username or password");
+        }
+      } catch (Exception ex) {
+        JOptionPane.showMessageDialog(null, "An error occurred while logging in: " + ex.getMessage());
       }
     });
 
@@ -225,5 +248,9 @@ public class LoginUI extends JFrame {
     pack();
     setLocationRelativeTo(null);
     setVisible(true);
+  }
+
+  public static void main(String[] args) {
+    new LoginUI().setVisible(true);
   }
 }

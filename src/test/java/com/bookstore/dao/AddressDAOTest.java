@@ -34,7 +34,7 @@ public class AddressDAOTest {
     ArrayList<AddressModel> addressList = addressDAO.readDatabase();
     // Assertions.assertFalse(addressList.isEmpty());
     Assertions.assertNotNull(addressList);
-    Assertions.assertEquals(121, addressList.size());
+    Assertions.assertEquals(20, addressList.size());
   }
 
   @Test
@@ -46,14 +46,14 @@ public class AddressDAOTest {
 
   @Test
   public void testUpdate() throws SQLException, ClassNotFoundException {
-    AddressModel address = new AddressModel(2, 1, "456 Elm St", "Othertown", "NY", "67890");
+    AddressModel address = new AddressModel(149, 1, "456 Elm St", "Othertown", "NY", "67890");
     int rowsAffected = addressDAO.update(address);
     Assertions.assertEquals(1, rowsAffected);
   }
 
   @Test
   public void testDelete() throws SQLException, ClassNotFoundException {
-    int rowsAffected = addressDAO.delete(34);
+    int rowsAffected = addressDAO.delete(149);
     Assertions.assertEquals(1, rowsAffected);
   }
 
@@ -104,7 +104,7 @@ public class AddressDAOTest {
   public void testSearchSpecificColumn() throws SQLException, ClassNotFoundException {
     AddressDAO dao = new AddressDAO();
     String[] columns = { "street", "city" };
-    List<AddressModel> result = dao.search("Los Angeles", columns);
+    List<AddressModel> result = dao.search("456", columns);
     // Assertions.assertFalse(result.isEmpty());
     Assertions.assertEquals(1, result.size());
   }

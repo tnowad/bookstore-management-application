@@ -170,7 +170,7 @@ public class BookBUS implements IBUS<BookModel> {
     int updatedRows = BookDAO.getInstance().update(bookModel);
     if (updatedRows > 0) {
       for (int i = 0; i < bookList.size(); i++) {
-        if (bookList.get(i).getIsbn() == bookModel.getIsbn()) {
+        if (bookList.get(i).getIsbn().equals(bookModel.getIsbn())) {
           bookList.set(i, bookModel);
           break;
         }

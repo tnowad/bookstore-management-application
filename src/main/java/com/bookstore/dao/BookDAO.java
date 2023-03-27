@@ -61,7 +61,7 @@ public class BookDAO implements IDAO<BookModel> {
     return DatabaseConnection.executeUpdate(updateSql, args);
   }
 
-  public int updateQuantity(String isbn, int quantity) {
+  public int updateQuantity(String isbn, int quantity) throws ClassNotFoundException, SQLException {
     String updateSql = "UPDATE books SET quantity = ? WHERE isbn = ?";
     Object[] args = { quantity, isbn };
     return DatabaseConnection.executeUpdate(updateSql, args);
@@ -73,7 +73,7 @@ public class BookDAO implements IDAO<BookModel> {
     return DatabaseConnection.executeUpdate(updateSql, args);
   }
 
-  public int updatePrice(String isbn, int price) {
+  public int updatePrice(String isbn, int price) throws ClassNotFoundException, SQLException {
     String updateSql = "UPDATE books SET price = ? WHERE isbn = ?";
     Object[] args = { price, isbn };
     return DatabaseConnection.executeUpdate(updateSql, args);

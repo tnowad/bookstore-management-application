@@ -16,10 +16,10 @@ import org.junit.jupiter.api.Test;
 import com.bookstore.bus.AddressBUS;
 import com.bookstore.model.AddressModel;
 
-public class AddressExcelUtiltest {
+public class AddressExcelUtilitiesTest {
 
   @Test
-  void testreadUsersExcelFile() throws IOException, ClassNotFoundException, SQLException {
+  void testReadAddressesFromExcel() throws IOException, ClassNotFoundException, SQLException {
     AddressExcelUtil.readAddressesFromExcel();
   }
 
