@@ -202,8 +202,6 @@ public class LoginUI extends JFrame {
 
   private void handleEvent() {
     loginButton.addActionListener(e -> {
-
-      System.out.println("Debug: Login button clicked.");
       String username = usernameTextField.getText();
       char[] password = passwordField.getPassword();
       if (username == null || password == null) {
@@ -213,16 +211,13 @@ public class LoginUI extends JFrame {
       try {
         UserModel user = UserBUS.getInstance().login(username, Arrays.toString(password));
         if (user != null) {
-          System.out.println("Debug: User found, login successful.");
           ProfileModel.getInstance().setUser(user);
           dispose();
           JOptionPane.showMessageDialog(null, "Login successful");
         } else {
-          System.out.println("Debug: Invalid username or password.");
           JOptionPane.showMessageDialog(null, "Invalid username or password");
         }
       } catch (Exception ex) {
-        System.out.println("Debug: An error occurred while logging in: " + ex.getMessage());
         JOptionPane.showMessageDialog(null, "An error occurred while logging in: " + ex.getMessage());
       }
     });
@@ -282,5 +277,9 @@ public class LoginUI extends JFrame {
     pack();
     setLocationRelativeTo(null);
     setVisible(true);
+  }
+
+  public static void main(String[] args) {
+    new LoginUI();
   }
 }
