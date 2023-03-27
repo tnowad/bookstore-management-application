@@ -67,8 +67,8 @@ public class MenuItemFactory {
         return "About";
       case "admin.settings":
         return "Settings";
-      case "admin.logout":
-        return "Logout";
+      // case "admin.logout":
+      // return "Logout";
     }
     return id;
   }

@@ -104,7 +104,7 @@ public class MenuFactory {
               IconFactory.createIcon("other"),
               "Other",
               MenuItemFactory.createMenuItemModel(
-                  "admin.about", "admin.settings", "admin.logout")));
+                  "admin.about", "admin.settings", "general.logout")));
     }
     return menu;
   }
