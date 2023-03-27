@@ -32,6 +32,24 @@ public class DatabaseConnection {
     return connection;
   }
 
+  public static PreparedStatement getPreparedStatement(String query, Object... args) {
+    Connection connection = getInstance();
+    if (connection == null) {
+      System.err.println("Error: " + "Connection failed");
+      return null;
+    }
+    PreparedStatement preparedStatement = null;
+    try {
+      preparedStatement = connection.prepareStatement(query);
+      for (int i = 0; i < args.length; i++) {
+        preparedStatement.setObject(i + 1, args[i]);
+      }
+    } catch (SQLException e) {
+      System.err.println("Error: " + "Query failed");
+    }
+    return preparedStatement;
+  }
+
   public static ResultSet executeQuery(String sql, Object... args) {
     Connection connection = getInstance();
     if (connection == null) {
@@ -80,32 +98,4 @@ public class DatabaseConnection {
     }
   }
 
-  public static void main(String[] args) {
-    ResultSet resultSet = DatabaseConnection.executeQuery("show tables");
-    try {
-      while (resultSet.next()) {
-        System.out.println(resultSet.getString(1));
-      }
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-  }
-
-  public static PreparedStatement getPreparedStatement(String query, Object... args) {
-    Connection connection = getInstance();
-    if (connection == null) {
-      System.err.println("Error: " + "Connection failed");
-      return null;
-    }
-    PreparedStatement preparedStatement = null;
-    try {
-      preparedStatement = connection.prepareStatement(query);
-      for (int i = 0; i < args.length; i++) {
-        preparedStatement.setObject(i + 1, args[i]);
-      }
-    } catch (SQLException e) {
-      System.err.println("Error: " + "Query failed");
-    }
-    return preparedStatement;
-  }
 }
