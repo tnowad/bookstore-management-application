@@ -29,7 +29,7 @@ public class PublisherDAO implements IDAO<PublisherModel> {
   @Override
   public ArrayList<PublisherModel> readDatabase() throws SQLException, ClassNotFoundException {
     ArrayList<PublisherModel> publisherList = new ArrayList<>();
-    try (ResultSet rs = DatabaseConnect.executeQuery("SELECT * FROM publishers")) {
+    try (ResultSet rs = DatabaseConnection.executeQuery("SELECT * FROM publishers")) {
       while (rs.next()) {
         PublisherModel publisherModel = createPublisherModelFromResultSet(rs);
         publisherList.add(publisherModel);
@@ -42,21 +42,21 @@ public class PublisherDAO implements IDAO<PublisherModel> {
   public int insert(PublisherModel publisher) throws SQLException, ClassNotFoundException {
     String insertSql = "INSERT INTO publishers (name, description) VALUES (?, ?)";
     Object[] args = { publisher.getName(), publisher.getDescription() };
-    return DatabaseConnect.executeUpdate(insertSql, args);
+    return DatabaseConnection.executeUpdate(insertSql, args);
   }
 
   @Override
   public int update(PublisherModel publisher) throws SQLException, ClassNotFoundException {
     String updateSql = "UPDATE publishers SET name = ?, description = ? WHERE id = ?";
     Object[] args = { publisher.getName(), publisher.getDescription(), publisher.getId() };
-    return DatabaseConnect.executeUpdate(updateSql, args);
+    return DatabaseConnection.executeUpdate(updateSql, args);
   }
 
   @Override
   public int delete(int id) throws SQLException, ClassNotFoundException {
     String deleteSql = "DELETE FROM publishers WHERE id = ?";
     Object[] args = { id };
-    return DatabaseConnect.executeUpdate(deleteSql, args);
+    return DatabaseConnection.executeUpdate(deleteSql, args);
   }
 
   @Override
@@ -80,7 +80,7 @@ public class PublisherDAO implements IDAO<PublisherModel> {
           + String.join(", ", columnNames) + ") LIKE ?";
     }
 
-    try (PreparedStatement pst = DatabaseConnect.getPreparedStatement(query, "%" + condition + "%")) {
+    try (PreparedStatement pst = DatabaseConnection.getPreparedStatement(query, "%" + condition + "%")) {
       try (ResultSet rs = pst.executeQuery()) {
         List<PublisherModel> publisherList = new ArrayList<>();
         while (rs.next()) {

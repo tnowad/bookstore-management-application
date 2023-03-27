@@ -46,11 +46,6 @@ public class MenuButton extends JButton {
     setBorder(new EmptyBorder(1, 50, 1, 1));
   }
 
-  public MenuButton(String text, boolean subMenu) {
-    super(text);
-    init();
-  }
-
   private void init() {
     setContentAreaFilled(false);
     setForeground(new Color(255, 255, 255));

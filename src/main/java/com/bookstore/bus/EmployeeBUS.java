@@ -141,6 +141,19 @@ public class EmployeeBUS implements IBUS<EmployeeModel> {
     return 0;
   }
 
+  public int updateSalary(int userId, int salary) throws ClassNotFoundException, SQLException {
+    int success = EmployeeDAO.getInstance().updateSalary(userId, salary);
+    if (success == 1) {
+      for (EmployeeModel employee : employeeList) {
+        if (employee.getUserId() == userId) {
+          employee.setSalary(salary);
+          return 1;
+        }
+      }
+    }
+    return 0;
+  }
+
   @Override
   public int deleteModel(int id) throws SQLException, ClassNotFoundException {
     EmployeeModel employeeModel = getModelById(id);

@@ -1,27 +1,17 @@
 package com.bookstore.database.factories;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.Statement;
-import com.bookstore.dao.DatabaseConnect;
+
+import com.bookstore.dao.DatabaseConnection;
+import com.bookstore.model.CartModel;
 import com.github.javafaker.Faker;
 
-public class CartItemFactory implements IFactory {
-  static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-  static final String DB_URL = "jdbc:mysql://localhost/bookstore";
-
-  static final String USER = "root";
-  static final String PASS = "admin123";
-
+public class CartItemFactory implements IFactory<CartModel> {
   @Override
-  public Object create() {
+  public CartModel create() {
     Faker faker = new Faker();
 
-    try (ResultSet rs = DatabaseConnect.executeQuery("SELECT * FROM books")) {
-      Class.forName(JDBC_DRIVER);
-      Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-      Statement stmt = conn.createStatement();
+    try (ResultSet rs = DatabaseConnection.executeQuery("SELECT * FROM books")) {
       int count = 0;
       while (rs.next()
           || count < 10) {
@@ -34,10 +24,11 @@ public class CartItemFactory implements IFactory {
             + cartId
             + ", '"
             + bookIsbn + "', " + quantity + ", " + price + ", " + discount + ")";
-        stmt.executeUpdate(sql);
+        DatabaseConnection.executeUpdate(sql);
         count++;
       }
     } catch (Exception e) {
+      e.printStackTrace();
     }
     return null;
   }

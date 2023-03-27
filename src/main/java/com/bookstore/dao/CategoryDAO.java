@@ -28,7 +28,7 @@ public class CategoryDAO implements IDAO<CategoryModel> {
   @Override
   public ArrayList<CategoryModel> readDatabase() throws SQLException, ClassNotFoundException {
     ArrayList<CategoryModel> categoryList = new ArrayList<>();
-    try (ResultSet rs = DatabaseConnect.executeQuery("SELECT * FROM categories")) {
+    try (ResultSet rs = DatabaseConnection.executeQuery("SELECT * FROM categories")) {
       while (rs.next()) {
         CategoryModel categoryModel = createCategoryModelFromResultSet(rs);
         categoryList.add(categoryModel);
@@ -41,21 +41,21 @@ public class CategoryDAO implements IDAO<CategoryModel> {
   public int insert(CategoryModel category) throws SQLException, ClassNotFoundException {
     String insertSql = "INSERT INTO categories (name) VALUES (?)";
     Object[] args = { category.getName() };
-    return DatabaseConnect.executeUpdate(insertSql, args);
+    return DatabaseConnection.executeUpdate(insertSql, args);
   }
 
   @Override
   public int update(CategoryModel category) throws SQLException, ClassNotFoundException {
     String updateSql = "UPDATE categories SET name = ? WHERE id = ?";
     Object[] args = { category.getName(), category.getId() };
-    return DatabaseConnect.executeUpdate(updateSql, args);
+    return DatabaseConnection.executeUpdate(updateSql, args);
   }
 
   @Override
   public int delete(int id) throws SQLException, ClassNotFoundException {
     String deleteSql = "DELETE FROM categories WHERE id = ?";
     Object[] args = { id };
-    return DatabaseConnect.executeUpdate(deleteSql, args);
+    return DatabaseConnection.executeUpdate(deleteSql, args);
   }
 
   @Override
@@ -79,7 +79,7 @@ public class CategoryDAO implements IDAO<CategoryModel> {
           + String.join(", ", columnNames) + ") LIKE ?";
     }
 
-    try (PreparedStatement pst = DatabaseConnect.getPreparedStatement(query, "%" + condition + "%")) {
+    try (PreparedStatement pst = DatabaseConnection.getPreparedStatement(query, "%" + condition + "%")) {
       try (ResultSet rs = pst.executeQuery()) {
         List<CategoryModel> categoryList = new ArrayList<>();
         while (rs.next()) {

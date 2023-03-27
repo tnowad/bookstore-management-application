@@ -29,7 +29,7 @@ public class AuthorDAO implements IDAO<AuthorModel> {
   @Override
   public ArrayList<AuthorModel> readDatabase() throws SQLException, ClassNotFoundException {
     ArrayList<AuthorModel> authorList = new ArrayList<>();
-    try (ResultSet rs = DatabaseConnect.executeQuery("SELECT * FROM authors")) {
+    try (ResultSet rs = DatabaseConnection.executeQuery("SELECT * FROM authors")) {
       while (rs.next()) {
         AuthorModel authorModel = createAuthorModelFromResultSet(rs);
         authorList.add(authorModel);
@@ -42,21 +42,21 @@ public class AuthorDAO implements IDAO<AuthorModel> {
   public int insert(AuthorModel author) throws SQLException, ClassNotFoundException {
     String insertSql = "INSERT INTO authors (name, description) VALUES (?, ?)";
     Object[] args = { author.getName(), author.getDescription() };
-    return DatabaseConnect.executeUpdate(insertSql, args);
+    return DatabaseConnection.executeUpdate(insertSql, args);
   }
 
   @Override
   public int update(AuthorModel author) throws SQLException, ClassNotFoundException {
     String updateSql = "UPDATE authors SET name = ?, description = ? WHERE id = ?";
     Object[] args = { author.getName(), author.getDescription(), author.getId() };
-    return DatabaseConnect.executeUpdate(updateSql, args);
+    return DatabaseConnection.executeUpdate(updateSql, args);
   }
 
   @Override
   public int delete(int id) throws SQLException, ClassNotFoundException {
     String deleteSql = "DELETE FROM authors WHERE id = ?";
     Object[] args = { id };
-    return DatabaseConnect.executeUpdate(deleteSql, args);
+    return DatabaseConnection.executeUpdate(deleteSql, args);
   }
 
   @Override
@@ -80,7 +80,7 @@ public class AuthorDAO implements IDAO<AuthorModel> {
           + String.join(", ", columnNames) + ") LIKE ?";
     }
 
-    try (PreparedStatement pst = DatabaseConnect.getPreparedStatement(query, "%" + condition + "%")) {
+    try (PreparedStatement pst = DatabaseConnection.getPreparedStatement(query, "%" + condition + "%")) {
       try (ResultSet rs = pst.executeQuery()) {
         List<AuthorModel> authorList = new ArrayList<>();
         while (rs.next()) {

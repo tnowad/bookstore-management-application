@@ -16,7 +16,6 @@ import net.miginfocom.swing.MigLayout;
 
 import com.bookstore.gui.event.EventMenu;
 import com.bookstore.gui.event.EventMenuSelected;
-import com.bookstore.gui.event.EventShowPopupMenu;
 import com.bookstore.gui.model.MenuModel;
 import com.bookstore.gui.swing.MenuAnimation;
 import com.bookstore.gui.swing.MenuItem;
@@ -24,12 +23,10 @@ import com.bookstore.gui.swing.scrollbar.ScrollBarCustom;
 
 public class Menu extends JPanel {
   private JPanel panel;
-  private Profile profile;
   private JScrollPane scrollPane;
 
   private final MigLayout layout;
   private EventMenuSelected event;
-  private EventShowPopupMenu eventShowPopup;
   private boolean enableMenu = true;
   private boolean showMenu = true;
 
@@ -47,18 +44,14 @@ public class Menu extends JPanel {
   }
 
   private EventMenu getEventMenu() {
-    return (com, open) -> {
-      if (enableMenu) {
-        if (isShowMenu()) {
-          if (open) {
-            new MenuAnimation(layout, com).openMenu();
-          } else {
-            new MenuAnimation(layout, com).closeMenu();
-          }
-          return true;
+    return (component, open) -> {
+      if (enableMenu && (isShowMenu())) {
+        if (open) {
+          new MenuAnimation(layout, component).openMenu();
         } else {
-          eventShowPopup.showPopup(com);
+          new MenuAnimation(layout, component).closeMenu();
         }
+        return true;
       }
       return false;
     };
@@ -75,6 +68,7 @@ public class Menu extends JPanel {
   }
 
   private void initComponents() {
+    Profile profile;
 
     scrollPane = new JScrollPane();
     panel = new JPanel();
@@ -97,15 +91,15 @@ public class Menu extends JPanel {
 
     scrollPane.setViewportView(panel);
 
-    GroupLayout layout = new GroupLayout(this);
-    this.setLayout(layout);
-    layout.setHorizontalGroup(
-        layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+    GroupLayout menuLayout = new GroupLayout(this);
+    this.setLayout(menuLayout);
+    menuLayout.setHorizontalGroup(
+        menuLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
             .addComponent(profile, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE));
-    layout.setVerticalGroup(
-        layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+    menuLayout.setVerticalGroup(
+        menuLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(GroupLayout.Alignment.TRAILING, menuLayout.createSequentialGroup()
                 .addComponent(profile, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
                     GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
@@ -137,10 +131,6 @@ public class Menu extends JPanel {
 
   public void setShowMenu(boolean showMenu) {
     this.showMenu = showMenu;
-  }
-
-  public void addEventShowPopup(EventShowPopupMenu eventShowPopup) {
-    this.eventShowPopup = eventShowPopup;
   }
 
 }

@@ -33,7 +33,7 @@ public class CartDAO implements IDAO<CartModel> {
   @Override
   public ArrayList<CartModel> readDatabase() throws SQLException, ClassNotFoundException {
     ArrayList<CartModel> cartList = new ArrayList<>();
-    try (ResultSet rs = DatabaseConnect.executeQuery("SELECT * FROM carts")) {
+    try (ResultSet rs = DatabaseConnection.executeQuery("SELECT * FROM carts")) {
       while (rs.next()) {
         CartModel cartModel = createCartModelFromResultSet(rs);
         cartList.add(cartModel);
@@ -46,7 +46,7 @@ public class CartDAO implements IDAO<CartModel> {
   public int insert(CartModel cart) throws SQLException, ClassNotFoundException {
     String insertSql = "INSERT INTO carts (user_id, status, promotion_id, expires) VALUES (?, ?, ?, ?)";
     Object[] args = { cart.getUserId(), cart.getStatus().name(), cart.getPromotionId(), cart.getExpires() };
-    return DatabaseConnect.executeUpdate(insertSql, args);
+    return DatabaseConnection.executeUpdate(insertSql, args);
   }
 
   @Override
@@ -54,20 +54,20 @@ public class CartDAO implements IDAO<CartModel> {
     String updateSql = "UPDATE carts SET user_id = ?, status = ?, expires = ?, promotion_id = ? WHERE id = ?";
     Object[] args = { cart.getUserId(), cart.getStatus().name(), cart.getExpires(), cart.getPromotionId(),
         cart.getId() };
-    return DatabaseConnect.executeUpdate(updateSql, args);
+    return DatabaseConnection.executeUpdate(updateSql, args);
   }
 
   public int updateStatus(int userId, Status status) throws SQLException, ClassNotFoundException {
     String updateSql = "UPDATE carts SET status = ? WHERE userId = ?";
     Object[] args = { status, userId };
-    return DatabaseConnect.executeUpdate(updateSql, args);
+    return DatabaseConnection.executeUpdate(updateSql, args);
   }
 
   @Override
   public int delete(int id) throws SQLException, ClassNotFoundException {
     String deleteSql = "DELETE FROM carts WHERE id = ?";
     Object[] args = { id };
-    return DatabaseConnect.executeUpdate(deleteSql, args);
+    return DatabaseConnection.executeUpdate(deleteSql, args);
   }
 
   @Override
@@ -91,7 +91,7 @@ public class CartDAO implements IDAO<CartModel> {
           + String.join(", ", columnNames) + ") LIKE ?";
     }
 
-    try (PreparedStatement pst = DatabaseConnect.getPreparedStatement(query, "%" + condition + "%")) {
+    try (PreparedStatement pst = DatabaseConnection.getPreparedStatement(query, "%" + condition + "%")) {
       try (ResultSet rs = pst.executeQuery()) {
         List<CartModel> cartList = new ArrayList<>();
         while (rs.next()) {

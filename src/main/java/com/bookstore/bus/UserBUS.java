@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import com.bookstore.dao.UserDAO;
 import com.bookstore.interfaces.IBUS;
@@ -16,9 +17,13 @@ public class UserBUS implements IBUS<UserModel> {
   private final List<UserModel> userList = new ArrayList<>();
   private static UserBUS instance;
 
-  public static UserBUS getInstance() throws ClassNotFoundException, SQLException {
+  public static UserBUS getInstance() {
     if (instance == null) {
-      instance = new UserBUS();
+      try {
+        instance = new UserBUS();
+      } catch (ClassNotFoundException | SQLException e) {
+        e.printStackTrace();
+      }
     }
     return instance;
   }
@@ -27,10 +32,15 @@ public class UserBUS implements IBUS<UserModel> {
     this.userList.addAll(UserDAO.getInstance().readDatabase());
   }
 
-  public UserModel login(String username, String password) throws SQLException, ClassNotFoundException {
-    UserModel userModel = UserDAO.getInstance().getUserByUsername(username);
-    if (userModel != null && PasswordUtil.checkPassword(password, userModel.getPassword())) {
-      return userModel;
+  public UserModel login(String username, String password) {
+    UserModel userModel;
+    try {
+      userModel = UserDAO.getInstance().getUserByUsername(username);
+      if (userModel != null && PasswordUtil.checkPassword(password, userModel.getPassword())) {
+        return userModel;
+      }
+    } catch (ClassNotFoundException | SQLException e) {
+      e.printStackTrace();
     }
     return null;
   }
@@ -158,11 +168,11 @@ public class UserBUS implements IBUS<UserModel> {
     if (!hasPhone && !hasEmail) {
       throw new IllegalArgumentException("At least one of 'phone' or 'email' is required.");
     }
-    // if (hasEmail && !isValidEmailAddress(userModel.getEmail())) {
-    // throw new IllegalArgumentException("Invalid email address.");
-    // }
-    userModel.setRole(userModel.getRole() != null ? userModel.getRole() : Role.customer);
-    userModel.setStatus(userModel.getStatus() != null ? userModel.getStatus() : Status.active);
+    if (hasEmail && !isValidEmailAddress(userModel.getEmail())) {
+      throw new IllegalArgumentException("Invalid email address.");
+    }
+    userModel.setRole(userModel.getRole() != null ? userModel.getRole() : Role.CUSTOMER);
+    userModel.setStatus(userModel.getStatus() != null ? userModel.getStatus() : Status.ACTIVE);
 
     int id = UserDAO.getInstance().insert(mapToEntity(userModel));
     userModel.setId(id);
@@ -170,9 +180,15 @@ public class UserBUS implements IBUS<UserModel> {
     return id;
   }
 
-  // private boolean isValidEmailAddress(String email) {
-  // return true;
-  // }
+  private static boolean isValidEmailAddress(String email) {
+    Pattern pattern = Pattern.compile("^\\S+@\\S+\\.\\S+$");
+
+    if (email == null) {
+      return false;
+    }
+
+    return pattern.matcher(email).matches();
+  }
 
   @Override
   public int updateModel(UserModel userModel) throws SQLException, ClassNotFoundException {
@@ -250,4 +266,5 @@ public class UserBUS implements IBUS<UserModel> {
 
     return results;
   }
+
 }

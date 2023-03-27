@@ -35,7 +35,7 @@ public class PaymentMethodDAO implements IDAO<PaymentMethodModel> {
   public ArrayList<PaymentMethodModel> readDatabase() throws SQLException, ClassNotFoundException {
     ArrayList<PaymentMethodModel> paymentMethodList = new ArrayList<>();
     String query = "SELECT * FROM payment_methods";
-    try (ResultSet rs = DatabaseConnect.executeQuery(query)) {
+    try (ResultSet rs = DatabaseConnection.executeQuery(query)) {
       while (rs.next()) {
         PaymentMethodModel paymentMethodModel = createPaymentMethodModelFromResultSet(rs);
         paymentMethodList.add(paymentMethodModel);
@@ -52,7 +52,7 @@ public class PaymentMethodDAO implements IDAO<PaymentMethodModel> {
         paymentMethod.getPaymentId(), paymentMethod.getCardNumber(), paymentMethod.getCardHolder(),
         paymentMethod.getExpirationDate(), paymentMethod.getCustomerId()
     };
-    return DatabaseConnect.executeUpdate(insertSql, args);
+    return DatabaseConnection.executeUpdate(insertSql, args);
   }
 
   @Override
@@ -62,14 +62,14 @@ public class PaymentMethodDAO implements IDAO<PaymentMethodModel> {
         paymentMethod.getPaymentId(), paymentMethod.getCardNumber(), paymentMethod.getCardHolder(),
         paymentMethod.getExpirationDate(), paymentMethod.getCustomerId(), paymentMethod.getId()
     };
-    return DatabaseConnect.executeUpdate(updateSql, args);
+    return DatabaseConnection.executeUpdate(updateSql, args);
   }
 
   @Override
   public int delete(int id) throws SQLException, ClassNotFoundException {
     String deleteSql = "DELETE FROM payment_methods WHERE id = ?";
     Object[] args = { id };
-    return DatabaseConnect.executeUpdate(deleteSql, args);
+    return DatabaseConnection.executeUpdate(deleteSql, args);
   }
 
   @Override
@@ -93,7 +93,7 @@ public class PaymentMethodDAO implements IDAO<PaymentMethodModel> {
           + String.join(", ", columnNames) + ") LIKE ?";
     }
 
-    try (PreparedStatement pst = DatabaseConnect.getPreparedStatement(query, "%" + condition + "%")) {
+    try (PreparedStatement pst = DatabaseConnection.getPreparedStatement(query, "%" + condition + "%")) {
       try (ResultSet rs = pst.executeQuery()) {
         List<PaymentMethodModel> paymentMethodList = new ArrayList<>();
         while (rs.next()) {

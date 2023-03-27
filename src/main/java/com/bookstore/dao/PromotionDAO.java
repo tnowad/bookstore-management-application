@@ -34,7 +34,7 @@ public class PromotionDAO implements IDAO<PromotionModel> {
   @Override
   public ArrayList<PromotionModel> readDatabase() throws SQLException, ClassNotFoundException {
     ArrayList<PromotionModel> promotionList = new ArrayList<>();
-    try (ResultSet rs = DatabaseConnect.executeQuery("SELECT * FROM promotions")) {
+    try (ResultSet rs = DatabaseConnection.executeQuery("SELECT * FROM promotions")) {
       while (rs.next()) {
         PromotionModel promotionModel = createPromotionModelFromResultSet(rs);
         promotionList.add(promotionModel);
@@ -57,7 +57,7 @@ public class PromotionDAO implements IDAO<PromotionModel> {
         promotion.getDiscountPercent(),
         promotion.getDiscountAmount()
     };
-    return DatabaseConnect.executeUpdate(insertSql, args);
+    return DatabaseConnection.executeUpdate(insertSql, args);
   }
 
   @Override
@@ -73,14 +73,20 @@ public class PromotionDAO implements IDAO<PromotionModel> {
         promotion.getDiscountAmount(),
         promotion.getId()
     };
-    return DatabaseConnect.executeUpdate(updateSql, args);
+    return DatabaseConnection.executeUpdate(updateSql, args);
+  }
+
+  public int updateQuantity(int id, int quantity) throws SQLException, ClassNotFoundException {
+    String updateSql = "UPDATE promotions SET quantity = ? WHERE id = ?";
+    Object[] args = { quantity, id };
+    return DatabaseConnection.executeUpdate(updateSql, args);
   }
 
   @Override
   public int delete(int id) throws SQLException, ClassNotFoundException {
     String deleteSql = "DELETE FROM promotions WHERE id = ?";
     Object[] args = { id };
-    return DatabaseConnect.executeUpdate(deleteSql, args);
+    return DatabaseConnection.executeUpdate(deleteSql, args);
   }
 
   @Override
@@ -104,7 +110,7 @@ public class PromotionDAO implements IDAO<PromotionModel> {
           + String.join(", ", columnNames) + ") LIKE ?";
     }
 
-    try (PreparedStatement pst = DatabaseConnect.getPreparedStatement(query, "%" + condition + "%")) {
+    try (PreparedStatement pst = DatabaseConnection.getPreparedStatement(query, "%" + condition + "%")) {
       try (ResultSet rs = pst.executeQuery()) {
         List<PromotionModel> promotionList = new ArrayList<>();
         while (rs.next()) {

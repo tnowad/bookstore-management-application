@@ -3,8 +3,7 @@ package com.bookstore.gui.swing;
 import com.bookstore.gui.event.EventMenuSelected;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
 import net.miginfocom.swing.MigLayout;
 import org.jdesktop.animation.timing.Animator;
 import org.jdesktop.animation.timing.TimingTarget;
@@ -23,14 +22,11 @@ public class PopupMenu extends javax.swing.JDialog {
     panel.setLayout(new MigLayout("fill, wrap", "8[fill, 120]0", "0[35, fill]0[35, fill]0"));
     int subMenuIndex = -1;
     for (String st : subMenu) {
-      MenuButton item = new MenuButton(st, true);
+      MenuButton item = new MenuButton(st);
       item.setIndex(++subMenuIndex);
-      item.addActionListener(new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent ae) {
-          eventSelected.menuSelected(index, item.getIndex());
-          closeMenu();
-        }
+      item.addActionListener(ae -> {
+        eventSelected.menuSelected(index, item.getIndex());
+        closeMenu();
       });
       panel.add(item);
       setSize(new Dimension(120, 35 * subMenu.length));
@@ -81,6 +77,7 @@ public class PopupMenu extends javax.swing.JDialog {
     setUndecorated(true);
     addWindowFocusListener(new java.awt.event.WindowFocusListener() {
       public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+        // TODO document why this method is empty
       }
 
       public void windowLostFocus(java.awt.event.WindowEvent evt) {
@@ -112,6 +109,7 @@ public class PopupMenu extends javax.swing.JDialog {
   }// </editor-fold>//GEN-END:initComponents
 
   private void formWindowLostFocus(java.awt.event.WindowEvent evt) {// GEN-FIRST:event_formWindowLostFocus
+    evt.getWindow().setVisible(false);
     closeMenu();
   }// GEN-LAST:event_formWindowLostFocus
 

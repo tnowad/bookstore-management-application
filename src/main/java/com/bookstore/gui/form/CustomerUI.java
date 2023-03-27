@@ -1,4 +1,4 @@
-package com.bookstore.gui;
+package com.bookstore.gui.form;
 
 import java.awt.*;
 import javax.swing.*;
@@ -13,14 +13,15 @@ public class CustomerUI extends JFrame implements MouseListener {
   private JLabel jLabelHomeIcon, jLabelCartIcon, jLabelNotifiIcon, jLabelHistoryIcon, jLabelProfileIcon, jLabelHelpIcon,
       jLabelLogoutIcon;
 
-  private JPanel contentHome, contentCart, contentHistory, contentNotifi, contentProfile;
+  private JPanel contentHome;
+  private JPanel contentNotifi;;
 
   public CustomerUI() {
     setTitle("Bookstore Management App");
     setPreferredSize(new Dimension(1200, 650));
     setBackground(Color.WHITE);
     initFrame();
-    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     setVisible(true);
     pack();
   }
@@ -60,7 +61,6 @@ public class CustomerUI extends JFrame implements MouseListener {
     jLabelHelpIcon.setIcon(new ImageIcon(getClass().getResource("/resources/image/help.png")));
     jLabelLogoutIcon.setIcon(new ImageIcon(getClass().getResource("/resources/image/logout.png")));
 
-    // iconMenuBar.setLayout(new BorderLayout());
     iconMenuBar.add(jLabelHomeIcon);
     iconMenuBar.add(jLabelNotifiIcon);
     iconMenuBar.add(jLabelCartIcon);
@@ -185,6 +185,7 @@ public class CustomerUI extends JFrame implements MouseListener {
           Thread.sleep(2);
         } catch (InterruptedException e) {
           e.printStackTrace();
+          Thread.currentThread().interrupt();
         }
       }
       outsideClickListener = new MouseAdapter() {
@@ -208,6 +209,7 @@ public class CustomerUI extends JFrame implements MouseListener {
           Thread.sleep(2);
         } catch (InterruptedException e) {
           e.printStackTrace();
+          Thread.currentThread().interrupt();
         }
       }
     }).start();
@@ -229,14 +231,6 @@ public class CustomerUI extends JFrame implements MouseListener {
       this.setVisible(true);
     }
 
-  }
-
-  @Override
-  public void mouseEntered(MouseEvent arg0) {
-  }
-
-  @Override
-  public void mouseExited(MouseEvent arg0) {
   }
 
   @Override
@@ -268,7 +262,17 @@ public class CustomerUI extends JFrame implements MouseListener {
   }
 
   @Override
-  public void mouseReleased(MouseEvent arg0) {
+  public void mouseReleased(MouseEvent e) {
+    throw new UnsupportedOperationException("Unimplemented method 'mouseReleased'");
   }
 
+  @Override
+  public void mouseEntered(MouseEvent e) {
+    throw new UnsupportedOperationException("Unimplemented method 'mouseEntered'");
+  }
+
+  @Override
+  public void mouseExited(MouseEvent e) {
+    throw new UnsupportedOperationException("Unimplemented method 'mouseExited'");
+  }
 }

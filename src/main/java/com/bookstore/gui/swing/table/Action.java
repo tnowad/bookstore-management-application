@@ -2,24 +2,16 @@ package com.bookstore.gui.swing.table;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class Action extends javax.swing.JPanel {
 
   public Action(ModelAction data) {
     initComponents();
-    cmdEdit.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent ae) {
-        data.getEvent().update(data.getStudent());
-      }
+    cmdEdit.addActionListener(ae -> {
+      data.getEvent().update(data.getStudent());
     });
-    cmdDelete.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent ae) {
-        data.getEvent().delete(data.getStudent());
-      }
+    cmdDelete.addActionListener(ae -> {
+      data.getEvent().delete(data.getStudent());
     });
   }
 
@@ -30,9 +22,6 @@ public class Action extends javax.swing.JPanel {
     grphcs.drawLine(0, getHeight() - 1, getWidth(), getHeight() - 1);
   }
 
-  @SuppressWarnings("unchecked")
-  // <editor-fold defaultstate="collapsed" desc="Generated
-  // Code">//GEN-BEGIN:initComponents
   private void initComponents() {
 
     cmdEdit = new com.bookstore.gui.swing.Button();

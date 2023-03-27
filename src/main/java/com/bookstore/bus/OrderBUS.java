@@ -168,7 +168,7 @@ public class OrderBUS implements IBUS<OrderModel> {
     return updatedRows;
   }
 
-  public int updateMoney(int id, int paid) throws SQLException, ClassNotFoundException {
+  public int updatePaid(int id, int paid) throws SQLException, ClassNotFoundException {
     OrderModel orderModel = getModelById(id);
     if (orderModel == null) {
       throw new IllegalArgumentException("Order with ID " + id + " does not exist.");

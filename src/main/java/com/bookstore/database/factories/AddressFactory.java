@@ -9,8 +9,9 @@ public class AddressFactory implements IFactory<AddressModel> {
 
   @Override
   public AddressModel create() {
+    id++;
     return new AddressModel(
-        ++id,
+        id,
         faker.number().numberBetween(1, 100),
         faker.address().streetAddress(),
         faker.address().city(),

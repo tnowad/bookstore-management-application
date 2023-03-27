@@ -3,10 +3,11 @@ package com.bookstore.gui.swing.table;
 import com.bookstore.gui.swing.scrollbar.ScrollBarCustom;
 import java.awt.Color;
 import java.awt.Component;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -25,7 +26,7 @@ public class Table extends JTable {
           int i1) {
         TableHeader header = new TableHeader(o + "");
         if (i1 == 4) {
-          header.setHorizontalAlignment(JLabel.CENTER);
+          header.setHorizontalAlignment(SwingConstants.CENTER);
         }
         return header;
       }
@@ -87,7 +88,7 @@ public class Table extends JTable {
     scroll.setVerticalScrollBar(new ScrollBarCustom());
     JPanel p = new JPanel();
     p.setBackground(Color.WHITE);
-    scroll.setCorner(JScrollPane.UPPER_RIGHT_CORNER, p);
+    scroll.setCorner(ScrollPaneConstants.UPPER_RIGHT_CORNER, p);
     scroll.setBorder(new EmptyBorder(5, 10, 5, 10));
   }
 }

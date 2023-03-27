@@ -1,118 +1,129 @@
 package com.bookstore.gui.component;
 
-import java.awt.EventQueue;
 import java.awt.event.ActionListener;
 
-import javax.swing.JFrame;
+import javax.swing.GroupLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSeparator;
+import javax.swing.LayoutStyle;
+import javax.swing.SwingConstants;
 
-public class Header extends javax.swing.JPanel {
+import com.bookstore.gui.swing.Button;
+import com.bookstore.gui.swing.ButtonBadges;
+import com.bookstore.gui.swing.ImageAvatar;
+import com.bookstore.model.ProfileModel;
 
-  public Header() {
+public class Header extends JPanel {
+
+  private static Header instance;
+
+  private Button menuButton;
+
+  private Header() {
     initComponents();
   }
 
+  public static Header getInstance() {
+    if (ProfileModel.getInstance().getUser() == null) {
+      instance = null;
+      return null;
+    }
+    if (instance == null) {
+      instance = new Header();
+    }
+    return instance;
+  }
+
   public void addMenuEvent(ActionListener actionListener) {
-    cmdMenu.addActionListener(actionListener);
+    menuButton.addActionListener(actionListener);
   }
 
   private void initComponents() {
+    ImageAvatar picture;
+    JLabel userNameLabel;
+    JLabel roleLabel;
+    JSeparator jSeparator1;
+    ButtonBadges messageButton;
+    ButtonBadges notificationButton;
 
-    cmdMenu = new com.bookstore.gui.swing.Button();
-    pic = new com.bookstore.gui.swing.ImageAvatar();
-    lbUserName = new javax.swing.JLabel();
-    lbRole = new javax.swing.JLabel();
-    jSeparator1 = new javax.swing.JSeparator();
-    buttonBadges1 = new com.bookstore.gui.swing.ButtonBadges();
-    buttonBadges2 = new com.bookstore.gui.swing.ButtonBadges();
+    menuButton = new Button();
+    picture = new ImageAvatar();
+    userNameLabel = new JLabel();
+    roleLabel = new JLabel();
+    jSeparator1 = new JSeparator();
+    notificationButton = new ButtonBadges();
+    messageButton = new ButtonBadges();
 
     setBackground(new java.awt.Color(255, 255, 255));
 
-    cmdMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/bookstore/gui/icon/menu.png"))); // NOI18N
+    menuButton.setIcon(new ImageIcon(getClass().getResource("/com/bookstore/gui/icon/menu.png"))); // NOI18N
 
-    pic.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/bookstore/gui/icon/profile.jpg"))); // NOI18N
+    picture.setIcon(new ImageIcon(getClass().getResource("/com/bookstore/gui/icon/profile.jpg"))); // NOI18N
 
-    lbUserName.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
-    lbUserName.setForeground(new java.awt.Color(127, 127, 127));
-    lbUserName.setText("User Name");
+    userNameLabel.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
+    userNameLabel.setForeground(new java.awt.Color(127, 127, 127));
+    userNameLabel.setText("User Name");
 
-    lbRole.setForeground(new java.awt.Color(127, 127, 127));
-    lbRole.setText("Admin");
+    roleLabel.setForeground(new java.awt.Color(127, 127, 127));
+    roleLabel.setText("Admin");
 
-    jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
+    jSeparator1.setOrientation(SwingConstants.VERTICAL);
 
-    buttonBadges1.setForeground(new java.awt.Color(250, 49, 49));
-    buttonBadges1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/bookstore/gui/icon/notification.png"))); // NOI18N
-    buttonBadges1.setBadges(12);
+    notificationButton.setForeground(new java.awt.Color(250, 49, 49));
+    notificationButton
+        .setIcon(new ImageIcon(getClass().getResource("/com/bookstore/gui/icon/notification.png"))); // NOI18N
+    notificationButton.setBadges(12);
 
-    buttonBadges2.setForeground(new java.awt.Color(63, 178, 232));
-    buttonBadges2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/bookstore/gui/icon/message.png"))); // NOI18N
-    buttonBadges2.setBadges(5);
+    messageButton.setForeground(new java.awt.Color(63, 178, 232));
+    messageButton.setIcon(new ImageIcon(getClass().getResource("/com/bookstore/gui/icon/message.png"))); // NOI18N
+    messageButton.setBadges(5);
 
-    javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+    GroupLayout layout = new GroupLayout(this);
     this.setLayout(layout);
     layout.setHorizontalGroup(
-        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(cmdMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 38,
-                    javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 362, Short.MAX_VALUE)
-                .addComponent(buttonBadges2, javax.swing.GroupLayout.PREFERRED_SIZE, 38,
-                    javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(menuButton, GroupLayout.PREFERRED_SIZE, 38,
+                    GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 362, Short.MAX_VALUE)
+                .addComponent(messageButton, GroupLayout.PREFERRED_SIZE, 38,
+                    GroupLayout.PREFERRED_SIZE)
                 .addGap(3, 3, 3)
-                .addComponent(buttonBadges1, javax.swing.GroupLayout.PREFERRED_SIZE, 38,
-                    javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 8,
-                    javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbUserName, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lbRole, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addComponent(notificationButton, GroupLayout.PREFERRED_SIZE, 38,
+                    GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator1, GroupLayout.PREFERRED_SIZE, 8,
+                    GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addComponent(userNameLabel, GroupLayout.Alignment.TRAILING)
+                    .addComponent(roleLabel, GroupLayout.Alignment.TRAILING))
                 .addGap(18, 18, 18)
-                .addComponent(pic, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(picture, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)
                 .addContainerGap()));
     layout.setVerticalGroup(
-        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(lbUserName)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-                            javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lbRole))
-                    .addComponent(cmdMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
+                        .addComponent(userNameLabel)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED,
+                            GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(roleLabel))
+                    .addComponent(menuButton, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE,
                         Short.MAX_VALUE)
-                    .addComponent(pic, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
+                    .addComponent(picture, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE,
                         Short.MAX_VALUE)
                     .addComponent(jSeparator1)
-                    .addComponent(buttonBadges1, javax.swing.GroupLayout.DEFAULT_SIZE,
-                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(buttonBadges2, javax.swing.GroupLayout.DEFAULT_SIZE,
-                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(notificationButton, GroupLayout.DEFAULT_SIZE,
+                        GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(messageButton, GroupLayout.DEFAULT_SIZE,
+                        GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap()));
-  }
-
-  private com.bookstore.gui.swing.ButtonBadges buttonBadges1;
-  private com.bookstore.gui.swing.ButtonBadges buttonBadges2;
-  private com.bookstore.gui.swing.Button cmdMenu;
-  private javax.swing.JSeparator jSeparator1;
-  private javax.swing.JLabel lbRole;
-  private javax.swing.JLabel lbUserName;
-  private com.bookstore.gui.swing.ImageAvatar pic;
-
-  public static void main(String[] args) {
-    EventQueue.invokeLater(() -> {
-      new JFrame() {
-        {
-          add(new Header());
-          pack();
-          setLocationRelativeTo(null);
-          setVisible(true);
-        }
-      };
-    });
   }
 
 }

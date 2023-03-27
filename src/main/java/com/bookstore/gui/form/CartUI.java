@@ -1,4 +1,4 @@
-package com.bookstore.gui;
+package com.bookstore.gui.form;
 
 import java.awt.*;
 import javax.swing.*;
@@ -11,11 +11,9 @@ import javax.swing.table.TableColumnModel;
 
 public class CartUI extends JFrame {
 
-  private JLabel jLabelBookTitle;
-
   public CartUI() {
     setPreferredSize(new Dimension(1280, 720));
-    setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
     setTitle("Giỏ Hàng");
     getContentPane().setBackground(Color.WHITE);
 
@@ -95,7 +93,7 @@ public class CartUI extends JFrame {
     jTableCart.getTableHeader().setResizingAllowed(false);
 
     JScrollPane jScrollPane = new JScrollPane(jTableCart);
-    jScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+    jScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
     jScrollPane.setBorder(BorderFactory.createEmptyBorder());
     jTableCart.getTableHeader().setFont(new Font("sansserif", Font.PLAIN, 18));
 

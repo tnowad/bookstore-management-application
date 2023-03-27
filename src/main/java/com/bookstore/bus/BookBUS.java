@@ -205,6 +205,19 @@ public class BookBUS implements IBUS<BookModel> {
     return 0;
   }
 
+  public int updatePrice(String isbn, int price) throws ClassNotFoundException, SQLException {
+    int success = BookDAO.getInstance().updatePrice(isbn, price);
+    if (success == 1) {
+      for (BookModel book : bookList) {
+        if (book.getIsbn().equals(isbn)) {
+          book.setPrice(price);
+          return 1;
+        }
+      }
+    }
+    return 0;
+  }
+
   @Override
   public int deleteModel(int id) throws SQLException, ClassNotFoundException {
     BookModel bookModel = getModelById(id);

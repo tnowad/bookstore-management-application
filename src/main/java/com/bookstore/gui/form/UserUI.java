@@ -1,4 +1,4 @@
-package com.bookstore.gui;
+package com.bookstore.gui.form;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.*;
-import javax.swing.border.*;
 
 import com.bookstore.dao.UserDAO;
 import com.bookstore.model.UserModel;
@@ -47,15 +46,39 @@ public class UserUI implements MouseListener{
 
     private JLabel filterEm;
 
+<<<<<<< HEAD:src/main/java/com/bookstore/gui/UserUI.java
     private JPanel action;
+=======
+  public UserUI() throws ClassNotFoundException, SQLException {
+    frame.setPreferredSize(new Dimension(1060, 550));
+    frame.setBackground(Color.BLACK);
+    frame.setLayout(new FlowLayout());
+    orderUI();
+    count();
+    frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+    frame.pack();
+    frame.setLocationRelativeTo(null);
+    frame.setVisible(true);
+>>>>>>> 7bf9a4d6beb4af09d84bb1162d617cd5d38a79fc:src/main/java/com/bookstore/gui/form/UserUI.java
 
     private JButton buttonSave;
 
     private JButton buttonInsert;
 
+<<<<<<< HEAD:src/main/java/com/bookstore/gui/UserUI.java
     private JButton buttonDel;
 
     private JLabel darkMode;
+=======
+    title = new JPanel();
+    title.setPreferredSize(new Dimension(1030, 40));
+    title.setLayout(new BorderLayout());
+
+    title_Now = new JLabel("User List", SwingConstants.CENTER);
+    title_Now.setFont(new Font("sansserif", Font.BOLD, 18));
+    title_Now.setPreferredSize(new Dimension(90, 40));
+    title.add(title_Now, BorderLayout.WEST);
+>>>>>>> 7bf9a4d6beb4af09d84bb1162d617cd5d38a79fc:src/main/java/com/bookstore/gui/form/UserUI.java
 
     private Component roleName;
 
@@ -65,6 +88,7 @@ public class UserUI implements MouseListener{
 
     private Color test;
 
+<<<<<<< HEAD:src/main/java/com/bookstore/gui/UserUI.java
     private JFrame jframe;
 
     private JLabel listEast;
@@ -89,6 +113,66 @@ public class UserUI implements MouseListener{
         title = new JPanel();
         title.setPreferredSize(new Dimension(1030,40));
         title.setLayout(new BorderLayout());
+=======
+    icon = new JLabel();
+    icon.setIcon(new ImageIcon(getClass().getResource("/resources/image/admin.png")));
+    contendRole = new JLabel();
+    contendRole.setLayout(new FlowLayout());
+    title_Now = new JLabel("Admin", SwingConstants.CENTER);
+    title_Now.setFont(new Font("sansserif", Font.BOLD, 16));
+    title_Now.setPreferredSize(new Dimension(90, 20));
+    valueAdmin = new JLabel("100");
+    valueAdmin.setFont(new Font("sansserif", Font.BOLD, 16));
+    paymentType.add(icon, BorderLayout.WEST);
+    contendRole.add(title_Now);
+    contendRole.add(valueAdmin);
+    paymentType.add(contendRole, BorderLayout.CENTER);
+    method.add(paymentType);
+
+    paymentType = new JPanel();
+    paymentType.setPreferredSize(new Dimension(145, 80));
+    paymentType.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.GRAY));
+    paymentType.setLayout(new BorderLayout());
+    icon = new JLabel();
+    icon.setIcon(new ImageIcon(getClass().getResource("/resources/image/customer.png")));
+    contendRole = new JLabel();
+    contendRole.setLayout(new FlowLayout());
+    title_Now = new JLabel("Customer", SwingConstants.CENTER);
+    title_Now.setFont(new Font("sansserif", Font.BOLD, 16));
+    title_Now.setPreferredSize(new Dimension(90, 20));
+    valueCus = new JLabel("100");
+    valueCus.setFont(new Font("sansserif", Font.BOLD, 16));
+    paymentType.add(icon, BorderLayout.WEST);
+    contendRole.add(title_Now);
+    contendRole.add(valueCus);
+    paymentType.add(contendRole, BorderLayout.CENTER);
+    method.add(paymentType);
+
+    paymentType = new JPanel();
+    paymentType.setPreferredSize(new Dimension(145, 80));
+    paymentType.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.GRAY));
+    method.add(paymentType);
+    paymentType.setLayout(new BorderLayout());
+    icon = new JLabel();
+    icon.setIcon(new ImageIcon(getClass().getResource("/resources/image/Employee.png")));
+    contendRole = new JLabel();
+    contendRole.setLayout(new FlowLayout());
+    title_Now = new JLabel("Employee", SwingConstants.CENTER);
+    title_Now.setFont(new Font("sansserif", Font.BOLD, 16));
+    title_Now.setPreferredSize(new Dimension(90, 20));
+    valueEm = new JLabel("100");
+    valueEm.setFont(new Font("sansserif", Font.BOLD, 16));
+    paymentType.add(icon, BorderLayout.WEST);
+    contendRole.add(title_Now);
+    contendRole.add(valueEm);
+    paymentType.add(contendRole, BorderLayout.CENTER);
+    list.add(method);
+
+    filtering = new JPanel();
+    filtering.setPreferredSize(new Dimension(900, 40));
+    filtering.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.gray));
+    filtering.setLayout(new FlowLayout(FlowLayout.LEFT));
+>>>>>>> 7bf9a4d6beb4af09d84bb1162d617cd5d38a79fc:src/main/java/com/bookstore/gui/form/UserUI.java
 
         title_Now = new JLabel("User List",JLabel.CENTER);
         title_Now.setFont(new Font("sansserif", Font.BOLD, 18));
@@ -354,6 +438,7 @@ public class UserUI implements MouseListener{
             e.getComponent().setForeground(Color.blue);
         }
 
+<<<<<<< HEAD:src/main/java/com/bookstore/gui/UserUI.java
     }
     @Override
     public void mousePressed(MouseEvent e) {
@@ -367,4 +452,43 @@ public class UserUI implements MouseListener{
     @Override
     public void mouseExited(MouseEvent e) {
     }
+=======
+  public static void main(String[] args) throws ClassNotFoundException, SQLException {
+    new UserUI();
+  }
+
+  @Override
+  public void mouseClicked(MouseEvent e) {
+    filterALL.setForeground(Color.gray);
+    filterAd.setForeground(Color.gray);
+    filterCus.setForeground(Color.gray);
+    filterEm.setForeground(Color.gray);
+    e.getComponent().setForeground(Color.blue);
+
+  }
+
+  @Override
+  public void mousePressed(MouseEvent e) {
+    throw new UnsupportedOperationException("Not supported yet."); // To change body of generated methods, choose Tools
+                                                                   // | Templates.
+  }
+
+  @Override
+  public void mouseReleased(MouseEvent e) {
+    throw new UnsupportedOperationException("Not supported yet."); // To change body of generated methods, choose Tools
+                                                                   // | Templates.
+  }
+
+  @Override
+  public void mouseEntered(MouseEvent e) {
+    throw new UnsupportedOperationException("Not supported yet."); // To change body of generated methods, choose Tools
+                                                                   // | Templates.
+  }
+
+  @Override
+  public void mouseExited(MouseEvent e) {
+    throw new UnsupportedOperationException("Not supported yet."); // To change body of generated methods, choose Tools
+                                                                   // | Templates.
+  }
+>>>>>>> 7bf9a4d6beb4af09d84bb1162d617cd5d38a79fc:src/main/java/com/bookstore/gui/form/UserUI.java
 }

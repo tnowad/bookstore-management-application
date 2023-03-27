@@ -1,5 +1,6 @@
 package com.bookstore.gui.swing.scrollbar;
 
+import java.awt.Adjustable;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -8,7 +9,6 @@ import java.awt.RenderingHints;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComponent;
-import javax.swing.JScrollBar;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 
 public class ModernScrollBarUI extends BasicScrollBarUI {
@@ -17,7 +17,7 @@ public class ModernScrollBarUI extends BasicScrollBarUI {
 
   @Override
   protected Dimension getMaximumThumbSize() {
-    if (scrollbar.getOrientation() == JScrollBar.VERTICAL) {
+    if (scrollbar.getOrientation() == Adjustable.VERTICAL) {
       return new Dimension(0, THUMB_SIZE);
     } else {
       return new Dimension(THUMB_SIZE, 0);
@@ -26,7 +26,7 @@ public class ModernScrollBarUI extends BasicScrollBarUI {
 
   @Override
   protected Dimension getMinimumThumbSize() {
-    if (scrollbar.getOrientation() == JScrollBar.VERTICAL) {
+    if (scrollbar.getOrientation() == Adjustable.VERTICAL) {
       return new Dimension(0, THUMB_SIZE);
     } else {
       return new Dimension(THUMB_SIZE, 0);
@@ -44,19 +44,19 @@ public class ModernScrollBarUI extends BasicScrollBarUI {
   }
 
   @Override
-  protected void paintTrack(Graphics grphcs, JComponent jc, Rectangle rctngl) {
-
+  protected void paintTrack(Graphics graphics, JComponent jc, Rectangle rectangle) {
+    // TODO document why this method is empty
   }
 
   @Override
-  protected void paintThumb(Graphics grphcs, JComponent jc, Rectangle rctngl) {
-    Graphics2D g2 = (Graphics2D) grphcs;
+  protected void paintThumb(Graphics graphics, JComponent jcomponent, Rectangle rectangle) {
+    Graphics2D g2 = (Graphics2D) graphics;
     g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-    int x = rctngl.x;
-    int y = rctngl.y;
-    int width = rctngl.width;
-    int height = rctngl.height;
-    if (scrollbar.getOrientation() == JScrollBar.VERTICAL) {
+    int x = rectangle.x;
+    int y = rectangle.y;
+    int width = rectangle.width;
+    int height = rectangle.height;
+    if (scrollbar.getOrientation() == Adjustable.VERTICAL) {
       y += 8;
       height -= 16;
     } else {
@@ -74,7 +74,8 @@ public class ModernScrollBarUI extends BasicScrollBarUI {
     }
 
     @Override
-    public void paint(Graphics grphcs) {
+    public void paint(Graphics graphics) {
+      // TODO document why this method is empty
     }
   }
 }

@@ -37,7 +37,7 @@ public class PaymentDAO implements IDAO<PaymentModel> {
   @Override
   public ArrayList<PaymentModel> readDatabase() throws SQLException, ClassNotFoundException {
     ArrayList<PaymentModel> paymentList = new ArrayList<>();
-    try (ResultSet rs = DatabaseConnect.executeQuery("SELECT * FROM payments")) {
+    try (ResultSet rs = DatabaseConnection.executeQuery("SELECT * FROM payments")) {
       while (rs.next()) {
         PaymentModel paymentModel = createPaymentModelFromResultSet(rs);
         paymentList.add(paymentModel);
@@ -52,7 +52,7 @@ public class PaymentDAO implements IDAO<PaymentModel> {
     Object[] args = { payment.getOrderId(), payment.getUserId(), payment.getAmount(),
         payment.getPaymentMethod().toString(), payment.getPaymentMethodId(),
         payment.getStatus().toString() };
-    return DatabaseConnect.executeUpdate(insertSql, args);
+    return DatabaseConnection.executeUpdate(insertSql, args);
   }
 
   @Override
@@ -61,20 +61,20 @@ public class PaymentDAO implements IDAO<PaymentModel> {
     Object[] args = { payment.getOrderId(), payment.getUserId(), payment.getAmount(),
         payment.getPaymentMethod().toString(), payment.getPaymentMethodId(),
         payment.getStatus().toString(), payment.getId() };
-    return DatabaseConnect.executeUpdate(updateSql, args);
+    return DatabaseConnection.executeUpdate(updateSql, args);
   }
 
   public int updateStatus(int orderId, PaymentStatus status) throws SQLException, ClassNotFoundException {
     String updateSql = "UPDATE payments SET status = ? WHERE order_id = ?";
     Object[] args = { status, orderId };
-    return DatabaseConnect.executeUpdate(updateSql, args);
+    return DatabaseConnection.executeUpdate(updateSql, args);
   }
 
   @Override
   public int delete(int id) throws SQLException, ClassNotFoundException {
     String deleteSql = "DELETE FROM payments WHERE id = ?";
     Object[] args = { id };
-    return DatabaseConnect.executeUpdate(deleteSql, args);
+    return DatabaseConnection.executeUpdate(deleteSql, args);
   }
 
   @Override
@@ -99,7 +99,7 @@ public class PaymentDAO implements IDAO<PaymentModel> {
           + String.join(", ", columnNames) + ") LIKE ?";
     }
 
-    try (PreparedStatement pst = DatabaseConnect.getPreparedStatement(query, "%" + condition + "%")) {
+    try (PreparedStatement pst = DatabaseConnection.getPreparedStatement(query, "%" + condition + "%")) {
       try (ResultSet rs = pst.executeQuery()) {
         List<PaymentModel> paymentList = new ArrayList<>();
         while (rs.next()) {
