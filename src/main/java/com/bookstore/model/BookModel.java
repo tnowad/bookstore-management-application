@@ -13,8 +13,8 @@ public class BookModel {
 
   public enum Status {
     AVAILABLE,
-    unavailable,
-    deleted;
+    UNAVAILABLE,
+    DELETED;
   }
 
   public BookModel() {
