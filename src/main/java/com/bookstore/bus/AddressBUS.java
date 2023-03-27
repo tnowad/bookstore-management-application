@@ -163,8 +163,6 @@ public class AddressBUS implements IBUS<AddressModel> {
       }
     } catch (SQLException e) {
       throw new SQLException("Failed to search for address: " + e.getMessage());
-    } catch (ClassNotFoundException e) {
-      throw new ClassNotFoundException("Failed to search for address: " + e.getMessage());
     }
 
     if (results.isEmpty()) {

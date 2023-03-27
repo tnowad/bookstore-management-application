@@ -30,7 +30,7 @@ public class AddressDAO implements IDAO<AddressModel> {
   }
 
   @Override
-  public ArrayList<AddressModel> readDatabase() throws SQLException, ClassNotFoundException {
+  public ArrayList<AddressModel> readDatabase() throws SQLException {
     ArrayList<AddressModel> addressList = new ArrayList<>();
     try (ResultSet rs = DatabaseConnection.executeQuery("SELECT * FROM addresses")) {
       while (rs.next()) {
@@ -42,7 +42,7 @@ public class AddressDAO implements IDAO<AddressModel> {
   }
 
   @Override
-  public int insert(AddressModel address) throws SQLException, ClassNotFoundException {
+  public int insert(AddressModel address) {
     String insertSql = "INSERT INTO addresses (user_id, street, city, state, zip) VALUES (?, ?, ?, ?, ?)";
     Object[] args = { address.getUserId(), address.getStreet(), address.getCity(),
         address.getState(), address.getZip() };
@@ -50,7 +50,7 @@ public class AddressDAO implements IDAO<AddressModel> {
   }
 
   @Override
-  public int update(AddressModel address) throws SQLException, ClassNotFoundException {
+  public int update(AddressModel address) {
     String updateSql = "UPDATE addresses SET user_id = ?, street = ?, city = ?, state = ?, zip = ? WHERE id = ?";
     Object[] args = { address.getUserId(), address.getStreet(), address.getCity(),
         address.getState(), address.getZip(), address.getId() };
@@ -58,15 +58,14 @@ public class AddressDAO implements IDAO<AddressModel> {
   }
 
   @Override
-  public int delete(int id) throws SQLException, ClassNotFoundException {
+  public int delete(int id) {
     String deleteSql = "DELETE FROM addresses WHERE id = ?";
     Object[] args = { id };
     return DatabaseConnection.executeUpdate(deleteSql, args);
   }
 
   @Override
-  public List<AddressModel> search(String condition, String[] columnNames)
-      throws SQLException, ClassNotFoundException {
+  public List<AddressModel> search(String condition, String[] columnNames) throws SQLException {
     if (condition == null || condition.trim().isEmpty()) {
       throw new IllegalArgumentException("Search condition cannot be empty or null");
     }

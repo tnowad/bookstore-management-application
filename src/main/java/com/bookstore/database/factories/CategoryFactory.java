@@ -5,13 +5,17 @@ import com.github.javafaker.Faker;
 
 public class CategoryFactory implements IFactory<CategoryModel> {
 
-    private static final Faker faker = new Faker();
-    private static int id = 0;
+  private static final Faker faker = new Faker();
+  private static int id = 0;
 
-    @Override
-    public CategoryModel create() {
-        return new CategoryModel(
-                ++id,
-                faker.commerce().productName());
-    }
+  private static int getNewId() {
+    return ++id;
+  }
+
+  @Override
+  public CategoryModel create() {
+    return new CategoryModel(
+        getNewId(),
+        faker.commerce().productName());
+  }
 }

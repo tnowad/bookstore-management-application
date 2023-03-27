@@ -10,10 +10,14 @@ public class PaymentMethodFactory implements IFactory<PaymentMethodModel> {
   private static final Faker faker = new Faker();
   private static int id = 0;
 
+  private static int getNewId() {
+    return ++id;
+  }
+
   @Override
   public PaymentMethodModel create() {
     return new PaymentMethodModel(
-        ++id,
+        getNewId(),
         faker.finance().iban(),
         faker.finance().creditCard(),
         faker.name().fullName(),

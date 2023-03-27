@@ -217,7 +217,7 @@ public class UserBUS implements IBUS<UserModel> {
     return 0;
   }
 
-  public int updateRole(String username, Role role) throws ClassNotFoundException, SQLException {
+  public int updateRole(String username, Role role) {
     int success = UserDAO.getInstance().updateRole(username, role);
     if (success == 1) {
       for (UserModel user : userList) {

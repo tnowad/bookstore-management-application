@@ -5,13 +5,10 @@ import com.bookstore.database.factories.CartFactory;
 
 public class CartSeeder implements ISeeder {
 
-    @Override
-    public void run() {
-        for (int i = 0; i < 100; i++) {
-            try {
-                CartDAO.getInstance().insert(new CartFactory().create());
-            } catch (Exception e) {
-            }
-        }
+  @Override
+  public void run() {
+    for (int i = 0; i < 100; i++) {
+      CartDAO.getInstance().insert(new CartFactory().create());
     }
+  }
 }

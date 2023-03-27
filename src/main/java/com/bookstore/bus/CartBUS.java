@@ -23,7 +23,7 @@ public class CartBUS implements IBUS<CartModel> {
     return instance;
   }
 
-  private CartBUS() throws SQLException, ClassNotFoundException {
+  private CartBUS() throws SQLException {
     this.cartList.addAll(CartDAO.getInstance().readDatabase());
   }
 
@@ -144,7 +144,7 @@ public class CartBUS implements IBUS<CartModel> {
     return updatedRows;
   }
 
-  public int updateStatus(int userId, Status status) throws ClassNotFoundException, SQLException {
+  public int updateStatus(int userId, Status status) throws SQLException {
     int success = CartDAO.getInstance().updateStatus(userId, status);
     if (success == 1) {
       for (CartModel cart : cartList) {
@@ -173,18 +173,12 @@ public class CartBUS implements IBUS<CartModel> {
   @Override
   public List<CartModel> searchModel(String value, String[] columns) throws SQLException, ClassNotFoundException {
     List<CartModel> results = new ArrayList<>();
-    try {
-      List<CartModel> entities = CartDAO.getInstance().search(value, columns);
-      for (CartModel entity : entities) {
-        CartModel model = mapToEntity(entity);
-        if (checkFilter(model, value, columns)) {
-          results.add(model);
-        }
+    List<CartModel> entities = CartDAO.getInstance().search(value, columns);
+    for (CartModel entity : entities) {
+      CartModel model = mapToEntity(entity);
+      if (checkFilter(model, value, columns)) {
+        results.add(model);
       }
-    } catch (SQLException e) {
-      throw new SQLException("Failed to search for cart: " + e.getMessage());
-    } catch (ClassNotFoundException e) {
-      throw new ClassNotFoundException("Failed to search for cart: " + e.getMessage());
     }
 
     if (results.isEmpty()) {
