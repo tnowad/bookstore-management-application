@@ -58,7 +58,13 @@ public class EmployeeDAO implements IDAO<EmployeeModel> {
 
   public int updateStatus(int userId, EmployeeType role) throws SQLException, ClassNotFoundException {
     String updateSql = "UPDATE employees SET employee_type = ? WHERE user_id = ?";
-    Object[] args = { userId, role };
+    Object[] args = { role, userId };
+    return DatabaseConnection.executeUpdate(updateSql, args);
+  }
+
+  public int updateSalary(int userId, int salary) throws SQLException, ClassNotFoundException {
+    String updateSql = "UPDATE employees SET salary = ? WHERE user_id = ?";
+    Object[] args = { salary, userId };
     return DatabaseConnection.executeUpdate(updateSql, args);
   }
 
