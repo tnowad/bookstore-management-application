@@ -113,7 +113,7 @@ public class EmployeeDAO implements IDAO<EmployeeModel> {
     }
   }
 
-  public EmployeeModel getEmployeeById(int id) throws SQLException, ClassNotFoundException {
+  public EmployeeModel getEmployeeById(int id) throws SQLException {
     String query = "SELECT * FROM employees WHERE user_id = ?";
     Object[] args = { id };
     try (PreparedStatement pst = DatabaseConnection.getPreparedStatement(query, args)) {

@@ -57,7 +57,7 @@ public class ShippingDAO implements IDAO<ShippingModel> {
     return DatabaseConnection.executeUpdate(updateSql, args);
   }
 
-  public int updateStatus(int orderId, Status status) throws ClassNotFoundException, SQLException {
+  public int updateStatus(int orderId, Status status) {
     String updateSql = "UPDATE shipping SET status = ? WHERE id = ?";
     Object[] args = { status, orderId };
     return DatabaseConnection.executeUpdate(updateSql, args);

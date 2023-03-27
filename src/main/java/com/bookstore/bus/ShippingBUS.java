@@ -135,7 +135,7 @@ public class ShippingBUS implements IBUS<ShippingModel> {
     return updatedRows;
   }
 
-  public int updateStatus(int orderId, Status status) {
+  public int updateStatus(int orderId, Status status) throws ClassNotFoundException, SQLException {
     int success = ShippingDAO.getInstance().updateStatus(orderId, status);
     if (success == 1) {
       for (ShippingModel shipping : shippingList) {

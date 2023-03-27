@@ -95,7 +95,7 @@ public class ProviderDAO implements IDAO<ProviderModel> {
     }
   }
 
-  public ProviderModel getProviderById(int id) throws SQLException, ClassNotFoundException {
+  public ProviderModel getProviderById(int id) throws SQLException {
     String query = "SELECT * FROM providers WHERE id = ?";
     Object[] args = { id };
     try (PreparedStatement pst = DatabaseConnection.getPreparedStatement(query, args);
