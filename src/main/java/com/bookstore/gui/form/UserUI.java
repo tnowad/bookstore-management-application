@@ -18,19 +18,12 @@ public class UserUI implements MouseListener {
   private JPanel title;
   private JPanel list;
   private JPanel method;
-  private JPanel filtering;
-  private JScrollPane scrollPane;
-  private JLabel title_Now;
-  private JButton buttonCreate;
-  private JPanel paymentType;
+
+  private JLabel titleNow;
 
   private JTable table;
 
-  private JLabel icon;
-
   private JLabel valueAdmin;
-
-  private JLabel contendRole;
 
   private JLabel filterCus;
   private Object[][] data;
@@ -47,25 +40,7 @@ public class UserUI implements MouseListener {
 
   private JPanel action;
 
-  private JButton buttonSave;
-
-  private JButton buttonInsert;
-
-  private JButton buttonDel;
-
-  private JLabel darkMode;
-
-  private Component roleName;
-
-  private JPanel filter;
-
-  private JLabel search;
-
-  private Color test;
-
-  private JFrame jframe;
-
-  private JLabel listEast;
+  private JFrame jFrame;
 
   public UserUI() throws ClassNotFoundException, SQLException {
     frame.setPreferredSize(new Dimension(1060, 550));
@@ -73,7 +48,7 @@ public class UserUI implements MouseListener {
     frame.setLayout(new FlowLayout());
     orderUI();
     count();
-    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     frame.pack();
     frame.setLocationRelativeTo(null);
     frame.setVisible(true);
@@ -81,6 +56,20 @@ public class UserUI implements MouseListener {
   }
 
   public void orderUI() throws ClassNotFoundException, SQLException {
+    JLabel contendRole;
+    JLabel icon;
+    JScrollPane scrollPane;
+    JButton buttonCreate;
+    JPanel paymentType;
+    JPanel filtering;
+    JButton buttonSave;
+    JButton buttonInsert;
+    JButton buttonDel;
+    JLabel darkMode;
+    Component roleName;
+    JPanel filter;
+    JLabel search;
+    JLabel listEast;
     list = new JPanel();
     list.setPreferredSize(new Dimension(1060, 550));
     list.setLayout(new FlowLayout(FlowLayout.CENTER));
@@ -89,11 +78,11 @@ public class UserUI implements MouseListener {
     title.setPreferredSize(new Dimension(1030, 40));
     title.setLayout(new BorderLayout());
 
-    title_Now = new JLabel("User List", JLabel.CENTER);
-    title_Now.setFont(new Font("sansserif", Font.BOLD, 18));
-    title_Now.setPreferredSize(new Dimension(90, 40));
-    title_Now.setForeground(Color.black);
-    title.add(title_Now, BorderLayout.WEST);
+    titleNow = new JLabel("User List", SwingConstants.CENTER);
+    titleNow.setFont(new Font("sansserif", Font.BOLD, 18));
+    titleNow.setPreferredSize(new Dimension(90, 40));
+    titleNow.setForeground(Color.black);
+    title.add(titleNow, BorderLayout.WEST);
 
     listEast = new JLabel();
     listEast.setLayout(new FlowLayout());
@@ -132,7 +121,7 @@ public class UserUI implements MouseListener {
     icon.setIcon(new ImageIcon(getClass().getResource("/resources/image/admin.png")));
     contendRole = new JLabel();
     contendRole.setLayout(new FlowLayout());
-    roleName = new JLabel("Admin", JLabel.CENTER);
+    roleName = new JLabel("Admin", SwingConstants.CENTER);
     roleName.setFont(new Font("sansserif", Font.BOLD, 16));
     roleName.setPreferredSize(new Dimension(90, 20));
     valueAdmin = new JLabel("100");
@@ -151,7 +140,7 @@ public class UserUI implements MouseListener {
     icon.setIcon(new ImageIcon(getClass().getResource("/resources/image/customer.png")));
     contendRole = new JLabel();
     contendRole.setLayout(new FlowLayout());
-    roleName = new JLabel("Customer", JLabel.CENTER);
+    roleName = new JLabel("Customer", SwingConstants.CENTER);
     roleName.setFont(new Font("sansserif", Font.BOLD, 16));
     roleName.setPreferredSize(new Dimension(90, 20));
     valueCus = new JLabel("100");
@@ -171,7 +160,7 @@ public class UserUI implements MouseListener {
     icon.setIcon(new ImageIcon(getClass().getResource("/resources/image/Employee.png")));
     contendRole = new JLabel();
     contendRole.setLayout(new FlowLayout());
-    roleName = new JLabel("Employee", JLabel.CENTER);
+    roleName = new JLabel("Employee", SwingConstants.CENTER);
     roleName.setFont(new Font("sansserif", Font.BOLD, 16));
     roleName.setPreferredSize(new Dimension(90, 20));
     valueEm = new JLabel("100");
@@ -267,12 +256,12 @@ public class UserUI implements MouseListener {
     buttonDel.setFocusable(false);
     action.add(buttonDel);
 
-    jframe = new JFrame();
-    jframe.setLayout(new FlowLayout());
-    jframe.setPreferredSize(new Dimension(1060, 550));
-    jframe.setAlwaysOnTop(true);
-    jframe.setLocationRelativeTo(null);
-    jframe.setVisible(false);
+    jFrame = new JFrame();
+    jFrame.setLayout(new FlowLayout());
+    jFrame.setPreferredSize(new Dimension(1060, 550));
+    jFrame.setAlwaysOnTop(true);
+    jFrame.setLocationRelativeTo(null);
+    jFrame.setVisible(false);
 
     list.add(action);
 
@@ -280,36 +269,36 @@ public class UserUI implements MouseListener {
   }
 
   public void count() {
-    int cusvalue = 0;
-    int advalue = 0;
-    int emvalue = 0;
+    int cusValue = 0;
+    int adValue = 0;
+    int emValue = 0;
     for (int i = 0; i < data.length; i++) {
       if (data[i][9] != null && data[i][9].toString().equals("customer")) {
-        cusvalue = cusvalue + 1;
+        cusValue = cusValue + 1;
       }
       if (data[i][9] != null && data[i][9].toString().equals("admin")) {
-        advalue = advalue + 1;
+        adValue = adValue + 1;
       }
       if (data[i][9] != null && data[i][9].toString().equals("employee")) {
-        emvalue = emvalue + 1;
+        emValue = emValue + 1;
       }
     }
-    valueCus.setText(String.valueOf(cusvalue));
-    valueAdmin.setText(String.valueOf(advalue));
-    valueEm.setText(String.valueOf(emvalue));
+    valueCus.setText(String.valueOf(cusValue));
+    valueAdmin.setText(String.valueOf(adValue));
+    valueEm.setText(String.valueOf(emValue));
 
     list.setBackground(Color.WHITE);
     title.setBackground(Color.WHITE);
     method.setBackground(Color.WHITE);
     action.setBackground(Color.WHITE);
-    title_Now.setForeground(Color.black);
+    titleNow.setForeground(Color.black);
     table.setBackground(Color.WHITE);
 
   }
 
   public void create(MouseEvent e) {
     if (e.getComponent().getName().equals("create")) {
-      jframe.setVisible(true);
+      jFrame.setVisible(true);
     }
 
   }
@@ -324,7 +313,7 @@ public class UserUI implements MouseListener {
         title.setBackground(Color.WHITE);
         method.setBackground(Color.WHITE);
         action.setBackground(Color.WHITE);
-        title_Now.setForeground(Color.black);
+        titleNow.setForeground(Color.black);
         table.setBackground(Color.WHITE);
       } else {
         list.setBackground(new Color(330033));
@@ -332,7 +321,7 @@ public class UserUI implements MouseListener {
         method.setBackground(new Color(330033));
         action.setBackground(new Color(330033));
         System.out.println(list.getBackground().getRGB());
-        title_Now.setForeground(Color.white);
+        titleNow.setForeground(Color.white);
         table.setBackground(new Color(888888));
       }
 

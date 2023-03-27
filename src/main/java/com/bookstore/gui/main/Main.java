@@ -10,7 +10,6 @@ import javax.swing.WindowConstants;
 import com.bookstore.gui.component.Header;
 import com.bookstore.gui.component.Menu;
 import com.bookstore.gui.form.MainForm;
-import net.miginfocom.swing.MigLayout;
 
 public class Main extends JFrame {
 
