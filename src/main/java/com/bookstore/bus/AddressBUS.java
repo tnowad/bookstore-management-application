@@ -56,41 +56,41 @@ public class AddressBUS implements IBUS<AddressModel> {
   private boolean checkFilter(AddressModel addressModel, String value, String[] columns) {
     for (String column : columns) {
       switch (column.toLowerCase()) {
-        case "id":
+        case "id" -> {
           if (addressModel.getId() == Integer.parseInt(value)) {
             return true;
           }
-          break;
-        case "user_id":
+        }
+        case "user_id" -> {
           if (addressModel.getUserId() == Integer.parseInt(value)) {
             return true;
           }
-          break;
-        case "street":
+        }
+        case "street" -> {
           if (addressModel.getStreet().toLowerCase().contains(value.toLowerCase())) {
             return true;
           }
-          break;
-        case "city":
+        }
+        case "city" -> {
           if (addressModel.getCity().toLowerCase().contains(value.toLowerCase())) {
             return true;
           }
-          break;
-        case "state":
+        }
+        case "state" -> {
           if (addressModel.getState().toLowerCase().contains(value.toLowerCase())) {
             return true;
           }
-          break;
-        case "zip":
+        }
+        case "zip" -> {
           if (addressModel.getZip().toLowerCase().contains(value.toLowerCase())) {
             return true;
           }
-          break;
-        default:
+        }
+        default -> {
           if (checkAllColumns(addressModel, value)) {
             return true;
           }
-          break;
+        }
       }
     }
     return false;

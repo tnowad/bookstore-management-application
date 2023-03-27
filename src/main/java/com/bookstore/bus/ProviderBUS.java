@@ -54,26 +54,26 @@ public class ProviderBUS implements IBUS<ProviderModel> {
   private boolean checkFilter(ProviderModel providerModel, String value, String[] columns) {
     for (String column : columns) {
       switch (column.toLowerCase()) {
-        case "id":
+        case "id" -> {
           if (providerModel.getId() == Integer.parseInt(value)) {
             return true;
           }
-          break;
-        case "name":
+        }
+        case "name" -> {
           if (providerModel.getName().toLowerCase().contains(value.toLowerCase())) {
             return true;
           }
-          break;
-        case "description":
+        }
+        case "description" -> {
           if (providerModel.getDescription().toLowerCase().contains(value.toLowerCase())) {
             return true;
           }
-          break;
-        default:
+        }
+        default -> {
           if (checkAllColumns(providerModel, value)) {
             return true;
           }
-          break;
+        }
       }
     }
     return false;

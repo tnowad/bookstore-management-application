@@ -62,56 +62,56 @@ public class OrderBUS implements IBUS<OrderModel> {
   private boolean checkFilter(OrderModel orderModel, String value, String[] columns) {
     for (String column : columns) {
       switch (column.toLowerCase()) {
-        case "id":
+        case "id" -> {
           if (orderModel.getId() == Integer.parseInt(value)) {
             return true;
           }
-          break;
-        case "cart_id":
+        }
+        case "cart_id" -> {
           if (orderModel.getCart_id() == Integer.parseInt(value)) {
             return true;
           }
-          break;
-        case "customer_id":
+        }
+        case "customer_id" -> {
           if (orderModel.getCustomer_id() == Integer.parseInt(value)) {
             return true;
           }
-          break;
-        case "employee_id":
+        }
+        case "employee_id" -> {
           if (orderModel.getEmployee_id() == Integer.parseInt(value)) {
             return true;
           }
-          break;
-        case "total":
+        }
+        case "total" -> {
           if (orderModel.getTotal() == Integer.parseInt(value)) {
             return true;
           }
-          break;
-        case "paid":
+        }
+        case "paid" -> {
           if (orderModel.getPaid() == Integer.parseInt(value)) {
             return true;
           }
-          break;
-        case "created_at":
+        }
+        case "created_at" -> {
           if (orderModel.getCreated_at().toString().toLowerCase().contains(value.toLowerCase())) {
             return true;
           }
-          break;
-        case "updated_at":
+        }
+        case "updated_at" -> {
           if (orderModel.getUpdated_at().toString().toLowerCase().contains(value.toLowerCase())) {
             return true;
           }
-          break;
-        case "status":
+        }
+        case "status" -> {
           if (orderModel.getStatus().toString().toLowerCase().contains(value.toLowerCase())) {
             return true;
           }
-          break;
-        default:
+        }
+        default -> {
           if (checkAllColumns(orderModel, value)) {
             return true;
           }
-          break;
+        }
       }
     }
     return false;

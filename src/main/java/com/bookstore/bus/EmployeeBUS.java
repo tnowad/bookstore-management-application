@@ -57,31 +57,31 @@ public class EmployeeBUS implements IBUS<EmployeeModel> {
   private boolean checkFilter(EmployeeModel employeeModel, String value, String[] columns) {
     for (String column : columns) {
       switch (column.toLowerCase()) {
-        case "user_id":
+        case "user_id" -> {
           if (employeeModel.getUserId() == Integer.parseInt(value)) {
             return true;
           }
-          break;
-        case "salary":
+        }
+        case "salary" -> {
           if (employeeModel.getSalary() == Integer.parseInt(value)) {
             return true;
           }
-          break;
-        case "employee_type":
+        }
+        case "employee_type" -> {
           if (employeeModel.getEmployeeType().toString().toLowerCase().contains(value.toLowerCase())) {
             return true;
           }
-          break;
-        case "contact_information":
+        }
+        case "contact_information" -> {
           if (employeeModel.getContactInformation().toLowerCase().contains(value.toLowerCase())) {
             return true;
           }
-          break;
-        default:
+        }
+        default -> {
           if (checkAllColumns(employeeModel, value)) {
             return true;
           }
-          break;
+        }
       }
     }
     return false;

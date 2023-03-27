@@ -58,41 +58,41 @@ public class ImportBUS implements IBUS<ImportModel> {
   private boolean checkFilter(ImportModel importModel, String value, String[] columns) {
     for (String column : columns) {
       switch (column.toLowerCase()) {
-        case "id":
+        case "id" -> {
           if (importModel.getId() == Integer.parseInt(value)) {
             return true;
           }
-          break;
-        case "provider_id":
+        }
+        case "provider_id" -> {
           if (importModel.getProviderId() == Integer.parseInt(value)) {
             return true;
           }
-          break;
-        case "employee_id":
+        }
+        case "employee_id" -> {
           if (importModel.getEmployeeId() == Integer.parseInt(value)) {
             return true;
           }
-          break;
-        case "total_price":
+        }
+        case "total_price" -> {
           if (importModel.getTotalPrice().equals(new BigDecimal(value))) {
             return true;
           }
-          break;
-        case "created_at":
+        }
+        case "created_at" -> {
           if (importModel.getCreatedAt().toString().contains(value)) {
             return true;
           }
-          break;
-        case "updated_at":
+        }
+        case "updated_at" -> {
           if (importModel.getUpdatedAt().toString().contains(value)) {
             return true;
           }
-          break;
-        default:
+        }
+        default -> {
           if (checkAllColumns(importModel, value)) {
             return true;
           }
-          break;
+        }
       }
     }
     return false;

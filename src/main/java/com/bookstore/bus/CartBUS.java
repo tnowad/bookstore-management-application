@@ -60,41 +60,41 @@ public class CartBUS implements IBUS<CartModel> {
   private boolean checkFilter(CartModel cartModel, String value, String[] columns) {
     for (String column : columns) {
       switch (column.toLowerCase()) {
-        case "id":
+        case "id" -> {
           if (cartModel.getId() == Integer.parseInt(value)) {
             return true;
           }
-          break;
-        case "user_id":
+        }
+        case "user_id" -> {
           if (cartModel.getUserId() == Integer.parseInt(value)) {
             return true;
           }
-          break;
-        case "created_at":
+        }
+        case "created_at" -> {
           if (cartModel.getCreatedAt().toString().toLowerCase().contains(value.toLowerCase())) {
             return true;
           }
-          break;
-        case "status":
+        }
+        case "status" -> {
           if (cartModel.getStatus().toString().equalsIgnoreCase(value)) {
             return true;
           }
-          break;
-        case "expires":
+        }
+        case "expires" -> {
           if (cartModel.getExpires().toString().toLowerCase().contains(value.toLowerCase())) {
             return true;
           }
-          break;
-        case "promotion_id":
+        }
+        case "promotion_id" -> {
           if (cartModel.getPromotionId() == Integer.parseInt(value)) {
             return true;
           }
-          break;
-        default:
+        }
+        default -> {
           if (checkAllColumns(cartModel, value)) {
             return true;
           }
-          break;
+        }
       }
     }
     return false;

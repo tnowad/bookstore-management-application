@@ -19,8 +19,8 @@ public class DatabaseConnection {
   }
 
   /**
-   * Returns a connection to the database. This is a lazy operation so it's safe
-   * to call multiple times without re - creating the connection every time.
+   * Returns a connection to the database. This is a lazy operation, so it's safe
+   * to call multiple times without re-creating the connection every time.
    *
    * @return a connection to the database or null if there was an error connecting
    *         to the database or if the connection could not be
@@ -50,7 +50,7 @@ public class DatabaseConnection {
     Connection connection = getInstance();
     if (connection == null)
       return null;
-    try (PreparedStatement preparedStatement = connection.prepareStatement(sql);) {
+    try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
       for (int i = 0; i < args.length; i++) {
         preparedStatement.setObject(i + 1, args[i]);
       }

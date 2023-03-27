@@ -54,26 +54,26 @@ public class AuthorBUS implements IBUS<AuthorModel> {
   private boolean checkFilter(AuthorModel authorModel, String value, String[] columns) {
     for (String column : columns) {
       switch (column.toLowerCase()) {
-        case "id":
+        case "id" -> {
           if (authorModel.getId() == Integer.parseInt(value)) {
             return true;
           }
-          break;
-        case "name":
+        }
+        case "name" -> {
           if (authorModel.getName().toLowerCase().contains(value.toLowerCase())) {
             return true;
           }
-          break;
-        case "description":
+        }
+        case "description" -> {
           if (authorModel.getDescription().toLowerCase().contains(value.toLowerCase())) {
             return true;
           }
-          break;
-        default:
+        }
+        default -> {
           if (checkAllColumns(authorModel, value)) {
             return true;
           }
-          break;
+        }
       }
     }
     return false;

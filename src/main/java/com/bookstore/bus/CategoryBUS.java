@@ -53,21 +53,21 @@ public class CategoryBUS implements IBUS<CategoryModel> {
   private boolean checkFilter(CategoryModel categoryModel, String value, String[] column) {
     for (String col : column) {
       switch (col.toLowerCase()) {
-        case "id":
+        case "id" -> {
           if (categoryModel.getId() == Integer.parseInt(value)) {
             return true;
           }
-          break;
-        case "name":
+        }
+        case "name" -> {
           if (categoryModel.getName().toLowerCase().contains(value.toLowerCase())) {
             return true;
           }
-          break;
-        default:
+        }
+        default -> {
           if (checkAllColumns(categoryModel, value)) {
             return true;
           }
-          break;
+        }
       }
     }
     return false;

@@ -57,36 +57,36 @@ public class ShippingBUS implements IBUS<ShippingModel> {
   private boolean checkFilter(ShippingModel shippingModel, String value, String[] columns) {
     for (String column : columns) {
       switch (column.toLowerCase()) {
-        case "id":
+        case "id" -> {
           if (shippingModel.getId() == Integer.parseInt(value)) {
             return true;
           }
-          break;
-        case "order_id":
+        }
+        case "order_id" -> {
           if (shippingModel.getOrderId() == Integer.parseInt(value)) {
             return true;
           }
-          break;
-        case "shipping_method":
+        }
+        case "shipping_method" -> {
           if (shippingModel.getShippingMethod().toLowerCase().contains(value.toLowerCase())) {
             return true;
           }
-          break;
-        case "address_id":
+        }
+        case "address_id" -> {
           if (shippingModel.getAddressId() == Integer.parseInt(value)) {
             return true;
           }
-          break;
-        case "status":
+        }
+        case "status" -> {
           if (shippingModel.getStatus().toString().equalsIgnoreCase(value)) {
             return true;
           }
-          break;
-        default:
+        }
+        default -> {
           if (checkAllColumns(shippingModel, value)) {
             return true;
           }
-          break;
+        }
       }
     }
     return false;

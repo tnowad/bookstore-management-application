@@ -98,46 +98,46 @@ public class UserBUS implements IBUS<UserModel> {
   private boolean checkFilter(UserModel userModel, String value, String[] columns) {
     for (String column : columns) {
       switch (column.toLowerCase()) {
-        case "id":
+        case "id" -> {
           if (userModel.getId() == Integer.parseInt(value)) {
             return true;
           }
-          break;
-        case "username":
+        }
+        case "username" -> {
           if (userModel.getUsername().equalsIgnoreCase(value)) {
             return true;
           }
-          break;
-        case "status":
+        }
+        case "status" -> {
           if (userModel.getStatus().toString().equalsIgnoreCase(value)) {
             return true;
           }
-          break;
-        case "name":
+        }
+        case "name" -> {
           if (userModel.getName().equalsIgnoreCase(value)) {
             return true;
           }
-          break;
-        case "email":
+        }
+        case "email" -> {
           if (userModel.getEmail().equalsIgnoreCase(value)) {
             return true;
           }
-          break;
-        case "phone":
+        }
+        case "phone" -> {
           if (userModel.getPhone().equals(value)) {
             return true;
           }
-          break;
-        case "role":
+        }
+        case "role" -> {
           if (userModel.getRole().toString().equalsIgnoreCase(value)) {
             return true;
           }
-          break;
-        default:
+        }
+        default -> {
           if (checkAllColumns(userModel, value)) {
             return true;
           }
-          break;
+        }
       }
     }
     return false;

@@ -40,11 +40,7 @@ public class PaymentMethodBUS implements IBUS<PaymentMethodModel> {
     }
     return null;
   }
-
-  public List<PaymentMethodModel> getPaymentMethodList() throws NullPointerException {
-    return Collections.unmodifiableList(paymentMethodList);
-  }
-
+  
   private PaymentMethodModel mapToEntity(PaymentMethodModel from) {
     PaymentMethodModel to = new PaymentMethodModel();
     updateEntityFields(from, to);
@@ -62,41 +58,41 @@ public class PaymentMethodBUS implements IBUS<PaymentMethodModel> {
   private boolean checkFilter(PaymentMethodModel paymentMethodModel, String value, String[] columns) {
     for (String column : columns) {
       switch (column.toLowerCase()) {
-        case "id":
+        case "id" -> {
           if (paymentMethodModel.getId() == Integer.parseInt(value)) {
             return true;
           }
-          break;
-        case "payment_id":
+        }
+        case "payment_id" -> {
           if (paymentMethodModel.getPaymentId().toLowerCase().contains(value.toLowerCase())) {
             return true;
           }
-          break;
-        case "card_number":
+        }
+        case "card_number" -> {
           if (paymentMethodModel.getCardNumber().toLowerCase().contains(value.toLowerCase())) {
             return true;
           }
-          break;
-        case "card_holder":
+        }
+        case "card_holder" -> {
           if (paymentMethodModel.getCardHolder().toLowerCase().contains(value.toLowerCase())) {
             return true;
           }
-          break;
-        case "expiration_date":
+        }
+        case "expiration_date" -> {
           if (new SimpleDateFormat().format(paymentMethodModel.getExpirationDate()).equals(value)) {
             return true;
           }
-          break;
-        case "customer_id":
+        }
+        case "customer_id" -> {
           if (paymentMethodModel.getCustomerId() == Integer.parseInt(value)) {
             return true;
           }
-          break;
-        default:
+        }
+        default -> {
           if (checkAllColumns(paymentMethodModel, value)) {
             return true;
           }
-          break;
+        }
       }
     }
     return false;

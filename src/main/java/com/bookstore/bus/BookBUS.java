@@ -62,56 +62,56 @@ public class BookBUS implements IBUS<BookModel> {
   private boolean checkFilter(BookModel bookModel, String value, String[] columns) {
     for (String column : columns) {
       switch (column.toLowerCase()) {
-        case "isbn":
+        case "isbn" -> {
           if (bookModel.getIsbn().toLowerCase().contains(value.toLowerCase())) {
             return true;
           }
-          break;
-        case "title":
+        }
+        case "title" -> {
           if (bookModel.getTitle().toLowerCase().contains(value.toLowerCase())) {
             return true;
           }
-          break;
-        case "description":
+        }
+        case "description" -> {
           if (bookModel.getDescription().toLowerCase().contains(value.toLowerCase())) {
             return true;
           }
-          break;
-        case "image":
+        }
+        case "image" -> {
           if (bookModel.getImage().toLowerCase().contains(value.toLowerCase())) {
             return true;
           }
-          break;
-        case "quantity":
+        }
+        case "quantity" -> {
           if (bookModel.getQuantity() > 0) {
             return true;
           }
-          break;
-        case "price":
+        }
+        case "price" -> {
           if (bookModel.getPrice() > 0) {
             return true;
           }
-          break;
-        case "status":
+        }
+        case "status" -> {
           if (bookModel.getStatus().toString().equalsIgnoreCase(value)) {
             return true;
           }
-          break;
-        case "publisher_id":
+        }
+        case "publisher_id" -> {
           if (Integer.parseInt(value) == bookModel.getPublisherId()) {
             return true;
           }
-          break;
-        case "author_id":
+        }
+        case "author_id" -> {
           if (Integer.parseInt(value) == bookModel.getAuthorId()) {
             return true;
           }
-          break;
-        default:
+        }
+        default -> {
           if (checkAllColumns(bookModel, value)) {
             return true;
           }
-          break;
+        }
       }
     }
     return false;
@@ -124,7 +124,7 @@ public class BookBUS implements IBUS<BookModel> {
         || bookModel.getImage().toLowerCase().contains(value.toLowerCase())
         || bookModel.getQuantity() == Integer.parseInt(value)
         || bookModel.getPrice() == Integer.parseInt(value)
-        || bookModel.getStatus().toString().toLowerCase().equals(value.toLowerCase())
+        || bookModel.getStatus().toString().equalsIgnoreCase(value)
         || bookModel.getPublisherId() == Integer.parseInt(value)
         || bookModel.getAuthorId() == Integer.parseInt(value);
   }

@@ -54,26 +54,26 @@ public class PublisherBUS implements IBUS<PublisherModel> {
   private boolean checkFilter(PublisherModel publisherModel, String value, String[] columns) {
     for (String column : columns) {
       switch (column.toLowerCase()) {
-        case "id":
+        case "id" -> {
           if (publisherModel.getId() == Integer.parseInt(value)) {
             return true;
           }
-          break;
-        case "name":
+        }
+        case "name" -> {
           if (publisherModel.getName().toLowerCase().contains(value.toLowerCase())) {
             return true;
           }
-          break;
-        case "description":
+        }
+        case "description" -> {
           if (publisherModel.getDescription().toLowerCase().contains(value.toLowerCase())) {
             return true;
           }
-          break;
-        default:
+        }
+        default -> {
           if (checkAllColumns(publisherModel, value)) {
             return true;
           }
-          break;
+        }
       }
     }
     return false;

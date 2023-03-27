@@ -59,51 +59,51 @@ public class PromotionBUS implements IBUS<PromotionModel> {
   private boolean checkFilter(PromotionModel promotionModel, String value, String[] columns) {
     for (String column : columns) {
       switch (column.toLowerCase()) {
-        case "id":
+        case "id" -> {
           if (promotionModel.getId() == Integer.parseInt(value)) {
             return true;
           }
-          break;
-        case "description":
+        }
+        case "description" -> {
           if (promotionModel.getDescription().toLowerCase().contains(value.toLowerCase())) {
             return true;
           }
-          break;
-        case "quantity":
+        }
+        case "quantity" -> {
           if (promotionModel.getQuantity() == Integer.parseInt(value)) {
             return true;
           }
-          break;
-        case "start_date":
+        }
+        case "start_date" -> {
           if (promotionModel.getStartDate().toString().toLowerCase().contains(value.toLowerCase())) {
             return true;
           }
-          break;
-        case "end_date":
+        }
+        case "end_date" -> {
           if (promotionModel.getEndDate().toString().toLowerCase().contains(value.toLowerCase())) {
             return true;
           }
-          break;
-        case "condition_apply":
+        }
+        case "condition_apply" -> {
           if (promotionModel.getConditionApply().toLowerCase().contains(value.toLowerCase())) {
             return true;
           }
-          break;
-        case "discount_percent":
+        }
+        case "discount_percent" -> {
           if (promotionModel.getDiscountPercent() == Integer.parseInt(value)) {
             return true;
           }
-          break;
-        case "discount_amount":
+        }
+        case "discount_amount" -> {
           if (promotionModel.getDiscountAmount() == Integer.parseInt(value)) {
             return true;
           }
-          break;
-        default:
+        }
+        default -> {
           if (checkAllColumns(promotionModel, value)) {
             return true;
           }
-          break;
+        }
       }
     }
     return false;
