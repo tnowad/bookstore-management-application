@@ -100,7 +100,7 @@ public class PaymentBUS implements IBUS<PaymentModel> {
     return updatedRows;
   }
 
-  public int updateStatus(int orderId, PaymentStatus status) throws ClassNotFoundException, SQLException {
+  public int updateStatus(int orderId, PaymentStatus status) {
     int success = PaymentDAO.getInstance().updateStatus(orderId, status);
     if (success == 1) {
       for (PaymentModel payment : paymentList) {
