@@ -150,19 +150,19 @@ public class LoginUI extends JFrame {
     groupAccount.add(groupPassword);
 
     // group forget password
-    groupForgetPassword.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));
+    // groupForgetPassword.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));
 
-    forgetPasswordLabel.setFont(new Font("sansserif", 0, 24));
-    forgetPasswordLabel.setText("Password Again");
-    forgetPasswordLabel.setPreferredSize(new Dimension(250, 50));
-    groupForgetPassword.add(forgetPasswordLabel);
+    // forgetPasswordLabel.setFont(new Font("sansserif", 0, 24));
+    // forgetPasswordLabel.setText("Password Again");
+    // forgetPasswordLabel.setPreferredSize(new Dimension(250, 50));
+    // groupForgetPassword.add(forgetPasswordLabel);
 
-    forgetPasswordField.setFont(new Font("sansserif", 0, 24));
-    forgetPasswordField.setPreferredSize(new Dimension(300, 50));
-    Border borderforgetPasswordField = BorderFactory.createMatteBorder(0, 0, 1,
-        0, Color.BLUE);
-    forgetPasswordField.setBorder(borderforgetPasswordField);
-    groupForgetPassword.add(forgetPasswordField);
+    // forgetPasswordField.setFont(new Font("sansserif", 0, 24));
+    // forgetPasswordField.setPreferredSize(new Dimension(300, 50));
+    // Border borderforgetPasswordField = BorderFactory.createMatteBorder(0, 0, 1,
+    // 0, Color.BLUE);
+    // forgetPasswordField.setBorder(borderforgetPasswordField);
+    // groupForgetPassword.add(forgetPasswordField);
 
     groupAccount.add(groupForgetPassword);
 
