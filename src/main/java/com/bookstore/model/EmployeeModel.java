@@ -7,8 +7,8 @@ public class EmployeeModel {
   private String contactInformation;
 
   public enum EmployeeType {
-    employee_manager,
-    employee_sales,
+    EMPLOYEE_MANAGER,
+    EMPLOYEE_SALES,
     employee_inventory,
     employee_order
   }

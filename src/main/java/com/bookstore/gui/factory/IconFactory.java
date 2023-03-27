@@ -3,8 +3,6 @@ package com.bookstore.gui.factory;
 import javax.swing.Icon;
 
 public class IconFactory {
-  public static final String IconType = null;
-
   private IconFactory() {
     throw new IllegalStateException("Utility class");
   }

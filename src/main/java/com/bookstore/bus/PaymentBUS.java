@@ -77,8 +77,8 @@ public class PaymentBUS implements IBUS<PaymentModel> {
     }
 
     paymentModel.setPaymentMethod(
-        paymentModel.getPaymentMethod() != null ? paymentModel.getPaymentMethod() : PaymentMethod.cash);
-    paymentModel.setStatus(paymentModel.getStatus() != null ? paymentModel.getStatus() : PaymentStatus.pending);
+        paymentModel.getPaymentMethod() != null ? paymentModel.getPaymentMethod() : PaymentMethod.CASH);
+    paymentModel.setStatus(paymentModel.getStatus() != null ? paymentModel.getStatus() : PaymentStatus.PENDING);
 
     int id = PaymentDAO.getInstance().insert(mapToEntity(paymentModel));
     paymentModel.setId(id);

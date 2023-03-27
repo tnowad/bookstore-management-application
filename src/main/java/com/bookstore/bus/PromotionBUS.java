@@ -161,7 +161,7 @@ public class PromotionBUS implements IBUS<PromotionModel> {
     return updatedRows;
   }
 
-  public int updateQuantity(int id, int quantity) throws ClassNotFoundException, SQLException {
+  public int updateQuantity(int id, int quantity) {
     int success = PromotionDAO.getInstance().updateQuantity(id, quantity);
     if (success == 1) {
       for (PromotionModel promotion : promotionList) {

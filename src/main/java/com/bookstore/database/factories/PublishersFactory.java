@@ -13,7 +13,7 @@ public class PublishersFactory implements IFactory<PublisherModel> {
 
   public PublisherModel create() {
     return new PublisherModel(
-        ++id,
+        getNewId(),
         faker.company().name(),
         faker.company().catchPhrase());
   }

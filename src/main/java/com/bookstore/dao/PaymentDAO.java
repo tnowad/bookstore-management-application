@@ -64,7 +64,7 @@ public class PaymentDAO implements IDAO<PaymentModel> {
     return DatabaseConnection.executeUpdate(updateSql, args);
   }
 
-  public int updateStatus(int orderId, PaymentStatus status) throws SQLException, ClassNotFoundException {
+  public int updateStatus(int orderId, PaymentStatus status) {
     String updateSql = "UPDATE payments SET status = ? WHERE order_id = ?";
     Object[] args = { status, orderId };
     return DatabaseConnection.executeUpdate(updateSql, args);

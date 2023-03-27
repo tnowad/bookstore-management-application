@@ -26,7 +26,7 @@ public class Menu extends JPanel {
   private JScrollPane scrollPane;
 
   private final MigLayout layout;
-  private EventMenuSelected event;
+  private transient EventMenuSelected event;
   private boolean enableMenu = true;
   private boolean showMenu = true;
 

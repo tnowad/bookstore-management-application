@@ -14,7 +14,11 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-public abstract class ExcelUtil {
+public class ExcelUtil {
+
+  private ExcelUtil() {
+    throw new IllegalStateException("Utility class");
+  }
 
   /**
    * Reads an Excel file at a given path and returns its data

@@ -8,9 +8,9 @@ public class ShippingModel {
   private Status status;
 
   public enum Status {
-    pending,
-    shipped,
-    delevered
+    PENDING,
+    SHIPPED,
+    DELIVERED
   }
 
   public ShippingModel() {
@@ -21,7 +21,7 @@ public class ShippingModel {
     this.orderId = orderId;
     this.shippingMethod = shippingMethod;
     this.addressId = addressId;
-    this.status = Status.pending;
+    this.status = status;
   }
 
   public int getId() {

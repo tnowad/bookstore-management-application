@@ -30,14 +30,18 @@ public class AddressDAO implements IDAO<AddressModel> {
   }
 
   @Override
-  public ArrayList<AddressModel> readDatabase() throws SQLException {
+  public ArrayList<AddressModel> readDatabase() {
     ArrayList<AddressModel> addressList = new ArrayList<>();
-    try (ResultSet rs = DatabaseConnection.executeQuery("SELECT * FROM addresses")) {
+    ResultSet rs = DatabaseConnection.executeQuery("SELECT * FROM addresses");
+    try {
       while (rs.next()) {
         AddressModel addressModel = createAddressModelFromResultSet(rs);
         addressList.add(addressModel);
       }
+    } catch (SQLException e) {
+      e.printStackTrace();
     }
+
     return addressList;
   }
 

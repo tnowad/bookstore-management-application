@@ -16,14 +16,14 @@ public class CartBUS implements IBUS<CartModel> {
   private final List<CartModel> cartList = new ArrayList<>();
   private static CartBUS instance;
 
-  public static CartBUS getInstance() throws ClassNotFoundException, SQLException {
+  public static CartBUS getInstance() {
     if (instance == null) {
       instance = new CartBUS();
     }
     return instance;
   }
 
-  private CartBUS() throws SQLException {
+  private CartBUS() {
     this.cartList.addAll(CartDAO.getInstance().readDatabase());
   }
 
@@ -115,7 +115,7 @@ public class CartBUS implements IBUS<CartModel> {
       throw new IllegalArgumentException("User ID must be greater than 0!");
     }
     if (cartModel.getStatus() == null || cartModel.getStatus().toString().isEmpty()) {
-      cartModel.setStatus(Status.shopping);
+      cartModel.setStatus(Status.SHOPPING);
     }
     if (cartModel.getExpires() == null) {
       cartModel.setExpires(new Timestamp(System.currentTimeMillis()));
@@ -144,7 +144,7 @@ public class CartBUS implements IBUS<CartModel> {
     return updatedRows;
   }
 
-  public int updateStatus(int userId, Status status) throws SQLException {
+  public int updateStatus(int userId, Status status) {
     int success = CartDAO.getInstance().updateStatus(userId, status);
     if (success == 1) {
       for (CartModel cart : cartList) {

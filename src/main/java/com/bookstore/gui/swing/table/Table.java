@@ -22,7 +22,7 @@ public class Table extends JTable {
     getTableHeader().setReorderingAllowed(false);
     getTableHeader().setDefaultRenderer(new DefaultTableCellRenderer() {
       @Override
-      public Component getTableCellRendererComponent(JTable jtable, Object o, boolean bln, boolean bln1, int i,
+      public Component getTableCellRendererComponent(JTable jTable, Object o, boolean bln, boolean bln1, int i,
           int i1) {
         TableHeader header = new TableHeader(o + "");
         if (i1 == 4) {
@@ -33,7 +33,7 @@ public class Table extends JTable {
     });
     setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
       @Override
-      public Component getTableCellRendererComponent(JTable jtable, Object o, boolean selected, boolean focus, int i,
+      public Component getTableCellRendererComponent(JTable jTable, Object o, boolean selected, boolean focus, int i,
           int i1) {
         if (o instanceof ModelProfile) {
           ModelProfile data = (ModelProfile) o;
@@ -55,7 +55,7 @@ public class Table extends JTable {
           }
           return cell;
         } else {
-          Component com = super.getTableCellRendererComponent(jtable, o, selected, focus, i, i1);
+          Component com = super.getTableCellRendererComponent(jTable, o, selected, focus, i, i1);
           setBorder(noFocusBorder);
           com.setForeground(new Color(102, 102, 102));
           if (selected) {

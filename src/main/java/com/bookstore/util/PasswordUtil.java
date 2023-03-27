@@ -3,6 +3,10 @@ package com.bookstore.util;
 import org.mindrot.jbcrypt.BCrypt;
 
 public class PasswordUtil {
+  private PasswordUtil() {
+    throw new IllegalStateException("Utility class");
+  }
+
   private static final int BCRYPT_WORKLOAD = 12;
 
   public static String hashPassword(String plainTextPassword) {

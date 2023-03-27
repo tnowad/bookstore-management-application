@@ -36,10 +36,8 @@ public class Profile extends javax.swing.JPanel {
                         Short.MAX_VALUE)
                     .addComponent(lbName, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE))
                 .addContainerGap()));
-  }// </editor-fold>//GEN-END:initComponents
+  }
 
-  // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JLabel lbName;
   private com.bookstore.gui.swing.ImageAvatar pic;
-  // End of variables declaration//GEN-END:variables
 }

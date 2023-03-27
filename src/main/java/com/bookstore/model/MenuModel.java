@@ -5,7 +5,7 @@ import javax.swing.Icon;
 public class MenuModel {
   private Icon icon;
   private String menuName;
-  private String subMenu[];
+  private String[] subMenu;
 
   public MenuModel(Icon icon, String menuName, String... subMenu) {
     this.icon = icon;
