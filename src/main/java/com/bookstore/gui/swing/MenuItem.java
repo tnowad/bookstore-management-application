@@ -122,13 +122,4 @@ public class MenuItem extends javax.swing.JPanel {
     g2.drawLine(x, (int) (y + ay), x + 4, (int) (y + ay1));
     g2.drawLine(x + 4, (int) (y + ay1), x + 8, (int) (y + ay));
   }
-
-  public static void main(String[] args) {
-    javax.swing.JFrame frame = new javax.swing.JFrame();
-    frame.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-    frame.getContentPane().add(new MenuItem(new MenuModel(
-        IconFactory.createIcon(""), "Home", MenuItemFactory.createMenuItemModel("!23", "123")), null, null, 0));
-    frame.pack();
-    frame.setVisible(true);
-  }
 }

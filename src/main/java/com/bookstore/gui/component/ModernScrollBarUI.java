@@ -19,7 +19,6 @@ public class ModernScrollBarUI extends BasicScrollBarUI {
 
   public ModernScrollBarUI() {
     super();
-    scrollbar.setBorder(BorderFactory.createEmptyBorder());
   }
 
   @Override
