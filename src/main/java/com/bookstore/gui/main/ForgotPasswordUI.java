@@ -79,8 +79,6 @@ public class ForgotPasswordUI extends JFrame {
     registerButton = new JButton();
     icon = new ImageIcon("icon/book.png");
     iconLabel = new JLabel(icon);
-    nameStoreLabel = new JLabel("Bookstore Management Application");
-    nameStoreLabel.setForeground(Color.BLUE);
 
     getContentPane().setLayout(new FlowLayout());
 
@@ -92,9 +90,11 @@ public class ForgotPasswordUI extends JFrame {
   private void initGroupLogo() {
     groupLogo.setLayout(new BorderLayout());
 
-    iconLabel.setIcon(new ImageIcon(getClass().getResource("/resources/book_logo.png")));
+    iconLabel.setIcon(new ImageIcon(getClass().getResource("/resources/fogotpass_icon.png")));
     groupLogo.setPreferredSize(new Dimension(400, 450));
-
+    nameStoreLabel = new JLabel();
+    nameStoreLabel.setText("Bookstore Management Application");
+    nameStoreLabel.setForeground(Color.BLACK);
     nameStoreLabel.setFont(new Font("sansserif", 0, 24));
     nameStoreLabel.setHorizontalAlignment(SwingConstants.CENTER);
     nameStoreLabel.setPreferredSize(new Dimension(100, 50));
@@ -110,7 +110,7 @@ public class ForgotPasswordUI extends JFrame {
     titleResetPassword.setHorizontalAlignment(SwingConstants.CENTER);
     titleResetPassword.setText("Reset Password");
     titleResetPassword.setFont(new Font("sansserif", 0, 50));
-    titleResetPassword.setForeground(Color.BLUE);
+    titleResetPassword.setForeground(Color.BLACK);
     titleResetPassword.setPreferredSize(new Dimension(100, 100));
     groupContent.add(titleResetPassword, BorderLayout.PAGE_START);
 
@@ -232,13 +232,15 @@ public class ForgotPasswordUI extends JFrame {
       @Override
       public void componentResized(ComponentEvent e) {
         int width = getContentPane().getWidth();
+        int height = getContentPane().getHeight();
         if (width < 1020) {
-          groupLogo.setPreferredSize(new Dimension(500, 200));
-
-          nameStoreLabel.setFont(new Font("sansserif", 0, 16));
-          titleResetPassword.setFont(new Font("sansserif", 0, 24));
+          groupLogo.setPreferredSize(new Dimension(500, 300));
+          nameStoreLabel.setFont(new Font("sansserif", 0, 32));
+          nameStoreLabel.setText("Forgot Password?");
+          titleResetPassword.setFont(new Font("sansserif", 0, 16));
+          titleResetPassword.setText("You can reset your password here");
           nameStoreLabel.setPreferredSize(new Dimension(100, 20));
-          iconLabel.setIcon(new ImageIcon(getClass().getResource("/resources/book_logo_responsive.png")));
+          iconLabel.setIcon(new ImageIcon(getClass().getResource("/resources/fogotpass_icon.png")));
 
           groupEmail.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
 
@@ -260,7 +262,14 @@ public class ForgotPasswordUI extends JFrame {
           registerButton.setPreferredSize(new Dimension(100, 35));
           resetButton.setPreferredSize(new Dimension(300, 35));
 
+          if (height < 600) {
+            nameStoreLabel.setFont(new Font("sansserif", 0, 24));
+            iconLabel.setIcon(new ImageIcon(getClass().getResource("/resources/fogotpass_reponsive.png")));
+            groupLogo.setPreferredSize(new Dimension(500, 200));
+          }
+
         } else {
+          nameStoreLabel.setVisible(false);
           initGroupContent();
           initGroupLogo();
         }
@@ -275,7 +284,7 @@ public class ForgotPasswordUI extends JFrame {
   }
 
   private void initFrame() {
-    setPreferredSize(new Dimension(1100, 550));
+    setPreferredSize(new Dimension(600, 700));
     setMinimumSize(new Dimension(700, 600));
     setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     pack();
