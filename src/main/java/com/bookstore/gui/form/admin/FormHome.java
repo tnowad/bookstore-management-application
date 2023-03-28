@@ -9,7 +9,10 @@ import com.bookstore.gui.component.PanelBorder;
 import com.bookstore.gui.component.ScrollBar;
 import java.awt.Color;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
 public class FormHome extends javax.swing.JPanel {
@@ -175,9 +178,9 @@ public class FormHome extends javax.swing.JPanel {
   private Card card1;
   private Card card2;
   private Card card3;
-  private javax.swing.JLabel jLabel1;
-  private javax.swing.JLayeredPane panel;
+  private JLabel jLabel1;
+  private JLayeredPane panel;
   private PanelBorder panelBorder1;
-  private javax.swing.JScrollPane spTable;
+  private JScrollPane spTable;
   private Table table;
 }

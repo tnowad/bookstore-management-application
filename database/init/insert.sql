@@ -90,4 +90,24 @@ VALUES (
         'tuananh1234@gmail.com',
         '0864999888',
         'customer'
+    );
+
+INSERT INTO
+    users (
+        username,
+        password,
+        status,
+        name,
+        email,
+        phone,
+        role
     )
+VALUES (
+        'tranvanta',
+        'tranvanta123',
+        'active',
+        'Trần Văn Tài',
+        'tranvanta1234@gmail.com',
+        '0862999887',
+        'customer'
+    );
