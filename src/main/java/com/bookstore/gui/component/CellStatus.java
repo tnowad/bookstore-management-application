@@ -7,9 +7,6 @@ public class CellStatus extends javax.swing.JPanel {
     status.setType(type);
   }
 
-  @SuppressWarnings("unchecked")
-  // <editor-fold defaultstate="collapsed" desc="Generated
-  // Code">//GEN-BEGIN:initComponents
   private void initComponents() {
 
     status = new TableStatus();
@@ -34,9 +31,7 @@ public class CellStatus extends javax.swing.JPanel {
                 .addGap(8, 8, 8)
                 .addComponent(status, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
                 .addGap(8, 8, 8)));
-  }// </editor-fold>//GEN-END:initComponents
+  }
 
-  // Variables declaration - do not modify//GEN-BEGIN:variables
   private TableStatus status;
-  // End of variables declaration//GEN-END:variables
 }

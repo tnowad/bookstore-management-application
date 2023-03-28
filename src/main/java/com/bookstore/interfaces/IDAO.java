@@ -7,9 +7,9 @@ import java.util.List;
 /**
  * Interface defining common database operations for entities.
  *
- * @param <Entity> the entity type that this DAO interface will handle
+ * @param <T> the entity type that this DAO interface will handle
  */
-public interface IDAO<Entity> {
+public interface IDAO<T> {
 
   /**
    * Reads all entries from the database table associated with this DAO.
@@ -19,7 +19,7 @@ public interface IDAO<Entity> {
    *                                errors
    * @throws ClassNotFoundException if driver class not found
    */
-  ArrayList<Entity> readDatabase() throws SQLException, ClassNotFoundException;
+  ArrayList<T> readDatabase() throws SQLException, ClassNotFoundException;
 
   /**
    * Inserts an entity to the database table associated with this DAO.
@@ -31,7 +31,7 @@ public interface IDAO<Entity> {
    *                                constraints violated
    * @throws ClassNotFoundException if driver class not found
    */
-  int insert(Entity e) throws SQLException, ClassNotFoundException;
+  int insert(T e) throws SQLException, ClassNotFoundException;
 
   /**
    * Updates an existing entry in the database table associated with this DAO.
@@ -43,7 +43,7 @@ public interface IDAO<Entity> {
    *                                constraints violated
    * @throws ClassNotFoundException if driver class not found
    */
-  int update(Entity e) throws SQLException, ClassNotFoundException;
+  int update(T e) throws SQLException, ClassNotFoundException;
 
   /**
    * Deletes a given entity from the database table associated with this DAO.
@@ -67,6 +67,6 @@ public interface IDAO<Entity> {
    * @throws SQLException           if there is any error accessing the database
    * @throws ClassNotFoundException if the database driver class cannot be found
    */
-  List<Entity> search(String condition, String[] columnName)
+  List<T> search(String condition, String[] columnName)
       throws SQLException, ClassNotFoundException;
 }

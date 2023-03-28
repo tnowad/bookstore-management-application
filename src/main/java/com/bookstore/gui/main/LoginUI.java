@@ -283,11 +283,6 @@ public class LoginUI extends JFrame {
     setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     pack();
     setLocationRelativeTo(null);
-    setVisible(true);
-  }
-
-  public static void main(String[] args) {
-    new LoginUI();
   }
 
 }

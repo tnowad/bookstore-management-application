@@ -1,5 +1,6 @@
 package com.bookstore.gui.component;
 
+import java.awt.Adjustable;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -7,7 +8,6 @@ import java.awt.Rectangle;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComponent;
-import javax.swing.JScrollBar;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 
 public class ModernScrollBarUI extends BasicScrollBarUI {
@@ -18,7 +18,7 @@ public class ModernScrollBarUI extends BasicScrollBarUI {
   private static final Color THUMB_COLOR = Color.BLACK;
 
   public ModernScrollBarUI() {
-
+    super();
   }
 
   @Override
@@ -32,20 +32,16 @@ public class ModernScrollBarUI extends BasicScrollBarUI {
   }
 
   @Override
-  protected void paintTrack(Graphics g, JComponent c, Rectangle trackBounds) {
-  }
-
-  @Override
   protected void paintThumb(Graphics g, JComponent c, Rectangle thumbBounds) {
     int alpha = isThumbRollover() ? SCROLL_BAR_ALPHA_ROLLOVER : SCROLL_BAR_ALPHA;
     int orientation = scrollbar.getOrientation();
     int x = thumbBounds.x;
     int y = thumbBounds.y;
 
-    int width = orientation == JScrollBar.VERTICAL ? THUMB_SIZE : thumbBounds.width;
+    int width = orientation == Adjustable.VERTICAL ? THUMB_SIZE : thumbBounds.width;
     width = Math.max(width, THUMB_SIZE);
 
-    int height = orientation == JScrollBar.VERTICAL ? thumbBounds.height : THUMB_SIZE;
+    int height = orientation == Adjustable.VERTICAL ? thumbBounds.height : THUMB_SIZE;
     height = Math.max(height, THUMB_SIZE);
 
     Graphics2D graphics2D = (Graphics2D) g.create();

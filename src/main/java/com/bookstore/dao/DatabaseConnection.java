@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+import com.bookstore.database.seeders.DatabaseSeeder;
+
 public class DatabaseConnection {
   private static Connection connection = null;
   private static ResourceBundle rb = ResourceBundle.getBundle("resources.config.database");
