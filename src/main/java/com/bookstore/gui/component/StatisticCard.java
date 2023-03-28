@@ -43,9 +43,6 @@ public class StatisticCard extends javax.swing.JPanel {
     lbDescription.setText(data.getDescription());
   }
 
-  @SuppressWarnings("unchecked")
-  // <editor-fold defaultstate="collapsed" desc="Generated
-  // Code">//GEN-BEGIN:initComponents
   private void initComponents() {
 
     lbIcon = new javax.swing.JLabel();
@@ -94,8 +91,8 @@ public class StatisticCard extends javax.swing.JPanel {
   }// </editor-fold>//GEN-END:initComponents
 
   @Override
-  protected void paintComponent(Graphics grphcs) {
-    Graphics2D g2 = (Graphics2D) grphcs;
+  protected void paintComponent(Graphics graphics) {
+    Graphics2D g2 = (Graphics2D) graphics;
     g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
     GradientPaint g = new GradientPaint(0, 0, color1, 0, getHeight(), color2);
     g2.setPaint(g);
@@ -103,13 +100,11 @@ public class StatisticCard extends javax.swing.JPanel {
     g2.setColor(new Color(255, 255, 255, 50));
     g2.fillOval(getWidth() - (getHeight() / 2), 10, getHeight(), getHeight());
     g2.fillOval(getWidth() - (getHeight() / 2) - 20, getHeight() / 2 + 20, getHeight(), getHeight());
-    super.paintComponent(grphcs);
+    super.paintComponent(graphics);
   }
 
-  // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JLabel lbDescription;
   private javax.swing.JLabel lbIcon;
   private javax.swing.JLabel lbTitle;
   private javax.swing.JLabel lbValues;
-  // End of variables declaration//GEN-END:variables
 }

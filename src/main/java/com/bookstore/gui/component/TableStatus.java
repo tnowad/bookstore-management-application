@@ -26,9 +26,9 @@ public class TableStatus extends JLabel {
   }
 
   @Override
-  protected void paintComponent(Graphics grphcs) {
+  protected void paintComponent(Graphics graphics) {
     if (type != null) {
-      Graphics2D g2 = (Graphics2D) grphcs;
+      Graphics2D g2 = (Graphics2D) graphics;
       g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
       GradientPaint g;
       if (type == StatusType.PENDING) {
@@ -41,6 +41,6 @@ public class TableStatus extends JLabel {
       g2.setPaint(g);
       g2.fillRoundRect(0, 0, getWidth(), getHeight(), 1, 1);
     }
-    super.paintComponent(grphcs);
+    super.paintComponent(graphics);
   }
 }

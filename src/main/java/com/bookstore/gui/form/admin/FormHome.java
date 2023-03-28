@@ -10,7 +10,7 @@ import com.bookstore.gui.component.ScrollBar;
 import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 
 public class FormHome extends javax.swing.JPanel {
 
@@ -34,7 +34,7 @@ public class FormHome extends javax.swing.JPanel {
     spTable.getViewport().setBackground(Color.WHITE);
     JPanel p = new JPanel();
     p.setBackground(Color.WHITE);
-    spTable.setCorner(JScrollPane.UPPER_RIGHT_CORNER, p);
+    spTable.setCorner(ScrollPaneConstants.UPPER_RIGHT_CORNER, p);
     table.addRow(new Object[] { "Mike Bhand", "mikebhand@gmail.com", EmployeeType.EMPLOYEE_MANAGER, "25 Apr,2018",
         StatusType.PENDING });
     table.addRow(
@@ -74,8 +74,6 @@ public class FormHome extends javax.swing.JPanel {
         new Object[] { "Kevin Pietersen", "kevinpietersen@gmail.com", EmployeeType.EMPLOYEE_SALES, "25 Apr,2018",
             StatusType.PENDING });
   }
-
-  @SuppressWarnings("unchecked")
 
   private void initComponents() {
 
@@ -123,6 +121,7 @@ public class FormHome extends javax.swing.JPanel {
           false, false, false, false, false
       };
 
+      @Override
       public boolean isCellEditable(int rowIndex, int columnIndex) {
         return canEdit[columnIndex];
       }
