@@ -109,10 +109,4 @@ public class MenuFactory {
     return menu;
   }
 
-  public static void main(String[] args) {
-    JFrame frame = new JFrame();
-    frame.add(MenuFactory.createMenu("admin"));
-    frame.pack();
-    frame.setVisible(true);
-  }
 }
