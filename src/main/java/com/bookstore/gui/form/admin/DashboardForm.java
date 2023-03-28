@@ -26,8 +26,4 @@ public class DashboardForm extends JFrame {
     setSize(new java.awt.Dimension(800, 600));
     setLocationRelativeTo(null);
   }
-
-  // public static void main(String[] args) {
-  // new DashboardForm().setVisible(true);
-  // }
 }

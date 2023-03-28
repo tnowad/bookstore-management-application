@@ -4,10 +4,15 @@ import java.awt.EventQueue;
 import javax.swing.UIManager;
 
 import com.bookstore.dao.DatabaseConnection;
+import com.bookstore.database.seeders.DatabaseSeeder;
 import com.bookstore.gui.main.LoginUI;
 import com.formdev.flatlaf.FlatLightLaf;
 
 public class App {
+  static {
+    DatabaseSeeder.seeder();
+  }
+
   public static void main(String[] args) {
     try {
       UIManager.setLookAndFeel(new FlatLightLaf());

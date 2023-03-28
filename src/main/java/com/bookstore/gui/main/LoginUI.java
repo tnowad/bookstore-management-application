@@ -31,7 +31,7 @@ public class LoginUI extends JFrame {
   private JPanel groupContent;
   private JPanel groupLogo;
   private GroupInput groupUsername;
-  private GroupInput passwordField;
+  private GroupInput groupPassword;
 
   private JLabel titleLogin;
   private JPanel groupForgetPassword;
@@ -64,7 +64,7 @@ public class LoginUI extends JFrame {
     titleLogin = new JLabel();
     groupAccount = new JPanel();
     groupUsername = new GroupInput("Username", "show");
-    passwordField = new GroupInput("Password", "hide");
+    groupPassword = new GroupInput("Password", "hide");
 
     groupForgetPassword = new JPanel();
     forgetButton = new JButton("Forget password");
@@ -115,7 +115,7 @@ public class LoginUI extends JFrame {
     groupAccount.add(groupUsername);
 
     // group password
-    groupAccount.add(passwordField);
+    groupAccount.add(groupPassword);
 
     // group forget password
     groupForgetPassword.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -160,7 +160,7 @@ public class LoginUI extends JFrame {
     groupContent.setBackground(Color.white);
     groupAccount.setBackground(Color.white);
     groupUsername.setBackground(Color.white);
-    passwordField.setBackground(Color.white);
+    groupPassword.setBackground(Color.white);
     groupForgetPassword.setBackground(Color.white);
     groupButton.setBackground(Color.white);
     loginButton.setBackground(Color.white);
@@ -171,7 +171,7 @@ public class LoginUI extends JFrame {
   private void handleEvent() {
     loginButton.addActionListener(e -> {
       String username = groupUsername.getTextField().getText();
-      char[] password = passwordField.getPasswordField().getPassword();
+      char[] password = groupPassword.getPasswordField().getPassword();
       if (username == null || password == null) {
         JOptionPane.showMessageDialog(null, "Please enter username and password");
         return;
@@ -181,9 +181,10 @@ public class LoginUI extends JFrame {
         if (user != null) {
           ProfileModel.getInstance().setUser(user);
           dispose();
-          JOptionPane.showMessageDialog(null, "Login successful");
+          System.out.println("Logged in successfully");
         } else {
-          JOptionPane.showMessageDialog(null, "Invalid username or password");
+          JOptionPane.showMessageDialog(null,
+              "Invalid username or password. Please check the username or password and try again.");
         }
       } catch (Exception ex) {
         JOptionPane.showMessageDialog(null, "An error occurred while logging in: " + ex.getMessage());
@@ -193,6 +194,11 @@ public class LoginUI extends JFrame {
     cancelButton.addActionListener(e -> dispose());
     registerButton.addActionListener(e -> {
       RegisterUI.getInstance().setVisible(true);
+      setVisible(false);
+    });
+
+    forgetButton.addActionListener(e -> {
+      ForgotPasswordUI.getInstance().setVisible(true);
       setVisible(false);
     });
 
@@ -216,13 +222,13 @@ public class LoginUI extends JFrame {
           groupUsername.getTextField().setFont(new Font("sansserif", 0, 16));
           groupUsername.getTextField().setPreferredSize(new Dimension(150, 50));
 
-          passwordField.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
+          groupPassword.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
 
-          passwordField.getLabel().setFont(new Font("sansserif", 0, 16));
-          passwordField.getLabel().setPreferredSize(new Dimension(100, 50));
+          groupPassword.getLabel().setFont(new Font("sansserif", 0, 16));
+          groupPassword.getLabel().setPreferredSize(new Dimension(100, 50));
 
-          passwordField.getPasswordField().setFont(new Font("sansserif", 0, 16));
-          passwordField.getPasswordField().setPreferredSize(new Dimension(150, 50));
+          groupPassword.getPasswordField().setFont(new Font("sansserif", 0, 16));
+          groupPassword.getPasswordField().setPreferredSize(new Dimension(150, 50));
 
           cancelButton.setPreferredSize(new Dimension(100, 35));
           registerButton.setPreferredSize(new Dimension(100, 35));
@@ -237,13 +243,13 @@ public class LoginUI extends JFrame {
           groupUsername.getTextField().setFont(new Font("sansserif", 0, 24));
           groupUsername.getTextField().setPreferredSize(new Dimension(300, 50));
 
-          passwordField.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 50));
+          groupPassword.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 50));
 
-          passwordField.getLabel().setFont(new Font("sansserif", 0, 24));
-          passwordField.getLabel().setPreferredSize(new Dimension(120, 50));
+          groupPassword.getLabel().setFont(new Font("sansserif", 0, 24));
+          groupPassword.getLabel().setPreferredSize(new Dimension(120, 50));
 
-          passwordField.getPasswordField().setFont(new Font("sansserif", 0, 24));
-          passwordField.getPasswordField().setPreferredSize(new Dimension(300, 50));
+          groupPassword.getPasswordField().setFont(new Font("sansserif", 0, 24));
+          groupPassword.getPasswordField().setPreferredSize(new Dimension(300, 50));
           initGroupContent();
           initGroupLogo();
         }
@@ -260,4 +266,5 @@ public class LoginUI extends JFrame {
     pack();
     setLocationRelativeTo(null);
   }
+
 }
