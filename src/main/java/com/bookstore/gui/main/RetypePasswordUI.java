@@ -18,47 +18,48 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
-import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 import javax.swing.border.Border;
 
 import com.bookstore.bus.UserBUS;
-import com.bookstore.model.ProfileModel;
 import com.bookstore.model.UserModel;
 
-public class LoginUI extends JFrame {
-  private static LoginUI instance;
+public class RetypePasswordUI extends JFrame {
+  private static RetypePasswordUI instance;
   private JPanel groupAccount;
   private JPanel groupContent;
   private JPanel groupLogo;
-  private JPanel groupPassword;
-  private JPanel groupUsername;
+  private JPanel groupPhone;
+  private JPanel groupEmail;
 
-  private JLabel titleLogin;
-  private JLabel usernameLabel;
-  private JTextField usernameTextField;
-  private JPasswordField passwordField;
+  private JLabel titleResetPassword;
   private JLabel passwordLabel;
+  private JPasswordField passwordField;
+  private JPasswordField confirmPasswordField;
+  private JLabel confirmPasswordLabel;
   private JPanel groupForgetPassword;
-  private JButton forgetButton;
 
   private JPanel groupButton;
-  private JButton loginButton;
+  private JButton updateButton;
   private JButton cancelButton;
   private JButton registerButton;
   private JLabel iconLabel;
   private JLabel nameStoreLabel;
 
-  private LoginUI() {
+  private String email;
+  private String phone;
+  private int userId;
+
+  private RetypePasswordUI() {
     initComponent();
     handleEvent();
     initFrame();
   }
 
-  public static LoginUI getInstance() {
+  public static RetypePasswordUI getInstance() {
     if (instance == null) {
-      instance = new LoginUI();
+      instance = new RetypePasswordUI();
     }
     return instance;
   }
@@ -67,18 +68,17 @@ public class LoginUI extends JFrame {
     ImageIcon icon;
     groupLogo = new JPanel();
     groupContent = new JPanel();
-    titleLogin = new JLabel();
+    titleResetPassword = new JLabel();
     groupAccount = new JPanel();
-    groupUsername = new JPanel();
-    usernameLabel = new JLabel();
-    usernameTextField = new JTextField();
-    groupPassword = new JPanel();
+    groupEmail = new JPanel();
     passwordLabel = new JLabel();
     passwordField = new JPasswordField();
+    groupPhone = new JPanel();
+    confirmPasswordLabel = new JLabel();
+    confirmPasswordField = new JPasswordField();
     groupForgetPassword = new JPanel();
-    forgetButton = new JButton("Forget password");
     groupButton = new JPanel();
-    loginButton = new JButton();
+    updateButton = new JButton();
     cancelButton = new JButton();
     registerButton = new JButton();
     icon = new ImageIcon("icon/book.png");
@@ -111,58 +111,44 @@ public class LoginUI extends JFrame {
   private void initGroupContent() {
     groupContent.setLayout(new BorderLayout());
 
-    titleLogin.setHorizontalAlignment(SwingConstants.CENTER);
-    titleLogin.setText("Login");
-    titleLogin.setFont(new Font("sansserif", 0, 50));
-    titleLogin.setForeground(Color.BLUE);
-    titleLogin.setPreferredSize(new Dimension(100, 100));
-    groupContent.add(titleLogin, BorderLayout.PAGE_START);
+    titleResetPassword.setHorizontalAlignment(SwingConstants.CENTER);
+    titleResetPassword.setText("Reset Password");
+    titleResetPassword.setFont(new Font("sansserif", 0, 50));
+    titleResetPassword.setForeground(Color.BLUE);
+    titleResetPassword.setPreferredSize(new Dimension(100, 100));
+    groupContent.add(titleResetPassword, BorderLayout.PAGE_START);
 
     groupAccount.setLayout(new BoxLayout(groupAccount, BoxLayout.Y_AXIS));
 
-    // group username
-    groupUsername.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 50));
-
-    usernameLabel.setText("Username");
-    usernameLabel.setFont(new Font("sansserif", 0, 24));
-    usernameLabel.setPreferredSize(new Dimension(120, 50));
-    groupUsername.add(usernameLabel);
-
-    usernameTextField.setPreferredSize(new Dimension(300, 50));
-    Border borderUsernameTextField = BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLUE);
-    usernameTextField.setBorder(borderUsernameTextField);
-    groupUsername.add(usernameTextField);
-
-    groupAccount.add(groupUsername);
-
-    // group password
-    groupPassword.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));
+    // group Password
+    groupEmail.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 50));
 
     passwordLabel.setText("Password");
     passwordLabel.setFont(new Font("sansserif", 0, 24));
     passwordLabel.setPreferredSize(new Dimension(120, 50));
-    groupPassword.add(passwordLabel);
+    groupEmail.add(passwordLabel);
 
     passwordField.setPreferredSize(new Dimension(300, 50));
+    Border borderpasswordField = BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLUE);
+    passwordField.setBorder(borderpasswordField);
+    groupEmail.add(passwordField);
+
+    groupAccount.add(groupEmail);
+
+    // group Confirm Password
+    groupPhone.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));
+
+    confirmPasswordLabel.setText("Confirm Password");
+    confirmPasswordLabel.setFont(new Font("sansserif", 0, 24));
+    confirmPasswordLabel.setPreferredSize(new Dimension(120, 50));
+    groupPhone.add(confirmPasswordLabel);
+
+    confirmPasswordField.setPreferredSize(new Dimension(300, 50));
     Border borderPasswordField = BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLUE);
-    passwordField.setBorder(borderPasswordField);
-    groupPassword.add(passwordField);
+    confirmPasswordField.setBorder(borderPasswordField);
+    groupPhone.add(confirmPasswordField);
 
-    groupAccount.add(groupPassword);
-
-    // group forget password
-    groupForgetPassword.setLayout(new FlowLayout(FlowLayout.RIGHT));
-
-    forgetButton.setPreferredSize(new Dimension(200, 20));
-    forgetButton.setForeground(Color.WHITE);
-    forgetButton.setBackground(Color.white);
-    forgetButton.setForeground(Color.RED);
-    forgetButton.setFont(new Font("Arial", Font.BOLD, 14));
-
-    forgetButton.setBorder(BorderFactory.createEmptyBorder());
-    groupForgetPassword.setBorder(BorderFactory.createEmptyBorder());
-
-    groupForgetPassword.add(forgetButton);
+    groupAccount.add(groupPhone);
 
     groupAccount.add(groupForgetPassword, BorderLayout.EAST);
 
@@ -170,9 +156,9 @@ public class LoginUI extends JFrame {
 
     groupButton.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 50));
 
-    loginButton.setText("Login");
-    loginButton.setPreferredSize(new Dimension(100, 50));
-    groupButton.add(loginButton);
+    updateButton.setText("Update");
+    updateButton.setPreferredSize(new Dimension(100, 50));
+    groupButton.add(updateButton);
 
     cancelButton.setText("Cancel");
     cancelButton.setPreferredSize(new Dimension(100, 50));
@@ -192,46 +178,57 @@ public class LoginUI extends JFrame {
     groupLogo.setBackground(Color.white);
     groupContent.setBackground(Color.white);
     groupAccount.setBackground(Color.white);
-    groupUsername.setBackground(Color.white);
-    groupPassword.setBackground(Color.white);
+    groupEmail.setBackground(Color.white);
+    groupPhone.setBackground(Color.white);
     groupForgetPassword.setBackground(Color.white);
     groupButton.setBackground(Color.white);
-    loginButton.setBackground(Color.white);
+    updateButton.setBackground(Color.white);
     cancelButton.setBackground(Color.white);
     registerButton.setBackground(Color.white);
   }
 
   private void handleEvent() {
-    loginButton.addActionListener(e -> {
-      String username = usernameTextField.getText();
+    UserBUS userBUS = UserBUS.getInstance();
+
+    updateButton.addActionListener(e -> {
       char[] password = passwordField.getPassword();
-      if (username == null || password == null) {
-        JOptionPane.showMessageDialog(null, "Please enter username and password");
+      char[] confirmPassword = confirmPasswordField.getPassword();
+
+      if (password.length == 0 || confirmPassword.length == 0) {
+        JOptionPane.showMessageDialog(null, "Please enter a password.");
+        passwordField.setText("");
+        confirmPasswordField.setText("");
         return;
       }
-      try {
-        UserModel user = UserBUS.getInstance().login(username, Arrays.toString(password));
-        if (user != null) {
-          ProfileModel.getInstance().setUser(user);
-          dispose();
-          System.out.println("Logged in successfully");
+
+      if (Arrays.toString(password).equals(Arrays.toString(confirmPassword))) {
+        int id = getUserId();
+        UserModel userModel = userBUS.getModelById(id);
+        if (userModel != null) {
+          userModel.setPassword(new String(password));
+          int success = userBUS.updateModel(userModel);
+          if (success == 1) {
+            JOptionPane.showMessageDialog(null, "You've successfully reset your password. You can log in now.");
+            LoginUI.getInstance().setVisible(true);
+            setVisible(false);
+          } else {
+            showError("Failed to update password. Please try again later.");
+          }
         } else {
-          JOptionPane.showMessageDialog(null,
-              "Invalid username or password. Please check the username or password and try again.");
+          showError("User not found. Please try again later.");
         }
-      } catch (Exception ex) {
-        JOptionPane.showMessageDialog(null, "An error occurred while logging in: " + ex.getMessage());
+      } else {
+        showError("Passwords do not match. Please try again.");
       }
     });
 
-    cancelButton.addActionListener(e -> dispose());
-    registerButton.addActionListener(e -> {
-      RegisterUI.getInstance().setVisible(true);
+    cancelButton.addActionListener(e -> {
+      LoginUI.getInstance().setVisible(true);
       setVisible(false);
     });
 
-    forgetButton.addActionListener(e -> {
-      ForgotPasswordUI.getInstance().setVisible(true);
+    registerButton.addActionListener(e -> {
+      RegisterUI.getInstance().setVisible(true);
       setVisible(false);
     });
 
@@ -243,19 +240,11 @@ public class LoginUI extends JFrame {
           groupLogo.setPreferredSize(new Dimension(500, 200));
 
           nameStoreLabel.setFont(new Font("sansserif", 0, 16));
-          titleLogin.setFont(new Font("sansserif", 0, 24));
+          titleResetPassword.setFont(new Font("sansserif", 0, 24));
           nameStoreLabel.setPreferredSize(new Dimension(100, 20));
           iconLabel.setIcon(new ImageIcon(getClass().getResource("/resources/book_logo_responsive.png")));
 
-          groupUsername.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
-
-          usernameLabel.setFont(new Font("sansserif", 0, 16));
-          usernameLabel.setPreferredSize(new Dimension(100, 50));
-
-          usernameTextField.setFont(new Font("sansserif", 0, 16));
-          usernameTextField.setPreferredSize(new Dimension(150, 50));
-
-          groupPassword.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
+          groupEmail.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
 
           passwordLabel.setFont(new Font("sansserif", 0, 16));
           passwordLabel.setPreferredSize(new Dimension(100, 50));
@@ -263,9 +252,17 @@ public class LoginUI extends JFrame {
           passwordField.setFont(new Font("sansserif", 0, 16));
           passwordField.setPreferredSize(new Dimension(150, 50));
 
+          groupPhone.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
+
+          confirmPasswordLabel.setFont(new Font("sansserif", 0, 16));
+          confirmPasswordLabel.setPreferredSize(new Dimension(100, 50));
+
+          confirmPasswordField.setFont(new Font("sansserif", 0, 16));
+          confirmPasswordField.setPreferredSize(new Dimension(150, 50));
+
           cancelButton.setPreferredSize(new Dimension(100, 35));
           registerButton.setPreferredSize(new Dimension(100, 35));
-          loginButton.setPreferredSize(new Dimension(300, 35));
+          updateButton.setPreferredSize(new Dimension(300, 35));
 
         } else {
           initGroupContent();
@@ -275,6 +272,28 @@ public class LoginUI extends JFrame {
         repaint();
       }
     });
+  }
+
+  private void showError(String message) {
+    JOptionPane.showMessageDialog(null, message, "Error", JOptionPane.ERROR_MESSAGE);
+  }
+
+  public void setInformations(int userId, String email, String phone) {
+    this.email = email;
+    this.phone = phone;
+    this.userId = userId;
+  }
+
+  public String getEmail() {
+    return email;
+  }
+
+  public String getPhone() {
+    return phone;
+  }
+
+  public int getUserId() {
+    return userId;
   }
 
   private void initFrame() {
@@ -287,7 +306,7 @@ public class LoginUI extends JFrame {
   }
 
   public static void main(String[] args) {
-    new LoginUI();
+    new RetypePasswordUI();
   }
 
 }

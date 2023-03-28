@@ -172,7 +172,7 @@ public class UserBUS implements IBUS<UserModel> {
     return id;
   }
 
-  private static boolean isValidEmailAddress(String email) {
+  public boolean isValidEmailAddress(String email) {
     Pattern pattern = Pattern.compile("^\\S+@\\S+\\.\\S+$");
 
     if (email == null) {

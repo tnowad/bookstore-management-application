@@ -201,19 +201,31 @@ public class RegisterUI extends JFrame {
       char[] password = passwordField.getPassword();
       String passwordText = new String(password);
 
+      // Check if the required fields are empty or contain only whitespace
+      if (username.trim().isEmpty() || name.trim().isEmpty() || passwordText.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Username, name and password cannot be empty. Please try again.");
+        return;
+      }
+
+      if (!email.isEmpty() && UserBUS.getInstance().isValidEmailAddress(email)) {
+        JOptionPane.showMessageDialog(null, "Please enter a valid email address.");
+        return;
+      }
+
+      // Check if the username is already taken
       if (UserBUS.getInstance().checkDuplicateUsername(username)) {
-        JOptionPane.showMessageDialog(null,
-            "The username is taken from different account, please try another username.");
+        JOptionPane.showMessageDialog(null, "The username is already taken. Please try another username.");
+        return;
+      }
+
+      UserModel newUser = new UserModel(0, username, passwordText, null, name, email, phone, null, null, null);
+      int added = UserBUS.getInstance().addModel(newUser);
+      if (added == 1) {
+        ProfileModel.getInstance().setUser(newUser);
+        JOptionPane.showMessageDialog(null, "You've successfully registered! You can log in now.");
+        dispose(); // close the registration UI
       } else {
-        UserModel newUser = new UserModel(0, username, passwordText, null, name, email, phone, null, null, null);
-        int added = UserBUS.getInstance().addModel(newUser);
-        if (added == 1) {
-          ProfileModel.getInstance().setUser(newUser);
-          JOptionPane.showMessageDialog(null, "You've successfully registered! You can log in now.");
-          dispose(); // close the registration UI
-        } else {
-          JOptionPane.showMessageDialog(null, "Registration failed. Please try again!");
-        }
+        JOptionPane.showMessageDialog(null, "Registration failed. Please try again!");
       }
     });
 
