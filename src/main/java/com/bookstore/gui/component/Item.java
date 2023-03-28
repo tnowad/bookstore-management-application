@@ -30,7 +30,7 @@ public class Item extends javax.swing.JPanel {
     setCursor(new Cursor(Cursor.HAND_CURSOR));
   }
 
-  private BookItem book;
+  private transient BookItem book;
 
   public void setbook(BookItem book) {
     this.book = book;
@@ -42,8 +42,8 @@ public class Item extends javax.swing.JPanel {
   }
 
   @Override
-  public void paint(Graphics grphcs) {
-    Graphics2D g2 = (Graphics2D) grphcs.create();
+  public void paint(Graphics graphics) {
+    Graphics2D g2 = (Graphics2D) graphics.create();
     g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
     g2.setColor(new Color(242, 242, 242));
     g2.fillRoundRect(0, 0, getWidth(), getHeight(), 20, 20);
@@ -52,11 +52,9 @@ public class Item extends javax.swing.JPanel {
       g2.drawRoundRect(0, 0, getWidth() - 1, getHeight() - 1, 20, 20);
     }
     g2.dispose();
-    super.paint(grphcs);
+    super.paint(graphics);
   }
 
-  @SuppressWarnings("unchecked")
-  // <editor-fold defaultstate="collapsed" desc="Generated Code">
   private void initComponents() {
 
     lbItemName = new javax.swing.JLabel();
@@ -64,7 +62,7 @@ public class Item extends javax.swing.JPanel {
     pic = new com.bookstore.gui.swing.PictureBox();
     lbPrice = new javax.swing.JLabel();
     lbBrand = new javax.swing.JLabel();
-    addtoCartButton = new javax.swing.JButton();
+    addToCartButton = new javax.swing.JButton();
     detailsButton = new javax.swing.JButton();
 
     lbItemName.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
@@ -86,12 +84,8 @@ public class Item extends javax.swing.JPanel {
     lbBrand.setForeground(new java.awt.Color(76, 76, 76));
     lbBrand.setText("Price");
 
-    addtoCartButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/bookstore/image/cartico.jpg"))); // NOI18N
-    addtoCartButton.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
-        addtoCartButtonActionPerformed(evt);
-      }
-    });
+    addToCartButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/bookstore/image/cartico.jpg"))); // NOI18N
+    addToCartButton.addActionListener(this::addToCartButtonActionPerformed);
 
     detailsButton.setText("Details");
 
@@ -108,7 +102,7 @@ public class Item extends javax.swing.JPanel {
                             126,
                             javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(addtoCartButton, javax.swing.GroupLayout.PREFERRED_SIZE,
+                        .addComponent(addToCartButton, javax.swing.GroupLayout.PREFERRED_SIZE,
                             45, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -149,23 +143,20 @@ public class Item extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(detailsButton)
-                    .addComponent(addtoCartButton, javax.swing.GroupLayout.PREFERRED_SIZE, 23,
+                    .addComponent(addToCartButton, javax.swing.GroupLayout.PREFERRED_SIZE, 23,
                         javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(17, 17, 17)));
-  }// </editor-fold>
+  }
 
-  private void addtoCartButtonActionPerformed(java.awt.event.ActionEvent evt) {
+  private void addToCartButtonActionPerformed(java.awt.event.ActionEvent evt) {
     // TODO add your handling code here:
   }
 
-  // Variables declaration - do not modify
-  private javax.swing.JButton addtoCartButton;
+  private javax.swing.JButton addToCartButton;
   private javax.swing.JButton detailsButton;
   private javax.swing.JLabel lbBrand;
   private javax.swing.JLabel lbDescription;
   private javax.swing.JLabel lbItemName;
   private javax.swing.JLabel lbPrice;
   private com.bookstore.gui.swing.PictureBox pic;
-
-  // End of variables declaration
 }

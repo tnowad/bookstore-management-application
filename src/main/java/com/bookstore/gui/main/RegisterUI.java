@@ -3,8 +3,6 @@ package com.bookstore.gui.main;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import javax.swing.border.*;
-
 import com.bookstore.bus.UserBUS;
 import com.bookstore.gui.component.GroupInput;
 import com.bookstore.model.ProfileModel;
