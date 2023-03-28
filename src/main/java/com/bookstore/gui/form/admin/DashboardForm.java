@@ -27,7 +27,7 @@ public class DashboardForm extends JFrame {
     setLocationRelativeTo(null);
   }
 
-  public static void main(String[] args) {
-    new DashboardForm().setVisible(true);
-  }
+  // public static void main(String[] args) {
+  // new DashboardForm().setVisible(true);
+  // }
 }
