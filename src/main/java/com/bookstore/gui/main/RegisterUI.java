@@ -6,6 +6,7 @@ import java.awt.event.*;
 import javax.swing.border.*;
 
 import com.bookstore.bus.UserBUS;
+import com.bookstore.gui.component.GroupInput;
 import com.bookstore.model.ProfileModel;
 import com.bookstore.model.UserModel;
 
@@ -15,15 +16,10 @@ public class RegisterUI extends JFrame {
   private JPanel groupContent;
   private JPanel groupLogo;
   private JLabel titleRegister;
-  private JPanel groupUsername;
-  private JLabel usernameLabel;
-  private JTextField usernameTextField;
-  private JPanel groupPassword;
-  private JLabel passwordLabel;
-  private JPasswordField passwordField;
-  private JPanel groupPasswordAgain;
-  private JLabel passwordLabelAgain;
-  private JPasswordField passwordFieldAgain;
+  private GroupInput groupUsername;
+  private GroupInput groupPassword;
+  private GroupInput groupPasswordAgain;
+
   private JPanel groupButton;
   private JButton loginButton;
   private JButton cancelButton;
@@ -52,15 +48,9 @@ public class RegisterUI extends JFrame {
     groupContent = new JPanel();
     titleRegister = new JLabel();
     groupAccount = new JPanel();
-    groupUsername = new JPanel();
-    usernameLabel = new JLabel();
-    usernameTextField = new JTextField();
-    groupPassword = new JPanel();
-    passwordLabel = new JLabel();
-    passwordField = new JPasswordField();
-    groupPasswordAgain = new JPanel();
-    passwordLabelAgain = new JLabel();
-    passwordFieldAgain = new JPasswordField();
+    groupUsername = new GroupInput("Username", "show");
+    groupPassword = new GroupInput("Password", "hide");
+    groupPasswordAgain = new GroupInput("Password Again", "hide");
     groupButton = new JPanel();
     loginButton = new JButton();
     cancelButton = new JButton();
@@ -106,48 +96,11 @@ public class RegisterUI extends JFrame {
     groupAccount.setLayout(new BoxLayout(groupAccount, BoxLayout.Y_AXIS));
 
     // group username
-    groupUsername.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 50));
-
-    usernameLabel.setFont(new Font("sansserif", 0, 24));
-    usernameLabel.setText("Username");
-    usernameLabel.setPreferredSize(new Dimension(250, 50));
-    groupUsername.add(usernameLabel);
-
-    usernameTextField.setFont(new Font("sansserif", 0, 24));
-    usernameTextField.setPreferredSize(new Dimension(300, 50));
-    Border borderUsernameTextField = BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLUE);
-    usernameTextField.setBorder(borderUsernameTextField);
-    groupUsername.add(usernameTextField);
-
     groupAccount.add(groupUsername);
-
+    groupUsername.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 30));
     // group password
-    groupPassword.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));
-
-    passwordLabel.setFont(new Font("sansserif", 0, 24));
-    passwordLabel.setText("Password");
-    passwordLabel.setPreferredSize(new Dimension(250, 50));
-    groupPassword.add(passwordLabel);
-
-    passwordField.setFont(new Font("sansserif", 0, 24));
-    passwordField.setPreferredSize(new Dimension(300, 50));
-    Border borderPasswordField = BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLUE);
-    passwordField.setBorder(borderPasswordField);
-    groupPassword.add(passwordField);
-
-    groupPasswordAgain.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));
-
-    passwordLabelAgain.setFont(new Font("sansserif", 0, 24));
-    passwordLabelAgain.setText("Password Again");
-    passwordLabelAgain.setPreferredSize(new Dimension(250, 50));
-    groupPasswordAgain.add(passwordLabelAgain);
-
-    passwordFieldAgain.setFont(new Font("sansserif", 0, 24));
-    passwordFieldAgain.setPreferredSize(new Dimension(300, 50));
-    Border borderPasswordFieldAgain = BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLUE);
-    passwordFieldAgain.setBorder(borderPasswordFieldAgain);
-    groupPasswordAgain.add(passwordFieldAgain);
-
+    groupPassword.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 30));
+    groupPasswordAgain.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 30));
     groupAccount.add(groupPassword);
     groupAccount.add(groupPasswordAgain);
 
@@ -194,11 +147,11 @@ public class RegisterUI extends JFrame {
     });
 
     registerButton.addActionListener(e -> {
-      String username = usernameTextField.getText();
+      String username = groupUsername.getTextField().getText();
       String name = nameTextField.getText();
       String email = emailTextField.getText();
       String phone = phoneTextField.getText();
-      char[] password = passwordField.getPassword();
+      char[] password = groupPassword.getPasswordField().getPassword();
       String passwordText = new String(password);
 
       // Check if the required fields are empty or contain only whitespace
@@ -245,33 +198,56 @@ public class RegisterUI extends JFrame {
 
           groupUsername.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
 
-          usernameLabel.setFont(new Font("sansserif", 0, 16));
-          usernameLabel.setPreferredSize(new Dimension(200, 50));
+          groupUsername.getLabel().setFont(new Font("sansserif", 0, 16));
+          groupUsername.getLabel().setPreferredSize(new Dimension(200, 50));
 
-          usernameTextField.setFont(new Font("sansserif", 0, 16));
-          usernameTextField.setPreferredSize(new Dimension(150, 50));
+          groupUsername.getTextField().setFont(new Font("sansserif", 0, 16));
+          groupUsername.getTextField().setPreferredSize(new Dimension(150, 50));
 
           groupPassword.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
 
-          passwordLabel.setFont(new Font("sansserif", 0, 16));
-          passwordLabel.setPreferredSize(new Dimension(200, 50));
+          groupPassword.getLabel().setFont(new Font("sansserif", 0, 16));
+          groupPassword.getLabel().setPreferredSize(new Dimension(200, 50));
 
-          passwordField.setFont(new Font("sansserif", 0, 16));
-          passwordField.setPreferredSize(new Dimension(150, 50));
+          groupPassword.getPasswordField().setFont(new Font("sansserif", 0, 16));
+          groupPassword.getPasswordField().setPreferredSize(new Dimension(150, 50));
 
           groupPasswordAgain.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
 
-          passwordLabelAgain.setFont(new Font("sansserif", 0, 16));
-          passwordLabelAgain.setPreferredSize(new Dimension(200, 50));
+          groupPasswordAgain.getLabel().setFont(new Font("sansserif", 0, 16));
+          groupPasswordAgain.getLabel().setPreferredSize(new Dimension(200, 50));
 
-          passwordFieldAgain.setFont(new Font("sansserif", 0, 16));
-          passwordFieldAgain.setPreferredSize(new Dimension(150, 50));
+          groupPasswordAgain.getPasswordField().setFont(new Font("sansserif", 0, 16));
+          groupPasswordAgain.getPasswordField().setPreferredSize(new Dimension(150, 50));
 
           cancelButton.setPreferredSize(new Dimension(100, 35));
           registerButton.setPreferredSize(new Dimension(100, 35));
           loginButton.setPreferredSize(new Dimension(300, 35));
 
         } else {
+          groupUsername.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 50));
+
+          groupUsername.getLabel().setFont(new Font("sansserif", 0, 24));
+          groupUsername.getLabel().setPreferredSize(new Dimension(200, 50));
+
+          groupUsername.getTextField().setFont(new Font("sansserif", 0, 24));
+          groupUsername.getTextField().setPreferredSize(new Dimension(300, 50));
+
+          groupPassword.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 50));
+
+          groupPassword.getLabel().setFont(new Font("sansserif", 0, 24));
+          groupPassword.getLabel().setPreferredSize(new Dimension(200, 50));
+
+          groupPassword.getPasswordField().setFont(new Font("sansserif", 0, 24));
+          groupPassword.getPasswordField().setPreferredSize(new Dimension(300, 50));
+
+          groupPasswordAgain.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 20));
+
+          groupPasswordAgain.getLabel().setFont(new Font("sansserif", 0, 24));
+          groupPasswordAgain.getLabel().setPreferredSize(new Dimension(200, 50));
+
+          groupPasswordAgain.getPasswordField().setFont(new Font("sansserif", 0, 24));
+          groupPasswordAgain.getPasswordField().setPreferredSize(new Dimension(300, 50));
           initGroupContent();
           initGroupLogo();
         }

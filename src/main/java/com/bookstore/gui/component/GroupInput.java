@@ -19,7 +19,7 @@ public class GroupInput extends JPanel {
     setBackground(Color.WHITE);
     label = new JLabel(name);
     label.setFont(new Font("sansserif", 0, 24));
-    label.setPreferredSize(new Dimension(120, 50));
+    label.setPreferredSize(new Dimension(150, 50));
     add(label);
 
     if (typeField == "show") {
