@@ -28,7 +28,7 @@ public class Button extends JButton {
 
   private Animator animator;
   private int targetSize;
-  private float animatSize;
+  private float animationSize;
   private Point pressedPoint;
   private float alpha;
   private Color effectColor = new Color(173, 173, 173);
@@ -42,7 +42,7 @@ public class Button extends JButton {
       @Override
       public void mousePressed(MouseEvent me) {
         targetSize = Math.max(getWidth(), getHeight()) * 2;
-        animatSize = 0;
+        animationSize = 0;
         pressedPoint = me.getPoint();
         alpha = 0.5f;
         if (animator.isRunning()) {
@@ -57,7 +57,7 @@ public class Button extends JButton {
         if (fraction > 0.5f) {
           alpha = 1 - fraction;
         }
-        animatSize = fraction * targetSize;
+        animationSize = fraction * targetSize;
         repaint();
       }
     };
@@ -66,7 +66,7 @@ public class Button extends JButton {
   }
 
   @Override
-  protected void paintComponent(Graphics grphcs) {
+  protected void paintComponent(Graphics graphics) {
     int width = getWidth();
     int height = getHeight();
     BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
@@ -77,11 +77,12 @@ public class Button extends JButton {
     if (pressedPoint != null) {
       g2.setColor(effectColor);
       g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, alpha));
-      g2.fillOval((int) (pressedPoint.x - animatSize / 2), (int) (pressedPoint.y - animatSize / 2), (int) animatSize,
-          (int) animatSize);
+      g2.fillOval((int) (pressedPoint.x - animationSize / 2), (int) (pressedPoint.y - animationSize / 2),
+          (int) animationSize,
+          (int) animationSize);
     }
     g2.dispose();
-    grphcs.drawImage(img, 0, 0, null);
-    super.paintComponent(grphcs);
+    graphics.drawImage(img, 0, 0, null);
+    super.paintComponent(graphics);
   }
 }

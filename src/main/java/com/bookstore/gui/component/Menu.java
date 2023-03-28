@@ -132,5 +132,4 @@ public class Menu extends JPanel {
   public void setShowMenu(boolean showMenu) {
     this.showMenu = showMenu;
   }
-
 }

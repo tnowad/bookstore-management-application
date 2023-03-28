@@ -1,7 +1,5 @@
 package com.bookstore.gui.component;
 
-import com.bookstore.gui.component.StatusType;
-
 public class CellStatus extends javax.swing.JPanel {
 
   public CellStatus(StatusType type) {
