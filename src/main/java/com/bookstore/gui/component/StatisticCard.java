@@ -1,13 +1,14 @@
 package com.bookstore.gui.component;
 
-import com.bookstore.gui.model.ModelStatisticCard;
 import java.awt.Color;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 
-public class Card extends javax.swing.JPanel {
+import com.bookstore.gui.model.ModelStatisticCard;
+
+public class StatisticCard extends javax.swing.JPanel {
 
   public Color getColor1() {
     return color1;
@@ -28,7 +29,7 @@ public class Card extends javax.swing.JPanel {
   private Color color1;
   private Color color2;
 
-  public Card() {
+  public StatisticCard() {
     initComponents();
     setOpaque(false);
     color1 = Color.BLACK;
@@ -43,6 +44,8 @@ public class Card extends javax.swing.JPanel {
   }
 
   @SuppressWarnings("unchecked")
+  // <editor-fold defaultstate="collapsed" desc="Generated
+  // Code">//GEN-BEGIN:initComponents
   private void initComponents() {
 
     lbIcon = new javax.swing.JLabel();
@@ -50,17 +53,17 @@ public class Card extends javax.swing.JPanel {
     lbValues = new javax.swing.JLabel();
     lbDescription = new javax.swing.JLabel();
 
-    lbIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/bookstore/gui/icon/stock.png")));
+    lbIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/bookstore/gui/icon/stock.png"))); // NOI18N
 
-    lbTitle.setFont(new java.awt.Font("sansserif", 1, 14));
+    lbTitle.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
     lbTitle.setForeground(new java.awt.Color(255, 255, 255));
     lbTitle.setText("Title");
 
-    lbValues.setFont(new java.awt.Font("sansserif", 1, 18));
+    lbValues.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
     lbValues.setForeground(new java.awt.Color(255, 255, 255));
     lbValues.setText("Values");
 
-    lbDescription.setFont(new java.awt.Font("sansserif", 0, 14));
+    lbDescription.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
     lbDescription.setForeground(new java.awt.Color(255, 255, 255));
     lbDescription.setText("Description");
 
@@ -88,7 +91,7 @@ public class Card extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(lbDescription)
                 .addContainerGap(25, Short.MAX_VALUE)));
-  }
+  }// </editor-fold>//GEN-END:initComponents
 
   @Override
   protected void paintComponent(Graphics grphcs) {
@@ -103,8 +106,10 @@ public class Card extends javax.swing.JPanel {
     super.paintComponent(grphcs);
   }
 
+  // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JLabel lbDescription;
   private javax.swing.JLabel lbIcon;
   private javax.swing.JLabel lbTitle;
   private javax.swing.JLabel lbValues;
+  // End of variables declaration//GEN-END:variables
 }

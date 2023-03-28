@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.util.Arrays;
@@ -41,8 +43,7 @@ public class LoginUI extends JFrame {
   private JPasswordField passwordField;
   private JLabel passwordLabel;
   private JPanel groupForgetPassword;
-  private JTextField forgetPasswordField;
-  private JLabel forgetPasswordLabel;
+  private JButton forgetButton;
 
   private JPanel groupButton;
   private JButton loginButton;
@@ -76,6 +77,8 @@ public class LoginUI extends JFrame {
     groupPassword = new JPanel();
     passwordLabel = new JLabel();
     passwordField = new JPasswordField();
+    groupForgetPassword = new JPanel();
+    forgetButton = new JButton("Forget password");
     groupButton = new JPanel();
     loginButton = new JButton();
     cancelButton = new JButton();
@@ -150,21 +153,20 @@ public class LoginUI extends JFrame {
     groupAccount.add(groupPassword);
 
     // group forget password
-    // groupForgetPassword.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));
+    groupForgetPassword.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
-    // forgetPasswordLabel.setFont(new Font("sansserif", 0, 24));
-    // forgetPasswordLabel.setText("Password Again");
-    // forgetPasswordLabel.setPreferredSize(new Dimension(250, 50));
-    // groupForgetPassword.add(forgetPasswordLabel);
+    forgetButton.setPreferredSize(new Dimension(200, 20));
+    forgetButton.setForeground(Color.WHITE);
+    forgetButton.setBackground(Color.white);
+    forgetButton.setForeground(Color.RED);
+    forgetButton.setFont(new Font("Arial", Font.BOLD, 14));
 
-    // forgetPasswordField.setFont(new Font("sansserif", 0, 24));
-    // forgetPasswordField.setPreferredSize(new Dimension(300, 50));
-    // Border borderforgetPasswordField = BorderFactory.createMatteBorder(0, 0, 1,
-    // 0, Color.BLUE);
-    // forgetPasswordField.setBorder(borderforgetPasswordField);
-    // groupForgetPassword.add(forgetPasswordField);
+    forgetButton.setBorder(BorderFactory.createEmptyBorder());
+    groupForgetPassword.setBorder(BorderFactory.createEmptyBorder());
 
-    groupAccount.add(groupForgetPassword);
+    groupForgetPassword.add(forgetButton);
+
+    groupAccount.add(groupForgetPassword, BorderLayout.EAST);
 
     groupContent.add(groupAccount, BorderLayout.CENTER);
 
@@ -194,6 +196,7 @@ public class LoginUI extends JFrame {
     groupAccount.setBackground(Color.white);
     groupUsername.setBackground(Color.white);
     groupPassword.setBackground(Color.white);
+    groupForgetPassword.setBackground(Color.white);
     groupButton.setBackground(Color.white);
     loginButton.setBackground(Color.white);
     cancelButton.setBackground(Color.white);
