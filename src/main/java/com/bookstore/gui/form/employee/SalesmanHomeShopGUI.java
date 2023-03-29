@@ -2,8 +2,6 @@ package com.bookstore.gui.form.employee;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class SalesmanHomeShopGUI extends JFrame {
   private JPanel productListPanel, productDetailsPanel, salesRecordsPanel;
@@ -111,41 +109,38 @@ public class SalesmanHomeShopGUI extends JFrame {
 
     // Set up the checkout button
     checkoutButton = new JButton("Checkout");
-    checkoutButton.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        // Get the selected book from the product table
-        int selectedRow = productTable.getSelectedRow();
-        if (selectedRow == -1) {
-          JOptionPane.showMessageDialog(SalesmanHomeShopGUI.this, "Please select a book to checkout.");
-          return;
-        }
-        String isbn = (String) productTable.getValueAt(selectedRow, 0);
-        String title = (String) productTable.getValueAt(selectedRow, 1);
-        String price = (String) productTable.getValueAt(selectedRow, 3);
+    checkoutButton.addActionListener(e -> {
+      // Get the selected book from the product table
+      int selectedRow = productTable.getSelectedRow();
+      if (selectedRow == -1) {
+        JOptionPane.showMessageDialog(SalesmanHomeShopGUI.this, "Please select a book to checkout.");
+        return;
+      }
+      String isbn = (String) productTable.getValueAt(selectedRow, 0);
+      String title = (String) productTable.getValueAt(selectedRow, 1);
+      String price = (String) productTable.getValueAt(selectedRow, 3);
 
-        // Display a dialog box asking for customer information
-        JPanel customerInfoPanel = new JPanel(new GridLayout(3, 2));
-        JTextField nameField = new JTextField();
-        JTextField addressField = new JTextField();
-        JTextField phoneField = new JTextField();
-        customerInfoPanel.add(new JLabel("Name: "));
-        customerInfoPanel.add(nameField);
-        customerInfoPanel.add(new JLabel("Address: "));
-        customerInfoPanel.add(addressField);
-        customerInfoPanel.add(new JLabel("Phone: "));
-        customerInfoPanel.add(phoneField);
-        int result = JOptionPane.showConfirmDialog(SalesmanHomeShopGUI.this, customerInfoPanel,
-            "Enter Customer Information", JOptionPane.OK_CANCEL_OPTION);
-        if (result == JOptionPane.OK_OPTION) {
-          // Update the sales records panel with the new sale
-          String date = "1/1/2020"; // TODO: Get the current date
-          String quantity = quantityField.getText();
-          String totalPrice = "$" + Integer.parseInt(quantity) * Double.parseDouble(price.substring(1));
-          Object[] newRow = { date, isbn, title, quantity, totalPrice };
-          ((javax.swing.table.DefaultTableModel) salesTable.getModel()).addRow(newRow);
-          JOptionPane.showMessageDialog(SalesmanHomeShopGUI.this, "Sale completed successfully!");
-        }
+      // Display a dialog box asking for customer information
+      JPanel customerInfoPanel = new JPanel(new GridLayout(3, 2));
+      JTextField nameField = new JTextField();
+      JTextField addressField = new JTextField();
+      JTextField phoneField = new JTextField();
+      customerInfoPanel.add(new JLabel("Name: "));
+      customerInfoPanel.add(nameField);
+      customerInfoPanel.add(new JLabel("Address: "));
+      customerInfoPanel.add(addressField);
+      customerInfoPanel.add(new JLabel("Phone: "));
+      customerInfoPanel.add(phoneField);
+      int result = JOptionPane.showConfirmDialog(SalesmanHomeShopGUI.this, customerInfoPanel,
+          "Enter Customer Information", JOptionPane.OK_CANCEL_OPTION);
+      if (result == JOptionPane.OK_OPTION) {
+        // Update the sales records panel with the new sale
+        String date = "1/1/2020"; // TODO: Get the current date
+        String quantity = quantityField.getText();
+        String totalPrice = "$" + Integer.parseInt(quantity) * Double.parseDouble(price.substring(1));
+        Object[] newRow = { date, isbn, title, quantity, totalPrice };
+        ((javax.swing.table.DefaultTableModel) salesTable.getModel()).addRow(newRow);
+        JOptionPane.showMessageDialog(SalesmanHomeShopGUI.this, "Sale completed successfully!");
       }
     });
     productDetailsPanel.add(checkoutButton);
@@ -184,26 +179,24 @@ public class SalesmanHomeShopGUI extends JFrame {
 
     // Add a listener to the product table to update the product details panel when
     // a book is selected
-    productTable.getSelectionModel().addListSelectionListener(new javax.swing.event.ListSelectionListener() {
-      public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-        int selectedRow = productTable.getSelectedRow();
-        if (selectedRow == -1) {
-          isbnField.setText("");
-          titleField.setText("");
-          descriptionField.setText("");
-          imageField.setText("");
-          priceField.setText("");
-          quantityField.setText("");
-          statusComboBox.setSelectedIndex(0);
-        } else {
-          isbnField.setText((String) productTable.getValueAt(selectedRow, 0));
-          titleField.setText((String) productTable.getValueAt(selectedRow, 1));
-          descriptionField.setText(""); // TODO: Get the book's description from a database
-          imageField.setText(""); // TODO: Get the book's image URL from a database
-          priceField.setText((String) productTable.getValueAt(selectedRow, 3));
-          quantityField.setText("1");
-          statusComboBox.setSelectedItem(productTable.getValueAt(selectedRow, 5));
-        }
+    productTable.getSelectionModel().addListSelectionListener(e -> {
+      int selectedRow = productTable.getSelectedRow();
+      if (selectedRow == -1) {
+        isbnField.setText("");
+        titleField.setText("");
+        descriptionField.setText("");
+        imageField.setText("");
+        priceField.setText("");
+        quantityField.setText("");
+        statusComboBox.setSelectedIndex(0);
+      } else {
+        isbnField.setText((String) productTable.getValueAt(selectedRow, 0));
+        titleField.setText((String) productTable.getValueAt(selectedRow, 1));
+        descriptionField.setText(""); // TODO: Get the book's description from a database
+        imageField.setText(""); // TODO: Get the book's image URL from a database
+        priceField.setText((String) productTable.getValueAt(selectedRow, 3));
+        quantityField.setText("1");
+        statusComboBox.setSelectedItem(productTable.getValueAt(selectedRow, 5));
       }
     });
   }

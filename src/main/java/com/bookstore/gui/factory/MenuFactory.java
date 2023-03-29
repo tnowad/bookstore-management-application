@@ -1,12 +1,15 @@
 package com.bookstore.gui.factory;
 
-import javax.swing.JFrame;
-
 import com.bookstore.gui.component.Menu;
 import com.bookstore.gui.model.MenuItemModel;
 import com.bookstore.gui.model.MenuModel;
 
 public class MenuFactory {
+
+  private MenuFactory() {
+
+  }
+
   public static MenuItemModel[] createMenuItemModel(String... menuItems) {
     MenuItemModel[] menuItemModel = new MenuItemModel[menuItems.length];
     for (int i = 0; i < menuItems.length; i++) {
