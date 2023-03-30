@@ -34,7 +34,7 @@ public class LoginUI extends JFrame {
   private GroupInput groupPassword;
 
   private JLabel titleLogin;
-  private JPanel groupForgetPassword;
+  private JPanel groupForgotPassword;
   private JButton forgetButton;
 
   private JPanel groupButton;
@@ -66,8 +66,8 @@ public class LoginUI extends JFrame {
     groupUsername = new GroupInput("Username", "show");
     groupPassword = new GroupInput("Password", "hide");
 
-    groupForgetPassword = new JPanel();
-    forgetButton = new JButton("Forget password");
+    groupForgotPassword = new JPanel();
+    forgetButton = new JButton("Forgot password");
     groupButton = new JPanel();
     loginButton = new JButton();
     cancelButton = new JButton();
@@ -118,7 +118,7 @@ public class LoginUI extends JFrame {
     groupAccount.add(groupPassword);
 
     // group forget password
-    groupForgetPassword.setLayout(new FlowLayout(FlowLayout.RIGHT));
+    groupForgotPassword.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
     forgetButton.setPreferredSize(new Dimension(200, 20));
     forgetButton.setForeground(Color.WHITE);
@@ -127,11 +127,11 @@ public class LoginUI extends JFrame {
     forgetButton.setFont(new Font("Arial", Font.BOLD, 14));
 
     forgetButton.setBorder(BorderFactory.createEmptyBorder());
-    groupForgetPassword.setBorder(BorderFactory.createEmptyBorder());
+    groupForgotPassword.setBorder(BorderFactory.createEmptyBorder());
 
-    groupForgetPassword.add(forgetButton);
+    groupForgotPassword.add(forgetButton);
 
-    groupAccount.add(groupForgetPassword, BorderLayout.EAST);
+    groupAccount.add(groupForgotPassword, BorderLayout.EAST);
 
     groupContent.add(groupAccount, BorderLayout.CENTER);
 
@@ -262,6 +262,7 @@ public class LoginUI extends JFrame {
     setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     pack();
     setLocationRelativeTo(null);
+    setVisible(true);
   }
 
   public static void main(String[] args) {

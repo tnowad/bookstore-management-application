@@ -50,8 +50,6 @@ public class TableUser extends javax.swing.JPanel {
     }
   }
 
-  @SuppressWarnings("unchecked")
-
   private void initComponents() {
 
     panel = new javax.swing.JLayeredPane();

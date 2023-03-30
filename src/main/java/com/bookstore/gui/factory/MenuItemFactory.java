@@ -11,81 +11,49 @@ public class MenuItemFactory {
 
   public static String getMenuItemName(String id) {
     // Switch case
-    switch (id) {
+    return switch (id) {
       // Case for general
-      case "general.logout":
-        return "Logout";
-      case "general.exit":
-        return "Exit";
+      case "general.logout" -> "Logout";
+      case "general.exit" -> "Exit";
       // Case for customer
-      case "customer.product":
-        return "Products";
-      case "customer.cart":
-        return "Cart";
-      case "customer.order":
-        return "Order Now";
-      case "customer.orderHistory":
-        return "Order History";
-      case "customer.payment":
-        return "Payment";
-      case "customer.paymentHistory":
-        return "Payment History";
-      case "customer.profile":
-        return "Profile";
+      case "customer.product" -> "Products";
+      case "customer.cart" -> "Cart";
+      case "customer.order" -> "Order Now";
+      case "customer.orderHistory" -> "Order History";
+      case "customer.payment" -> "Payment";
+      case "customer.paymentHistory" -> "Payment History";
+      case "customer.profile" -> "Profile";
       // Case for employee
       // Case for admin
-      case "admin.dashboard":
-        return "Dashboard";
-      case "admin.order":
-        return "Order";
-      case "admin.product":
-        return "Product";
-      case "admin.import":
-        return "Import";
-      case "admin.employee":
-        return "Employee";
-      case "admin.customer":
-        return "Customer";
-      case "admin.promotionList":
-        return "Promotion List";
-      case "admin.promotionHistory":
-        return "Promotion History";
-      case "admin.employeeList":
-        return "Employee List";
-      case "admin.employeeHistory":
-        return "Employee History";
-      case "admin.customerList":
-        return "Customer List";
-      case "admin.customerHistory":
-        return "Customer History";
-      case "admin.importList":
-        return "Import List";
-      case "admin.importHistory":
-        return "Import History";
-      case "admin.orderList":
-        return "Order List";
-      case "admin.orderHistory":
-        return "Order History";
-      case "admin.about":
-        return "About";
-      case "admin.settings":
-        return "Settings";
-      default:
-        return id;
-    }
+      case "admin.dashboard" -> "Dashboard";
+      case "admin.order" -> "Order";
+      case "admin.product" -> "Product";
+      case "admin.import" -> "Import";
+      case "admin.employee" -> "Employee";
+      case "admin.customer" -> "Customer";
+      case "admin.promotionList" -> "Promotion List";
+      case "admin.promotionHistory" -> "Promotion History";
+      case "admin.employeeList" -> "Employee List";
+      case "admin.employeeHistory" -> "Employee History";
+      case "admin.customerList" -> "Customer List";
+      case "admin.customerHistory" -> "Customer History";
+      case "admin.importList" -> "Import List";
+      case "admin.importHistory" -> "Import History";
+      case "admin.orderList" -> "Order List";
+      case "admin.orderHistory" -> "Order History";
+      case "admin.about" -> "About";
+      case "admin.settings" -> "Settings";
+      default -> id;
+    };
   }
 
   private static ActionListener getMenuItemActionListener(String name) {
-    switch (name) {
-      case "general.logout":
-        return e -> System.out.println("Logout is clicked");
-      case "general.exit":
-        return e -> System.out.println("Exit is clicked");
-      case "customer.product":
-        return e -> System.out.println("Products is clicked");
-      default:
-        return e -> System.out.println(name + " is clicked");
-    }
+    return switch (name) {
+      case "general.logout" -> e -> System.out.println("Logout is clicked");
+      case "general.exit" -> e -> System.out.println("Exit is clicked");
+      case "customer.product" -> e -> System.out.println("Products is clicked");
+      default -> e -> System.out.println(name + " is clicked");
+    };
   }
 
   public static MenuItemModel createMenuItemModel(String name) {
