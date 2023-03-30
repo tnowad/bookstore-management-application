@@ -16,6 +16,7 @@ public class PaymentForm extends JPanel {
   private JLabel jLabelTitle;
   private JRadioButton jRadioCredit;
   private JRadioButton jRadioCash;
+  private JButton jButtonSubmit;
 
   private GroupInput groupName;
   private GroupInput groupPhone;
@@ -24,11 +25,13 @@ public class PaymentForm extends JPanel {
     initPaymentMethod();
     initPaymentCredit();
     initPaymentCash();
+    initSubmit();
 
     setLayout(new BorderLayout());
     setBackground(Color.GRAY);
     add(jPanelPaymentMethod, BorderLayout.NORTH);
     add(jPanelPaymentCredit, BorderLayout.CENTER);
+    add(jButtonSubmit, BorderLayout.SOUTH);
 
   }
 
@@ -92,6 +95,11 @@ public class PaymentForm extends JPanel {
     jPanelPaymentCash.add(groupPhone);
 
     jPanelPaymentCash.setLayout(new GridLayout(2, 1));
+  }
+
+  public void initSubmit() {
+    jButtonSubmit = new JButton("Submit Payment");
+    jButtonSubmit.setPreferredSize(new Dimension(200, 50));
   }
 
   public static void main(String[] args) {
