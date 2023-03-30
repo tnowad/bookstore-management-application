@@ -159,9 +159,6 @@ public class LoginUI extends JFrame {
     groupLogo.setBackground(Color.white);
     groupContent.setBackground(Color.white);
     groupAccount.setBackground(Color.white);
-    groupUsername.setBackground(Color.white);
-    groupPassword.setBackground(Color.white);
-    groupForgetPassword.setBackground(Color.white);
     groupButton.setBackground(Color.white);
     loginButton.setBackground(Color.white);
     cancelButton.setBackground(Color.white);
@@ -265,6 +262,10 @@ public class LoginUI extends JFrame {
     setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     pack();
     setLocationRelativeTo(null);
+  }
+
+  public static void main(String[] args) {
+    new LoginUI();
   }
 
 }
