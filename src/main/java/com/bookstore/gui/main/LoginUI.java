@@ -21,6 +21,7 @@ import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
 import com.bookstore.bus.UserBUS;
+import com.bookstore.gui.component.Button;
 import com.bookstore.gui.component.GroupInput;
 import com.bookstore.model.ProfileModel;
 import com.bookstore.model.UserModel;
@@ -35,12 +36,12 @@ public class LoginUI extends JFrame {
 
   private JLabel titleLogin;
   private JPanel groupForgetPassword;
-  private JButton forgetButton;
+  private Button forgetButton;
 
   private JPanel groupButton;
-  private JButton loginButton;
-  private JButton cancelButton;
-  private JButton registerButton;
+  private Button loginButton;
+  private Button cancelButton;
+  private Button registerButton;
   private JLabel iconLabel;
   private JLabel nameStoreLabel;
 
@@ -67,11 +68,11 @@ public class LoginUI extends JFrame {
     groupPassword = new GroupInput("Password", "hide");
 
     groupForgetPassword = new JPanel();
-    forgetButton = new JButton("Forget password");
+    forgetButton = new Button("Forget password");
     groupButton = new JPanel();
-    loginButton = new JButton();
-    cancelButton = new JButton();
-    registerButton = new JButton();
+    loginButton = new Button("Login");
+    cancelButton = new Button("Cancel");
+    registerButton = new Button("Register");
     icon = new ImageIcon("icon/book.png");
     iconLabel = new JLabel(icon);
     nameStoreLabel = new JLabel("Bookstore Management Application");
@@ -121,12 +122,8 @@ public class LoginUI extends JFrame {
     groupForgetPassword.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
     forgetButton.setPreferredSize(new Dimension(200, 20));
-    forgetButton.setForeground(Color.WHITE);
-    forgetButton.setBackground(Color.white);
     forgetButton.setForeground(Color.RED);
-    forgetButton.setFont(new Font("Arial", Font.BOLD, 14));
-
-    forgetButton.setBorder(BorderFactory.createEmptyBorder());
+    forgetButton.setBorder(null);
     groupForgetPassword.setBorder(BorderFactory.createEmptyBorder());
 
     groupForgetPassword.add(forgetButton);
@@ -135,20 +132,11 @@ public class LoginUI extends JFrame {
 
     groupContent.add(groupAccount, BorderLayout.CENTER);
 
+    // group button
     groupButton.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 50));
-
-    loginButton.setText("Login");
-    loginButton.setPreferredSize(new Dimension(100, 50));
     groupButton.add(loginButton);
-
-    cancelButton.setText("Cancel");
-    cancelButton.setPreferredSize(new Dimension(100, 50));
     groupButton.add(cancelButton);
-
-    registerButton.setText("Don't have account? Register");
-    registerButton.setPreferredSize(new Dimension(300, 50));
     groupButton.add(registerButton);
-
     groupContent.add(groupButton, BorderLayout.PAGE_END);
 
     getContentPane().add(groupContent, BoxLayout.X_AXIS);
@@ -159,10 +147,8 @@ public class LoginUI extends JFrame {
     groupLogo.setBackground(Color.white);
     groupContent.setBackground(Color.white);
     groupAccount.setBackground(Color.white);
+    groupForgetPassword.setBackground(Color.WHITE);
     groupButton.setBackground(Color.white);
-    loginButton.setBackground(Color.white);
-    cancelButton.setBackground(Color.white);
-    registerButton.setBackground(Color.white);
   }
 
   private void handleEvent() {
@@ -229,7 +215,7 @@ public class LoginUI extends JFrame {
 
           cancelButton.setPreferredSize(new Dimension(100, 35));
           registerButton.setPreferredSize(new Dimension(100, 35));
-          loginButton.setPreferredSize(new Dimension(300, 35));
+          loginButton.setPreferredSize(new Dimension(100, 35));
 
         } else {
           groupUsername.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 50));
@@ -247,6 +233,9 @@ public class LoginUI extends JFrame {
 
           groupPassword.getPasswordField().setFont(new Font("sansserif", 0, 24));
           groupPassword.getPasswordField().setPreferredSize(new Dimension(300, 50));
+          loginButton.setButtonSize(100, 50);
+          cancelButton.setButtonSize(100, 50);
+          registerButton.setButtonSize(100, 50);
           initGroupContent();
           initGroupLogo();
         }
@@ -262,10 +251,6 @@ public class LoginUI extends JFrame {
     setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     pack();
     setLocationRelativeTo(null);
+    setVisible(true);
   }
-
-  public static void main(String[] args) {
-    new LoginUI();
-  }
-
 }
