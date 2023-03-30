@@ -12,7 +12,6 @@ import java.util.Arrays;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -35,7 +34,7 @@ public class LoginUI extends JFrame {
   private GroupInput groupPassword;
 
   private JLabel titleLogin;
-  private JPanel groupForgetPassword;
+  private JPanel groupForgotPassword;
   private Button forgetButton;
 
   private JPanel groupButton;
@@ -67,8 +66,8 @@ public class LoginUI extends JFrame {
     groupUsername = new GroupInput("Username", "show");
     groupPassword = new GroupInput("Password", "hide");
 
-    groupForgetPassword = new JPanel();
-    forgetButton = new Button("Forget password");
+    groupForgotPassword = new JPanel();
+    forgetButton = new Button("Forgot password");
     groupButton = new JPanel();
     loginButton = new Button("Login");
     cancelButton = new Button("Cancel");
@@ -119,16 +118,16 @@ public class LoginUI extends JFrame {
     groupAccount.add(groupPassword);
 
     // group forget password
-    groupForgetPassword.setLayout(new FlowLayout(FlowLayout.RIGHT));
+    groupForgotPassword.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
     forgetButton.setPreferredSize(new Dimension(200, 20));
     forgetButton.setForeground(Color.RED);
     forgetButton.setBorder(null);
-    groupForgetPassword.setBorder(BorderFactory.createEmptyBorder());
+    groupForgotPassword.setBorder(BorderFactory.createEmptyBorder());
 
-    groupForgetPassword.add(forgetButton);
+    groupForgotPassword.add(forgetButton);
 
-    groupAccount.add(groupForgetPassword, BorderLayout.EAST);
+    groupAccount.add(groupForgotPassword, BorderLayout.EAST);
 
     groupContent.add(groupAccount, BorderLayout.CENTER);
 
@@ -147,7 +146,7 @@ public class LoginUI extends JFrame {
     groupLogo.setBackground(Color.white);
     groupContent.setBackground(Color.white);
     groupAccount.setBackground(Color.white);
-    groupForgetPassword.setBackground(Color.WHITE);
+    groupForgotPassword.setBackground(Color.WHITE);
     groupButton.setBackground(Color.white);
   }
 
@@ -192,8 +191,8 @@ public class LoginUI extends JFrame {
         if (width < 1020) {
           groupLogo.setPreferredSize(new Dimension(500, 200));
 
-          nameStoreLabel.setFont(new Font("sansserif", 0, 16));
-          titleLogin.setFont(new Font("sansserif", 0, 24));
+          nameStoreLabel.setFont(new Font("Arial", 0, 16));
+          titleLogin.setFont(new Font("Arial", 0, 24));
           nameStoreLabel.setPreferredSize(new Dimension(100, 20));
           iconLabel.setIcon(new ImageIcon(getClass().getResource("/resources/book_logo_responsive.png")));
 

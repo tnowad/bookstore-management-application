@@ -8,31 +8,27 @@ public class IconFactory {
   }
 
   public static Icon createIcon(String id) {
-    switch (id) {
-      case "product.add":
-        return null;
-      case "product.edit":
-        return null;
-      default:
-        return new Icon() {
-          @Override
-          public int getIconWidth() {
-            return 21;
-          }
+    return switch (id) {
+      case "product.add", "product.edit" -> null;
+      default -> new Icon() {
+        @Override
+        public int getIconWidth() {
+          return 21;
+        }
 
-          @Override
-          public int getIconHeight() {
-            return 21;
-          }
+        @Override
+        public int getIconHeight() {
+          return 21;
+        }
 
-          @Override
-          public void paintIcon(java.awt.Component c, java.awt.Graphics g, int x, int y) {
-            g.setColor(new java.awt.Color(255, 255, 255));
-            g.fillRect(x, y, getIconWidth(), getIconHeight());
-            g.setColor(new java.awt.Color(0, 0, 0));
-            g.drawRect(x, y, getIconWidth(), getIconHeight());
-          }
-        };
-    }
+        @Override
+        public void paintIcon(java.awt.Component c, java.awt.Graphics g, int x, int y) {
+          g.setColor(new java.awt.Color(255, 255, 255));
+          g.fillRect(x, y, getIconWidth(), getIconHeight());
+          g.setColor(new java.awt.Color(0, 0, 0));
+          g.drawRect(x, y, getIconWidth(), getIconHeight());
+        }
+      };
+    };
   }
 }
