@@ -13,6 +13,7 @@ public class PaymentForm extends JPanel {
   private JPanel jPanelPaymentMethod;
   private JPanel jPanelPaymentCredit;
   private JPanel jPanelPaymentCash;
+  private JPanel jPanelSubmit;
   private JLabel jLabelTitle;
   private JRadioButton jRadioCredit;
   private JRadioButton jRadioCash;
@@ -20,6 +21,10 @@ public class PaymentForm extends JPanel {
 
   private GroupInput groupName;
   private GroupInput groupPhone;
+  private GroupInput groupAccountName;
+  private GroupInput groupCreditNumber;
+  private GroupInput groupCreditCVC;
+  private GroupInput groupCreditExpiration;
 
   private PaymentForm() {
     initPaymentMethod();
@@ -31,7 +36,7 @@ public class PaymentForm extends JPanel {
     setBackground(Color.GRAY);
     add(jPanelPaymentMethod, BorderLayout.NORTH);
     add(jPanelPaymentCredit, BorderLayout.CENTER);
-    add(jButtonSubmit, BorderLayout.SOUTH);
+    add(jPanelSubmit, BorderLayout.SOUTH);
 
   }
 
@@ -80,8 +85,18 @@ public class PaymentForm extends JPanel {
   public void initPaymentCredit() {
     jPanelPaymentCredit = new JPanel();
     jPanelPaymentCredit.setPreferredSize(new Dimension(200, 500));
-    jPanelPaymentCredit.setBackground(Color.GREEN);
 
+    groupAccountName = new GroupInput("Name Account", "show");
+    groupCreditNumber = new GroupInput("Credit Card Number", "hide");
+    groupCreditCVC = new GroupInput("Security Code", "show");
+    groupCreditExpiration = new GroupInput("Card Expiration", "show");
+
+    jPanelPaymentCredit.add(groupAccountName);
+    jPanelPaymentCredit.add(groupCreditNumber);
+    jPanelPaymentCredit.add(groupCreditCVC);
+    jPanelPaymentCredit.add(groupCreditExpiration);
+
+    jPanelPaymentCredit.setLayout(new GridLayout(4, 1));
   }
 
   public void initPaymentCash() {
@@ -98,8 +113,11 @@ public class PaymentForm extends JPanel {
   }
 
   public void initSubmit() {
+    jPanelSubmit = new JPanel();
     jButtonSubmit = new JButton("Submit Payment");
     jButtonSubmit.setPreferredSize(new Dimension(200, 50));
+
+    jPanelSubmit.add(jButtonSubmit);
   }
 
   public static void main(String[] args) {
