@@ -4,6 +4,18 @@
  */
 package com.bookstore.gui.form.cart;
 
+import java.awt.Component;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JPanel;
+import javax.swing.JTable;
+
+import com.bookstore.gui.model.CounterModel;
+
 /**
  *
  * @author Danh
@@ -36,7 +48,11 @@ public class CartSection extends javax.swing.JPanel {
     jScrollPane1 = new javax.swing.JScrollPane();
     DescriptionTextArea = new javax.swing.JTextArea();
     checkBoxChooseBookButton = new javax.swing.JCheckBox();
-
+    checkBoxChooseBookButton.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        checkTickBtnActionPerformed(evt);
+      }
+    });
     lblBookName.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
     lblBookName.setForeground(new java.awt.Color(76, 76, 76));
     lblBookName.setText("Book Title");
@@ -49,7 +65,11 @@ public class CartSection extends javax.swing.JPanel {
     txtQuantity.setText("0");
 
     minusBtn.setText("-");
-
+    minusBtn.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        minusBtnActionPerformed(evt);
+      }
+    });
     plusBtn.setText("+");
     plusBtn.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -134,13 +154,67 @@ public class CartSection extends javax.swing.JPanel {
                         .addGap(28, 28, 28)))));
   }// </editor-fold>//GEN-END:initComponents
 
-  private void plusBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_plusBtnActionPerformed
-    
-  }// GEN-LAST:event_plusBtnActionPerformed
+  private void plusBtnActionPerformed(java.awt.event.ActionEvent evt) {
+    String quantity = txtQuantity.getText();
+    int value = Integer.parseInt(quantity);
+    CounterModel counter = new CounterModel();
+    counter.setValue(value);
+    counter.IncreaseValue();
+    txtQuantity.setText(counter.getValue().toString());
+  }
 
-  private void deleteProductBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_deleteProductBtnActionPerformed
-    // TODO add your handling code here:
-  }// GEN-LAST:event_deleteProductBtnActionPerformed
+  private void minusBtnActionPerformed(java.awt.event.ActionEvent evt) {
+    String quantity = txtQuantity.getText();
+    int value = Integer.parseInt(quantity);
+    CounterModel counter = new CounterModel();
+    counter.setValue(value);
+    counter.DecreaseValue();
+    txtQuantity.setText(counter.getValue().toString());
+  }
+
+  private void deleteProductBtnActionPerformed(java.awt.event.ActionEvent evt) {
+    CartUI cartUI = new CartUI();
+    JButton button = (JButton) evt.getSource();
+    CartSection cartSection = (CartSection) button.getParent();
+    JPanel table = cartUI.getTable();
+    if (table != null) {
+      table.remove(cartSection);
+      table.revalidate();
+      table.repaint();
+    }
+  }
+
+// Import statement for JPanel
+private void checkTickBtnActionPerformed(java.awt.event.ActionEvent evt) {
+    CartUI cartUI = new CartUI();
+    JButton button = (JButton) evt.getSource();
+    JPanel cartPanel = (JPanel) button.getParent(); // Assumes the cart table is contained in the parent of the button clicked
+    boolean isTicked = checkBoxChooseBookButton.isSelected();
+
+    // Get only the items that are ticked
+    List<Object> tickedItems = getTickedItems(cartPanel, isTicked);
+}
+
+// Method to get the ticked items from the panel
+private List<Object> getTickedItems(JPanel panel, boolean isTicked) {
+    List<Object> tableList = new ArrayList<>();
+
+    // Iterate over the components and find the ticked items
+    for (Component comp : panel.getComponents()) {
+        if (comp instanceof CartSection) {
+            CartSection section = (CartSection) comp;
+            boolean ticked = section.isTicked();
+
+            if (ticked == isTicked) {
+                Object item = section.getItem(); // Assumes the section has a method to get the item information
+                tableList.add(item);
+            }
+        }
+    }
+
+    return tableList;
+}
+
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JTextArea DescriptionTextArea;
