@@ -13,6 +13,7 @@ public class PaymentForm extends JPanel {
   private JPanel jPanelPaymentMethod;
   private JPanel jPanelPaymentCredit;
   private JPanel jPanelPaymentCash;
+  private JPanel jPanelSubmit;
   private JLabel jLabelTitle;
   private JRadioButton jRadioCredit;
   private JRadioButton jRadioCash;
@@ -20,6 +21,10 @@ public class PaymentForm extends JPanel {
 
   private GroupInput groupName;
   private GroupInput groupPhone;
+  private GroupInput groupAccountName;
+  private GroupInput groupCreditNumber;
+  private GroupInput groupCreditCVC;
+  private GroupInput groupCreditExpiration;
 
   private PaymentForm() {
     initPaymentMethod();
@@ -31,7 +36,7 @@ public class PaymentForm extends JPanel {
     setBackground(Color.GRAY);
     add(jPanelPaymentMethod, BorderLayout.NORTH);
     add(jPanelPaymentCredit, BorderLayout.CENTER);
-    add(jButtonSubmit, BorderLayout.SOUTH);
+    add(jPanelSubmit, BorderLayout.SOUTH);
 
   }
 
@@ -79,14 +84,35 @@ public class PaymentForm extends JPanel {
 
   public void initPaymentCredit() {
     jPanelPaymentCredit = new JPanel();
-    jPanelPaymentCredit.setPreferredSize(new Dimension(200, 500));
-    jPanelPaymentCredit.setBackground(Color.GREEN);
+    jPanelPaymentCredit.setPreferredSize(new Dimension(200, 600));
 
+    groupAccountName = new GroupInput("Name Account", "show");
+    groupAccountName.getLabel().setPreferredSize(new Dimension(200, 50));
+    groupAccountName.getLabel().setFont(new Font("sansserif", 0, 18));
+
+    groupCreditNumber = new GroupInput("Credit Card Number", "show");
+    groupCreditNumber.getLabel().setPreferredSize(new Dimension(200, 50));
+    groupCreditNumber.getLabel().setFont(new Font("sansserif", 0, 18));
+
+    groupCreditCVC = new GroupInput("Security Code", "hide");
+    groupCreditCVC.getLabel().setPreferredSize(new Dimension(200, 50));
+    groupCreditCVC.getLabel().setFont(new Font("sansserif", 0, 18));
+
+    groupCreditExpiration = new GroupInput("Card Expiration", "show");
+    groupCreditExpiration.getLabel().setPreferredSize(new Dimension(200, 50));
+    groupCreditExpiration.getLabel().setFont(new Font("sansserif", 0, 18));
+
+    jPanelPaymentCredit.add(groupAccountName);
+    jPanelPaymentCredit.add(groupCreditNumber);
+    jPanelPaymentCredit.add(groupCreditCVC);
+    jPanelPaymentCredit.add(groupCreditExpiration);
+
+    jPanelPaymentCredit.setLayout(new GridLayout(4, 1, -10, 0));
   }
 
   public void initPaymentCash() {
     jPanelPaymentCash = new JPanel();
-    jPanelPaymentCash.setPreferredSize(new Dimension(800, 500));
+    jPanelPaymentCash.setPreferredSize(new Dimension(800, 600));
 
     groupName = new GroupInput("Name", "show");
     groupPhone = new GroupInput("Phone", "show");
@@ -98,8 +124,11 @@ public class PaymentForm extends JPanel {
   }
 
   public void initSubmit() {
+    jPanelSubmit = new JPanel();
     jButtonSubmit = new JButton("Submit Payment");
     jButtonSubmit.setPreferredSize(new Dimension(200, 50));
+
+    jPanelSubmit.add(jButtonSubmit);
   }
 
   public static void main(String[] args) {
@@ -107,7 +136,7 @@ public class PaymentForm extends JPanel {
       {
         PaymentForm paymentForm = new PaymentForm();
         add(paymentForm);
-        setSize(1000, 600);
+        setSize(1000, 700);
         setLocationRelativeTo(null);
         setVisible(true);
       }

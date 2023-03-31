@@ -30,4 +30,5 @@
     "WHATSHOT"
   ],
   "cSpell.language": "en,en-GB,en-US,lorem",
+  "java.debug.settings.onBuildFailureProceed": true,
 }

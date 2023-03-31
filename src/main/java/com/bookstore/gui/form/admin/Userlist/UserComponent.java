@@ -17,22 +17,15 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-public class TableUser extends javax.swing.JPanel {
+public class UserComponent extends javax.swing.JPanel {
+    private int valueAdmin = 0;
+    private int valueCustomer = 0;
+    private int valueEmployee = 0;
+    private int valueALL = 0;
 
-  public TableUser() {
+
+  public UserComponent() {
     initComponents();
-    adminCard.setData(
-        new ModelStatisticCard(new ImageIcon(getClass().getResource("/com/bookstore/gui/icon/stock.png")),
-            "Admin",
-            "1000", "Increased by 60%"));
-    customerCard.setData(
-        new ModelStatisticCard(new ImageIcon(getClass().getResource("/com/bookstore/gui/icon/profit.png")),
-            "Customer",
-            "1000", "Increased by 25%"));
-    employeeCard.setData(
-        new ModelStatisticCard(new ImageIcon(getClass().getResource("/com/bookstore/gui/icon/flag.png")),
-            "Employee",
-            "500", "Increased by 70%"));
 
     spTable.setVerticalScrollBar(new ScrollBar());
     spTable.getVerticalScrollBar().setBackground(Color.WHITE);
@@ -42,12 +35,38 @@ public class TableUser extends javax.swing.JPanel {
     spTable.setCorner(JScrollPane.UPPER_RIGHT_CORNER, p);
     UserBUS userBUS = UserBUS.getInstance();
     List<UserModel> userList =userBUS.getAllModels();
-    System.out.println(userList);
+    valueALL = userList.size();
+    StatusType statusType = StatusType.ACTIVE;
+
     for(UserModel user: userList){
+        if("BANNED".equals(user.getStatus().toString())){
+            statusType = StatusType.BANNED;
+        }else if("ACTIVE".equals(user.getStatus().toString())){
+            statusType = StatusType.ACTIVE;
+        } else 
+            statusType = StatusType.INACTIVE;
         table.addRow(
-        new Object[] { user.getName(), user.getEmail(), user.getRole(), user.getCreatedAt(),
-         user.getStatus() });
+                new Object[] { user.getName(), user.getEmail(), user.getRole(), user.getCreatedAt(),statusType});
+        
+        if("ADMIN".equals(user.getRole().toString())){
+            valueAdmin = valueAdmin + 1;
+        }else if("CUSTOMER".equals(user.getRole().toString())){
+            valueCustomer +=1;
+        } else 
+            valueEmployee +=1;
     }
+    adminCard.setData(
+        new ModelStatisticCard(new ImageIcon(getClass().getResource("/com/bookstore/gui/icon/stock.png")),
+            "Admin",
+            String.valueOf(valueAdmin), "Accounts for "+((valueAdmin*100)/valueALL)+"% Users"));
+    customerCard.setData(
+        new ModelStatisticCard(new ImageIcon(getClass().getResource("/com/bookstore/gui/icon/profit.png")),
+            "Customer",
+            String.valueOf(valueCustomer), "Accounts for "+((valueCustomer*100)/valueALL)+"% Users"));
+    employeeCard.setData(
+        new ModelStatisticCard(new ImageIcon(getClass().getResource("/com/bookstore/gui/icon/flag.png")),
+            "Employee",
+            String.valueOf(valueEmployee), "Accounts for "+((valueEmployee*100)/valueALL)+"% Users"));
   }
 
   private void initComponents() {
@@ -90,7 +109,7 @@ public class TableUser extends javax.swing.JPanel {
 
         },
         new String[] {
-            "Name", "Email", "User Type", "Joined", "Status"
+            "Name", "Email", "Role", "Joined", "Status"
         }) {
       boolean[] canEdit = new boolean[] {
           false, false, false, false, false

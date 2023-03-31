@@ -16,18 +16,18 @@ public class GroupInput extends JPanel {
 
   public GroupInput(String name, String typeField) {
     initComponents(name, typeField);
-    // setBackground();
+    setBackground();
+    this.setBackground(Color.white);
   }
 
   private void setBackground() {
-    this.setBackground(Color.white);
   }
 
   private void initComponents(String name, String typeField) {
     this.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 50));
     this.setBackground(Color.WHITE);
     label = new JLabel(name);
-    label.setFont(new Font("sansserif", 0, 24));
+    label.setFont(new Font("Arial", 0, 24));
     label.setPreferredSize(new Dimension(150, 50));
     this.add(label);
 
