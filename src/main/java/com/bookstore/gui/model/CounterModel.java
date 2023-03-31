@@ -7,7 +7,7 @@ public class CounterModel {
   }
 
   public CounterModel(int value) {
-    this.value = 0;
+    this.value = value;
   }
 
   public Integer getValue() {

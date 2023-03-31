@@ -50,7 +50,7 @@ public class CartUI extends javax.swing.JPanel {
   public void table() throws ClassNotFoundException, SQLException {
     table = new JPanel();
     int rows = 0;
-    UserModel user1 = UserBUS.getInstance().getModelById(46);
+    UserModel user1 = UserBUS.getInstance().getModelById(330);
 
     CartBUS cartBUS = CartBUS.getInstance();
 
@@ -67,7 +67,8 @@ public class CartUI extends javax.swing.JPanel {
           List<BookModel> bookList = bookBUS.getAllModels();
           for (BookModel book : bookList) {
             if (book.getIsbn().equals(cart.getBookIsbn())) {
-              cartSection = new CartSection(book.getTitle(), String.valueOf(book.getPrice()),cart.getQuantity(),cart.getBookIsbn(),cart.getCartId());
+              cartSection = new CartSection(book.getTitle(), book.getPrice(), cart.getQuantity(),
+                  cart.getBookIsbn(), cart.getCartId());
               table.add(cartSection);
               rows++;
             }
@@ -84,7 +85,7 @@ public class CartUI extends javax.swing.JPanel {
     scrollPane.setPreferredSize(new Dimension(width, height - 170));
     add(scrollPane);
   }
-  
+
   public JPanel getTable() {
     return table;
   }

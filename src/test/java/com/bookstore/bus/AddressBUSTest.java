@@ -46,7 +46,7 @@ public class AddressBUSTest {
 
   @Test
   public void testUpdateModel() throws SQLException, ClassNotFoundException {
-    AddressModel model = new AddressModel(2, 1, "123 Main St", "Anytown", "CA", "2345");
+    AddressModel model = new AddressModel(200, 12, "888 Hickory Pl", "Mountain View", "CO", "55443");
 
     // Set the city field to "OtherCity"
     model.setCity("OtherCity");
@@ -59,7 +59,7 @@ public class AddressBUSTest {
     Assertions.assertEquals(1, updatedRows);
 
     // Retrieve the updated AddressModel from the database using its ID
-    AddressModel updatedModel = addressBUS.getModelById(2);
+    AddressModel updatedModel = addressBUS.getModelById(200);
 
     // Assert that the city field of the updated model is "OtherCity"
     Assertions.assertEquals("OtherCity", updatedModel.getCity());

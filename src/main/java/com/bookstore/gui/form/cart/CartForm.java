@@ -1,22 +1,17 @@
 package com.bookstore.gui.form.cart;
 
-import java.awt.FlowLayout;
 import java.sql.SQLException;
 
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-
-import com.bookstore.gui.component.Menu;
-
-
 public class CartForm extends JFrame {
 
   public CartForm() throws ClassNotFoundException, SQLException {
     JPanel container = new JPanel();
-    container.setLayout(new BoxLayout(container,BoxLayout.Y_AXIS));
-    Menu menu = new Menu();
+    container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
+    // Menu menu = new Menu();
     CartUI formHome = new CartUI();
     CartHeader cartHeader = new CartHeader();
     container.add(cartHeader);
