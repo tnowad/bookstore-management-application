@@ -5,16 +5,21 @@
 package com.bookstore.gui.form.cart;
 
 import java.awt.Component;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.Optional;
+
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 
+import com.bookstore.bus.CartItemsBUS;
 import com.bookstore.gui.model.CounterModel;
+import com.bookstore.model.CartItemsModel;
 
 /**
  *
@@ -24,9 +29,12 @@ public class CartSection extends javax.swing.JPanel {
 
   /**
    * Creates new form CartSection
+   * @throws SQLException
+   * @throws ClassNotFoundException
    */
-  public CartSection(String Title, String Price) {
-    initComponents(Title, Price);
+  public CartSection(String Title, String Price, int Quantity,String book,int cartId) throws ClassNotFoundException, SQLException{
+    initComponents(Title, Price,Quantity,book,cartId);
+    setName(Title);
   }
 
   /**
@@ -36,7 +44,7 @@ public class CartSection extends javax.swing.JPanel {
    */
 
   // Code">//GEN-BEGIN:initComponents
-  private void initComponents(String Title, String Price) {
+  private void initComponents(String Title, String Price, int Quantity,String bookIsbn,int cartId) throws ClassNotFoundException, SQLException  {
 
     lblBookName = new javax.swing.JLabel();
     lbPrice = new javax.swing.JLabel();
@@ -50,36 +58,57 @@ public class CartSection extends javax.swing.JPanel {
     checkBoxChooseBookButton = new javax.swing.JCheckBox();
     checkBoxChooseBookButton.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
-        checkTickBtnActionPerformed(evt);
+        try {
+          checkTickBtnActionPerformed(evt);
+        } catch (ClassNotFoundException | SQLException e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+        }
       }
     });
     lblBookName.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
     lblBookName.setForeground(new java.awt.Color(76, 76, 76));
-    lblBookName.setText("Book Title");
+    lblBookName.setText(Title);
 
     lbPrice.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
     lbPrice.setForeground(new java.awt.Color(76, 76, 76));
-    lbPrice.setText("$0.00");
+    lbPrice.setText(""+Integer.valueOf(Price)*Quantity);
 
     txtQuantity.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-    txtQuantity.setText("0");
+    txtQuantity.setText(""+Quantity);
 
     minusBtn.setText("-");
-    minusBtn.addActionListener(new java.awt.event.ActionListener() {
+    minusBtn.addActionListener(new java.awt.event.ActionListener()   {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
-        minusBtnActionPerformed(evt);
+        try {
+          minusBtnActionPerformed(evt,Price,Quantity,bookIsbn,cartId);
+        } catch (ClassNotFoundException e) {
+          e.printStackTrace();
+        } catch (SQLException e) {
+          e.printStackTrace();
+        }
       }
     });
     plusBtn.setText("+");
     plusBtn.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
-        plusBtnActionPerformed(evt);
+        try {
+          plusBtnActionPerformed(evt,Price,Quantity,bookIsbn,cartId);
+        } catch (ClassNotFoundException | SQLException e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+        }
       }
     });
 
     deleteProductBtn.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
-        deleteProductBtnActionPerformed(evt);
+        try {
+          deleteProductBtnActionPerformed(evt);
+        } catch (ClassNotFoundException | SQLException e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+        }
       }
     });
 
@@ -154,25 +183,55 @@ public class CartSection extends javax.swing.JPanel {
                         .addGap(28, 28, 28)))));
   }// </editor-fold>//GEN-END:initComponents
 
-  private void plusBtnActionPerformed(java.awt.event.ActionEvent evt) {
-    String quantity = txtQuantity.getText();
-    int value = Integer.parseInt(quantity);
-    CounterModel counter = new CounterModel();
-    counter.setValue(value);
-    counter.IncreaseValue();
-    txtQuantity.setText(counter.getValue().toString());
+  private void plusBtnActionPerformed(java.awt.event.ActionEvent evt, String Price, int Quantity, String bookIsbn,int cartId) throws ClassNotFoundException, SQLException {
+    CartItemsBUS cartItemsBUS = CartItemsBUS.getInstance();
+    String[] coLunms = {"quantity"};
+    String value = String.valueOf(Quantity);
+    List<CartItemsModel> cartItems = cartItemsBUS.searchModel(value, coLunms);
+    for(CartItemsModel item: cartItems){
+      if(item.getBookIsbn().equals(bookIsbn) && item.getCartId()==cartId){
+        CounterModel counter = new CounterModel();
+        counter.setValue(Quantity);
+        counter.DecreaseValue();
+        Quantity = counter.getValue();
+        item.setQuantity(Quantity);
+        CartItemsBUS.getInstance().updateModel(item);
+      }
+    }
+
   }
 
-  private void minusBtnActionPerformed(java.awt.event.ActionEvent evt) {
-    String quantity = txtQuantity.getText();
-    int value = Integer.parseInt(quantity);
-    CounterModel counter = new CounterModel();
-    counter.setValue(value);
-    counter.DecreaseValue();
-    txtQuantity.setText(counter.getValue().toString());
+  private void minusBtnActionPerformed(java.awt.event.ActionEvent evt, String Price, int Quantity, String bookIsbn,int cartId) throws ClassNotFoundException, SQLException {
+    CartItemsBUS cartItemsBUS = CartItemsBUS.getInstance();
+    String[] coLunms = {"quantity"};
+    String value = String.valueOf(Quantity);
+    List<CartItemsModel> cartItems = cartItemsBUS.searchModel(value, coLunms); //này là tìm các cart item có số lượng là 2, có thể trùng
+    // for(CartItemsModel item: cartItems){           //dùng for 
+    //   if(item.getBookIsbn().equals(bookIsbn) && item.getCartId()==cartId){
+    //     CounterModel counter = new CounterModel();
+    //     counter.setValue(Quantity);
+    //     counter.DecreaseValue();
+    //     Quantity = counter.getValue();
+    //     item.setQuantity(Quantity);
+    //     // CartItemsBUS.getInstance().updateModel(item);
+    //     System.out.println(item);
+    //   }
+    // }
+    Optional<CartItemsModel> optionalUser = cartItems.stream()
+        .filter(item -> item.getBookIsbn().equals(bookIsbn) && item.getCartId()==cartId)  // vì trùng nên dùng này để lọc lại, và nó sẽ trả đúng lại cái item đang thao tác, chỉ 1
+        .findFirst();
+    if (optionalUser.isPresent()) {
+        CounterModel counter = new CounterModel();
+              counter.setValue(Quantity); // Quantity là biến truyền vào, nó mang giá trị là số lượng của cuốn sách đó trong db
+              counter.DecreaseValue();
+              Quantity = counter.getValue();
+        optionalUser.get().setQuantity(Quantity); //set Quantity mới
+        CartItemsBUS.getInstance().updateModel(optionalUser.get());  // update failed
+    }
+    CartItemsBUS.getInstance().updateModel(new CartItemsModel(1,"4000287668675",54685,2,43));// thử update nhưng k thành
   }
 
-  private void deleteProductBtnActionPerformed(java.awt.event.ActionEvent evt) {
+  private void deleteProductBtnActionPerformed(java.awt.event.ActionEvent evt) throws ClassNotFoundException, SQLException {
     CartUI cartUI = new CartUI();
     JButton button = (JButton) evt.getSource();
     CartSection cartSection = (CartSection) button.getParent();
@@ -185,7 +244,7 @@ public class CartSection extends javax.swing.JPanel {
   }
 
 // Import statement for JPanel
-private void checkTickBtnActionPerformed(java.awt.event.ActionEvent evt) {
+private void checkTickBtnActionPerformed(java.awt.event.ActionEvent evt) throws ClassNotFoundException, SQLException {
     CartUI cartUI = new CartUI();
     JButton button = (JButton) evt.getSource();
     JPanel cartPanel = (JPanel) button.getParent(); // Assumes the cart table is contained in the parent of the button clicked
@@ -199,21 +258,9 @@ private void checkTickBtnActionPerformed(java.awt.event.ActionEvent evt) {
 private List<Object> getTickedItems(JPanel panel, boolean isTicked) {
     List<Object> tableList = new ArrayList<>();
 
-    // Iterate over the components and find the ticked items
-    for (Component comp : panel.getComponents()) {
-        if (comp instanceof CartSection) {
-            CartSection section = (CartSection) comp;
-            boolean ticked = section.isTicked();
-
-            if (ticked == isTicked) {
-                Object item = section.getItem(); // Assumes the section has a method to get the item information
-                tableList.add(item);
-            }
-        }
-    }
-
     return tableList;
 }
+
 
 
   // Variables declaration - do not modify//GEN-BEGIN:variables

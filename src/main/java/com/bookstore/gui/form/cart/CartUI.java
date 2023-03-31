@@ -1,6 +1,7 @@
 package com.bookstore.gui.form.cart;
 
 import java.awt.*;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,7 +26,7 @@ public class CartUI extends javax.swing.JPanel {
   private JLabel JText;
   private CartSection cartSection;
 
-  public CartUI() {
+  public CartUI() throws ClassNotFoundException, SQLException {
     initComponents();
     table();
     actionForm();
@@ -46,7 +47,7 @@ public class CartUI extends javax.swing.JPanel {
 
   private JScrollPane scrollPane;
 
-  public void table() {
+  public void table() throws ClassNotFoundException, SQLException {
     table = new JPanel();
     int rows = 0;
     UserModel user1 = UserBUS.getInstance().getModelById(46);
@@ -66,13 +67,16 @@ public class CartUI extends javax.swing.JPanel {
           List<BookModel> bookList = bookBUS.getAllModels();
           for (BookModel book : bookList) {
             if (book.getIsbn().equals(cart.getBookIsbn())) {
-              cartSection = new CartSection(book.getTitle(), String.valueOf(book.getPrice()));
+              cartSection = new CartSection(book.getTitle(), String.valueOf(book.getPrice()),cart.getQuantity(),cart.getBookIsbn(),cart.getCartId());
               table.add(cartSection);
               rows++;
             }
           }
         }
       }
+      // System.out.println("table" +table.getComponent(1).getName());
+      // System.out.println("table" +table.getComponent(2));
+
     }
 
     table.setLayout(new GridLayout(rows, 1));

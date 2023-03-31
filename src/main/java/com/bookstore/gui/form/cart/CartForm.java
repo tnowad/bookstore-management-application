@@ -1,6 +1,7 @@
 package com.bookstore.gui.form.cart;
 
 import java.awt.FlowLayout;
+import java.sql.SQLException;
 
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
@@ -12,7 +13,7 @@ import com.bookstore.gui.component.Menu;
 
 public class CartForm extends JFrame {
 
-  public CartForm() {
+  public CartForm() throws ClassNotFoundException, SQLException {
     JPanel container = new JPanel();
     container.setLayout(new BoxLayout(container,BoxLayout.Y_AXIS));
     Menu menu = new Menu();
@@ -33,7 +34,7 @@ public class CartForm extends JFrame {
     setLocationRelativeTo(null);
   }
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws ClassNotFoundException, SQLException {
     new CartForm().setVisible(true);
   }
 }
