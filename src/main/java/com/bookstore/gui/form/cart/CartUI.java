@@ -80,6 +80,10 @@ public class CartUI extends javax.swing.JPanel {
     scrollPane.setPreferredSize(new Dimension(width, height - 170));
     add(scrollPane);
   }
+  
+  public JPanel getTable() {
+    return table;
+  }
 
   private JLabel selectVoucher;
   private JLabel selectAll;
