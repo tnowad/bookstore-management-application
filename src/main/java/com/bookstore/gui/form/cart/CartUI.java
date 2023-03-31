@@ -75,9 +75,6 @@ public class CartUI extends javax.swing.JPanel {
           }
         }
       }
-      // System.out.println("table" +table.getComponent(1).getName());
-      // System.out.println("table" +table.getComponent(2));
-
     }
 
     table.setLayout(new GridLayout(rows, 1));

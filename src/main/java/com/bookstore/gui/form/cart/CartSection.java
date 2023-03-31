@@ -1,15 +1,27 @@
 package com.bookstore.gui.form.cart;
 
 import java.sql.SQLException;
-import java.util.List;
 
-import javax.swing.JButton;
-import javax.swing.JPanel;
+import javax.swing.JOptionPane;
+
+import com.bookstore.bus.BookBUS;
 import com.bookstore.bus.CartItemsBUS;
 import com.bookstore.gui.model.CounterModel;
+import com.bookstore.model.BookModel;
 import com.bookstore.model.CartItemsModel;
 
 public class CartSection extends javax.swing.JPanel {
+
+  private javax.swing.JTextArea DescriptionTextArea;
+  private javax.swing.JCheckBox checkBoxChooseBookButton;
+  private javax.swing.JButton deleteProductBtn;
+  private javax.swing.JPanel jPanel1;
+  private javax.swing.JScrollPane jScrollPane1;
+  private javax.swing.JLabel lbPrice;
+  private javax.swing.JLabel lblBookName;
+  private javax.swing.JButton minusBtn;
+  private javax.swing.JButton plusBtn;
+  private javax.swing.JTextField txtQuantity;
 
   public CartSection(String Title, int Price, int Quantity, String bookIsbn, int cartId)
       throws ClassNotFoundException, SQLException {
@@ -157,112 +169,156 @@ public class CartSection extends javax.swing.JPanel {
                         .addGap(28, 28, 28)))));
   }// </editor-fold>//GEN-END:initComponents
 
-  private void plusBtnActionPerformed(java.awt.event.ActionEvent evt, int Price, int Quantity, String bookIsbn,
-      int cartId) throws ClassNotFoundException, SQLException {
-    CartItemsBUS cartItemsBUS = CartItemsBUS.getInstance();
-    String[] columns = { "quantity" };
-    String value = String.valueOf(Quantity);
-    List<CartItemsModel> cartItems = cartItemsBUS.searchModel(value, columns);
-    for (CartItemsModel item : cartItems) {
-      if (item.getBookIsbn().equals(bookIsbn) && item.getCartId() == cartId) {
-        CounterModel counter = new CounterModel();
-        counter.setValue(Quantity);
-        counter.DecreaseValue();
-        Quantity = counter.getValue();
-        item.setQuantity(Quantity);
-        CartItemsBUS.getInstance().updateModel(item);
-      }
-    }
-
-  }
-
   private void minusBtnActionPerformed(java.awt.event.ActionEvent evt, int Price, int Quantity, String bookIsbn,
       int cartId) throws ClassNotFoundException, SQLException {
-
     // Get the CartItemsBUS instance
     CartItemsBUS cartItemsBUS = CartItemsBUS.getInstance();
 
     // Set the price label
     lbPrice.setText(Integer.toString(Price));
+    lbPrice.revalidate();
+    lbPrice.repaint();
 
-    // Search for cart items with the given quantity
-    List<CartItemsModel> cartItems = cartItemsBUS.searchModel(String.valueOf(Quantity), new String[] { "quantity" });
+    // Get the matching cart item
+    CartItemsModel item = cartItemsBUS.getModelById(cartId);
 
-    // Iterate over the matching cart items and update the quantity
-    for (CartItemsModel item : cartItems) {
-      if (item.getBookIsbn().equals(bookIsbn) && item.getCartId() == cartId) {
+    if (item != null && item.getBookIsbn().equals(bookIsbn)) {
+      // Increment the quantity using the CounterModel
+      CounterModel counter = new CounterModel();
+      counter.setValue(item.getQuantity());
+      counter.DecreaseValue();
+      int newQuantity = counter.getValue();
 
-        // Decrement the quantity using the CounterModel
-        CounterModel counter = new CounterModel();
-        counter.setValue(Quantity);
-        counter.DecreaseValue();
-        int newQuantity = counter.getValue();
-
-        // Update the cart item quantity
+      if (newQuantity >= 1) {
+        // Update the cart item quantity and price
         item.setQuantity(newQuantity);
+        int basedPrice = BookBUS.getInstance().getModelByIsbn(bookIsbn).getPrice();
+        int updatedPrice = basedPrice * newQuantity;
+        item.setPrice(updatedPrice);
+        lbPrice.setText(String.valueOf(updatedPrice));
+
         try {
           int success = cartItemsBUS.updateModel(item);
           if (success == 0) {
             System.err.println("Update failed for CartItemsModel: " + item.toString());
+          } else {
+            item = cartItemsBUS.getModelById(item.getCartId());
+            txtQuantity.setText(newQuantity + "");
           }
         } catch (Exception e) {
           System.err.println("Error while updating CartItemsModel: " + e.getMessage());
           e.printStackTrace();
         }
 
-        System.out.println(item.getBookIsbn());
+        // Check if new quantity is less than or equal to 1
+        if (newQuantity < 1) {
+          // Display confirmation dialog to delete item
+          int confirmed = JOptionPane.showConfirmDialog(null,
+              "You are about to delete this item, do you want to do that?", "Confirm Delete",
+              JOptionPane.YES_NO_OPTION);
+          if (confirmed == JOptionPane.YES_OPTION) {
+            try {
+              cartItemsBUS.deleteModel(item.getCartId());
+              txtQuantity.setText("0");
+              lbPrice.setText("0");
+            } catch (Exception e) {
+              System.err.println("Error while deleting CartItemsModel: " + e.getMessage());
+              e.printStackTrace();
+            }
+          } else {
+            // User clicked No, set quantity back to 1
+            counter.setValue(1);// Set quantity back to 1
+            item.setQuantity(counter.getValue());
+            int updatedPriceBackTo1 = basedPrice * counter.getValue();
+            item.setPrice(updatedPriceBackTo1);
+
+            try {
+              cartItemsBUS.updateModel(item);
+              lbPrice.setText(String.valueOf(updatedPriceBackTo1));
+              txtQuantity.setText(String.valueOf(item.getQuantity()));
+            } catch (Exception e) {
+              System.err.println("Error while updating CartItemsModel: " + e.getMessage());
+              e.printStackTrace();
+            }
+          }
+        }
       }
     }
   }
 
-  // private void minusBtnActionPerformed(java.awt.event.ActionEvent evt, String
-  // price, int quantity, String bookIsbn,
-  // int cartId) throws ClassNotFoundException, SQLException {
+  private void plusBtnActionPerformed(java.awt.event.ActionEvent evt, int Price, int Quantity, String bookIsbn,
+      int cartId) throws ClassNotFoundException, SQLException {
+    // Get the CartItemsBUS instance
+    CartItemsBUS cartItemsBUS = CartItemsBUS.getInstance();
 
-  // // Search for the cart item(s)
-  // List<CartItemsModel> cartItems = CartItemsBUS.getInstance().searchModel(
-  // "bookIsbn='" + bookIsbn + "' AND cartId=" + cartId,
-  // new String[] { "quantity", "cart_id" });
+    // Set the price label
+    lbPrice.setText(Integer.toString(Price));
+    lbPrice.revalidate();
+    lbPrice.repaint();
 
-  // // Decrement the quantity
-  // CounterModel counter = new CounterModel();
-  // counter.setValue(quantity);
-  // counter.DecreaseValue();
-  // int newQuantity = counter.getValue();
+    // Get the matching cart item
+    CartItemsModel item = cartItemsBUS.getModelById(cartId);
+    BookModel bookItem = BookBUS.getInstance().getModelByIsbn(bookIsbn);
+    if (item != null && item.getBookIsbn().equals(bookIsbn)) {
+      // Increment the quantity using the CounterModel
+      CounterModel counter = new CounterModel();
+      counter.setValue(item.getQuantity());
+      counter.IncreaseValue();
+      int newQuantity = counter.getValue();
 
-  // // Update the cart item(s)
-  // for (CartItemsModel item : cartItems) {
-  // item.setQuantity(newQuantity);
-  // CartItemsBUS.getInstance().updateModel(item);
-  // System.out.println(item);
-  // }
-  // }
+      if (newQuantity >= 1) {
+        // Update the cart item quantity and price
+        item.setQuantity(newQuantity);
+        int basedPrice = BookBUS.getInstance().getModelByIsbn(bookIsbn).getPrice();
+        int updatedPrice = basedPrice * newQuantity;
+        item.setPrice(updatedPrice);
+        lbPrice.setText(String.valueOf(updatedPrice));
+
+        try {
+          int success = cartItemsBUS.updateModel(item);
+          if (success == 0) {
+            System.err.println("Update failed for CartItemsModel: " + item.toString());
+          } else {
+            item = cartItemsBUS.getModelById(item.getCartId());
+            txtQuantity.setText(newQuantity + "");
+          }
+        } catch (Exception e) {
+          System.err.println("Error while updating CartItemsModel: " + e.getMessage());
+          e.printStackTrace();
+        }
+
+        // Check if new quantity is larger than original quantity
+        if (newQuantity > bookItem.getQuantity()) {
+          JOptionPane.showMessageDialog(null, "You cannot go beyond book's quantity!");
+
+          // Reset the item to its previous state
+          item.setQuantity(newQuantity - 1);
+          item.setPrice(basedPrice * (newQuantity - 1));
+          lbPrice.setText(String.valueOf(item.getPrice()));
+          try {
+            int success = cartItemsBUS.updateModel(item);
+            if (success == 0) {
+              System.err.println("Update failed for CartItemsModel: " + item.toString());
+            } else {
+              item = cartItemsBUS.getModelById(item.getCartId());
+              txtQuantity.setText((newQuantity - 1) + "");
+            }
+          } catch (Exception e) {
+            System.err.println("Error while updating CartItemsModel: " + e.getMessage());
+            e.printStackTrace();
+          }
+        }
+      }
+    }
+  }
 
   private void deleteProductBtnActionPerformed(java.awt.event.ActionEvent evt)
       throws ClassNotFoundException, SQLException {
-    CartUI cartUI = new CartUI();
-    JButton button = (JButton) evt.getSource();
-    CartSection cartSection = (CartSection) button.getParent();
-    JPanel table = cartUI.getTable();
-    if (table != null) {
-      table.remove(cartSection);
-      table.revalidate();
-      table.repaint();
-    }
+      
   }
 
   private void checkTickBtnActionPerformed(java.awt.event.ActionEvent evt) throws ClassNotFoundException, SQLException {
 
   }
 
-  private javax.swing.JTextArea DescriptionTextArea;
-  private javax.swing.JCheckBox checkBoxChooseBookButton;
-  private javax.swing.JButton deleteProductBtn;
-  private javax.swing.JPanel jPanel1;
-  private javax.swing.JScrollPane jScrollPane1;
-  private javax.swing.JLabel lbPrice;
-  private javax.swing.JLabel lblBookName;
-  private javax.swing.JButton minusBtn;
-  private javax.swing.JButton plusBtn;
-  private javax.swing.JTextField txtQuantity;
 }

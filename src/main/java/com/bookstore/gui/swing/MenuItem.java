@@ -2,8 +2,6 @@ package com.bookstore.gui.swing;
 
 import com.bookstore.gui.event.EventMenu;
 import com.bookstore.gui.event.EventMenuSelected;
-import com.bookstore.gui.factory.IconFactory;
-import com.bookstore.gui.factory.MenuItemFactory;
 import com.bookstore.gui.model.MenuItemModel;
 import com.bookstore.gui.model.MenuModel;
 import java.awt.AlphaComposite;
