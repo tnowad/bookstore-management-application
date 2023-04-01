@@ -21,6 +21,10 @@ public class Button extends JButton {
     setText(name);
     setFont(new Font("Arial", Font.BOLD, 14));
     setButtonSize(100, 50);
+    setButtonBorder();
+  }
+
+  private void setButtonBorder() {
     setBorder(new Border() {
       @Override
       public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {

@@ -3,6 +3,8 @@ package com.bookstore.gui.form.customer;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.swing.*;
 
@@ -14,10 +16,11 @@ public class PaymentForm extends JPanel {
   private JPanel jPanelPaymentCredit;
   private JPanel jPanelPaymentCash;
   private JPanel jPanelSubmit;
+  private JPanel groupOptionMethod;
   private JLabel jLabelTitle;
   private JRadioButton jRadioCredit;
   private JRadioButton jRadioCash;
-  private JButton jButtonSubmit;
+  private Button jButtonSubmit;
 
   private GroupInput groupName;
   private GroupInput groupPhone;
@@ -25,30 +28,66 @@ public class PaymentForm extends JPanel {
   private GroupInput groupCreditNumber;
   private GroupInput groupCreditCVC;
   private GroupInput groupCreditExpiration;
+  private JCheckBox jCheckBox;
+  private JPanel containerSubmit;
 
   private PaymentForm() {
+    initComponents();
     initPaymentMethod();
     initPaymentCredit();
     initPaymentCash();
     initSubmit();
+    setBackground();
 
     setLayout(new BorderLayout());
-    setBackground(Color.GRAY);
     add(jPanelPaymentMethod, BorderLayout.NORTH);
     add(jPanelPaymentCredit, BorderLayout.CENTER);
     add(jPanelSubmit, BorderLayout.SOUTH);
 
   }
 
-  public void initPaymentMethod() {
+  private void initComponents() {
     jPanelPaymentMethod = new JPanel();
+    groupOptionMethod = new JPanel();
+    jLabelTitle = new JLabel("Payment Method");
+    jLabelTitle.setFont(new Font("Arial", 0, 48));
+    jLabelTitle.setHorizontalAlignment(JLabel.CENTER);
+    jRadioCredit = new JRadioButton("Debit or Credit Card", true);
+    jRadioCash = new JRadioButton("Cash Payment");
+    // group payment credit
+    jPanelPaymentCredit = new JPanel();
+    groupAccountName = new GroupInput("Username", "show");
+    groupCreditNumber = new GroupInput("Credit Card Number", "show");
+    groupCreditCVC = new GroupInput("Security Code", "hide");
+    groupCreditExpiration = new GroupInput("Card Expiration", "show");
+    // group payment cash
+    jPanelPaymentCash = new JPanel();
+    groupName = new GroupInput("Name", "show");
+    groupPhone = new GroupInput("Phone", "show");
+    // group submit
+    jPanelSubmit = new JPanel();
+    jButtonSubmit = new Button("Submit Payment");
+    jCheckBox = new JCheckBox("I accept the term  and conditions");
+    containerSubmit = new JPanel();
+
+  }
+
+  private void setBackground() {
+    setBackground(Color.white);
+    List<Object> components = Arrays.asList(
+        jPanelPaymentMethod, groupOptionMethod, jPanelPaymentCash,
+        jPanelSubmit, containerSubmit, jRadioCash, jRadioCredit, jCheckBox);
+    for (Object component : components) {
+      ((JComponent) component).setBackground(Color.white);
+    }
+  }
+
+  public void initPaymentMethod() {
     jPanelPaymentMethod.setPreferredSize(new Dimension(800, 100));
 
-    jLabelTitle = new JLabel("Payment Method");
-    jLabelTitle.setFont(new Font("sansserif", 0, 20));
+    jLabelTitle.setFont(new Font("Arial", 0, 30));
 
-    jRadioCredit = new JRadioButton("Debit or Credit Card", true);
-    jRadioCredit.setFont(new Font("sansserif", 0, 16));
+    jRadioCredit.setFont(new Font("Arial", 0, 16));
     jRadioCredit.addActionListener(new ActionListener() {
 
       @Override
@@ -59,8 +98,7 @@ public class PaymentForm extends JPanel {
       }
     });
 
-    jRadioCash = new JRadioButton("Cash Payment");
-    jRadioCash.setFont(new Font("sansserif", 0, 16));
+    jRadioCash.setFont(new Font("Arial", 0, 16));
     jRadioCash.addActionListener(new ActionListener() {
 
       @Override
@@ -77,30 +115,26 @@ public class PaymentForm extends JPanel {
     genderGroup.add(jRadioCredit);
 
     jPanelPaymentMethod.add(jLabelTitle);
-    jPanelPaymentMethod.add(jRadioCredit);
-    jPanelPaymentMethod.add(jRadioCash);
-    jPanelPaymentMethod.setLayout(new GridLayout(3, 1));
+    groupOptionMethod.add(jRadioCredit);
+    groupOptionMethod.add(jRadioCash);
+    jPanelPaymentMethod.add(groupOptionMethod);
+    jPanelPaymentMethod.setLayout(new GridLayout(2, 1));
   }
 
   public void initPaymentCredit() {
-    jPanelPaymentCredit = new JPanel();
     jPanelPaymentCredit.setPreferredSize(new Dimension(200, 600));
 
-    groupAccountName = new GroupInput("Name Account", "show");
     groupAccountName.getLabel().setPreferredSize(new Dimension(200, 50));
-    groupAccountName.getLabel().setFont(new Font("sansserif", 0, 18));
+    groupAccountName.getLabel().setFont(new Font("Arial", 0, 18));
 
-    groupCreditNumber = new GroupInput("Credit Card Number", "show");
     groupCreditNumber.getLabel().setPreferredSize(new Dimension(200, 50));
-    groupCreditNumber.getLabel().setFont(new Font("sansserif", 0, 18));
+    groupCreditNumber.getLabel().setFont(new Font("Arial", 0, 18));
 
-    groupCreditCVC = new GroupInput("Security Code", "hide");
     groupCreditCVC.getLabel().setPreferredSize(new Dimension(200, 50));
-    groupCreditCVC.getLabel().setFont(new Font("sansserif", 0, 18));
+    groupCreditCVC.getLabel().setFont(new Font("Arial", 0, 18));
 
-    groupCreditExpiration = new GroupInput("Card Expiration", "show");
     groupCreditExpiration.getLabel().setPreferredSize(new Dimension(200, 50));
-    groupCreditExpiration.getLabel().setFont(new Font("sansserif", 0, 18));
+    groupCreditExpiration.getLabel().setFont(new Font("Arial", 0, 18));
 
     jPanelPaymentCredit.add(groupAccountName);
     jPanelPaymentCredit.add(groupCreditNumber);
@@ -111,11 +145,7 @@ public class PaymentForm extends JPanel {
   }
 
   public void initPaymentCash() {
-    jPanelPaymentCash = new JPanel();
     jPanelPaymentCash.setPreferredSize(new Dimension(800, 600));
-
-    groupName = new GroupInput("Name", "show");
-    groupPhone = new GroupInput("Phone", "show");
 
     jPanelPaymentCash.add(groupName);
     jPanelPaymentCash.add(groupPhone);
@@ -124,11 +154,11 @@ public class PaymentForm extends JPanel {
   }
 
   public void initSubmit() {
-    jPanelSubmit = new JPanel();
-    jButtonSubmit = new JButton("Submit Payment");
-    jButtonSubmit.setPreferredSize(new Dimension(200, 50));
-
-    jPanelSubmit.add(jButtonSubmit);
+    containerSubmit.add(jButtonSubmit);
+    jPanelSubmit.setLayout(new BorderLayout());
+    jButtonSubmit.setPreferredSize(new Dimension(150, 50));
+    jPanelSubmit.add(jCheckBox, BorderLayout.NORTH);
+    jPanelSubmit.add(containerSubmit, BorderLayout.CENTER);
   }
 
   public static void main(String[] args) {

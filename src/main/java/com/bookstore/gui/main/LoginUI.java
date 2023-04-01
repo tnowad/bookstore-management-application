@@ -252,4 +252,5 @@ public class LoginUI extends JFrame {
     setLocationRelativeTo(null);
     setVisible(true);
   }
+
 }
