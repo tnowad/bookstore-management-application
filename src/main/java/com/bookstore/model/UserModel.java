@@ -18,7 +18,6 @@ public class UserModel {
     ACTIVE,
     INACTIVE,
     BANNED,
-
   }
 
   public enum Role {
