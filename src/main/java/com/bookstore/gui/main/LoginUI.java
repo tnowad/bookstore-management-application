@@ -20,8 +20,8 @@ import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
 import com.bookstore.bus.UserBUS;
-import com.bookstore.gui.component.Button;
-import com.bookstore.gui.component.GroupInput;
+import com.bookstore.gui.components.Button;
+import com.bookstore.gui.components.GroupInput;
 import com.bookstore.model.ProfileModel;
 import com.bookstore.model.UserModel;
 

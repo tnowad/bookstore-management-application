@@ -16,7 +16,7 @@ import java.util.Optional;
 
 public class ExcelUtil {
 
-  private ExcelUtil() {
+  public ExcelUtil() {
     throw new IllegalStateException("Utility class");
   }
 

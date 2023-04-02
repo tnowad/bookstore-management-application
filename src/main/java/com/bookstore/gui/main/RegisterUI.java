@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import com.bookstore.bus.UserBUS;
-import com.bookstore.gui.component.GroupInput;
+import com.bookstore.gui.components.GroupInput;
 import com.bookstore.model.ProfileModel;
 import com.bookstore.model.UserModel;
 
