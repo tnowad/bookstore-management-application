@@ -3,7 +3,7 @@ package com.bookstore.database.factories;
 import java.sql.Timestamp;
 
 import com.bookstore.model.UserModel;
-import com.bookstore.utils.PasswordUtil;
+import com.bookstore.util.PasswordUtil;
 import com.github.javafaker.Faker;
 
 public class UserFactory implements IFactory<UserModel> {
