@@ -11,7 +11,7 @@ import com.bookstore.interfaces.IBUS;
 import com.bookstore.model.UserModel;
 import com.bookstore.model.UserModel.Role;
 import com.bookstore.model.UserModel.Status;
-import com.bookstore.util.PasswordUtil;
+import com.bookstore.utils.PasswordUtil;
 
 public class UserBUS implements IBUS<UserModel> {
   private final List<UserModel> userList = new ArrayList<>();
