@@ -7,8 +7,8 @@ import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
 import javax.swing.WindowConstants;
 
-import com.bookstore.gui.component.Header;
-import com.bookstore.gui.component.Menu;
+import com.bookstore.gui.components.Header;
+import com.bookstore.gui.components.Menu;
 import com.bookstore.gui.form.MainForm;
 
 public class Main extends JFrame {
