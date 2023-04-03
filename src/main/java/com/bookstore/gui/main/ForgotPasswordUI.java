@@ -90,7 +90,7 @@ public class ForgotPasswordUI extends JFrame {
   private void initGroupLogo() {
     groupLogo.setLayout(new BorderLayout());
 
-    iconLabel.setIcon(new ImageIcon(getClass().getResource("/resources/fogotpass_icon.png")));
+    iconLabel.setIcon(new ImageIcon(getClass().getResource("../../resources/fogotpass_icon.png")));
     groupLogo.setPreferredSize(new Dimension(400, 450));
     nameStoreLabel = new JLabel();
     nameStoreLabel.setText("Bookstore Management Application");
@@ -240,7 +240,7 @@ public class ForgotPasswordUI extends JFrame {
           titleResetPassword.setFont(new Font("sansserif", 0, 16));
           titleResetPassword.setText("You can reset your password here");
           nameStoreLabel.setPreferredSize(new Dimension(100, 20));
-          iconLabel.setIcon(new ImageIcon(getClass().getResource("/resources/fogotpass_icon.png")));
+          iconLabel.setIcon(new ImageIcon(getClass().getResource("../../resources/fogotpass_icon.png")));
 
           groupEmail.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
 
@@ -264,7 +264,7 @@ public class ForgotPasswordUI extends JFrame {
 
           if (height < 600) {
             nameStoreLabel.setFont(new Font("sansserif", 0, 24));
-            iconLabel.setIcon(new ImageIcon(getClass().getResource("/resources/fogotpass_reponsive.png")));
+            iconLabel.setIcon(new ImageIcon(getClass().getResource("../../resources/fogotpass_reponsive.png")));
             groupLogo.setPreferredSize(new Dimension(500, 200));
           }
 
@@ -290,6 +290,10 @@ public class ForgotPasswordUI extends JFrame {
     pack();
     setLocationRelativeTo(null);
     setVisible(true);
+  }
+
+  public static void main(String[] args) {
+    new ForgotPasswordUI();
   }
 
 }

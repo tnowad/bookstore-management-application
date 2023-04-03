@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import com.bookstore.bus.UserBUS;
-import com.bookstore.gui.components.GroupInput;
+import com.bookstore.gui.component.GroupInput;
 import com.bookstore.model.ProfileModel;
 import com.bookstore.model.UserModel;
 
@@ -68,7 +68,7 @@ public class RegisterUI extends JFrame {
     groupLogo.setLayout(new BorderLayout());
 
     nameStoreLabel.setForeground(Color.BLUE);
-    iconLabel.setIcon(new ImageIcon(getClass().getResource("/resources/book_logo.png")));
+    iconLabel.setIcon(new ImageIcon(getClass().getResource("../../resources/book_logo.png")));
     groupLogo.setPreferredSize(new Dimension(400, 450));
 
     nameStoreLabel.setFont(new Font("sansserif", 0, 24));
@@ -192,7 +192,7 @@ public class RegisterUI extends JFrame {
           nameStoreLabel.setFont(new Font("sansserif", 0, 16));
           titleRegister.setFont(new Font("sansserif", 0, 24));
           nameStoreLabel.setPreferredSize(new Dimension(100, 20));
-          iconLabel.setIcon(new ImageIcon(getClass().getResource("/resources/book_logo_responsive.png")));
+          iconLabel.setIcon(new ImageIcon(getClass().getResource("../../resources/book_logo_responsive.png")));
 
           groupUsername.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
 
@@ -263,6 +263,10 @@ public class RegisterUI extends JFrame {
     pack();
     setLocationRelativeTo(null);
     setVisible(true);
+  }
+
+  public static void main(String[] args) {
+    new RegisterUI();
   }
 
 }

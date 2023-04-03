@@ -96,7 +96,7 @@ public class RetypePasswordUI extends JFrame {
   private void initGroupLogo() {
     groupLogo.setLayout(new BorderLayout());
 
-    iconLabel.setIcon(new ImageIcon(getClass().getResource("/resources/book_logo.png")));
+    iconLabel.setIcon(new ImageIcon(getClass().getResource("../../resources/book_logo.png")));
     groupLogo.setPreferredSize(new Dimension(400, 450));
 
     nameStoreLabel.setFont(new Font("sansserif", 0, 24));
@@ -242,7 +242,7 @@ public class RetypePasswordUI extends JFrame {
           nameStoreLabel.setFont(new Font("sansserif", 0, 16));
           titleResetPassword.setFont(new Font("sansserif", 0, 24));
           nameStoreLabel.setPreferredSize(new Dimension(100, 20));
-          iconLabel.setIcon(new ImageIcon(getClass().getResource("/resources/book_logo_responsive.png")));
+          iconLabel.setIcon(new ImageIcon(getClass().getResource("../../resources/book_logo_responsive.png")));
 
           groupEmail.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
 
@@ -305,4 +305,8 @@ public class RetypePasswordUI extends JFrame {
     setVisible(true);
   }
 
+  public static void main(String[] args) {
+
+    new RetypePasswordUI();
+  }
 }
