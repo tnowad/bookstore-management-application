@@ -66,13 +66,13 @@ public class UserDAO implements IDAO<UserModel> {
   }
 
   public int updateStatus(String username, Status status) throws SQLException, ClassNotFoundException {
-    String updateSql = "UPDATE books SET status = ? WHERE username = ?";
+    String updateSql = "UPDATE users SET status = ? WHERE username = ?";
     Object[] args = { status, username };
     return DatabaseConnection.executeUpdate(updateSql, args);
   }
 
   public int updateRole(String username, Role role) throws SQLException, ClassNotFoundException {
-    String updateSql = "UPDATE books SET role = ? WHERE username = ?";
+    String updateSql = "UPDATE users SET role = ? WHERE username = ?";
     Object[] args = { role, username };
     return DatabaseConnection.executeUpdate(updateSql, args);
   }
