@@ -306,7 +306,6 @@ public class RetypePasswordUI extends JFrame {
   }
 
   public static void main(String[] args) {
-
     new RetypePasswordUI();
   }
 }
