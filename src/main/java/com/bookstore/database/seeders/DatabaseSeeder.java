@@ -20,7 +20,6 @@ public class DatabaseSeeder {
         new PaymentMethodSeeder(),
         new PublisherSeeder(),
         new ProvidersSeeder(),
-        new ShippingSeeder(),
         new OrderSeeder(),
         new EmployeeSeeder(),
         new ImportDetailSeeder(),

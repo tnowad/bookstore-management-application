@@ -40,7 +40,7 @@ public class PaymentMethodBUS implements IBUS<PaymentMethodModel> {
     }
     return null;
   }
-  
+
   private PaymentMethodModel mapToEntity(PaymentMethodModel from) {
     PaymentMethodModel to = new PaymentMethodModel();
     updateEntityFields(from, to);

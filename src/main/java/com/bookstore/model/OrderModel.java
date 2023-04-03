@@ -4,13 +4,13 @@ import java.sql.Timestamp;
 
 public class OrderModel {
   private int id;
-  private int cartId;
-  private int customerId;
-  private int employeeId;
+  private int cart_id;
+  private int customer_id;
+  private int employee_id;
   private int total;
   private int paid;
-  private Timestamp createdAt;
-  private Timestamp updatedAt;
+  private Timestamp created_at;
+  private Timestamp updated_at;
   private Status status;
 
   public enum Status {
@@ -21,28 +21,28 @@ public class OrderModel {
   public OrderModel() {
   }
 
-  public OrderModel(int cartId, int customerId, int employeeId, int total, int paid, Timestamp createdAt,
-      Timestamp updatedAt, Status status) {
-    this.cartId = cartId;
-    this.customerId = customerId;
-    this.employeeId = employeeId;
+  public OrderModel(int cart_id, int customer_id, int employee_id, int total, int paid, Timestamp created_at,
+      Timestamp updated_at, Status status) {
+    this.cart_id = cart_id;
+    this.customer_id = customer_id;
+    this.employee_id = employee_id;
     this.total = total;
     this.paid = paid;
-    this.createdAt = createdAt;
-    this.updatedAt = updatedAt;
+    this.created_at = created_at;
+    this.updated_at = updated_at;
     this.status = status;
   }
 
-  public OrderModel(int id, int cartId, int customerId, int employeeId, int total, int paid, Timestamp createdAt,
-      Timestamp updatedAt, Status status) {
+  public OrderModel(int id, int cart_id, int customer_id, int employee_id, int total, int paid, Timestamp created_at,
+      Timestamp updated_at, Status status) {
     this.id = id;
-    this.cartId = cartId;
-    this.customerId = customerId;
-    this.employeeId = employeeId;
+    this.cart_id = cart_id;
+    this.customer_id = customer_id;
+    this.employee_id = employee_id;
     this.total = total;
     this.paid = paid;
-    this.createdAt = createdAt;
-    this.updatedAt = updatedAt;
+    this.created_at = created_at;
+    this.updated_at = updated_at;
     this.status = status;
   }
 
@@ -54,28 +54,28 @@ public class OrderModel {
     this.id = id;
   }
 
-  public int getCartId() {
-    return cartId;
+  public int getCart_id() {
+    return cart_id;
   }
 
-  public void setCartId(int cart_id) {
-    this.cartId = cart_id;
+  public void setCart_id(int cart_id) {
+    this.cart_id = cart_id;
   }
 
-  public int getCustomerId() {
-    return customerId;
+  public int getCustomer_id() {
+    return customer_id;
   }
 
-  public void setCustomerId(int customer_id) {
-    this.customerId = customer_id;
+  public void setCustomer_id(int customer_id) {
+    this.customer_id = customer_id;
   }
 
-  public int getEmployeeId() {
-    return employeeId;
+  public int getEmployee_id() {
+    return employee_id;
   }
 
-  public void setEmployeeId(int employee_id) {
-    this.employeeId = employee_id;
+  public void setEmployee_id(int employee_id) {
+    this.employee_id = employee_id;
   }
 
   public int getTotal() {
@@ -94,20 +94,20 @@ public class OrderModel {
     this.paid = paid;
   }
 
-  public Timestamp getCreatedAt() {
-    return createdAt;
+  public Timestamp getCreated_at() {
+    return created_at;
   }
 
-  public void setCreatedAt(Timestamp created_at) {
-    this.createdAt = created_at;
+  public void setCreated_at(Timestamp created_at) {
+    this.created_at = created_at;
   }
 
-  public Timestamp getUpdatedAt() {
-    return updatedAt;
+  public Timestamp getUpdated_at() {
+    return updated_at;
   }
 
-  public void setUpdatedAt(Timestamp updated_at) {
-    this.updatedAt = updated_at;
+  public void setUpdated_at(Timestamp updated_at) {
+    this.updated_at = updated_at;
   }
 
   public Status getStatus() {
@@ -117,5 +117,4 @@ public class OrderModel {
   public void setStatus(Status status) {
     this.status = status;
   }
-
 }

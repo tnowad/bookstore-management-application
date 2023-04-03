@@ -13,14 +13,14 @@ public class CartItemsBUS implements IBUS<CartItemsModel> {
   private final List<CartItemsModel> cartItemsList = new ArrayList<>();
   private static CartItemsBUS instance;
 
-  public static CartItemsBUS getInstance() {
+  public static CartItemsBUS getInstance() throws ClassNotFoundException, SQLException {
     if (instance == null) {
       instance = new CartItemsBUS();
     }
     return instance;
   }
 
-  private CartItemsBUS() {
+  private CartItemsBUS() throws ClassNotFoundException, SQLException {
     this.cartItemsList.addAll(CartItemsDAO.getInstance().readDatabase());
   }
 

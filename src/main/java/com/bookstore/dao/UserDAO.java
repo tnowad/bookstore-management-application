@@ -37,23 +37,20 @@ public class UserDAO implements IDAO<UserModel> {
   }
 
   @Override
-  public ArrayList<UserModel> readDatabase() {
+  public ArrayList<UserModel> readDatabase() throws SQLException, ClassNotFoundException {
     ArrayList<UserModel> userList = new ArrayList<>();
 
-    ResultSet rs = DatabaseConnection.executeQuery("SELECT * FROM users");
-    try {
+    try (ResultSet rs = DatabaseConnection.executeQuery("SELECT * FROM users")) {
       while (rs.next()) {
         UserModel userModel = createUserModelFromResultSet(rs);
         userList.add(userModel);
       }
-    } catch (SQLException e) {
-      e.printStackTrace();
     }
     return userList;
   }
 
   @Override
-  public int insert(UserModel user) {
+  public int insert(UserModel user) throws SQLException, ClassNotFoundException {
     String insertSql = "INSERT INTO users (username, password, status, name, email, phone, role) VALUES (?, ?, ?, ?, ?, ?, ?)";
     Object[] args = { user.getUsername(), user.getPassword(), user.getStatus().toString().toUpperCase(),
         user.getName(), user.getEmail(), user.getPhone(), user.getRole().toString().toUpperCase() };
@@ -61,27 +58,27 @@ public class UserDAO implements IDAO<UserModel> {
   }
 
   @Override
-  public int update(UserModel user) {
+  public int update(UserModel user) throws SQLException, ClassNotFoundException {
     String updateSql = "UPDATE users SET username = ?, password = ?, status = ?, name = ?, email = ?, phone = ?, role = ? WHERE id = ?";
     Object[] args = { user.getUsername(), user.getPassword(), user.getStatus().toString().toUpperCase(),
         user.getName(), user.getEmail(), user.getPhone(), user.getRole().toString().toUpperCase(), user.getId() };
     return DatabaseConnection.executeUpdate(updateSql, args);
   }
 
-  public int updateStatus(String username, Status status) {
+  public int updateStatus(String username, Status status) throws SQLException, ClassNotFoundException {
     String updateSql = "UPDATE books SET status = ? WHERE username = ?";
     Object[] args = { status, username };
     return DatabaseConnection.executeUpdate(updateSql, args);
   }
 
-  public int updateRole(String username, Role role) {
+  public int updateRole(String username, Role role) throws SQLException, ClassNotFoundException {
     String updateSql = "UPDATE books SET role = ? WHERE username = ?";
     Object[] args = { role, username };
     return DatabaseConnection.executeUpdate(updateSql, args);
   }
 
   @Override
-  public int delete(int id) {
+  public int delete(int id) throws SQLException, ClassNotFoundException {
     String updateStatusSql = "UPDATE users SET status = ? WHERE id = ?";
     Object[] args = { UserModel.Status.BANNED.toString().toUpperCase(), id };
     return DatabaseConnection.executeUpdate(updateStatusSql, args);
@@ -126,32 +123,24 @@ public class UserDAO implements IDAO<UserModel> {
     }
   }
 
-  public UserModel getUserByUsername(String username) {
+  public UserModel getUserByUsername(String username) throws SQLException, ClassNotFoundException {
     String query = "SELECT * FROM users WHERE username = ?";
     Object[] args = { username };
-    ResultSet resultSet = DatabaseConnection.executeQuery(query, args);
-    try {
-      if (resultSet.next()) {
-        return createUserModelFromResultSet(resultSet);
+    try (PreparedStatement pst = DatabaseConnection.getPreparedStatement(query, args); ResultSet rs = pst.executeQuery()) {
+      if (rs.next()) {
+        return createUserModelFromResultSet(rs);
       }
-    } catch (SQLException e) {
-      e.printStackTrace();
     }
     return null;
   }
 
-  public UserModel getUserById(int id) {
+  public UserModel getUserById(int id) throws SQLException, ClassNotFoundException {
     String query = "SELECT * FROM users WHERE id = ?";
     Object[] args = { id };
-
-    ResultSet resultSet = DatabaseConnection.executeQuery(query, args);
-
-    try {
-      if (resultSet.next()) {
-        return createUserModelFromResultSet(resultSet);
+    try (PreparedStatement pst = DatabaseConnection.getPreparedStatement(query, args); ResultSet rs = pst.executeQuery()) {
+      if (rs.next()) {
+        return createUserModelFromResultSet(rs);
       }
-    } catch (SQLException e) {
-      e.printStackTrace();
     }
     return null;
   }

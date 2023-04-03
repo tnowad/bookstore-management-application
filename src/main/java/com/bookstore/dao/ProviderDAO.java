@@ -95,11 +95,10 @@ public class ProviderDAO implements IDAO<ProviderModel> {
     }
   }
 
-  public ProviderModel getProviderById(int id) throws SQLException {
+  public ProviderModel getProviderById(int id) throws SQLException, ClassNotFoundException {
     String query = "SELECT * FROM providers WHERE id = ?";
     Object[] args = { id };
-    try (PreparedStatement pst = DatabaseConnection.getPreparedStatement(query, args);
-        ResultSet rs = pst.executeQuery()) {
+    try (PreparedStatement pst = DatabaseConnection.getPreparedStatement(query, args); ResultSet rs = pst.executeQuery()) {
       if (rs.next()) {
         return createProviderModelFromResultSet(rs);
       }

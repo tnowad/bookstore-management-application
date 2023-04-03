@@ -52,7 +52,7 @@ public class OrderDAO implements IDAO<OrderModel> {
   public int insert(OrderModel order) throws SQLException, ClassNotFoundException {
     String insertSql = "INSERT INTO orders (cart_id, customer_id, employee_id, total, paid, status)"
         + "VALUES (?, ?, ?, ?, ?, ?)";
-    Object[] args = { order.getCartId(), order.getCustomerId(), order.getEmployeeId(), order.getTotal(),
+    Object[] args = { order.getCart_id(), order.getCustomer_id(), order.getEmployee_id(), order.getTotal(),
         order.getPaid(), order.getStatus().name() };
     return DatabaseConnection.executeUpdate(insertSql, args);
   }
@@ -60,12 +60,12 @@ public class OrderDAO implements IDAO<OrderModel> {
   @Override
   public int update(OrderModel order) throws SQLException, ClassNotFoundException {
     String updateSql = "UPDATE orders SET cart_id=?, customer_id=?, employee_id=?, total=?, paid=?, status=? WHERE id=?";
-    Object[] args = { order.getCartId(), order.getCustomerId(), order.getEmployeeId(), order.getTotal(),
+    Object[] args = { order.getCart_id(), order.getCustomer_id(), order.getEmployee_id(), order.getTotal(),
         order.getPaid(), order.getStatus().name(), order.getId() };
     return DatabaseConnection.executeUpdate(updateSql, args);
   }
 
-  public int updateStatus(int cartId, Status status) {
+  public int updateStatus(int cartId, Status status) throws SQLException, ClassNotFoundException {
     String updateSql = "UPDATE orders SET status = ? WHERE cart_id = ?";
     Object[] args = { status, cartId };
     return DatabaseConnection.executeUpdate(updateSql, args);

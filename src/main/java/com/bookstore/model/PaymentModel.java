@@ -20,8 +20,8 @@ public class PaymentModel {
 
   public enum PaymentStatus {
     PENDING,
-    success,
-    failed
+    SUCCESS,
+    FAILED
   }
 
   public PaymentModel() {

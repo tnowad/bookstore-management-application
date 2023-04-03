@@ -30,23 +30,19 @@ public class AddressDAO implements IDAO<AddressModel> {
   }
 
   @Override
-  public ArrayList<AddressModel> readDatabase() {
+  public ArrayList<AddressModel> readDatabase() throws SQLException, ClassNotFoundException {
     ArrayList<AddressModel> addressList = new ArrayList<>();
-    ResultSet rs = DatabaseConnection.executeQuery("SELECT * FROM addresses");
-    try {
+    try (ResultSet rs = DatabaseConnection.executeQuery("SELECT * FROM addresses")) {
       while (rs.next()) {
         AddressModel addressModel = createAddressModelFromResultSet(rs);
         addressList.add(addressModel);
       }
-    } catch (SQLException e) {
-      e.printStackTrace();
     }
-
     return addressList;
   }
 
   @Override
-  public int insert(AddressModel address) {
+  public int insert(AddressModel address) throws SQLException, ClassNotFoundException {
     String insertSql = "INSERT INTO addresses (user_id, street, city, state, zip) VALUES (?, ?, ?, ?, ?)";
     Object[] args = { address.getUserId(), address.getStreet(), address.getCity(),
         address.getState(), address.getZip() };
@@ -54,7 +50,7 @@ public class AddressDAO implements IDAO<AddressModel> {
   }
 
   @Override
-  public int update(AddressModel address) {
+  public int update(AddressModel address) throws SQLException, ClassNotFoundException {
     String updateSql = "UPDATE addresses SET user_id = ?, street = ?, city = ?, state = ?, zip = ? WHERE id = ?";
     Object[] args = { address.getUserId(), address.getStreet(), address.getCity(),
         address.getState(), address.getZip(), address.getId() };
@@ -62,14 +58,15 @@ public class AddressDAO implements IDAO<AddressModel> {
   }
 
   @Override
-  public int delete(int id) {
+  public int delete(int id) throws SQLException, ClassNotFoundException {
     String deleteSql = "DELETE FROM addresses WHERE id = ?";
     Object[] args = { id };
     return DatabaseConnection.executeUpdate(deleteSql, args);
   }
 
   @Override
-  public List<AddressModel> search(String condition, String[] columnNames) throws SQLException {
+  public List<AddressModel> search(String condition, String[] columnNames)
+      throws SQLException, ClassNotFoundException {
     if (condition == null || condition.trim().isEmpty()) {
       throw new IllegalArgumentException("Search condition cannot be empty or null");
     }

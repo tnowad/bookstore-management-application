@@ -76,7 +76,7 @@ public class PromotionDAO implements IDAO<PromotionModel> {
     return DatabaseConnection.executeUpdate(updateSql, args);
   }
 
-  public int updateQuantity(int id, int quantity) {
+  public int updateQuantity(int id, int quantity) throws SQLException, ClassNotFoundException {
     String updateSql = "UPDATE promotions SET quantity = ? WHERE id = ?";
     Object[] args = { quantity, id };
     return DatabaseConnection.executeUpdate(updateSql, args);

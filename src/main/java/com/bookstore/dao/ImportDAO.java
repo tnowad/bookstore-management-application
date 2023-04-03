@@ -38,8 +38,8 @@ public class ImportDAO implements IDAO<ImportModel> {
 
     try (ResultSet rs = DatabaseConnection.executeQuery("SELECT * FROM imports")) {
       while (rs.next()) {
-        ImportModel importModel = createImportModelFromResultSet(rs);
-        importsList.add(importModel);
+        ImportModel ImportModel = createImportModelFromResultSet(rs);
+        importsList.add(ImportModel);
       }
     }
 
@@ -93,8 +93,8 @@ public class ImportDAO implements IDAO<ImportModel> {
       try (ResultSet rs = pst.executeQuery()) {
         List<ImportModel> importsList = new ArrayList<>();
         while (rs.next()) {
-          ImportModel importModel = createImportModelFromResultSet(rs);
-          importsList.add(importModel);
+          ImportModel ImportModel = createImportModelFromResultSet(rs);
+          importsList.add(ImportModel);
         }
 
         if (importsList.isEmpty()) {

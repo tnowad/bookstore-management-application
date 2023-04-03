@@ -15,77 +15,72 @@ public class DatabaseConnection {
   private static String user = rb.getString("user");
   private static String password = rb.getString("password");
 
-  private DatabaseConnection() {
-  }
-
-  public static Connection getInstance() {
+  /**
+   * Get connection to database
+   *
+   * @return Connection object to database
+   * @throws SQLException
+   * @throws ClassNotFoundException
+   */
+  public static Connection getConnection() throws SQLException, ClassNotFoundException {
     if (connection == null) {
-      try {
-        Class.forName(driver);
-        connection = DriverManager.getConnection(url, user, password);
-      } catch (ClassNotFoundException e) {
-        System.err.println("Error: driver not found");
-      } catch (SQLException e) {
-        System.err.println("Error: connection failed");
-      }
+      Class.forName(driver);
+      connection = DriverManager.getConnection(url, user, password);
     }
     return connection;
   }
 
-  public static PreparedStatement getPreparedStatement(String query, Object... args) {
-    Connection connection = getInstance();
-    if (connection == null) {
-      System.err.println("Error: " + "Connection failed");
-      return null;
-    }
-    PreparedStatement preparedStatement = null;
-    try {
-      preparedStatement = connection.prepareStatement(query);
-      for (int i = 0; i < args.length; i++) {
-        preparedStatement.setObject(i + 1, args[i]);
-      }
-    } catch (SQLException e) {
-      System.err.println("Error: " + "Query failed");
+  /**
+   * Get PreparedStatement
+   *
+   * @param sql
+   * @param args
+   * @return PreparedStatement after setting arguments
+   * @throws SQLException
+   * @throws ClassNotFoundException
+   */
+  public static PreparedStatement getPreparedStatement(String sql, Object... args)
+      throws SQLException, ClassNotFoundException {
+    PreparedStatement preparedStatement = getConnection().prepareStatement(sql);
+    for (int i = 0; i < args.length; i++) {
+      preparedStatement.setObject(i + 1, args[i]);
     }
     return preparedStatement;
   }
 
-  public static ResultSet executeQuery(String sql, Object... args) {
-    Connection connection = getInstance();
-    if (connection == null) {
-      System.err.println("Error: " + "Connection failed");
-      return null;
-    }
-    PreparedStatement preparedStatement = null;
-    try {
-      preparedStatement = connection.prepareStatement(sql);
-      for (int i = 0; i < args.length; i++) {
-        preparedStatement.setObject(i + 1, args[i]);
-      }
-      return preparedStatement.executeQuery();
-    } catch (SQLException e) {
-      System.err.println("Error: " + "Query failed");
-    }
-    return null;
+  /**
+   * Execute query
+   *
+   * @param sql
+   * @param args
+   * @return ResultSet after executing query
+   * @throws SQLException
+   * @throws ClassNotFoundException
+   */
+  public static ResultSet executeQuery(String sql, Object... args) throws SQLException, ClassNotFoundException {
+    PreparedStatement preparedStatement = getPreparedStatement(sql, args);
+    return preparedStatement.executeQuery();
   }
 
-  public static int executeUpdate(String sql, Object... args) {
-    Connection connection = getInstance();
-    if (connection == null) {
-      System.err.println("Error: " + "Connection failed");
-      return -1;
-    }
-    try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-      for (int i = 0; i < args.length; i++) {
-        preparedStatement.setObject(i + 1, args[i]);
-      }
-      return preparedStatement.executeUpdate();
-    } catch (SQLException e) {
-      System.err.println("Error: " + "Update failed");
-    }
-    return -1;
+  /**
+   * Execute update
+   *
+   * @param sql
+   * @param args
+   * @return number of rows affected by the update
+   * @throws SQLException
+   * @throws ClassNotFoundException
+   */
+  public static int executeUpdate(String sql, Object... args) throws SQLException, ClassNotFoundException {
+    PreparedStatement preparedStatement = getPreparedStatement(sql, args);
+    return preparedStatement.executeUpdate();
   }
 
+  /**
+   * Close connection
+   *
+   * @throws SQLException
+   */
   public static void closeConnection() {
     try {
       if (connection != null) {
@@ -97,5 +92,4 @@ public class DatabaseConnection {
       connection = null;
     }
   }
-
 }

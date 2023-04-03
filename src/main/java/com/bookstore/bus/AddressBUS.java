@@ -13,14 +13,14 @@ public class AddressBUS implements IBUS<AddressModel> {
   private final List<AddressModel> addressList = new ArrayList<>();
   private static AddressBUS instance;
 
-  public static AddressBUS getInstance() {
+  public static AddressBUS getInstance() throws ClassNotFoundException, SQLException {
     if (instance == null) {
       instance = new AddressBUS();
     }
     return instance;
   }
 
-  private AddressBUS() {
+  private AddressBUS() throws SQLException, ClassNotFoundException {
     this.addressList.addAll(AddressDAO.getInstance().readDatabase());
   }
 
@@ -163,6 +163,8 @@ public class AddressBUS implements IBUS<AddressModel> {
       }
     } catch (SQLException e) {
       throw new SQLException("Failed to search for address: " + e.getMessage());
+    } catch (ClassNotFoundException e) {
+      throw new ClassNotFoundException("Failed to search for address: " + e.getMessage());
     }
 
     if (results.isEmpty()) {

@@ -14,11 +14,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-public class ExcelUtil {
-
-  public ExcelUtil() {
-    throw new IllegalStateException("Utility class");
-  }
+public abstract class ExcelUtil {
 
   /**
    * Reads an Excel file at a given path and returns its data
@@ -92,8 +88,6 @@ public class ExcelUtil {
       workbook.write(fos);
     } catch (IOException e) {
       throw new IOException("Error writing to spreadsheet", e);
-    } catch (Exception e) {
-      throw new IOException("An error occurred while writing to the spreadsheet", e);
     }
   }
 

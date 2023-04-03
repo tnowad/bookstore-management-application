@@ -13,8 +13,8 @@ public class CartModel {
   public enum Status {
     SHOPPING,
     PENDING,
-    REJECT,
-    ACCEPT;
+    REJECTED,
+    ACCEPTED;
   }
 
   public CartModel() {

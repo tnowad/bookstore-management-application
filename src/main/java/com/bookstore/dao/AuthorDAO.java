@@ -4,7 +4,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import com.bookstore.interfaces.IDAO;
@@ -28,42 +27,41 @@ public class AuthorDAO implements IDAO<AuthorModel> {
   }
 
   @Override
-  public ArrayList<AuthorModel> readDatabase() {
+  public ArrayList<AuthorModel> readDatabase() throws SQLException, ClassNotFoundException {
     ArrayList<AuthorModel> authorList = new ArrayList<>();
     try (ResultSet rs = DatabaseConnection.executeQuery("SELECT * FROM authors")) {
       while (rs.next()) {
         AuthorModel authorModel = createAuthorModelFromResultSet(rs);
         authorList.add(authorModel);
       }
-    } catch (SQLException e) {
-      e.printStackTrace();
     }
     return authorList;
   }
 
   @Override
-  public int insert(AuthorModel author) {
+  public int insert(AuthorModel author) throws SQLException, ClassNotFoundException {
     String insertSql = "INSERT INTO authors (name, description) VALUES (?, ?)";
     Object[] args = { author.getName(), author.getDescription() };
     return DatabaseConnection.executeUpdate(insertSql, args);
   }
 
   @Override
-  public int update(AuthorModel author) {
+  public int update(AuthorModel author) throws SQLException, ClassNotFoundException {
     String updateSql = "UPDATE authors SET name = ?, description = ? WHERE id = ?";
     Object[] args = { author.getName(), author.getDescription(), author.getId() };
     return DatabaseConnection.executeUpdate(updateSql, args);
   }
 
   @Override
-  public int delete(int id) {
+  public int delete(int id) throws SQLException, ClassNotFoundException {
     String deleteSql = "DELETE FROM authors WHERE id = ?";
     Object[] args = { id };
     return DatabaseConnection.executeUpdate(deleteSql, args);
   }
 
   @Override
-  public List<AuthorModel> search(String condition, String[] columnNames) {
+  public List<AuthorModel> search(String condition, String[] columnNames)
+      throws SQLException, ClassNotFoundException {
     if (condition == null || condition.trim().isEmpty()) {
       throw new IllegalArgumentException("Search condition cannot be empty or null");
     }
@@ -94,10 +92,6 @@ public class AuthorDAO implements IDAO<AuthorModel> {
         }
         return authorList;
       }
-    } catch (SQLException e) {
-      e.printStackTrace();
     }
-
-    return Collections.emptyList();
   }
 }

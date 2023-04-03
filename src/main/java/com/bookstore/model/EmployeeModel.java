@@ -8,9 +8,7 @@ public class EmployeeModel {
 
   public enum EmployeeType {
     EMPLOYEE_MANAGER,
-    EMPLOYEE_SALES,
-    EMPLOYEE_INVENTORY,
-    EMPLOYEE_ORDER
+    EMPLOYEE_SALESMAN
   }
 
   public EmployeeModel(int userId, int salary, EmployeeType employeeType, String contactInformation) {

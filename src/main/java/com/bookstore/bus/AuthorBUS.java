@@ -14,14 +14,14 @@ public class AuthorBUS implements IBUS<AuthorModel> {
   private final List<AuthorModel> authorList = new ArrayList<>();
   private static AuthorBUS instance;
 
-  public static AuthorBUS getInstance() {
+  public static AuthorBUS getInstance() throws ClassNotFoundException, SQLException {
     if (instance == null) {
       instance = new AuthorBUS();
     }
     return instance;
   }
 
-  private AuthorBUS() {
+  private AuthorBUS() throws SQLException, ClassNotFoundException {
     this.authorList.addAll(AuthorDAO.getInstance().readDatabase());
   }
 
@@ -130,12 +130,18 @@ public class AuthorBUS implements IBUS<AuthorModel> {
   @Override
   public List<AuthorModel> searchModel(String value, String[] columns) throws SQLException, ClassNotFoundException {
     List<AuthorModel> results = new ArrayList<>();
-    List<AuthorModel> entities = AuthorDAO.getInstance().search(value, columns);
-    for (AuthorModel entity : entities) {
-      AuthorModel model = mapToEntity(entity);
-      if (checkFilter(model, value, columns)) {
-        results.add(model);
+    try {
+      List<AuthorModel> entities = AuthorDAO.getInstance().search(value, columns);
+      for (AuthorModel entity : entities) {
+        AuthorModel model = mapToEntity(entity);
+        if (checkFilter(model, value, columns)) {
+          results.add(model);
+        }
       }
+    } catch (SQLException e) {
+      throw new SQLException("Failed to search for author: " + e.getMessage());
+    } catch (ClassNotFoundException e) {
+      throw new ClassNotFoundException("Failed to search for author: " + e.getMessage());
     }
 
     if (results.isEmpty()) {

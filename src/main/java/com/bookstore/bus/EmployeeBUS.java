@@ -106,7 +106,7 @@ public class EmployeeBUS implements IBUS<EmployeeModel> {
       throw new IllegalArgumentException("Contact information cannot be null or empty!");
     }
     employeeModel.setEmployeeType(
-        employeeModel.getEmployeeType() != null ? employeeModel.getEmployeeType() : EmployeeType.EMPLOYEE_SALES);
+        employeeModel.getEmployeeType() != null ? employeeModel.getEmployeeType() : EmployeeType.EMPLOYEE_SALESMAN);
 
     int userId = EmployeeDAO.getInstance().insert(mapToEntity(employeeModel));
     employeeModel.setUserId(userId);
@@ -128,7 +128,7 @@ public class EmployeeBUS implements IBUS<EmployeeModel> {
     return updatedRows;
   }
 
-  public int updateStatus(int userId, EmployeeType role) {
+  public int updateStatus(int userId, EmployeeType role) throws ClassNotFoundException, SQLException {
     int success = EmployeeDAO.getInstance().updateStatus(userId, role);
     if (success == 1) {
       for (EmployeeModel employee : employeeList) {

@@ -29,7 +29,7 @@ public class CartItemsDAO implements IDAO<CartItemsModel> {
   }
 
   @Override
-  public ArrayList<CartItemsModel> readDatabase() {
+  public ArrayList<CartItemsModel> readDatabase() throws ClassNotFoundException, SQLException {
     ArrayList<CartItemsModel> cartItemsList = new ArrayList<>();
     ResultSet rs = DatabaseConnection.executeQuery("SELECT * FROM cart_items");
     try {
@@ -45,7 +45,7 @@ public class CartItemsDAO implements IDAO<CartItemsModel> {
   }
 
   @Override
-  public int insert(CartItemsModel cartItem) {
+  public int insert(CartItemsModel cartItem) throws ClassNotFoundException, SQLException {
     String insertSql = "INSERT INTO cart_items (cart_id, book_isbn, price, quantity, discount) VALUES (?, ?, ?, ?, ?)";
     Object[] args = { cartItem.getCartId(), cartItem.getBookIsbn(), cartItem.getPrice(),
         cartItem.getQuantity(), cartItem.getDiscount() };
@@ -53,22 +53,23 @@ public class CartItemsDAO implements IDAO<CartItemsModel> {
   }
 
   @Override
-  public int update(CartItemsModel cartItem) {
-    String updateSql = "UPDATE cart_items SET book_isbn = ?, price = ?, quantity = ?, discount = ? WHERE cart_id = ?";
-    Object[] args = { cartItem.getBookIsbn(), cartItem.getPrice(),
-        cartItem.getQuantity(), cartItem.getDiscount(), cartItem.getCartId() };
+  public int update(CartItemsModel cartItem) throws ClassNotFoundException, SQLException {
+    String updateSql = "UPDATE cart_items SET cart_id = ?, book_isbn = ?, price = ?, quantity = ?, discount = ? WHERE id = ?";
+    Object[] args = { cartItem.getCartId(), cartItem.getBookIsbn(), cartItem.getPrice(),
+        cartItem.getQuantity(), cartItem.getDiscount() };
     return DatabaseConnection.executeUpdate(updateSql, args);
   }
 
   @Override
-  public int delete(int id) {
+  public int delete(int id) throws ClassNotFoundException, SQLException {
     String deleteSql = "DELETE FROM cart_items WHERE cart_id = ?";
     Object[] args = { id };
     return DatabaseConnection.executeUpdate(deleteSql, args);
   }
 
   @Override
-  public List<CartItemsModel> search(String condition, String[] columnNames) throws SQLException {
+  public List<CartItemsModel> search(String condition, String[] columnNames)
+      throws SQLException, ClassNotFoundException {
     if (condition == null || condition.trim().isEmpty()) {
       throw new IllegalArgumentException("Search condition cannot be empty or null");
     }

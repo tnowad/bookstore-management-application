@@ -21,7 +21,7 @@ public class ShippingModel {
     this.orderId = orderId;
     this.shippingMethod = shippingMethod;
     this.addressId = addressId;
-    this.status = status;
+    this.status = Status.PENDING;
   }
 
   public int getId() {
