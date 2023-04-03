@@ -14,16 +14,13 @@ import com.bookstore.model.UserModel.Status;
 import com.bookstore.util.PasswordUtil;
 
 public class UserBUS implements IBUS<UserModel> {
+
   private final List<UserModel> userList = new ArrayList<>();
   private static UserBUS instance;
 
-  public static UserBUS getInstance() {
+  public static UserBUS getInstance() throws ClassNotFoundException, SQLException {
     if (instance == null) {
-      try {
-        instance = new UserBUS();
-      } catch (ClassNotFoundException | SQLException e) {
-        e.printStackTrace();
-      }
+      instance = new UserBUS();
     }
     return instance;
   }

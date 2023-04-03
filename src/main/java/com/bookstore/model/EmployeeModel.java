@@ -38,6 +38,9 @@ public class EmployeeModel {
   }
 
   public EmployeeType getEmployeeType() {
+    if (employeeType == null) {
+      employeeType = EmployeeType.EMPLOYEE_SALESMAN;
+    }
     return employeeType;
   }
 

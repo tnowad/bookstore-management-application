@@ -39,7 +39,6 @@ public class UserDAO implements IDAO<UserModel> {
   @Override
   public ArrayList<UserModel> readDatabase() throws SQLException, ClassNotFoundException {
     ArrayList<UserModel> userList = new ArrayList<>();
-
     try (ResultSet rs = DatabaseConnection.executeQuery("SELECT * FROM users")) {
       while (rs.next()) {
         UserModel userModel = createUserModelFromResultSet(rs);

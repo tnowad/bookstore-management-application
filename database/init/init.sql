@@ -248,8 +248,6 @@ CREATE TABLE
         `employee_type` ENUM (
             'employee_manager',
             'employee_sales',
-            'employee_inventory',
-            'employee_order'
         ) NOT NULL DEFAULT "employee_sales",
         `contact_information` NVARCHAR (255),
         PRIMARY KEY (`user_id`)

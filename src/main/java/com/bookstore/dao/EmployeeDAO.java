@@ -21,11 +21,11 @@ public class EmployeeDAO implements IDAO<EmployeeModel> {
   }
 
   private EmployeeModel createEmployeeModelFromResultSet(ResultSet rs) throws SQLException {
-    return new EmployeeModel(
-        rs.getInt("user_id"),
-        rs.getInt("salary"),
-        EmployeeType.valueOf(rs.getString("employee_type").toUpperCase()),
-        rs.getString("contact_information"));
+    int userId = rs.getInt("user_id");
+    int salary = rs.getInt("salary");
+    EmployeeType employeeType = EmployeeType.valueOf(rs.getString("employee_type").toUpperCase());
+    String information = rs.getString("contact_information");
+    return new EmployeeModel(userId, salary, employeeType, information);
   }
 
   @Override
@@ -43,7 +43,7 @@ public class EmployeeDAO implements IDAO<EmployeeModel> {
   @Override
   public int insert(EmployeeModel employee) throws SQLException, ClassNotFoundException {
     String insertSql = "INSERT INTO employees (user_id, salary, employee_type, contact_information) VALUES (?, ?, ?, ?)";
-    Object[] args = { employee.getUserId(), employee.getSalary(), employee.getEmployeeType().name(),
+    Object[] args = { employee.getUserId(), employee.getSalary(), employee.getEmployeeType().toString().toUpperCase(),
         employee.getContactInformation() };
     return DatabaseConnection.executeUpdate(insertSql, args);
   }
@@ -51,7 +51,8 @@ public class EmployeeDAO implements IDAO<EmployeeModel> {
   @Override
   public int update(EmployeeModel employee) throws SQLException, ClassNotFoundException {
     String updateSql = "UPDATE employees SET salary = ?, employee_type = ?, contact_information = ? WHERE user_id = ?";
-    Object[] args = { employee.getSalary(), employee.getEmployeeType().name(), employee.getContactInformation(),
+    Object[] args = { employee.getSalary(), employee.getEmployeeType().toString().toUpperCase(),
+        employee.getContactInformation(),
         employee.getUserId() };
     return DatabaseConnection.executeUpdate(updateSql, args);
   }
@@ -67,7 +68,7 @@ public class EmployeeDAO implements IDAO<EmployeeModel> {
     Object[] args = { salary, userId };
     return DatabaseConnection.executeUpdate(updateSql, args);
   }
-  
+
   @Override
   public int delete(int id) throws SQLException, ClassNotFoundException {
     String deleteSql = "DELETE FROM employees WHERE user_id = ?";
