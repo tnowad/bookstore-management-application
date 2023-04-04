@@ -6,9 +6,6 @@ package com.bookstore.gui.customer.view;
 
 import javax.swing.*;
 
-import com.bookstore.gui.customer.formCustomer.BrowseProductPanel;
-import com.bookstore.gui.customer.formCustomer.CartPanel;
-import com.bookstore.gui.customer.formCustomer.CategoryPanel;
 import com.bookstore.gui.main.LoginUI;
 
 import java.awt.*;
@@ -333,7 +330,7 @@ public class MainCustomerFrame extends javax.swing.JFrame {
     if (choice == JOptionPane.YES_OPTION) {
       this.dispose();
       // LoginUI loginUI = new LoginUI();
-      //loginUI.setVisible(true);
+      // loginUI.setVisible(true);
     }
   }// GEN-LAST:event_logOutBtnActionPerformed
 
