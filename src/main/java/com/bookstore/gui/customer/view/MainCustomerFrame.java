@@ -6,6 +6,9 @@ package com.bookstore.gui.customer.view;
 
 import javax.swing.*;
 
+import com.bookstore.gui.customer.formCustomer.BrowseProductPanel;
+import com.bookstore.gui.customer.formCustomer.CartPanel;
+import com.bookstore.gui.customer.formCustomer.CategoryPanel;
 import com.bookstore.gui.main.LoginUI;
 
 import java.awt.*;
