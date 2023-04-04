@@ -41,11 +41,11 @@ public class BookProductPanel extends javax.swing.JPanel {
                 getBookImagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGap(0, 200, Short.MAX_VALUE));
 
-        addtoCartBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/cart (Custom).png"))); // NOI18N
+        addtoCartBtn.setIcon(new javax.swing.ImageIcon("/icon/cart.png")); // NOI18N
 
         getBookTitleTxtFld.setEditable(false);
 
-        bookDetailBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/open-book (Custom).png"))); // NOI18N
+        bookDetailBtn.setIcon(new javax.swing.ImageIcon("/icon/open-book.png")); // NOI18N
         bookDetailBtn.setText("Book Detail");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

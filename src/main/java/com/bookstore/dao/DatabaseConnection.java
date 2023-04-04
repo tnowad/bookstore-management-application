@@ -14,6 +14,14 @@ public class DatabaseConnection {
   private static String url = rb.getString("url");
   private static String user = rb.getString("user");
   private static String password = rb.getString("password");
+  // private static DatabaseConnection instance;
+
+  // public static DatabaseConnection getInstance() {
+  //   if (instance == null) {
+  //     instance = new DatabaseConnection();
+  //   }
+  //   return null;
+  // }
 
   /**
    * Get connection to database
