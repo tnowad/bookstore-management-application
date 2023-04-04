@@ -80,7 +80,10 @@ public class MainCustomerFrame extends javax.swing.JFrame {
     displayingItemsPanel.setLayout(new java.awt.CardLayout());
 
     categoriesBtn.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-    categoriesBtn.setIcon(new javax.swing.ImageIcon("/icon/categories.png")); // NOI18N
+    // categoriesBtn.setIcon(new javax.swing.ImageIcon("/icon/categories.png")); //
+    // NOI18N
+    categoriesBtn.setIcon(new javax.swing.ImageIcon("../../../../../resources/images/categories (Custom).png")); // NOI18N
+
     categoriesBtn.setText("Categories");
     categoriesBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
     categoriesBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -90,7 +93,8 @@ public class MainCustomerFrame extends javax.swing.JFrame {
     });
 
     homeBtn.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-    homeBtn.setIcon(new javax.swing.ImageIcon("/icon/home.png")); // NOI18N
+    // homeBtn.setIcon(new javax.swing.ImageIcon("/icon/home.png")); // NOI18N
+    homeBtn.setIcon(new javax.swing.ImageIcon("../../../../../resources/images/home (Custom).png")); // NOI18N
     homeBtn.setText("Home");
     homeBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
     homeBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -100,7 +104,8 @@ public class MainCustomerFrame extends javax.swing.JFrame {
     });
 
     discoverBtn.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-    discoverBtn.setIcon(new javax.swing.ImageIcon("/icon/search.png")); // NOI18N
+    // discoverBtn.setIcon(new javax.swing.ImageIcon("/icon/search.png")); // NOI18N
+    discoverBtn.setIcon(new javax.swing.ImageIcon("../../../../../resources/images/search (Custom).png")); // NOI18N
     discoverBtn.setText("Discover");
     discoverBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
     discoverBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -110,7 +115,8 @@ public class MainCustomerFrame extends javax.swing.JFrame {
     });
 
     logOutBtn.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-    logOutBtn.setIcon(new javax.swing.ImageIcon("/icon/logout.png")); // NOI18N
+    // logOutBtn.setIcon(new javax.swing.ImageIcon("/icon/logout.png")); // NOI18N
+    logOutBtn.setIcon(new javax.swing.ImageIcon("../../../../../resources/images/logout (Custom).png")); // NOI18N
     logOutBtn.setText("Log out");
     logOutBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
     logOutBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -120,7 +126,8 @@ public class MainCustomerFrame extends javax.swing.JFrame {
     });
 
     accountBtn.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-    accountBtn.setIcon(new javax.swing.ImageIcon("/icon/user.png")); // NOI18N
+    // accountBtn.setIcon(new javax.swing.ImageIcon("/icon/user.png")); // NOI18N
+    accountBtn.setIcon(new javax.swing.ImageIcon("../../../../../resources/images/user (Custom).png")); // NOI18N
     accountBtn.setText("Account");
     accountBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
     accountBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -130,12 +137,17 @@ public class MainCustomerFrame extends javax.swing.JFrame {
     });
 
     aboutUsBtn.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-    aboutUsBtn.setIcon(new javax.swing.ImageIcon("/icon/info.png")); // NOI18N
+    // aboutUsBtn.setIcon(new javax.swing.ImageIcon("/icon/info.png")); // NOI18N
+    aboutUsBtn.setIcon(new javax.swing.ImageIcon("../../../../../resources/images/info (Custom).png")); // NOI18N
+
     aboutUsBtn.setText("About Us");
     aboutUsBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
     contactSupportBtn.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-    contactSupportBtn.setIcon(new javax.swing.ImageIcon("/icon/chat.png")); // NOI18N
+    // contactSupportBtn.setIcon(new javax.swing.ImageIcon("/icon/chat.png")); //
+    // NOI18N
+    contactSupportBtn.setIcon(new javax.swing.ImageIcon("../../../../../resources/images/chat (Custom).png")); // NOI18N
+
     contactSupportBtn.setText("Contact Support");
     contactSupportBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
@@ -187,7 +199,9 @@ public class MainCustomerFrame extends javax.swing.JFrame {
                     javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap()));
 
-    jLabel1.setIcon(new javax.swing.ImageIcon("/icon/books-piled-.png")); // NOI18N
+    // jLabel1.setIcon(new javax.swing.ImageIcon("/icon/books-piled-.png")); //
+    // NOI18N
+    jLabel1.setIcon(new javax.swing.ImageIcon("../../../../../resources/images/books-piled- (Custom).png")); // NOI18N
 
     jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
     jLabel3.setText("Welcome,");
@@ -202,7 +216,10 @@ public class MainCustomerFrame extends javax.swing.JFrame {
     jLabel2.setText("Status:");
 
     cartButton.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-    cartButton.setIcon(new javax.swing.ImageIcon("/icon/shopping-cart.png")); // NOI18N
+    // cartButton.setIcon(new javax.swing.ImageIcon("/icon/shopping-cart.png")); //
+    // NOI18N
+    cartButton.setIcon(new javax.swing.ImageIcon("../../../../../resources/images/shopping-cart (Custom).png")); // NOI18N
+
     cartButton.setText("Cart");
     cartButton.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
