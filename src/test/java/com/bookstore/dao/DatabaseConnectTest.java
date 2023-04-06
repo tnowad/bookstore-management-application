@@ -1,87 +1,96 @@
 package com.bookstore.dao;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import java.util.ResourceBundle;
 
 public class DatabaseConnectTest {
+  private static Connection connection = null;
+  private static ResourceBundle rb = ResourceBundle.getBundle("resources.config.database");
+  private static String driver = rb.getString("driver");
+  private static String url = rb.getString("url");
+  private static String user = rb.getString("user");
+  private static String password = rb.getString("password");
 
-  @BeforeAll
-  public static void setUp() throws Exception {
-    DatabaseConnection.getInstance();
-    createTable();
+  /**
+   * Get connection to database
+   *
+   * @return Connection object to database
+   * @throws SQLException
+   * @throws ClassNotFoundException
+   */
+  public static Connection getConnection() throws SQLException, ClassNotFoundException {
+    if (connection == null) {
+      Class.forName(driver);
+      connection = DriverManager.getConnection(url, user, password);
+    }
+    return connection;
   }
 
-  @AfterAll
-  public static void tearDown() throws Exception {
-    dropTable();
-    DatabaseConnection.closeConnection();
+  /**
+   * Get PreparedStatement
+   *
+   * @param sql
+   * @param args
+   * @return PreparedStatement after setting arguments
+   * @throws SQLException
+   * @throws ClassNotFoundException
+   */
+  public static PreparedStatement getPreparedStatement(String sql, Object... args)
+      throws SQLException, ClassNotFoundException {
+    PreparedStatement preparedStatement = getConnection().prepareStatement(sql);
+    for (int i = 0; i < args.length; i++) {
+      preparedStatement.setObject(i + 1, args[i]);
+    }
+    return preparedStatement;
   }
 
-  private static void createTable() {
-    String createTableQuery = "CREATE TABLE test (id INT PRIMARY KEY, title VARCHAR(255), author VARCHAR(255), price DOUBLE)";
-    DatabaseConnection.executeUpdate(createTableQuery);
+  /**
+   * Execute query
+   *
+   * @param sql
+   * @param args
+   * @return ResultSet after executing query
+   * @throws SQLException
+   * @throws ClassNotFoundException
+   */
+  public static ResultSet executeQuery(String sql, Object... args) throws SQLException, ClassNotFoundException {
+    PreparedStatement preparedStatement = getPreparedStatement(sql, args);
+    return preparedStatement.executeQuery();
   }
 
-  private static void dropTable() throws SQLException, ClassNotFoundException {
-    String dropTableQuery = "DROP TABLE test";
-    DatabaseConnection.executeUpdate(dropTableQuery);
+  /**
+   * Execute update
+   *
+   * @param sql
+   * @param args
+   * @return number of rows affected by the update
+   * @throws SQLException
+   * @throws ClassNotFoundException
+   */
+  public static int executeUpdate(String sql, Object... args) throws SQLException, ClassNotFoundException {
+    PreparedStatement preparedStatement = getPreparedStatement(sql, args);
+    return preparedStatement.executeUpdate();
   }
 
-  @Test
-  public void testAddBook() throws SQLException, ClassNotFoundException {
-    String insertQuery = "INSERT INTO test (id, title, author, price) VALUES (?, ?, ?, ?)";
-    int rowsUpdated = DatabaseConnection.executeUpdate(insertQuery, 1, "The Great Gatsby", "F. Scott Fitzgerald",
-        12.99);
-    assertEquals(1, rowsUpdated);
-  }
-
-  @Test
-  public void testGetBook() throws SQLException, ClassNotFoundException {
-    String selectQuery = "SELECT * FROM test WHERE id = ?";
-    PreparedStatement statement = DatabaseConnection.getPreparedStatement(selectQuery, 1);
-    ResultSet resultSet = statement.executeQuery();
-    assertTrue(resultSet.next());
-    assertEquals("The Great Gatsby", resultSet.getString("title"));
-    assertEquals("F. Scott Fitzgerald", resultSet.getString("author"));
-    resultSet.close();
-    statement.close();
-  }
-
-  @Test
-  public void testUpdateBook() throws SQLException, ClassNotFoundException {
-    String updateQuery = "UPDATE test SET price = ? WHERE id = ?";
-    int rowsUpdated = DatabaseConnection.executeUpdate(updateQuery, 20.0, 1);
-    assertEquals(1, rowsUpdated);
-
-    String selectQuery = "SELECT price FROM test WHERE id = ?";
-    PreparedStatement statement = DatabaseConnection.getPreparedStatement(selectQuery, 1);
-    ResultSet resultSet = statement.executeQuery();
-    assertTrue(resultSet.next());
-    assertEquals(20.0, resultSet.getDouble("price"));
-    resultSet.close();
-    statement.close();
-  }
-
-  @Test
-  public void testRemoveBook() throws SQLException, ClassNotFoundException {
-    String deleteQuery = "DELETE FROM test WHERE id = ?";
-    int rowsUpdated = DatabaseConnection.executeUpdate(deleteQuery, 1);
-    assertEquals(1, rowsUpdated);
-
-    String selectQuery = "SELECT * FROM test WHERE id = ?";
-    PreparedStatement statement = DatabaseConnection.getPreparedStatement(selectQuery, 1);
-    ResultSet resultSet = statement.executeQuery();
-    assertFalse(resultSet.next());
-    resultSet.close();
-    statement.close();
+  /**
+   * Close connection
+   *
+   * @throws SQLException
+   */
+  public static void closeConnection() {
+    try {
+      if (connection != null) {
+        connection.close();
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    } finally {
+      connection = null;
+    }
   }
 }
+

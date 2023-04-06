@@ -1,3 +1,5 @@
+-- Active: 1678573308268@@127.0.0.1@3306@bookstore_management
+
 CREATE DATABASE bookstore;
 
 USE bookstore;
