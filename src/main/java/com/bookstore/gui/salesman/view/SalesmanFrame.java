@@ -103,6 +103,44 @@ public class SalesmanFrame extends Frame {
 
   }
 
+  private void handleEvent() {
+    customerListButton.addActionListener(new ActionListener() {
+
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        removeAll();
+        add(new SalesmanPanel());
+      }
+    });
+
+    pendingOrderButton.addActionListener(new ActionListener() {
+
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        removeAll();
+        add(new PendingOrderPanel());
+      }
+    });
+
+    bookListButton.addActionListener(new ActionListener() {
+
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        removeAll();
+        add(new BookListPanel());
+      }
+    });
+
+    importButton.addActionListener(new ActionListener() {
+
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        removeAll();
+        add(new ImportListPanel());
+      }
+    });
+  }
+
   private void exitForm(WindowEvent evt) {
     System.exit(0);
   }
