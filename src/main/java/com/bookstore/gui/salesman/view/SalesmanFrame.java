@@ -10,6 +10,7 @@ public class SalesmanFrame extends Frame {
   public SalesmanFrame() {
     initFrame();
     initComponents();
+    handleEvent();
   }
 
   private void initFrame() {
@@ -108,8 +109,10 @@ public class SalesmanFrame extends Frame {
 
       @Override
       public void actionPerformed(ActionEvent e) {
-        removeAll();
-        add(new SalesmanPanel());
+        contentCustomerList.removeAll();
+        contentCustomerList.add(new SalesmanPanel());
+        contentCustomerList.revalidate();
+        contentCustomerList.repaint();
       }
     });
 
@@ -117,8 +120,10 @@ public class SalesmanFrame extends Frame {
 
       @Override
       public void actionPerformed(ActionEvent e) {
-        removeAll();
-        add(new PendingOrderPanel());
+        contentCustomerList.removeAll();
+        contentCustomerList.add(new PendingOrderPanel());
+        contentCustomerList.revalidate();
+        contentCustomerList.repaint();
       }
     });
 
@@ -126,8 +131,10 @@ public class SalesmanFrame extends Frame {
 
       @Override
       public void actionPerformed(ActionEvent e) {
-        removeAll();
-        add(new BookListPanel());
+        contentCustomerList.removeAll();
+        contentCustomerList.add(new BookListPanel());
+        contentCustomerList.revalidate();
+        contentCustomerList.repaint();
       }
     });
 
@@ -135,8 +142,10 @@ public class SalesmanFrame extends Frame {
 
       @Override
       public void actionPerformed(ActionEvent e) {
-        removeAll();
-        add(new ImportListPanel());
+        contentCustomerList.removeAll();
+        contentCustomerList.add(new ImportListPanel());
+        contentCustomerList.revalidate();
+        contentCustomerList.repaint();
       }
     });
   }
