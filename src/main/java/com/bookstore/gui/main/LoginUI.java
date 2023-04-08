@@ -22,7 +22,7 @@ import javax.swing.WindowConstants;
 import com.bookstore.bus.UserBUS;
 import com.bookstore.gui.component.Button;
 import com.bookstore.gui.component.GroupInput;
-import com.bookstore.model.ProfileModel;
+// import com.bookstore.model.ProfileModel;
 import com.bookstore.model.UserModel;
 
 public class LoginUI extends JFrame {
@@ -44,7 +44,7 @@ public class LoginUI extends JFrame {
   private JLabel iconLabel;
   private JLabel nameStoreLabel;
 
-  private LoginUI() {
+  public LoginUI() {
     initComponent();
     handleEvent();
     initFrame();
@@ -72,7 +72,7 @@ public class LoginUI extends JFrame {
     loginButton = new Button("Login");
     cancelButton = new Button("Cancel");
     registerButton = new Button("Register");
-    icon = new ImageIcon("icon/book.png");
+    icon = new ImageIcon("../../../../resources/book_logo.png");
     iconLabel = new JLabel(icon);
     nameStoreLabel = new JLabel("Bookstore Management Application");
     nameStoreLabel.setForeground(Color.BLUE);
@@ -87,7 +87,7 @@ public class LoginUI extends JFrame {
   private void initGroupLogo() {
     groupLogo.setLayout(new BorderLayout());
 
-    iconLabel.setIcon(new ImageIcon(getClass().getResource("../../resources/book_logo.png")));
+    iconLabel.setIcon(new ImageIcon(getClass().getResource("../../../../resources/book_logo.png")));
     groupLogo.setPreferredSize(new Dimension(400, 450));
 
     nameStoreLabel.setFont(new Font("sansserif", 0, 24));
@@ -161,8 +161,8 @@ public class LoginUI extends JFrame {
       try {
         UserModel user = UserBUS.getInstance().login(username, Arrays.toString(password));
         if (user != null) {
-          ProfileModel.getInstance().setUser(user);
-          dispose();
+          // ProfileModel.getInstance().setUser(user);
+          // dispose();
           System.out.println("Logged in successfully");
         } else {
           JOptionPane.showMessageDialog(null,
@@ -194,7 +194,7 @@ public class LoginUI extends JFrame {
           nameStoreLabel.setFont(new Font("Arial", 0, 16));
           titleLogin.setFont(new Font("Arial", 0, 24));
           nameStoreLabel.setPreferredSize(new Dimension(100, 20));
-          iconLabel.setIcon(new ImageIcon(getClass().getResource("../../resources/book_logo_responsive.png")));
+          iconLabel.setIcon(new ImageIcon(getClass().getResource("../../../../resources/book_logo_responsive.png")));
 
           groupUsername.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
 

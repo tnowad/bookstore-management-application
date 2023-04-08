@@ -3,6 +3,9 @@ package com.bookstore.gui.salesman.view;
 import java.awt.Dimension;
 import java.awt.Frame;
 import javax.swing.*;
+
+import com.bookstore.gui.main.LoginUI;
+
 import java.awt.event.*;
 
 public class SalesmanFrame extends Frame {
@@ -94,6 +97,7 @@ public class SalesmanFrame extends Frame {
     searchButton.setText("Search");
     container.add(searchButton);
     searchButton.setBounds(727, 10, 90, 50);
+    contentCustomerList.add(new CustomerListPanel());
 
     jScrollPane1.setViewportView(contentCustomerList);
 
@@ -110,7 +114,7 @@ public class SalesmanFrame extends Frame {
       @Override
       public void actionPerformed(ActionEvent e) {
         contentCustomerList.removeAll();
-        contentCustomerList.add(new SalesmanPanel());
+        contentCustomerList.add(new CustomerListPanel());
         contentCustomerList.revalidate();
         contentCustomerList.repaint();
       }
@@ -146,6 +150,27 @@ public class SalesmanFrame extends Frame {
         contentCustomerList.add(new ImportListPanel());
         contentCustomerList.revalidate();
         contentCustomerList.repaint();
+      }
+    });
+
+    accountButton.addActionListener(new ActionListener() {
+
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        contentCustomerList.removeAll();
+        contentCustomerList.add(new AccountPanel());
+        contentCustomerList.revalidate();
+        contentCustomerList.repaint();
+      }
+    });
+
+    logoutButton.addActionListener(new ActionListener() {
+
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        dispose();
+        LoginUI loginFrame = new LoginUI();
+        loginFrame.setVisible(true);
       }
     });
   }
