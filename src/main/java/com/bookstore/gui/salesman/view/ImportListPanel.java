@@ -1,5 +1,7 @@
 package com.bookstore.gui.salesman.view;
 
+import javax.swing.JFrame;
+
 public class ImportListPanel extends javax.swing.JPanel {
 
   public ImportListPanel() {
@@ -68,12 +70,12 @@ public class ImportListPanel extends javax.swing.JPanel {
     jScrollPane2.setViewportView(customerTableList);
 
     exportCustomerBtn.setFont(new java.awt.Font("Segoe UI", 0, 18));
-    exportCustomerBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/employee/icons/export (Custom).png")));
+    exportCustomerBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("../../../../../resources/images/export.png")));
     exportCustomerBtn.setText("Export");
 
     importCustomerListBtn.setFont(new java.awt.Font("Segoe UI", 0, 18));
     importCustomerListBtn
-        .setIcon(new javax.swing.ImageIcon(getClass().getResource("/employee/icons/import (Custom).png")));
+        .setIcon(new javax.swing.ImageIcon(getClass().getResource("../../../../../resources/images/import.png")));
     importCustomerListBtn.setText("Import");
     importCustomerListBtn.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -82,7 +84,7 @@ public class ImportListPanel extends javax.swing.JPanel {
     });
 
     searchBtn.setFont(new java.awt.Font("Segoe UI", 0, 18));
-    searchBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/search.png")));
+    searchBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("../../../../../resources/images/search.png")));
     searchBtn.setText("Search");
 
     searchCustomerTxtFld.setFont(new java.awt.Font("Segoe UI", 0, 18));
@@ -91,7 +93,7 @@ public class ImportListPanel extends javax.swing.JPanel {
     jLabel1.setText("Imports");
 
     addCustomerBtn.setFont(new java.awt.Font("Segoe UI", 0, 18));
-    addCustomerBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/employee/icons/addBook.png")));
+    addCustomerBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("../../../../../resources/images/addBook.png")));
     addCustomerBtn.setText("Add receipt");
     addCustomerBtn.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -187,4 +189,10 @@ public class ImportListPanel extends javax.swing.JPanel {
   private javax.swing.JSeparator jSeparator2;
   private javax.swing.JButton searchBtn;
   private javax.swing.JTextField searchCustomerTxtFld;
+
+  public static void main(String[] args) {
+    JFrame jFrame = new JFrame();
+    jFrame.add(new ImportListPanel());
+    jFrame.setVisible(true);
+  }
 }
