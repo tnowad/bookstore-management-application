@@ -29,7 +29,7 @@ public class CustomerListPanel extends javax.swing.JPanel {
         new javax.swing.ImageIcon(getClass().getResource("../../../../../resources/images/export.png"))); // NOI18N
     exportCustomerBtn.setText("Export");
 
-    importCustomerListBtn.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+    importCustomerListBtn.setFont(new java.awt.Font("Segoe UI", 0, 18));
     importCustomerListBtn
         .setIcon(new javax.swing.ImageIcon(
             getClass().getResource("../../../../../resources/images/import.png"))); // NOI18N
@@ -45,9 +45,9 @@ public class CustomerListPanel extends javax.swing.JPanel {
         new javax.swing.ImageIcon(getClass().getResource("../../../../../resources/images/search.png"))); // NOI18N
     searchBtn.setText("Search");
 
-    searchCustomerTxtFld.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+    searchCustomerTxtFld.setFont(new java.awt.Font("Segoe UI", 0, 18));
 
-    jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+    jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24));
     jLabel1.setText("Customers");
 
     addCustomerBtn.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
