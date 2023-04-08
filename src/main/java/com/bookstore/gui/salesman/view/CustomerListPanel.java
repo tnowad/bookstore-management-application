@@ -22,13 +22,13 @@ public class CustomerListPanel extends javax.swing.JPanel {
     jScrollPane2 = new javax.swing.JScrollPane();
     customerTableList = new javax.swing.JTable();
 
-    exportCustomerBtn.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-    exportCustomerBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/employee/icons/export (Custom).png"))); // NOI18N
+    exportCustomerBtn.setFont(new java.awt.Font("Segoe UI", 0, 18));
+    exportCustomerBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/employee/icons/export (Custom).png")));
     exportCustomerBtn.setText("Export");
 
-    importCustomerListBtn.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+    importCustomerListBtn.setFont(new java.awt.Font("Segoe UI", 0, 18));
     importCustomerListBtn
-        .setIcon(new javax.swing.ImageIcon(getClass().getResource("/employee/icons/import (Custom).png"))); // NOI18N
+        .setIcon(new javax.swing.ImageIcon(getClass().getResource("/employee/icons/import (Custom).png")));
     importCustomerListBtn.setText("Import");
     importCustomerListBtn.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -36,17 +36,17 @@ public class CustomerListPanel extends javax.swing.JPanel {
       }
     });
 
-    searchBtn.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-    searchBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/search.png"))); // NOI18N
+    searchBtn.setFont(new java.awt.Font("Segoe UI", 0, 18));
+    searchBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/search.png")));
     searchBtn.setText("Search");
 
-    searchCustomerTxtFld.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+    searchCustomerTxtFld.setFont(new java.awt.Font("Segoe UI", 0, 18));
 
-    jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+    jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24));
     jLabel1.setText("Customers");
 
-    addCustomerBtn.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-    addCustomerBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/employee/icons/addCustomer.png"))); // NOI18N
+    addCustomerBtn.setFont(new java.awt.Font("Segoe UI", 0, 18));
+    addCustomerBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/employee/icons/addCustomer.png")));
     addCustomerBtn.setText("Add customer");
     addCustomerBtn.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
