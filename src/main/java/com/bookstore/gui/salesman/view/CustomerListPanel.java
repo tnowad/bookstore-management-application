@@ -1,5 +1,7 @@
 package com.bookstore.gui.salesman.view;
 
+import javax.swing.JFrame;
+
 public class CustomerListPanel extends javax.swing.JPanel {
 
   public CustomerListPanel() {
@@ -23,12 +25,14 @@ public class CustomerListPanel extends javax.swing.JPanel {
     customerTableList = new javax.swing.JTable();
 
     exportCustomerBtn.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-    exportCustomerBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/employee/icons/export (Custom).png"))); // NOI18N
+    exportCustomerBtn.setIcon(
+        new javax.swing.ImageIcon(getClass().getResource("../../../../../resources/images/export.png"))); // NOI18N
     exportCustomerBtn.setText("Export");
 
     importCustomerListBtn.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
     importCustomerListBtn
-        .setIcon(new javax.swing.ImageIcon(getClass().getResource("/employee/icons/import (Custom).png"))); // NOI18N
+        .setIcon(new javax.swing.ImageIcon(
+            getClass().getResource("../../../../../resources/images/import.png"))); // NOI18N
     importCustomerListBtn.setText("Import");
     importCustomerListBtn.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -37,7 +41,8 @@ public class CustomerListPanel extends javax.swing.JPanel {
     });
 
     searchBtn.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-    searchBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/search.png"))); // NOI18N
+    searchBtn.setIcon(
+        new javax.swing.ImageIcon(getClass().getResource("../../../../../resources/images/search.png"))); // NOI18N
     searchBtn.setText("Search");
 
     searchCustomerTxtFld.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -46,7 +51,8 @@ public class CustomerListPanel extends javax.swing.JPanel {
     jLabel1.setText("Customers");
 
     addCustomerBtn.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-    addCustomerBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/employee/icons/addCustomer.png"))); // NOI18N
+    addCustomerBtn.setIcon(
+        new javax.swing.ImageIcon(getClass().getResource("../../../../../resources/images/addCustomer.png"))); // NOI18N
     addCustomerBtn.setText("Add customer");
     addCustomerBtn.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -60,14 +66,17 @@ public class CustomerListPanel extends javax.swing.JPanel {
         CustomerListUtilityLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(CustomerListUtilityLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(CustomerListUtilityLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(CustomerListUtilityLayout
+                    .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addGroup(CustomerListUtilityLayout.createSequentialGroup()
-                        .addComponent(searchCustomerTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, 430,
+                        .addComponent(searchCustomerTxtFld,
+                            javax.swing.GroupLayout.PREFERRED_SIZE, 430,
                             javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(searchBtn)))
-                .addGroup(CustomerListUtilityLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(CustomerListUtilityLayout
+                    .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(CustomerListUtilityLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
                             javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -83,14 +92,18 @@ public class CustomerListPanel extends javax.swing.JPanel {
         CustomerListUtilityLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(CustomerListUtilityLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(CustomerListUtilityLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(CustomerListUtilityLayout
+                    .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(addCustomerBtn))
                 .addGap(23, 23, 23)
-                .addGroup(CustomerListUtilityLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(CustomerListUtilityLayout
+                    .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(CustomerListUtilityLayout.createSequentialGroup()
                         .addGroup(
-                            CustomerListUtilityLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            CustomerListUtilityLayout
+                                .createParallelGroup(
+                                    javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(importCustomerListBtn)
                                 .addComponent(exportCustomerBtn)
                                 .addComponent(searchBtn))
@@ -164,10 +177,12 @@ public class CustomerListPanel extends javax.swing.JPanel {
         .addComponent(jScrollPane1).addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING));
     layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(layout
         .createSequentialGroup()
-        .addComponent(CustomerListUtility, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
+        .addComponent(CustomerListUtility, javax.swing.GroupLayout.PREFERRED_SIZE,
+            javax.swing.GroupLayout.DEFAULT_SIZE,
             javax.swing.GroupLayout.PREFERRED_SIZE)
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10,
+            javax.swing.GroupLayout.PREFERRED_SIZE)
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(jScrollPane1)));
   }
 
@@ -191,4 +206,10 @@ public class CustomerListPanel extends javax.swing.JPanel {
   private javax.swing.JSeparator jSeparator1;
   private javax.swing.JButton searchBtn;
   private javax.swing.JTextField searchCustomerTxtFld;
+
+  public static void main(String[] args) {
+    JFrame jFrame = new JFrame();
+    jFrame.add(new CustomerListPanel());
+    jFrame.setVisible(true);
+  }
 }
