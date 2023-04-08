@@ -115,10 +115,10 @@ public class SalesmanFrame extends Frame {
 
       @Override
       public void actionPerformed(ActionEvent e) {
-        // contentCustomerList.removeAll();
-        // contentCustomerList.add(new CustomerListPanel());
-        // contentCustomerList.revalidate();
-        // contentCustomerList.repaint();
+        contentCustomerList.removeAll();
+        contentCustomerList.add(new CustomerListPanel());
+        contentCustomerList.revalidate();
+        contentCustomerList.repaint();
       }
     });
 
@@ -126,10 +126,10 @@ public class SalesmanFrame extends Frame {
 
       @Override
       public void actionPerformed(ActionEvent e) {
-        // contentCustomerList.removeAll();
-        // contentCustomerList.add(new PendingOrderPanel());
-        // contentCustomerList.revalidate();
-        // contentCustomerList.repaint();
+        contentCustomerList.removeAll();
+        contentCustomerList.add(new PendingOrderPanel());
+        contentCustomerList.revalidate();
+        contentCustomerList.repaint();
       }
     });
 
