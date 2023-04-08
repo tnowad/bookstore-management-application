@@ -3,12 +3,12 @@ package com.bookstore.gui.customer.formCustomer;
 
 public class BookDetailPanel extends javax.swing.JPanel {
 
-  public BookDetailPanel() {
-    initComponents();
+  public BookDetailPanel(String isbn, String title, String description,String image, int price, int quantity, Enum status,int publisher_id, int author_id) {
+    initComponents(isbn,  title,  description, image,  price,  quantity,  status, publisher_id,  author_id);
   }
 
   @SuppressWarnings("unchecked")
-  private void initComponents() {
+  private void initComponents(String isbn, String title, String description,String image, int price, int quantity, Enum status,int publisher_id, int author_id) {
 
     getBookImagePanel = new javax.swing.JPanel();
     jPanel2 = new javax.swing.JPanel();
@@ -57,6 +57,7 @@ public class BookDetailPanel extends javax.swing.JPanel {
 
     getBookTitleTxtFld.setEditable(false);
     getBookTitleTxtFld.setFont(new java.awt.Font("Segoe UI", 1, 14));
+    getBookTitleTxtFld.setText(title);
     getBookTitleTxtFld.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         getBookTitleTxtFldActionPerformed(evt);
@@ -65,16 +66,20 @@ public class BookDetailPanel extends javax.swing.JPanel {
 
     getAvailableQuantityTxtFld.setEditable(false);
     getAvailableQuantityTxtFld.setFont(new java.awt.Font("Segoe UI", 1, 18));
+    getAvailableQuantityTxtFld.setText(""+quantity);
 
     getBookPriceTxtFld.setEditable(false);
     getBookPriceTxtFld.setFont(new java.awt.Font("Segoe UI", 1, 18));
     getBookPriceTxtFld.setForeground(new java.awt.Color(255, 51, 51));
+    getBookPriceTxtFld.setText(""+price);
 
     getBookIsbnTxtFld.setEditable(false);
     getBookIsbnTxtFld.setFont(new java.awt.Font("Segoe UI", 1, 18));
+    getBookIsbnTxtFld.setText(isbn);
 
     getStatusTxtFld.setEditable(false);
     getStatusTxtFld.setFont(new java.awt.Font("Segoe UI", 1, 18));
+    getStatusTxtFld.setText(""+status);
 
     quantitySpinner.setFont(new java.awt.Font("Segoe UI", 0, 18));
 
@@ -83,6 +88,7 @@ public class BookDetailPanel extends javax.swing.JPanel {
 
     getAuthorNameTxtFld.setEditable(false);
     getAuthorNameTxtFld.setFont(new java.awt.Font("Segoe UI", 1, 18));
+    getAuthorNameTxtFld.setText(""+author_id);
 
     jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 18));
     jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -246,6 +252,7 @@ public class BookDetailPanel extends javax.swing.JPanel {
     getDescriptionPanelLayout.setVerticalGroup(
         getDescriptionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 210, Short.MAX_VALUE));
+    
 
     jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 24));
     jLabel6.setText("Description:");

@@ -1,15 +1,25 @@
 
 package com.bookstore.gui.customer.formCustomer;
 
-public class BookProductPanel extends javax.swing.JPanel {
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
-  public BookProductPanel() {
-    initComponents();
+import javax.swing.JFrame;
+
+public class BookProductPanel extends javax.swing.JPanel implements MouseListener {
+
+  public BookProductPanel(String isbn, String title, String description,String image, int price, int quantity, Enum status,int publisher_id, int author_id) {
+    initComponents( isbn,  title,  description, image,  price,  quantity,  status, publisher_id,  author_id);
+    
+
   }
 
   @SuppressWarnings("unchecked")
 
-  private void initComponents() {
+  private void initComponents(String isbn, String title, String description,String image, int price, int quantity, Enum status,int publisher_id, int author_id) {
 
     getBookImagePanel = new javax.swing.JPanel();
     getBookTitleTxtFld = new javax.swing.JTextField();
@@ -26,7 +36,7 @@ public class BookProductPanel extends javax.swing.JPanel {
 
     getBookTitleTxtFld.setEditable(false);
     getBookTitleTxtFld.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-    getBookTitleTxtFld.setText("Title");
+    getBookTitleTxtFld.setText(title);
     getBookTitleTxtFld.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         getBookTitleTxtFldActionPerformed(evt);
@@ -41,7 +51,14 @@ public class BookProductPanel extends javax.swing.JPanel {
     bookDetailBtn.setText("Book Detail");
     bookDetailBtn.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
-        bookDetailBtnActionPerformed(evt);
+        BookDetailPanel bookDetailPanel = new BookDetailPanel(isbn,  title,  description, image,  price,  quantity,  status, publisher_id,  author_id);
+        JFrame frame = new JFrame();
+        frame.setLayout(new FlowLayout());
+        frame.setSize(new Dimension(1000,600));
+        frame.add(bookDetailPanel);
+        frame.setLocationRelativeTo(null);
+        frame.setResizable(false);
+        frame.setVisible(true);
       }
     });
 
@@ -86,4 +103,33 @@ public class BookProductPanel extends javax.swing.JPanel {
   private javax.swing.JPanel getBookImagePanel;
   private javax.swing.JTextField getBookTitleTxtFld;
   // End of variables declaration//GEN-END:variables
+  @Override
+  public void mouseClicked(MouseEvent e) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'mouseClicked'");
+  }
+
+  @Override
+  public void mousePressed(MouseEvent e) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'mousePressed'");
+  }
+
+  @Override
+  public void mouseReleased(MouseEvent e) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'mouseReleased'");
+  }
+
+  @Override
+  public void mouseEntered(MouseEvent e) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'mouseEntered'");
+  }
+
+  @Override
+  public void mouseExited(MouseEvent e) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'mouseExited'");
+  }
 }
