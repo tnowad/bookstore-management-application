@@ -101,9 +101,10 @@ public class SalesmanFrame extends Frame {
     contentCustomerList.add(new CustomerListPanel());
 
     jScrollPane1.setViewportView(contentCustomerList);
+    contentCustomerList.setPreferredSize(new Dimension(900, 0));
 
     container.add(jScrollPane1);
-    jScrollPane1.setBounds(160, 70, 980, 510);
+    jScrollPane1.setBounds(160, 70, 980, 580);
 
     add(container, java.awt.BorderLayout.CENTER);
 
