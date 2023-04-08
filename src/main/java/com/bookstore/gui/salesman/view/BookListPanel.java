@@ -41,12 +41,14 @@ public class BookListPanel extends javax.swing.JPanel {
     jSeparator2 = new javax.swing.JSeparator();
 
     exportCustomerBtn.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-    exportCustomerBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("../../../../../resources/images/export (Custom).png"))); // NOI18N
+    exportCustomerBtn.setIcon(
+        new javax.swing.ImageIcon(getClass().getResource("../../../../../resources/images/export.png"))); // NOI18N
     exportCustomerBtn.setText("Export");
 
     importCustomerListBtn.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
     importCustomerListBtn
-        .setIcon(new javax.swing.ImageIcon(getClass().getResource("../../../../../resources/images/import (Custom).png"))); // NOI18N
+        .setIcon(
+            new javax.swing.ImageIcon(getClass().getResource("../../../../../resources/images/import.png"))); // NOI18N
     importCustomerListBtn.setText("Import");
     importCustomerListBtn.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -64,7 +66,8 @@ public class BookListPanel extends javax.swing.JPanel {
     jLabel1.setText("Books");
 
     addCustomerBtn.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-    addCustomerBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("../../../../../resources/images/addBook.png"))); // NOI18N
+    addCustomerBtn
+        .setIcon(new javax.swing.ImageIcon(getClass().getResource("../../../../../resources/images/addBook.png"))); // NOI18N
     addCustomerBtn.setText("Add book");
     addCustomerBtn.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -211,6 +214,8 @@ public class BookListPanel extends javax.swing.JPanel {
 
   // End of variables declaration
   public static void main(String[] args) {
-    (new JFrame()).add(new BookListPanel());
+    JFrame jFrame = new JFrame();
+    jFrame.add(new BookListPanel());
+    jFrame.setVisible(true);
   }
 }

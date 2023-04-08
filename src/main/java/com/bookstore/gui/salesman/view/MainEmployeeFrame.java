@@ -49,7 +49,7 @@ public class MainEmployeeFrame extends javax.swing.JFrame {
     createOrderBtn.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
     createOrderBtn
         .setIcon(
-            new javax.swing.ImageIcon(getClass().getResource("../../../../../resources/images/create (Custom).png"))); // NOI18N
+            new javax.swing.ImageIcon(getClass().getResource("../../../../../resources/images/create.png"))); // NOI18N
     createOrderBtn.setText("Confirm Order");
     createOrderBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
     createOrderBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -61,7 +61,7 @@ public class MainEmployeeFrame extends javax.swing.JFrame {
     pendingOrdersBtn.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
     pendingOrdersBtn
         .setIcon(
-            new javax.swing.ImageIcon(getClass().getResource("../../../../../resources/images/file (Custom).png"))); // NOI18N
+            new javax.swing.ImageIcon(getClass().getResource("../../../../../resources/images/file.png"))); // NOI18N
     pendingOrdersBtn.setText("Pending Orders");
     pendingOrdersBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
     pendingOrdersBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -73,7 +73,7 @@ public class MainEmployeeFrame extends javax.swing.JFrame {
     customerListBtn.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
     customerListBtn
         .setIcon(
-            new javax.swing.ImageIcon(getClass().getResource("../../../../../resources/images/customer (Custom).png"))); // NOI18N
+            new javax.swing.ImageIcon(getClass().getResource("../../../../../resources/images/customer.png"))); // NOI18N
     customerListBtn.setText("Customer List");
     customerListBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
     customerListBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -84,13 +84,13 @@ public class MainEmployeeFrame extends javax.swing.JFrame {
 
     aboutUsBtn.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
     aboutUsBtn.setIcon(
-        new javax.swing.ImageIcon(getClass().getResource("../../../../../resources/images/info (Custom).png"))); // NOI18N
+        new javax.swing.ImageIcon(getClass().getResource("../../../../../resources/images/info.png"))); // NOI18N
     aboutUsBtn.setText("About Us");
     aboutUsBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
     bookListBtn.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
     bookListBtn
-        .setIcon(new javax.swing.ImageIcon(getClass().getResource("../../../../../resources/images/add (Custom).png"))); // NOI18N
+        .setIcon(new javax.swing.ImageIcon(getClass().getResource("../../../../../resources/images/add.png"))); // NOI18N
     bookListBtn.setText("Book List");
     bookListBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
     bookListBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -102,7 +102,7 @@ public class MainEmployeeFrame extends javax.swing.JFrame {
     importListBtn.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
     importListBtn
         .setIcon(new javax.swing.ImageIcon(
-            getClass().getResource("../../../../../resources/images/clipboard (Custom).png"))); // NOI18N
+            getClass().getResource("../../../../../resources/images/clipboard.png"))); // NOI18N
     importListBtn.setText("Import List");
     importListBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
     importListBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -113,7 +113,7 @@ public class MainEmployeeFrame extends javax.swing.JFrame {
 
     logOutBtn.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
     logOutBtn.setIcon(
-        new javax.swing.ImageIcon(getClass().getResource("../../../../../resources/images/logout (Custom).png"))); // NOI18N
+        new javax.swing.ImageIcon(getClass().getResource("../../../../../resources/images/logout.png"))); // NOI18N
     logOutBtn.setText("Log out");
     logOutBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
     logOutBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -124,7 +124,7 @@ public class MainEmployeeFrame extends javax.swing.JFrame {
 
     accountBtn.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
     accountBtn.setIcon(
-        new javax.swing.ImageIcon(getClass().getResource("../../../../../resources/images/user (Custom).png"))); // NOI18N
+        new javax.swing.ImageIcon(getClass().getResource("../../../../../resources/images/user.png"))); // NOI18N
     accountBtn.setText("Account");
     accountBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
     accountBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -188,7 +188,7 @@ public class MainEmployeeFrame extends javax.swing.JFrame {
     jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
     jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     jLabel2.setIcon(
-        new javax.swing.ImageIcon(getClass().getResource("../../../../../resources/images/identity (Custom).png"))); // NOI18N
+        new javax.swing.ImageIcon(getClass().getResource("../../../../../resources/images/identity.png"))); // NOI18N
     jLabel2.setText("Role:");
 
     getEmployeeRoleTxtFld.setEditable(false);
