@@ -5,6 +5,7 @@ import java.awt.Frame;
 import javax.swing.*;
 
 import com.bookstore.gui.main.LoginUI;
+import com.bookstore.gui.salesman.view.Account.AccountPanel;
 
 import java.awt.event.*;
 
