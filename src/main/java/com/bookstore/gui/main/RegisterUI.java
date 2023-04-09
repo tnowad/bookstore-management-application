@@ -177,21 +177,7 @@ public class RegisterUI extends JFrame {
       char[] password = groupPassword.getPasswordField().getPassword();
       String passwordText = new String(password);
 
-      // Check if the required fields are empty or contain only whitespace
-      if (username.trim().isEmpty() || name.trim().isEmpty() || passwordText.isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Username, name and password cannot be empty. Please try again.");
-        return;
-      }
-
-      try {
-        if (!email.isEmpty() && UserBUS.getInstance().isValidEmailAddress(email)) {
-          JOptionPane.showMessageDialog(null, "Please enter a valid email address.");
-          return;
-        }
-      } catch (HeadlessException | ClassNotFoundException | SQLException e1) {
-        e1.printStackTrace();
-      }
-
+      UserModel newUser = new UserModel(0, username, passwordText, null, name, email, phone, null, null, null);
       // Check if the username, email, phone is already taken
       ArrayList<String> checkDuplicate = new ArrayList<>();
       checkDuplicate.add(username);
@@ -221,7 +207,7 @@ public class RegisterUI extends JFrame {
           e1.printStackTrace();
         }
       }
-      UserModel newUser = new UserModel(0, username, passwordText, null, name, email, phone, null, null, null);
+
       try {
         int added = UserBUS.getInstance().addModel(newUser);
         if (added == 1) {

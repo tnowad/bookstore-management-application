@@ -7,6 +7,7 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.sql.SQLException;
 import java.util.Optional;
 
 import javax.swing.BorderFactory;
@@ -184,7 +185,6 @@ public class ForgotPasswordUI extends JFrame {
   }
 
   private void handleEvent() {
-    UserBUS userBUS = UserBUS.getInstance();
 
     resetButton.addActionListener(e -> {
       String email = emailTextField.getText().trim();
@@ -192,28 +192,30 @@ public class ForgotPasswordUI extends JFrame {
 
       if (email.isEmpty() && phone.isEmpty()) {
         showError("Email or phone cannot be empty, please check the input and try again.");
-      } else if (!email.isEmpty() && !userBUS.isValidEmailAddress(email)) {
-        showError("Invalid email format, please check the input and try again.");
       } else {
-        Optional<UserModel> optionalUser = userBUS.getAllModels().stream()
-            .filter(user -> user.getEmail().equals(email) || user.getPhone().equals(phone))
-            .findFirst();
-        if (optionalUser.isPresent()) {
-          UserModel userModel = optionalUser.get();
-          int userId = userModel.getId();
-          RetypePasswordUI.getInstance().setInformations(userId, email, phone);
+        try {
+          Optional<UserModel> optionalUser = UserBUS.getInstance().getAllModels().stream()
+              .filter(user -> user.getEmail().equals(email) || user.getPhone().equals(phone))
+              .findFirst();
+          if (optionalUser.isPresent()) {
+            UserModel userModel = optionalUser.get();
+            int userId = userModel.getId();
+            RetypePasswordUI.getInstance().setInformations(userId, email, phone);
 
-          int option = JOptionPane.showOptionDialog(null,
-              "Based on your information, we found your account, you can now reset your password.",
-              "Reset Password", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE,
-              null, new Object[] { "OK" }, "OK");
+            int option = JOptionPane.showOptionDialog(null,
+                "Based on your information, we found your account, you can now reset your password.",
+                "Reset Password", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE,
+                null, new Object[] { "OK" }, "OK");
 
-          if (option == 0) {
-            ForgotPasswordUI.getInstance().setVisible(true);
-            setVisible(false);
+            if (option == 0) {
+              ForgotPasswordUI.getInstance().setVisible(true);
+              setVisible(false);
+            }
+          } else {
+            showError("User not found, please check the input and try again.");
           }
-        } else {
-          showError("User not found, please check the input and try again.");
+        } catch (ClassNotFoundException | SQLException e1) {
+          e1.printStackTrace();
         }
       }
     });
@@ -240,7 +242,7 @@ public class ForgotPasswordUI extends JFrame {
           titleResetPassword.setFont(new Font("sansserif", 0, 16));
           titleResetPassword.setText("You can reset your password here");
           nameStoreLabel.setPreferredSize(new Dimension(100, 20));
-          iconLabel.setIcon(new ImageIcon(getClass().getResource("../../resources/fogotpass_icon.png")));
+          iconLabel.setIcon(new ImageIcon(getClass().getResource("../../../../resources/fogotpass_icon.png")));
 
           groupEmail.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
 
@@ -264,7 +266,7 @@ public class ForgotPasswordUI extends JFrame {
 
           if (height < 600) {
             nameStoreLabel.setFont(new Font("sansserif", 0, 24));
-            iconLabel.setIcon(new ImageIcon(getClass().getResource("../../resources/fogotpass_reponsive.png")));
+            iconLabel.setIcon(new ImageIcon(getClass().getResource("../../../../resources/fogotpass_reponsive.png")));
             groupLogo.setPreferredSize(new Dimension(500, 200));
           }
 
