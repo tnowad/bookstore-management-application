@@ -3,9 +3,12 @@ package com.bookstore.gui.main;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 import com.bookstore.bus.UserBUS;
 import com.bookstore.gui.component.GroupInput;
-import com.bookstore.model.ProfileModel;
+//import com.bookstore.model.ProfileModel;
 import com.bookstore.model.UserModel;
 
 public class RegisterUI extends JFrame {
@@ -68,7 +71,7 @@ public class RegisterUI extends JFrame {
     groupLogo.setLayout(new BorderLayout());
 
     nameStoreLabel.setForeground(Color.BLUE);
-    iconLabel.setIcon(new ImageIcon(getClass().getResource("../../resources/book_logo.png")));
+    iconLabel.setIcon(new ImageIcon(getClass().getResource("../../../../resources/book_logo.png")));
     groupLogo.setPreferredSize(new Dimension(400, 450));
 
     nameStoreLabel.setFont(new Font("sansserif", 0, 24));
@@ -158,25 +161,56 @@ public class RegisterUI extends JFrame {
         return;
       }
 
-      if (!email.isEmpty() && UserBUS.getInstance().isValidEmailAddress(email)) {
-        JOptionPane.showMessageDialog(null, "Please enter a valid email address.");
-        return;
+      try {
+        if (!email.isEmpty() && UserBUS.getInstance().isValidEmailAddress(email)) {
+          JOptionPane.showMessageDialog(null, "Please enter a valid email address.");
+          return;
+        }
+      } catch (HeadlessException | ClassNotFoundException | SQLException e1) {
+        e1.printStackTrace();
       }
 
-      // Check if the username is already taken
-      if (UserBUS.getInstance().checkDuplicateUsername(username)) {
-        JOptionPane.showMessageDialog(null, "The username is already taken. Please try another username.");
-        return;
-      }
+      // Check if the username, email, phone is already taken
+      ArrayList<String> checkDuplicate = new ArrayList<>();
+      checkDuplicate.add(username);
+      checkDuplicate.add(email);
+      checkDuplicate.add(phone);
 
+      for (int i = 0; i < checkDuplicate.size(); i++) {
+        String field = "";
+        switch (i) {
+          case 0:
+            field = "username";
+            break;
+          case 1:
+            field = "email";
+            break;
+          case 2:
+            field = "phone";
+            break;
+        }
+        try {
+          if (UserBUS.getInstance().checkForDuplicate(checkDuplicate, new String[] { field })) {
+            JOptionPane.showMessageDialog(null,
+                "The " + field + " is already taken. Please try another " + field + ".");
+            return;
+          }
+        } catch (HeadlessException | ClassNotFoundException | SQLException e1) {
+          e1.printStackTrace();
+        }
+      }
       UserModel newUser = new UserModel(0, username, passwordText, null, name, email, phone, null, null, null);
-      int added = UserBUS.getInstance().addModel(newUser);
-      if (added == 1) {
-        ProfileModel.getInstance().setUser(newUser);
-        JOptionPane.showMessageDialog(null, "You've successfully registered! You can log in now.");
-        dispose(); // close the registration UI
-      } else {
-        JOptionPane.showMessageDialog(null, "Registration failed. Please try again!");
+      try {
+        int added = UserBUS.getInstance().addModel(newUser);
+        if (added == 1) {
+          // ProfileModel.getInstance().setUser(newUser);
+          JOptionPane.showMessageDialog(null, "You've successfully registered! You can log in now.");
+          dispose(); // close the registration UI
+        } else {
+          JOptionPane.showMessageDialog(null, "Registration failed. Please try again!");
+        }
+      } catch (ClassNotFoundException | SQLException e1) {
+        e1.printStackTrace();
       }
     });
 
@@ -192,7 +226,7 @@ public class RegisterUI extends JFrame {
           nameStoreLabel.setFont(new Font("sansserif", 0, 16));
           titleRegister.setFont(new Font("sansserif", 0, 24));
           nameStoreLabel.setPreferredSize(new Dimension(100, 20));
-          iconLabel.setIcon(new ImageIcon(getClass().getResource("../../resources/book_logo_responsive.png")));
+          iconLabel.setIcon(new ImageIcon(getClass().getResource("../../../../resources/book_logo_responsive.png")));
 
           groupUsername.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
 
@@ -253,7 +287,6 @@ public class RegisterUI extends JFrame {
         repaint();
       }
     });
-
   }
 
   private void initFrame() {

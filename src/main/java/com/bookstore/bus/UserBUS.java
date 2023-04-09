@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
+import javax.security.auth.login.LoginException;
+
 import com.bookstore.dao.UserDAO;
 import com.bookstore.interfaces.IBUS;
 import com.bookstore.model.UserModel;
@@ -31,17 +33,19 @@ public class UserBUS implements IBUS<UserModel> {
     this.userList.addAll(UserDAO.getInstance().readDatabase());
   }
 
-  public UserModel login(String username, String password) {
-    UserModel userModel;
+  public UserModel login(String username, String password) throws LoginException {
     try {
-      userModel = UserDAO.getInstance().getUserByUsername(username);
-      if (userModel != null && PasswordUtil.checkPassword(password, userModel.getPassword())) {
-        return userModel;
+      UserModel userModel = UserDAO.getInstance().getUserByUsername(username);
+      if (userModel == null) {
+        throw new LoginException("User not found");
       }
+      if (!PasswordUtil.checkPassword(password, userModel.getPassword())) {
+        throw new LoginException("Incorrect password");
+      }
+      return userModel;
     } catch (ClassNotFoundException | SQLException e) {
-      e.printStackTrace();
+      throw new LoginException("Database error");
     }
-    return null;
   }
 
   @Override
@@ -179,7 +183,7 @@ public class UserBUS implements IBUS<UserModel> {
     return id;
   }
 
-  private static boolean isValidEmailAddress(String email) {
+  public boolean isValidEmailAddress(String email) {
     Pattern pattern = Pattern.compile("^\\S+@\\S+\\.\\S+$");
 
     if (email == null) {
