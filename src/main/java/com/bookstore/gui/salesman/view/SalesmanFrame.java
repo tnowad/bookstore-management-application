@@ -36,7 +36,7 @@ public class SalesmanFrame extends Frame {
     accountButton = new JButton();
     bookListButton = new JButton();
     jTextField1 = new JTextField();
-    searchButton = new JButton();
+    // searchButton = new JButton();
     jScrollPane1 = new JScrollPane();
     contentCustomerList = new JPanel();
 
@@ -87,17 +87,17 @@ public class SalesmanFrame extends Frame {
     container.add(bookListButton);
     bookListButton.setBounds(0, 130, 160, 50);
 
-    jTextField1.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent evt) {
-        jTextField1ActionPerformed(evt);
-      }
-    });
-    container.add(jTextField1);
-    jTextField1.setBounds(370, 10, 340, 50);
+    // jTextField1.addActionListener(new ActionListener() {
+    // public void actionPerformed(ActionEvent evt) {
+    // jTextField1ActionPerformed(evt);
+    // }
+    // });
+    // container.add(jTextField1);
+    // jTextField1.setBounds(370, 10, 340, 50);
 
-    searchButton.setText("Search");
-    container.add(searchButton);
-    searchButton.setBounds(727, 10, 90, 50);
+    // searchButton.setText("Search");
+    // container.add(searchButton);
+    // searchButton.setBounds(727, 10, 90, 50);
     contentCustomerList.add(new CustomerListPanel());
 
     jScrollPane1.setViewportView(contentCustomerList);
@@ -205,7 +205,7 @@ public class SalesmanFrame extends Frame {
   private JButton contactButton;
   private JButton accountButton;
   private JButton bookListButton;
-  private JButton searchButton;
+  // private JButton searchButton;
   private JPanel container;
   private JPanel contentCustomerList;
   private JScrollPane jScrollPane1;
