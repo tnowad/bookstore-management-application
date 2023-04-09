@@ -91,7 +91,7 @@ public class ForgotPasswordUI extends JFrame {
   private void initGroupLogo() {
     groupLogo.setLayout(new BorderLayout());
 
-    iconLabel.setIcon(new ImageIcon(getClass().getResource("../../resources/fogotpass_icon.png")));
+    iconLabel.setIcon(new ImageIcon(getClass().getResource("../../../../resources/fogotpass_icon.png")));
     groupLogo.setPreferredSize(new Dimension(400, 450));
     nameStoreLabel = new JLabel();
     nameStoreLabel.setText("Bookstore Management Application");

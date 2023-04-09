@@ -30,9 +30,6 @@ public class RegisterUI extends JFrame {
   private JButton registerButton;
   private JLabel iconLabel;
   private JLabel nameStoreLabel;
-  private JLabel nameTextField;
-  private JLabel emailTextField;
-  private JLabel phoneTextField;
 
   private RegisterUI() {
     initComponent();
@@ -171,9 +168,9 @@ public class RegisterUI extends JFrame {
 
     registerButton.addActionListener(e -> {
       String username = groupUsername.getTextField().getText();
-      String name = nameTextField.getText();
-      String email = emailTextField.getText();
-      String phone = phoneTextField.getText();
+      String name = groupFullname.getTextField().getText();
+      String email = groupEmail.getTextField().getText();
+      String phone = groupPhone.getTextField().getText();
       char[] password = groupPassword.getPasswordField().getPassword();
       String passwordText = new String(password);
 
