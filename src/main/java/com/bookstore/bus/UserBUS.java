@@ -89,6 +89,7 @@ public class UserBUS implements IBUS<UserModel> {
   }
 
   private void updateEntityFields(UserModel from, UserModel to) {
+    to.setId(from.getId());
     to.setUsername(from.getUsername());
     to.setPassword(from.getPassword());
     to.setStatus(from.getStatus());

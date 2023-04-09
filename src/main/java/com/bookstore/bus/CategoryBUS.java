@@ -47,6 +47,7 @@ public class CategoryBUS implements IBUS<CategoryModel> {
   }
 
   private void updateEntityFields(CategoryModel from, CategoryModel to) {
+    to.setId(from.getId());
     to.setName(from.getName());
   }
 

@@ -47,6 +47,7 @@ public class PublisherBUS implements IBUS<PublisherModel> {
   }
 
   private void updateEntityFields(PublisherModel from, PublisherModel to) {
+    to.setId(from.getId());
     to.setName(from.getName());
     to.setDescription(from.getDescription());
   }

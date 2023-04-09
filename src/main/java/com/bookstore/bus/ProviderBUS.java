@@ -47,6 +47,7 @@ public class ProviderBUS implements IBUS<ProviderModel> {
   }
 
   private void updateEntityFields(ProviderModel from, ProviderModel to) {
+    to.setId(from.getId());
     to.setName(from.getName());
     to.setDescription(from.getDescription());
   }
