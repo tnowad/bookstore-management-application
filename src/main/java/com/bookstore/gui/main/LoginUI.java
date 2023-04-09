@@ -21,6 +21,10 @@ import javax.swing.WindowConstants;
 import com.bookstore.bus.UserBUS;
 import com.bookstore.gui.component.Button;
 import com.bookstore.gui.component.GroupInput;
+import com.bookstore.gui.factories.AdminFrameFactory;
+import com.bookstore.gui.factories.CustomerFrameFactory;
+import com.bookstore.gui.factories.EmployeeFrameFactory;
+import com.bookstore.interfaces.FactoryFrame;
 // import com.bookstore.model.ProfileModel;
 import com.bookstore.model.UserModel;
 
@@ -162,7 +166,24 @@ public class LoginUI extends JFrame {
         UserModel userModel = UserBUS.getInstance().getModelByUsername(username);
         if (passwordFld.equals(userModel.getPassword())) {
           System.out.println("Logged in successfully");
-          //TODO: Dispose LoginUI and create HomeUI for specified role.
+          dispose();
+          FactoryFrame frameFactory = null;
+          switch (userModel.getRole()) {
+            case CUSTOMER -> {
+              frameFactory = new CustomerFrameFactory();
+            }
+            case EMPLOYEE -> {
+              frameFactory = new EmployeeFrameFactory();
+            }
+            case ADMIN -> {
+              frameFactory = new AdminFrameFactory();
+            }
+            default -> {
+              break;
+            }
+          }
+          JFrame homeUI = frameFactory.createFrame();
+          homeUI.setVisible(true);
         } else {
           JOptionPane.showMessageDialog(null,
               "Invalid username or password. Please check the username or password and try again.");
