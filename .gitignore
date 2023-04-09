@@ -1,4 +1,5 @@
 testdatabase
+src/main/java/config/*
 bin
 target
 .idea
