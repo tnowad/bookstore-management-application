@@ -247,11 +247,11 @@ CREATE TABLE
     `employees` (
         `user_id` INT NOT NULL,
         `salary` INT,
-        `employee_type` ENUM (
+        `employee_type` ENUM(
             'employee_manager',
-            'employee_sales',
-        ) NOT NULL DEFAULT "employee_sales",
-        `contact_information` NVARCHAR (255),
+            'employee_sales'
+        ) NOT NULL DEFAULT 'employee_sales',
+        `contact_information` NVARCHAR(255),
         PRIMARY KEY (`user_id`)
     );
 

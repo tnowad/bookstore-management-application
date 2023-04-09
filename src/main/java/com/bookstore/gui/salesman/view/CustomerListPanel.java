@@ -1,11 +1,26 @@
 package com.bookstore.gui.salesman.view;
 
+import java.sql.SQLException;
+import java.util.List;
+
 import javax.swing.JFrame;
+
+import com.bookstore.bus.UserBUS;
+import com.bookstore.model.UserModel;
 
 public class CustomerListPanel extends javax.swing.JPanel {
 
-  public CustomerListPanel() {
+  public CustomerListPanel() throws ClassNotFoundException, SQLException {
     initComponents();
+    listCustomer();
+  }
+
+  private void listCustomer() throws ClassNotFoundException, SQLException {
+    UserBUS userBus = UserBUS.getInstance();
+    List<UserModel> customersList = userBus.getAllModels();
+    for (UserModel user : customersList) {
+      System.out.println(user.getName());
+    }
   }
 
   @SuppressWarnings("unchecked")
@@ -207,7 +222,7 @@ public class CustomerListPanel extends javax.swing.JPanel {
   private javax.swing.JButton searchBtn;
   private javax.swing.JTextField searchCustomerTxtFld;
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws ClassNotFoundException, SQLException {
     JFrame jFrame = new JFrame();
     jFrame.add(new CustomerListPanel());
     jFrame.setVisible(true);
