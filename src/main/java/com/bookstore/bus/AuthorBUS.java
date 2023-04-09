@@ -47,6 +47,7 @@ public class AuthorBUS implements IBUS<AuthorModel> {
   }
 
   private void updateEntityFields(AuthorModel from, AuthorModel to) {
+    to.setId(from.getId());
     to.setName(from.getName());
     to.setDescription(from.getDescription());
   }

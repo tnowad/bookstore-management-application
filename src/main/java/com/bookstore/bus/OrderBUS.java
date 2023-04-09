@@ -49,6 +49,7 @@ public class OrderBUS implements IBUS<OrderModel> {
   }
 
   private void updateEntityFields(OrderModel from, OrderModel to) {
+    to.setId(from.getId());
     to.setCart_id(from.getCart_id());
     to.setEmployee_id(from.getCustomer_id());
     to.setEmployee_id(from.getEmployee_id());

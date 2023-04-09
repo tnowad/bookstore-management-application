@@ -47,6 +47,7 @@ public class PromotionBUS implements IBUS<PromotionModel> {
   }
 
   private void updateEntityFields(PromotionModel from, PromotionModel to) {
+    to.setId(from.getId());
     to.setDescription(from.getDescription());
     to.setQuantity(from.getQuantity());
     to.setStartDate(from.getStartDate());

@@ -48,6 +48,7 @@ public class PaymentMethodBUS implements IBUS<PaymentMethodModel> {
   }
 
   private void updateEntityFields(PaymentMethodModel from, PaymentMethodModel to) {
+    to.setId(from.getId());
     to.setPaymentId(from.getPaymentId());
     to.setCardNumber(from.getCardNumber());
     to.setCardHolder(from.getCardHolder());

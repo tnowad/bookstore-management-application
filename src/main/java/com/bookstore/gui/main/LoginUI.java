@@ -162,6 +162,7 @@ public class LoginUI extends JFrame {
         UserModel userModel = UserBUS.getInstance().getModelByUsername(username);
         if (passwordFld.equals(userModel.getPassword())) {
           System.out.println("Logged in successfully");
+          //TODO: Dispose LoginUI and create HomeUI for specified role.
         } else {
           JOptionPane.showMessageDialog(null,
               "Invalid username or password. Please check the username or password and try again.");

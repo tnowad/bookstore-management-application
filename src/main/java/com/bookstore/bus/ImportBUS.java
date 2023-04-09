@@ -48,6 +48,7 @@ public class ImportBUS implements IBUS<ImportModel> {
   }
 
   private void updateEntityFields(ImportModel from, ImportModel to) {
+    to.setId(from.getId());
     to.setProviderId(from.getProviderId());
     to.setEmployeeId(from.getEmployeeId());
     to.setTotalPrice(from.getTotalPrice());

@@ -46,6 +46,7 @@ public class AddressBUS implements IBUS<AddressModel> {
   }
 
   private void updateEntityFields(AddressModel from, AddressModel to) {
+    to.setId(from.getId());
     to.setUserId(from.getUserId());
     to.setStreet(from.getStreet());
     to.setCity(from.getCity());
