@@ -24,89 +24,17 @@ public class UserExcelUtil extends ExcelUtil {
   private static final String[] EXCEL_EXTENSIONS = { "xls", "xlsx", "xlsm" };
   private static final Logger LOGGER = Logger.getLogger(UserExcelUtil.class.getName());
 
-  // private static void handleDuplicateUser(UserModel existingUser, UserModel
-  // newUser,
-  // UserBUS userBUS) throws ClassNotFoundException, SQLException {
-  // Object[] options = { "Update", "Delete" };
-  // int choice = JOptionPane.showOptionDialog(
-  // null,
-  // "A duplicate username with name: " + existingUser.getUsername()
-  // + " was found. Would you like to update or delete this user?",
-  // "Duplicate username Found",
-  // JOptionPane.YES_NO_OPTION,
-  // JOptionPane.QUESTION_MESSAGE,
-  // null,
-  // options,
-  // options[0]);
-  // if (choice == JOptionPane.NO_OPTION) {
-  // userBUS.deleteModel(existingUser.getId());
-  // } else {
-  // String oldData = "Old Data:\nID: " + existingUser.getId() + "\nUsername: " +
-  // existingUser.getUsername()
-  // + "\nPassword: " + existingUser.getPassword() + "\nStatus: " +
-  // existingUser.getStatus().toString()
-  // + "\nName: " + existingUser.getName() + "\nEmail: " + existingUser.getEmail()
-  // + "\nPhone: "
-  // + existingUser.getPhone() + "\nCreated At: " +
-  // existingUser.getCreatedAt().toString() + "\nUpdated At: "
-  // + existingUser.getUpdatedAt().toString() + "\nRole: " +
-  // existingUser.getRole().toString();
-  // String newData = "New Data:\nID: " + newUser.getId() + "\nUsername: " +
-  // newUser.getUsername()
-  // + "\nPassword: " + newUser.getPassword() + "\nStatus: " +
-  // newUser.getStatus().toString()
-  // + "\nName: " + newUser.getName() + "\nEmail: " + newUser.getEmail() +
-  // "\nPhone: "
-  // + newUser.getPhone() + "\nCreated At: " + newUser.getCreatedAt().toString() +
-  // "\nUpdated At: "
-  // + newUser.getUpdatedAt().toString() + "\nRole: " +
-  // newUser.getRole().toString();
-  // Object[] message = { oldData, newData };
-  // int updateChoice = JOptionPane.showOptionDialog(null, message, "Update User",
-  // JOptionPane.YES_NO_OPTION,
-  // JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-  // while (updateChoice == JOptionPane.CLOSED_OPTION) {
-  // updateChoice = JOptionPane.showOptionDialog(
-  // null,
-  // "Please choose to update or delete the duplicate user.",
-  // "Duplicate User Found",
-  // JOptionPane.YES_NO_OPTION,
-  // JOptionPane.QUESTION_MESSAGE,
-  // null,
-  // options,
-  // options[0]);
-  // }
-  // if (updateChoice == JOptionPane.YES_OPTION) {
-  // userBUS.updateModel(newUser);
-  // } else {
-  // userBUS.deleteModel(existingUser.getId());
-  // userBUS.addModel(newUser);
-  // }
-  // }
-  // }
-
   public static List<UserModel> readUsersFromExcel() throws IOException, ClassNotFoundException, SQLException {
     JFileChooser fileChooser = new JFileChooser();
     FileNameExtensionFilter filter = new FileNameExtensionFilter("Excel File", EXCEL_EXTENSIONS);
     fileChooser.setFileFilter(filter);
     int option = fileChooser.showOpenDialog(null);
-
     if (option == JFileChooser.APPROVE_OPTION) {
       File inputFile = fileChooser.getSelectedFile();
       String filePath = inputFile.getAbsolutePath();
-
       try {
         List<List<String>> data = ExcelUtil.readExcel(filePath, 0);
         List<UserModel> users = convertToUserModelList(data);
-
-        // for (UserModel model : users) {
-        // UserModel existingUser =
-        // UserBUS.getInstance().getModelByUsername(model.getUsername());
-        // if (existingUser != null) {
-        // handleDuplicateUser(existingUser, model, userBUS);
-        // }
-        // }
-
         JOptionPane.showMessageDialog(null,
             "Data has been read successfully from " + inputFile.getName() + ".");
         return users;
@@ -120,7 +48,6 @@ public class UserExcelUtil extends ExcelUtil {
         throw e;
       }
     }
-
     return null;
   }
 
