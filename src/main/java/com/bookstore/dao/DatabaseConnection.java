@@ -9,7 +9,7 @@ import java.util.ResourceBundle;
 
 public class DatabaseConnection {
   private static Connection connection = null;
-  private static ResourceBundle rb = ResourceBundle.getBundle("resource.config.database");
+  private static ResourceBundle rb = ResourceBundle.getBundle("config.database");
   private static String driver = rb.getString("driver");
   private static String url = rb.getString("url");
   private static String user = rb.getString("user");
