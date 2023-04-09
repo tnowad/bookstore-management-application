@@ -25,7 +25,7 @@ public class PendingOrderPanel extends JPanel {
       }
     });
 
-    jButton1.setText("Tìm kiếm");
+    jButton1.setText("Search");
 
     javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
     jPanel1.setLayout(jPanel1Layout);
