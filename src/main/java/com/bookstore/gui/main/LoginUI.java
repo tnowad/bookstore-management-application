@@ -7,7 +7,6 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import java.util.Arrays;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -154,23 +153,37 @@ public class LoginUI extends JFrame {
     loginButton.addActionListener(e -> {
       String username = groupUsername.getTextField().getText();
       char[] password = groupPassword.getPasswordField().getPassword();
-      if (username == null || password == null) {
+      String passwordFld = new String(password);
+      if (username.isEmpty() || passwordFld.isEmpty()) {
         JOptionPane.showMessageDialog(null, "Please enter username and password");
         return;
       }
       try {
-        UserModel user = UserBUS.getInstance().login(username, Arrays.toString(password));
-        if (user != null) {
-          // ProfileModel.getInstance().setUser(user);
-          // dispose();
+        UserModel userModel = UserBUS.getInstance().getModelByUsername(username);
+        if (passwordFld.equals(userModel.getPassword())) {
           System.out.println("Logged in successfully");
         } else {
           JOptionPane.showMessageDialog(null,
               "Invalid username or password. Please check the username or password and try again.");
         }
       } catch (Exception ex) {
-        JOptionPane.showMessageDialog(null, "An error occurred while logging in: " + ex.getMessage());
+        JOptionPane.showMessageDialog(null, "An error occurred while logging in. Please try again." + ex);
       }
+
+      // try {
+      // UserModel user = UserBUS.getInstance().login(username, passwordFld);
+      // if (user != null) {
+      // System.out.println("Logged in Successfully");
+      // } else {
+      // JOptionPane.showMessageDialog(null,
+      // "Invalid username or password. Please check the username or password and try
+      // again.");
+      // }
+      // } catch (Exception ex) {
+      // JOptionPane.showMessageDialog(null, "An error occurred while logging in: " +
+      // ex);
+      // }
+
     });
 
     cancelButton.addActionListener(e -> dispose());
