@@ -17,12 +17,6 @@ public class DatabaseConnection {
   private static DatabaseConnection instance;
 
   private DatabaseConnection() {
-    try {
-      Class.forName(driver);
-      connection = DriverManager.getConnection(url, user, password);
-    } catch (ClassNotFoundException | SQLException e) {
-      e.printStackTrace();
-    }
   }
 
   public static DatabaseConnection getInstance() {

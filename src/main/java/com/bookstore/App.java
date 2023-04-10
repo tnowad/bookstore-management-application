@@ -10,7 +10,7 @@ import com.formdev.flatlaf.FlatLightLaf;
 
 public class App {
   static {
-    DatabaseSeeder.seeder();
+    // DatabaseSeeder.seeder();
   }
 
   public static void main(String[] args) {
@@ -22,8 +22,11 @@ public class App {
     }
 
     EventQueue.invokeLater(() -> {
-      if (DatabaseConnection.getInstance() != null)
+      if (DatabaseConnection.getInstance() != null) {
         LoginUI.getInstance().setVisible(true);
+      } else {
+        System.out.println("Error: Failed to connect to database");
+      }
     });
   }
 }
