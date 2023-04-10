@@ -26,38 +26,30 @@ public class DatabaseConnection {
     return instance;
   }
 
-  /**
-   * Get connection to database
-   *
-   * @return Connection object to database
-   * @throws SQLException
-   * @throws ClassNotFoundException
-   */
-  public Connection getConnection() throws SQLException, ClassNotFoundException {
-    if (connection == null || connection.isClosed()) {
-      Class.forName(driver);
-      connection = DriverManager.getConnection(url, user, password);
+  public Connection getConnection() {
+    try {
+      if (connection == null || connection.isClosed()) {
+        Class.forName(driver);
+        connection = DriverManager.getConnection(url, user, password);
+      }
+      return connection;
+    } catch (SQLException | ClassNotFoundException e) {
+      e.printStackTrace();
     }
-    return connection;
+    return null;
   }
 
-  /**
-   * Get PreparedStatement
-   *
-   * @param sql
-   * @param args
-   * @return PreparedStatement after setting arguments
-   * @throws SQLException
-   * @throws ClassNotFoundException
-   */
-  public static PreparedStatement getPreparedStatement(String sql, Object... args)
-      throws SQLException, ClassNotFoundException {
-    PreparedStatement preparedStatement = getInstance().getConnection().prepareStatement(sql);
-    for (int i = 0; i < args.length; i++) {
-      preparedStatement.setObject(i + 1, args[i]);
+  public static PreparedStatement getPreparedStatement(String sql, Object... args) {
+    try {
+      PreparedStatement preparedStatement = getInstance().getConnection().prepareStatement(sql);
+      for (int i = 0; i < args.length; i++) {
+        preparedStatement.setObject(i + 1, args[i]);
+      }
+      return preparedStatement;
+    } catch (SQLException e) {
+      e.printStackTrace();
     }
-    return preparedStatement;
-
+    return null;
   }
 
   /**
@@ -69,8 +61,10 @@ public class DatabaseConnection {
    * @throws SQLException
    * @throws ClassNotFoundException
    */
-  public static ResultSet executeQuery(String sql, Object... args) throws SQLException, ClassNotFoundException {
+  public static ResultSet executeQuery(String sql, Object... args) throws SQLException {
     PreparedStatement preparedStatement = getPreparedStatement(sql, args);
+    if (preparedStatement == null)
+      throw new SQLException("Prepared statement is null");
     return preparedStatement.executeQuery();
   }
 
@@ -83,8 +77,10 @@ public class DatabaseConnection {
    * @throws SQLException
    * @throws ClassNotFoundException
    */
-  public static int executeUpdate(String sql, Object... args) throws SQLException, ClassNotFoundException {
+  public static int executeUpdate(String sql, Object... args) throws SQLException {
     PreparedStatement preparedStatement = getPreparedStatement(sql, args);
+    if (preparedStatement == null)
+      throw new SQLException("Prepared statement is null");
     return preparedStatement.executeUpdate();
   }
 
@@ -103,15 +99,4 @@ public class DatabaseConnection {
     }
   }
 
-  public static void main(String[] args) {
-    // try connect database and close connection
-    try {
-      DatabaseConnection.getInstance().getConnection();
-      System.out.println("Connected to database");
-      DatabaseConnection.closeConnection();
-      System.out.println("Closed connection");
-    } catch (SQLException | ClassNotFoundException e) {
-      e.printStackTrace();
-    }
-  }
 }
