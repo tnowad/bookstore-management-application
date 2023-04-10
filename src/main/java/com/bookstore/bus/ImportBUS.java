@@ -57,45 +57,54 @@ public class ImportBUS implements IBUS<ImportModel> {
 
   private boolean checkFilter(ImportModel importModel, String value, String[] columns) {
     for (String column : columns) {
-      switch (column.toLowerCase()) {
-        case "id" -> {
-          if (importModel.getId() == Integer.parseInt(value)) {
-            return true;
-          }
-        }
-        case "provider_id" -> {
-          if (importModel.getProviderId() == Integer.parseInt(value)) {
-            return true;
-          }
-        }
-        case "employee_id" -> {
-          if (importModel.getEmployeeId() == Integer.parseInt(value)) {
-            return true;
-          }
-        }
-        case "total_price" -> {
-          if (importModel.getTotalPrice().equals(new BigDecimal(value))) {
-            return true;
-          }
-        }
-        case "created_at" -> {
-          if (importModel.getCreatedAt().toString().contains(value)) {
-            return true;
-          }
-        }
-        case "updated_at" -> {
-          if (importModel.getUpdatedAt().toString().contains(value)) {
-            return true;
-          }
-        }
-        default -> {
-          if (checkAllColumns(importModel, value)) {
-            return true;
-          }
-        }
+      if (checkColumn(importModel, value, column)) {
+        return true;
       }
     }
     return false;
+  }
+
+  private boolean checkColumn(ImportModel importModel, String value, String column) {
+    switch (column.toLowerCase()) {
+      case "id":
+        return checkId(importModel, value);
+      case "provider_id":
+        return checkProviderId(importModel, value);
+      case "employee_id":
+        return checkEmployeeId(importModel, value);
+      case "total_price":
+        return checkTotalPrice(importModel, value);
+      case "created_at":
+        return checkCreatedAt(importModel, value);
+      case "updated_at":
+        return checkUpdatedAt(importModel, value);
+      default:
+        return checkAllColumns(importModel, value);
+    }
+  }
+
+  private boolean checkId(ImportModel importModel, String value) {
+    return importModel.getId() == Integer.parseInt(value);
+  }
+
+  private boolean checkProviderId(ImportModel importModel, String value) {
+    return importModel.getProviderId() == Integer.parseInt(value);
+  }
+
+  private boolean checkEmployeeId(ImportModel importModel, String value) {
+    return importModel.getEmployeeId() == Integer.parseInt(value);
+  }
+
+  private boolean checkTotalPrice(ImportModel importModel, String value) {
+    return importModel.getTotalPrice().equals(new BigDecimal(value));
+  }
+
+  private boolean checkCreatedAt(ImportModel importModel, String value) {
+    return importModel.getCreatedAt().toString().contains(value);
+  }
+
+  private boolean checkUpdatedAt(ImportModel importModel, String value) {
+    return importModel.getUpdatedAt().toString().contains(value);
   }
 
   private boolean checkAllColumns(ImportModel importModel, String value) {
