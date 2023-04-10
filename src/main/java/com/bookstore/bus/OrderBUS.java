@@ -61,60 +61,46 @@ public class OrderBUS implements IBUS<OrderModel> {
 
   private boolean checkFilter(OrderModel orderModel, String value, String[] columns) {
     for (String column : columns) {
-      switch (column.toLowerCase()) {
-        case "id" -> {
-          if (orderModel.getId() == Integer.parseInt(value)) {
-            return true;
-          }
-        }
-        case "cart_id" -> {
-          if (orderModel.getCart_id() == Integer.parseInt(value)) {
-            return true;
-          }
-        }
-        case "customer_id" -> {
-          if (orderModel.getCustomer_id() == Integer.parseInt(value)) {
-            return true;
-          }
-        }
-        case "employee_id" -> {
-          if (orderModel.getEmployee_id() == Integer.parseInt(value)) {
-            return true;
-          }
-        }
-        case "total" -> {
-          if (orderModel.getTotal() == Integer.parseInt(value)) {
-            return true;
-          }
-        }
-        case "paid" -> {
-          if (orderModel.getPaid() == Integer.parseInt(value)) {
-            return true;
-          }
-        }
-        case "created_at" -> {
-          if (orderModel.getCreated_at().toString().toLowerCase().contains(value.toLowerCase())) {
-            return true;
-          }
-        }
-        case "updated_at" -> {
-          if (orderModel.getUpdated_at().toString().toLowerCase().contains(value.toLowerCase())) {
-            return true;
-          }
-        }
-        case "status" -> {
-          if (orderModel.getStatus().toString().toLowerCase().contains(value.toLowerCase())) {
-            return true;
-          }
-        }
-        default -> {
-          if (checkAllColumns(orderModel, value)) {
-            return true;
-          }
-        }
+      if (checkColumn(orderModel, column, value)) {
+        return true;
       }
     }
     return false;
+  }
+
+  private boolean checkColumn(OrderModel orderModel, String column, String value) {
+    switch (column.toLowerCase()) {
+      case "id" -> {
+        return orderModel.getId() == Integer.parseInt(value);
+      }
+      case "cart_id" -> {
+        return orderModel.getCart_id() == Integer.parseInt(value);
+      }
+      case "customer_id" -> {
+        return orderModel.getCustomer_id() == Integer.parseInt(value);
+      }
+      case "employee_id" -> {
+        return orderModel.getEmployee_id() == Integer.parseInt(value);
+      }
+      case "total" -> {
+        return orderModel.getTotal() == Integer.parseInt(value);
+      }
+      case "paid" -> {
+        return orderModel.getPaid() == Integer.parseInt(value);
+      }
+      case "created_at" -> {
+        return orderModel.getCreated_at().toString().toLowerCase().contains(value.toLowerCase());
+      }
+      case "updated_at" -> {
+        return orderModel.getUpdated_at().toString().toLowerCase().contains(value.toLowerCase());
+      }
+      case "status" -> {
+        return orderModel.getStatus().toString().toLowerCase().contains(value.toLowerCase());
+      }
+      default -> {
+        return checkAllColumns(orderModel, value);
+      }
+    }
   }
 
   private boolean checkAllColumns(OrderModel orderModel, String value) {
