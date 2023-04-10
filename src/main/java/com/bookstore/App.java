@@ -10,7 +10,7 @@ import com.formdev.flatlaf.FlatLightLaf;
 
 public class App {
   static {
-    // DatabaseSeeder.seeder();
+    DatabaseSeeder.seeder();
   }
 
   public static void main(String[] args) {

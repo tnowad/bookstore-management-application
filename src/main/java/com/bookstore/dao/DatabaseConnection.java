@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class DatabaseConnection {
-  private static Connection connection = null;
+  private Connection connection = null;
   private static ResourceBundle rb = ResourceBundle.getBundle("config.database");
   private static String driver = rb.getString("driver");
   private static String url = rb.getString("url");
@@ -23,7 +23,7 @@ public class DatabaseConnection {
     if (instance == null) {
       instance = new DatabaseConnection();
     }
-    return null;
+    return instance;
   }
 
   /**
@@ -33,7 +33,7 @@ public class DatabaseConnection {
    * @throws SQLException
    * @throws ClassNotFoundException
    */
-  public static Connection getConnection() throws SQLException, ClassNotFoundException {
+  public Connection getConnection() throws SQLException, ClassNotFoundException {
     if (connection == null || connection.isClosed()) {
       Class.forName(driver);
       connection = DriverManager.getConnection(url, user, password);
@@ -52,7 +52,7 @@ public class DatabaseConnection {
    */
   public static PreparedStatement getPreparedStatement(String sql, Object... args)
       throws SQLException, ClassNotFoundException {
-    PreparedStatement preparedStatement = getConnection().prepareStatement(sql);
+    PreparedStatement preparedStatement = getInstance().getConnection().prepareStatement(sql);
     for (int i = 0; i < args.length; i++) {
       preparedStatement.setObject(i + 1, args[i]);
     }
@@ -94,13 +94,23 @@ public class DatabaseConnection {
    */
   public static void closeConnection() {
     try {
-      if (connection != null) {
-        connection.close();
+      if (getInstance().connection != null && !getInstance().connection.isClosed()) {
+        getInstance().connection.close();
       }
     } catch (SQLException e) {
       e.printStackTrace();
-    } finally {
-      connection = null;
+    }
+  }
+
+  public static void main(String[] args) {
+    // try connect database and close connection
+    try {
+      DatabaseConnection.getInstance().getConnection();
+      System.out.println("Connected to database");
+      DatabaseConnection.closeConnection();
+      System.out.println("Closed connection");
+    } catch (SQLException | ClassNotFoundException e) {
+      e.printStackTrace();
     }
   }
 }
