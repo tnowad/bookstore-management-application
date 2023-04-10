@@ -39,7 +39,7 @@ public class DatabaseConnection {
     return null;
   }
 
-  public static PreparedStatement getPreparedStatement(String sql, Object... args) {
+  public static PreparedStatement getPreparedStatement(String sql, Object... args) throws SQLException {
     try {
       PreparedStatement preparedStatement = getInstance().getConnection().prepareStatement(sql);
       for (int i = 0; i < args.length; i++) {
@@ -47,9 +47,8 @@ public class DatabaseConnection {
       }
       return preparedStatement;
     } catch (SQLException e) {
-      e.printStackTrace();
+      throw new SQLException("Error: " + e.getMessage() + " with sql: " + sql);
     }
-    return null;
   }
 
   /**
@@ -63,8 +62,6 @@ public class DatabaseConnection {
    */
   public static ResultSet executeQuery(String sql, Object... args) throws SQLException {
     PreparedStatement preparedStatement = getPreparedStatement(sql, args);
-    if (preparedStatement == null)
-      throw new SQLException("Prepared statement is null");
     return preparedStatement.executeQuery();
   }
 
@@ -79,8 +76,6 @@ public class DatabaseConnection {
    */
   public static int executeUpdate(String sql, Object... args) throws SQLException {
     PreparedStatement preparedStatement = getPreparedStatement(sql, args);
-    if (preparedStatement == null)
-      throw new SQLException("Prepared statement is null");
     return preparedStatement.executeUpdate();
   }
 
