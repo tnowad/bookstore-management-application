@@ -1,5 +1,4 @@
 testdatabase
-src/main/java/config/database.properties
 bin
 target
 .idea
