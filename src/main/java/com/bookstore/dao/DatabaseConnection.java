@@ -14,14 +14,23 @@ public class DatabaseConnection {
   private static String url = rb.getString("url");
   private static String user = rb.getString("user");
   private static String password = rb.getString("password");
-  // private static DatabaseConnection instance;
+  private static DatabaseConnection instance;
 
-  // public static DatabaseConnection getInstance() {
-  // if (instance == null) {
-  // instance = new DatabaseConnection();
-  // }
-  // return null;
-  // }
+  private DatabaseConnection() {
+    try {
+      Class.forName(driver);
+      connection = DriverManager.getConnection(url, user, password);
+    } catch (ClassNotFoundException | SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public static DatabaseConnection getInstance() {
+    if (instance == null) {
+      instance = new DatabaseConnection();
+    }
+    return null;
+  }
 
   /**
    * Get connection to database
@@ -31,7 +40,7 @@ public class DatabaseConnection {
    * @throws ClassNotFoundException
    */
   public static Connection getConnection() throws SQLException, ClassNotFoundException {
-    if (connection == null) {
+    if (connection == null || connection.isClosed()) {
       Class.forName(driver);
       connection = DriverManager.getConnection(url, user, password);
     }

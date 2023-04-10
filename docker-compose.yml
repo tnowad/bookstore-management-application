@@ -6,7 +6,7 @@ services:
     restart: always
     environment:
       - MYSQL_DATABASE=root
-      - MYSQL_ROOT_PASSWORD=admin123
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
     ports:
       - "3306:3306"
     volumes:
@@ -19,7 +19,7 @@ services:
     environment:
       PMA_HOST: database
       PMA_USER: root
-      PMA_PASSWORD: admin123
+      PMA_PASSWORD:
     ports:
       - "8080:80"
     depends_on:
