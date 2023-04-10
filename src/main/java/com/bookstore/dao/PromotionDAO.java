@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.bookstore.interfaces.IDAO;
@@ -32,19 +33,21 @@ public class PromotionDAO implements IDAO<PromotionModel> {
   }
 
   @Override
-  public ArrayList<PromotionModel> readDatabase() throws SQLException, ClassNotFoundException {
+  public ArrayList<PromotionModel> readDatabase() {
     ArrayList<PromotionModel> promotionList = new ArrayList<>();
     try (ResultSet rs = DatabaseConnection.executeQuery("SELECT * FROM promotions")) {
       while (rs.next()) {
         PromotionModel promotionModel = createPromotionModelFromResultSet(rs);
         promotionList.add(promotionModel);
       }
+    } catch (SQLException e) {
+      e.printStackTrace();
     }
     return promotionList;
   }
 
   @Override
-  public int insert(PromotionModel promotion) throws SQLException, ClassNotFoundException {
+  public int insert(PromotionModel promotion) {
     String insertSql = "INSERT INTO promotions "
         + "(description, quantity, start_date, end_date, condition_apply, discount_percent, discount_amount)"
         + " VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -57,11 +60,16 @@ public class PromotionDAO implements IDAO<PromotionModel> {
         promotion.getDiscountPercent(),
         promotion.getDiscountAmount()
     };
-    return DatabaseConnection.executeUpdate(insertSql, args);
+    try {
+      return DatabaseConnection.executeUpdate(insertSql, args);
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return -1;
+    }
   }
 
   @Override
-  public int update(PromotionModel promotion) throws SQLException, ClassNotFoundException {
+  public int update(PromotionModel promotion) {
     String updateSql = "UPDATE promotions SET description = ?, quantity = ?, start_date = ?, end_date = ?, condition_apply = ?, [...] WHERE id = ?";
     Object[] args = {
         promotion.getDescription(),
@@ -73,25 +81,40 @@ public class PromotionDAO implements IDAO<PromotionModel> {
         promotion.getDiscountAmount(),
         promotion.getId()
     };
-    return DatabaseConnection.executeUpdate(updateSql, args);
+    try {
+      return DatabaseConnection.executeUpdate(updateSql, args);
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return -1;
+    }
   }
 
-  public int updateQuantity(int id, int quantity) throws SQLException, ClassNotFoundException {
+  public int updateQuantity(int id, int quantity) {
     String updateSql = "UPDATE promotions SET quantity = ? WHERE id = ?";
     Object[] args = { quantity, id };
-    return DatabaseConnection.executeUpdate(updateSql, args);
+    try {
+      return DatabaseConnection.executeUpdate(updateSql, args);
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return -1;
+    }
   }
 
   @Override
-  public int delete(int id) throws SQLException, ClassNotFoundException {
+  public int delete(int id) {
     String deleteSql = "DELETE FROM promotions WHERE id = ?";
     Object[] args = { id };
-    return DatabaseConnection.executeUpdate(deleteSql, args);
+    try {
+      return DatabaseConnection.executeUpdate(deleteSql, args);
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return -1;
+    }
   }
 
   @Override
   public List<PromotionModel> search(String condition, String[] columnNames)
-      throws SQLException, ClassNotFoundException {
+      {
     if (condition == null || condition.trim().isEmpty()) {
       throw new IllegalArgumentException("Search condition cannot be empty or null");
     }
@@ -122,6 +145,9 @@ public class PromotionDAO implements IDAO<PromotionModel> {
         }
         return promotionList;
       }
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return Collections.emptyList();
     }
   }
 }

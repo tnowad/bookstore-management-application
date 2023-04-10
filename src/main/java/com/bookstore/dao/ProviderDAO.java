@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.bookstore.interfaces.IDAO;
@@ -27,41 +28,57 @@ public class ProviderDAO implements IDAO<ProviderModel> {
   }
 
   @Override
-  public ArrayList<ProviderModel> readDatabase() throws SQLException, ClassNotFoundException {
+  public ArrayList<ProviderModel> readDatabase() {
     ArrayList<ProviderModel> providerList = new ArrayList<>();
     try (ResultSet rs = DatabaseConnection.executeQuery("SELECT * FROM providers")) {
       while (rs.next()) {
         ProviderModel providerModel = createProviderModelFromResultSet(rs);
         providerList.add(providerModel);
       }
+    } catch (SQLException e) {
+      e.printStackTrace();
     }
     return providerList;
   }
 
   @Override
-  public int insert(ProviderModel provider) throws SQLException, ClassNotFoundException {
+  public int insert(ProviderModel provider) {
     String insertSql = "INSERT INTO providers (name, description) VALUES (?, ?)";
     Object[] args = { provider.getName(), provider.getDescription() };
-    return DatabaseConnection.executeUpdate(insertSql, args);
+    try {
+      return DatabaseConnection.executeUpdate(insertSql, args);
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return -1;
+    }
   }
 
   @Override
-  public int update(ProviderModel provider) throws SQLException, ClassNotFoundException {
+  public int update(ProviderModel provider) {
     String updateSql = "UPDATE providers SET name = ?, description = ? WHERE id = ?";
     Object[] args = { provider.getName(), provider.getDescription(), provider.getId() };
-    return DatabaseConnection.executeUpdate(updateSql, args);
+    try {
+      return DatabaseConnection.executeUpdate(updateSql, args);
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return -1;
+    }
   }
 
   @Override
-  public int delete(int id) throws SQLException, ClassNotFoundException {
+  public int delete(int id) {
     String deleteSql = "DELETE FROM providers WHERE id = ?";
     Object[] args = { id };
-    return DatabaseConnection.executeUpdate(deleteSql, args);
+    try {
+      return DatabaseConnection.executeUpdate(deleteSql, args);
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return -1;
+    }
   }
 
   @Override
-  public List<ProviderModel> search(String condition, String[] columnNames)
-      throws SQLException, ClassNotFoundException {
+  public List<ProviderModel> search(String condition, String[] columnNames) {
     if (condition == null || condition.trim().isEmpty()) {
       throw new IllegalArgumentException("Search condition cannot be empty or null");
     }
@@ -92,16 +109,22 @@ public class ProviderDAO implements IDAO<ProviderModel> {
         }
         return providerList;
       }
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return Collections.emptyList();
     }
   }
 
-  public ProviderModel getProviderById(int id) throws SQLException, ClassNotFoundException {
+  public ProviderModel getProviderById(int id) {
     String query = "SELECT * FROM providers WHERE id = ?";
     Object[] args = { id };
-    try (PreparedStatement pst = DatabaseConnection.getPreparedStatement(query, args); ResultSet rs = pst.executeQuery()) {
+    try (PreparedStatement pst = DatabaseConnection.getPreparedStatement(query, args);
+        ResultSet rs = pst.executeQuery()) {
       if (rs.next()) {
         return createProviderModelFromResultSet(rs);
       }
+    } catch (SQLException e) {
+      e.printStackTrace();
     }
     return null;
   }

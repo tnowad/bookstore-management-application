@@ -1,6 +1,5 @@
 package com.bookstore.bus;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -15,14 +14,14 @@ public class EmployeeBUS implements IBUS<EmployeeModel> {
   private final List<EmployeeModel> employeeList = new ArrayList<>();
   private static EmployeeBUS instance;
 
-  public static EmployeeBUS getInstance() throws ClassNotFoundException, SQLException {
+  public static EmployeeBUS getInstance() {
     if (instance == null) {
       instance = new EmployeeBUS();
     }
     return instance;
   }
 
-  private EmployeeBUS() throws SQLException, ClassNotFoundException {
+  private EmployeeBUS() {
     this.employeeList.addAll(EmployeeDAO.getInstance().readDatabase());
   }
 
@@ -32,7 +31,7 @@ public class EmployeeBUS implements IBUS<EmployeeModel> {
   }
 
   @Override
-  public EmployeeModel getModelById(int id) throws SQLException, ClassNotFoundException {
+  public EmployeeModel getModelById(int id) {
     for (EmployeeModel employeeModel : employeeList) {
       if (employeeModel.getUserId() == id) {
         return employeeModel;
@@ -95,7 +94,7 @@ public class EmployeeBUS implements IBUS<EmployeeModel> {
   }
 
   @Override
-  public int addModel(EmployeeModel employeeModel) throws SQLException, ClassNotFoundException {
+  public int addModel(EmployeeModel employeeModel) {
     if (employeeModel.getUserId() <= 0) {
       throw new IllegalArgumentException("Invalid user ID!");
     }
@@ -115,7 +114,7 @@ public class EmployeeBUS implements IBUS<EmployeeModel> {
   }
 
   @Override
-  public int updateModel(EmployeeModel employeeModel) throws SQLException, ClassNotFoundException {
+  public int updateModel(EmployeeModel employeeModel) {
     int updatedRows = EmployeeDAO.getInstance().update(employeeModel);
     if (updatedRows > 0) {
       for (int i = 0; i < employeeList.size(); i++) {
@@ -128,7 +127,7 @@ public class EmployeeBUS implements IBUS<EmployeeModel> {
     return updatedRows;
   }
 
-  public int updateStatus(int userId, EmployeeType role) throws ClassNotFoundException, SQLException {
+  public int updateStatus(int userId, EmployeeType role) {
     int success = EmployeeDAO.getInstance().updateStatus(userId, role);
     if (success == 1) {
       for (EmployeeModel employee : employeeList) {
@@ -141,7 +140,7 @@ public class EmployeeBUS implements IBUS<EmployeeModel> {
     return 0;
   }
 
-  public int updateSalary(int userId, int salary) throws ClassNotFoundException, SQLException {
+  public int updateSalary(int userId, int salary) {
     int success = EmployeeDAO.getInstance().updateSalary(userId, salary);
     if (success == 1) {
       for (EmployeeModel employee : employeeList) {
@@ -155,7 +154,7 @@ public class EmployeeBUS implements IBUS<EmployeeModel> {
   }
 
   @Override
-  public int deleteModel(int id) throws SQLException, ClassNotFoundException {
+  public int deleteModel(int id) {
     EmployeeModel employeeModel = getModelById(id);
     if (employeeModel == null) {
       throw new IllegalArgumentException("Employee with ID " + id + " does not exist.");
@@ -168,20 +167,14 @@ public class EmployeeBUS implements IBUS<EmployeeModel> {
   }
 
   @Override
-  public List<EmployeeModel> searchModel(String value, String[] columns) throws SQLException, ClassNotFoundException {
+  public List<EmployeeModel> searchModel(String value, String[] columns) {
     List<EmployeeModel> results = new ArrayList<>();
-    try {
-      List<EmployeeModel> entities = EmployeeDAO.getInstance().search(value, columns);
-      for (EmployeeModel entity : entities) {
-        EmployeeModel model = mapToEntity(entity);
-        if (checkFilter(model, value, columns)) {
-          results.add(model);
-        }
+    List<EmployeeModel> entities = EmployeeDAO.getInstance().search(value, columns);
+    for (EmployeeModel entity : entities) {
+      EmployeeModel model = mapToEntity(entity);
+      if (checkFilter(model, value, columns)) {
+        results.add(model);
       }
-    } catch (SQLException e) {
-      throw new SQLException("Failed to search for employee: " + e.getMessage());
-    } catch (ClassNotFoundException e) {
-      throw new ClassNotFoundException("Failed to search for employee: " + e.getMessage());
     }
 
     if (results.isEmpty()) {

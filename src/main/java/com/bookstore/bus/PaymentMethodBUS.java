@@ -1,6 +1,5 @@
 package com.bookstore.bus;
 
-import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,14 +14,14 @@ public class PaymentMethodBUS implements IBUS<PaymentMethodModel> {
   private final List<PaymentMethodModel> paymentMethodList = new ArrayList<>();
   private static PaymentMethodBUS instance;
 
-  public static PaymentMethodBUS getInstance() throws ClassNotFoundException, SQLException {
+  public static PaymentMethodBUS getInstance() {
     if (instance == null) {
       instance = new PaymentMethodBUS();
     }
     return instance;
   }
 
-  private PaymentMethodBUS() throws SQLException, ClassNotFoundException {
+  private PaymentMethodBUS() {
     this.paymentMethodList.addAll(PaymentMethodDAO.getInstance().readDatabase());
   }
 
@@ -32,7 +31,7 @@ public class PaymentMethodBUS implements IBUS<PaymentMethodModel> {
   }
 
   @Override
-  public PaymentMethodModel getModelById(int id) throws SQLException, ClassNotFoundException {
+  public PaymentMethodModel getModelById(int id) {
     for (PaymentMethodModel paymentMethodModel : paymentMethodList) {
       if (paymentMethodModel.getId() == id) {
         return paymentMethodModel;
@@ -109,7 +108,7 @@ public class PaymentMethodBUS implements IBUS<PaymentMethodModel> {
   }
 
   @Override
-  public int addModel(PaymentMethodModel paymentMethodModel) throws SQLException, ClassNotFoundException {
+  public int addModel(PaymentMethodModel paymentMethodModel) {
     if (paymentMethodModel.getPaymentId() == null || paymentMethodModel.getPaymentId().isEmpty()) {
       throw new IllegalArgumentException("Payment ID cannot be null or empty!");
     }
@@ -130,7 +129,7 @@ public class PaymentMethodBUS implements IBUS<PaymentMethodModel> {
   }
 
   @Override
-  public int updateModel(PaymentMethodModel paymentMethodModel) throws SQLException, ClassNotFoundException {
+  public int updateModel(PaymentMethodModel paymentMethodModel) {
     int updatedRows = PaymentMethodDAO.getInstance().update(paymentMethodModel);
     if (updatedRows > 0) {
       for (int i = 0; i < paymentMethodList.size(); i++) {
@@ -144,7 +143,7 @@ public class PaymentMethodBUS implements IBUS<PaymentMethodModel> {
   }
 
   @Override
-  public int deleteModel(int id) throws SQLException, ClassNotFoundException {
+  public int deleteModel(int id) {
     PaymentMethodModel paymentMethodModel = getModelById(id);
     if (paymentMethodModel == null) {
       throw new IllegalArgumentException("Payment method with ID " + id + " does not exist.");
@@ -157,21 +156,15 @@ public class PaymentMethodBUS implements IBUS<PaymentMethodModel> {
   }
 
   @Override
-  public List<PaymentMethodModel> searchModel(String value, String[] columns)
-      throws SQLException, ClassNotFoundException {
+  public List<PaymentMethodModel> searchModel(String value, String[] columns) {
     List<PaymentMethodModel> results = new ArrayList<>();
-    try {
-      List<PaymentMethodModel> entities = PaymentMethodDAO.getInstance().search(value, columns);
-      for (PaymentMethodModel entity : entities) {
-        PaymentMethodModel model = mapToEntity(entity);
-        if (checkFilter(model, value, columns)) {
-          results.add(model);
-        }
+
+    List<PaymentMethodModel> entities = PaymentMethodDAO.getInstance().search(value, columns);
+    for (PaymentMethodModel entity : entities) {
+      PaymentMethodModel model = mapToEntity(entity);
+      if (checkFilter(model, value, columns)) {
+        results.add(model);
       }
-    } catch (SQLException e) {
-      throw new SQLException("Failed to search for payment method: " + e.getMessage());
-    } catch (ClassNotFoundException e) {
-      throw new ClassNotFoundException("Failed to search for payment method: " + e.getMessage());
     }
 
     if (results.isEmpty()) {

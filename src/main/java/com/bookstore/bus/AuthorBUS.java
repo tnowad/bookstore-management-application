@@ -1,6 +1,5 @@
 package com.bookstore.bus;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -14,14 +13,14 @@ public class AuthorBUS implements IBUS<AuthorModel> {
   private final List<AuthorModel> authorList = new ArrayList<>();
   private static AuthorBUS instance;
 
-  public static AuthorBUS getInstance() throws ClassNotFoundException, SQLException {
+  public static AuthorBUS getInstance() {
     if (instance == null) {
       instance = new AuthorBUS();
     }
     return instance;
   }
 
-  private AuthorBUS() throws SQLException, ClassNotFoundException {
+  private AuthorBUS() {
     this.authorList.addAll(AuthorDAO.getInstance().readDatabase());
   }
 
@@ -31,7 +30,7 @@ public class AuthorBUS implements IBUS<AuthorModel> {
   }
 
   @Override
-  public AuthorModel getModelById(int id) throws SQLException, ClassNotFoundException {
+  public AuthorModel getModelById(int id) {
     for (AuthorModel authorModel : authorList) {
       if (authorModel.getId() == id) {
         return authorModel;
@@ -87,7 +86,7 @@ public class AuthorBUS implements IBUS<AuthorModel> {
   }
 
   @Override
-  public int addModel(AuthorModel authorModel) throws SQLException, ClassNotFoundException {
+  public int addModel(AuthorModel authorModel) {
     if (authorModel.getName() == null || authorModel.getName().isEmpty()) {
       throw new IllegalArgumentException("Name cannot be null or empty!");
     }
@@ -102,7 +101,7 @@ public class AuthorBUS implements IBUS<AuthorModel> {
   }
 
   @Override
-  public int updateModel(AuthorModel authorModel) throws SQLException, ClassNotFoundException {
+  public int updateModel(AuthorModel authorModel) {
     int updatedRows = AuthorDAO.getInstance().update(authorModel);
     if (updatedRows > 0) {
       for (int i = 0; i < authorList.size(); i++) {
@@ -116,7 +115,7 @@ public class AuthorBUS implements IBUS<AuthorModel> {
   }
 
   @Override
-  public int deleteModel(int id) throws SQLException, ClassNotFoundException {
+  public int deleteModel(int id) {
     AuthorModel authorModel = getModelById(id);
     if (authorModel == null) {
       throw new IllegalArgumentException("Author with ID " + id + " does not exist.");
@@ -129,20 +128,14 @@ public class AuthorBUS implements IBUS<AuthorModel> {
   }
 
   @Override
-  public List<AuthorModel> searchModel(String value, String[] columns) throws SQLException, ClassNotFoundException {
+  public List<AuthorModel> searchModel(String value, String[] columns) {
     List<AuthorModel> results = new ArrayList<>();
-    try {
-      List<AuthorModel> entities = AuthorDAO.getInstance().search(value, columns);
-      for (AuthorModel entity : entities) {
-        AuthorModel model = mapToEntity(entity);
-        if (checkFilter(model, value, columns)) {
-          results.add(model);
-        }
+    List<AuthorModel> entities = AuthorDAO.getInstance().search(value, columns);
+    for (AuthorModel entity : entities) {
+      AuthorModel model = mapToEntity(entity);
+      if (checkFilter(model, value, columns)) {
+        results.add(model);
       }
-    } catch (SQLException e) {
-      throw new SQLException("Failed to search for author: " + e.getMessage());
-    } catch (ClassNotFoundException e) {
-      throw new ClassNotFoundException("Failed to search for author: " + e.getMessage());
     }
 
     if (results.isEmpty()) {

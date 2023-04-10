@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.bookstore.interfaces.IDAO;
@@ -26,41 +27,57 @@ public class CategoryDAO implements IDAO<CategoryModel> {
   }
 
   @Override
-  public ArrayList<CategoryModel> readDatabase() throws SQLException, ClassNotFoundException {
+  public ArrayList<CategoryModel> readDatabase() {
     ArrayList<CategoryModel> categoryList = new ArrayList<>();
     try (ResultSet rs = DatabaseConnection.executeQuery("SELECT * FROM categories")) {
       while (rs.next()) {
         CategoryModel categoryModel = createCategoryModelFromResultSet(rs);
         categoryList.add(categoryModel);
       }
+    } catch (SQLException e) {
+      e.printStackTrace();
     }
     return categoryList;
   }
 
   @Override
-  public int insert(CategoryModel category) throws SQLException, ClassNotFoundException {
+  public int insert(CategoryModel category) {
     String insertSql = "INSERT INTO categories (name) VALUES (?)";
     Object[] args = { category.getName() };
-    return DatabaseConnection.executeUpdate(insertSql, args);
+    try {
+      return DatabaseConnection.executeUpdate(insertSql, args);
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return -1;
+    }
   }
 
   @Override
-  public int update(CategoryModel category) throws SQLException, ClassNotFoundException {
+  public int update(CategoryModel category) {
     String updateSql = "UPDATE categories SET name = ? WHERE id = ?";
     Object[] args = { category.getName(), category.getId() };
-    return DatabaseConnection.executeUpdate(updateSql, args);
+    try {
+      return DatabaseConnection.executeUpdate(updateSql, args);
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return -1;
+    }
   }
 
   @Override
-  public int delete(int id) throws SQLException, ClassNotFoundException {
+  public int delete(int id) {
     String deleteSql = "DELETE FROM categories WHERE id = ?";
     Object[] args = { id };
-    return DatabaseConnection.executeUpdate(deleteSql, args);
+    try {
+      return DatabaseConnection.executeUpdate(deleteSql, args);
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return -1;
+    }
   }
 
   @Override
-  public List<CategoryModel> search(String condition, String[] columnNames)
-      throws SQLException, ClassNotFoundException {
+  public List<CategoryModel> search(String condition, String[] columnNames) {
     if (condition == null || condition.trim().isEmpty()) {
       throw new IllegalArgumentException("Search condition cannot be empty or null");
     }
@@ -91,6 +108,9 @@ public class CategoryDAO implements IDAO<CategoryModel> {
         }
         return categoryList;
       }
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return Collections.emptyList();
     }
   }
 }

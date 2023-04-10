@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ImportDAO implements IDAO<ImportModel> {
@@ -33,43 +34,57 @@ public class ImportDAO implements IDAO<ImportModel> {
   }
 
   @Override
-  public ArrayList<ImportModel> readDatabase() throws SQLException, ClassNotFoundException {
+  public ArrayList<ImportModel> readDatabase() {
     ArrayList<ImportModel> importsList = new ArrayList<>();
-
     try (ResultSet rs = DatabaseConnection.executeQuery("SELECT * FROM imports")) {
       while (rs.next()) {
         ImportModel ImportModel = createImportModelFromResultSet(rs);
         importsList.add(ImportModel);
       }
+    } catch (SQLException e) {
+      e.printStackTrace();
     }
-
     return importsList;
   }
 
   @Override
-  public int insert(ImportModel imports) throws SQLException, ClassNotFoundException {
+  public int insert(ImportModel imports) {
     String insertSql = "INSERT INTO imports (provider_id, employee_id, total_price) VALUES (?, ?, ?)";
     Object[] args = { imports.getProviderId(), imports.getEmployeeId(), imports.getTotalPrice() };
-    return DatabaseConnection.executeUpdate(insertSql, args);
+    try {
+      return DatabaseConnection.executeUpdate(insertSql, args);
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return -1;
+    }
   }
 
   @Override
-  public int update(ImportModel imports) throws SQLException, ClassNotFoundException {
+  public int update(ImportModel imports) {
     String updateSql = "UPDATE imports SET provider_id = ?, employee_id = ?, total_price = ? WHERE id = ?";
     Object[] args = { imports.getProviderId(), imports.getEmployeeId(), imports.getTotalPrice(), imports.getId() };
-    return DatabaseConnection.executeUpdate(updateSql, args);
+    try {
+      return DatabaseConnection.executeUpdate(updateSql, args);
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return -1;
+    }
   }
 
   @Override
-  public int delete(int id) throws SQLException, ClassNotFoundException {
+  public int delete(int id) {
     String deleteSql = "DELETE FROM imports WHERE id = ?";
     Object[] args = { id };
-    return DatabaseConnection.executeUpdate(deleteSql, args);
+    try {
+      return DatabaseConnection.executeUpdate(deleteSql, args);
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return -1;
+    }
   }
 
   @Override
-  public List<ImportModel> search(String condition, String[] columnNames)
-      throws SQLException, ClassNotFoundException {
+  public List<ImportModel> search(String condition, String[] columnNames) {
 
     if (condition == null || condition.trim().isEmpty()) {
       throw new IllegalArgumentException("Search condition cannot be empty or null");
@@ -103,6 +118,9 @@ public class ImportDAO implements IDAO<ImportModel> {
 
         return importsList;
       }
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return Collections.emptyList();
     }
   }
 }

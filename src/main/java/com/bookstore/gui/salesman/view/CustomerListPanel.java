@@ -10,12 +10,12 @@ import com.bookstore.model.UserModel;
 
 public class CustomerListPanel extends javax.swing.JPanel {
 
-  public CustomerListPanel() throws ClassNotFoundException, SQLException {
+  public CustomerListPanel(){
     initComponents();
     listCustomer();
   }
 
-  private void listCustomer() throws ClassNotFoundException, SQLException {
+  private void listCustomer(){
     UserBUS userBus = UserBUS.getInstance();
     List<UserModel> customersList = userBus.getAllModels();
     for (UserModel user : customersList) {
@@ -222,7 +222,7 @@ public class CustomerListPanel extends javax.swing.JPanel {
   private javax.swing.JButton searchBtn;
   private javax.swing.JTextField searchCustomerTxtFld;
 
-  public static void main(String[] args) throws ClassNotFoundException, SQLException {
+  public static void main(String[] args){
     JFrame jFrame = new JFrame();
     jFrame.add(new CustomerListPanel());
     jFrame.setVisible(true);

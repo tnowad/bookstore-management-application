@@ -1,7 +1,6 @@
 package com.bookstore.bus;
 
 import java.math.BigDecimal;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -15,14 +14,14 @@ public class ImportBUS implements IBUS<ImportModel> {
   private final List<ImportModel> importList = new ArrayList<>();
   private static ImportBUS instance;
 
-  public static ImportBUS getInstance() throws ClassNotFoundException, SQLException {
+  public static ImportBUS getInstance() {
     if (instance == null) {
       instance = new ImportBUS();
     }
     return instance;
   }
 
-  private ImportBUS() throws SQLException, ClassNotFoundException {
+  private ImportBUS() {
     this.importList.addAll(ImportDAO.getInstance().readDatabase());
   }
 
@@ -32,7 +31,7 @@ public class ImportBUS implements IBUS<ImportModel> {
   }
 
   @Override
-  public ImportModel getModelById(int id) throws SQLException, ClassNotFoundException {
+  public ImportModel getModelById(int id) {
     for (ImportModel importModel : importList) {
       if (importModel.getId() == id) {
         return importModel;
@@ -109,7 +108,7 @@ public class ImportBUS implements IBUS<ImportModel> {
   }
 
   @Override
-  public int addModel(ImportModel importModel) throws SQLException, ClassNotFoundException {
+  public int addModel(ImportModel importModel) {
     if (importModel.getProviderId() <= 0) {
       throw new IllegalArgumentException("Provider ID cannot be less than or equal to zero!");
     }
@@ -127,7 +126,7 @@ public class ImportBUS implements IBUS<ImportModel> {
   }
 
   @Override
-  public int updateModel(ImportModel importModel) throws SQLException, ClassNotFoundException {
+  public int updateModel(ImportModel importModel) {
     int updatedRows = ImportDAO.getInstance().update(importModel);
     if (updatedRows > 0) {
       for (int i = 0; i < importList.size(); i++) {
@@ -140,7 +139,7 @@ public class ImportBUS implements IBUS<ImportModel> {
     return updatedRows;
   }
 
-  public int updateTotal(int id, BigDecimal total) throws SQLException, ClassNotFoundException {
+  public int updateTotal(int id, BigDecimal total) {
     ImportModel importModel = getModelById(id);
     if (importModel == null) {
       throw new IllegalArgumentException("Import with ID " + id + " does not exist.");
@@ -159,7 +158,7 @@ public class ImportBUS implements IBUS<ImportModel> {
   }
 
   @Override
-  public int deleteModel(int id) throws SQLException, ClassNotFoundException {
+  public int deleteModel(int id) {
     ImportModel importModel = getModelById(id);
     if (importModel == null) {
       throw new IllegalArgumentException("Import with ID " + id + " does not exist.");
@@ -172,20 +171,14 @@ public class ImportBUS implements IBUS<ImportModel> {
   }
 
   @Override
-  public List<ImportModel> searchModel(String value, String[] columns) throws SQLException, ClassNotFoundException {
+  public List<ImportModel> searchModel(String value, String[] columns) {
     List<ImportModel> results = new ArrayList<>();
-    try {
-      List<ImportModel> entities = ImportDAO.getInstance().search(value, columns);
-      for (ImportModel entity : entities) {
-        ImportModel model = mapToEntity(entity);
-        if (checkFilter(model, value, columns)) {
-          results.add(model);
-        }
+    List<ImportModel> entities = ImportDAO.getInstance().search(value, columns);
+    for (ImportModel entity : entities) {
+      ImportModel model = mapToEntity(entity);
+      if (checkFilter(model, value, columns)) {
+        results.add(model);
       }
-    } catch (SQLException e) {
-      throw new SQLException("Failed to search for import: " + e.getMessage());
-    } catch (ClassNotFoundException e) {
-      throw new ClassNotFoundException("Failed to search for import: " + e.getMessage());
     }
 
     if (results.isEmpty()) {

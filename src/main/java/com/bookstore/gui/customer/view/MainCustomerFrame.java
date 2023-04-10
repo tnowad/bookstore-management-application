@@ -9,9 +9,9 @@ import javax.swing.*;
 import com.bookstore.gui.customer.formCustomer.BrowseProductPanel;
 import com.bookstore.gui.customer.formCustomer.CartPanel;
 import com.bookstore.gui.customer.formCustomer.CategoryPanel;
-import com.bookstore.gui.main.LoginUI;
 
 import java.awt.*;
+import java.sql.SQLException;
 
 /**
  *
@@ -110,7 +110,12 @@ public class MainCustomerFrame extends javax.swing.JFrame {
     discoverBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
     discoverBtn.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
-        discoverBtnActionPerformed(evt);
+        try {
+          discoverBtnActionPerformed(evt);
+        } catch (ClassNotFoundException | SQLException e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+        }
       }
     });
 
@@ -333,7 +338,7 @@ public class MainCustomerFrame extends javax.swing.JFrame {
     // TODO add your handling code here:
   }// GEN-LAST:event_homeBtnActionPerformed
 
-  private void discoverBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_discoverBtnActionPerformed
+  private void discoverBtnActionPerformed(java.awt.event.ActionEvent evt) throws ClassNotFoundException, SQLException {// GEN-FIRST:event_discoverBtnActionPerformed
     System.out.println("Button " + evt.getActionCommand() + " has been clicked.");
     displayingItemsPanel.removeAll();
     BrowseProductPanel browseProductUI = new BrowseProductPanel();

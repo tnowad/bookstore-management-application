@@ -3,7 +3,6 @@ package com.bookstore.gui.main;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.bookstore.bus.UserBUS;
@@ -200,22 +199,18 @@ public class RegisterUI extends JFrame {
                 "The " + field + " is already taken. Please try another " + field + ".");
             return;
           }
-        } catch (HeadlessException | ClassNotFoundException | SQLException e1) {
+        } catch (HeadlessException e1) {
           e1.printStackTrace();
         }
       }
 
-      try {
-        int added = UserBUS.getInstance().addModel(newUser);
-        if (added == 1) {
-          // ProfileModel.getInstance().setUser(newUser);
-          JOptionPane.showMessageDialog(null, "You've successfully registered! You can log in now.");
-          dispose(); // close the registration UI
-        } else {
-          JOptionPane.showMessageDialog(null, "Registration failed. Please try again!");
-        }
-      } catch (ClassNotFoundException | SQLException e1) {
-        e1.printStackTrace();
+      int added = UserBUS.getInstance().addModel(newUser);
+      if (added == 1) {
+        // ProfileModel.getInstance().setUser(newUser);
+        JOptionPane.showMessageDialog(null, "You've successfully registered! You can log in now.");
+        dispose(); // close the registration UI
+      } else {
+        JOptionPane.showMessageDialog(null, "Registration failed. Please try again!");
       }
     });
 

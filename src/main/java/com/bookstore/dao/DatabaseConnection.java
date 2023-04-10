@@ -14,14 +14,14 @@ public class DatabaseConnection {
   private static String url = rb.getString("url");
   private static String user = rb.getString("user");
   private static String password = rb.getString("password");
-  // private static DatabaseConnection instance;
+  private static DatabaseConnection instance;
 
-  // public static DatabaseConnection getInstance() {
-  // if (instance == null) {
-  // instance = new DatabaseConnection();
-  // }
-  // return null;
-  // }
+  public static DatabaseConnection getInstance() {
+    if (instance == null) {
+      instance = new DatabaseConnection();
+    }
+    return null;
+  }
 
   /**
    * Get connection to database
@@ -30,10 +30,14 @@ public class DatabaseConnection {
    * @throws SQLException
    * @throws ClassNotFoundException
    */
-  public static Connection getConnection() throws SQLException, ClassNotFoundException {
-    if (connection == null) {
-      Class.forName(driver);
-      connection = DriverManager.getConnection(url, user, password);
+  public static Connection getConnection() {
+    try {
+      if (connection == null) {
+        Class.forName(driver);
+        connection = DriverManager.getConnection(url, user, password);
+      }
+    } catch (SQLException | ClassNotFoundException e) {
+      e.printStackTrace();
     }
     return connection;
   }
@@ -45,15 +49,14 @@ public class DatabaseConnection {
    * @param args
    * @return PreparedStatement after setting arguments
    * @throws SQLException
-   * @throws ClassNotFoundException
    */
-  public static PreparedStatement getPreparedStatement(String sql, Object... args)
-      throws SQLException, ClassNotFoundException {
+  public static PreparedStatement getPreparedStatement(String sql, Object... args) throws SQLException {
     PreparedStatement preparedStatement = getConnection().prepareStatement(sql);
     for (int i = 0; i < args.length; i++) {
       preparedStatement.setObject(i + 1, args[i]);
     }
     return preparedStatement;
+
   }
 
   /**
@@ -63,9 +66,8 @@ public class DatabaseConnection {
    * @param args
    * @return ResultSet after executing query
    * @throws SQLException
-   * @throws ClassNotFoundException
    */
-  public static ResultSet executeQuery(String sql, Object... args) throws SQLException, ClassNotFoundException {
+  public static ResultSet executeQuery(String sql, Object... args) throws SQLException {
     PreparedStatement preparedStatement = getPreparedStatement(sql, args);
     return preparedStatement.executeQuery();
   }
@@ -77,9 +79,8 @@ public class DatabaseConnection {
    * @param args
    * @return number of rows affected by the update
    * @throws SQLException
-   * @throws ClassNotFoundException
    */
-  public static int executeUpdate(String sql, Object... args) throws SQLException, ClassNotFoundException {
+  public static int executeUpdate(String sql, Object... args) throws SQLException {
     PreparedStatement preparedStatement = getPreparedStatement(sql, args);
     return preparedStatement.executeUpdate();
   }

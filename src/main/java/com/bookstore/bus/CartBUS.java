@@ -1,6 +1,5 @@
 package com.bookstore.bus;
 
-import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -16,14 +15,14 @@ public class CartBUS implements IBUS<CartModel> {
   private final List<CartModel> cartList = new ArrayList<>();
   private static CartBUS instance;
 
-  public static CartBUS getInstance() throws ClassNotFoundException, SQLException {
+  public static CartBUS getInstance() {
     if (instance == null) {
       instance = new CartBUS();
     }
     return instance;
   }
 
-  private CartBUS() throws SQLException, ClassNotFoundException {
+  private CartBUS() {
     this.cartList.addAll(CartDAO.getInstance().readDatabase());
   }
 
@@ -33,7 +32,7 @@ public class CartBUS implements IBUS<CartModel> {
   }
 
   @Override
-  public CartModel getModelById(int id) throws SQLException, ClassNotFoundException {
+  public CartModel getModelById(int id) {
     for (CartModel cartModel : cartList) {
       if (cartModel.getId() == id) {
         return cartModel;
@@ -110,7 +109,7 @@ public class CartBUS implements IBUS<CartModel> {
   }
 
   @Override
-  public int addModel(CartModel cartModel) throws SQLException, ClassNotFoundException {
+  public int addModel(CartModel cartModel) {
     if (cartModel.getUserId() <= 0) {
       throw new IllegalArgumentException("User ID must be greater than 0!");
     }
@@ -131,7 +130,7 @@ public class CartBUS implements IBUS<CartModel> {
   }
 
   @Override
-  public int updateModel(CartModel cartModel) throws SQLException, ClassNotFoundException {
+  public int updateModel(CartModel cartModel) {
     int updatedRows = CartDAO.getInstance().update(cartModel);
     if (updatedRows > 0) {
       for (int i = 0; i < cartList.size(); i++) {
@@ -144,7 +143,7 @@ public class CartBUS implements IBUS<CartModel> {
     return updatedRows;
   }
 
-  public int updateStatus(int userId, Status status) throws ClassNotFoundException, SQLException {
+  public int updateStatus(int userId, Status status) {
     int success = CartDAO.getInstance().updateStatus(userId, status);
     if (success == 1) {
       for (CartModel cart : cartList) {
@@ -158,7 +157,7 @@ public class CartBUS implements IBUS<CartModel> {
   }
 
   @Override
-  public int deleteModel(int id) throws SQLException, ClassNotFoundException {
+  public int deleteModel(int id) {
     CartModel cartModel = getModelById(id);
     if (cartModel == null) {
       throw new IllegalArgumentException("Cart with ID " + id + " does not exist.");
@@ -171,20 +170,14 @@ public class CartBUS implements IBUS<CartModel> {
   }
 
   @Override
-  public List<CartModel> searchModel(String value, String[] columns) throws SQLException, ClassNotFoundException {
+  public List<CartModel> searchModel(String value, String[] columns) {
     List<CartModel> results = new ArrayList<>();
-    try {
-      List<CartModel> entities = CartDAO.getInstance().search(value, columns);
-      for (CartModel entity : entities) {
-        CartModel model = mapToEntity(entity);
-        if (checkFilter(model, value, columns)) {
-          results.add(model);
-        }
+    List<CartModel> entities = CartDAO.getInstance().search(value, columns);
+    for (CartModel entity : entities) {
+      CartModel model = mapToEntity(entity);
+      if (checkFilter(model, value, columns)) {
+        results.add(model);
       }
-    } catch (SQLException e) {
-      throw new SQLException("Failed to search for cart: " + e.getMessage());
-    } catch (ClassNotFoundException e) {
-      throw new ClassNotFoundException("Failed to search for cart: " + e.getMessage());
     }
 
     if (results.isEmpty()) {
@@ -193,5 +186,4 @@ public class CartBUS implements IBUS<CartModel> {
 
     return results;
   }
-
 }

@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.bookstore.interfaces.IDAO;
@@ -29,10 +30,9 @@ public class CartItemsDAO implements IDAO<CartItemsModel> {
   }
 
   @Override
-  public ArrayList<CartItemsModel> readDatabase() throws ClassNotFoundException, SQLException {
+  public ArrayList<CartItemsModel> readDatabase() {
     ArrayList<CartItemsModel> cartItemsList = new ArrayList<>();
-    ResultSet rs = DatabaseConnection.executeQuery("SELECT * FROM cart_items");
-    try {
+    try (ResultSet rs = DatabaseConnection.executeQuery("SELECT * FROM cart_items")) {
       while (rs.next()) {
         CartItemsModel CartItemsModel = createCartItemsModelFromResultSet(rs);
         cartItemsList.add(CartItemsModel);
@@ -45,31 +45,45 @@ public class CartItemsDAO implements IDAO<CartItemsModel> {
   }
 
   @Override
-  public int insert(CartItemsModel cartItem) throws ClassNotFoundException, SQLException {
+  public int insert(CartItemsModel cartItem) {
     String insertSql = "INSERT INTO cart_items (cart_id, book_isbn, price, quantity, discount) VALUES (?, ?, ?, ?, ?)";
     Object[] args = { cartItem.getCartId(), cartItem.getBookIsbn(), cartItem.getPrice(),
         cartItem.getQuantity(), cartItem.getDiscount() };
-    return DatabaseConnection.executeUpdate(insertSql, args);
+    try {
+      return DatabaseConnection.executeUpdate(insertSql, args);
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return -1;
+    }
   }
 
   @Override
-  public int update(CartItemsModel cartItem) throws ClassNotFoundException, SQLException {
+  public int update(CartItemsModel cartItem) {
     String updateSql = "UPDATE cart_items SET cart_id = ?, book_isbn = ?, price = ?, quantity = ?, discount = ? WHERE id = ?";
     Object[] args = { cartItem.getCartId(), cartItem.getBookIsbn(), cartItem.getPrice(),
         cartItem.getQuantity(), cartItem.getDiscount() };
-    return DatabaseConnection.executeUpdate(updateSql, args);
+    try {
+      return DatabaseConnection.executeUpdate(updateSql, args);
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return -1;
+    }
   }
 
   @Override
-  public int delete(int id) throws ClassNotFoundException, SQLException {
+  public int delete(int id) {
     String deleteSql = "DELETE FROM cart_items WHERE cart_id = ?";
     Object[] args = { id };
-    return DatabaseConnection.executeUpdate(deleteSql, args);
+    try {
+      return DatabaseConnection.executeUpdate(deleteSql, args);
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return -1;
+    }
   }
 
   @Override
-  public List<CartItemsModel> search(String condition, String[] columnNames)
-      throws SQLException, ClassNotFoundException {
+  public List<CartItemsModel> search(String condition, String[] columnNames) {
     if (condition == null || condition.trim().isEmpty()) {
       throw new IllegalArgumentException("Search condition cannot be empty or null");
     }
@@ -100,6 +114,9 @@ public class CartItemsDAO implements IDAO<CartItemsModel> {
         }
         return cartItemsList;
       }
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return Collections.emptyList();
     }
   }
 

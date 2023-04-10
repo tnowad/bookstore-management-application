@@ -25,7 +25,7 @@ public class BrowseProductPanel extends javax.swing.JPanel {
    * @throws SQLException
    * @throws ClassNotFoundException
    */
-  public BrowseProductPanel() throws ClassNotFoundException, SQLException {
+  public BrowseProductPanel() {
     initComponents();
 
   }
@@ -41,7 +41,7 @@ public class BrowseProductPanel extends javax.swing.JPanel {
   @SuppressWarnings("unchecked")
   // <editor-fold defaultstate="collapsed" desc="Generated
   // Code">//GEN-BEGIN:initComponents
-  private void initComponents() throws ClassNotFoundException, SQLException {
+  private void initComponents() {
 
     jPanel1 = new javax.swing.JPanel();
     jLabel1 = new javax.swing.JLabel();
@@ -169,7 +169,7 @@ public class BrowseProductPanel extends javax.swing.JPanel {
   private javax.swing.JPanel table;
 
   // End of variables declaration//GEN-END:variables
-  public static void main(String[] args) throws ClassNotFoundException, SQLException {
+  public static void main(String[] args) {
     JFrame frame = new JFrame();
     frame.setSize(new Dimension(1080, 600));
     frame.add(new BrowseProductPanel());

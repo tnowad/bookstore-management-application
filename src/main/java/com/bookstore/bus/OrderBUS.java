@@ -1,6 +1,5 @@
 package com.bookstore.bus;
 
-import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -16,14 +15,14 @@ public class OrderBUS implements IBUS<OrderModel> {
   private final List<OrderModel> orderList = new ArrayList<>();
   private static OrderBUS instance;
 
-  public static OrderBUS getInstance() throws ClassNotFoundException, SQLException {
+  public static OrderBUS getInstance() {
     if (instance == null) {
       instance = new OrderBUS();
     }
     return instance;
   }
 
-  private OrderBUS() throws SQLException, ClassNotFoundException {
+  private OrderBUS() {
     this.orderList.addAll(OrderDAO.getInstance().readDatabase());
   }
 
@@ -33,7 +32,7 @@ public class OrderBUS implements IBUS<OrderModel> {
   }
 
   @Override
-  public OrderModel getModelById(int id) throws SQLException, ClassNotFoundException {
+  public OrderModel getModelById(int id) {
     for (OrderModel orderModel : orderList) {
       if (orderModel.getId() == id) {
         return orderModel;
@@ -131,7 +130,7 @@ public class OrderBUS implements IBUS<OrderModel> {
   }
 
   @Override
-  public int addModel(OrderModel orderModel) throws SQLException, ClassNotFoundException {
+  public int addModel(OrderModel orderModel) {
     if (orderModel.getCart_id() <= 0) {
       throw new IllegalArgumentException("Cart ID must be greater than 0!");
     }
@@ -156,7 +155,7 @@ public class OrderBUS implements IBUS<OrderModel> {
   }
 
   @Override
-  public int updateModel(OrderModel orderModel) throws SQLException, ClassNotFoundException {
+  public int updateModel(OrderModel orderModel) {
     int updatedRows = OrderDAO.getInstance().update(orderModel);
     if (updatedRows > 0) {
       for (int i = 0; i < orderList.size(); i++) {
@@ -169,7 +168,7 @@ public class OrderBUS implements IBUS<OrderModel> {
     return updatedRows;
   }
 
-  public int updatePaid(int id, int paid) throws SQLException, ClassNotFoundException {
+  public int updatePaid(int id, int paid) {
     OrderModel orderModel = getModelById(id);
     if (orderModel == null) {
       throw new IllegalArgumentException("Order with ID " + id + " does not exist.");
@@ -183,7 +182,7 @@ public class OrderBUS implements IBUS<OrderModel> {
     return -1;
   }
 
-  public int updateStatus(int cartId, Status status) throws SQLException, ClassNotFoundException {
+  public int updateStatus(int cartId, Status status) {
     int success = OrderDAO.getInstance().updateStatus(cartId, status);
     if (success == 1) {
       for (OrderModel order : orderList) {
@@ -197,7 +196,7 @@ public class OrderBUS implements IBUS<OrderModel> {
   }
 
   @Override
-  public int deleteModel(int id) throws SQLException, ClassNotFoundException {
+  public int deleteModel(int id) {
     OrderModel orderModel = getModelById(id);
     if (orderModel == null) {
       throw new IllegalArgumentException("Order with ID " + id + " does not exist.");
@@ -210,20 +209,14 @@ public class OrderBUS implements IBUS<OrderModel> {
   }
 
   @Override
-  public List<OrderModel> searchModel(String value, String[] columns) throws SQLException, ClassNotFoundException {
+  public List<OrderModel> searchModel(String value, String[] columns) {
     List<OrderModel> results = new ArrayList<>();
-    try {
-      List<OrderModel> entities = OrderDAO.getInstance().search(value, columns);
-      for (OrderModel entity : entities) {
-        OrderModel model = mapToEntity(entity);
-        if (checkFilter(model, value, columns)) {
-          results.add(model);
-        }
+    List<OrderModel> entities = OrderDAO.getInstance().search(value, columns);
+    for (OrderModel entity : entities) {
+      OrderModel model = mapToEntity(entity);
+      if (checkFilter(model, value, columns)) {
+        results.add(model);
       }
-    } catch (SQLException e) {
-      throw new SQLException("Failed to search for order: " + e.getMessage());
-    } catch (ClassNotFoundException e) {
-      throw new ClassNotFoundException("Failed to search for order: " + e.getMessage());
     }
 
     if (results.isEmpty()) {

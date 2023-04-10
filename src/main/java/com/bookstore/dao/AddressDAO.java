@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.bookstore.interfaces.IDAO;
@@ -30,43 +31,59 @@ public class AddressDAO implements IDAO<AddressModel> {
   }
 
   @Override
-  public ArrayList<AddressModel> readDatabase() throws SQLException, ClassNotFoundException {
+  public ArrayList<AddressModel> readDatabase() {
     ArrayList<AddressModel> addressList = new ArrayList<>();
     try (ResultSet rs = DatabaseConnection.executeQuery("SELECT * FROM addresses")) {
       while (rs.next()) {
         AddressModel addressModel = createAddressModelFromResultSet(rs);
         addressList.add(addressModel);
       }
+    } catch (SQLException e) {
+      e.printStackTrace();
     }
     return addressList;
   }
 
   @Override
-  public int insert(AddressModel address) throws SQLException, ClassNotFoundException {
+  public int insert(AddressModel address) {
     String insertSql = "INSERT INTO addresses (user_id, street, city, state, zip) VALUES (?, ?, ?, ?, ?)";
     Object[] args = { address.getUserId(), address.getStreet(), address.getCity(),
         address.getState(), address.getZip() };
-    return DatabaseConnection.executeUpdate(insertSql, args);
+    try {
+      return DatabaseConnection.executeUpdate(insertSql, args);
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return -1;
+    }
   }
 
   @Override
-  public int update(AddressModel address) throws SQLException, ClassNotFoundException {
+  public int update(AddressModel address) {
     String updateSql = "UPDATE addresses SET user_id = ?, street = ?, city = ?, state = ?, zip = ? WHERE id = ?";
     Object[] args = { address.getUserId(), address.getStreet(), address.getCity(),
         address.getState(), address.getZip(), address.getId() };
-    return DatabaseConnection.executeUpdate(updateSql, args);
+    try {
+      return DatabaseConnection.executeUpdate(updateSql, args);
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return -1;
+    }
   }
 
   @Override
-  public int delete(int id) throws SQLException, ClassNotFoundException {
+  public int delete(int id) {
     String deleteSql = "DELETE FROM addresses WHERE id = ?";
     Object[] args = { id };
-    return DatabaseConnection.executeUpdate(deleteSql, args);
+    try {
+      return DatabaseConnection.executeUpdate(deleteSql, args);
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return -1;
+    }
   }
 
   @Override
-  public List<AddressModel> search(String condition, String[] columnNames)
-      throws SQLException, ClassNotFoundException {
+  public List<AddressModel> search(String condition, String[] columnNames) {
     if (condition == null || condition.trim().isEmpty()) {
       throw new IllegalArgumentException("Search condition cannot be empty or null");
     }
@@ -97,6 +114,9 @@ public class AddressDAO implements IDAO<AddressModel> {
         }
         return addressList;
       }
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return Collections.emptyList();
     }
   }
 

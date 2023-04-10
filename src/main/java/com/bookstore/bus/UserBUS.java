@@ -1,6 +1,5 @@
 package com.bookstore.bus;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -22,30 +21,26 @@ public class UserBUS implements IBUS<UserModel> {
   private final List<UserModel> userList = new ArrayList<>();
   private static UserBUS instance;
 
-  public static UserBUS getInstance() throws ClassNotFoundException, SQLException {
+  public static UserBUS getInstance() {
     if (instance == null) {
       instance = new UserBUS();
     }
     return instance;
   }
 
-  private UserBUS() throws SQLException, ClassNotFoundException {
+  private UserBUS() {
     this.userList.addAll(UserDAO.getInstance().readDatabase());
   }
 
   public UserModel login(String username, String password) throws LoginException {
-    try {
-      UserModel userModel = UserDAO.getInstance().getUserByUsername(username);
-      if (userModel == null) {
-        throw new LoginException("User not found");
-      }
-      if (!PasswordUtil.checkPassword(password, userModel.getPassword())) {
-        throw new LoginException("Incorrect password");
-      }
-      return userModel;
-    } catch (ClassNotFoundException | SQLException e) {
-      throw new LoginException("Database error");
+    UserModel userModel = UserDAO.getInstance().getUserByUsername(username);
+    if (userModel == null) {
+      throw new LoginException("User not found");
     }
+    if (!PasswordUtil.checkPassword(password, userModel.getPassword())) {
+      throw new LoginException("Incorrect password");
+    }
+    return userModel;
   }
 
   @Override
@@ -54,7 +49,7 @@ public class UserBUS implements IBUS<UserModel> {
   }
 
   @Override
-  public UserModel getModelById(int id) throws SQLException, ClassNotFoundException {
+  public UserModel getModelById(int id) {
     for (UserModel userModel : userList) {
       if (userModel.getId() == id) {
         return userModel;
@@ -68,7 +63,7 @@ public class UserBUS implements IBUS<UserModel> {
     return userModel;
   }
 
-  public UserModel getModelByUsername(String username) throws SQLException, ClassNotFoundException {
+  public UserModel getModelByUsername(String username) {
     for (UserModel userModel : userList) {
       if (userModel.getUsername().equals(username)) {
         return userModel;
@@ -158,7 +153,7 @@ public class UserBUS implements IBUS<UserModel> {
   }
 
   @Override
-  public int addModel(UserModel userModel) throws SQLException, ClassNotFoundException {
+  public int addModel(UserModel userModel) {
     if (userModel.getUsername() == null || userModel.getUsername().isEmpty()
         || userModel.getName() == null || userModel.getName().isEmpty()
         || userModel.getPassword() == null || userModel.getPassword().isEmpty()) {
@@ -195,7 +190,7 @@ public class UserBUS implements IBUS<UserModel> {
   }
 
   @Override
-  public int updateModel(UserModel userModel) throws SQLException, ClassNotFoundException {
+  public int updateModel(UserModel userModel) {
     int updatedRows = UserDAO.getInstance().update(userModel);
     if (updatedRows > 0) {
       for (int i = 0; i < userList.size(); i++) {
@@ -208,7 +203,7 @@ public class UserBUS implements IBUS<UserModel> {
     return updatedRows;
   }
 
-  public int updateStatus(String username, Status status) throws ClassNotFoundException, SQLException {
+  public int updateStatus(String username, Status status) {
     int success = UserDAO.getInstance().updateStatus(username, status);
     if (success == 1) {
       for (UserModel user : userList) {
@@ -221,7 +216,7 @@ public class UserBUS implements IBUS<UserModel> {
     return 0;
   }
 
-  public int updateRole(String username, Role role) throws ClassNotFoundException, SQLException {
+  public int updateRole(String username, Role role) {
     int success = UserDAO.getInstance().updateRole(username, role);
     if (success == 1) {
       for (UserModel user : userList) {
@@ -235,7 +230,7 @@ public class UserBUS implements IBUS<UserModel> {
   }
 
   @Override
-  public int deleteModel(int id) throws SQLException, ClassNotFoundException {
+  public int deleteModel(int id) {
     UserModel userModel = getModelById(id);
     if (userModel == null) {
       throw new IllegalArgumentException("User with ID " + id + " does not exist.");
@@ -248,22 +243,15 @@ public class UserBUS implements IBUS<UserModel> {
   }
 
   @Override
-  public List<UserModel> searchModel(String value, String[] columns) throws SQLException, ClassNotFoundException {
+  public List<UserModel> searchModel(String value, String[] columns) {
     List<UserModel> results = new ArrayList<>();
-    try {
-      List<UserModel> entities = UserDAO.getInstance().search(value, columns);
-      for (UserModel entity : entities) {
-        UserModel model = mapToEntity(entity);
-        if (checkFilter(model, value, columns)) {
-          results.add(model);
-        }
+    List<UserModel> entities = UserDAO.getInstance().search(value, columns);
+    for (UserModel entity : entities) {
+      UserModel model = mapToEntity(entity);
+      if (checkFilter(model, value, columns)) {
+        results.add(model);
       }
-    } catch (SQLException e) {
-      throw new SQLException("Failed to search for users: " + e.getMessage());
-    } catch (ClassNotFoundException e) {
-      throw new ClassNotFoundException("Failed to search for users: " + e.getMessage());
     }
-
     if (results.isEmpty()) {
       throw new IllegalArgumentException("No users found with the specified search criteria.");
     }
@@ -271,7 +259,7 @@ public class UserBUS implements IBUS<UserModel> {
     return results;
   }
 
-  public boolean checkForDuplicate(List<String> values, String[] columns) throws ClassNotFoundException, SQLException {
+  public boolean checkForDuplicate(List<String> values, String[] columns) {
     Optional<UserModel> optionalUser = UserBUS.getInstance().getAllModels().stream()
         .filter(user -> {
           for (String value : values) {

@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.bookstore.interfaces.IDAO;
@@ -29,56 +30,82 @@ public class EmployeeDAO implements IDAO<EmployeeModel> {
   }
 
   @Override
-  public ArrayList<EmployeeModel> readDatabase() throws SQLException, ClassNotFoundException {
+  public ArrayList<EmployeeModel> readDatabase() {
     ArrayList<EmployeeModel> employeesList = new ArrayList<>();
     try (ResultSet rs = DatabaseConnection.executeQuery("SELECT * FROM employees")) {
       while (rs.next()) {
         EmployeeModel employeeModel = createEmployeeModelFromResultSet(rs);
         employeesList.add(employeeModel);
       }
+    } catch (SQLException e) {
+      e.printStackTrace();
     }
     return employeesList;
   }
 
   @Override
-  public int insert(EmployeeModel employee) throws SQLException, ClassNotFoundException {
+  public int insert(EmployeeModel employee) {
     String insertSql = "INSERT INTO employees (user_id, salary, employee_type, contact_information) VALUES (?, ?, ?, ?)";
     Object[] args = { employee.getUserId(), employee.getSalary(), employee.getEmployeeType().toString().toUpperCase(),
         employee.getContactInformation() };
-    return DatabaseConnection.executeUpdate(insertSql, args);
+    try {
+      return DatabaseConnection.executeUpdate(insertSql, args);
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return -1;
+    }
   }
 
   @Override
-  public int update(EmployeeModel employee) throws SQLException, ClassNotFoundException {
+  public int update(EmployeeModel employee) {
     String updateSql = "UPDATE employees SET salary = ?, employee_type = ?, contact_information = ? WHERE user_id = ?";
     Object[] args = { employee.getSalary(), employee.getEmployeeType().toString().toUpperCase(),
         employee.getContactInformation(),
         employee.getUserId() };
-    return DatabaseConnection.executeUpdate(updateSql, args);
+    try {
+      return DatabaseConnection.executeUpdate(updateSql, args);
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return -1;
+    }
   }
 
-  public int updateStatus(int userId, EmployeeType role) throws SQLException, ClassNotFoundException {
+  public int updateStatus(int userId, EmployeeType role) {
     String updateSql = "UPDATE employees SET employee_type = ? WHERE user_id = ?";
     Object[] args = { userId, role };
-    return DatabaseConnection.executeUpdate(updateSql, args);
+    try {
+      return DatabaseConnection.executeUpdate(updateSql, args);
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return -1;
+    }
   }
 
-  public int updateSalary(int userId, int salary) throws ClassNotFoundException, SQLException {
+  public int updateSalary(int userId, int salary) {
     String updateSql = "UPDATE employees SET salary = ? WHERE user_id = ?";
     Object[] args = { salary, userId };
-    return DatabaseConnection.executeUpdate(updateSql, args);
+    try {
+      return DatabaseConnection.executeUpdate(updateSql, args);
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return -1;
+    }
   }
 
   @Override
-  public int delete(int id) throws SQLException, ClassNotFoundException {
+  public int delete(int id) {
     String deleteSql = "DELETE FROM employees WHERE user_id = ?";
     Object[] args = { id };
-    return DatabaseConnection.executeUpdate(deleteSql, args);
+    try {
+      return DatabaseConnection.executeUpdate(deleteSql, args);
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return -1;
+    }
   }
 
   @Override
-  public List<EmployeeModel> search(String condition, String[] columnNames)
-      throws SQLException, ClassNotFoundException {
+  public List<EmployeeModel> search(String condition, String[] columnNames) {
 
     if (condition == null || condition.trim().isEmpty()) {
       throw new IllegalArgumentException("Search condition cannot be empty or null");
@@ -110,10 +137,13 @@ public class EmployeeDAO implements IDAO<EmployeeModel> {
         }
         return employeesList;
       }
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return Collections.emptyList();
     }
   }
 
-  public EmployeeModel getEmployeeById(int id) throws SQLException, ClassNotFoundException {
+  public EmployeeModel getEmployeeById(int id) {
     String query = "SELECT * FROM employees WHERE user_id = ?";
     Object[] args = { id };
     try (PreparedStatement pst = DatabaseConnection.getPreparedStatement(query, args)) {
@@ -122,6 +152,8 @@ public class EmployeeDAO implements IDAO<EmployeeModel> {
           return createEmployeeModelFromResultSet(rs);
         }
       }
+    } catch (SQLException e) {
+      e.printStackTrace();
     }
     return null;
   }

@@ -7,7 +7,6 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import java.sql.SQLException;
 import java.util.Arrays;
 
 import javax.swing.BorderFactory;
@@ -200,28 +199,24 @@ public class RetypePasswordUI extends JFrame {
         return;
       }
 
-      try {
-        if (Arrays.toString(password).equals(Arrays.toString(confirmPassword))) {
-          int id = getUserId();
-          UserModel userModel = UserBUS.getInstance().getModelById(id);
-          if (userModel != null) {
-            userModel.setPassword(new String(password));
-            int success = UserBUS.getInstance().updateModel(userModel);
-            if (success == 1) {
-              JOptionPane.showMessageDialog(null, "You've successfully reset your password. You can log in now.");
-              LoginUI.getInstance().setVisible(true);
-              setVisible(false);
-            } else {
-              showError("Failed to update password. Please try again later.");
-            }
+      if (Arrays.toString(password).equals(Arrays.toString(confirmPassword))) {
+        int id = getUserId();
+        UserModel userModel = UserBUS.getInstance().getModelById(id);
+        if (userModel != null) {
+          userModel.setPassword(new String(password));
+          int success = UserBUS.getInstance().updateModel(userModel);
+          if (success == 1) {
+            JOptionPane.showMessageDialog(null, "You've successfully reset your password. You can log in now.");
+            LoginUI.getInstance().setVisible(true);
+            setVisible(false);
           } else {
-            showError("User not found. Please try again later.");
+            showError("Failed to update password. Please try again later.");
           }
         } else {
-          showError("Passwords do not match. Please try again.");
+          showError("User not found. Please try again later.");
         }
-      } catch (ClassNotFoundException | SQLException e1) {
-        e1.printStackTrace();
+      } else {
+        showError("Passwords do not match. Please try again.");
       }
     });
 

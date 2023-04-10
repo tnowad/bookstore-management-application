@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.bookstore.interfaces.IDAO;
@@ -35,51 +36,72 @@ public class PaymentDAO implements IDAO<PaymentModel> {
   }
 
   @Override
-  public ArrayList<PaymentModel> readDatabase() throws SQLException, ClassNotFoundException {
+  public ArrayList<PaymentModel> readDatabase() {
     ArrayList<PaymentModel> paymentList = new ArrayList<>();
     try (ResultSet rs = DatabaseConnection.executeQuery("SELECT * FROM payments")) {
       while (rs.next()) {
         PaymentModel paymentModel = createPaymentModelFromResultSet(rs);
         paymentList.add(paymentModel);
       }
+    } catch (SQLException e) {
+      e.printStackTrace();
     }
     return paymentList;
   }
 
   @Override
-  public int insert(PaymentModel payment) throws SQLException, ClassNotFoundException {
+  public int insert(PaymentModel payment) {
     String insertSql = "INSERT INTO payments (order_id, user_id, amount, payment_method, payment_method_id, status) VALUES (?, ?, ?, ?, ?, ?)";
     Object[] args = { payment.getOrderId(), payment.getUserId(), payment.getAmount(),
         payment.getPaymentMethod().toString(), payment.getPaymentMethodId(),
         payment.getStatus().toString() };
-    return DatabaseConnection.executeUpdate(insertSql, args);
+    try {
+      return DatabaseConnection.executeUpdate(insertSql, args);
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return -1;
+    }
   }
 
   @Override
-  public int update(PaymentModel payment) throws SQLException, ClassNotFoundException {
+  public int update(PaymentModel payment) {
     String updateSql = "UPDATE payments SET order_id = ?, user_id = ?, amount = ?, payment_method = ?, payment_method_id = ?, status = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?";
     Object[] args = { payment.getOrderId(), payment.getUserId(), payment.getAmount(),
         payment.getPaymentMethod().toString(), payment.getPaymentMethodId(),
         payment.getStatus().toString(), payment.getId() };
-    return DatabaseConnection.executeUpdate(updateSql, args);
+    try {
+      return DatabaseConnection.executeUpdate(updateSql, args);
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return -1;
+    }
   }
 
-  public int updateStatus(int orderId, PaymentStatus status) throws SQLException, ClassNotFoundException {
+  public int updateStatus(int orderId, PaymentStatus status) {
     String updateSql = "UPDATE payments SET status = ? WHERE order_id = ?";
     Object[] args = { status, orderId };
-    return DatabaseConnection.executeUpdate(updateSql, args);
+    try {
+      return DatabaseConnection.executeUpdate(updateSql, args);
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return -1;
+    }
   }
 
   @Override
-  public int delete(int id) throws SQLException, ClassNotFoundException {
+  public int delete(int id) {
     String deleteSql = "DELETE FROM payments WHERE id = ?";
     Object[] args = { id };
-    return DatabaseConnection.executeUpdate(deleteSql, args);
+    try {
+      return DatabaseConnection.executeUpdate(deleteSql, args);
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return -1;
+    }
   }
 
   @Override
-  public List<PaymentModel> search(String condition, String[] columnNames)
-      throws SQLException, ClassNotFoundException {
+  public List<PaymentModel> search(String condition, String[] columnNames) {
 
     if (condition == null || condition.trim().isEmpty()) {
       throw new IllegalArgumentException("Search condition cannot be empty or null");
@@ -112,6 +134,9 @@ public class PaymentDAO implements IDAO<PaymentModel> {
         }
         return paymentList;
       }
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return Collections.emptyList();
     }
   }
 }

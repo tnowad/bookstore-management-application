@@ -1,6 +1,5 @@
 package com.bookstore.bus;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -13,14 +12,14 @@ public class CartItemsBUS implements IBUS<CartItemsModel> {
   private final List<CartItemsModel> cartItemsList = new ArrayList<>();
   private static CartItemsBUS instance;
 
-  public static CartItemsBUS getInstance() throws ClassNotFoundException, SQLException {
+  public static CartItemsBUS getInstance() {
     if (instance == null) {
       instance = new CartItemsBUS();
     }
     return instance;
   }
 
-  private CartItemsBUS() throws ClassNotFoundException, SQLException {
+  private CartItemsBUS() {
     this.cartItemsList.addAll(CartItemsDAO.getInstance().readDatabase());
   }
 
@@ -30,7 +29,7 @@ public class CartItemsBUS implements IBUS<CartItemsModel> {
   }
 
   @Override
-  public CartItemsModel getModelById(int id) throws SQLException, ClassNotFoundException {
+  public CartItemsModel getModelById(int id) {
     for (CartItemsModel cartItemsModel : cartItemsList) {
       if (cartItemsModel.getCartId() == id) {
         return cartItemsModel;
@@ -100,7 +99,7 @@ public class CartItemsBUS implements IBUS<CartItemsModel> {
   }
 
   @Override
-  public int addModel(CartItemsModel model) throws SQLException, ClassNotFoundException {
+  public int addModel(CartItemsModel model) {
     int id = CartItemsDAO.getInstance().insert(mapToEntity(model));
     model.setCartId(id);
     cartItemsList.add(model);
@@ -108,7 +107,7 @@ public class CartItemsBUS implements IBUS<CartItemsModel> {
   }
 
   @Override
-  public int updateModel(CartItemsModel model) throws SQLException, ClassNotFoundException {
+  public int updateModel(CartItemsModel model) {
     int updatedRows = CartItemsDAO.getInstance().update(model);
     if (updatedRows > 0) {
       for (int i = 0; i < cartItemsList.size(); i++) {
@@ -122,7 +121,7 @@ public class CartItemsBUS implements IBUS<CartItemsModel> {
   }
 
   @Override
-  public int deleteModel(int id) throws SQLException, ClassNotFoundException {
+  public int deleteModel(int id) {
     CartItemsModel CartItemsModel = getModelById(id);
     if (CartItemsModel == null) {
       throw new IllegalArgumentException("cart_items with cart_id " + id + " does not exist.");
@@ -135,18 +134,14 @@ public class CartItemsBUS implements IBUS<CartItemsModel> {
   }
 
   @Override
-  public List<CartItemsModel> searchModel(String value, String[] columns) throws SQLException, ClassNotFoundException {
+  public List<CartItemsModel> searchModel(String value, String[] columns) {
     List<CartItemsModel> results = new ArrayList<>();
-    try {
-      List<CartItemsModel> entities = CartItemsDAO.getInstance().search(value, columns);
-      for (CartItemsModel entity : entities) {
-        CartItemsModel model = mapToEntity(entity);
-        if (checkFilter(model, value, columns)) {
-          results.add(model);
-        }
+    List<CartItemsModel> entities = CartItemsDAO.getInstance().search(value, columns);
+    for (CartItemsModel entity : entities) {
+      CartItemsModel model = mapToEntity(entity);
+      if (checkFilter(model, value, columns)) {
+        results.add(model);
       }
-    } catch (SQLException e) {
-      throw new SQLException("Failed to search for cart_items: " + e.getMessage());
     }
 
     if (results.isEmpty()) {
@@ -155,5 +150,4 @@ public class CartItemsBUS implements IBUS<CartItemsModel> {
 
     return results;
   }
-
 }

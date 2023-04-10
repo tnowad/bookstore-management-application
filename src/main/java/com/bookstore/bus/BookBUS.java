@@ -1,6 +1,5 @@
 package com.bookstore.bus;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -15,14 +14,14 @@ public class BookBUS implements IBUS<BookModel> {
   private final List<BookModel> bookList = new ArrayList<>();
   private static BookBUS instance;
 
-  public static BookBUS getInstance() throws ClassNotFoundException, SQLException {
+  public static BookBUS getInstance() {
     if (instance == null) {
       instance = new BookBUS();
     }
     return instance;
   }
 
-  private BookBUS() throws SQLException, ClassNotFoundException {
+  private BookBUS() {
     this.bookList.addAll(BookDAO.getInstance().readDatabase());
   }
 
@@ -32,7 +31,7 @@ public class BookBUS implements IBUS<BookModel> {
   }
 
   @Override
-  public BookModel getModelById(int id) throws SQLException, ClassNotFoundException {
+  public BookModel getModelById(int id) {
     for (BookModel bookModel : bookList) {
       if (bookModel.getIsbn() == String.valueOf(id)) {
         return bookModel;
@@ -130,7 +129,7 @@ public class BookBUS implements IBUS<BookModel> {
   }
 
   @Override
-  public int addModel(BookModel bookModel) throws SQLException, ClassNotFoundException {
+  public int addModel(BookModel bookModel) {
     if (bookModel.getIsbn() == null || bookModel.getIsbn().isEmpty()) {
       throw new IllegalArgumentException("ISBN cannot be null or empty!");
     }
@@ -166,7 +165,7 @@ public class BookBUS implements IBUS<BookModel> {
   }
 
   @Override
-  public int updateModel(BookModel bookModel) throws SQLException, ClassNotFoundException {
+  public int updateModel(BookModel bookModel) {
     int updatedRows = BookDAO.getInstance().update(bookModel);
     if (updatedRows > 0) {
       for (int i = 0; i < bookList.size(); i++) {
@@ -179,7 +178,7 @@ public class BookBUS implements IBUS<BookModel> {
     return updatedRows;
   }
 
-  public int updateQuantity(String isbn, int quantity) throws ClassNotFoundException, SQLException {
+  public int updateQuantity(String isbn, int quantity) {
     int success = BookDAO.getInstance().updateQuantity(isbn, quantity);
     if (success == 1) {
       for (BookModel book : bookList) {
@@ -192,7 +191,7 @@ public class BookBUS implements IBUS<BookModel> {
     return 0;
   }
 
-  public int updateStatus(String isbn, Status status) throws ClassNotFoundException, SQLException {
+  public int updateStatus(String isbn, Status status) {
     int success = BookDAO.getInstance().updateStatus(isbn, status);
     if (success == 1) {
       for (BookModel book : bookList) {
@@ -205,7 +204,7 @@ public class BookBUS implements IBUS<BookModel> {
     return 0;
   }
 
-  public int updatePrice(String isbn, int price) throws ClassNotFoundException, SQLException {
+  public int updatePrice(String isbn, int price) {
     int success = BookDAO.getInstance().updatePrice(isbn, price);
     if (success == 1) {
       for (BookModel book : bookList) {
@@ -219,7 +218,7 @@ public class BookBUS implements IBUS<BookModel> {
   }
 
   @Override
-  public int deleteModel(int id) throws SQLException, ClassNotFoundException {
+  public int deleteModel(int id) {
     BookModel bookModel = getModelById(id);
     if (bookModel == null) {
       throw new IllegalArgumentException("Book with ID " + id + " does not exist.");
@@ -232,20 +231,14 @@ public class BookBUS implements IBUS<BookModel> {
   }
 
   @Override
-  public List<BookModel> searchModel(String value, String[] columns) throws SQLException, ClassNotFoundException {
+  public List<BookModel> searchModel(String value, String[] columns) {
     List<BookModel> results = new ArrayList<>();
-    try {
-      List<BookModel> entities = BookDAO.getInstance().search(value, columns);
-      for (BookModel entity : entities) {
-        BookModel model = mapToEntity(entity);
-        if (checkFilter(model, value, columns)) {
-          results.add(model);
-        }
+    List<BookModel> entities = BookDAO.getInstance().search(value, columns);
+    for (BookModel entity : entities) {
+      BookModel model = mapToEntity(entity);
+      if (checkFilter(model, value, columns)) {
+        results.add(model);
       }
-    } catch (SQLException e) {
-      throw new SQLException("Failed to search for book: " + e.getMessage());
-    } catch (ClassNotFoundException e) {
-      throw new ClassNotFoundException("Failed to search for book: " + e.getMessage());
     }
 
     if (results.isEmpty()) {
@@ -254,5 +247,4 @@ public class BookBUS implements IBUS<BookModel> {
 
     return results;
   }
-
 }

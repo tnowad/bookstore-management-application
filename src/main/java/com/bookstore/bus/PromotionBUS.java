@@ -1,6 +1,5 @@
 package com.bookstore.bus;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -14,14 +13,14 @@ public class PromotionBUS implements IBUS<PromotionModel> {
   private final List<PromotionModel> promotionList = new ArrayList<>();
   private static PromotionBUS instance;
 
-  public static PromotionBUS getInstance() throws ClassNotFoundException, SQLException {
+  public static PromotionBUS getInstance() {
     if (instance == null) {
       instance = new PromotionBUS();
     }
     return instance;
   }
 
-  private PromotionBUS() throws SQLException, ClassNotFoundException {
+  private PromotionBUS() {
     this.promotionList.addAll(PromotionDAO.getInstance().readDatabase());
   }
 
@@ -31,7 +30,7 @@ public class PromotionBUS implements IBUS<PromotionModel> {
   }
 
   @Override
-  public PromotionModel getModelById(int id) throws SQLException, ClassNotFoundException {
+  public PromotionModel getModelById(int id) {
     for (PromotionModel promotionModel : promotionList) {
       if (promotionModel.getId() == id) {
         return promotionModel;
@@ -122,7 +121,7 @@ public class PromotionBUS implements IBUS<PromotionModel> {
   }
 
   @Override
-  public int addModel(PromotionModel promotionModel) throws SQLException, ClassNotFoundException {
+  public int addModel(PromotionModel promotionModel) {
     if (promotionModel.getDescription() == null || promotionModel.getDescription().isEmpty()) {
       throw new IllegalArgumentException("Description cannot be null or empty!");
     }
@@ -149,7 +148,7 @@ public class PromotionBUS implements IBUS<PromotionModel> {
   }
 
   @Override
-  public int updateModel(PromotionModel promotionModel) throws SQLException, ClassNotFoundException {
+  public int updateModel(PromotionModel promotionModel) {
     int updatedRows = PromotionDAO.getInstance().update(promotionModel);
     if (updatedRows > 0) {
       for (int i = 0; i < promotionList.size(); i++) {
@@ -162,7 +161,7 @@ public class PromotionBUS implements IBUS<PromotionModel> {
     return updatedRows;
   }
 
-  public int updateQuantity(int id, int quantity) throws ClassNotFoundException, SQLException {
+  public int updateQuantity(int id, int quantity) {
     int success = PromotionDAO.getInstance().updateQuantity(id, quantity);
     if (success == 1) {
       for (PromotionModel promotion : promotionList) {
@@ -176,7 +175,7 @@ public class PromotionBUS implements IBUS<PromotionModel> {
   }
 
   @Override
-  public int deleteModel(int id) throws SQLException, ClassNotFoundException {
+  public int deleteModel(int id) {
     PromotionModel promotionModel = getModelById(id);
     if (promotionModel == null) {
       throw new IllegalArgumentException("Promotion with ID " + id + " does not exist.");
@@ -189,20 +188,14 @@ public class PromotionBUS implements IBUS<PromotionModel> {
   }
 
   @Override
-  public List<PromotionModel> searchModel(String value, String[] columns) throws SQLException, ClassNotFoundException {
+  public List<PromotionModel> searchModel(String value, String[] columns) {
     List<PromotionModel> results = new ArrayList<>();
-    try {
-      List<PromotionModel> entities = PromotionDAO.getInstance().search(value, columns);
-      for (PromotionModel entity : entities) {
-        PromotionModel model = mapToEntity(entity);
-        if (checkFilter(model, value, columns)) {
-          results.add(model);
-        }
+    List<PromotionModel> entities = PromotionDAO.getInstance().search(value, columns);
+    for (PromotionModel entity : entities) {
+      PromotionModel model = mapToEntity(entity);
+      if (checkFilter(model, value, columns)) {
+        results.add(model);
       }
-    } catch (SQLException e) {
-      throw new SQLException("Failed to search for promotion: " + e.getMessage());
-    } catch (ClassNotFoundException e) {
-      throw new ClassNotFoundException("Failed to search for promotion: " + e.getMessage());
     }
 
     if (results.isEmpty()) {

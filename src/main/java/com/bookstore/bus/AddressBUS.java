@@ -1,6 +1,5 @@
 package com.bookstore.bus;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -13,14 +12,14 @@ public class AddressBUS implements IBUS<AddressModel> {
   private final List<AddressModel> addressList = new ArrayList<>();
   private static AddressBUS instance;
 
-  public static AddressBUS getInstance() throws ClassNotFoundException, SQLException {
+  public static AddressBUS getInstance() {
     if (instance == null) {
       instance = new AddressBUS();
     }
     return instance;
   }
 
-  private AddressBUS() throws SQLException, ClassNotFoundException {
+  private AddressBUS() {
     this.addressList.addAll(AddressDAO.getInstance().readDatabase());
   }
 
@@ -30,7 +29,7 @@ public class AddressBUS implements IBUS<AddressModel> {
   }
 
   @Override
-  public AddressModel getModelById(int id) throws SQLException, ClassNotFoundException {
+  public AddressModel getModelById(int id) {
     for (AddressModel addressModel : addressList) {
       if (addressModel.getId() == id) {
         return addressModel;
@@ -107,7 +106,7 @@ public class AddressBUS implements IBUS<AddressModel> {
   }
 
   @Override
-  public int addModel(AddressModel addressModel) throws SQLException, ClassNotFoundException {
+  public int addModel(AddressModel addressModel) {
     if (addressModel.getStreet() == null || addressModel.getStreet().isEmpty()) {
       throw new IllegalArgumentException("Street cannot be null or empty!");
     }
@@ -125,7 +124,7 @@ public class AddressBUS implements IBUS<AddressModel> {
   }
 
   @Override
-  public int updateModel(AddressModel addressModel) throws SQLException, ClassNotFoundException {
+  public int updateModel(AddressModel addressModel) {
     int updatedRows = AddressDAO.getInstance().update(addressModel);
     if (updatedRows > 0) {
       for (int i = 0; i < addressList.size(); i++) {
@@ -139,7 +138,7 @@ public class AddressBUS implements IBUS<AddressModel> {
   }
 
   @Override
-  public int deleteModel(int id) throws SQLException, ClassNotFoundException {
+  public int deleteModel(int id) {
     AddressModel addressModel = getModelById(id);
     if (addressModel == null) {
       throw new IllegalArgumentException("User with ID " + id + " does not exist.");
@@ -152,20 +151,14 @@ public class AddressBUS implements IBUS<AddressModel> {
   }
 
   @Override
-  public List<AddressModel> searchModel(String value, String[] columns) throws SQLException, ClassNotFoundException {
+  public List<AddressModel> searchModel(String value, String[] columns) {
     List<AddressModel> results = new ArrayList<>();
-    try {
-      List<AddressModel> entities = AddressDAO.getInstance().search(value, columns);
-      for (AddressModel entity : entities) {
-        AddressModel model = mapToEntity(entity);
-        if (checkFilter(model, value, columns)) {
-          results.add(model);
-        }
+    List<AddressModel> entities = AddressDAO.getInstance().search(value, columns);
+    for (AddressModel entity : entities) {
+      AddressModel model = mapToEntity(entity);
+      if (checkFilter(model, value, columns)) {
+        results.add(model);
       }
-    } catch (SQLException e) {
-      throw new SQLException("Failed to search for address: " + e.getMessage());
-    } catch (ClassNotFoundException e) {
-      throw new ClassNotFoundException("Failed to search for address: " + e.getMessage());
     }
 
     if (results.isEmpty()) {

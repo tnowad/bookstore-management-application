@@ -1,6 +1,5 @@
 package com.bookstore.bus;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -14,14 +13,14 @@ public class PublisherBUS implements IBUS<PublisherModel> {
   private final List<PublisherModel> publisherList = new ArrayList<>();
   private static PublisherBUS instance;
 
-  public static PublisherBUS getInstance() throws ClassNotFoundException, SQLException {
+  public static PublisherBUS getInstance() {
     if (instance == null) {
       instance = new PublisherBUS();
     }
     return instance;
   }
 
-  private PublisherBUS() throws SQLException, ClassNotFoundException {
+  private PublisherBUS() {
     this.publisherList.addAll(PublisherDAO.getInstance().readDatabase());
   }
 
@@ -31,7 +30,7 @@ public class PublisherBUS implements IBUS<PublisherModel> {
   }
 
   @Override
-  public PublisherModel getModelById(int id) throws SQLException, ClassNotFoundException {
+  public PublisherModel getModelById(int id) {
     for (PublisherModel publisherModel : publisherList) {
       if (publisherModel.getId() == id) {
         return publisherModel;
@@ -87,7 +86,7 @@ public class PublisherBUS implements IBUS<PublisherModel> {
   }
 
   @Override
-  public int addModel(PublisherModel publisherModel) throws SQLException, ClassNotFoundException {
+  public int addModel(PublisherModel publisherModel) {
     if (publisherModel.getName() == null || publisherModel.getName().isEmpty()) {
       throw new IllegalArgumentException("Name cannot be null or empty!");
     }
@@ -102,7 +101,7 @@ public class PublisherBUS implements IBUS<PublisherModel> {
   }
 
   @Override
-  public int updateModel(PublisherModel publisherModel) throws SQLException, ClassNotFoundException {
+  public int updateModel(PublisherModel publisherModel) {
     int updatedRows = PublisherDAO.getInstance().update(publisherModel);
     if (updatedRows > 0) {
       for (int i = 0; i < publisherList.size(); i++) {
@@ -116,7 +115,7 @@ public class PublisherBUS implements IBUS<PublisherModel> {
   }
 
   @Override
-  public int deleteModel(int id) throws SQLException, ClassNotFoundException {
+  public int deleteModel(int id) {
     PublisherModel publisherModel = getModelById(id);
     if (publisherModel == null) {
       throw new IllegalArgumentException("Publisher with ID " + id + " does not exist.");
@@ -129,20 +128,14 @@ public class PublisherBUS implements IBUS<PublisherModel> {
   }
 
   @Override
-  public List<PublisherModel> searchModel(String value, String[] columns) throws SQLException, ClassNotFoundException {
+  public List<PublisherModel> searchModel(String value, String[] columns) {
     List<PublisherModel> results = new ArrayList<>();
-    try {
-      List<PublisherModel> entities = PublisherDAO.getInstance().search(value, columns);
-      for (PublisherModel entity : entities) {
-        PublisherModel model = mapToEntity(entity);
-        if (checkFilter(model, value, columns)) {
-          results.add(model);
-        }
+    List<PublisherModel> entities = PublisherDAO.getInstance().search(value, columns);
+    for (PublisherModel entity : entities) {
+      PublisherModel model = mapToEntity(entity);
+      if (checkFilter(model, value, columns)) {
+        results.add(model);
       }
-    } catch (SQLException e) {
-      throw new SQLException("Failed to search for publisher: " + e.getMessage());
-    } catch (ClassNotFoundException e) {
-      throw new ClassNotFoundException("Failed to search for publisher: " + e.getMessage());
     }
 
     if (results.isEmpty()) {

@@ -1,6 +1,5 @@
 package com.bookstore.bus;
 
-import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -17,14 +16,14 @@ public class PaymentBUS implements IBUS<PaymentModel> {
   private final List<PaymentModel> paymentList = new ArrayList<>();
   private static PaymentBUS instance;
 
-  public static PaymentBUS getInstance() throws ClassNotFoundException, SQLException {
+  public static PaymentBUS getInstance() {
     if (instance == null) {
       instance = new PaymentBUS();
     }
     return instance;
   }
 
-  private PaymentBUS() throws SQLException, ClassNotFoundException {
+  private PaymentBUS() {
     this.paymentList.addAll(PaymentDAO.getInstance().readDatabase());
   }
 
@@ -34,7 +33,7 @@ public class PaymentBUS implements IBUS<PaymentModel> {
   }
 
   @Override
-  public PaymentModel getModelById(int id) throws SQLException, ClassNotFoundException {
+  public PaymentModel getModelById(int id) {
     for (PaymentModel paymentModel : paymentList) {
       if (paymentModel.getId() == id) {
         return paymentModel;
@@ -62,7 +61,7 @@ public class PaymentBUS implements IBUS<PaymentModel> {
   }
 
   @Override
-  public int addModel(PaymentModel paymentModel) throws SQLException, ClassNotFoundException {
+  public int addModel(PaymentModel paymentModel) {
     if (paymentModel.getOrderId() <= 0) {
       throw new IllegalArgumentException("Order ID must be greater than 0!");
     }
@@ -87,7 +86,7 @@ public class PaymentBUS implements IBUS<PaymentModel> {
   }
 
   @Override
-  public int updateModel(PaymentModel paymentModel) throws SQLException, ClassNotFoundException {
+  public int updateModel(PaymentModel paymentModel) {
     int updatedRows = PaymentDAO.getInstance().update(paymentModel);
     if (updatedRows > 0) {
       for (int i = 0; i < paymentList.size(); i++) {
@@ -100,7 +99,7 @@ public class PaymentBUS implements IBUS<PaymentModel> {
     return updatedRows;
   }
 
-  public int updateStatus(int orderId, PaymentStatus status) throws ClassNotFoundException, SQLException {
+  public int updateStatus(int orderId, PaymentStatus status) {
     int success = PaymentDAO.getInstance().updateStatus(orderId, status);
     if (success == 1) {
       for (PaymentModel payment : paymentList) {
@@ -115,7 +114,7 @@ public class PaymentBUS implements IBUS<PaymentModel> {
   }
 
   @Override
-  public int deleteModel(int id) throws SQLException, ClassNotFoundException {
+  public int deleteModel(int id) {
     PaymentModel paymentModel = getModelById(id);
     if (paymentModel == null) {
       throw new IllegalArgumentException("Payment with ID " + id + " does not exist.");
@@ -128,7 +127,7 @@ public class PaymentBUS implements IBUS<PaymentModel> {
   }
 
   @Override
-  public List<PaymentModel> searchModel(String value, String[] columns) throws SQLException, ClassNotFoundException {
+  public List<PaymentModel> searchModel(String value, String[] columns) {
     throw new UnsupportedOperationException("Search is not supported for PaymentBUS.");
   }
 

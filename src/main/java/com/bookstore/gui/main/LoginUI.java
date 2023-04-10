@@ -172,12 +172,12 @@ public class LoginUI extends JFrame {
             case CUSTOMER -> {
               frameFactory = new CustomerFrameFactory();
             }
-            case EMPLOYEE -> {
-              frameFactory = new EmployeeFrameFactory();
-            }
-            case ADMIN -> {
-              frameFactory = new AdminFrameFactory();
-            }
+            // case EMPLOYEE -> {
+            //   frameFactory = new EmployeeFrameFactory();
+            // }
+            // case ADMIN -> {
+            //   frameFactory = new AdminFrameFactory();
+            // }
             default -> {
               break;
             }

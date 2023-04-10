@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.bookstore.interfaces.IDAO;
@@ -27,41 +28,57 @@ public class PublisherDAO implements IDAO<PublisherModel> {
   }
 
   @Override
-  public ArrayList<PublisherModel> readDatabase() throws SQLException, ClassNotFoundException {
+  public ArrayList<PublisherModel> readDatabase() {
     ArrayList<PublisherModel> publisherList = new ArrayList<>();
     try (ResultSet rs = DatabaseConnection.executeQuery("SELECT * FROM publishers")) {
       while (rs.next()) {
         PublisherModel publisherModel = createPublisherModelFromResultSet(rs);
         publisherList.add(publisherModel);
       }
+    } catch (SQLException e) {
+      e.printStackTrace();
     }
     return publisherList;
   }
 
   @Override
-  public int insert(PublisherModel publisher) throws SQLException, ClassNotFoundException {
+  public int insert(PublisherModel publisher) {
     String insertSql = "INSERT INTO publishers (name, description) VALUES (?, ?)";
     Object[] args = { publisher.getName(), publisher.getDescription() };
-    return DatabaseConnection.executeUpdate(insertSql, args);
+    try {
+      return DatabaseConnection.executeUpdate(insertSql, args);
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return -1;
+    }
   }
 
   @Override
-  public int update(PublisherModel publisher) throws SQLException, ClassNotFoundException {
+  public int update(PublisherModel publisher) {
     String updateSql = "UPDATE publishers SET name = ?, description = ? WHERE id = ?";
     Object[] args = { publisher.getName(), publisher.getDescription(), publisher.getId() };
-    return DatabaseConnection.executeUpdate(updateSql, args);
+    try {
+      return DatabaseConnection.executeUpdate(updateSql, args);
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return -1;
+    }
   }
 
   @Override
-  public int delete(int id) throws SQLException, ClassNotFoundException {
+  public int delete(int id) {
     String deleteSql = "DELETE FROM publishers WHERE id = ?";
     Object[] args = { id };
-    return DatabaseConnection.executeUpdate(deleteSql, args);
+    try {
+      return DatabaseConnection.executeUpdate(deleteSql, args);
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return -1;
+    }
   }
 
   @Override
-  public List<PublisherModel> search(String condition, String[] columnNames)
-      throws SQLException, ClassNotFoundException {
+  public List<PublisherModel> search(String condition, String[] columnNames) {
     if (condition == null || condition.trim().isEmpty()) {
       throw new IllegalArgumentException("Search condition cannot be empty or null");
     }
@@ -92,6 +109,9 @@ public class PublisherDAO implements IDAO<PublisherModel> {
         }
         return publisherList;
       }
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return Collections.emptyList();
     }
   }
 }

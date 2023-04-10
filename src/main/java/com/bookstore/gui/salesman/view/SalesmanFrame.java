@@ -1,7 +1,6 @@
 package com.bookstore.gui.salesman.view;
 
 import java.awt.Dimension;
-import java.awt.Frame;
 import javax.swing.*;
 
 import com.bookstore.gui.main.LoginUI;
@@ -10,9 +9,9 @@ import com.bookstore.gui.salesman.view.Account.AccountPanel;
 import java.awt.event.*;
 import java.sql.SQLException;
 
-public class SalesmanFrame extends Frame {
+public class SalesmanFrame extends JFrame {
 
-  public SalesmanFrame() throws ClassNotFoundException, SQLException {
+  public SalesmanFrame() {
     initFrame();
     initComponents();
     handleEvent();
@@ -25,7 +24,7 @@ public class SalesmanFrame extends Frame {
     setLocationRelativeTo(null);
   }
 
-  private void initComponents() throws ClassNotFoundException, SQLException {
+  private void initComponents() {
 
     container = new JPanel();
     logoutButton = new JButton();
@@ -117,15 +116,7 @@ public class SalesmanFrame extends Frame {
       @Override
       public void actionPerformed(ActionEvent e) {
         contentCustomerList.removeAll();
-        try {
           contentCustomerList.add(new CustomerListPanel());
-        } catch (ClassNotFoundException e1) {
-          // TODO Auto-generated catch block
-          e1.printStackTrace();
-        } catch (SQLException e1) {
-          // TODO Auto-generated catch block
-          e1.printStackTrace();
-        }
         contentCustomerList.revalidate();
         contentCustomerList.repaint();
       }
@@ -201,15 +192,7 @@ public class SalesmanFrame extends Frame {
   public static void main(String args[]) {
     java.awt.EventQueue.invokeLater(new Runnable() {
       public void run() {
-        try {
-          new SalesmanFrame().setVisible(true);
-        } catch (ClassNotFoundException e) {
-          // TODO Auto-generated catch block
-          e.printStackTrace();
-        } catch (SQLException e) {
-          // TODO Auto-generated catch block
-          e.printStackTrace();
-        }
+        new SalesmanFrame();
       }
     });
   }

@@ -1,6 +1,5 @@
 package com.bookstore.bus;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -14,14 +13,14 @@ public class ProviderBUS implements IBUS<ProviderModel> {
   private final List<ProviderModel> providerList = new ArrayList<>();
   private static ProviderBUS instance;
 
-  public static ProviderBUS getInstance() throws ClassNotFoundException, SQLException {
+  public static ProviderBUS getInstance() {
     if (instance == null) {
       instance = new ProviderBUS();
     }
     return instance;
   }
 
-  private ProviderBUS() throws SQLException, ClassNotFoundException {
+  private ProviderBUS() {
     this.providerList.addAll(ProviderDAO.getInstance().readDatabase());
   }
 
@@ -31,7 +30,7 @@ public class ProviderBUS implements IBUS<ProviderModel> {
   }
 
   @Override
-  public ProviderModel getModelById(int id) throws SQLException, ClassNotFoundException {
+  public ProviderModel getModelById(int id) {
     for (ProviderModel providerModel : providerList) {
       if (providerModel.getId() == id) {
         return providerModel;
@@ -87,7 +86,7 @@ public class ProviderBUS implements IBUS<ProviderModel> {
   }
 
   @Override
-  public int addModel(ProviderModel providerModel) throws SQLException, ClassNotFoundException {
+  public int addModel(ProviderModel providerModel) {
     if (providerModel.getName() == null || providerModel.getName().isEmpty()) {
       throw new IllegalArgumentException("Name cannot be null or empty!");
     }
@@ -102,7 +101,7 @@ public class ProviderBUS implements IBUS<ProviderModel> {
   }
 
   @Override
-  public int updateModel(ProviderModel providerModel) throws SQLException, ClassNotFoundException {
+  public int updateModel(ProviderModel providerModel) {
     int updatedRows = ProviderDAO.getInstance().update(providerModel);
     if (updatedRows > 0) {
       for (int i = 0; i < providerList.size(); i++) {
@@ -116,7 +115,7 @@ public class ProviderBUS implements IBUS<ProviderModel> {
   }
 
   @Override
-  public int deleteModel(int id) throws SQLException, ClassNotFoundException {
+  public int deleteModel(int id) {
     ProviderModel providerModel = getModelById(id);
     if (providerModel == null) {
       throw new IllegalArgumentException("Provider with ID " + id + " does not exist.");
@@ -129,20 +128,14 @@ public class ProviderBUS implements IBUS<ProviderModel> {
   }
 
   @Override
-  public List<ProviderModel> searchModel(String value, String[] columns) throws SQLException, ClassNotFoundException {
+  public List<ProviderModel> searchModel(String value, String[] columns) {
     List<ProviderModel> results = new ArrayList<>();
-    try {
-      List<ProviderModel> entities = ProviderDAO.getInstance().search(value, columns);
-      for (ProviderModel entity : entities) {
-        ProviderModel model = mapToEntity(entity);
-        if (checkFilter(model, value, columns)) {
-          results.add(model);
-        }
+    List<ProviderModel> entities = ProviderDAO.getInstance().search(value, columns);
+    for (ProviderModel entity : entities) {
+      ProviderModel model = mapToEntity(entity);
+      if (checkFilter(model, value, columns)) {
+        results.add(model);
       }
-    } catch (SQLException e) {
-      throw new SQLException("Failed to search for provider: " + e.getMessage());
-    } catch (ClassNotFoundException e) {
-      throw new ClassNotFoundException("Failed to search for provider: " + e.getMessage());
     }
 
     if (results.isEmpty()) {

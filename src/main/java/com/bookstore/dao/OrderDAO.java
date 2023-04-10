@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class OrderDAO implements IDAO<OrderModel> {
@@ -33,54 +34,72 @@ public class OrderDAO implements IDAO<OrderModel> {
   }
 
   @Override
-  public ArrayList<OrderModel> readDatabase() throws SQLException, ClassNotFoundException {
+  public ArrayList<OrderModel> readDatabase() {
+    ArrayList<OrderModel> orderList = new ArrayList<>();
     String query = "SELECT * FROM orders";
     try (ResultSet rs = DatabaseConnection.executeQuery(query)) {
-      ArrayList<OrderModel> orderList = new ArrayList<>();
       while (rs.next()) {
         OrderModel orderModel = createOrderModelFromResultSet(rs);
         orderList.add(orderModel);
       }
-      if (orderList.isEmpty()) {
-        System.out.println("No records found!");
-      }
-      return orderList;
+    } catch (SQLException e) {
+      e.printStackTrace();
     }
+    return orderList;
   }
 
   @Override
-  public int insert(OrderModel order) throws SQLException, ClassNotFoundException {
+  public int insert(OrderModel order) {
     String insertSql = "INSERT INTO orders (cart_id, customer_id, employee_id, total, paid, status)"
         + "VALUES (?, ?, ?, ?, ?, ?)";
     Object[] args = { order.getCart_id(), order.getCustomer_id(), order.getEmployee_id(), order.getTotal(),
         order.getPaid(), order.getStatus().name() };
-    return DatabaseConnection.executeUpdate(insertSql, args);
+    try {
+      return DatabaseConnection.executeUpdate(insertSql, args);
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return -1;
+    }
   }
 
   @Override
-  public int update(OrderModel order) throws SQLException, ClassNotFoundException {
+  public int update(OrderModel order) {
     String updateSql = "UPDATE orders SET cart_id=?, customer_id=?, employee_id=?, total=?, paid=?, status=? WHERE id=?";
     Object[] args = { order.getCart_id(), order.getCustomer_id(), order.getEmployee_id(), order.getTotal(),
         order.getPaid(), order.getStatus().name(), order.getId() };
-    return DatabaseConnection.executeUpdate(updateSql, args);
+    try {
+      return DatabaseConnection.executeUpdate(updateSql, args);
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return -1;
+    }
   }
 
-  public int updateStatus(int cartId, Status status) throws SQLException, ClassNotFoundException {
+  public int updateStatus(int cartId, Status status) {
     String updateSql = "UPDATE orders SET status = ? WHERE cart_id = ?";
     Object[] args = { status, cartId };
-    return DatabaseConnection.executeUpdate(updateSql, args);
+    try {
+      return DatabaseConnection.executeUpdate(updateSql, args);
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return -1;
+    }
   }
 
   @Override
-  public int delete(int id) throws SQLException, ClassNotFoundException {
+  public int delete(int id) {
     String deleteSql = "DELETE FROM orders WHERE id = ?";
     Object[] args = { id };
-    return DatabaseConnection.executeUpdate(deleteSql, args);
+    try {
+      return DatabaseConnection.executeUpdate(deleteSql, args);
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return -1;
+    }
   }
 
   @Override
-  public List<OrderModel> search(String condition, String[] columnNames)
-      throws SQLException, ClassNotFoundException {
+  public List<OrderModel> search(String condition, String[] columnNames) {
 
     if (condition == null || condition.trim().isEmpty()) {
       throw new IllegalArgumentException("Search condition cannot be empty or null");
@@ -111,6 +130,9 @@ public class OrderDAO implements IDAO<OrderModel> {
         }
         return orderList;
       }
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return Collections.emptyList();
     }
   }
 
