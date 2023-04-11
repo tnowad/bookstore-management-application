@@ -1,32 +1,15 @@
 package com.bookstore;
 
-import java.awt.EventQueue;
-import java.util.concurrent.Flow.Publisher;
-
-import javax.swing.JDialog;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-
-import com.bookstore.bus.AddressBUS;
-import com.bookstore.bus.AuthorBUS;
-import com.bookstore.bus.BookBUS;
-import com.bookstore.bus.CartBUS;
-import com.bookstore.bus.CartItemsBUS;
-import com.bookstore.bus.CategoryBUS;
-import com.bookstore.bus.EmployeeBUS;
-import com.bookstore.bus.ImportBUS;
-import com.bookstore.bus.OrderBUS;
-import com.bookstore.bus.PaymentBUS;
-import com.bookstore.bus.PaymentMethodBUS;
-import com.bookstore.bus.PromotionBUS;
-import com.bookstore.bus.ProviderBUS;
-import com.bookstore.bus.PublisherBUS;
-import com.bookstore.bus.UserBUS;
+import com.bookstore.bus.*;
 import com.bookstore.dao.DatabaseConnection;
 import com.bookstore.gui.main.LoginUI;
 import com.formdev.flatlaf.FlatLightLaf;
 
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+
 public class App {
+
   public static void main(String[] args) {
     SwingUtilities.invokeLater(() -> {
       try {
@@ -46,7 +29,6 @@ public class App {
   }
 
   static class LoadDataRunnable implements Runnable {
-
     @Override
     public void run() {
       DatabaseConnection.getInstance().getConnection();
@@ -86,12 +68,10 @@ public class App {
   }
 
   static class LoadGuiRunnable implements Runnable {
-
     @Override
     public void run() {
       LoginUI loginUI = new LoginUI();
       loginUI.setVisible(true);
     }
   }
-
 }
