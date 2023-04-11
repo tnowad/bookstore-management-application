@@ -1,20 +1,19 @@
 package com.bookstore.model;
 
-import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 public class ImportModel {
   private int id;
   private int providerId;
   private int employeeId;
-  private BigDecimal totalPrice;
+  private Double totalPrice;
   private Timestamp createdAt;
   private Timestamp updatedAt;
 
   public ImportModel() {
   }
 
-  public ImportModel(int id, int providerId, int employeeId, BigDecimal totalPrice, Timestamp createdAt,
+  public ImportModel(int id, int providerId, int employeeId, Double totalPrice, Timestamp createdAt,
       Timestamp updatedAt) {
     this.id = id;
     this.providerId = providerId;
@@ -44,11 +43,11 @@ public class ImportModel {
     this.employeeId = employeeId;
   }
 
-  public BigDecimal getTotalPrice() {
+  public Double getTotalPrice() {
     return totalPrice;
   }
 
-  public void setTotalPrice(BigDecimal totalPrice) {
+  public void setTotalPrice(Double totalPrice) {
     this.totalPrice = totalPrice;
   }
 
@@ -87,7 +86,7 @@ public class ImportModel {
     return this;
   }
 
-  public ImportModel totalPrice(BigDecimal totalPrice) {
+  public ImportModel totalPrice(Double totalPrice) {
     setTotalPrice(totalPrice);
     return this;
   }

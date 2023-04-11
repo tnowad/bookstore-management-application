@@ -58,7 +58,6 @@ public class DatabaseConnection {
    * @param args
    * @return ResultSet after executing query
    * @throws SQLException
-   * @throws ClassNotFoundException
    */
   public static ResultSet executeQuery(String sql, Object... args) throws SQLException {
     PreparedStatement preparedStatement = getPreparedStatement(sql, args);
@@ -72,7 +71,6 @@ public class DatabaseConnection {
    * @param args
    * @return number of rows affected by the update
    * @throws SQLException
-   * @throws ClassNotFoundException
    */
   public static int executeUpdate(String sql, Object... args) throws SQLException {
     PreparedStatement preparedStatement = getPreparedStatement(sql, args);

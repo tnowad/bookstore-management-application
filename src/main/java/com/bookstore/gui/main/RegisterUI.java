@@ -171,9 +171,10 @@ public class RegisterUI extends JFrame {
       String email = groupEmail.getTextField().getText();
       String phone = groupPhone.getTextField().getText();
       char[] password = groupPassword.getPasswordField().getPassword();
+      char[] passwordAgain = groupPasswordAgain.getPasswordField().getPassword();
       String passwordText = new String(password);
+      String passwordAgainText = new String(passwordAgain);
 
-      UserModel newUser = new UserModel(0, username, passwordText, null, name, email, phone, null, null, null);
       // Check if the username, email, phone is already taken
       ArrayList<String> checkDuplicate = new ArrayList<>();
       checkDuplicate.add(username);
@@ -204,11 +205,18 @@ public class RegisterUI extends JFrame {
         }
       }
 
+      if (!passwordText.equals(passwordAgainText)) {
+        JOptionPane.showMessageDialog(null, "Your password doesn't match. Please check and re-type password.");
+        return;
+      }
+
+      UserModel newUser = new UserModel(0, username, passwordText, null, name, email, phone, null, null, null);
       int added = UserBUS.getInstance().addModel(newUser);
       if (added == 1) {
         // ProfileModel.getInstance().setUser(newUser);
         JOptionPane.showMessageDialog(null, "You've successfully registered! You can log in now.");
         dispose(); // close the registration UI
+        new LoginUI();
       } else {
         JOptionPane.showMessageDialog(null, "Registration failed. Please try again!");
       }

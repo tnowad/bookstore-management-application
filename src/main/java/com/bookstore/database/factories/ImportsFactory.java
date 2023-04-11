@@ -1,6 +1,5 @@
 package com.bookstore.database.factories;
 
-import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 import com.bookstore.model.ImportModel;
@@ -19,7 +18,7 @@ public class ImportsFactory implements IFactory<ImportModel> {
         getNewId(),
         faker.number().numberBetween(1, 100),
         faker.number().numberBetween(1, 100),
-        BigDecimal.valueOf(faker.number().randomDouble(0, 20000, 500000)),
+        Double.valueOf(faker.number().randomDouble(0, 20000, 500000)),
         Timestamp.from(faker.date().birthday().toInstant()),
         Timestamp.from(faker.date().birthday().toInstant()));
   }

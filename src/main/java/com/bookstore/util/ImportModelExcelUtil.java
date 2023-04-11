@@ -2,7 +2,6 @@ package com.bookstore.util;
 
 import java.io.File;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -67,14 +66,14 @@ public class ImportModelExcelUtil extends ExcelUtil {
       int id;
       int providerId;
       int employeeId;
-      BigDecimal totalPrice;
+      Double totalPrice;
       Timestamp createdAt;
       Timestamp updatedAt;
       try {
         id = Integer.parseInt(row.get(0)) + 1;
         providerId = Integer.parseInt(row.get(1));
         employeeId = Integer.parseInt(row.get(2));
-        totalPrice = new BigDecimal(row.get(3));
+        totalPrice = Double.parseDouble(row.get(3));
         createdAt = Timestamp.valueOf(row.get(4));
         updatedAt = Timestamp.valueOf(row.get(5));
       } catch (IllegalArgumentException e) {

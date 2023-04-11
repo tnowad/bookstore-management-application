@@ -1,6 +1,5 @@
 package com.bookstore.bus;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -96,7 +95,7 @@ public class ImportBUS implements IBUS<ImportModel> {
   }
 
   private boolean checkTotalPrice(ImportModel importModel, String value) {
-    return importModel.getTotalPrice().equals(new BigDecimal(value));
+    return importModel.getTotalPrice() == Double.parseDouble(value);
   }
 
   private boolean checkCreatedAt(ImportModel importModel, String value) {
@@ -111,7 +110,7 @@ public class ImportBUS implements IBUS<ImportModel> {
     return importModel.getId() == Integer.parseInt(value)
         || importModel.getProviderId() == Integer.parseInt(value)
         || importModel.getEmployeeId() == Integer.parseInt(value)
-        || importModel.getTotalPrice().equals(new BigDecimal(value))
+        || importModel.getTotalPrice() == Double.parseDouble(value)
         || importModel.getCreatedAt().toString().contains(value)
         || importModel.getUpdatedAt().toString().contains(value);
   }
@@ -124,7 +123,7 @@ public class ImportBUS implements IBUS<ImportModel> {
     if (importModel.getEmployeeId() <= 0) {
       throw new IllegalArgumentException("Employee ID cannot be less than or equal to zero!");
     }
-    if (importModel.getTotalPrice().compareTo(BigDecimal.ZERO) <= 0) {
+    if (importModel.getTotalPrice() <= 0) {
       throw new IllegalArgumentException("Total price cannot be less than or equal to zero!");
     }
 
@@ -148,7 +147,7 @@ public class ImportBUS implements IBUS<ImportModel> {
     return updatedRows;
   }
 
-  public int updateTotal(int id, BigDecimal total) {
+  public int updateTotal(int id, Double total) {
     ImportModel importModel = getModelById(id);
     if (importModel == null) {
       throw new IllegalArgumentException("Import with ID " + id + " does not exist.");

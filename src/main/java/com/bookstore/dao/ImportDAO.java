@@ -3,7 +3,6 @@ package com.bookstore.dao;
 import com.bookstore.interfaces.IDAO;
 import com.bookstore.model.ImportModel;
 
-import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,7 +25,7 @@ public class ImportDAO implements IDAO<ImportModel> {
     int id = rs.getInt("id");
     int providerId = rs.getInt("provider_id");
     int employeeId = rs.getInt("employee_id");
-    BigDecimal totalPrice = rs.getBigDecimal("total_price");
+    Double totalPrice = rs.getDouble("total_price");
     Timestamp createdAt = rs.getTimestamp("created_at");
     Timestamp updatedAt = rs.getTimestamp("updated_at");
 

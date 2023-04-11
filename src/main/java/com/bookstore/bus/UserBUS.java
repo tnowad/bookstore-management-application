@@ -263,10 +263,10 @@ public class UserBUS implements IBUS<UserModel> {
     Optional<UserModel> optionalUser = UserBUS.getInstance().getAllModels().stream()
         .filter(user -> {
           for (String value : values) {
-            if (Arrays.asList(columns).contains("email") && user.getEmail().equals(value)) {
+            if (Arrays.asList(columns).contains("email") && !value.isEmpty() && user.getEmail().equals(value)) {
               return true;
             }
-            if (Arrays.asList(columns).contains("phone") && user.getPhone().equals(value)) {
+            if (Arrays.asList(columns).contains("phone") && !value.isEmpty() && user.getPhone().equals(value)) {
               return true;
             }
             if (Arrays.asList(columns).contains("username") && user.getUsername().equals(value)) {
