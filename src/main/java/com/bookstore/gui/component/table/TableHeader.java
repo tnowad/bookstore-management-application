@@ -1,4 +1,4 @@
-package com.bookstore.gui.component;
+package com.bookstore.gui.component.table;
 
 import java.awt.Color;
 import java.awt.Font;

@@ -1,4 +1,4 @@
-package com.bookstore.gui.component;
+package com.bookstore.gui.component.panel;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;

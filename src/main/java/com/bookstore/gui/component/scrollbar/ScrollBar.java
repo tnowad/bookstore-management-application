@@ -1,4 +1,4 @@
-package com.bookstore.gui.component;
+package com.bookstore.gui.component.scrollbar;
 
 import java.awt.Color;
 import java.awt.Dimension;

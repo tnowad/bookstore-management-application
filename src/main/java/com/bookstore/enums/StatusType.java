@@ -1,7 +1,7 @@
-package com.bookstore.gui.component;
+package com.bookstore.enums;
 
 public enum StatusType {
-  PENDING, APPROVED, REJECT,ACTIVE,
+  PENDING, APPROVED, REJECT, ACTIVE,
   INACTIVE,
   BANNED
 }

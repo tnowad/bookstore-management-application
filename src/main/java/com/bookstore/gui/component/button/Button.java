@@ -1,4 +1,4 @@
-package com.bookstore.gui.component;
+package com.bookstore.gui.component.button;
 
 import java.awt.Color;
 import java.awt.Component;

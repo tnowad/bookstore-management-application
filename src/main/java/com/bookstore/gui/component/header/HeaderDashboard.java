@@ -1,8 +1,10 @@
-package com.bookstore.gui.component;
+package com.bookstore.gui.component.header;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+
+import com.bookstore.gui.component.input.SearchText;
 
 public class HeaderDashboard extends javax.swing.JPanel {
 

@@ -1,4 +1,4 @@
-package com.bookstore.gui.component;
+package com.bookstore.gui.component.table;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -6,6 +6,8 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+
+import com.bookstore.enums.StatusType;
 
 public class Table extends JTable {
 

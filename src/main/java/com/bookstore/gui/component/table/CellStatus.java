@@ -1,4 +1,6 @@
-package com.bookstore.gui.component;
+package com.bookstore.gui.component.table;
+
+import com.bookstore.enums.StatusType;
 
 public class CellStatus extends javax.swing.JPanel {
 

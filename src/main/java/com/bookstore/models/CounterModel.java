@@ -18,11 +18,11 @@ public class CounterModel {
     this.value = value;
   }
 
-  public void IncreaseValue() {
+  public void increaseValue() {
     this.value++;
   }
 
-  public void DecreaseValue() {
+  public void decreaseValue() {
     this.value--;
   }
 

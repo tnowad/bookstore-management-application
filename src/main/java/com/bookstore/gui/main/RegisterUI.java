@@ -6,7 +6,7 @@ import java.awt.event.*;
 import java.util.ArrayList;
 
 import com.bookstore.bus.UserBUS;
-import com.bookstore.gui.component.GroupInput;
+import com.bookstore.gui.component.input.GroupInput;
 import com.bookstore.models.UserModel;
 
 public class RegisterUI extends JFrame {
