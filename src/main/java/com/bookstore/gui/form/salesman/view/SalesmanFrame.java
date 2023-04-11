@@ -7,7 +7,6 @@ import com.bookstore.gui.form.salesman.view.Account.AccountPanel;
 import com.bookstore.gui.main.LoginUI;
 
 import java.awt.event.*;
-import java.sql.SQLException;
 
 public class SalesmanFrame extends JFrame {
 

@@ -2,7 +2,6 @@ package com.bookstore.util;
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -21,8 +20,7 @@ public class PublisherExcelUtil extends ExcelUtil {
   private static final String[] EXCEL_EXTENSIONS = { "xls", "xlsx", "xlsm" };
   private static final Logger LOGGER = Logger.getLogger(PublisherExcelUtil.class.getName());
 
-  public static List<PublisherModel> readPublishersFromExcel()
-      throws IOException, ClassNotFoundException, SQLException {
+  public static List<PublisherModel> readPublishersFromExcel() throws IOException {
     JFileChooser fileChooser = new JFileChooser();
     FileNameExtensionFilter filter = new FileNameExtensionFilter("Excel File", EXCEL_EXTENSIONS);
     fileChooser.setFileFilter(filter);
@@ -58,8 +56,7 @@ public class PublisherExcelUtil extends ExcelUtil {
     JOptionPane.showMessageDialog(null, "Error: " + message, title, JOptionPane.ERROR_MESSAGE);
   }
 
-  private static List<PublisherModel> convertToPublisherModelList(List<List<String>> data)
-      throws IllegalArgumentException, ClassNotFoundException, SQLException {
+  private static List<PublisherModel> convertToPublisherModelList(List<List<String>> data) {
     List<PublisherModel> publisherModels = new ArrayList<>();
     for (int i = 1; i < data.size(); i++) {
       List<String> row = data.get(i);

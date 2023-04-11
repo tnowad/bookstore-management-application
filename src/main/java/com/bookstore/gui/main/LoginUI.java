@@ -162,8 +162,8 @@ public class LoginUI extends JFrame {
         UserModel userModel = UserBUS.getInstance().getModelByUsername(username);
         if (passwordFld.equals(userModel.getPassword())) {
           System.out.println("Logged in successfully");
-          dispose();
-          FactoryFrame frameFactory = null;
+          //dispose();
+          //FactoryFrame frameFactory = null;
           switch (userModel.getRole()) {
             case CUSTOMER -> {
             }
@@ -177,8 +177,8 @@ public class LoginUI extends JFrame {
               break;
             }
           }
-          JFrame homeUI = frameFactory.createFrame();
-          homeUI.setVisible(true);
+          // JFrame homeUI = frameFactory.createFrame();
+          // homeUI.setVisible(true);
         } else {
           JOptionPane.showMessageDialog(null,
               "Invalid username or password. Please check the username or password and try again.");

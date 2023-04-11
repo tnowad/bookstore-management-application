@@ -2,7 +2,6 @@ package com.bookstore.util;
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -22,7 +21,7 @@ public class BookExcelUtil extends ExcelUtil {
   private static final String[] EXCEL_EXTENSIONS = { "xls", "xlsx", "xlsm" };
   private static final Logger LOGGER = Logger.getLogger(BookExcelUtil.class.getName());
 
-  public static List<BookModel> readBooksFromExcel() throws IOException, ClassNotFoundException, SQLException {
+  public static List<BookModel> readBooksFromExcel() throws IOException {
     // BookBUS bookBUS = BookBUS.getInstance();
     JFileChooser fileChooser = new JFileChooser();
     FileNameExtensionFilter filter = new FileNameExtensionFilter("Excel File", EXCEL_EXTENSIONS);
@@ -59,8 +58,7 @@ public class BookExcelUtil extends ExcelUtil {
     JOptionPane.showMessageDialog(null, "Error: " + message, title, JOptionPane.ERROR_MESSAGE);
   }
 
-  private static List<BookModel> convertToBookModelList(List<List<String>> data)
-      throws IllegalArgumentException, ClassNotFoundException, SQLException {
+  private static List<BookModel> convertToBookModelList(List<List<String>> data) {
     List<BookModel> bookModels = new ArrayList<>();
     for (int i = 1; i < data.size(); i++) {
       List<String> row = data.get(i);

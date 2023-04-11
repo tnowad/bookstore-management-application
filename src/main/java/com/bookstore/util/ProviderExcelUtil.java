@@ -2,7 +2,6 @@ package com.bookstore.util;
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -21,7 +20,7 @@ public class ProviderExcelUtil extends ExcelUtil {
   private static final String[] EXCEL_EXTENSIONS = { "xls", "xlsx", "xlsm" };
   private static final Logger LOGGER = Logger.getLogger(ProviderExcelUtil.class.getName());
 
-  public static List<ProviderModel> readProvidersFromExcel() throws IOException, ClassNotFoundException, SQLException {
+  public static List<ProviderModel> readProvidersFromExcel() throws IOException {
     JFileChooser fileChooser = new JFileChooser();
     FileNameExtensionFilter filter = new FileNameExtensionFilter("Excel File", EXCEL_EXTENSIONS);
     fileChooser.setFileFilter(filter);
@@ -57,8 +56,7 @@ public class ProviderExcelUtil extends ExcelUtil {
     JOptionPane.showMessageDialog(null, "Error: " + message, title, JOptionPane.ERROR_MESSAGE);
   }
 
-  private static List<ProviderModel> convertToProviderModelList(List<List<String>> data)
-      throws IllegalArgumentException, ClassNotFoundException, SQLException {
+  private static List<ProviderModel> convertToProviderModelList(List<List<String>> data) {
     List<ProviderModel> providerModels = new ArrayList<>();
     for (int i = 1; i < data.size(); i++) {
       List<String> row = data.get(i);

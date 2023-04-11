@@ -2,7 +2,6 @@ package com.bookstore.util;
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -24,8 +23,7 @@ public class PromotionExcelUtil extends ExcelUtil {
   private static final String[] EXCEL_EXTENSIONS = { "xls", "xlsx", "xlsm" };
   private static final Logger LOGGER = Logger.getLogger(PromotionExcelUtil.class.getName());
 
-  public static List<PromotionModel> readPromotionsFromExcel()
-      throws IOException, ClassNotFoundException, SQLException {
+  public static List<PromotionModel> readPromotionsFromExcel() throws IOException {
     JFileChooser fileChooser = new JFileChooser();
     FileNameExtensionFilter filter = new FileNameExtensionFilter("Excel File", EXCEL_EXTENSIONS);
     fileChooser.setFileFilter(filter);
@@ -75,8 +73,7 @@ public class PromotionExcelUtil extends ExcelUtil {
     }
   }
 
-  private static List<PromotionModel> convertToPromotionModelList(List<List<String>> data)
-      throws IllegalArgumentException, ClassNotFoundException, SQLException {
+  private static List<PromotionModel> convertToPromotionModelList(List<List<String>> data) {
     List<PromotionModel> promotionModels = new ArrayList<>();
     for (int i = 1; i < data.size(); i++) {
       List<String> row = data.get(i);

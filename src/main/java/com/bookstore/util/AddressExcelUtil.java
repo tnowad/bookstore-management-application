@@ -2,7 +2,6 @@ package com.bookstore.util;
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -21,7 +20,7 @@ public class AddressExcelUtil extends ExcelUtil {
   private static final String[] EXCEL_EXTENSIONS = { "xls", "xlsx", "xlsm" };
   private static final Logger LOGGER = Logger.getLogger(AddressExcelUtil.class.getName());
 
-  public static List<AddressModel> readAddressesFromExcel() throws IOException, ClassNotFoundException, SQLException {
+  public static List<AddressModel> readAddressesFromExcel() throws IOException {
     JFileChooser fileChooser = new JFileChooser();
     FileNameExtensionFilter filter = new FileNameExtensionFilter("Excel File", EXCEL_EXTENSIONS);
     fileChooser.setFileFilter(filter);
@@ -58,7 +57,7 @@ public class AddressExcelUtil extends ExcelUtil {
   }
 
   private static List<AddressModel> convertToAddressModelList(List<List<String>> data)
-      throws IllegalArgumentException, ClassNotFoundException, SQLException {
+      throws IllegalArgumentException {
     List<AddressModel> addressModels = new ArrayList<>();
     for (int i = 1; i < data.size(); i++) {
       List<String> row = data.get(i);
