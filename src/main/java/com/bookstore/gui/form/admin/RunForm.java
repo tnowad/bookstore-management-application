@@ -7,7 +7,10 @@ import java.sql.SQLException;
 
 import javax.swing.*;
 
-import com.bookstore.gui.form.admin.component.UserComponent;
+import com.bookstore.gui.form.admin.component.bookListComponent.BrowseProductPanel;
+import com.bookstore.gui.form.admin.component.userListComponent.UserComponent;
+import com.bookstore.gui.form.admin.menu.MenuForm;
+
 
 public class RunForm extends JFrame {
   private JPanel MenuAdmin;
@@ -27,7 +30,8 @@ public class RunForm extends JFrame {
     setSize(new Dimension(920, 560));
     MenuAdmin = new JPanel();
     MenuAdmin.setPreferredSize(new Dimension(180, 500));
-    MenuAdmin.setBackground(Color.BLUE);
+    MenuForm menuForm = new MenuForm();
+    MenuAdmin.add(menuForm ); 
     add(MenuAdmin);
 
     Construct = new JPanel();
@@ -39,9 +43,9 @@ public class RunForm extends JFrame {
     HeaderAdmin.setBackground(Color.red);
     HeaderAdmin.setPreferredSize(new Dimension(680, 40));
 
-    Contend.setPreferredSize(new Dimension(700, 460));
     UserComponent userComponent = new UserComponent();
-    Contend.add(userComponent);
+    BrowseProductPanel browseProductPanel = new BrowseProductPanel();
+    Contend.add(browseProductPanel);
 
     Construct.add(HeaderAdmin);
     Construct.add(Contend);

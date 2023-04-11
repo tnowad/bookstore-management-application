@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package com.bookstore.gui.form.admin.component;
+package com.bookstore.gui.form.admin.component.userListComponent;
 
 import com.bookstore.bus.UserBUS;
 import com.bookstore.models.UserModel;
@@ -82,7 +82,7 @@ public class UserComponent extends javax.swing.JPanel implements MouseListener {
     AdminCart.setBorder(javax.swing.BorderFactory.createEtchedBorder());
     AdminCart.setPreferredSize(new java.awt.Dimension(145, 100));
 
-    IconAdmin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/bookstore/gui/admin/icon/admin.png"))); // NOI18N
+    IconAdmin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/images/adminCart.png"))); // NOI18N
 
     TextAdmin.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
     TextAdmin.setForeground(new java.awt.Color(255, 51, 51));
@@ -135,7 +135,7 @@ public class UserComponent extends javax.swing.JPanel implements MouseListener {
     Customer.setPreferredSize(new java.awt.Dimension(145, 100));
 
     IconCustomer
-        .setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/bookstore/gui/admin/icon/customer.png"))); // NOI18N
+        .setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/images/customerCart.png"))); // NOI18N
 
     TextCustomer.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
     TextCustomer.setForeground(new java.awt.Color(255, 51, 51));
@@ -188,7 +188,7 @@ public class UserComponent extends javax.swing.JPanel implements MouseListener {
     Employee.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
     IconEmployee
-        .setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/bookstore/gui/admin/icon/employee.png"))); // NOI18N
+        .setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/images/employeeCart.png"))); // NOI18N
 
     TextEmployee.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
     TextEmployee.setForeground(new java.awt.Color(255, 51, 51));
@@ -331,7 +331,7 @@ public class UserComponent extends javax.swing.JPanel implements MouseListener {
 
     });
 
-    jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/bookstore/gui/admin/icon/search.png"))); // NOI18N
+    jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/images/search.png"))); // NOI18N
 
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
     this.setLayout(layout);

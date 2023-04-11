@@ -1,4 +1,4 @@
-package com.bookstore.gui.form.admin.component;
+package com.bookstore.gui.form.admin.component.userListComponent;
 
 import java.sql.Timestamp;
 import java.time.Instant;
@@ -57,14 +57,14 @@ public class CreateUserForm extends javax.swing.JFrame {
     jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
     jLabel5.setText("Name");
 
-    ButtonCancer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/bookstore/gui/admin/icon/back.png"))); // NOI18N
+    ButtonCancer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/bookstore/gui/form/admin/icon/back.png"))); // NOI18N
     ButtonCancer.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         ButtonCancerActionPerformed(evt);
       }
     });
 
-    ButtonSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/bookstore/gui/admin/icon/save.png"))); // NOI18N
+    ButtonSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/bookstore/gui/admin/form/icon/save.png"))); // NOI18N
     ButtonSave.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         Status newstatus = Status.valueOf("ACTIVE");

@@ -2,14 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.bookstore.gui.form.admin.component;
+package com.bookstore.gui.form.admin.component.userListComponent;
 
 import com.bookstore.bus.UserBUS;
 import com.bookstore.models.UserModel;
 import com.bookstore.models.UserModel.Role;
 import com.bookstore.models.UserModel.Status;
 
-import java.awt.Component;
 import java.sql.Timestamp;
 import java.time.Instant;
 
@@ -150,14 +149,14 @@ public class PopupUser extends javax.swing.JFrame {
     SetdateUpdate.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
     SetdateUpdate.setText("" + dateUpdate);
 
-    Back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/bookstore/gui/admin/icon/back.png"))); // NOI18N
+    Back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/images/back.png"))); // NOI18N
     Back.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(Back);
         frame.dispose();
       }
     });
-    Save.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/bookstore/gui/admin/icon/save.png"))); // NOI18N
+    Save.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/images/save.png"))); // NOI18N
     Save.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         Object selectedStatusItem = SetStatus.getSelectedItem();
