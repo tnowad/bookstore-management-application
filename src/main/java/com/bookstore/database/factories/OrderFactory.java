@@ -1,6 +1,6 @@
 package com.bookstore.database.factories;
 
-import com.bookstore.model.OrderModel;
+import com.bookstore.models.OrderModel;
 import com.github.javafaker.Faker;
 import java.sql.Timestamp;
 

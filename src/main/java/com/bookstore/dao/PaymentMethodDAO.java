@@ -8,7 +8,7 @@ import java.util.Collections;
 import java.util.List;
 
 import com.bookstore.interfaces.IDAO;
-import com.bookstore.model.PaymentMethodModel;
+import com.bookstore.models.PaymentMethodModel;
 
 public class PaymentMethodDAO implements IDAO<PaymentMethodModel> {
 

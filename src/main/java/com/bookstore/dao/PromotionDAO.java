@@ -8,7 +8,7 @@ import java.util.Collections;
 import java.util.List;
 
 import com.bookstore.interfaces.IDAO;
-import com.bookstore.model.PromotionModel;
+import com.bookstore.models.PromotionModel;
 
 public class PromotionDAO implements IDAO<PromotionModel> {
   private static PromotionDAO instance;
@@ -113,8 +113,7 @@ public class PromotionDAO implements IDAO<PromotionModel> {
   }
 
   @Override
-  public List<PromotionModel> search(String condition, String[] columnNames)
-      {
+  public List<PromotionModel> search(String condition, String[] columnNames) {
     if (condition == null || condition.trim().isEmpty()) {
       throw new IllegalArgumentException("Search condition cannot be empty or null");
     }

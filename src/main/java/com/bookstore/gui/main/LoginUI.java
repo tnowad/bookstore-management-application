@@ -25,8 +25,7 @@ import com.bookstore.gui.factories.AdminFrameFactory;
 import com.bookstore.gui.factories.CustomerFrameFactory;
 import com.bookstore.gui.factories.EmployeeFrameFactory;
 import com.bookstore.interfaces.FactoryFrame;
-// import com.bookstore.model.ProfileModel;
-import com.bookstore.model.UserModel;
+import com.bookstore.models.UserModel;
 
 public class LoginUI extends JFrame {
   private static LoginUI instance;
@@ -173,10 +172,10 @@ public class LoginUI extends JFrame {
               frameFactory = new CustomerFrameFactory();
             }
             // case EMPLOYEE -> {
-            //   frameFactory = new EmployeeFrameFactory();
+            // frameFactory = new EmployeeFrameFactory();
             // }
             // case ADMIN -> {
-            //   frameFactory = new AdminFrameFactory();
+            // frameFactory = new AdminFrameFactory();
             // }
             default -> {
               break;

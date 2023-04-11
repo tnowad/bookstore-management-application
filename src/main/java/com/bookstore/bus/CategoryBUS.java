@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.bookstore.dao.CategoryDAO;
 import com.bookstore.interfaces.IBUS;
-import com.bookstore.model.CategoryModel;
+import com.bookstore.models.CategoryModel;
 
 public class CategoryBUS implements IBUS<CategoryModel> {
 

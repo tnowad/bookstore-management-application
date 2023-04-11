@@ -14,7 +14,7 @@ import javax.swing.JFileChooser;
 import org.junit.jupiter.api.Test;
 
 import com.bookstore.bus.AddressBUS;
-import com.bookstore.model.AddressModel;
+import com.bookstore.models.AddressModel;
 
 public class AddressExcelUtilTest {
 

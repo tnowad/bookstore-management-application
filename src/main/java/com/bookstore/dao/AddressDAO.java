@@ -8,7 +8,7 @@ import java.util.Collections;
 import java.util.List;
 
 import com.bookstore.interfaces.IDAO;
-import com.bookstore.model.AddressModel;
+import com.bookstore.models.AddressModel;
 
 public class AddressDAO implements IDAO<AddressModel> {
   private static AddressDAO instance;

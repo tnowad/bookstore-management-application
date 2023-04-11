@@ -8,7 +8,7 @@ import java.util.Collections;
 import java.util.List;
 
 import com.bookstore.interfaces.IDAO;
-import com.bookstore.model.CategoryModel;
+import com.bookstore.models.CategoryModel;
 
 public class CategoryDAO implements IDAO<CategoryModel> {
   private static CategoryDAO instance;

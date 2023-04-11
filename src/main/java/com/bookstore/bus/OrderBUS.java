@@ -7,8 +7,8 @@ import java.util.List;
 
 import com.bookstore.dao.OrderDAO;
 import com.bookstore.interfaces.IBUS;
-import com.bookstore.model.OrderModel;
-import com.bookstore.model.OrderModel.Status;
+import com.bookstore.models.OrderModel;
+import com.bookstore.models.OrderModel.Status;
 
 public class OrderBUS implements IBUS<OrderModel> {
 

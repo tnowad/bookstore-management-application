@@ -14,7 +14,7 @@ import javax.swing.JFileChooser;
 import org.junit.jupiter.api.Test;
 
 import com.bookstore.bus.BookBUS;
-import com.bookstore.model.BookModel;
+import com.bookstore.models.BookModel;
 
 public class BookExcelUtilTest {
   @Test

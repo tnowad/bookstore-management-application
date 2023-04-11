@@ -7,8 +7,8 @@ import java.util.List;
 
 import com.bookstore.dao.CartDAO;
 import com.bookstore.interfaces.IBUS;
-import com.bookstore.model.CartModel;
-import com.bookstore.model.CartModel.Status;
+import com.bookstore.models.CartModel;
+import com.bookstore.models.CartModel.Status;
 
 public class CartBUS implements IBUS<CartModel> {
 

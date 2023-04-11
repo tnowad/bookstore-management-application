@@ -1,6 +1,6 @@
 package com.bookstore.database.factories;
 
-import com.bookstore.model.CategoryModel;
+import com.bookstore.models.CategoryModel;
 import com.github.javafaker.Faker;
 
 public class CategoryFactory implements IFactory<CategoryModel> {

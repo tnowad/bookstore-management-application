@@ -1,6 +1,6 @@
 package com.bookstore.database.factories;
 
-import com.bookstore.model.AddressModel;
+import com.bookstore.models.AddressModel;
 import com.github.javafaker.Faker;
 
 public class AddressFactory implements IFactory<AddressModel> {

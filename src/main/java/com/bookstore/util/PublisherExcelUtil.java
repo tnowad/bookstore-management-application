@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.bookstore.bus.PublisherBUS;
-import com.bookstore.model.PublisherModel;
+import com.bookstore.models.PublisherModel;
 
 public class PublisherExcelUtil extends ExcelUtil {
 

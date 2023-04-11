@@ -8,8 +8,8 @@ import java.util.Collections;
 import java.util.List;
 
 import com.bookstore.interfaces.IDAO;
-import com.bookstore.model.EmployeeModel;
-import com.bookstore.model.EmployeeModel.EmployeeType;
+import com.bookstore.models.EmployeeModel;
+import com.bookstore.models.EmployeeModel.EmployeeType;
 
 public class EmployeeDAO implements IDAO<EmployeeModel> {
   private static EmployeeDAO instance;

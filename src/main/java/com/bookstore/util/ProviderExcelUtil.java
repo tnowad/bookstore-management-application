@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.bookstore.bus.ProviderBUS;
-import com.bookstore.model.ProviderModel;
+import com.bookstore.models.ProviderModel;
 
 public class ProviderExcelUtil extends ExcelUtil {
 

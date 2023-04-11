@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.bookstore.dao.CartItemsDAO;
 import com.bookstore.interfaces.IBUS;
-import com.bookstore.model.CartItemsModel;
+import com.bookstore.models.CartItemsModel;
 
 public class CartItemsBUS implements IBUS<CartItemsModel> {
   private final List<CartItemsModel> cartItemsList = new ArrayList<>();

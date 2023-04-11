@@ -2,7 +2,7 @@ package com.bookstore.database.factories;
 
 import java.sql.ResultSet;
 import com.bookstore.dao.DatabaseConnection;
-import com.bookstore.model.CategoryModel;
+import com.bookstore.models.CategoryModel;
 import com.github.javafaker.Faker;
 
 public class CategoriesFactory implements IFactory<CategoryModel> {

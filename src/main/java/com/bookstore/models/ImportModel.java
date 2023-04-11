@@ -1,4 +1,4 @@
-package com.bookstore.model;
+package com.bookstore.models;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;

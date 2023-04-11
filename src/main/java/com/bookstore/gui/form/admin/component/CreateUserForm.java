@@ -6,9 +6,9 @@ import java.time.Instant;
 import javax.swing.*;
 
 import com.bookstore.bus.UserBUS;
-import com.bookstore.model.UserModel;
-import com.bookstore.model.UserModel.Role;
-import com.bookstore.model.UserModel.Status;
+import com.bookstore.models.UserModel;
+import com.bookstore.models.UserModel.Role;
+import com.bookstore.models.UserModel.Status;
 
 public class CreateUserForm extends javax.swing.JFrame {
 

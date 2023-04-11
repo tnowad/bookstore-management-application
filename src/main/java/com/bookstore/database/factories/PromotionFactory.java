@@ -2,7 +2,7 @@ package com.bookstore.database.factories;
 
 import java.util.concurrent.TimeUnit;
 
-import com.bookstore.model.PromotionModel;
+import com.bookstore.models.PromotionModel;
 import com.github.javafaker.Faker;
 
 public class PromotionFactory implements IFactory<PromotionModel> {

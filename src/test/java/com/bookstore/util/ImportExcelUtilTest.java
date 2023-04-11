@@ -14,7 +14,7 @@ import javax.swing.JFileChooser;
 import org.junit.jupiter.api.Test;
 
 import com.bookstore.dao.ImportDAO;
-import com.bookstore.model.ImportModel;
+import com.bookstore.models.ImportModel;
 
 public class ImportExcelUtilTest {
   @Test

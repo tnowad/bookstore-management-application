@@ -8,8 +8,8 @@ import java.util.Collections;
 import java.util.List;
 
 import com.bookstore.interfaces.IDAO;
-import com.bookstore.model.CartModel;
-import com.bookstore.model.CartModel.Status;
+import com.bookstore.models.CartModel;
+import com.bookstore.models.CartModel.Status;
 
 public class CartDAO implements IDAO<CartModel> {
   private static CartDAO instance;

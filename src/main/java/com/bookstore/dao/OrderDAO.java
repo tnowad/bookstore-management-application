@@ -1,8 +1,8 @@
 package com.bookstore.dao;
 
 import com.bookstore.interfaces.IDAO;
-import com.bookstore.model.OrderModel;
-import com.bookstore.model.OrderModel.Status;
+import com.bookstore.models.OrderModel;
+import com.bookstore.models.OrderModel.Status;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.bookstore.dao.AuthorDAO;
 import com.bookstore.interfaces.IBUS;
-import com.bookstore.model.AuthorModel;
+import com.bookstore.models.AuthorModel;
 
 public class AuthorBUS implements IBUS<AuthorModel> {
 

@@ -6,8 +6,8 @@ import java.util.List;
 
 import com.bookstore.dao.BookDAO;
 import com.bookstore.interfaces.IBUS;
-import com.bookstore.model.BookModel;
-import com.bookstore.model.BookModel.Status;
+import com.bookstore.models.BookModel;
+import com.bookstore.models.BookModel.Status;
 
 public class BookBUS implements IBUS<BookModel> {
 

@@ -11,7 +11,7 @@ import java.util.List;
 import javax.swing.JFrame;
 
 import com.bookstore.bus.BookBUS;
-import com.bookstore.model.BookModel;
+import com.bookstore.models.BookModel;
 
 /**
  *

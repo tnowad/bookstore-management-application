@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.bookstore.bus.CategoryBUS;
-import com.bookstore.model.CategoryModel;
+import com.bookstore.models.CategoryModel;
 
 public class CategoryExcelUtil extends ExcelUtil {
 

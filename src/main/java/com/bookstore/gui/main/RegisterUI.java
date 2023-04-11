@@ -7,8 +7,7 @@ import java.util.ArrayList;
 
 import com.bookstore.bus.UserBUS;
 import com.bookstore.gui.component.GroupInput;
-//import com.bookstore.model.ProfileModel;
-import com.bookstore.model.UserModel;
+import com.bookstore.models.UserModel;
 
 public class RegisterUI extends JFrame {
   private static RegisterUI instance;

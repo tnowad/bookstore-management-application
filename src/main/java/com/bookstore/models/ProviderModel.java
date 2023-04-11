@@ -1,15 +1,16 @@
-package com.bookstore.model;
+package com.bookstore.models;
 
-public class PublisherModel {
+public class ProviderModel {
+
   private int id;
   private String name;
   private String description;
 
-  public PublisherModel() {
+  public ProviderModel() {
 
   }
 
-  public PublisherModel(int id, String name, String description) {
+  public ProviderModel(int id, String name, String description) {
     this.id = id;
     this.name = name;
     this.description = description;
