@@ -49,13 +49,13 @@ public class OrderBUS implements IBUS<OrderModel> {
 
   private void updateEntityFields(OrderModel from, OrderModel to) {
     to.setId(from.getId());
-    to.setCart_id(from.getCart_id());
-    to.setEmployee_id(from.getCustomer_id());
-    to.setEmployee_id(from.getEmployee_id());
+    to.setCartId(from.getCartId());
+    to.setEmployeeId(from.getCustomerId());
+    to.setEmployeeId(from.getEmployeeId());
     to.setTotal(from.getTotal());
     to.setPaid(from.getPaid());
-    to.setCreated_at(from.getCreated_at());
-    to.setUpdated_at(from.getUpdated_at());
+    to.setCreatedAt(from.getCreatedAt());
+    to.setUpdatedAt(from.getUpdatedAt());
     to.setStatus(from.getStatus());
   }
 
@@ -74,13 +74,13 @@ public class OrderBUS implements IBUS<OrderModel> {
         return orderModel.getId() == Integer.parseInt(value);
       }
       case "cart_id" -> {
-        return orderModel.getCart_id() == Integer.parseInt(value);
+        return orderModel.getCartId() == Integer.parseInt(value);
       }
       case "customer_id" -> {
-        return orderModel.getCustomer_id() == Integer.parseInt(value);
+        return orderModel.getCustomerId() == Integer.parseInt(value);
       }
       case "employee_id" -> {
-        return orderModel.getEmployee_id() == Integer.parseInt(value);
+        return orderModel.getEmployeeId() == Integer.parseInt(value);
       }
       case "total" -> {
         return orderModel.getTotal() == Integer.parseInt(value);
@@ -89,10 +89,10 @@ public class OrderBUS implements IBUS<OrderModel> {
         return orderModel.getPaid() == Integer.parseInt(value);
       }
       case "created_at" -> {
-        return orderModel.getCreated_at().toString().toLowerCase().contains(value.toLowerCase());
+        return orderModel.getCreatedAt().toString().toLowerCase().contains(value.toLowerCase());
       }
       case "updated_at" -> {
-        return orderModel.getUpdated_at().toString().toLowerCase().contains(value.toLowerCase());
+        return orderModel.getUpdatedAt().toString().toLowerCase().contains(value.toLowerCase());
       }
       case "status" -> {
         return orderModel.getStatus().toString().toLowerCase().contains(value.toLowerCase());
@@ -105,25 +105,25 @@ public class OrderBUS implements IBUS<OrderModel> {
 
   private boolean checkAllColumns(OrderModel orderModel, String value) {
     return orderModel.getId() == Integer.parseInt(value)
-        || orderModel.getCart_id() == Integer.parseInt(value)
-        || orderModel.getCustomer_id() == Integer.parseInt(value)
-        || orderModel.getEmployee_id() == Integer.parseInt(value)
+        || orderModel.getCartId() == Integer.parseInt(value)
+        || orderModel.getCustomerId() == Integer.parseInt(value)
+        || orderModel.getEmployeeId() == Integer.parseInt(value)
         || orderModel.getTotal() == Integer.parseInt(value)
         || orderModel.getPaid() == Integer.parseInt(value)
-        || orderModel.getCreated_at().toString().toLowerCase().contains(value.toLowerCase())
-        || orderModel.getUpdated_at().toString().toLowerCase().contains(value.toLowerCase())
+        || orderModel.getCreatedAt().toString().toLowerCase().contains(value.toLowerCase())
+        || orderModel.getUpdatedAt().toString().toLowerCase().contains(value.toLowerCase())
         || orderModel.getStatus().toString().toLowerCase().contains(value.toLowerCase());
   }
 
   @Override
   public int addModel(OrderModel orderModel) {
-    if (orderModel.getCart_id() <= 0) {
+    if (orderModel.getCartId() <= 0) {
       throw new IllegalArgumentException("Cart ID must be greater than 0!");
     }
-    if (orderModel.getCustomer_id() <= 0) {
+    if (orderModel.getCustomerId() <= 0) {
       throw new IllegalArgumentException("Customer ID must be greater than 0!");
     }
-    if (orderModel.getEmployee_id() <= 0) {
+    if (orderModel.getEmployeeId() <= 0) {
       throw new IllegalArgumentException("Employee ID must be greater than 0!");
     }
     if (orderModel.getTotal() <= 0) {
@@ -160,7 +160,7 @@ public class OrderBUS implements IBUS<OrderModel> {
       throw new IllegalArgumentException("Order with ID " + id + " does not exist.");
     }
     orderModel.setPaid(paid);
-    orderModel.setUpdated_at(new Timestamp(System.currentTimeMillis()));
+    orderModel.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
     int updatedRows = updateModel(orderModel);
     if (updatedRows > 0) {
       return orderModel.getTotal() - orderModel.getPaid();
@@ -172,7 +172,7 @@ public class OrderBUS implements IBUS<OrderModel> {
     int success = OrderDAO.getInstance().updateStatus(cartId, status);
     if (success == 1) {
       for (OrderModel order : orderList) {
-        if (order.getCart_id() == cartId) {
+        if (order.getCartId() == cartId) {
           order.setStatus(status);
           return 1;
         }

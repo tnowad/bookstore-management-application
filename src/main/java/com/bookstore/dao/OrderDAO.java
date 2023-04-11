@@ -52,7 +52,7 @@ public class OrderDAO implements IDAO<OrderModel> {
   public int insert(OrderModel order) {
     String insertSql = "INSERT INTO orders (cart_id, customer_id, employee_id, total, paid, status)"
         + "VALUES (?, ?, ?, ?, ?, ?)";
-    Object[] args = { order.getCart_id(), order.getCustomer_id(), order.getEmployee_id(), order.getTotal(),
+    Object[] args = { order.getCartId(), order.getCustomerId(), order.getEmployeeId(), order.getTotal(),
         order.getPaid(), order.getStatus().name() };
     try {
       return DatabaseConnection.executeUpdate(insertSql, args);
@@ -65,7 +65,7 @@ public class OrderDAO implements IDAO<OrderModel> {
   @Override
   public int update(OrderModel order) {
     String updateSql = "UPDATE orders SET cart_id=?, customer_id=?, employee_id=?, total=?, paid=?, status=? WHERE id=?";
-    Object[] args = { order.getCart_id(), order.getCustomer_id(), order.getEmployee_id(), order.getTotal(),
+    Object[] args = { order.getCartId(), order.getCustomerId(), order.getEmployeeId(), order.getTotal(),
         order.getPaid(), order.getStatus().name(), order.getId() };
     try {
       return DatabaseConnection.executeUpdate(updateSql, args);
