@@ -19,11 +19,8 @@ import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
 import com.bookstore.bus.UserBUS;
-import com.bookstore.gui.component.Button;
-import com.bookstore.gui.component.GroupInput;
-import com.bookstore.gui.factories.AdminFrameFactory;
-import com.bookstore.gui.factories.CustomerFrameFactory;
-import com.bookstore.gui.factories.EmployeeFrameFactory;
+import com.bookstore.gui.component.button.Button;
+import com.bookstore.gui.component.input.GroupInput;
 import com.bookstore.interfaces.FactoryFrame;
 import com.bookstore.models.UserModel;
 
@@ -169,7 +166,6 @@ public class LoginUI extends JFrame {
           FactoryFrame frameFactory = null;
           switch (userModel.getRole()) {
             case CUSTOMER -> {
-              frameFactory = new CustomerFrameFactory();
             }
             // case EMPLOYEE -> {
             // frameFactory = new EmployeeFrameFactory();
