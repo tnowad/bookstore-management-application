@@ -41,13 +41,13 @@ public class CustomerListPanel extends javax.swing.JPanel {
 
     exportCustomerBtn.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
     exportCustomerBtn.setIcon(
-        new javax.swing.ImageIcon(getClass().getResource("../../../../../resources/images/export.png"))); // NOI18N
+        new javax.swing.ImageIcon(getClass().getResource("../../../../../../resources/images/export.png"))); // NOI18N
     exportCustomerBtn.setText("Export");
 
     importCustomerListBtn.setFont(new java.awt.Font("Segoe UI", 0, 18));
     importCustomerListBtn
         .setIcon(new javax.swing.ImageIcon(
-            getClass().getResource("../../../../../resources/images/import.png"))); // NOI18N
+            getClass().getResource("../../../../../../resources/images/import.png"))); // NOI18N
     importCustomerListBtn.setText("Import");
     importCustomerListBtn.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -57,7 +57,7 @@ public class CustomerListPanel extends javax.swing.JPanel {
 
     searchBtn.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
     searchBtn.setIcon(
-        new javax.swing.ImageIcon(getClass().getResource("../../../../../resources/images/search.png"))); // NOI18N
+        new javax.swing.ImageIcon(getClass().getResource("../../../../../../resources/images/search.png"))); // NOI18N
     searchBtn.setText("Search");
 
     searchCustomerTxtFld.setFont(new java.awt.Font("Segoe UI", 0, 18));
@@ -67,7 +67,7 @@ public class CustomerListPanel extends javax.swing.JPanel {
 
     addCustomerBtn.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
     addCustomerBtn.setIcon(
-        new javax.swing.ImageIcon(getClass().getResource("../../../../../resources/images/addCustomer.png"))); // NOI18N
+        new javax.swing.ImageIcon(getClass().getResource("../../../../../../resources/images/addCustomer.png"))); // NOI18N
     addCustomerBtn.setText("Add customer");
     addCustomerBtn.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
