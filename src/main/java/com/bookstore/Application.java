@@ -9,8 +9,7 @@ import com.bookstore.runnable.LoadGuiRunnable;
 import com.bookstore.runnable.UpdateDataRunnable;
 import com.bookstore.runnable.CheckConnectionRunnable;
 
-public class App {
-
+public class Application {
   public static void main(String[] args) {
     SwingUtilities.invokeLater(() -> {
       try {

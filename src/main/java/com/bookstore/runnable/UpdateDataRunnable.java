@@ -17,7 +17,7 @@ public class UpdateDataRunnable implements Runnable {
 
   private void updateData() {
     System.out.println("Updating data...");
-    new Thread(LoadDataRunnable::new).start();
+    new Thread(new LoadDataRunnable()).start();
     System.out.println("Data updated!");
   }
 }

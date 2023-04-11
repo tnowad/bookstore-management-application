@@ -6,7 +6,6 @@ public class LoadDataRunnable implements Runnable {
 
   @Override
   public void run() {
-    System.out.println("Loading data...");
     AddressBUS.getInstance().getAllModels();
     AuthorBUS.getInstance().getAllModels();
     BookBUS.getInstance().getAllModels();
@@ -22,6 +21,5 @@ public class LoadDataRunnable implements Runnable {
     ProviderBUS.getInstance().getAllModels();
     PublisherBUS.getInstance().getAllModels();
     UserBUS.getInstance().getAllModels();
-    System.out.println("Data loaded!");
   }
 }
