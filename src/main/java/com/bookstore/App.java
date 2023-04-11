@@ -5,8 +5,8 @@ import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
-import com.bookstore.runnable.LoadDataRunnable;
 import com.bookstore.runnable.LoadGuiRunnable;
+import com.bookstore.runnable.UpdateDataRunnable;
 import com.bookstore.runnable.CheckConnectionRunnable;
 
 public class App {
@@ -19,12 +19,12 @@ public class App {
         e.printStackTrace();
       }
 
-      Thread loadDataThread = new Thread(new LoadDataRunnable());
+      Thread updateDataThread = new Thread(new UpdateDataRunnable());
       Thread checkConnectionThread = new Thread(new CheckConnectionRunnable());
       Thread loadGuiThread = new Thread(new LoadGuiRunnable());
 
       checkConnectionThread.start();
-      loadDataThread.start();
+      updateDataThread.start();
       loadGuiThread.start();
     });
   }
