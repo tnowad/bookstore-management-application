@@ -71,12 +71,12 @@ public class ImportListPanel extends javax.swing.JPanel {
 
     exportCustomerBtn.setFont(new java.awt.Font("Segoe UI", 0, 18));
     exportCustomerBtn
-        .setIcon(new javax.swing.ImageIcon(getClass().getResource("../../../../../resources/images/export.png")));
+        .setIcon(new javax.swing.ImageIcon(getClass().getResource("../../../../../../resources/images/export.png")));
     exportCustomerBtn.setText("Export");
 
     importCustomerListBtn.setFont(new java.awt.Font("Segoe UI", 0, 18));
     importCustomerListBtn
-        .setIcon(new javax.swing.ImageIcon(getClass().getResource("../../../../../resources/images/import.png")));
+        .setIcon(new javax.swing.ImageIcon(getClass().getResource("../../../../../../resources/images/import.png")));
     importCustomerListBtn.setText("Import");
     importCustomerListBtn.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -85,7 +85,8 @@ public class ImportListPanel extends javax.swing.JPanel {
     });
 
     searchBtn.setFont(new java.awt.Font("Segoe UI", 0, 18));
-    searchBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("../../../../../resources/images/search.png")));
+    searchBtn
+        .setIcon(new javax.swing.ImageIcon(getClass().getResource("../../../../../../resources/images/search.png")));
     searchBtn.setText("Search");
 
     searchCustomerTxtFld.setFont(new java.awt.Font("Segoe UI", 0, 18));
@@ -95,7 +96,7 @@ public class ImportListPanel extends javax.swing.JPanel {
 
     addCustomerBtn.setFont(new java.awt.Font("Segoe UI", 0, 18));
     addCustomerBtn
-        .setIcon(new javax.swing.ImageIcon(getClass().getResource("../../../../../resources/images/addBook.png")));
+        .setIcon(new javax.swing.ImageIcon(getClass().getResource("../../../../../../resources/images/addBook.png")));
     addCustomerBtn.setText("Add receipt");
     addCustomerBtn.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
