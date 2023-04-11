@@ -19,9 +19,9 @@ public class App {
         e.printStackTrace();
       }
 
-      Thread updateDataThread = new Thread(new UpdateDataRunnable());
-      Thread checkConnectionThread = new Thread(new CheckConnectionRunnable());
-      Thread loadGuiThread = new Thread(new LoadGuiRunnable());
+      Thread updateDataThread = new Thread(UpdateDataRunnable::new);
+      Thread checkConnectionThread = new Thread(CheckConnectionRunnable::new);
+      Thread loadGuiThread = new Thread(LoadGuiRunnable::new);
 
       checkConnectionThread.start();
       updateDataThread.start();
