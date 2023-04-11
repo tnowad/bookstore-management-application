@@ -94,4 +94,14 @@ public class DatabaseConnection {
     }
   }
 
+  public boolean checkConnection() {
+    getConnection();
+    try {
+      return getConnection() != null && !getConnection().isClosed();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return false;
+  }
+
 }
