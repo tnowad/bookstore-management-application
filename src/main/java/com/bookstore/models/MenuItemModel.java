@@ -1,4 +1,4 @@
-package com.bookstore.gui.model;
+package com.bookstore.models;
 
 import java.awt.event.ActionListener;
 

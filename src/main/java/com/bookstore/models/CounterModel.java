@@ -1,4 +1,4 @@
-package com.bookstore.gui.model;
+package com.bookstore.models;
 
 public class CounterModel {
   private int value;

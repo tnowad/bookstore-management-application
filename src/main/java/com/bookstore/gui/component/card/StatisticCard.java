@@ -6,7 +6,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 
-import com.bookstore.gui.model.ModelStatisticCard;
+import com.bookstore.models.ModelStatisticCard;
 
 public class StatisticCard extends javax.swing.JPanel {
 

@@ -3,18 +3,10 @@ package com.bookstore.models;
 import javax.swing.Icon;
 
 public class MenuModel {
+
   private Icon icon;
   private String menuName;
-  private String subMenu[];
-
-  public MenuModel(Icon icon, String menuName, String... subMenu) {
-    this.icon = icon;
-    this.menuName = menuName;
-    this.subMenu = subMenu;
-  }
-
-  public MenuModel() {
-  }
+  private MenuItemModel[] subMenu;
 
   public Icon getIcon() {
     return icon;
@@ -32,12 +24,20 @@ public class MenuModel {
     this.menuName = menuName;
   }
 
-  public String[] getSubMenu() {
+  public MenuItemModel[] getSubMenu() {
     return subMenu;
   }
 
-  public void setSubMenu(String[] subMenu) {
+  public void setSubMenu(MenuItemModel[] subMenu) {
     this.subMenu = subMenu;
   }
 
+  public MenuModel(Icon icon, String menuName, MenuItemModel... subMenu) {
+    this.icon = icon;
+    this.menuName = menuName;
+    this.subMenu = subMenu;
+  }
+
+  public MenuModel() {
+  }
 }
