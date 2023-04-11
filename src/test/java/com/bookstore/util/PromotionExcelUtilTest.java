@@ -14,7 +14,7 @@ import javax.swing.JFileChooser;
 import org.junit.jupiter.api.Test;
 
 import com.bookstore.dao.PromotionDAO;
-import com.bookstore.model.PromotionModel;
+import com.bookstore.models.PromotionModel;
 
 public class PromotionExcelUtilTest {
   @Test

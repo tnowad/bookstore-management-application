@@ -7,9 +7,9 @@ import java.util.List;
 
 import com.bookstore.dao.PaymentDAO;
 import com.bookstore.interfaces.IBUS;
-import com.bookstore.model.PaymentModel;
-import com.bookstore.model.PaymentModel.PaymentMethod;
-import com.bookstore.model.PaymentModel.PaymentStatus;
+import com.bookstore.models.PaymentModel;
+import com.bookstore.models.PaymentModel.PaymentMethod;
+import com.bookstore.models.PaymentModel.PaymentStatus;
 
 public class PaymentBUS implements IBUS<PaymentModel> {
 

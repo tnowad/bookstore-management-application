@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.bookstore.dao.ProviderDAO;
 import com.bookstore.interfaces.IBUS;
-import com.bookstore.model.ProviderModel;
+import com.bookstore.models.ProviderModel;
 
 public class ProviderBUS implements IBUS<ProviderModel> {
 

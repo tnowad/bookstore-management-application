@@ -5,6 +5,7 @@
 package com.bookstore.gui.form.admin.component;
 
 import com.bookstore.bus.UserBUS;
+import com.bookstore.models.UserModel;
 
 import java.awt.Component;
 import java.awt.GridLayout;
@@ -19,8 +20,6 @@ import java.util.concurrent.TimeUnit;
 import javax.swing.JCheckBox;
 import javax.swing.border.Border;
 import javax.swing.*;
-
-import com.bookstore.model.UserModel;
 
 /**
  *

@@ -8,7 +8,7 @@ import java.util.Collections;
 import java.util.List;
 
 import com.bookstore.interfaces.IDAO;
-import com.bookstore.model.PublisherModel;
+import com.bookstore.models.PublisherModel;
 
 public class PublisherDAO implements IDAO<PublisherModel> {
   private static PublisherDAO instance;

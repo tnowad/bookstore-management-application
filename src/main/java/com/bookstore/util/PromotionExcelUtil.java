@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.bookstore.bus.PromotionBUS;
-import com.bookstore.model.PromotionModel;
+import com.bookstore.models.PromotionModel;
 
 public class PromotionExcelUtil extends ExcelUtil {
 

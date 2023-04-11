@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.bookstore.dao.PromotionDAO;
 import com.bookstore.interfaces.IBUS;
-import com.bookstore.model.PromotionModel;
+import com.bookstore.models.PromotionModel;
 
 public class PromotionBUS implements IBUS<PromotionModel> {
 

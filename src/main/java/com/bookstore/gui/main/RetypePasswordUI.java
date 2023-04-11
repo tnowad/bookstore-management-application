@@ -23,7 +23,7 @@ import javax.swing.WindowConstants;
 import javax.swing.border.Border;
 
 import com.bookstore.bus.UserBUS;
-import com.bookstore.model.UserModel;
+import com.bookstore.models.UserModel;
 
 public class RetypePasswordUI extends JFrame {
   private static RetypePasswordUI instance;

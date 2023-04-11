@@ -2,7 +2,7 @@ package com.bookstore.database.factories;
 
 import java.util.concurrent.*;
 
-import com.bookstore.model.PaymentMethodModel;
+import com.bookstore.models.PaymentMethodModel;
 import com.github.javafaker.Faker;
 
 public class PaymentMethodFactory implements IFactory<PaymentMethodModel> {

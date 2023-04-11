@@ -8,7 +8,7 @@ import java.util.Collections;
 import java.util.List;
 
 import com.bookstore.interfaces.IDAO;
-import com.bookstore.model.CartItemsModel;
+import com.bookstore.models.CartItemsModel;
 
 public class CartItemsDAO implements IDAO<CartItemsModel> {
   private static CartItemsDAO instance;

@@ -6,8 +6,8 @@ import java.util.List;
 
 import com.bookstore.dao.EmployeeDAO;
 import com.bookstore.interfaces.IBUS;
-import com.bookstore.model.EmployeeModel;
-import com.bookstore.model.EmployeeModel.EmployeeType;
+import com.bookstore.models.EmployeeModel;
+import com.bookstore.models.EmployeeModel.EmployeeType;
 
 public class EmployeeBUS implements IBUS<EmployeeModel> {
 

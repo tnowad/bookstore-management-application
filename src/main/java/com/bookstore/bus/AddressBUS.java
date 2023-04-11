@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.bookstore.dao.AddressDAO;
 import com.bookstore.interfaces.IBUS;
-import com.bookstore.model.AddressModel;
+import com.bookstore.models.AddressModel;
 
 public class AddressBUS implements IBUS<AddressModel> {
   private final List<AddressModel> addressList = new ArrayList<>();

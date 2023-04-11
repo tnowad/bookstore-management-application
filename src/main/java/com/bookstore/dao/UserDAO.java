@@ -9,9 +9,9 @@ import java.util.Collections;
 import java.util.List;
 
 import com.bookstore.interfaces.IDAO;
-import com.bookstore.model.UserModel;
-import com.bookstore.model.UserModel.Role;
-import com.bookstore.model.UserModel.Status;
+import com.bookstore.models.UserModel;
+import com.bookstore.models.UserModel.Role;
+import com.bookstore.models.UserModel.Status;
 
 public class UserDAO implements IDAO<UserModel> {
   private static UserDAO instance;

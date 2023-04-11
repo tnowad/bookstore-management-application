@@ -6,7 +6,7 @@ import java.util.List;
 import javax.swing.JFrame;
 
 import com.bookstore.bus.UserBUS;
-import com.bookstore.model.UserModel;
+import com.bookstore.models.UserModel;
 
 public class CustomerListPanel extends javax.swing.JPanel {
 

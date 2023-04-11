@@ -1,4 +1,4 @@
-package com.bookstore.model;
+package com.bookstore.models;
 
 public class AuthorModel {
   private int id;

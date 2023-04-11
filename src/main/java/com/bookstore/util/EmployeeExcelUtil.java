@@ -14,8 +14,8 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.bookstore.bus.EmployeeBUS;
-import com.bookstore.model.EmployeeModel;
-import com.bookstore.model.EmployeeModel.EmployeeType;
+import com.bookstore.models.EmployeeModel;
+import com.bookstore.models.EmployeeModel.EmployeeType;
 
 public class EmployeeExcelUtil extends ExcelUtil {
 

@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.bookstore.bus.ImportBUS;
-import com.bookstore.model.ImportModel;
+import com.bookstore.models.ImportModel;
 
 public class ImportModelExcelUtil extends ExcelUtil {
 

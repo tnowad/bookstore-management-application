@@ -8,7 +8,7 @@ import java.util.Collections;
 import java.util.List;
 
 import com.bookstore.interfaces.IDAO;
-import com.bookstore.model.AuthorModel;
+import com.bookstore.models.AuthorModel;
 
 public class AuthorDAO implements IDAO<AuthorModel> {
   private static AuthorDAO instance;

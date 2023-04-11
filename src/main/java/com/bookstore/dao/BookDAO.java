@@ -8,8 +8,8 @@ import java.util.Collections;
 import java.util.List;
 
 import com.bookstore.interfaces.IDAO;
-import com.bookstore.model.BookModel;
-import com.bookstore.model.BookModel.Status;
+import com.bookstore.models.BookModel;
+import com.bookstore.models.BookModel.Status;
 
 public class BookDAO implements IDAO<BookModel> {
   private static BookDAO instance;

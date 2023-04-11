@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.bookstore.bus.AddressBUS;
-import com.bookstore.model.AddressModel;
+import com.bookstore.models.AddressModel;
 
 public class AddressExcelUtil extends ExcelUtil {
 

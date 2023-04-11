@@ -23,7 +23,7 @@ import javax.swing.WindowConstants;
 import javax.swing.border.Border;
 
 import com.bookstore.bus.UserBUS;
-import com.bookstore.model.UserModel;
+import com.bookstore.models.UserModel;
 
 public class ForgotPasswordUI extends JFrame {
   private static ForgotPasswordUI instance;

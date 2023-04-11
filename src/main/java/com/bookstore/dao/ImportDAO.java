@@ -1,7 +1,7 @@
 package com.bookstore.dao;
 
 import com.bookstore.interfaces.IDAO;
-import com.bookstore.model.ImportModel;
+import com.bookstore.models.ImportModel;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

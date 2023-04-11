@@ -1,6 +1,6 @@
 package com.bookstore.database.factories;
 
-import com.bookstore.model.AuthorModel;
+import com.bookstore.models.AuthorModel;
 import com.github.javafaker.Faker;
 
 public class AuthorFactory implements IFactory<AuthorModel> {

@@ -13,8 +13,8 @@ import javax.swing.JTextField;
 
 import org.yaml.snakeyaml.events.Event.ID;
 
-import com.bookstore.model.UserModel.Role;
-import com.bookstore.model.UserModel.Status;
+import com.bookstore.models.UserModel.Role;
+import com.bookstore.models.UserModel.Status;
 
 /**
  *

@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.bookstore.dao.PublisherDAO;
 import com.bookstore.interfaces.IBUS;
-import com.bookstore.model.PublisherModel;
+import com.bookstore.models.PublisherModel;
 
 public class PublisherBUS implements IBUS<PublisherModel> {
 

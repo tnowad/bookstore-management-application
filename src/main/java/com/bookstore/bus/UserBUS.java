@@ -11,9 +11,9 @@ import javax.security.auth.login.LoginException;
 
 import com.bookstore.dao.UserDAO;
 import com.bookstore.interfaces.IBUS;
-import com.bookstore.model.UserModel;
-import com.bookstore.model.UserModel.Role;
-import com.bookstore.model.UserModel.Status;
+import com.bookstore.models.UserModel;
+import com.bookstore.models.UserModel.Role;
+import com.bookstore.models.UserModel.Status;
 import com.bookstore.util.PasswordUtil;
 
 public class UserBUS implements IBUS<UserModel> {

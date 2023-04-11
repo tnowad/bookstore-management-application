@@ -5,9 +5,9 @@
 package com.bookstore.gui.form.admin.component;
 
 import com.bookstore.bus.UserBUS;
-import com.bookstore.model.UserModel;
-import com.bookstore.model.UserModel.Role;
-import com.bookstore.model.UserModel.Status;
+import com.bookstore.models.UserModel;
+import com.bookstore.models.UserModel.Role;
+import com.bookstore.models.UserModel.Status;
 
 import java.awt.Component;
 import java.sql.Timestamp;

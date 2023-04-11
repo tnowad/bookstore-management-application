@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.bookstore.bus.AuthorBUS;
-import com.bookstore.model.AuthorModel;
+import com.bookstore.models.AuthorModel;
 
 public class AuthorExcelUtil extends ExcelUtil {
 

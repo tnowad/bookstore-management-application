@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.bookstore.dao.ImportDAO;
 import com.bookstore.interfaces.IBUS;
-import com.bookstore.model.ImportModel;
+import com.bookstore.models.ImportModel;
 
 public class ImportBUS implements IBUS<ImportModel> {
 

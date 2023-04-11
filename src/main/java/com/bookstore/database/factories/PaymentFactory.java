@@ -2,7 +2,7 @@ package com.bookstore.database.factories;
 
 import java.sql.Timestamp;
 
-import com.bookstore.model.PaymentModel;
+import com.bookstore.models.PaymentModel;
 import com.github.javafaker.Faker;
 
 public class PaymentFactory implements IFactory<PaymentModel> {

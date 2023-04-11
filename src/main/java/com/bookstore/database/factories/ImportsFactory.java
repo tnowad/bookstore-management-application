@@ -2,7 +2,7 @@ package com.bookstore.database.factories;
 
 import java.sql.Timestamp;
 
-import com.bookstore.model.ImportModel;
+import com.bookstore.models.ImportModel;
 import com.github.javafaker.Faker;
 
 public class ImportsFactory implements IFactory<ImportModel> {

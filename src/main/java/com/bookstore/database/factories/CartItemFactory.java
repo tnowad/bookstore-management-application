@@ -3,7 +3,7 @@ package com.bookstore.database.factories;
 import java.sql.ResultSet;
 
 import com.bookstore.dao.DatabaseConnection;
-import com.bookstore.model.CartModel;
+import com.bookstore.models.CartModel;
 import com.github.javafaker.Faker;
 
 public class CartItemFactory implements IFactory<CartModel> {
