@@ -1,4 +1,4 @@
-package com.bookstore.gui.component;
+package com.bookstore.gui.component.panel;
 
 import javax.swing.GroupLayout;
 import javax.swing.JPanel;
@@ -12,13 +12,13 @@ import java.awt.Component;
  * It extends the JPanel class and provides methods to initialize the frame,
  * show a form inside the main frame, and set layout properties.
  */
-public class MainForm extends JPanel {
+public class MainPanel extends JPanel {
 
   /**
    * Initializes the main frame by calling the initComponents() and
    * setLayoutProperties() methods.
    */
-  public MainForm() {
+  public MainPanel() {
     initializeComponents();
     setLayoutProperties();
   }

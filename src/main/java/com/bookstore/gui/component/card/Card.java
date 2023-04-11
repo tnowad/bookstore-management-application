@@ -1,11 +1,12 @@
 package com.bookstore.gui.component;
 
-import com.bookstore.gui.model.ModelStatisticCard;
 import java.awt.Color;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+
+import com.bookstore.models.ModelStatisticCard;
 
 public class Card extends javax.swing.JPanel {
 
