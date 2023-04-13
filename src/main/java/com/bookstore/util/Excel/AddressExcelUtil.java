@@ -1,4 +1,4 @@
-package com.bookstore.util;
+package com.bookstore.util.Excel;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,16 +12,15 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import com.bookstore.bus.EmployeeBUS;
-import com.bookstore.models.EmployeeModel;
-import com.bookstore.models.EmployeeModel.EmployeeType;
+import com.bookstore.bus.AddressBUS;
+import com.bookstore.models.AddressModel;
 
-public class EmployeeExcelUtil extends ExcelUtil {
+public class AddressExcelUtil extends ExcelUtil {
 
   private static final String[] EXCEL_EXTENSIONS = { "xls", "xlsx", "xlsm" };
-  private static final Logger LOGGER = Logger.getLogger(EmployeeExcelUtil.class.getName());
+  private static final Logger LOGGER = Logger.getLogger(AddressExcelUtil.class.getName());
 
-  public static List<EmployeeModel> readEmployeesFromExcel() throws IOException {
+  public static List<AddressModel> readAddressesFromExcel() throws IOException {
     JFileChooser fileChooser = new JFileChooser();
     FileNameExtensionFilter filter = new FileNameExtensionFilter("Excel File", EXCEL_EXTENSIONS);
     fileChooser.setFileFilter(filter);
@@ -33,17 +32,17 @@ public class EmployeeExcelUtil extends ExcelUtil {
 
       try {
         List<List<String>> data = ExcelUtil.readExcel(filePath, 0);
-        List<EmployeeModel> employees = convertToEmployeeModelList(data);
+        List<AddressModel> addressess = convertToAddressModelList(data);
 
         JOptionPane.showMessageDialog(null,
             "Data has been read successfully from " + inputFile.getName() + ".");
-        return employees;
+        return addressess;
       } catch (IOException e) {
         LOGGER.log(Level.SEVERE, "Error occurred while reading data from file: " + inputFile.getName(), e);
         showErrorDialog(e.getMessage(), "File Input Error");
         throw e;
       } catch (IllegalArgumentException e) {
-        LOGGER.log(Level.SEVERE, "Error occurred while converting data to EmployeeModel: " + e.getMessage());
+        LOGGER.log(Level.SEVERE, "Error occurred while converting data to AddressModel: " + e.getMessage());
         showErrorDialog(e.getMessage(), "Data Conversion Error");
         throw e;
       }
@@ -57,47 +56,46 @@ public class EmployeeExcelUtil extends ExcelUtil {
     JOptionPane.showMessageDialog(null, "Error: " + message, title, JOptionPane.ERROR_MESSAGE);
   }
 
-  private static List<EmployeeModel> convertToEmployeeModelList(List<List<String>> data) {
-    List<EmployeeModel> employeeModels = new ArrayList<>();
+  private static List<AddressModel> convertToAddressModelList(List<List<String>> data)
+      throws IllegalArgumentException {
+    List<AddressModel> addressModels = new ArrayList<>();
     for (int i = 1; i < data.size(); i++) {
       List<String> row = data.get(i);
+      int id;
       int userId;
-      int salary;
-      EmployeeType employeeType;
-      String contactInformation;
-
       try {
-        userId = Integer.parseInt(row.get(0));
-        salary = Integer.parseInt(row.get(1));
-        employeeType = EmployeeType.valueOf(row.get(2));
-        contactInformation = row.get(3);
+        id = Integer.parseInt(row.get(0) + 1);
+        userId = Integer.parseInt(row.get(1));
       } catch (NumberFormatException e) {
         throw new IllegalArgumentException("Invalid integer value in input data", e);
-      } catch (IllegalArgumentException e) {
-        throw new IllegalArgumentException("Invalid employee type in input data", e);
       }
-
-      EmployeeModel model = new EmployeeModel(userId, salary, employeeType, contactInformation);
-      employeeModels.add(model);
-      EmployeeBUS.getInstance().addModel(model);
+      String street = row.get(2);
+      String city = row.get(3);
+      String state = row.get(4);
+      String zip = row.get(5);
+      AddressModel model = new AddressModel(id, userId, street, city, state, zip);
+      addressModels.add(model);
+      AddressBUS.getInstance().addModel(model);
     }
-    return employeeModels;
+    return addressModels;
   }
 
-  public static void writeEmployeesToExcel(List<EmployeeModel> employees) throws IOException {
+  public static void writeAddressesToExcel(List<AddressModel> addresses) throws IOException {
     List<List<String>> data = new ArrayList<>();
 
     // Create header row
-    List<String> headerValues = Arrays.asList("userId", "salary", "employeeType", "contactInformation");
+    List<String> headerValues = Arrays.asList("id", "userId", "street", "city", "state", "zip");
     data.add(headerValues);
 
     // Write data rows
-    for (EmployeeModel employee : employees) {
+    for (AddressModel address : addresses) {
       List<String> values = Arrays.asList(
-          Integer.toString(employee.getUserId()),
-          Integer.toString(employee.getSalary()),
-          employee.getEmployeeType().toString(),
-          employee.getContactInformation());
+          Integer.toString(address.getId()),
+          Integer.toString(address.getUserId()),
+          address.getStreet(),
+          address.getCity(),
+          address.getState(),
+          address.getZip());
       data.add(values);
     }
 
@@ -119,7 +117,7 @@ public class EmployeeExcelUtil extends ExcelUtil {
       }
 
       try {
-        writeExcel(data, filePath, "Employees");
+        writeExcel(data, filePath, "Users");
         JOptionPane.showMessageDialog(null,
             "Data has been written successfully to " + outputFile.getName() + ".");
       } catch (IOException e) {

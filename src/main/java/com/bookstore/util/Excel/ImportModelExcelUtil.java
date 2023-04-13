@@ -1,7 +1,8 @@
-package com.bookstore.util;
+package com.bookstore.util.Excel;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -12,15 +13,15 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import com.bookstore.bus.AddressBUS;
-import com.bookstore.models.AddressModel;
+import com.bookstore.bus.ImportBUS;
+import com.bookstore.models.ImportModel;
 
-public class AddressExcelUtil extends ExcelUtil {
+public class ImportModelExcelUtil extends ExcelUtil {
 
   private static final String[] EXCEL_EXTENSIONS = { "xls", "xlsx", "xlsm" };
-  private static final Logger LOGGER = Logger.getLogger(AddressExcelUtil.class.getName());
+  private static final Logger LOGGER = Logger.getLogger(ImportModelExcelUtil.class.getName());
 
-  public static List<AddressModel> readAddressesFromExcel() throws IOException {
+  public static List<ImportModel> readImportsFromExcel() throws IOException {
     JFileChooser fileChooser = new JFileChooser();
     FileNameExtensionFilter filter = new FileNameExtensionFilter("Excel File", EXCEL_EXTENSIONS);
     fileChooser.setFileFilter(filter);
@@ -32,17 +33,17 @@ public class AddressExcelUtil extends ExcelUtil {
 
       try {
         List<List<String>> data = ExcelUtil.readExcel(filePath, 0);
-        List<AddressModel> addressess = convertToAddressModelList(data);
+        List<ImportModel> imports = convertToImportModelList(data);
 
         JOptionPane.showMessageDialog(null,
             "Data has been read successfully from " + inputFile.getName() + ".");
-        return addressess;
+        return imports;
       } catch (IOException e) {
         LOGGER.log(Level.SEVERE, "Error occurred while reading data from file: " + inputFile.getName(), e);
         showErrorDialog(e.getMessage(), "File Input Error");
         throw e;
       } catch (IllegalArgumentException e) {
-        LOGGER.log(Level.SEVERE, "Error occurred while converting data to AddressModel: " + e.getMessage());
+        LOGGER.log(Level.SEVERE, "Error occurred while converting data to ImportModel: " + e.getMessage());
         showErrorDialog(e.getMessage(), "Data Conversion Error");
         throw e;
       }
@@ -56,46 +57,49 @@ public class AddressExcelUtil extends ExcelUtil {
     JOptionPane.showMessageDialog(null, "Error: " + message, title, JOptionPane.ERROR_MESSAGE);
   }
 
-  private static List<AddressModel> convertToAddressModelList(List<List<String>> data)
-      throws IllegalArgumentException {
-    List<AddressModel> addressModels = new ArrayList<>();
+  private static List<ImportModel> convertToImportModelList(List<List<String>> data) {
+    List<ImportModel> importModels = new ArrayList<>();
     for (int i = 1; i < data.size(); i++) {
       List<String> row = data.get(i);
       int id;
-      int userId;
+      int providerId;
+      int employeeId;
+      Double totalPrice;
+      Timestamp createdAt;
+      Timestamp updatedAt;
       try {
-        id = Integer.parseInt(row.get(0) + 1);
-        userId = Integer.parseInt(row.get(1));
-      } catch (NumberFormatException e) {
-        throw new IllegalArgumentException("Invalid integer value in input data", e);
+        id = Integer.parseInt(row.get(0)) + 1;
+        providerId = Integer.parseInt(row.get(1));
+        employeeId = Integer.parseInt(row.get(2));
+        totalPrice = Double.parseDouble(row.get(3));
+        createdAt = Timestamp.valueOf(row.get(4));
+        updatedAt = Timestamp.valueOf(row.get(5));
+      } catch (IllegalArgumentException e) {
+        throw new IllegalArgumentException("Invalid value in input data", e);
       }
-      String street = row.get(2);
-      String city = row.get(3);
-      String state = row.get(4);
-      String zip = row.get(5);
-      AddressModel model = new AddressModel(id, userId, street, city, state, zip);
-      addressModels.add(model);
-      AddressBUS.getInstance().addModel(model);
+      ImportModel model = new ImportModel(id, providerId, employeeId, totalPrice, createdAt, updatedAt);
+      importModels.add(model);
+      ImportBUS.getInstance().addModel(model);
     }
-    return addressModels;
+    return importModels;
   }
 
-  public static void writeAddressesToExcel(List<AddressModel> addresses) throws IOException {
+  public static void writeImportsToExcel(List<ImportModel> imports) throws IOException {
     List<List<String>> data = new ArrayList<>();
 
     // Create header row
-    List<String> headerValues = Arrays.asList("id", "userId", "street", "city", "state", "zip");
+    List<String> headerValues = Arrays.asList("id", "providerId", "employeeId", "totalPrice", "createdAt", "updatedAt");
     data.add(headerValues);
 
     // Write data rows
-    for (AddressModel address : addresses) {
+    for (ImportModel importModel : imports) {
       List<String> values = Arrays.asList(
-          Integer.toString(address.getId()),
-          Integer.toString(address.getUserId()),
-          address.getStreet(),
-          address.getCity(),
-          address.getState(),
-          address.getZip());
+          Integer.toString(importModel.getId()),
+          Integer.toString(importModel.getProviderId()),
+          Integer.toString(importModel.getEmployeeId()),
+          importModel.getTotalPrice().toString(),
+          importModel.getCreatedAt().toString(),
+          importModel.getUpdatedAt().toString());
       data.add(values);
     }
 
@@ -117,7 +121,7 @@ public class AddressExcelUtil extends ExcelUtil {
       }
 
       try {
-        writeExcel(data, filePath, "Users");
+        writeExcel(data, filePath, "Imports");
         JOptionPane.showMessageDialog(null,
             "Data has been written successfully to " + outputFile.getName() + ".");
       } catch (IOException e) {

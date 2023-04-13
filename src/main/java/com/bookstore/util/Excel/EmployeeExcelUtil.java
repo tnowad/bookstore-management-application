@@ -1,4 +1,4 @@
-package com.bookstore.util;
+package com.bookstore.util.Excel;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,17 +12,16 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import com.bookstore.bus.BookBUS;
-import com.bookstore.models.BookModel;
-import com.bookstore.models.BookModel.Status;
+import com.bookstore.bus.EmployeeBUS;
+import com.bookstore.models.EmployeeModel;
+import com.bookstore.models.EmployeeModel.EmployeeType;
 
-public class BookExcelUtil extends ExcelUtil {
+public class EmployeeExcelUtil extends ExcelUtil {
 
   private static final String[] EXCEL_EXTENSIONS = { "xls", "xlsx", "xlsm" };
-  private static final Logger LOGGER = Logger.getLogger(BookExcelUtil.class.getName());
+  private static final Logger LOGGER = Logger.getLogger(EmployeeExcelUtil.class.getName());
 
-  public static List<BookModel> readBooksFromExcel() throws IOException {
-    // BookBUS bookBUS = BookBUS.getInstance();
+  public static List<EmployeeModel> readEmployeesFromExcel() throws IOException {
     JFileChooser fileChooser = new JFileChooser();
     FileNameExtensionFilter filter = new FileNameExtensionFilter("Excel File", EXCEL_EXTENSIONS);
     fileChooser.setFileFilter(filter);
@@ -34,17 +33,17 @@ public class BookExcelUtil extends ExcelUtil {
 
       try {
         List<List<String>> data = ExcelUtil.readExcel(filePath, 0);
-        List<BookModel> books = convertToBookModelList(data);
+        List<EmployeeModel> employees = convertToEmployeeModelList(data);
 
         JOptionPane.showMessageDialog(null,
             "Data has been read successfully from " + inputFile.getName() + ".");
-        return books;
+        return employees;
       } catch (IOException e) {
         LOGGER.log(Level.SEVERE, "Error occurred while reading data from file: " + inputFile.getName(), e);
         showErrorDialog(e.getMessage(), "File Input Error");
         throw e;
       } catch (IllegalArgumentException e) {
-        LOGGER.log(Level.SEVERE, "Error occurred while converting data to BookModel: " + e.getMessage());
+        LOGGER.log(Level.SEVERE, "Error occurred while converting data to EmployeeModel: " + e.getMessage());
         showErrorDialog(e.getMessage(), "Data Conversion Error");
         throw e;
       }
@@ -58,64 +57,47 @@ public class BookExcelUtil extends ExcelUtil {
     JOptionPane.showMessageDialog(null, "Error: " + message, title, JOptionPane.ERROR_MESSAGE);
   }
 
-  private static List<BookModel> convertToBookModelList(List<List<String>> data) {
-    List<BookModel> bookModels = new ArrayList<>();
+  private static List<EmployeeModel> convertToEmployeeModelList(List<List<String>> data) {
+    List<EmployeeModel> employeeModels = new ArrayList<>();
     for (int i = 1; i < data.size(); i++) {
       List<String> row = data.get(i);
-      String isbn = row.get(0);
-      String title = row.get(1);
-      String description = row.get(2);
-      String image = row.get(3);
-      int price;
-      int quantity;
+      int userId;
+      int salary;
+      EmployeeType employeeType;
+      String contactInformation;
+
       try {
-        price = Integer.parseInt(row.get(4));
-        quantity = Integer.parseInt(row.get(5));
+        userId = Integer.parseInt(row.get(0));
+        salary = Integer.parseInt(row.get(1));
+        employeeType = EmployeeType.valueOf(row.get(2));
+        contactInformation = row.get(3);
       } catch (NumberFormatException e) {
         throw new IllegalArgumentException("Invalid integer value in input data", e);
-      }
-      String statusStr = row.get(6);
-      Status status;
-      try {
-        status = Status.valueOf(statusStr);
       } catch (IllegalArgumentException e) {
-        throw new IllegalArgumentException("Invalid status value in row: " + row);
+        throw new IllegalArgumentException("Invalid employee type in input data", e);
       }
-      int publisherId;
-      int authorId;
-      try {
-        publisherId = Integer.parseInt(row.get(7));
-        authorId = Integer.parseInt(row.get(8));
-      } catch (NumberFormatException e) {
-        throw new IllegalArgumentException("Invalid integer value in input data", e);
-      }
-      BookModel model = new BookModel(isbn, title, description, image, price, quantity, status, publisherId, authorId);
-      bookModels.add(model);
-      BookBUS.getInstance().addModel(model);
+
+      EmployeeModel model = new EmployeeModel(userId, salary, employeeType, contactInformation);
+      employeeModels.add(model);
+      EmployeeBUS.getInstance().addModel(model);
     }
-    return bookModels;
+    return employeeModels;
   }
 
-  public static void writeBooksToExcel(List<BookModel> books) throws IOException {
+  public static void writeEmployeesToExcel(List<EmployeeModel> employees) throws IOException {
     List<List<String>> data = new ArrayList<>();
 
     // Create header row
-    List<String> headerValues = Arrays.asList("isbn", "title", "description", "image", "price", "quantity", "status",
-        "publisherId", "authorId");
+    List<String> headerValues = Arrays.asList("userId", "salary", "employeeType", "contactInformation");
     data.add(headerValues);
 
     // Write data rows
-    for (BookModel book : books) {
+    for (EmployeeModel employee : employees) {
       List<String> values = Arrays.asList(
-          book.getIsbn(),
-          book.getTitle(),
-          book.getDescription(),
-          book.getImage(),
-          Integer.toString(book.getPrice()),
-          Integer.toString(book.getQuantity()),
-          book.getStatus().toString(),
-          Integer.toString(book.getPublisherId()),
-          Integer.toString(book.getAuthorId()));
+          Integer.toString(employee.getUserId()),
+          Integer.toString(employee.getSalary()),
+          employee.getEmployeeType().toString(),
+          employee.getContactInformation());
       data.add(values);
     }
 
@@ -137,7 +119,7 @@ public class BookExcelUtil extends ExcelUtil {
       }
 
       try {
-        writeExcel(data, filePath, "Books");
+        writeExcel(data, filePath, "Employees");
         JOptionPane.showMessageDialog(null,
             "Data has been written successfully to " + outputFile.getName() + ".");
       } catch (IOException e) {

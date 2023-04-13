@@ -40,6 +40,15 @@ public class BookBUS implements IBUS<BookModel> {
     return null;
   }
 
+  public BookModel getBookByIsbn(String isbn) {
+    for (BookModel bookModel : bookList) {
+      if (bookModel.getIsbn().equals(isbn)) {
+        return bookModel;
+      }
+    }
+    return null;
+  }
+
   private BookModel mapToEntity(BookModel from) {
     BookModel to = new BookModel();
     updateEntityFields(from, to);
