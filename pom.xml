@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>bookstore</groupId>
   <artifactId>bookstore-management-application</artifactId>
@@ -32,7 +31,7 @@
       <artifactId>junit-jupiter-api</artifactId>
       <version>5.9.2</version>
     </dependency>
-    
+
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
@@ -58,20 +57,29 @@
       <artifactId>flatlaf</artifactId>
       <version>3.0</version>
     </dependency>
+
     <dependency>
       <groupId>net.java.dev.timingframework</groupId>
       <artifactId>timingframework</artifactId>
       <version>1.0</version>
     </dependency>
+
     <dependency>
       <groupId>com.miglayout</groupId>
       <artifactId>miglayout-swing</artifactId>
       <version>5.2</version>
     </dependency>
+
     <dependency>
       <groupId>com.github.javafaker</groupId>
       <artifactId>javafaker</artifactId>
       <version>0.15</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.itextpdf</groupId>
+      <artifactId>itextpdf</artifactId>
+      <version>5.5.13</version>
     </dependency>
   </dependencies>
 </project>

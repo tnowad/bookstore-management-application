@@ -1,4 +1,4 @@
-package com.bookstore.util;
+package com.bookstore.util.Excel;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,15 +12,15 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import com.bookstore.bus.PublisherBUS;
-import com.bookstore.models.PublisherModel;
+import com.bookstore.bus.ProviderBUS;
+import com.bookstore.models.ProviderModel;
 
-public class PublisherExcelUtil extends ExcelUtil {
+public class ProviderExcelUtil extends ExcelUtil {
 
   private static final String[] EXCEL_EXTENSIONS = { "xls", "xlsx", "xlsm" };
-  private static final Logger LOGGER = Logger.getLogger(PublisherExcelUtil.class.getName());
+  private static final Logger LOGGER = Logger.getLogger(ProviderExcelUtil.class.getName());
 
-  public static List<PublisherModel> readPublishersFromExcel() throws IOException {
+  public static List<ProviderModel> readProvidersFromExcel() throws IOException {
     JFileChooser fileChooser = new JFileChooser();
     FileNameExtensionFilter filter = new FileNameExtensionFilter("Excel File", EXCEL_EXTENSIONS);
     fileChooser.setFileFilter(filter);
@@ -32,17 +32,17 @@ public class PublisherExcelUtil extends ExcelUtil {
 
       try {
         List<List<String>> data = ExcelUtil.readExcel(filePath, 0);
-        List<PublisherModel> publishers = convertToPublisherModelList(data);
+        List<ProviderModel> providers = convertToProviderModelList(data);
 
         JOptionPane.showMessageDialog(null,
             "Data has been read successfully from " + inputFile.getName() + ".");
-        return publishers;
+        return providers;
       } catch (IOException e) {
         LOGGER.log(Level.SEVERE, "Error occurred while reading data from file: " + inputFile.getName(), e);
         showErrorDialog(e.getMessage(), "File Input Error");
         throw e;
       } catch (IllegalArgumentException e) {
-        LOGGER.log(Level.SEVERE, "Error occurred while converting data to PublisherModel: " + e.getMessage());
+        LOGGER.log(Level.SEVERE, "Error occurred while converting data to ProviderModel: " + e.getMessage());
         showErrorDialog(e.getMessage(), "Data Conversion Error");
         throw e;
       }
@@ -56,26 +56,26 @@ public class PublisherExcelUtil extends ExcelUtil {
     JOptionPane.showMessageDialog(null, "Error: " + message, title, JOptionPane.ERROR_MESSAGE);
   }
 
-  private static List<PublisherModel> convertToPublisherModelList(List<List<String>> data) {
-    List<PublisherModel> publisherModels = new ArrayList<>();
+  private static List<ProviderModel> convertToProviderModelList(List<List<String>> data) {
+    List<ProviderModel> providerModels = new ArrayList<>();
     for (int i = 1; i < data.size(); i++) {
       List<String> row = data.get(i);
       int id;
       try {
-        id = Integer.parseInt(row.get(0)) + 1;
+        id = Integer.parseInt(row.get(0));
       } catch (NumberFormatException e) {
         throw new IllegalArgumentException("Invalid integer value in input data", e);
       }
       String name = row.get(1);
       String description = row.get(2);
-      PublisherModel model = new PublisherModel(id, name, description);
-      publisherModels.add(model);
-      PublisherBUS.getInstance().addModel(model);
+      ProviderModel model = new ProviderModel(id, name, description);
+      providerModels.add(model);
+      ProviderBUS.getInstance().addModel(model);
     }
-    return publisherModels;
+    return providerModels;
   }
 
-  public static void writePublishersToExcel(List<PublisherModel> publishers) throws IOException {
+  public static void writeProvidersToExcel(List<ProviderModel> providers) throws IOException {
     List<List<String>> data = new ArrayList<>();
 
     // Create header row
@@ -83,11 +83,11 @@ public class PublisherExcelUtil extends ExcelUtil {
     data.add(headerValues);
 
     // Write data rows
-    for (PublisherModel publisher : publishers) {
+    for (ProviderModel provider : providers) {
       List<String> values = Arrays.asList(
-          Integer.toString(publisher.getId()),
-          publisher.getName(),
-          publisher.getDescription());
+          Integer.toString(provider.getId()),
+          provider.getName(),
+          provider.getDescription());
       data.add(values);
     }
 
@@ -109,7 +109,7 @@ public class PublisherExcelUtil extends ExcelUtil {
       }
 
       try {
-        writeExcel(data, filePath, "Publishers");
+        writeExcel(data, filePath, "Providers");
         JOptionPane.showMessageDialog(null,
             "Data has been written successfully to " + outputFile.getName() + ".");
       } catch (IOException e) {
