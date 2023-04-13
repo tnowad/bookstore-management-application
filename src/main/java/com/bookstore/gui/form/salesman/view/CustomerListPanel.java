@@ -4,11 +4,14 @@ import java.sql.SQLException;
 import java.util.List;
 
 import javax.swing.JFrame;
+import javax.swing.table.DefaultTableModel;
 
 import com.bookstore.bus.UserBUS;
 import com.bookstore.models.UserModel;
 
 public class CustomerListPanel extends javax.swing.JPanel {
+  UserBUS userBus = UserBUS.getInstance();
+  List<UserModel> customersList = userBus.getAllModels();
 
   public CustomerListPanel() {
     initComponents();
@@ -16,10 +19,16 @@ public class CustomerListPanel extends javax.swing.JPanel {
   }
 
   private void listCustomer() {
-    UserBUS userBus = UserBUS.getInstance();
-    List<UserModel> customersList = userBus.getAllModels();
-    for (UserModel user : customersList) {
-      System.out.println(user.getName());
+    DefaultTableModel model = new DefaultTableModel();
+    model.addColumn("Id");
+    model.addColumn("Name");
+    model.addColumn("Email");
+    model.addColumn("Phone");
+    model.addColumn("Status");
+    for (UserModel customer : customersList) {
+      model.addRow(new Object[] { customer.getId(), customer.getName(), customer.getEmail(), customer.getPhone(),
+          customer.getStatus() });
+      customerTableList.setModel(model);
     }
   }
 
@@ -39,15 +48,15 @@ public class CustomerListPanel extends javax.swing.JPanel {
     jScrollPane2 = new javax.swing.JScrollPane();
     customerTableList = new javax.swing.JTable();
 
-    exportCustomerBtn.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+    exportCustomerBtn.setFont(new java.awt.Font("Segoe UI", 0, 18));
     exportCustomerBtn.setIcon(
-        new javax.swing.ImageIcon(getClass().getResource("../../../../../../resources/images/export.png"))); // NOI18N
+        new javax.swing.ImageIcon(getClass().getResource("../../../../../../resources/images/export.png")));
     exportCustomerBtn.setText("Export");
 
     importCustomerListBtn.setFont(new java.awt.Font("Segoe UI", 0, 18));
     importCustomerListBtn
         .setIcon(new javax.swing.ImageIcon(
-            getClass().getResource("../../../../../../resources/images/import.png"))); // NOI18N
+            getClass().getResource("../../../../../../resources/images/import.png")));
     importCustomerListBtn.setText("Import");
     importCustomerListBtn.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -55,9 +64,9 @@ public class CustomerListPanel extends javax.swing.JPanel {
       }
     });
 
-    searchBtn.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+    searchBtn.setFont(new java.awt.Font("Segoe UI", 0, 18));
     searchBtn.setIcon(
-        new javax.swing.ImageIcon(getClass().getResource("../../../../../../resources/images/search.png"))); // NOI18N
+        new javax.swing.ImageIcon(getClass().getResource("../../../../../../resources/images/search.png")));
     searchBtn.setText("Search");
 
     searchCustomerTxtFld.setFont(new java.awt.Font("Segoe UI", 0, 18));
@@ -65,9 +74,9 @@ public class CustomerListPanel extends javax.swing.JPanel {
     jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24));
     jLabel1.setText("Customers");
 
-    addCustomerBtn.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+    addCustomerBtn.setFont(new java.awt.Font("Segoe UI", 0, 18));
     addCustomerBtn.setIcon(
-        new javax.swing.ImageIcon(getClass().getResource("../../../../../../resources/images/addCustomer.png"))); // NOI18N
+        new javax.swing.ImageIcon(getClass().getResource("../../../../../../resources/images/addCustomer.png")));
     addCustomerBtn.setText("Add customer");
     addCustomerBtn.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -126,48 +135,6 @@ public class CustomerListPanel extends javax.swing.JPanel {
                     .addComponent(searchCustomerTxtFld))
                 .addContainerGap()));
 
-    customerTableList.setModel(new javax.swing.table.DefaultTableModel(
-        new Object[][] {
-            { null, null, null, null, null },
-            { null, null, null, null, null },
-            { null, null, null, null, null },
-            { null, null, null, null, null },
-            { null, null, null, null, null },
-            { null, null, null, null, null },
-            { null, null, null, null, null },
-            { null, null, null, null, null },
-            { null, null, null, null, null },
-            { null, null, null, null, null },
-            { null, null, null, null, null },
-            { null, null, null, null, null },
-            { null, null, null, null, null },
-            { null, null, null, null, null },
-            { null, null, null, null, null },
-            { null, null, null, null, null },
-            { null, null, null, null, null },
-            { null, null, null, null, null },
-            { null, null, null, null, null },
-            { null, null, null, null, null }
-        },
-        new String[] {
-            "ID", "Name", "Email", "Phone number", "Status"
-        }) {
-      Class[] types = new Class[] {
-          java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class,
-          java.lang.Object.class
-      };
-      boolean[] canEdit = new boolean[] {
-          false, false, false, false, false
-      };
-
-      public Class getColumnClass(int columnIndex) {
-        return types[columnIndex];
-      }
-
-      public boolean isCellEditable(int rowIndex, int columnIndex) {
-        return canEdit[columnIndex];
-      }
-    });
     customerTableList.getTableHeader().setReorderingAllowed(false);
     jScrollPane2.setViewportView(customerTableList);
 

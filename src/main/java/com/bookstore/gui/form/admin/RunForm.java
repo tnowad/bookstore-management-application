@@ -11,7 +11,6 @@ import com.bookstore.gui.form.admin.component.bookListComponent.BrowseProductPan
 import com.bookstore.gui.form.admin.component.userListComponent.UserComponent;
 import com.bookstore.gui.form.admin.menu.MenuForm;
 
-
 public class RunForm extends JFrame {
   private JPanel MenuAdmin;
   private JPanel Construct;
@@ -31,7 +30,7 @@ public class RunForm extends JFrame {
     MenuAdmin = new JPanel();
     MenuAdmin.setPreferredSize(new Dimension(180, 500));
     MenuForm menuForm = new MenuForm();
-    MenuAdmin.add(menuForm ); 
+    MenuAdmin.add(menuForm);
     add(MenuAdmin);
 
     Construct = new JPanel();
@@ -45,7 +44,7 @@ public class RunForm extends JFrame {
 
     UserComponent userComponent = new UserComponent();
     BrowseProductPanel browseProductPanel = new BrowseProductPanel();
-    Contend.add(browseProductPanel);
+    Contend.add(userComponent);
 
     Construct.add(HeaderAdmin);
     Construct.add(Contend);
