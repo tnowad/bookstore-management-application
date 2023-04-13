@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import com.bookstore.dao.PromotionDAO;
 import com.bookstore.models.PromotionModel;
+import com.bookstore.util.Excel.PromotionExcelUtil;
 
 public class PromotionExcelUtilTest {
   @Test

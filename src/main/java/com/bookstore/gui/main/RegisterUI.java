@@ -29,7 +29,7 @@ public class RegisterUI extends JFrame {
   private JLabel iconLabel;
   private JLabel nameStoreLabel;
 
-  private RegisterUI() {
+  public RegisterUI() {
     initComponent();
     handleEvent();
     initFrame();
