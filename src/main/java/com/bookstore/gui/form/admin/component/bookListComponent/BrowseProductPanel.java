@@ -4,17 +4,12 @@
  */
 package com.bookstore.gui.form.admin.component.bookListComponent;
 
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.GridLayout;
+import java.awt.*;
 import java.sql.SQLException;
 import java.util.List;
 
-import javax.swing.JCheckBox;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.*;
+
 
 import com.bookstore.bus.BookBUS;
 import com.bookstore.models.BookModel;
@@ -26,7 +21,7 @@ import com.bookstore.models.BookModel.Status;
 public class BrowseProductPanel extends javax.swing.JPanel {
 
   private BookBUS bookBUS;
-  private List<BookModel> ListBook ;
+  private List<BookModel> listBook ;
 /**
    * Creates new form BrowswProductUI
  * @throws SQLException
@@ -34,7 +29,7 @@ public class BrowseProductPanel extends javax.swing.JPanel {
    */
   public BrowseProductPanel() throws ClassNotFoundException, SQLException {
     bookBUS = BookBUS.getInstance();
-    ListBook = bookBUS.getAllModels();
+    listBook = bookBUS.getAllModels();
     initComponents();
   }
 
@@ -104,8 +99,6 @@ public class BrowseProductPanel extends javax.swing.JPanel {
 
         jPanel3.setLayout(new java.awt.GridLayout(1, 0));
 
-        BookBUS bookBUS = BookBUS.getInstance();
-        List<BookModel> listBook = bookBUS.getAllModels();
         table.setLayout(new GridLayout(0,3,10,10));
         for(BookModel book : listBook){
             if(!book.getStatus().toString().equals("DELETED")){

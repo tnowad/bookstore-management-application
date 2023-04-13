@@ -2,16 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.bookstore.gui.form.customer.view;
+package com.bookstore.gui.form.admin.customer.formCustomer;
 
 import javax.swing.*;
-
-import com.bookstore.gui.form.customer.formCustomer.BrowseProductPanel;
-import com.bookstore.gui.form.customer.formCustomer.CartPanel;
-import com.bookstore.gui.form.customer.formCustomer.CategoryPanel;
-
 import java.awt.*;
-import java.sql.SQLException;
 
 /**
  *
@@ -54,6 +48,8 @@ public class MainCustomerFrame extends javax.swing.JFrame {
     getUserStatusTxtFld = new javax.swing.JTextField();
     jLabel2 = new javax.swing.JLabel();
     cartButton = new javax.swing.JButton();
+    jScrollPane1 = new javax.swing.JScrollPane();
+    bookListPanel = new javax.swing.JPanel();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
     setTitle("Home");
@@ -66,7 +62,7 @@ public class MainCustomerFrame extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE));
     logoPanelLayout.setVerticalGroup(
         logoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE));
+            .addGap(0, 82, Short.MAX_VALUE));
 
     javax.swing.GroupLayout searchPanelLayout = new javax.swing.GroupLayout(searchPanel);
     searchPanel.setLayout(searchPanelLayout);
@@ -75,15 +71,16 @@ public class MainCustomerFrame extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE));
     searchPanelLayout.setVerticalGroup(
         searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 582, Short.MAX_VALUE));
+            .addGap(0, 40, Short.MAX_VALUE));
 
     displayingItemsPanel.setLayout(new java.awt.CardLayout());
 
     categoriesBtn.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-    // categoriesBtn.setIcon(new javax.swing.ImageIcon("/icon/categories.png")); //
+    // categoriesBtn.setIcon(new
+    // javax.swing.ImageIcon(getClass().getResource("/icon/categories.png"))); //
     // NOI18N
-    categoriesBtn.setIcon(new javax.swing.ImageIcon("../../../../../resources/images/categories (Custom).png")); // NOI18N
-
+    categoriesBtn.setIcon(new javax.swing.ImageIcon(
+        getClass().getResource("../../../../../resources/images/categories (Custom).png")));
     categoriesBtn.setText("Categories");
     categoriesBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
     categoriesBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -93,8 +90,11 @@ public class MainCustomerFrame extends javax.swing.JFrame {
     });
 
     homeBtn.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-    // homeBtn.setIcon(new javax.swing.ImageIcon("/icon/home.png")); // NOI18N
-    homeBtn.setIcon(new javax.swing.ImageIcon("../../../../../resources/images/home (Custom).png")); // NOI18N
+    // homeBtn.setIcon(new
+    // javax.swing.ImageIcon(getClass().getResource("/icon/home.png"))); // NOI18N
+    homeBtn.setIcon(
+        new javax.swing.ImageIcon(getClass().getResource("../../../../../resources/images/home (Custom).png"))); // NOI18N
+
     homeBtn.setText("Home");
     homeBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
     homeBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -104,24 +104,25 @@ public class MainCustomerFrame extends javax.swing.JFrame {
     });
 
     discoverBtn.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-    // discoverBtn.setIcon(new javax.swing.ImageIcon("/icon/search.png")); // NOI18N
-    discoverBtn.setIcon(new javax.swing.ImageIcon("../../../../../resources/images/search (Custom).png")); // NOI18N
+    // discoverBtn.setIcon(new
+    // javax.swing.ImageIcon(getClass().getResource("/icon/search.png"))); // NOI18N
+    discoverBtn.setIcon(new javax.swing.ImageIcon(
+        getClass().getResource("../../../../../resources/images/search (Custom).png"))); // NOI18N
+
     discoverBtn.setText("Discover");
     discoverBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
     discoverBtn.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
-        try {
-          discoverBtnActionPerformed(evt);
-        } catch (ClassNotFoundException | SQLException e) {
-          // TODO Auto-generated catch block
-          e.printStackTrace();
-        }
+        discoverBtnActionPerformed(evt);
       }
     });
 
     logOutBtn.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-    // logOutBtn.setIcon(new javax.swing.ImageIcon("/icon/logout.png")); // NOI18N
-    logOutBtn.setIcon(new javax.swing.ImageIcon("../../../../../resources/images/logout (Custom).png")); // NOI18N
+    // logOutBtn.setIcon(new
+    // javax.swing.ImageIcon(getClass().getResource("/icon/logout.png"))); // NOI18N
+    logOutBtn.setIcon(new javax.swing.ImageIcon(
+        getClass().getResource("../../../../../resources/images/logout (Custom).png"))); // NOI18N
+
     logOutBtn.setText("Log out");
     logOutBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
     logOutBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -131,8 +132,11 @@ public class MainCustomerFrame extends javax.swing.JFrame {
     });
 
     accountBtn.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-    // accountBtn.setIcon(new javax.swing.ImageIcon("/icon/user.png")); // NOI18N
-    accountBtn.setIcon(new javax.swing.ImageIcon("../../../../../resources/images/user (Custom).png")); // NOI18N
+    // accountBtn.setIcon(new
+    // javax.swing.ImageIcon(getClass().getResource("/icon/user.png"))); // NOI18N
+    accountBtn.setIcon(
+        new javax.swing.ImageIcon(getClass().getResource("../../../../../resources/images/user (Custom).png"))); // NOI18N
+
     accountBtn.setText("Account");
     accountBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
     accountBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -142,16 +146,19 @@ public class MainCustomerFrame extends javax.swing.JFrame {
     });
 
     aboutUsBtn.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-    // aboutUsBtn.setIcon(new javax.swing.ImageIcon("/icon/info.png")); // NOI18N
-    aboutUsBtn.setIcon(new javax.swing.ImageIcon("../../../../../resources/images/info (Custom).png")); // NOI18N
+    // aboutUsBtn.setIcon(new
+    // javax.swing.ImageIcon(getClass().getResource("/icon/info.png"))); // NOI18N
+    aboutUsBtn.setIcon(
+        new javax.swing.ImageIcon(getClass().getResource("../../../../../resources/images/info (Custom).png"))); // NOI18N
 
     aboutUsBtn.setText("About Us");
     aboutUsBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
     contactSupportBtn.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-    // contactSupportBtn.setIcon(new javax.swing.ImageIcon("/icon/chat.png")); //
-    // NOI18N
-    contactSupportBtn.setIcon(new javax.swing.ImageIcon("../../../../../resources/images/chat (Custom).png")); // NOI18N
+    // contactSupportBtn.setIcon(new
+    // javax.swing.ImageIcon(getClass().getResource("/icon/chat.png"))); // NOI18N
+    contactSupportBtn.setIcon(
+        new javax.swing.ImageIcon(getClass().getResource("../../../../../resources/images/chat (Custom).png"))); // NOI18N
 
     contactSupportBtn.setText("Contact Support");
     contactSupportBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -160,10 +167,10 @@ public class MainCustomerFrame extends javax.swing.JFrame {
     menuPanel.setLayout(menuPanelLayout);
     menuPanelLayout.setHorizontalGroup(
         menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(aboutUsBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
-                Short.MAX_VALUE)
-            .addComponent(logOutBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
-                Short.MAX_VALUE)
+            .addComponent(aboutUsBtn, javax.swing.GroupLayout.DEFAULT_SIZE,
+                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(logOutBtn, javax.swing.GroupLayout.DEFAULT_SIZE,
+                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(menuPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -171,13 +178,13 @@ public class MainCustomerFrame extends javax.swing.JFrame {
                         javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(discoverBtn, javax.swing.GroupLayout.DEFAULT_SIZE,
                         javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(homeBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
-                        Short.MAX_VALUE))
+                    .addComponent(homeBtn, javax.swing.GroupLayout.DEFAULT_SIZE,
+                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
-            .addComponent(contactSupportBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
-                Short.MAX_VALUE)
-            .addComponent(accountBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
-                Short.MAX_VALUE));
+            .addComponent(contactSupportBtn, javax.swing.GroupLayout.DEFAULT_SIZE,
+                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(accountBtn, javax.swing.GroupLayout.DEFAULT_SIZE,
+                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
     menuPanelLayout.setVerticalGroup(
         menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(menuPanelLayout.createSequentialGroup()
@@ -190,7 +197,8 @@ public class MainCustomerFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(categoriesBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40,
                     javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 177, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 177,
+                    Short.MAX_VALUE)
                 .addComponent(accountBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 41,
                     javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -204,9 +212,11 @@ public class MainCustomerFrame extends javax.swing.JFrame {
                     javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap()));
 
-    // jLabel1.setIcon(new javax.swing.ImageIcon("/icon/books-piled-.png")); //
-    // NOI18N
-    jLabel1.setIcon(new javax.swing.ImageIcon("../../../../../resources/images/books-piled- (Custom).png")); // NOI18N
+    // jLabel1.setIcon(new
+    // javax.swing.ImageIcon(getClass().getResource("/icon/books-piled-
+    // (Custom).png"))); // NOI18N
+    jLabel1.setIcon(new javax.swing.ImageIcon(
+        getClass().getResource("../../../../../resources/images/books-piled- (Custom).png"))); // NOI18N
 
     jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
     jLabel3.setText("Welcome,");
@@ -221,9 +231,11 @@ public class MainCustomerFrame extends javax.swing.JFrame {
     jLabel2.setText("Status:");
 
     cartButton.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-    // cartButton.setIcon(new javax.swing.ImageIcon("/icon/shopping-cart.png")); //
-    // NOI18N
-    cartButton.setIcon(new javax.swing.ImageIcon("../../../../../resources/images/shopping-cart (Custom).png")); // NOI18N
+    // cartButton.setIcon(new
+    // javax.swing.ImageIcon(getClass().getResource("/icon/shopping-cart
+    // (Custom).png"))); // NOI18N
+    cartButton.setIcon(new javax.swing.ImageIcon(
+        getClass().getResource("../../../../../resources/images/shopping-cart (Custom).png"))); // NOI18N
 
     cartButton.setText("Cart");
     cartButton.addActionListener(new java.awt.event.ActionListener() {
@@ -251,18 +263,29 @@ public class MainCustomerFrame extends javax.swing.JFrame {
                     javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(cartButton)
-                .addContainerGap(37, Short.MAX_VALUE)));
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
     jPanel1Layout.setVerticalGroup(
         jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                 .addComponent(getUserStatusTxtFld)
                 .addComponent(cartButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40,
                     javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
-                Short.MAX_VALUE)
+            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE,
+                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(welcomeUserTxtFld)
-            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
-                Short.MAX_VALUE));
+            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE,
+                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
+
+    javax.swing.GroupLayout bookListPanelLayout = new javax.swing.GroupLayout(bookListPanel);
+    bookListPanel.setLayout(bookListPanelLayout);
+    bookListPanelLayout.setHorizontalGroup(
+        bookListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 837, Short.MAX_VALUE));
+    bookListPanelLayout.setVerticalGroup(
+        bookListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 534, Short.MAX_VALUE));
+
+    jScrollPane1.setViewportView(bookListPanel);
 
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
@@ -271,50 +294,69 @@ public class MainCustomerFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(menuPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
-                        Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel1)
-                        .addGap(70, 70, 70)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(logoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
-                    Short.MAX_VALUE)
+                    .addComponent(menuPanel, javax.swing.GroupLayout.DEFAULT_SIZE,
+                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
+                        layout.createSequentialGroup()
+                            .addGap(0, 0, Short.MAX_VALUE)
+                            .addComponent(jLabel1)
+                            .addGap(70, 70, 70)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE,
-                            javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(logoPanel, javax.swing.GroupLayout.DEFAULT_SIZE,
+                            javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(displayingItemsPanel,
+                            javax.swing.GroupLayout.PREFERRED_SIZE,
+                            javax.swing.GroupLayout.DEFAULT_SIZE,
+                            javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(845, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout
+                            .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING,
+                                false)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(searchPanel, javax.swing.GroupLayout.DEFAULT_SIZE,
-                            javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(displayingItemsPanel, javax.swing.GroupLayout.PREFERRED_SIZE,
-                        javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))));
+                            javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))));
     layout.setVerticalGroup(
         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout
+                            .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(logoPanel, javax.swing.GroupLayout.DEFAULT_SIZE,
                                 javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE,
                                 javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(menuPanel, javax.swing.GroupLayout.PREFERRED_SIZE,
-                            javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            javax.swing.GroupLayout.DEFAULT_SIZE,
+                            javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(searchPanel, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout
+                            .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                    javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))
+                                .addComponent(searchPanel,
+                                    javax.swing.GroupLayout.DEFAULT_SIZE,
+                                    javax.swing.GroupLayout.DEFAULT_SIZE,
+                                    Short.MAX_VALUE)
+                                .addPreferredGap(
+                                    javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(displayingItemsPanel,
+                                    javax.swing.GroupLayout.PREFERRED_SIZE,
+                                    javax.swing.GroupLayout.DEFAULT_SIZE,
+                                    javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(displayingItemsPanel, javax.swing.GroupLayout.PREFERRED_SIZE,
-                            javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane1)))
                 .addContainerGap()));
 
     pack();
@@ -338,7 +380,7 @@ public class MainCustomerFrame extends javax.swing.JFrame {
     // TODO add your handling code here:
   }// GEN-LAST:event_homeBtnActionPerformed
 
-  private void discoverBtnActionPerformed(java.awt.event.ActionEvent evt) throws ClassNotFoundException, SQLException {// GEN-FIRST:event_discoverBtnActionPerformed
+  private void discoverBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_discoverBtnActionPerformed
     System.out.println("Button " + evt.getActionCommand() + " has been clicked.");
     displayingItemsPanel.removeAll();
     BrowseProductPanel browseProductUI = new BrowseProductPanel();
@@ -351,12 +393,7 @@ public class MainCustomerFrame extends javax.swing.JFrame {
   }// GEN-LAST:event_discoverBtnActionPerformed
 
   private void logOutBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_logOutBtnActionPerformed
-    int choice = JOptionPane.showConfirmDialog(null, "Do you want to log out?");
-    if (choice == JOptionPane.YES_OPTION) {
-      this.dispose();
-      // LoginUI loginUI = new LoginUI();
-      // loginUI.setVisible(true);
-    }
+    // TODO add your handling code here:
   }// GEN-LAST:event_logOutBtnActionPerformed
 
   private void accountBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_accountBtnActionPerformed
@@ -366,9 +403,9 @@ public class MainCustomerFrame extends javax.swing.JFrame {
   private void cartButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_cartButtonActionPerformed
     System.out.println("Button " + evt.getActionCommand() + " has been clicked.");
     displayingItemsPanel.removeAll();
-    CartPanel cartPanel = new CartPanel();
-    displayingItemsPanel.add(cartPanel);
-    cartPanel.setSize(displayingItemsPanel.getSize());
+    CartPanel cartUI = new CartPanel();
+    displayingItemsPanel.add(cartUI);
+    cartUI.setSize(displayingItemsPanel.getSize());
     displayingItemsPanel.setLayout(new CardLayout());
     displayingItemsPanel.setVisible(true);
     displayingItemsPanel.revalidate();
@@ -397,8 +434,8 @@ public class MainCustomerFrame extends javax.swing.JFrame {
       }
     } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
         | UnsupportedLookAndFeelException ex) {
-      java.util.logging.Logger.getLogger(MainCustomerFrame.class.getName()).log(java.util.logging.Level.SEVERE, null,
-          ex);
+      java.util.logging.Logger.getLogger(MainCustomerFrame.class.getName()).log(java.util.logging.Level.SEVERE,
+          null, ex);
     }
     // </editor-fold>
     // </editor-fold>
@@ -410,6 +447,7 @@ public class MainCustomerFrame extends javax.swing.JFrame {
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JButton aboutUsBtn;
   private javax.swing.JButton accountBtn;
+  private javax.swing.JPanel bookListPanel;
   private javax.swing.JButton cartButton;
   private javax.swing.JButton categoriesBtn;
   private javax.swing.JButton contactSupportBtn;
@@ -421,6 +459,7 @@ public class MainCustomerFrame extends javax.swing.JFrame {
   private javax.swing.JLabel jLabel2;
   private javax.swing.JLabel jLabel3;
   private javax.swing.JPanel jPanel1;
+  private javax.swing.JScrollPane jScrollPane1;
   private javax.swing.JButton logOutBtn;
   private javax.swing.JPanel logoPanel;
   private javax.swing.JPanel menuPanel;
