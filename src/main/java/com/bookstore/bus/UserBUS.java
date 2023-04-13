@@ -170,6 +170,11 @@ public class UserBUS implements IBUS<UserModel> {
     if (hasEmail && !isValidEmailAddress(userModel.getEmail())) {
       throw new IllegalArgumentException("Invalid email address.");
     }
+
+    if (hasPhone && !isValidPhoneNumber(userModel.getPhone())) {
+      throw new IllegalArgumentException("Invalid number format.");
+    }
+
     userModel.setRole(userModel.getRole() != null ? userModel.getRole() : Role.CUSTOMER);
     userModel.setStatus(userModel.getStatus() != null ? userModel.getStatus() : Status.ACTIVE);
 
@@ -187,6 +192,15 @@ public class UserBUS implements IBUS<UserModel> {
     }
 
     return pattern.matcher(email).matches();
+  }
+
+  private boolean isValidPhoneNumber(String number) {
+    Pattern pattern = Pattern.compile("^\\d{10}$");
+
+    if (number == null)
+      return false;
+
+    return pattern.matcher(number).matches();
   }
 
   @Override
