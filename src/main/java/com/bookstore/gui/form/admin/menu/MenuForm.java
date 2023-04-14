@@ -46,24 +46,25 @@ public class MenuForm extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(180, 500));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        // jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/book_logo.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/images/open-book.png"))); // NOI18N
         jLabel1.setText("BOOK STORE");
 
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
         jPanel1.setPreferredSize(new java.awt.Dimension(166, 800));
         jPanel1.setLayout(new java.awt.GridLayout(15, 1));
 
         MenuDashBoard.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         MenuDashBoard.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        MenuDashBoard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/images/clipboard.png"))); // NOI18N
+        MenuDashBoard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/images/edit.png"))); // NOI18N
         MenuDashBoard.setText("DashBoard");
         MenuDashBoard.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel1.add(MenuDashBoard);
 
         MenuRepository.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         MenuRepository.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        // MenuRepository.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/images/reposir.png"))); // NOI18N
+        MenuRepository.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/images/back.png"))); // NOI18N
         MenuRepository.setText("Repository");
         MenuRepository.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel1.add(MenuRepository);
@@ -87,7 +88,6 @@ public class MenuForm extends javax.swing.JPanel {
         jPanel1.add(MenuOderList);
 
         jScrollPane1.setViewportView(jPanel1);
-        jScrollPane1.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -96,8 +96,8 @@ public class MenuForm extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -106,8 +106,8 @@ public class MenuForm extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 418, Short.MAX_VALUE)
-                .addGap(15, 15, 15))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE)
+                .addGap(24, 24, 24))
         );
     }// </editor-fold>//GEN-END:initComponents
 

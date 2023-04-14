@@ -446,17 +446,17 @@ public class UserComponent extends javax.swing.JPanel implements MouseListener {
         quantityUser = quantityUser + 1;
         if (user.getRole().toString().equals("ADMIN")) {
           quantityAdmin = quantityAdmin + 1;
-          if (daysDiff <= 9) {
+          if (daysDiff <= 7) {
             QuantityAdminNew = QuantityAdminNew + 1;
           }
         } else if (user.getRole().toString().equals("EMPLOYEE")) {
           quantityEmployee = quantityEmployee + 1;
-          if (daysDiff <= 9) {
+          if (daysDiff <= 7) {
             QuantityEmployeeNew = QuantityEmployeeNew + 1;
           }
         } else {
           quantityCustomer = quantityCustomer + 1;
-          if (daysDiff <= 9) {
+          if (daysDiff <= 7) {
             QuantityCustomerNew = QuantityCustomerNew + 1;
           }
         }

@@ -1,5 +1,5 @@
 
-package com.bookstore.gui.form.customer.formCustomer;
+package com.bookstore.gui.form.admin.customer.formCustomer;
 
 public class BookDetailPanel extends javax.swing.JPanel {
 
