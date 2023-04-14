@@ -35,10 +35,10 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 public class PDFWriter {
 
-  private static final String FONT_FILE_PATH = "../../../resources/fonts/SansSerif.ttf";
+  private static final String FONT_FILE_PATH = "C:\\Windows\\Fonts\\Arial.ttf";
   private static PDFWriter instance;
 
-  private Document document;
+  public Document document;
   private Font fontData;
   private Font fontTitle;
   private Font fontHeader;
@@ -51,7 +51,7 @@ public class PDFWriter {
     }
   }
 
-  public static PDFWriter getInstance() {
+  public static synchronized PDFWriter getInstance() {
     if (instance == null) {
       instance = new PDFWriter();
     }
@@ -65,10 +65,10 @@ public class PDFWriter {
     fontHeader = new Font(baseFont, 13, Font.NORMAL);
   }
 
-  public void chooseURL(String url) {
+  public void chooseURL(String filePath) {
     try {
       document = new Document();
-      PdfWriter.getInstance(document, new FileOutputStream(url));
+      PdfWriter.getInstance(document, new FileOutputStream(filePath));
       document.open();
     } catch (IOException | DocumentException ex) {
       Logger.getLogger(PDFWriter.class.getName()).log(Level.SEVERE, null, ex);
@@ -133,8 +133,7 @@ public class PDFWriter {
 
   // TODO: NEED A TEST FOR THIS FUNCTION BELOW!
   public void exportImportsToPDF(int id) {
-    String url = ""; // Set the URL where the PDF file will be saved
-
+    String url = "";
     // Get the import data from the database
     ImportModel importData = ImportBUS.getInstance().getModelById(id);
 
