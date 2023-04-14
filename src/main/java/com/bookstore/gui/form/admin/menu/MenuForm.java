@@ -4,7 +4,11 @@
  */
 package com.bookstore.gui.form.admin.menu;
 
+import java.sql.SQLException;
+
 import javax.swing.JScrollPane;
+
+import com.bookstore.gui.form.admin.RunForm;
 
 /**
  *
@@ -32,11 +36,11 @@ public class MenuForm extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
-        MenuDashBoard = new javax.swing.JLabel();
-        MenuRepository = new javax.swing.JLabel();
-        MenuUserList = new javax.swing.JLabel();
-        MenuBookList = new javax.swing.JLabel();
-        MenuOderList = new javax.swing.JLabel();
+        ButtonDashboard = new javax.swing.JButton();
+        ButtonRepository = new javax.swing.JButton();
+        ButtonListBook = new javax.swing.JButton();
+        ButtonListUser = new javax.swing.JButton();
+        ButtonOrder = new javax.swing.JButton();
 
         jTextField6.setEditable(false);
         jTextField6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -53,39 +57,27 @@ public class MenuForm extends javax.swing.JPanel {
         jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
         jPanel1.setPreferredSize(new java.awt.Dimension(166, 800));
-        jPanel1.setLayout(new java.awt.GridLayout(15, 1));
+        jPanel1.setLayout(new java.awt.GridLayout(15, 1, 10, 10));
 
-        MenuDashBoard.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        MenuDashBoard.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        MenuDashBoard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/images/edit.png"))); // NOI18N
-        MenuDashBoard.setText("DashBoard");
-        MenuDashBoard.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanel1.add(MenuDashBoard);
+        ButtonDashboard.setText("Dashboard");
+        jPanel1.add(ButtonDashboard);
+        ButtonDashboard.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                
+            }
+        });
 
-        MenuRepository.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        MenuRepository.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        MenuRepository.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/images/back.png"))); // NOI18N
-        MenuRepository.setText("Repository");
-        MenuRepository.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanel1.add(MenuRepository);
+        ButtonRepository.setText("Repository");
+        jPanel1.add(ButtonRepository);
 
-        MenuUserList.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        MenuUserList.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        MenuUserList.setText("User List");
-        MenuUserList.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanel1.add(MenuUserList);
+        ButtonListBook.setText("List Book");
+        jPanel1.add(ButtonListBook);
 
-        MenuBookList.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        MenuBookList.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        MenuBookList.setText("Book List");
-        MenuBookList.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanel1.add(MenuBookList);
+        ButtonListUser.setText("List User");
+        jPanel1.add(ButtonListUser);
 
-        MenuOderList.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        MenuOderList.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        MenuOderList.setText("Order List");
-        MenuOderList.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanel1.add(MenuOderList);
+        ButtonOrder.setText("List Order");
+        jPanel1.add(ButtonOrder);
 
         jScrollPane1.setViewportView(jPanel1);
 
@@ -97,7 +89,7 @@ public class MenuForm extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -113,11 +105,11 @@ public class MenuForm extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel MenuBookList;
-    private javax.swing.JLabel MenuDashBoard;
-    private javax.swing.JLabel MenuOderList;
-    private javax.swing.JLabel MenuRepository;
-    private javax.swing.JLabel MenuUserList;
+    private javax.swing.JButton ButtonDashboard;
+    private javax.swing.JButton ButtonListBook;
+    private javax.swing.JButton ButtonListUser;
+    private javax.swing.JButton ButtonOrder;
+    private javax.swing.JButton ButtonRepository;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

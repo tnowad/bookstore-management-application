@@ -1,5 +1,6 @@
 package com.bookstore.gui.form.admin;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -17,8 +18,7 @@ import com.bookstore.gui.form.admin.menu.MenuForm;
 public class RunForm extends JFrame {
   private JPanel MenuAdmin;
   private JPanel Construct;
-  private JPanel HeaderAdmin;
-  private JPanel Contend;
+
 
   public RunForm() throws ClassNotFoundException, SQLException {
     initComponents();
@@ -28,74 +28,30 @@ public class RunForm extends JFrame {
 
   public void initComponents() throws ClassNotFoundException, SQLException {
 
-    setLayout(new FlowLayout());
-    setSize(new Dimension(980, 560));
-    setPreferredSize(new Dimension(980, 560));
-    // MenuAdmin = new JPanel();
-    // MenuAdmin.setPreferredSize(new Dimension(155, 500));
+    setLayout(new BorderLayout());
+    setSize(new Dimension(1000, 560));
+    setPreferredSize(new Dimension(1000, 560));
+
     MenuForm menuForm = new MenuForm();
-<<<<<<< HEAD
-    // MenuAdmin.add(menuForm);
-    add(menuForm);
-=======
-    MenuAdmin.add(menuForm);
-    add(MenuAdmin);
->>>>>>> 3f0ef734313566efc8b2716b60f649c843951974
-
-    Construct = new JPanel();
-    Construct.setPreferredSize(new Dimension(795, 500));
-    Construct.setLayout(new FlowLayout());
-    HeaderAdmin = new JPanel();
-    Contend = new JPanel();
-
-    HeaderAdmin.setBackground(Color.red);
-    HeaderAdmin.setPreferredSize(new Dimension(680, 40));
-
-    UserComponent userComponent = new UserComponent();
-    BrowseProductPanel browseProductPanel = new BrowseProductPanel();
-<<<<<<< HEAD
-    DashboardPanel dashboardPanel = new DashboardPanel();
-=======
->>>>>>> 3f0ef734313566efc8b2716b60f649c843951974
-    Contend.add(userComponent);
-
-    Construct.add(HeaderAdmin);
-    Construct.add(Contend);
-
-    add(Construct);
+    add(menuForm, BorderLayout.WEST);
     revalidate();
     repaint();
-    pack();
 
-    addComponentListener(new ComponentListener() {
+    Construct = new JPanel();
+    MenuAdmin = new JPanel();
 
-      @Override
-      public void componentResized(ComponentEvent e) {
-        int height = getContentPane().getHeight();
-        int width = getContentPane().getWidth();
-        // MenuAdmin.setPreferredSize(new Dimension(155, height));
-        menuForm.setPreferredSize(new Dimension(width*25/100, height));
+    Construct.setLayout(new BorderLayout());
+    add(Construct, BorderLayout.CENTER);
 
+    MenuAdmin.setBackground(Color.red);
+    MenuAdmin.setPreferredSize(new Dimension(50, 50));
 
-      }
+    DashboardPanel dashboardPanel = new DashboardPanel();
+    UserComponent userComponent = new UserComponent();
+    BrowseProductPanel browseProductPanel = new BrowseProductPanel();
 
-      @Override
-      public void componentMoved(ComponentEvent e) {
-
-      }
-
-      @Override
-      public void componentShown(ComponentEvent e) {
-
-      }
-
-      @Override
-      public void componentHidden(ComponentEvent e) {
-
-      }
-
-    });
-
+    Construct.add(MenuAdmin, BorderLayout.NORTH);
+    Construct.add(browseProductPanel, BorderLayout.CENTER);
   }
 
   public static void main(String[] args) throws ClassNotFoundException, SQLException {
