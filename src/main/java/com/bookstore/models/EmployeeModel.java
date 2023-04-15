@@ -8,7 +8,7 @@ public class EmployeeModel {
 
   public enum EmployeeType {
     EMPLOYEE_MANAGER,
-    EMPLOYEE_SALESMAN
+    EMPLOYEE_SALES
   }
 
   public EmployeeModel(int userId, int salary, EmployeeType employeeType, String contactInformation) {
@@ -39,7 +39,7 @@ public class EmployeeModel {
 
   public EmployeeType getEmployeeType() {
     if (employeeType == null) {
-      employeeType = EmployeeType.EMPLOYEE_SALESMAN;
+      employeeType = EmployeeType.EMPLOYEE_SALES;
     }
     return employeeType;
   }

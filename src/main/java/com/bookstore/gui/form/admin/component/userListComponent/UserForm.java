@@ -11,7 +11,6 @@ import java.sql.Timestamp;
 
 import javax.swing.JTextField;
 
-
 import com.bookstore.models.UserModel.Role;
 import com.bookstore.models.UserModel.Status;
 
@@ -48,9 +47,11 @@ public class UserForm extends javax.swing.JPanel implements MouseListener {
    */
   @SuppressWarnings("unchecked")
   // <editor-fold defaultstate="collapsed" desc="Generated
+  // <editor-fold defaultstate="collapsed" desc="Generated
   // Code">//GEN-BEGIN:initComponents
   private void initComponents(int Serial, int idUser, String userName, String password, Status status, String name,
-      String email, String phone, Enum role) {
+      String email,
+      String phone, Role role) {
 
     stt = new javax.swing.JLabel();
     RoleUser = new javax.swing.JTextField();
@@ -59,7 +60,7 @@ public class UserForm extends javax.swing.JPanel implements MouseListener {
     EmailUser = new javax.swing.JLabel();
     StatusUser = new javax.swing.JTextField();
     jCheckBox1 = new javax.swing.JCheckBox();
-    IdUser = new javax.swing.JTextField();
+    IdUser = new JTextField();
 
     IdUser.setText("" + idUser);
     add(IdUser);
@@ -107,21 +108,25 @@ public class UserForm extends javax.swing.JPanel implements MouseListener {
         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jCheckBox1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+                    javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(stt, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addComponent(NameUser, javax.swing.GroupLayout.PREFERRED_SIZE, 115,
                     javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED,
+                    javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(PhoneUser, javax.swing.GroupLayout.PREFERRED_SIZE, 101,
                     javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+                    javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(EmailUser, javax.swing.GroupLayout.PREFERRED_SIZE, 141,
                     javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+                    javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(RoleUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
                     javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addComponent(StatusUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
                     javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));

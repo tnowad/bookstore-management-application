@@ -34,6 +34,6 @@ public class DatabaseSeeder {
   }
 
   public static void main(String[] args) {
-    DatabaseSeeder.seeder();
+    seeder();
   }
 }
