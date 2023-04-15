@@ -34,13 +34,8 @@ public class RunForm extends JFrame {
     // MenuAdmin = new JPanel();
     // MenuAdmin.setPreferredSize(new Dimension(155, 500));
     MenuForm menuForm = new MenuForm();
-<<<<<<< HEAD
-    // MenuAdmin.add(menuForm);
-    add(menuForm);
-=======
     MenuAdmin.add(menuForm);
     add(MenuAdmin);
->>>>>>> 3f0ef734313566efc8b2716b60f649c843951974
 
     Construct = new JPanel();
     Construct.setPreferredSize(new Dimension(795, 500));
@@ -53,10 +48,6 @@ public class RunForm extends JFrame {
 
     UserComponent userComponent = new UserComponent();
     BrowseProductPanel browseProductPanel = new BrowseProductPanel();
-<<<<<<< HEAD
-    DashboardPanel dashboardPanel = new DashboardPanel();
-=======
->>>>>>> 3f0ef734313566efc8b2716b60f649c843951974
     Contend.add(userComponent);
 
     Construct.add(HeaderAdmin);
