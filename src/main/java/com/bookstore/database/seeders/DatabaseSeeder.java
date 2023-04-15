@@ -31,4 +31,8 @@ public class DatabaseSeeder {
       new Thread(seeder::run).start();
     }
   }
+
+  public static void main(String[] args) {
+    seeder();
+  }
 }

@@ -105,7 +105,7 @@ public class EmployeeBUS implements IBUS<EmployeeModel> {
       throw new IllegalArgumentException("Contact information cannot be null or empty!");
     }
     employeeModel.setEmployeeType(
-        employeeModel.getEmployeeType() != null ? employeeModel.getEmployeeType() : EmployeeType.EMPLOYEE_SALESMAN);
+        employeeModel.getEmployeeType() != null ? employeeModel.getEmployeeType() : EmployeeType.EMPLOYEE_SALES);
 
     int userId = EmployeeDAO.getInstance().insert(mapToEntity(employeeModel));
     employeeModel.setUserId(userId);
