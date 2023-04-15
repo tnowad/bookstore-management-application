@@ -2,6 +2,7 @@ package com.bookstore.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
@@ -59,7 +60,7 @@ public class PDFUtilTest {
     PDFWriter pdfWriter = PDFWriter.getInstance();
     String url = "C:\\Users\\Danh\\Desktop\\test.pdf";
     pdfWriter.chooseURL(url);
-    String[] data = {"Test", "Data", "12345", "678910"};
+    String[] data = { "Test", "Data", "12345", "678910" };
     pdfWriter.writeObject(data);
     pdfWriter.close();
     PdfReader reader = new PdfReader(url);
@@ -82,4 +83,55 @@ public class PDFUtilTest {
     assertEquals(text.trim(), "Column 1 Column 2 Test Data More Data");
     reader.close();
   }
+
+  @Test
+  public void testExportImportsToPDF_FailedToWriteImportData() {
+    // Arrange
+    int id = 1;
+    PDFWriter pdfWriter = PDFWriter.getInstance();
+
+    // Act & Assert
+    assertThrows(RuntimeException.class, () -> pdfWriter.exportImportsToPDF(id));
+  }
+
+  @Test
+  public void testExportImportsToPDF_FailedToWriteImportItems() {
+    // Arrange
+    int id = 2;
+    PDFWriter pdfWriter = PDFWriter.getInstance();
+
+    // Act & Assert
+    assertThrows(RuntimeException.class, () -> pdfWriter.exportImportsToPDF(id));
+  }
+
+  @Test
+  public void testExportImportsToPDF_WithImportData() {
+    // Arrange
+    int id = 3;
+    PDFWriter pdfWriter = PDFWriter.getInstance();
+
+    // Act
+    pdfWriter.exportImportsToPDF(id);
+
+    // Assert
+    // Check that the PDF document was created with the correct title and import
+    // data
+    // ...
+  }
+
+  @Test
+  public void testExportImportsToPDF_WithImportItems() {
+    // Arrange
+    int id = 4;
+    PDFWriter pdfWriter = PDFWriter.getInstance();
+
+    // Act
+    pdfWriter.exportImportsToPDF(id);
+
+    // Assert
+    // Check that the PDF document was created with the correct title and import
+    // items
+    // ...
+  }
+
 }

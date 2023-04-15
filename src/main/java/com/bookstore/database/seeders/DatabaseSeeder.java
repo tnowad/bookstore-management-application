@@ -25,8 +25,9 @@ public class DatabaseSeeder {
         new ImportDetailSeeder(),
         new CartItemSeeder(),
         new CategoriesSeeder(),
-
+        new ImportDetailSeeder()
     };
+
     for (ISeeder seeder : seeders) {
       new Thread(seeder::run).start();
     }
