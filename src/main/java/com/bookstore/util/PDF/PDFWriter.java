@@ -2,6 +2,7 @@ package com.bookstore.util.PDF;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -132,8 +133,7 @@ public class PDFWriter {
   }
 
   // TODO: NEED A TEST FOR THIS FUNCTION BELOW!
-  public void exportImportsToPDF(int id) {
-    String url = "";
+  public void exportImportsToPDF(int id, String url) {
     // Get the import data from the database
     ImportModel importData = ImportBUS.getInstance().getModelById(id);
 
@@ -287,7 +287,8 @@ public class PDFWriter {
       importItemsTable.addCell(cell3);
       importItemsTable.addCell(cell4);
 
-      List<ImportItemsModel> importItemsData = ImportItemsBUS.getInstance().getAllModels();
+      List<ImportItemsModel> importItemsData = new ArrayList<>(ImportItemsBUS.getInstance().getAllModels());
+      importItemsData.removeIf(importItem -> importItem.getImportId() != id);
 
       for (ImportItemsModel importItem : importItemsData) {
         BookModel bookData = BookBUS.getInstance().getBookByIsbn(importItem.getBookIsbn());

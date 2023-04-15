@@ -24,7 +24,7 @@ public class ImportItemsDAO implements IDAO<ImportItemsModel> {
     return new ImportItemsModel(
         rs.getInt("import_id"),
         rs.getInt("quantity"),
-        rs.getString("quantity"),
+        rs.getString("book_isbn"),
         rs.getDouble("price"));
   }
 
