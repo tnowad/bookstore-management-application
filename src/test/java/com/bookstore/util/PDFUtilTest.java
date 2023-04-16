@@ -133,4 +133,7 @@ public class PDFUtilTest {
     // ...
   }
 
+  public void textExportReceiptToPDF() {
+    
+  }
 }
