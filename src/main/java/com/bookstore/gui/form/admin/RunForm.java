@@ -1,67 +1,75 @@
 package com.bookstore.gui.form.admin;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
-import java.sql.SQLException;
 
 import javax.swing.*;
 
+import com.bookstore.gui.component.panel.MainPanel;
 import com.bookstore.gui.form.admin.component.bookListComponent.BrowseProductPanel;
 import com.bookstore.gui.form.admin.component.dashboardComponent.DashboardPanel;
 import com.bookstore.gui.form.admin.component.userListComponent.UserComponent;
+import com.bookstore.gui.form.admin.menu.HeaderForm;
 import com.bookstore.gui.form.admin.menu.MenuForm;
 
 public class RunForm extends JFrame {
-  private JPanel MenuAdmin;
+  private static RunForm instance;
   private JPanel Construct;
 
+  public static RunForm getInstance() {
+    if (instance == null) {
+      instance = new RunForm();
+    }
+    return instance;
+  }
 
-  public RunForm() throws ClassNotFoundException, SQLException {
+  public RunForm() {
     initComponents();
     setLocationRelativeTo(null);
     setVisible(true);
   }
 
-  public void initComponents() throws ClassNotFoundException, SQLException {
-
+  private void initComponents() {
     setLayout(new BorderLayout());
     setSize(new Dimension(1000, 560));
     setPreferredSize(new Dimension(1000, 560));
 
-    MenuForm menuForm = new MenuForm();
-    add(menuForm, BorderLayout.WEST);
-    revalidate();
-    repaint();
-
     Construct = new JPanel();
-    MenuAdmin = new JPanel();
-
     Construct.setLayout(new BorderLayout());
+
+    add(MenuForm.getInstance(), BorderLayout.WEST);
     add(Construct, BorderLayout.CENTER);
 
-    MenuAdmin.setBackground(Color.red);
-    MenuAdmin.setPreferredSize(new Dimension(50, 50));
+    Construct.add(HeaderForm.getInstance(), BorderLayout.NORTH);
+    Construct.add(DashboardPanel.getInstance(), BorderLayout.CENTER);
 
-    DashboardPanel dashboardPanel = new DashboardPanel();
-    UserComponent userComponent = new UserComponent();
-    BrowseProductPanel browseProductPanel = new BrowseProductPanel();
 
-    Construct.add(MenuAdmin, BorderLayout.NORTH);
-    Construct.add(browseProductPanel, BorderLayout.CENTER);
   }
 
-  public static void main(String[] args) throws ClassNotFoundException, SQLException {
-    try {
-      UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
-      UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
-    } catch (Exception e) {
-      new RunForm();
+  public void action(String nameButton) {
+    switch (nameButton) {
+    case "Dashboard":
+    Construct.add(DashboardPanel.getInstance(), BorderLayout.CENTER);
+    break;
+    case "UserList":
+    removeAll();
+    Construct.add(UserComponent.getInstance(), BorderLayout.CENTER);
+    break;
+    case "BookList":
+    Construct.removeAll();
+    Construct.add(BrowseProductPanel.getInstance(), BorderLayout.CENTER);
+    break;
     }
 
   }
 
+  public static void main(String[] args) {
+    try {
+      UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+      UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
+
+    } catch (Exception e) {
+      new RunForm();
+    }
+  }
 }

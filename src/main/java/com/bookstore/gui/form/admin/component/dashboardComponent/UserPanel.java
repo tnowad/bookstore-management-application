@@ -37,25 +37,27 @@ public class UserPanel extends javax.swing.JPanel {
         getStatus = new javax.swing.JLabel();
         getRole = new javax.swing.JTextField();
 
+        setBackground(new java.awt.Color(255, 255, 255));
         setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(102, 102, 0), new java.awt.Color(153, 255, 153), new java.awt.Color(102, 0, 204), new java.awt.Color(51, 255, 153)));
         setPreferredSize(new java.awt.Dimension(445, 42));
 
-        getSerial.setText("01");
+        getSerial.setText(""+serial);
 
         getNameUser.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
-        getNameUser.setText("huynh trieu den");
+        getNameUser.setText(name);
 
         getPhone.setText("0941045139");
 
         getAgeUser.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        getAgeUser.setText("60");
+        getAgeUser.setText(""+createdTime);
 
         getStatus.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        getStatus.setText("BANNED");
+        getStatus.setText(""+status);
 
         getRole.setEditable(false);
+        getRole.setBackground(new java.awt.Color(204, 204, 255));
         getRole.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        getRole.setText("ADMIN");
+        getRole.setText(""+role);
         getRole.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 0)));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

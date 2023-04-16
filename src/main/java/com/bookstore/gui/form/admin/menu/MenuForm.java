@@ -4,6 +4,7 @@
  */
 package com.bookstore.gui.form.admin.menu;
 
+import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
 import javax.swing.JScrollPane;
@@ -15,6 +16,7 @@ import com.bookstore.gui.form.admin.RunForm;
  * @author yanti
  */
 public class MenuForm extends javax.swing.JPanel {
+    private static MenuForm instance;
 
     /**
      * Creates new form MenuForm
@@ -22,6 +24,12 @@ public class MenuForm extends javax.swing.JPanel {
     public MenuForm() {
         initComponents();
     }
+    public static MenuForm getInstance()  {
+        if (instance == null) {
+          instance = new MenuForm();
+        }
+        return instance;
+      }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -63,7 +71,6 @@ public class MenuForm extends javax.swing.JPanel {
         jPanel1.add(ButtonDashboard);
         ButtonDashboard.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                
             }
         });
 
@@ -71,9 +78,19 @@ public class MenuForm extends javax.swing.JPanel {
         jPanel1.add(ButtonRepository);
 
         ButtonListBook.setText("List Book");
+        ButtonListBook.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RunForm.getInstance().action("BookList");
+            }
+        });
         jPanel1.add(ButtonListBook);
 
         ButtonListUser.setText("List User");
+        ButtonListUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RunForm.getInstance().action("UserList");
+            }
+        });
         jPanel1.add(ButtonListUser);
 
         ButtonOrder.setText("List Order");

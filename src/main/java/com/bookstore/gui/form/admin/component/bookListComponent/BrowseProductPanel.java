@@ -19,6 +19,7 @@ import com.bookstore.models.BookModel;
 import com.bookstore.models.BookModel.Status;
 
 public class BrowseProductPanel extends javax.swing.JPanel {
+private static BrowseProductPanel instance;
     private BookBUS bookBUS;
     private List<BookModel> listBook;
 
@@ -31,6 +32,12 @@ public class BrowseProductPanel extends javax.swing.JPanel {
 
         initComponents();
     }
+    public static BrowseProductPanel getInstance()  {
+        if (instance == null) {
+          instance = new BrowseProductPanel();
+        }
+        return instance;
+      }
 
     /**
      * This method is called from within the constructor to initialize the form.

@@ -95,6 +95,7 @@ public class UserBUS implements IBUS<UserModel> {
   }
 
   private boolean checkFilter(UserModel userModel, String value, String[] columns) {
+    value.toLowerCase();
     for (String column : columns) {
       switch (column.toLowerCase()) {
         case "id" -> {
@@ -103,22 +104,22 @@ public class UserBUS implements IBUS<UserModel> {
           }
         }
         case "username" -> {
-          if (userModel.getUsername().equalsIgnoreCase(value)) {
+          if (userModel.getUsername().toLowerCase().contains(value)) {
             return true;
           }
         }
         case "status" -> {
-          if (userModel.getStatus().toString().equalsIgnoreCase(value)) {
+          if (userModel.getStatus().toString().equals(value)) {
             return true;
           }
         }
         case "name" -> {
-          if (userModel.getName().equalsIgnoreCase(value)) {
+          if (userModel.getName().contains(value)) {
             return true;
           }
         }
         case "email" -> {
-          if (userModel.getEmail().equalsIgnoreCase(value)) {
+          if (userModel.getEmail().contains(value)) {
             return true;
           }
         }
@@ -128,7 +129,7 @@ public class UserBUS implements IBUS<UserModel> {
           }
         }
         case "role" -> {
-          if (userModel.getRole().toString().equalsIgnoreCase(value)) {
+          if (userModel.getRole().toString().contains(value)) {
             return true;
           }
         }
@@ -258,6 +259,7 @@ public class UserBUS implements IBUS<UserModel> {
 
   @Override
   public List<UserModel> searchModel(String value, String[] columns) {
+    value.toLowerCase();
     List<UserModel> results = new ArrayList<>();
     List<UserModel> entities = UserDAO.getInstance().search(value, columns);
     for (UserModel entity : entities) {

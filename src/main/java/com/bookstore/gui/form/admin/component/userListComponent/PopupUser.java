@@ -28,7 +28,6 @@ public class PopupUser extends javax.swing.JFrame {
    */
   public PopupUser(int idUser, String userName, String password, Status status, String name, String email, String phone,
       Role role, Timestamp dateCreate, Timestamp dateUpdate) {
-    JFrame frame = new JFrame();
     initComponents(idUser, userName, password, status, name, email, phone, role, dateCreate, dateUpdate);
     setStatus(status);
     setRole(role);
@@ -156,7 +155,7 @@ public class PopupUser extends javax.swing.JFrame {
         frame.dispose();
       }
     });
-    Save.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/images/save.png"))); // NOI18N
+    // Save.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/images/save.png"))); // NOI18N
     Save.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         Object selectedStatusItem = SetStatus.getSelectedItem();
