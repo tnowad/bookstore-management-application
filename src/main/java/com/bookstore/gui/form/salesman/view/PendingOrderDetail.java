@@ -1,9 +1,17 @@
 package com.bookstore.gui.form.salesman.view;
 
-public class PendingOrderDetail extends javax.swing.JFrame {
+import javax.swing.JFrame;
+
+
+public class PendingOrderDetail extends JFrame {
+
+  // "ISBN", "Title ", "Quantity", "Price"
+
+ 
 
   public PendingOrderDetail() {
     initComponents();
+    // listOrder();
   }
 
   private void initComponents() {
@@ -18,7 +26,7 @@ public class PendingOrderDetail extends javax.swing.JFrame {
     jTextField3 = new javax.swing.JTextField();
     jPanel2 = new javax.swing.JPanel();
     jScrollPane1 = new javax.swing.JScrollPane();
-    jTable1 = new javax.swing.JTable();
+    orderTableList = new javax.swing.JTable();
     jPanel3 = new javax.swing.JPanel();
     jLabel5 = new javax.swing.JLabel();
     jTextField4 = new javax.swing.JTextField();
@@ -69,25 +77,25 @@ public class PendingOrderDetail extends javax.swing.JFrame {
 
     jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.LINE_AXIS));
 
-    jTable1.setModel(new javax.swing.table.DefaultTableModel(
-        new Object[][] {
-            { null, null, null, null },
-            { null, null, null, null },
-            { null, null, null, null },
-            { null, null, null, null },
-            { null, null, null, null },
-            { null, null, null, null },
-            { null, null, null, null },
-            { null, null, null, null },
-            { null, null, null, null },
-            { null, null, null, null }
-        },
-        new String[] {
-            "ISBN", "Title ", "Quantity", "Price"
-        }));
-    jScrollPane1.setViewportView(jTable1);
+    // orderTableList.setModel(new javax.swing.table.DefaultTableModel(
+    //     new Object[][] {
+    //         { null, null, null, null },
+    //         { null, null, null, null },
+    //         { null, null, null, null },
+    //         { null, null, null, null },
+    //         { null, null, null, null },
+    //         { null, null, null, null },
+    //         { null, null, null, null },
+    //         { null, null, null, null },
+    //         { null, null, null, null },
+    //         { null, null, null, null }
+    //     },
+    //     new String[] {
+    //         "ISBN", "Title ", "Quantity", "Price"
+    //     }));
+    // jScrollPane1.setViewportView(orderTableList);
 
-    jPanel2.add(jScrollPane1);
+    // jPanel2.add(jScrollPane1);
 
     getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);
 
@@ -156,7 +164,7 @@ public class PendingOrderDetail extends javax.swing.JFrame {
   private javax.swing.JPanel jPanel2;
   private javax.swing.JPanel jPanel3;
   private javax.swing.JScrollPane jScrollPane1;
-  private javax.swing.JTable jTable1;
+  private javax.swing.JTable orderTableList;
   private javax.swing.JTextField jTextField1;
   private javax.swing.JTextField jTextField2;
   private javax.swing.JTextField jTextField3;

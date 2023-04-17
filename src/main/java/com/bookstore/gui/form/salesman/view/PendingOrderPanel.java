@@ -1,11 +1,40 @@
 package com.bookstore.gui.form.salesman.view;
 
 import javax.swing.JPanel;
+import com.bookstore.bus.OrderBUS;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import com.bookstore.models.OrderModel;
 
 public class PendingOrderPanel extends JPanel {
 
+  OrderBUS orderBus = OrderBUS.getInstance();
+  List<OrderModel> orderList = orderBus.getAllModels();
+
+  private void listOrder() {
+    // "ID", "Provider ID", "Employee ID", "Price", "Status"
+    DefaultTableModel model = new DefaultTableModel();
+    model.addColumn("Id");
+    model.addColumn("Cart ID");
+    model.addColumn("Customer ID");
+    model.addColumn("Employee ID");
+    model.addColumn("Total price");
+    model.addColumn("Paid");
+    model.addColumn("Status");
+    for (OrderModel orderModel : orderList) {
+      model.addRow(new Object[] {
+          orderModel.getId(), orderModel.getCartId(), orderModel.getCustomerId(), orderModel.getEmployeeId(),
+          orderModel.getTotal(), orderModel.getPaid(), orderModel.getStatus()
+      });
+      orderTableList.setModel(model);
+    }
+    orderTableList.getTableHeader().setReorderingAllowed(false);
+    jScrollPane1.setViewportView(orderTableList);
+  }
+
   public PendingOrderPanel() {
     initComponents();
+    listOrder();
   }
 
   private void initComponents() {
@@ -15,7 +44,7 @@ public class PendingOrderPanel extends JPanel {
     jButton1 = new javax.swing.JButton();
     jPanel4 = new javax.swing.JPanel();
     jScrollPane1 = new javax.swing.JScrollPane();
-    jTable1 = new javax.swing.JTable();
+    orderTableList = new javax.swing.JTable();
 
     setLayout(new java.awt.BorderLayout());
 
@@ -54,7 +83,7 @@ public class PendingOrderPanel extends JPanel {
 
     jPanel4.setLayout(new javax.swing.BoxLayout(jPanel4, javax.swing.BoxLayout.LINE_AXIS));
 
-    jTable1.setModel(new javax.swing.table.DefaultTableModel(
+    orderTableList.setModel(new javax.swing.table.DefaultTableModel(
         new Object[][] {
             { null, null, null, null },
             { null, null, null, null },
@@ -70,7 +99,7 @@ public class PendingOrderPanel extends JPanel {
         new String[] {
             "Cart ID", "Employee ID", "Total Price", "Status"
         }));
-    jScrollPane1.setViewportView(jTable1);
+    jScrollPane1.setViewportView(orderTableList);
 
     jPanel4.add(jScrollPane1);
 
@@ -85,6 +114,6 @@ public class PendingOrderPanel extends JPanel {
   private javax.swing.JPanel jPanel1;
   private javax.swing.JPanel jPanel4;
   private javax.swing.JScrollPane jScrollPane1;
-  private javax.swing.JTable jTable1;
+  private javax.swing.JTable orderTableList;
   private javax.swing.JTextField jTextField1;
 }
