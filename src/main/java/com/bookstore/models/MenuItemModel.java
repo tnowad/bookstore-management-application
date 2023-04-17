@@ -1,27 +1,42 @@
 package com.bookstore.models;
 
+import java.awt.event.ActionListener;
+import java.util.List;
+
+import javax.swing.Icon;
+
 public class MenuItemModel {
     private String title;
-    private String actionEvent;
+    private Icon icon;
+    private ActionListener actionListener;
+    private List<SubMenuItemModel> subMenuItems;
 
-    public MenuItemModel(String title, String actionEvent) {
+    public MenuItemModel(String title, Icon icon, ActionListener actionListener) {
         this.title = title;
-        this.actionEvent = actionEvent;
+        this.icon = icon;
+        this.actionListener = actionListener;
+    }
+
+    public MenuItemModel(String title, Icon icon, ActionListener actionListener, List<SubMenuItemModel> subMenuItems) {
+        this.title = title;
+        this.icon = icon;
+        this.actionListener = actionListener;
+        this.subMenuItems = subMenuItems;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public Icon getIcon() {
+        return icon;
     }
 
-    public String getActionEvent() {
-        return actionEvent;
+    public ActionListener getActionListener() {
+        return actionListener;
     }
 
-    public void setActionEvent(String actionEvent) {
-        this.actionEvent = actionEvent;
+    public List<SubMenuItemModel> getSubMenuItems() {
+        return subMenuItems;
     }
 }
