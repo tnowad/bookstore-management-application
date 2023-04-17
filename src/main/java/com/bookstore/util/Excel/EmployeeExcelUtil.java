@@ -63,21 +63,31 @@ public class EmployeeExcelUtil extends ExcelUtil {
       List<String> row = data.get(i);
       int userId;
       int salary;
-      EmployeeType employeeType;
-      String contactInformation;
 
       try {
-        userId = Integer.parseInt(row.get(0));
-        salary = Integer.parseInt(row.get(1));
-        employeeType = EmployeeType.valueOf(row.get(2));
-        contactInformation = row.get(3);
+        if (row.get(0).contains(".")) {
+          userId = (int) Float.parseFloat(row.get(0));
+        } else
+          userId = Integer.parseInt(row.get(0));
+
+        if (row.get(1).contains(".")) {
+          salary = (int) Float.parseFloat(row.get(1));
+        } else
+          salary = Integer.parseInt(row.get(1));
+
       } catch (NumberFormatException e) {
         throw new IllegalArgumentException("Invalid integer value in input data", e);
+      }
+      String employeeRole = row.get(2);
+      String employeeType;
+      try {
+        employeeType = String.valueOf(employeeRole.toUpperCase());
       } catch (IllegalArgumentException e) {
-        throw new IllegalArgumentException("Invalid employee type in input data", e);
+        throw new IllegalArgumentException("Invalid employee type value in row: " + row);
       }
 
-      EmployeeModel model = new EmployeeModel(userId, salary, employeeType, contactInformation);
+      String contactInformation = row.get(3);
+      EmployeeModel model = new EmployeeModel(userId, salary, EmployeeType.valueOf(employeeType), contactInformation);
       employeeModels.add(model);
       EmployeeBUS.getInstance().addModel(model);
     }

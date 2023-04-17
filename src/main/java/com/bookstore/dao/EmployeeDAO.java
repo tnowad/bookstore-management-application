@@ -46,7 +46,7 @@ public class EmployeeDAO implements IDAO<EmployeeModel> {
   @Override
   public int insert(EmployeeModel employee) {
     String insertSql = "INSERT INTO employees (user_id, salary, employee_type, contact_information) VALUES (?, ?, ?, ?)";
-    Object[] args = { employee.getUserId(), employee.getSalary(), employee.getEmployeeType().toString().toUpperCase(),
+    Object[] args = { employee.getUserId(), employee.getSalary(), employee.getEmployeeType().name(),
         employee.getContactInformation() };
     try {
       return DatabaseConnection.executeUpdate(insertSql, args);
@@ -59,7 +59,7 @@ public class EmployeeDAO implements IDAO<EmployeeModel> {
   @Override
   public int update(EmployeeModel employee) {
     String updateSql = "UPDATE employees SET salary = ?, employee_type = ?, contact_information = ? WHERE user_id = ?";
-    Object[] args = { employee.getSalary(), employee.getEmployeeType().toString().toUpperCase(),
+    Object[] args = { employee.getSalary(), employee.getEmployeeType().name(),
         employee.getContactInformation(),
         employee.getUserId() };
     try {

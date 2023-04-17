@@ -73,8 +73,11 @@ public class PromotionExcelUtil extends ExcelUtil {
     }
   }
 
+  // TODO: fix index out of bounds.
   private static List<PromotionModel> convertToPromotionModelList(List<List<String>> data) {
     List<PromotionModel> promotionModels = new ArrayList<>();
+    SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+
     for (int i = 1; i < data.size(); i++) {
       List<String> row = data.get(i);
       int id;
@@ -83,18 +86,50 @@ public class PromotionExcelUtil extends ExcelUtil {
       int discountAmount;
       Date startDate;
       Date endDate;
+      String description = row.get(1);
+      String conditionApply = row.get(5);
+
       try {
-        id = Integer.parseInt(row.get(0)) + 1;
-        quantity = Integer.parseInt(row.get(2));
-        discountPercent = Integer.parseInt(row.get(6));
-        discountAmount = Integer.parseInt(row.get(7));
-        startDate = parseDate(row.get(3));
-        endDate = parseDate(row.get(4));
+        if (row.get(0).contains(".")) {
+          id = (int) Float.parseFloat(row.get(0) + 1);
+        } else {
+          id = Integer.parseInt(row.get(0) + 1);
+        }
+
+        if (row.get(2).contains(".")) {
+          quantity = (int) Float.parseFloat(row.get(2));
+        } else {
+          quantity = Integer.parseInt(row.get(2));
+        }
+
+        if (row.get(6).contains(".")) {
+          discountPercent = (int) Float.parseFloat(row.get(6));
+        } else {
+          discountPercent = Integer.parseInt(row.get(6));
+        }
+
+        if (row.get(7).contains(".")) {
+          discountAmount = (int) Float.parseFloat(row.get(7));
+        } else {
+          discountAmount = Integer.parseInt(row.get(7));
+        }
+
+        try {
+          startDate = dateFormat.parse(row.get(3));
+        } catch (Exception e) {
+          throw new IllegalArgumentException("Invalid value in input data for startDate at line: " + row, e);
+        }
+
+        try {
+          endDate = dateFormat.parse(row.get(4));
+        } catch (Exception e) {
+          throw new IllegalArgumentException("Invalid value in input data for endDate at line: " + row, e);
+        }
+
       } catch (NumberFormatException e) {
         throw new IllegalArgumentException("Invalid integer value in input data", e);
       }
-      String description = row.get(1);
-      String conditionApply = row.get(5);
+
       PromotionModel model = new PromotionModel(id, description, quantity, startDate, endDate, conditionApply,
           discountPercent, discountAmount);
       promotionModels.add(model);

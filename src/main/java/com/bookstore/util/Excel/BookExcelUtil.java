@@ -69,27 +69,42 @@ public class BookExcelUtil extends ExcelUtil {
       int price;
       int quantity;
       try {
-        price = Integer.parseInt(row.get(4));
-        quantity = Integer.parseInt(row.get(5));
+        if (row.get(4).contains(".")) {
+          price = (int) Float.parseFloat(row.get(4));
+        } else
+          price = Integer.parseInt(row.get(4));
+
+        if (row.get(5).contains(".")) {
+          quantity = (int) Float.parseFloat(row.get(5));
+        } else
+          quantity = (int) Float.parseFloat(row.get(5));
       } catch (NumberFormatException e) {
         throw new IllegalArgumentException("Invalid integer value in input data", e);
       }
       String statusStr = row.get(6);
-      Status status;
+      String status;
       try {
-        status = Status.valueOf(statusStr);
+        status = String.valueOf(statusStr.toUpperCase());
       } catch (IllegalArgumentException e) {
         throw new IllegalArgumentException("Invalid status value in row: " + row);
       }
       int publisherId;
       int authorId;
       try {
-        publisherId = Integer.parseInt(row.get(7));
-        authorId = Integer.parseInt(row.get(8));
+        if (row.get(7).contains(".")) {
+          publisherId = (int) Float.parseFloat(row.get(7));
+        } else
+          publisherId = Integer.parseInt(row.get(7));
+
+        if (row.get(8).contains(".")) {
+          authorId = (int) Float.parseFloat(row.get(8));
+        } else
+          authorId = Integer.parseInt(row.get(8));
       } catch (NumberFormatException e) {
         throw new IllegalArgumentException("Invalid integer value in input data", e);
       }
-      BookModel model = new BookModel(isbn, title, description, image, price, quantity, status, publisherId, authorId);
+      BookModel model = new BookModel(isbn, title, description, image, price, quantity, Status.valueOf(status),
+          publisherId, authorId);
       bookModels.add(model);
       BookBUS.getInstance().addModel(model);
     }

@@ -3,6 +3,7 @@ package com.bookstore.util.Excel;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -59,6 +60,8 @@ public class ImportModelExcelUtil extends ExcelUtil {
 
   private static List<ImportModel> convertToImportModelList(List<List<String>> data) {
     List<ImportModel> importModels = new ArrayList<>();
+    SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+
     for (int i = 1; i < data.size(); i++) {
       List<String> row = data.get(i);
       int id;
@@ -67,16 +70,44 @@ public class ImportModelExcelUtil extends ExcelUtil {
       Double totalPrice;
       Timestamp createdAt;
       Timestamp updatedAt;
-      try {
+
+      if (row.get(0).contains(".")) {
+        id = (int) Float.parseFloat(row.get(0)) + 1;
+      } else {
         id = Integer.parseInt(row.get(0)) + 1;
-        providerId = Integer.parseInt(row.get(1));
-        employeeId = Integer.parseInt(row.get(2));
-        totalPrice = Double.parseDouble(row.get(3));
-        createdAt = Timestamp.valueOf(row.get(4));
-        updatedAt = Timestamp.valueOf(row.get(5));
-      } catch (IllegalArgumentException e) {
-        throw new IllegalArgumentException("Invalid value in input data", e);
       }
+
+      if (row.get(1).contains(".")) {
+        providerId = (int) Float.parseFloat(row.get(1));
+      } else {
+        providerId = Integer.parseInt(row.get(1));
+      }
+
+      if (row.get(2).contains(".")) {
+        employeeId = (int) Float.parseFloat(row.get(2));
+      } else {
+        employeeId = Integer.parseInt(row.get(2));
+      }
+
+      if (row.get(3).contains(".")) {
+        totalPrice = Double.parseDouble(row.get(3));
+      } else {
+        totalPrice = Double.parseDouble(row.get(3));
+      }
+      //TODO: Need to fix timestamp format.
+      // Parse createdAt and updatedAt
+      try {
+        createdAt = new Timestamp(dateFormat.parse(row.get(4)).getTime());
+      } catch (Exception e) {
+        throw new IllegalArgumentException("Invalid value in input data for createdAt at line: " + row, e);
+      }
+
+      try {
+        updatedAt = new Timestamp(dateFormat.parse(row.get(5)).getTime());
+      } catch (Exception e) {
+        throw new IllegalArgumentException("Invalid value in input data for updatedAt at line: " + row, e);
+      }
+
       ImportModel model = new ImportModel(id, providerId, employeeId, totalPrice, createdAt, updatedAt);
       importModels.add(model);
       ImportBUS.getInstance().addModel(model);
