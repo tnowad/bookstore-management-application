@@ -63,12 +63,20 @@ public class AddressExcelUtil extends ExcelUtil {
       List<String> row = data.get(i);
       int id;
       int userId;
+      
       try {
-        id = Integer.parseInt(row.get(0) + 1);
-        userId = Integer.parseInt(row.get(1));
+        if(row.get(0).contains("."))
+          id = (int) Float.parseFloat(row.get(0) + 1);
+        else
+          id = Integer.parseInt(row.get(0) + 1);
+        if(row.get(1).contains(".")) 
+          userId = (int) Float.parseFloat(row.get(1));
+        else
+          userId = Integer.parseInt(row.get(1));
       } catch (NumberFormatException e) {
-        throw new IllegalArgumentException("Invalid integer value in input data", e);
+        throw new IllegalArgumentException("Invalid data type in row " + (i + 1));
       }
+
       String street = row.get(2);
       String city = row.get(3);
       String state = row.get(4);
