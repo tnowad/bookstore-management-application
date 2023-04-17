@@ -62,7 +62,10 @@ public class AuthorExcelUtil extends ExcelUtil {
       List<String> row = data.get(i);
       int id;
       try {
-        id = Integer.parseInt(row.get(0)) + 1;
+        if (row.get(0).contains("."))
+          id = (int) Float.parseFloat(row.get(0) + 1);
+        else
+          id = Integer.parseInt(row.get(0) + 1);
       } catch (NumberFormatException e) {
         throw new IllegalArgumentException("Invalid integer value in input data", e);
       }

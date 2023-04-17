@@ -32,11 +32,11 @@ public class AddressExcelUtil extends ExcelUtil {
 
       try {
         List<List<String>> data = ExcelUtil.readExcel(filePath, 0);
-        List<AddressModel> addressess = convertToAddressModelList(data);
+        List<AddressModel> addresses = convertToAddressModelList(data);
 
         JOptionPane.showMessageDialog(null,
             "Data has been read successfully from " + inputFile.getName() + ".");
-        return addressess;
+        return addresses;
       } catch (IOException e) {
         LOGGER.log(Level.SEVERE, "Error occurred while reading data from file: " + inputFile.getName(), e);
         showErrorDialog(e.getMessage(), "File Input Error");
@@ -63,13 +63,13 @@ public class AddressExcelUtil extends ExcelUtil {
       List<String> row = data.get(i);
       int id;
       int userId;
-      
+
       try {
-        if(row.get(0).contains("."))
+        if (row.get(0).contains("."))
           id = (int) Float.parseFloat(row.get(0) + 1);
         else
           id = Integer.parseInt(row.get(0) + 1);
-        if(row.get(1).contains(".")) 
+        if (row.get(1).contains("."))
           userId = (int) Float.parseFloat(row.get(1));
         else
           userId = Integer.parseInt(row.get(1));
