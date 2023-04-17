@@ -35,7 +35,7 @@ Before you begin, make sure you have the following installed:
   cd bookstore-management-application
   ```
 
-- Run Docker-Compose to start the MongoDB container
+- Run Docker-Compose to start the MySQL container
 
   ```shell
   docker-compose up -d
