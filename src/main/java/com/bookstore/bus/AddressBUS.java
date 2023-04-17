@@ -9,6 +9,7 @@ import com.bookstore.interfaces.IBUS;
 import com.bookstore.models.AddressModel;
 
 public class AddressBUS implements IBUS<AddressModel> {
+
   private final List<AddressModel> addressList = new ArrayList<>();
   private static AddressBUS instance;
 

@@ -2,12 +2,12 @@ package com.bookstore.util.PDF;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
 import com.bookstore.bus.BookBUS;
@@ -19,7 +19,6 @@ import com.bookstore.bus.ImportItemsBUS;
 import com.bookstore.bus.OrderBUS;
 import com.bookstore.bus.PaymentBUS;
 import com.bookstore.bus.PaymentMethodBUS;
-import com.bookstore.bus.PromotionBUS;
 import com.bookstore.bus.ProviderBUS;
 import com.bookstore.bus.UserBUS;
 import com.bookstore.models.BookModel;
@@ -31,17 +30,14 @@ import com.bookstore.models.ImportModel;
 import com.bookstore.models.OrderModel;
 import com.bookstore.models.PaymentMethodModel;
 import com.bookstore.models.PaymentModel;
-import com.bookstore.models.PromotionModel;
 import com.bookstore.models.ProviderModel;
 import com.bookstore.models.UserModel;
-import com.bookstore.models.PaymentModel.PaymentStatus;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
-import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.BaseFont;
@@ -349,160 +345,100 @@ public class PDFWriter {
     close();
   }
 
-  // TODO: THE FUNCTION IS FINISHED BUT IT HASN'T BEEN TESTED YET.
   public void exportReceiptToPDF(int orderId, String url) {
-    try {
-      OrderModel order = getOrderById(orderId);
-      CartModel cart = getCartById(order.getCartId());
-      UserModel customer = getUserById(order.getCustomerId());
-      EmployeeModel employee = getEmployeeById(order.getEmployeeId());
-      UserModel employeeUser = getUserById(employee.getUserId());
-      PromotionModel promotion = getPromotionById(cart.getPromotionId());
+    OrderModel orderData = OrderBUS.getInstance().getModelById(orderId);
+    CartModel cartData = CartBUS.getInstance().getModelById(orderData.getCartId());
 
-      PaymentModel payment = getPaymentByOrderId(orderId, customer.getId());
-      PaymentMethodModel paymentMethod = null;
-      if (payment != null) {
-        paymentMethod = getPaymentMethodById(payment.getPaymentMethodId());
+    // Get List Books in cart items:
+    List<CartItemsModel> cartItemsList = CartItemsBUS.getInstance().getAllModels();
+    List<CartItemsModel> modifiableCartItemsList = new ArrayList<>(cartItemsList);
+    modifiableCartItemsList.removeIf(cartItem -> cartItem.getCartId() != cartData.getId());
+
+    // Get Book information:
+    List<BookModel> books = BookBUS.getInstance().getAllModels();
+    List<BookModel> modifiableBookList = new ArrayList<>(books);
+    for (int i = modifiableCartItemsList.size() - 1; i >= 0; i--) {
+      if (!modifiableCartItemsList.get(i).getBookIsbn().equals(books.get(i).getIsbn())) {
+        modifiableBookList.remove(i);
       }
-
-      Document document = createDocument();
-      addMetaData(document);
-      addTitle(document, "Purchase Receipt");
-      addHeader(document, order, customer, employeeUser, promotion, payment);
-      addTable(document, cart);
-      addTotal(document, cart, promotion);
-
-      writeDocumentToFile(document, url);
-      showSuccessMessage(url);
-    } catch (IOException | DocumentException ex) {
-      throw new RuntimeException("Failed to export receipt to PDF", ex);
-    }
-  }
-
-  private OrderModel getOrderById(int orderId) {
-    return OrderBUS.getInstance().getModelById(orderId);
-  }
-
-  private CartModel getCartById(int cartId) {
-    return CartBUS.getInstance().getModelById(cartId);
-  }
-
-  private UserModel getUserById(int userId) {
-    return UserBUS.getInstance().getModelById(userId);
-  }
-
-  private EmployeeModel getEmployeeById(int employeeId) {
-    return EmployeeBUS.getInstance().getModelById(employeeId);
-  }
-
-  private PromotionModel getPromotionById(int promotionId) {
-    return PromotionBUS.getInstance().getModelById(promotionId);
-  }
-
-  private PaymentModel getPaymentByOrderId(int orderId, int customerId) {
-    List<PaymentModel> payments = PaymentBUS.getInstance().getAllModels();
-    payments.removeIf(payment -> payment.getUserId() != customerId
-        || payment.getStatus() == PaymentStatus.FAILED
-        || payment.getStatus() == PaymentStatus.SUCCESS);
-    return payments.size() == 1 ? payments.get(0) : null;
-  }
-
-  private PaymentMethodModel getPaymentMethodById(int paymentMethodId) {
-    return PaymentMethodBUS.getInstance().getModelById(paymentMethodId);
-  }
-
-  private Document createDocument() {
-    return new Document();
-  }
-
-  private void addMetaData(Document document) {
-    document.addTitle("Purchase Receipt");
-    document.addAuthor("Your Name");
-  }
-
-  private void addTitle(Document document, String title) throws DocumentException {
-    Paragraph paragraph = new Paragraph(title);
-    paragraph.setAlignment(Element.ALIGN_CENTER);
-    document.add(paragraph);
-  }
-
-  private void addHeader(Document document, OrderModel order, UserModel customer,
-      UserModel employee, PromotionModel promotion, PaymentModel payment)
-      throws DocumentException {
-    Paragraph header = new Paragraph();
-    header.setFont(FontFactory.getFont(FontFactory.HELVETICA_BOLD));
-    header.add(String.format("Order ID: %d\n", order.getId()));
-    header.add(String.format("Date: %s\n", order.getCreatedAt().toString()));
-    header.add(String.format("Customer Name: %s\n", customer.getName()));
-    header.add(String.format("Employee Name: %s\n", employee.getName()));
-    header.add(String.format("Promotion: %s\n", promotion.getDescription()));
-    if (payment != null) {
-      header.add(String.format("Payment Method: %s\n", payment.getStatus()));
-    }
-    document.add(header);
-    document.add(Chunk.NEWLINE);
-  }
-
-  private void addTable(Document document, CartModel cart) throws DocumentException {
-    PdfPTable table = new PdfPTable(4);
-    table.addCell(new PdfPCell(new Phrase("Product Name", FontFactory.getFont(FontFactory.HELVETICA_BOLD))));
-    table.addCell(new PdfPCell(new Phrase("Quantity", FontFactory.getFont(FontFactory.HELVETICA_BOLD))));
-    table.addCell(new PdfPCell(new Phrase("Price", FontFactory.getFont(FontFactory.HELVETICA_BOLD))));
-    table.addCell(new PdfPCell(new Phrase("Total", FontFactory.getFont(FontFactory.HELVETICA_BOLD))));
-
-    double subTotalPrice = 0;
-    List<CartItemsModel> cartItems = getCartItemsByCartId(cart.getId());
-    for (CartItemsModel item : cartItems) {
-      BookModel product = getBookByIsbn(item.getBookIsbn());
-      table.addCell(new PdfPCell(new Phrase(product.getTitle())));
-      table.addCell(new PdfPCell(new Phrase(String.valueOf(item.getQuantity()))));
-      table.addCell(new PdfPCell(new Phrase(String.valueOf(product.getPrice()))));
-      table.addCell(new PdfPCell(new Phrase(String.valueOf(item.getQuantity() * product.getPrice()))));
-      subTotalPrice += item.getQuantity() * product.getPrice();
     }
 
-    document.add(table);
-    document.add(Chunk.NEWLINE);
+    // Get Customer Data
+    UserModel customer = UserBUS.getInstance().getModelById(orderData.getCustomerId());
+
+    // Get Employee Information
+    UserModel employee = UserBUS.getInstance().getModelById(orderData.getEmployeeId());
+    EmployeeModel employeeModel = EmployeeBUS.getInstance().getModelById(employee.getId());
+
+    // Get Payment & payment method
+    List<PaymentModel> paymentData = PaymentBUS.getInstance().searchModel(String.valueOf(orderId),
+        new String[] { "order_id" });
+    PaymentMethodModel paymentMethod = null;
+    PaymentModel payment = null;
+    if (paymentData.size() == 1) {
+      payment = paymentData.get(0);
+      paymentMethod = PaymentMethodBUS.getInstance().getModelById(payment.getId());
+    }
+
+    // Calculate Total Price
+    double totalPrice = 0;
+    for (CartItemsModel cartItem : cartItemsList) {
+      BookModel book = BookBUS.getInstance().getBookByIsbn(cartItem.getBookIsbn());
+      double itemTotalPrice = cartItem.getQuantity() * book.getPrice();
+      totalPrice += itemTotalPrice;
+    }
+
+    // Add receipt information into PDF File.
+    chooseURL(url);
+    setTitle("Purchase Receipt");
+    try {
+      Document document = new Document();
+      PdfWriter.getInstance(document, new FileOutputStream(url));
+      document.open();
+
+      // Add Title
+      Font titleFont = new Font(Font.FontFamily.TIMES_ROMAN, 24, Font.BOLD);
+      Paragraph title = new Paragraph("Purchase Receipt", titleFont);
+      title.setAlignment(Element.ALIGN_CENTER);
+      document.add(title);
+
+      // Add Order Information
+      SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+      Paragraph orderInfo = new Paragraph("Order Date: " + dateFormat.format(orderData.getCreatedAt()) + "\n"
+          + "Order ID: " + orderData.getId() + "\n" + "Customer Name: " + customer.getName() + "\n"
+          + "Employee Name: " + employee.getName() + "\n" + "Payment Method: "
+          + (paymentMethod != null ? payment.getPaymentMethod() : "") + "\n" + "Total Amount: $"
+          + totalPrice);
+      orderInfo.setSpacingBefore(20f);
+      orderInfo.setSpacingAfter(20f);
+      document.add(orderInfo);
+
+      // Add Book Information
+      PdfPTable table = new PdfPTable(5);
+      PdfPCell cell1 = new PdfPCell(new Paragraph("ISBN"));
+      PdfPCell cell2 = new PdfPCell(new Paragraph("Title"));
+      PdfPCell cell3 = new PdfPCell(new Paragraph("Price"));
+      PdfPCell cell4 = new PdfPCell(new Paragraph("Quantity"));
+      PdfPCell cell5 = new PdfPCell(new Paragraph("Total Price"));
+      table.addCell(cell1);
+      table.addCell(cell2);
+      table.addCell(cell3);
+      table.addCell(cell4);
+      table.addCell(cell5);
+      for (CartItemsModel cartItem : cartItemsList) {
+        BookModel book = BookBUS.getInstance().getBookByIsbn(cartItem.getBookIsbn());
+        double itemTotalPrice = cartItem.getQuantity() * book.getPrice();
+        table.addCell(book.getIsbn());
+        table.addCell(book.getTitle());
+        table.addCell("$" + book.getPrice());
+        table.addCell("" + book.getQuantity());
+        table.addCell("$" + itemTotalPrice);
+      }
+      document.add(table);
+
+      document.close();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
-
-  private void addTotal(Document document, CartModel cart, PromotionModel promotion)
-      throws DocumentException {
-    double subTotalPrice = calculateSubtotal(cart);
-    double discountPercent = promotion.getDiscountPercent();
-    double total = subTotalPrice - (discountPercent / 100.0) * subTotalPrice;
-
-    Paragraph totalParagraph = new Paragraph();
-    totalParagraph.setFont(FontFactory.getFont(FontFactory.HELVETICA));
-    totalParagraph.add(String.format("Subtotal: %.2f\n", subTotalPrice));
-    totalParagraph.add(String.format("Discount: %.2f%%\n", discountPercent));
-    totalParagraph.add(String.format("Total: %.2f\n", total));
-    document.add(totalParagraph);
-  }
-
-  private List<CartItemsModel> getCartItemsByCartId(int cartId) {
-    List<CartItemsModel> cartItems = CartItemsBUS.getInstance().getAllModels();
-    cartItems.removeIf(cartItem -> cartItem.getCartId() != cartId);
-    return cartItems;
-  }
-
-  private BookModel getBookByIsbn(String isbn) {
-    return BookBUS.getInstance().getBookByIsbn(isbn);
-  }
-
-  private double calculateSubtotal(CartModel cart) {
-    List<CartItemsModel> cartItems = getCartItemsByCartId(cart.getId());
-    return cartItems.stream()
-        .mapToDouble(item -> item.getQuantity() * getBookByIsbn(item.getBookIsbn()).getPrice())
-        .sum();
-  }
-
-  private void writeDocumentToFile(Document document, String url) throws IOException, DocumentException {
-    PdfWriter.getInstance(document, new FileOutputStream(url));
-    document.open();
-  }
-
-  private void showSuccessMessage(String url) {
-    JOptionPane.showMessageDialog(null, "Exported receipt to PDF successfully at: " + url);
-  }
-
 }

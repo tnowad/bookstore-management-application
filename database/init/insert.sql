@@ -1,4 +1,4 @@
--- Active: 1681623675640@@127.0.0.1@3306@bookstore
+-- Active: 1676799504168@@127.0.0.1@3306@bookstore
 INSERT INTO `users` (`id`, `username`, `password`, `status`, `name`, `email`, `phone`, `created_at`, `updated_at`, `role`)
 VALUES
 (1, 'admin', MD5('admin123'), 'active', 'Admin', 'admin@example.com', '+84987654321', NOW(), NOW(), 'admin'),
@@ -73,7 +73,7 @@ INSERT INTO `authors` (`id`, `name`, `description`) VALUES
 (17, 'Albert Camus', 'French philosopher, author, and journalist, awarded the Nobel Prize in Literature'),
 (18, 'Toni Morrison', 'American novelist, essayist, book editor, and college professor, awarded the Nobel Prize in Literature'),
 (19, 'Jorge Luis Borges', 'Argentine short-story writer, essayist, poet, and translator, known for his philosophical fiction'),
-(20, 'Chinua Achebe', 'Nigerian novelist, poet, professor, and critic, known for his novels such as Things Fall Apart')
+(20, 'Chinua Achebe', 'Nigerian novelist, poet, professor, and critic, known for his novels such as Things Fall Apart'),
 (21, 'J.R.R. Tolkien', 'English writer, poet, philologist, and university professor, best known for The Lord of the Rings trilogy'),
 (22, 'Rudyard Kipling', 'English journalist, short-story writer, poet, and novelist, awarded the Nobel Prize in Literature'),
 (23, 'George R.R. Martin', 'American novelist and screenwriter, best known for his series A Song of Ice and Fire, adapted into the television series Game of Thrones'),

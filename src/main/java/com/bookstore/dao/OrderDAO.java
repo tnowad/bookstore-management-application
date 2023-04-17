@@ -23,6 +23,7 @@ public class OrderDAO implements IDAO<OrderModel> {
 
   private OrderModel createOrderModelFromResultSet(ResultSet rs) throws SQLException {
     return new OrderModel(
+        rs.getInt("id"),
         rs.getInt("cart_id"),
         rs.getInt("customer_id"),
         rs.getInt("employee_id"),
