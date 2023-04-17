@@ -1,355 +1,435 @@
--- Here is the SQL script to insert the data into the database tables.
+-- Active: 1681623675640@@127.0.0.1@3306@bookstore
+INSERT INTO `users` (`id`, `username`, `password`, `status`, `name`, `email`, `phone`, `created_at`, `updated_at`, `role`)
+VALUES
+(1, 'admin', Password('admin123'), 'active', 'Admin', 'admin@example.com', '+84987654321', NOW(), NOW(), 'admin'),
+(2, 'employee1', Password('employee123'), 'active', 'Employee 1', 'employee1@example.com', '+84987654322', NOW(), NOW(), 'employee'),
+(3, 'employee2', Password('employee123'), 'active', 'Employee 2', 'employee2@example.com', '+84987654323', NOW(), NOW(), 'employee'),
+(4, 'employee3', Password('employee123'), 'active', 'Employee 3', 'employee3@example.com', '+84987654324', NOW(), NOW(), 'employee'),
+(5, 'employee4', Password('employee123'), 'active', 'Employee 4', 'employee4@example.com', '+84987654325', NOW(), NOW(), 'employee'),
+(6, 'employee5', Password('employee123'), 'active', 'Employee 5', 'employee5@example.com', '+84987654326', NOW(), NOW(), 'employee'),
+(7, 'employee6', Password('employee123'), 'active', 'Employee 6', 'employee6@example.com', '+84987654327', NOW(), NOW(), 'employee'),
+(8, 'employee7', Password('employee123'), 'active', 'Employee 7', 'employee7@example.com', '+84987654328', NOW(), NOW(), 'employee'),
+(9, 'employee8', Password('employee123'), 'active', 'Employee 8', 'employee8@example.com', '+84987654329', NOW(), NOW(), 'employee'),
+(10, 'employee9', Password('employee123'), 'active', 'Employee 9', 'employee9@example.com', '+84987654330', NOW(), NOW(), 'employee'),
+(11, 'customer1', Password('customer123'), 'active', 'Customer 1', 'customer1@example.com', '+84987654331', NOW(), NOW(), 'customer'),
+(12, 'customer2', Password('customer123'), 'active', 'Customer 2', 'customer2@example.com', '+84987654332', NOW(), NOW(), 'customer'),
+(13, 'customer3', Password('customer123'), 'active', 'Customer 3', 'customer3@example.com', '+84987654333', NOW(), NOW(), 'customer'),
+(14, 'customer4', Password('customer123'), 'active', 'Customer 4', 'customer4@example.com', '+84987654334', NOW(), NOW(), 'customer'),
+(15, 'customer5', Password('customer123'), 'active', 'Customer 5', 'customer5@example.com', '+84987654335', NOW(), NOW(), 'customer'),
+(16, 'customer6', Password('customer123'), 'active', 'Customer 6', 'customer6@example.com', '+84987654336', NOW(), NOW(), 'customer'),
+(17, 'customer7', Password('customer123'), 'active', 'Customer 7', 'customer7@example.com', '+84987654337', NOW(), NOW(), 'customer'),
+(18, 'customer8', Password('customer123'), 'active', 'Customer 8', 'customer8@example.com', '+84987654338', NOW(), NOW(), 'customer'),
+(19, 'customer9', Password('customer123'), 'active', 'Customer 9', 'customer9@example.com', '+84987654339', NOW(), NOW(), 'customer'),
+(20, 'customer10', Password('customer123'), 'active', 'Customer 10', 'customer10@example.com', '+84987654340', NOW(), NOW(), 'customer'),
+(21, 'customer11', Password('customer123'), 'active', 'Customer 11', 'customer11@example.com', '+84987654341', NOW(), NOW(), 'customer'),
+(22, 'customer12', Password('customer123'), 'active', 'Customer 12', 'customer12@example.com', '+84987654342', NOW(), NOW(), 'customer'),
+(23, 'customer13', Password('customer123'), 'active', 'Customer 13', 'customer13@example.com', '+84987654343', NOW(), NOW(), 'customer'),
+(24, 'customer14', Password('customer123'), 'active', 'Customer 14', 'customer14@example.com', '+84987654344', NOW(), NOW(), 'customer'),
+(25, 'customer15', Password('customer123'), 'active', 'Customer 15', 'customer15@example.com', '+84987654345', NOW(), NOW(), 'customer'),
+(26, 'customer16', Password('customer123'), 'active', 'Customer 16', 'customer16@example.com', '+84987654346', NOW(), NOW(), 'customer'),
+(27, 'customer17', Password('customer123'), 'active', 'Customer 17', 'customer17@example.com', '+84987654347', NOW(), NOW(), 'customer'),
+(28, 'customer18', Password('customer123'), 'active', 'Customer 18', 'customer18@example.com', '+84987654348', NOW(), NOW(), 'customer'),
+(29, 'customer19', Password('customer123'), 'active', 'Customer 19', 'customer19@example.com', '+84987654349', NOW(), NOW(), 'customer'),
+(30, 'customer20', Password('customer123'), 'active', 'Customer 20', 'customer20@example.com', '+84987654350', NOW(), NOW(), 'customer'),
+(31, 'customer21', Password('customer123'), 'active', 'Customer 21', 'customer21@example.com', '+84987654351', NOW(), NOW(), 'customer'),
+(32, 'customer22', Password('customer123'), 'active', 'Customer 22', 'customer22@example.com', '+84987654352', NOW(), NOW(), 'customer'),
+(33, 'customer23', Password('customer123'), 'active', 'Customer 23', 'customer23@example.com', '+84987654353', NOW(), NOW(), 'customer'),
+(34, 'customer24', Password('customer123'), 'active', 'Customer 24', 'customer24@example.com', '+84987654354', NOW(), NOW(), 'customer'),
+(35, 'customer25', Password('customer123'), 'active', 'Customer 25', 'customer25@example.com', '+84987654355', NOW(), NOW(), 'customer'),
+(36, 'customer26', Password('customer123'), 'active', 'Customer 26', 'customer26@example.com', '+84987654356', NOW(), NOW(), 'customer'),
+(37, 'customer27', Password('customer123'), 'active', 'Customer 27', 'customer27@example.com', '+84987654357', NOW(), NOW(), 'customer'),
+(38, 'customer28', Password('customer123'), 'active', 'Customer 28', 'customer28@example.com', '+84987654358', NOW(), NOW(), 'customer'),
+(39, 'customer29', Password('customer123'), 'active', 'Customer 29', 'customer29@example.com', '+84987654359', NOW(), NOW(), 'customer'),
+(40, 'customer30', Password('customer123'), 'active', 'Customer 30', 'customer30@example.com', '+84987654360', NOW(), NOW(), 'customer'),
+(41, 'customer31', Password('customer123'), 'active', 'Customer 31', 'customer31@example.com', '+84987654361', NOW(), NOW(), 'customer'),
+(42, 'customer32', Password('customer123'), 'active', 'Customer 32', 'customer32@example.com', '+84987654362', NOW(), NOW(), 'customer'),
+(43, 'customer33', Password('customer123'), 'active', 'Customer 33', 'customer33@example.com', '+84987654363', NOW(), NOW(), 'customer'),
+(44, 'customer34', Password('customer123'), 'active', 'Customer 34', 'customer34@example.com', '+84987654364', NOW(), NOW(), 'customer'),
+(45, 'customer35', Password('customer123'), 'active', 'Customer 35', 'customer35@example.com', '+84987654365', NOW(), NOW(), 'customer'),
+(46, 'customer36', Password('customer123'), 'active', 'Customer 36', 'customer36@example.com', '+84987654366', NOW(), NOW(), 'customer'),
+(47, 'customer37', Password('customer123'), 'active', 'Customer 37', 'customer37@example.com', '+84987654367', NOW(), NOW(), 'customer'),
+(48, 'customer38', Password('customer123'), 'active', 'Customer 38', 'customer38@example.com', '+84987654368', NOW(), NOW(), 'customer'),
+(49, 'customer39', Password('customer123'), 'active', 'Customer 39', 'customer39@example.com', '+84987654369', NOW(), NOW(), 'customer'),
+(50, 'customer40', Password('customer123'), 'active', 'Customer 40', 'customer40@example.com', '+84987654370', NOW(), NOW(), 'customer');
 
--- fake data demo
 
-INSERT INTO
-    `authors` (`name`, `description`)
-VALUES (
-        'Eric Gamma',
-        'A computer scientist and author who co-authored the book "Design Patterns"'
-    ), (
-        'Andrew Ng',
-        'A computer scientist and AI researcher who co-founded Google Brain and Coursera'
-    ), (
-        'Robert C. Martin',
-        'A software engineer and author who wrote the book "Clean Code"'
-    ), (
-        'Steve McConnell',
-        'A software engineer and author who wrote the book "Code Complete"'
-    ), (
-        'Martin Fowler',
-        'A software engineer and author who wrote the book "Refactoring"'
-    ), (
-        'Bjarne Stroustrup',
-        'A computer scientist and creator of the C++ programming language'
-    ), (
-        'Yukihiro Matsumoto',
-        'A computer scientist and creator of the Ruby programming language'
-    ), (
-        'Brian Kernighan',
-        'A computer scientist and author who co-wrote the book "The C Programming Language"'
-    ), (
-        'Dennis Ritchie',
-        'A computer scientist and creator of the C programming language'
-    ), (
-        'Grace Hopper',
-        'A computer scientist and pioneer of computer programming'
-    ), (
-        'Linus Torvalds',
-        'A software engineer and creator of the Linux operating system'
-    ), (
-        'Ada Lovelace',
-        'A mathematician and writer who is credited with writing the first algorithm'
-    ), (
-        'Donald Knuth',
-        'A computer scientist and author who wrote "The Art of Computer Programming" series'
-    ), (
-        'Guido van Rossum',
-        'A computer scientist and creator of the Python programming language'
-    );
+INSERT INTO `authors` (`id`, `name`, `description`) VALUES
+(1, 'J.K. Rowling', 'British author, best known for writing the Harry Potter series'),
+(2, 'Stephen King', 'American author of horror, supernatural fiction, suspense, and fantasy novels'),
+(3, 'Agatha Christie', 'English writer, known for her detective novels and short stories'),
+(4, 'Leo Tolstoy', 'Russian writer, considered one of the greatest authors of all time'),
+(5, 'Jane Austen', 'English novelist, known for her romantic fiction'),
+(6, 'Ernest Hemingway', 'American journalist, novelist, and short-story writer, awarded the Nobel Prize in Literature'),
+(7, 'George Orwell', 'English novelist, essayist, and journalist, best known for his dystopian novel 1984'),
+(8, 'Harper Lee', 'American novelist, known for her Pulitzer Prize-winning novel To Kill a Mockingbird'),
+(9, 'Mark Twain', 'American writer, humorist, entrepreneur, publisher, and lecturer, known for his novels The Adventures of Tom Sawyer and Adventures of Huckleberry Finn'),
+(10, 'Gabriel Garcia Marquez', 'Colombian novelist, short-story writer, screenwriter, and journalist, awarded the Nobel Prize in Literature'),
+(11, 'William Shakespeare', 'English playwright, poet, and actor, widely regarded as the greatest writer in the English language'),
+(12, 'Charles Dickens', 'English writer and social critic, regarded as one of the greatest novelists of the Victorian era'),
+(13, 'Fyodor Dostoevsky', 'Russian novelist, short-story writer, essayist, and philosopher, known for his psychological depth and insight'),
+(14, 'Virginia Woolf', 'English writer, considered one of the most important modernist 20th-century authors and a pioneer in the use of stream of consciousness as a narrative device'),
+(15, 'Franz Kafka', 'Czech writer, regarded as one of the most significant figures of 20th-century literature'),
+(16, 'Hermann Hesse', 'German-born Swiss poet, novelist, and painter, awarded the Nobel Prize in Literature'),
+(17, 'Albert Camus', 'French philosopher, author, and journalist, awarded the Nobel Prize in Literature'),
+(18, 'Toni Morrison', 'American novelist, essayist, book editor, and college professor, awarded the Nobel Prize in Literature'),
+(19, 'Jorge Luis Borges', 'Argentine short-story writer, essayist, poet, and translator, known for his philosophical fiction'),
+(20, 'Chinua Achebe', 'Nigerian novelist, poet, professor, and critic, known for his novels such as Things Fall Apart')
+(21, 'J.R.R. Tolkien', 'English writer, poet, philologist, and university professor, best known for The Lord of the Rings trilogy'),
+(22, 'Rudyard Kipling', 'English journalist, short-story writer, poet, and novelist, awarded the Nobel Prize in Literature'),
+(23, 'George R.R. Martin', 'American novelist and screenwriter, best known for his series A Song of Ice and Fire, adapted into the television series Game of Thrones'),
+(24, 'Gabriela Mistral', 'Chilean poet, educator, diplomat, and feminist, awarded the Nobel Prize in Literature'),
+(25, 'Octavio Paz', 'Mexican poet, essayist, and intellectual, awarded the Nobel Prize in Literature'),
+(26, 'Isabel Allende', 'Chilean writer, known for her novels such as The House of the Spirits and City of the Beasts'),
+(27, 'John Steinbeck', 'American author and winner of the Nobel Prize in Literature, known for his works such as Of Mice and Men and The Grapes of Wrath'),
+(28, 'Kazuo Ishiguro', 'British novelist, screenwriter, and short-story writer, awarded the Nobel Prize in Literature'),
+(29, 'Pablo Neruda', 'Chilean poet-diplomat and politician, awarded the Nobel Prize in Literature'),
+(30, 'Haruki Murakami', 'Japanese writer and translator, best known for his novels such as Norwegian Wood and Kafka on the Shore'),
+(31, 'Ursula K. Le Guin', 'American author of speculative fiction, science fiction, fantasy, and children\'s literature, awarded the National Book Award and Hugo Award'),
+(32, 'Margaret Atwood', 'Canadian poet, novelist, literary critic, essayist, and environmental activist, awarded the Booker Prize and Arthur C. Clarke Award'),
+(33, 'Arthur Conan Doyle', 'British writer, creator of Sherlock Holmes and Dr. Watson'),
+(34, 'Jules Verne', 'French novelist, poet, and playwright, known for his adventure novels such as Around the World in Eighty Days'),
+(35, 'Neil Gaiman', 'English author of short fiction, novels, comic books, graphic novels, audio theatre, and films, awarded the Hugo, Nebula, Bram Stoker, and Locus awards'),
+(36, 'Salman Rushdie', 'British Indian novelist and essayist, awarded the Booker Prize and the Best of the Bookers, controversial for his novel The Satanic Verses'),
+(37, 'Gustave Flaubert', 'French novelist, considered one of the greatest Western writers of all time, best known for his novel Madame Bovary'),
+(38, 'Victor Hugo', 'French poet, novelist, and dramatist, best known for his works Les Misérables and The Hunchback of Notre-Dame'),
+(39, 'Alexandre Dumas', 'French writer, known for his historical adventure novels such as The Three Musketeers and The Count of Monte Cristo'),
+(40, 'Walt Whitman', 'American poet, essayist, and journalist, known for his collection Leaves of Grass and considered one of America\'s most influential poets');
 
-INSERT INTO
-    `publishers` (`name`, `description`)
-VALUES (
-        'O Reilly Media',
-        'A technology and business book publisher'
-    ), (
-        'Addison-Wesley',
-        'An academic and professional book publisher'
-    ), (
-        'Prentice Hall',
-        'A higher education and professional book publisher'
-    ), (
-        'Manning Publications',
-        'A technology book publisher'
-    ), (
-        'Pearson Education',
-        'A global education company'
-    ), (
-        'MIT Press',
-        'An academic book publisher'
-    ), (
-        'No Starch Press',
-        'An independent technology book publisher'
-    );
+INSERT INTO `publishers` (`id`, `name`, `description`) VALUES
+(1, 'Penguin Random House', 'One of the largest English-language trade book publishers in the world'),
+(2, 'HarperCollins', 'Global publishing company owned by News Corp with a focus on consumer book publishing'),
+(3, 'Hachette Livre', 'Second largest trade book publisher in the world and a subsidiary of the French media group Lagardère'),
+(4, 'Simon & Schuster', 'American publishing company founded in New York City in 1924 and owned by ViacomCBS'),
+(5, 'Macmillan Publishers', 'British-owned publishing company headquartered in London with offices in 41 countries worldwide'),
+(6, 'Wiley', 'Global publishing company that specializes in academic publishing and instructional materials'),
+(7, 'Pearson Education', 'British-owned education publishing and assessment service to schools and corporations'),
+(8, 'Oxford University Press', 'Department of the University of Oxford, publishing over 6,000 new titles a year'),
+(9, 'Cambridge University Press', 'Publishing business of the University of Cambridge, one of the oldest and most prestigious academic publishers in the world'),
+(10, 'Scholastic Corporation', 'American multinational publishing, education, and media company known for publishing educational materials for schools, teachers, and parents'),
+(11, 'Bloomsbury Publishing', 'Independent British publishing house established in 1986'),
+(12, 'Random House', 'International publishing company based in New York City, formed from the merger of Random House and Penguin Group'),
+(13, 'Houghton Mifflin Harcourt', 'American publishing company based in Boston, Massachusetts, specializing in textbooks and educational materials'),
+(14, 'Harvard University Press', 'Academic publishing house, a division of Harvard University, headquartered in Cambridge, Massachusetts'),
+(15, 'MIT Press', 'University press affiliated with the Massachusetts Institute of Technology (MIT)'),
+(16, 'Yale University Press', 'Founded in 1908, Yale University Press publishes scholarly works in a variety of disciplines'),
+(17, 'Princeton University Press', 'Independent publisher with close connections to Princeton University, publishing books across a range of subject areas'),
+(18, 'University of California Press', 'Publishing arm of the University of California system, based in Berkeley, California'),
+(19, 'University of Chicago Press', 'Largest university press in the United States, publishing academic and general interest books'),
+(20, 'Columbia University Press', 'One of the oldest and largest university presses in the United States, publishing titles in the humanities, social sciences, and sciences');
 
-INSERT INTO
-    `books` (
-        `isbn`,
-        `title`,
-        `description`,
-        `image`,
-        `price`,
-        `quantity`,
-        `status`,
-        `publisher_id`,
-        `author_id`
-    )
-VALUES (
-        '978-0-306-40615-7',
-        'The Art of Computer Programming',
-        'A comprehensive guide to computer programming',
-        'https://example.com/book1.jpg',
-        50,
-        10,
-        'available',
-        1,
-        1
-    ), (
-        '978-0-596-52068-7',
-        'Programming Collective Intelligence',
-        'A practical guide to building intelligent web applications',
-        'https://example.com/book2.jpg',
-        30,
-        5,
-        'available',
-        2,
-        2
-    ), (
-        '978-0-201-87701-3',
-        'The C Programming Language',
-        'A classic book on the C programming language',
-        'https://example.com/book3.jpg',
-        25,
-        15,
-        'available',
-        3,
-        3
-    ), (
-        '978-0-321-58495-5',
-        'Effective Java',
-        'A guide to writing effective Java code',
-        'https://example.com/book4.jpg',
-        40,
-        8,
-        'unavailable',
-        4,
-        4
-    ), (
-        '978-0-596-00733-4',
-        'Python for Data Analysis',
-        'A practical guide to data analysis using Python',
-        'https://example.com/book5.jpg',
-        35,
-        12,
-        'available',
-        5,
-        5
-    ), (
-        '978-1-59327-827-6',
-        'Black Hat Python',
-        'A book on Python programming for hackers and pentesters',
-        'https://example.com/book6.jpg',
-        45,
-        3,
-        'available',
-        6,
-        6
-    ), (
-        '978-0-201-63362-5',
-        'Design Patterns',
-        'A guide to object-oriented design patterns',
-        'https://example.com/book7.jpg',
-        20,
-        20,
-        'available',
-        7,
-        7
-    ), (
-        '978-1-61729-207-3',
-        'Deep Learning with Python',
-        'A practical guide to deep learning using Python',
-        'https://example.com/book8.jpg',
-        55,
-        6,
-        'available',
-        8,
-        8
-    ), (
-        '978-0-596-51813-4',
-        'Learning Python',
-        'A comprehensive guide to learning Python programming',
-        'https://example.com/book9.jpg',
-        30,
-        10,
-        'deleted',
-        9,
-        9
-    ), (
-        '978-1-119-34224-4',
-        'Blockchain Basics',
-        'A beginners guide to blockchain technology',
-        'https://example.com/book10.jpg',
-        25,
-        15,
-        'available',
-        10,
-        10
-    ), (
-        '978-0-596-00572-9',
-        'Learning SQL',
-        'A beginners guide to SQL programming',
-        'https://example.com/book12.jpg',
-        15,
-        25,
-        'available',
-        12,
-        12
-    ), (
-        '978-0-13-110362-7',
-        'Refactoring',
-        'Improving the design of existing code',
-        'https://example.com/book13.jpg',
-        30,
-        10,
-        'available',
-        13,
-        13
-    ), (
-        '978-0-672-33620-3',
-        'PHP and MySQL Web Development',
-        'A guide to building dynamic, database-driven websites',
-        'https://example.com/book14.jpg',
-        40,
-        5,
-        'available',
-        14,
-        14
-    ), (
-        '978-1-61729-453-4',
-        'Hands-On Machine Learning with Scikit-Learn, Keras, and TensorFlow',
-        'A practical guide to machine learning with Python',
-        'https://example.com/book15.jpg',
-        50,
-        7,
-        'available',
-        15,
-        15
-    ), (
-        '978-0-201-89527-0',
-        'The Mythical Man-Month',
-        'Essays on software engineering',
-        'https://example.com/book16.jpg',
-        20,
-        20,
-        'unavailable',
-        16,
-        16
-    ), (
-        '978-0-7356-3677-6',
-        'Windows Internals',
-        'A comprehensive guide to the internals of the Windows operating system',
-        'https://example.com/book17.jpg',
-        60,
-        3,
-        'available',
-        17,
-        17
-    ), (
-        '978-0-13-235088-4',
-        'The Pragmatic Programmer',
-        'From Journeyman to Master',
-        'https://example.com/book18.jpg',
-        35,
-        8,
-        'available',
-        11,
-        18
-    );
+INSERT INTO `categories` (`id`, `name`) VALUES
+(1, 'Fiction'),
+(2, 'Non-fiction'),
+(3, 'Biography'),
+(4, 'Autobiography'),
+(5, 'History'),
+(6, 'Science'),
+(7, 'Technology'),
+(8, 'Arts'),
+(9, 'Travel'),
+(10, 'Cooking'),
+(11, 'Self-help'),
+(12, 'Religion'),
+(13, 'Philosophy'),
+(14, 'Psychology'),
+(15, 'Business'),
+(16, 'Finance'),
+(17, 'Education'),
+(18, 'Children\'s'),
+(19, 'Young Adult'),
+(20, 'Mystery/Thriller'),
+(21, 'Romance'),
+(22, 'Fantasy'),
+(23, 'Science Fiction'),
+(24, 'Horror'),
+(25, 'Comics & Graphic Novels'),
+(26, 'Manga'),
+(27, 'Art & Design'),
+(28, 'Crafts & Hobbies'),
+(29, 'Sports & Recreation'),
+(30, 'Health & Fitness'),
+(31, 'Nature'),
+(32, 'Environment'),
+(33, 'Reference'),
+(34, 'Social Sciences'),
+(35, 'Politics'),
+(36, 'Law'),
+(37, 'True Crime'),
+(38, 'Journalism'),
+(39, 'Memoir'),
+(40, 'Essays'),
+(41, 'Literary Criticism'),
+(42, 'Drama'),
+(43, 'Poetry'),
+(44, 'Music'),
+(45, 'Film & Television'),
+(46, 'Humor'),
+(47, 'Gardening'),
+(48, 'Pets'),
+(49, 'Parenting'),
+(50, 'Spirituality');
 
-INSERT INTO
-    `users` (
-        `username`,
-        `password`,
-        `name`,
-        `email`,
-        `phone`,
-        `role`
-    )
-VALUES (
-        'employee1',
-        'password123',
-        'Employee 1',
-        'employee1@example.com',
-        '+1-555-1111',
-        'employee'
-    ), (
-        'employee2',
-        'password456',
-        'Employee 2',
-        'employee2@example.com',
-        '+1-555-2222',
-        'employee'
-    ), (
-        'admin',
-        'password789',
-        'Admin User',
-        'admin@example.com',
-        '+1-555-3333',
-        'admin'
-    ), (
-        'customer1',
-        'password123',
-        'Customer 1',
-        'customer1@example.com',
-        '+1-555-4444',
-        'customer'
-    ), (
-        'customer2',
-        'password123',
-        'Customer 2',
-        'customer2@example.com',
-        '+1-555-5555',
-        'customer'
-    ), (
-        'customer3',
-        'password123',
-        'Customer 3',
-        'customer3@example.com',
-        '+1-555-6666',
-        'customer'
-    ), (
-        'customer4',
-        'password123',
-        'Customer 4',
-        'customer4@example.com',
-        '+1-555-7777',
-        'customer'
-    ), (
-        'customer5',
-        'password123',
-        'Customer 5',
-        'customer5@example.com',
-        '+1-555-8888',
-        'customer'
-    );
+INSERT INTO `books` (`isbn`, `title`, `description`, `image`, `price`, `quantity`, `status`, `publisher_id`, `author_id`) VALUES
+('9780000000010', 'The Hobbit', 'Fantasy novel by J.R.R. Tolkien, about a hobbit who embarks on a quest to reclaim stolen treasure from a dragon', 'https://images-na.ssl-images-amazon.com/images/I/91DW75xGJbL.jpg', 150000, 50, 'available', 1, 21),
+('9780000000021', 'The Lord of the Rings: The Fellowship of the Ring', 'First part of the epic fantasy novel series by J.R.R. Tolkien, follows Frodo Baggins and his companions as they journey through Middle-earth to destroy the One Ring', 'https://images-na.ssl-images-amazon.com/images/I/51Q+2H4-nQL._SX331_BO1,204,203,200_.jpg', 200000, 30, 'available', 1, 21),
+('9780000000032', 'The Lord of the Rings: The Two Towers', 'Second part of the epic fantasy novel series by J.R.R. Tolkien, continues the journey of Frodo Baggins and his companions as they face new challenges and dangers', 'https://images-na.ssl-images-amazon.com/images/I/518VBMv8nHL._SX331_BO1,204,203,200_.jpg', 200000, 30, 'available', 1, 21),
+('9780000000043', 'The Lord of the Rings: The Return of the King', 'Final part of the epic fantasy novel series by J.R.R. Tolkien, brings the quest to destroy the One Ring to its ultimate conclusion', 'https://images-na.ssl-images-amazon.com/images/I/51aUyT9mSML._SX331_BO1,204,203,200_.jpg', 250000, 20, 'available', 1, 21),
+('9780000000054', 'The Jungle Book', 'Collection of stories by Rudyard Kipling, set in India and featuring animal characters such as Baloo the bear and Bagheera the black panther', 'https://images-na.ssl-images-amazon.com/images/I/91Dgx6cVpGL.jpg', 100000, 50, 'available', 2, 22),
+('9780000000065', 'A Song of Ice and Fire: A Game of Thrones', 'First part of the epic fantasy novel series by George R.R. Martin, set in a medieval-like world of warring kingdoms and political intrigue', 'https://images-na.ssl-images-amazon.com/images/I/51QfLaG0xSL._SX331_BO1,204,203,200_.jpg', 250000, 20, 'available', 3, 23),
+('9780000000076', 'A Song of Ice and Fire: A Clash of Kings', 'Second part of the epic fantasy novel series by George R.R. Martin, continues the story of the struggle for power among the noble houses of Westeros', 'https://images-na.ssl-images-amazon.com/images/I/51gBjYIHB9L._SX331_BO1,204,203,200_.jpg', 300000, 15, 'available', 3, 23),
+('9780000000087', 'A Song of Ice and Fire: A Storm of Swords', 'Third part of the epic fantasy novel series by George R.R. Martin, features major battles and political upheaval as the war for the Iron Throne reaches its climax', 'https://images-na.ssl-images-amazon.com/images/I/41ZaM1niDBL._SX331_BO1,204,203,200_.jpg', 350000, 10, 'available', 3, 23),
+('9780000000098', 'Love in the Time of Cholera', 'Novel by Gabriel García Márquez, tells the story of a love triangle set in a fictional South American country', 'https://images-na.ssl-images-amazon.com/images/I/51b5X9Bab0L.jpg', 120000, 40, 'available', 4, 24),
+('9780000000104', 'One Hundred Years of Solitude', 'Novel by GabrielGarcía Márquez, chronicles the history of the Buendía family over seven generations in the fictional town of Macondo', 'https://images-na.ssl-images-amazon.com/images/I/51JxMOnU6QL._SX331_BO1,204,203,200_.jpg', 150000, 30, 'available', 4, 24),
+('9780000000115', 'The Picture of Dorian Gray', 'Gothic novel by Oscar Wilde, tells the story of a young man who stays forever young while his portrait ages and reflects his moral decay', 'https://images-na.ssl-images-amazon.com/images/I/51UVNZbW1jL._SX331_BO1,204,203,200_.jpg', 80000, 50, 'available', 5, 25),
+('9780000000126', 'Pride and Prejudice', 'Novel by Jane Austen, follows the romantic courtship of Elizabeth Bennet and Mr. Darcy, and explores themes of class, marriage, and social norms in Regency-era England', 'https://images-na.ssl-images-amazon.com/images/I/51TPY7RwKzL._SX331_BO1,204,203,200_.jpg', 90000, 50, 'available', 6, 26),
+('9780000000137', 'To Kill a Mockingbird', 'Novel by Harper Lee, set in the 1930s in the fictional town of Maycomb, Alabama, and explores issues of racial injustice through the eyes of protagonist Scout Finch', 'https://images-na.ssl-images-amazon.com/images/I/51eRhJluXPL._SX331_BO1,204,203,200_.jpg', 120000, 40, 'available', 7, 27),
+('9780000000148', 'The Great Gatsby', 'Novel by F. Scott Fitzgerald, set in the Roaring Twenties and explores themes of love, wealth, and the American Dream through the eyes of narrator Nick Carraway and his mysterious neighbor Jay Gatsby', 'https://images-na.ssl-images-amazon.com/images/I/51sm6WzGx7L._SX331_BO1,204,203,200_.jpg', 100000, 40, 'available', 8, 28),
+('9780000000159', 'Brave New World', 'Dystopian novel by Aldous Huxley, set in a future society where citizens are genetically engineered and conditioned to conform to their assigned social roles', 'https://images-na.ssl-images-amazon.com/images/I/51p07mck1hL._SX331_BO1,204,203,200_.jpg', 150000, 30, 'available', 9, 29),
+('9780000000160', '1984', 'Dystopian novel by George Orwell, set in a totalitarian regime where citizens are subjected to constant surveillance and propaganda', 'https://images-na.ssl-images-amazon.com/images/I/51Zd5OgJmeL._SX331_BO1,204,203,200_.jpg', 120000, 35, 'available', 10, 30),
+('9780000000171', 'Animal Farm', 'Allegorical novella by George Orwell, tells the story of a group of farm animals who rebel against their human farmer and establish their own society, but soon discover that some animals are more equal than others', 'https://images-na.ssl-images-amazon.com/images/I/417M9Jc-VLL._SX331_BO1,204,203,200_.jpg', 80000, 50, 'available', 10, 30),
+('9780000000182', 'The Catcher in the Rye', 'Novel by J.D. Salinger, follows the adventures and misadventures of teenage protagonist Holden Caulfield as he navigates the challenges of growing up', 'https://images-na.ssl-images-amazon.com/images/I/51c1U8uAzbL._SX331_BO1,204,203,200_.jpg', 90000, 40, 'available', 11, 31),
+('9780000000193', 'The Chronicles of Narnia: The Lion, the Witch and the Wardrobe', 'Fantasy novel by C.S. Lewis, tells the story of four siblings who discover a magical world through a wardrobe', 'https://images-na.ssl-images-amazon.com/images/I/51oN%2BdKfMNL._SX331_BO1,204,203,200_.jpg', 100000, 35, 'available', 12, 32),
+('9780000000209', 'The Hitchhiker\'s Guide to the Galaxy', 'Humorous science fiction series by Douglas Adams, follows the misadventures of hapless human Arthur Dent and his alien friend Ford Prefect as they travel through space and time', 'https://images-na.ssl-images-amazon.com/images/I/51yW8PvKtSL._SX331_BO1,204,203,200_.jpg', 80000, 50, 'available', 13, 33),
+('9780000000210', 'The Da Vinci Code', 'Mystery thriller novel by Dan Brown, follows symbologist Robert Langdon as he investigates a murder in Paris and uncovers a conspiracy involving the Holy Grail and the Catholic Church', 'https://images-na.ssl-images-amazon.com/images/I/41HqeWPzNOL._SX331_BO1,204,203,200_.jpg', 150000, 25, 'available', 14, 34),
+('9780000000221', 'Harry Potter and the Philosopher\'s Stone', 'Fantasy novel by J.K. Rowling, introduces young wizard Harry Potter and his friends Ron Weasley and Hermione Granger as they attend Hogwarts School of Witchcraft and Wizardry', 'https://images-na.ssl-images-amazon.com/images/I/91gH1BMVfkL.jpg', 120000, 30, 'available', 15, 35),
+('9780000000232', 'Harry Potter and the Chamber of Secrets', 'Second book in the Harry Potter series, follows Harry and his friends as they investigate a mysterious monster that is attacking students at Hogwarts', 'https://images-na.ssl-images-amazon.com/images/I/91QnGxJxRbL.jpg', 130000, 30, 'available', 15, 35),
+('9780000000243', 'Harry Potter and the Prisoner of Azkaban', 'Third book in the Harry Potter series, sees Harry and his friends confront Sirius Black, an escaped prisoner who is believed to be a dangerous wizard', 'https://images-na.ssl-images-amazon.com/images/I/91dYwMwvKQL.jpg', 140000, 25, 'available', 15, 35),
+('9780000000254', 'Harry Potter and the Goblet of Fire', 'Fourth book in the Harry Potter series, features the Triwizard Tournament and the return of the evil Lord Voldemort', 'https://images-na.ssl-images-amazon.com/images/I/91O-1Ejyd2L.jpg', 150000, 20, 'available', 15, 35),
+('9780000000265', 'Harry Potter and the Order of Phoenix', 'Fifth book in the Harry Potter series, sees Harry and his friends form Dumbledore\'s Army to resist the tyranny of Dolores Umbridge and the Ministry of Magic', 'https://images-na.ssl-images-amazon.com/images/I/91sU53J6H-L.jpg', 160000, 20, 'available', 15, 35),
+('9780000000276', 'Harry Potter and the Half-Blood Prince', 'Sixth book in the Harry Potter series, delves deeper into the past of Lord Voldemort and reveals his connection to Harry', 'https://images-na.ssl-images-amazon.com/images/I/91lG%2BzVV7GL.jpg', 170000, 15, 'available', 15, 35),
+('9780000000287', 'Harry Potter and the Deathly Hallows', 'Seventh and final book in the Harry Potter series, brings the epic battle between good and evil to its ultimate conclusion', 'https://images-na.ssl-images-amazon.com/images/I/91lOJgV7oZL.jpg', 180000, 10, 'available', 15, 35);
 
-INSERT INTO
-    employees (
-        user_id,
-        salary,
-        employee_type,
-        contact_information
-    )
-SELECT
-    id,
-    50000,
-    'employee_manager',
-    '123 Main St, Anytown USA'
-FROM users
-WHERE username = 'employee1';
+INSERT INTO categories_books (categories_id, books_isbn)
+VALUES
+(1, '9780000000010'),
+(2, '9780000000115'),
+(3, '9780000000160'),
+(4, '9780000000254'),
+(5, '9780000000193'),
+(6, '9780000000126'),
+(7, '9780000000137'),
+(8, '9780000000148'),
+(9, '9780000000159'),
+(10, '9780000000171'),
+(11, '9780000000182'),
+(12, '9780000000193'),
+(13, '9780000000209'),
+(14, '9780000000210'),
+(15, '9780000000221'),
+(15, '9780000000232'),
+(15, '9780000000243'),
+(15, '9780000000265'),
+(15, '9780000000276'),
+(15, '9780000000287');
 
-INSERT INTO
-    employees (
-        user_id,
-        salary,
-        employee_type,
-        contact_information
-    )
-SELECT
-    id,
-    45000,
-    'employee_sales',
-    '456 High St, Anytown USA'
-FROM users
-WHERE username = 'employee2';
+INSERT INTO employees (user_id, salary, employee_type, contact_information)
+VALUES 
+    (2, 10000, 'employee_manager', 'employee1@example.com'),
+    (3, 15101, 'employee_sales', 'employee2@example.com'),
+    (4, 12000, 'employee_sales', 'employee3@example.com'),
+    (5, 10000, 'employee_manager', 'employee4@example.com'),
+    (6, 15101, 'employee_sales', 'employee5@example.com'),
+    (7, 12000, 'employee_sales', 'employee6@example.com'),
+    (8, 10000, 'employee_manager', 'employee7@example.com'),
+    (9, 15101, 'employee_sales', 'employee8@example.com'),
+    (10, 12000, 'employee_sales', 'employee9@example.com');
+
+    INSERT INTO promotions (description, quantity, start_date, end_date, condition_apply, discount_percent, discount_amount)
+VALUES
+('Giảm giá 30% cho sách tiểu thuyết', 100, '2023-05-01', '2023-05-31', NULL, 30, NULL),
+('Mua 2 Sách Tặng 1 Sách Miễn Phí', 50, '2023-04-18', '2023-05-31', 'Áp dụng cho sách trên 200.000đ', NULL, NULL),
+('Giảm giá 50% cho sách kinh tế', 80, '2023-05-15', '2023-06-15', NULL, 50, NULL),
+('Tặng bookmark khi mua sách trinh thám', 120, '2023-04-25', '2023-05-01', NULL, NULL, NULL),
+('Giảm giá 10% cho toàn bộ sách', 250, '2023-05-01', '2023-05-31', 'Áp dụng cho đơn hàng trên 500.000đ', 10, NULL),
+('Mua 3 sách giảm 30.000đ', 200, '2023-04-25', '2023-05-31', NULL, NULL, 30000),
+('Mua sách văn học giảm 20%', 150, '2023-05-01', '2023-05-31', 'Áp dụng cho đơn hàng trên 300.000đ', 20, NULL),
+('Giảm giá 10% cho sách giáo khoa', 100, '2023-04-25', '2023-05-15', NULL, 10, NULL),
+('Mua 1 sách tặng bookmark', 50, '2023-05-01', '2023-05-31', 'Áp dụng cho sách trên 150.000đ', NULL, NULL),
+('Giảm giá 50.000đ khi mua sách tự nhiên', 80, '2023-04-25', '2023-05-31', NULL, NULL, 50000),
+('Tặng voucher mua sách trị giá 100.000đ', 120, '2023-05-01', '2023-05-31', 'Áp dụng cho đơn hàng trên 800.000đ', NULL, NULL),
+('Mua sách thiếu nhi tặng sách tranh', 200, '2023-04-18', '2023-06-30', 'Áp dụng cho đơn hàng trên 400.000đ', NULL, NULL),
+('Giảm giá 20% cho sách ngoại văn', 70, '2023-05-01', '2023-05-31', NULL, 20, NULL),
+('Mua 1 sách giảm 10.000đ', 100, '2023-04-25', '2023-05-31', NULL, NULL, 10000),
+('Giảm giá 30% cho tất cả sách truyện tranh', 80, '2023-05-01', '2023-05-15', NULL, 30, NULL),
+('Tặng voucher mua sách trị giá 50.000đ', 150, '2023-04-18', '2023-05-31', 'Áp dụng cho đơn hàng trên 300.000đ', NULL, NULL),
+('Mua 1 sách kinh tế tặng bookmark', 50, '2023-05-01', '2023-05-31', 'Áp dụng cho sách trên 200.000đ', NULL, NULL),
+('Giảm giá 20% cho sách giáo khoa',150, '2023-05-01', '2023-05-31', 'Áp dụng cho đơn hàng trên 400.000đ', 20, NULL),
+('Mua sách kinh tế giảm 15%', 100, '2023-04-25', '2023-05-31', NULL, 15, NULL);
+
+INSERT INTO `addresses` (`user_id`, `street`, `city`, `state`, `zip`) VALUES
+(1, '123 Main St', 'New York', 'NY', '10001'),
+(2, '456 Elm Ave', 'Los Angeles', 'CA', '90001'),
+(3, '789 Oak Ln', 'Chicago', 'IL', '60601'),
+(4, '101 Maple Dr', 'Houston', 'TX', '77001'),
+(5, '234 Cedar Blvd', 'Philadelphia', 'PA', '19101'),
+(6, '567 Pine Rd', 'Phoenix', 'AZ', '85001'),
+(7, '890 Walnut St', 'San Antonio', 'TX', '78201'),
+(8, '111 Cherry Ave', 'San Diego', 'CA', '92101'),
+(9, '222 Orange Blvd', 'Dallas', 'TX', '75201'),
+(10, '333 Grape St', 'San Francisco', 'CA', '94101'),
+(11, '444 Lemon Dr', 'Miami', 'FL', '33101'),
+(12, '555 Peach Ln', 'Seattle', 'WA', '98101'),
+(13, '666 Plum Rd', 'Denver', 'CO', '80201'),
+(14, '777 Apple St', 'Boston', 'MA', '02101'),
+(15, '888 Banana Ave', 'Detroit', 'MI', '48201'),
+(16, '999 Mango Blvd', 'Portland', 'OR', '97201'),
+(17, '123 Pineapple Dr', 'Oakland', 'CA', '94601'),
+(18, '456 Coconut Ln', 'Charlotte', 'NC', '28201'),
+(19, '789 Papaya Rd', 'Las Vegas', 'NV', '89101'),
+(20, '101 Kiwi Blvd', 'Memphis', 'TN', '38101'),
+(21, '234 Durian St', 'Louisville', 'KY', '40201'),
+(22, '567 Blueberry Dr', 'Raleigh', 'NC', '27601'),
+(23, '890 Cranberry Ave', 'Cleveland', 'OH', '44101'),
+(24, '111 Pine St', 'Tampa', 'FL', '33601'),
+(25, '222 Elmwood Blvd', 'Orlando', 'FL', '32801'),
+(26, '333 Birch Ave', 'Denver', 'CO', '80202'),
+(27, '444 Oak Hill Rd', 'St. Louis', 'MO', '63101'),
+(28, '555 Maplewood Ave', 'Kansas City', 'MO', '64101'),
+(29, '666 Cedar St', 'Nashville', 'TN', '37201'),
+(30, '777 Walnut Hill Rd', 'Indianapolis', 'IN', '46201'),
+(31, '888 Cherry Ln', 'Louisville', 'KY', '40202'),
+(32, '999 Peachtree St', 'Atlanta', 'GA', '30301'),
+(33, '1212 Plumwood Dr', 'Austin', 'TX', '78701'),
+(34, '2323 Lemonwood Ln', 'San Jose', 'CA', '95101'),
+(35, '3434 Grapevine Ave', 'Houston', 'TX', '77002'),
+(36, '4545 Orange Grove Rd', 'Dallas', 'TX', '75202'),
+(37, '5656 Pineapple St', 'Miami', 'FL', '33102'),
+(38, '6767 Coconut Ave', 'Tallahassee', 'FL', '32301'),
+(39, '7878 Papaya Ln', 'Phoenix', 'AZ', '85002'),
+(40, '8989 Kiwi Dr', 'Las Vegas', 'NV', '89102'),
+(41, '10010 Durian Blvd', 'San Francisco', 'CA', '94102'),
+(42, '11111 Blueberry Ave', 'Detroit', 'MI', '48202'),
+(43, '22222 Cranberry St', 'Chicago', 'IL', '60602'),
+(44, '33333 Peachtree Ave', 'New York', 'NY', '10002'),
+(45, '44444 Cedar Blvd', 'Los Angeles', 'CA', '90002'),
+(46, '55555 Walnut Hill Rd', 'Denver', 'CO', '80203'),
+(47, '66666 Oak Hill Ln', 'Seattle', 'WA', '98102'),
+(48, '77777 Maplewood Dr', 'Kansas City', 'MO', '64102'),
+(49, '88888 Pineapple Blvd', 'Philadelphia', 'PA', '19102'),
+(50, '99999 Coconut Ave', 'Charlotte', 'NC', '28202');
+
+INSERT INTO `carts` (`id`, `user_id`, `status`, `expires`, `promotion_id`) VALUES
+(1, 11, 'shopping', NULL, 1),
+(2, 12, 'shopping', NULL, 2),
+(3, 13, 'shopping', NULL, 3),
+(4, 14, 'shopping', NULL, 4),
+(5, 15, 'shopping', NULL, 5),
+(6, 16, 'shopping', NULL, 6),
+(7, 17, 'shopping', NULL, 7),
+(8, 18, 'shopping', NULL, 8),
+(9, 19, 'shopping', NULL, 9),
+(10, 20, 'shopping', NULL, 10),
+(11, 21, 'shopping', NULL, 11),
+(12, 22, 'shopping', NULL, 12),
+(13, 23, 'shopping', NULL, 13),
+(14, 24, 'shopping', NULL, 14),
+(15, 25, 'shopping', NULL, 15),
+(16, 26, 'shopping', NULL, 16),
+(17, 27, 'shopping', NULL, 17),
+(18, 28, 'shopping', NULL, 18),
+(19, 29, 'shopping', NULL, 19),
+(20, 30, 'shopping', NULL, 1),
+(21, 31, 'shopping', NULL, 2),
+(22, 32, 'shopping', NULL, 3),
+(23, 33, 'shopping', NULL, 4),
+(24, 34, 'shopping', NULL, 5),
+(25, 35, 'shopping', NULL, 6),
+(26, 36, 'shopping', NULL, 7),
+(27, 37, 'shopping', NULL, 8),
+(28, 38, 'shopping', NULL, 9),
+(29, 39, 'shopping', NULL, 10),
+(30, 40, 'shopping', NULL, 11),
+(31, 41, 'shopping', NULL, 12),
+(32, 42, 'shopping', NULL, 13),
+(33, 43, 'shopping', NULL, 14),
+(34, 44, 'shopping', NULL, 15),
+(35, 45, 'shopping', NULL, 16),
+(36, 46, 'shopping', NULL, 17),
+(37, 47, 'shopping', NULL, 18),
+(38, 48, 'shopping', NULL, 19),
+(39, 49, 'shopping', NULL, 1),
+(40, 50, 'shopping', NULL, 2);
+
+INSERT INTO cart_items (cart_id, book_isbn, price, quantity, discount) VALUES
+(1, '9780000000010', 150000, 2, 0),
+(2, '9780000000021', 200000, 1, 0),
+(3, '9780000000032', 200000, 1, 0),
+(4, '9780000000043', 250000, 1, 0),
+(5, '9780000000054', 100000, 3, 0),
+(6, '9780000000065', 250000, 1, 50000),
+(7, '9780000000076', 300000, 1, 0),
+(8, '9780000000087', 350000, 1, 0),
+(9, '9780000000098', 120000, 2, 0),
+(10, '9780000000104', 150000, 1, 0),
+(11, '9780000000115', 80000, 3, 0),
+(12, '9780000000126', 90000, 2, 0),
+(13, '9780000000137', 120000, 2, 0),
+(14, '9780000000148', 100000, 2, 0),
+(15, '9780000000159', 150000, 1, 0),
+(16, '9780000000160', 120000, 1, 0),
+(17, '9780000000171', 80000, 2, 0),
+(18, '9780000000182', 90000, 2, 0),
+(19, '9780000000193', 100000, 1, 0),
+(20, '9780000000209', 80000, 3, 0),
+(21, '9780000000210', 150000, 1, 0),
+(22, '9780000000221', 120000, 2, 0),
+(23, '9780000000232', 130000, 1, 0),
+(24, '9780000000243', 140000, 1, 0),
+(25, '9780000000254', 150000, 1, 0),
+(26, '9780000000265', 160000, 1, 0),
+(27, '9780000000276', 170000, 1, 0),
+(28, '9780000000287', 180000, 1, 0),
+(29, '9780000000010', 150000, 1, 0),
+(30, '9780000000021', 200000, 1, 0),
+(31, '9780000000032', 200000, 1, 0),
+(32, '9780000000043', 250000, 1, 0),
+(33, '9780000000054', 100000, 2, 0),
+(34, '9780000000065', 250000, 1, 0),
+(35, '9780000000076', 300000, 1, 0),
+(36, '9780000000087', 350000, 1, 0),
+(37, '9780000000098', 120000, 1, 0),
+(38, '9780000000104', 150000, 1, 0),
+(39, '9780000000115', 80000, 2, 0),
+(40, '9780000000126', 90000, 1, 0);
+
+INSERT INTO providers (id, name, description) VALUES
+(1, 'Nhà sách Thành Công', 'Nhà sách uy tín chuyên cung cấp các loại sách văn học, kinh tế, khoa học tự nhiên,...'),
+(2, 'Fahasa Bookstore', 'Cửa hàng sách lớn nhất Việt Nam với hàng ngàn cuốn sách phong phú.'),
+(3, 'Tiki Bookstore', 'Thương hiệu bán hàng trực tuyến nổi tiếng của Việt Nam cung cấp các sản phẩm sách mới nhất và chất lượng nhất.'),
+(4, 'Phương Nam Bookstore', 'Chuyên cung cấp các loại sách hay, giáo trình đáp ứng nhu cầu của các bạn học sinh, sinh viên.'),
+(5, 'Vinabook Bookstore', 'Cửa hàng sách online chất lượng cao, thường xuyên cập nhật các cuốn sách mới nhất.'),
+(6, 'Sách Hùng Vương', 'Cửa hàng sách chuyên cung cấp các loại sách kinh tế, đầu tư, quản lý...'),
+(7, 'Quang Trung Bookstore', 'Cửa hàng sách trực tuyến với đầy đủ các thể loại sách cho bạn lựa chọn.'),
+(8, 'PNC Bookstore', 'Chuyên cung cấp các loại sách cho các bạn học sinh, sinh viên với giá ưu đãi.'),
+(9, 'Sách Đông A', 'Nhà sách chuyên cung cấp các loại sách văn học, sách ngoại ngữ, tiểu thuyết,...'),
+(10, 'Lao Động Bookstore', 'Cửa hàng sách uy tín, đáng tin cậy với chất lượng sản phẩm cao.'),
+(11, 'SGK Bookstore', 'Chuyên bán sách giáo khoa cho các bạn học sinh từ cấp 1 đến cấp 3.'),
+(12, 'Pandora Bookstore', 'Thương hiệu bán sách nổi tiếng của Việt Nam với các cuốn sách mới nhất và phong phú nhất.'),
+(13, 'Nhan Tri Bookstore', 'Cửa hàng sách chuyên cung cấp các loại sách hay, chất lượng với giá cả phải chăng.'),
+(14, 'Bách Khoa Bookstore', 'Cửa hàng sách được yêu thích của các bạn trẻ với các loại sách truyện tranh, tiểu thuyết, kiến thức tổng hợp,...'),
+(15, 'Sách Minh Khai', 'Nhà sách chuyên cung cấp các loại sách kinh tế, tài chính, đầu tư và quản lý.'),
+(16, 'Sách Trẻ', 'Cửa hàng sách chuyên cung cấp các loại sách truyện tranh, tiểu thuyết,... cho các bạn trẻ.'),
+(17, 'DS Bookstore', 'Cửa hàng sách trực tuyến uy tín với đầy đủ các thể loại sách.'),
+(18, 'Nhã Nam Bookstore', 'Cửa hàng sách chuyên cung cấp các loại sách lịch sử, chính trị, văn hóa...'),
+(19, 'Kim Đồng Bookstore', 'Thương hiệu bán sách nổi tiếng của Việt Nam với các cuốn sách giáo khoa cho các bạn học sinh.'),
+(20, 'Nha Xuat Ban Tre', 'Nhà xuất bản chuyên sản xuất và phát hành các loại sách thiếu nhi.'),
+(21, 'Tri Thức Trẻ', 'Cửa hàng sách chuyên cung cấp các loại sách kiến thức tổng hợp, sách kinh doanh, quản lý,...'),
+(22, 'Sách Online Hà Nội', 'Cửa hàng sách trực tuyến tại Hà Nội với đa dạng các loại sách, từ sách giáo khoa đến sách tham khảo.'),
+(23, 'Bản Văn Bookstore', 'Chuyên cung cấp các loại sách văn học, kinh tế, khoa học tự nhiên...'),
+(24, 'Nhà sách Phương Nam', 'Nhà sách uy tín chuyên cung cấp các loại sách phong phú cho độc giả.'),
+(25, 'Sách Y Học', 'Cửa hàng sách chuyên cung cấp các loại sách về y học, sức khỏe và đời sống.'),
+(26, 'Tổng Hợp Bookstore', 'Cửa hàng sách trực tuyến với các cuốn sách mới nhất và phong phú nhất.'),
+(27, 'Nguyễn Văn Cừ Bookstore', 'Cửa hàng sách được yêu thích của người dân tại thành phố Hải Phòng.'),
+(28, 'Phan Đình Phùng Bookstore', 'Cửa hàng sách tại thành phố Buôn Ma Thuột với chất lượng sản phẩm cao.'),
+(29, 'Đường Sách', 'Cửa hàng sách online chuyên cung cấp các loại sách hay, kiến thức tổng hợp.'),
+(30, 'Sách Tâm Đức', 'Cửa hàng sách chuyên cung cấp các loại sách về phật giáo và tâm linh.'),
+(31, 'Nhà Sách Hà Nội', 'Nhà sách uy tín tại Hà Nội với các loại sách phong phú.'),
+(32, 'Sách Tài Chính', 'Cửa hàng sách chuyên cung cấp các loại sách về tài chính, đầu tư...'),
+(33, 'Sách Văn Phòng', 'Cửa hàng sách chuyên cung cấp các loại sách về công nghệ thông tin, kỹ năng văn phòng...'),
+(34, 'Bùi Thị Xuân Bookstore', 'Cửa hàng sách chuyên cung cấp các loại sách văn học, tiểu thuyết,...'),
+(35, 'Sách Khai Trí', 'Cửa hàng sách chuyên cung cấp các loại sách về truyện tranh, tiểu thuyết... cho các bạn trẻ.'),
+(36, 'Phan Bội Châu Bookstore', 'Cửa hàng sách tại thành phố Vinh chuyên cung cấp các loại sách hay, phong phú.'),
+(37, 'Hoa Sữa Bookstore', 'Cửa hàng sách được yêu thích của người dân tại thành phố Đà Lạt.'),
+(38, 'Sách Hiền Triết', 'Cửa hàng sách tại thành phố Hồ Chí Minh chuyên cung cấp các loại sách về triết học, nhân văn...'),
+(39, 'Sách Thái Hà', 'Nhà sách chuyên cung cấp các loại sách văn học, kinh tế, khoa học tự nhiên... tại Hà Nội.'),
+(40, 'Sách Ngô Quyền', 'Cửa hàng sách tại thành phố Hải Phòng với đầy đủ các thể loại sách cho bạn lựa chọn.');

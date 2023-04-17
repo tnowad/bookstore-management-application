@@ -11,11 +11,11 @@ public class ImportItemFactory implements IFactory<ImportDAO> {
   public ImportDAO create() {
 
     Faker faker = new Faker();
-    try (ResultSet rs = DatabaseConnection.executeQuery("SELECT * FROM books")) {
+    try (ResultSet rs = DatabaseConnection.executeQuery("SELECT * FROM books,imports")) {
       int count = 0;
       while (rs.next()
           || count < 10) {
-        int importId = faker.number().numberBetween(1, 10);
+        String importId = rs.getString("imports.id");
         String bookIsbn = rs.getString("isbn");
         String quantity = rs.getString("quantity");
         String price = rs.getString("price");
@@ -24,6 +24,8 @@ public class ImportItemFactory implements IFactory<ImportDAO> {
             + bookIsbn + "', " + quantity + ", " + price + ")";
         DatabaseConnection.executeUpdate(sql);
         count++;
+        System.out.println(count);
+        if(count == 10) break;
       }
     } catch (Exception e) {
       e.printStackTrace();
