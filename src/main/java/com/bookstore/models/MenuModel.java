@@ -5,49 +5,48 @@ import java.util.List;
 
 import javax.swing.Icon;
 
-
 public class MenuModel {
-  private Icon icon;
-  private String title;
-  private ActionEvent action;
-  private List<MenuModel> subMenus;
+    private Icon icon;
+    private String title;
+    private ActionEvent actionEvent;
+    private List<MenuItemModel> menuItems;
 
-  public MenuModel(Icon icon, String title, ActionEvent action, List<MenuModel> subMenus) {
-    this.icon = icon;
-    this.title = title;
-    this.action = action;
-    this.subMenus = subMenus;
-  }
+    public MenuModel(Icon icon, String title, ActionEvent actionEvent, List<MenuItemModel> menuItems) {
+        this.icon = icon;
+        this.title = title;
+        this.actionEvent = actionEvent;
+        this.menuItems = menuItems;
+    }
 
-  public Icon getIcon() {
-    return icon;
-  }
+    public Icon getIcon() {
+        return icon;
+    }
 
-  public void setIcon(Icon icon) {
-    this.icon = icon;
-  }
+    public void setIcon(Icon icon) {
+        this.icon = icon;
+    }
 
-  public String getTitle() {
-    return title;
-  }
+    public String getTitle() {
+        return title;
+    }
 
-  public void setTitle(String title) {
-    this.title = title;
-  }
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-  public ActionEvent getAction() {
-    return action;
-  }
+    public ActionEvent getActionEvent() {
+        return actionEvent;
+    }
 
-  public void setAction(ActionEvent action) {
-    this.action = action;
-  }
+    public void setActionEvent(ActionEvent actionEvent) {
+        this.actionEvent = actionEvent;
+    }
 
-  public List<MenuModel> getSubMenus() {
-    return subMenus;
-  }
+    public List<MenuItemModel> getMenuItems() {
+        return menuItems;
+    }
 
-  public void setSubMenus(List<MenuModel> subMenus) {
-    this.subMenus = subMenus;
-  }
+    public void setMenuItems(List<MenuItemModel> menuItems) {
+        this.menuItems = menuItems;
+    }
 }

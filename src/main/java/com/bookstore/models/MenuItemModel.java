@@ -1,36 +1,27 @@
 package com.bookstore.models;
 
-import java.awt.event.ActionListener;
-
 public class MenuItemModel {
-  private String name;
-  private ActionListener actionListener;
+    private String title;
+    private String actionEvent;
 
-  public MenuItemModel() {
-  }
+    public MenuItemModel(String title, String actionEvent) {
+        this.title = title;
+        this.actionEvent = actionEvent;
+    }
 
-  public MenuItemModel(String name) {
-    this.name = name;
-  }
+    public String getTitle() {
+        return title;
+    }
 
-  public MenuItemModel(String name, ActionListener actionListener) {
-    this.name = name;
-    this.actionListener = actionListener;
-  }
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-  public String getName() {
-    return name;
-  }
+    public String getActionEvent() {
+        return actionEvent;
+    }
 
-  public ActionListener getActionListener() {
-    return actionListener;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public void setActionListener(ActionListener actionListener) {
-    this.actionListener = actionListener;
-  }
+    public void setActionEvent(String actionEvent) {
+        this.actionEvent = actionEvent;
+    }
 }
