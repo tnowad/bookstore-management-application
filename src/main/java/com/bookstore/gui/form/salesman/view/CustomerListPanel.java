@@ -32,7 +32,6 @@ public class CustomerListPanel extends javax.swing.JPanel {
     }
   }
 
-  @SuppressWarnings("unchecked")
   private void initComponents() {
 
     jSeparator1 = new javax.swing.JSeparator();
