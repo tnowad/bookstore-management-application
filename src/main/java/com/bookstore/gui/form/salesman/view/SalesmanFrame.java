@@ -2,10 +2,8 @@ package com.bookstore.gui.form.salesman.view;
 
 import java.awt.Dimension;
 import javax.swing.*;
-
 import com.bookstore.gui.form.salesman.view.Account.AccountPanel;
 import com.bookstore.gui.main.LoginUI;
-
 import java.awt.event.*;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;

@@ -11,10 +11,20 @@ import com.bookstore.gui.form.admin.component.dashboardComponent.DashboardPanel;
 import com.bookstore.gui.form.admin.component.userListComponent.UserComponent;
 import com.bookstore.gui.form.admin.menu.HeaderForm;
 import com.bookstore.gui.form.admin.menu.MenuForm;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 public class RunForm extends JFrame {
   private static RunForm instance;
-  private JPanel Construct;
+  private static JPanel Construct;
+
+  public static JPanel getConstruct() {
+    return Construct;
+  }
+
+  public void setConstruct(JPanel construct) {
+    Construct = construct;
+  }
 
   public static RunForm getInstance() {
     if (instance == null) {
@@ -43,33 +53,31 @@ public class RunForm extends JFrame {
     Construct.add(HeaderForm.getInstance(), BorderLayout.NORTH);
     Construct.add(DashboardPanel.getInstance(), BorderLayout.CENTER);
 
-
   }
 
   public void action(String nameButton) {
     switch (nameButton) {
-    case "Dashboard":
-    Construct.add(DashboardPanel.getInstance(), BorderLayout.CENTER);
-    break;
-    case "UserList":
-    removeAll();
-    Construct.add(UserComponent.getInstance(), BorderLayout.CENTER);
-    break;
-    case "BookList":
-    Construct.removeAll();
-    Construct.add(BrowseProductPanel.getInstance(), BorderLayout.CENTER);
-    break;
+      case "Dashboard":
+        Construct.add(DashboardPanel.getInstance(), BorderLayout.CENTER);
+        break;
+      case "UserList":
+        removeAll();
+        Construct.add(UserComponent.getInstance(), BorderLayout.CENTER);
+        break;
+      case "BookList":
+        Construct.removeAll();
+        // Construct.add(BrowseProductPanel.getInstance(), BorderLayout.CENTER);
+        break;
     }
 
   }
 
   public static void main(String[] args) {
     try {
-      UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
-      UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
-
-    } catch (Exception e) {
-      new RunForm();
+      UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+    } catch (ClassNotFoundException | IllegalAccessException | InstantiationException
+        | UnsupportedLookAndFeelException ignored) {
     }
+    new RunForm();
   }
 }

@@ -4,12 +4,16 @@
  */
 package com.bookstore.gui.form.admin.menu;
 
+import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import com.bookstore.gui.form.admin.RunForm;
+import com.bookstore.gui.form.admin.component.bookListComponent.BrowseProductPanel;
 
 /**
  *
@@ -80,7 +84,10 @@ public class MenuForm extends javax.swing.JPanel {
         ButtonListBook.setText("List Book");
         ButtonListBook.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RunForm.getInstance().action("BookList");
+                // RunForm.getInstance().action("BookList");
+                System.out.println("Xóa panel cũ và thêm panel mới ở đây");
+                RunForm.getConstruct().removeAll();
+                RunForm.getConstruct().add(new JLabel("News"));
             }
         });
         jPanel1.add(ButtonListBook);

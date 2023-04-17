@@ -18,7 +18,7 @@ import com.bookstore.bus.BookBUS;
 import com.bookstore.models.BookModel;
 import com.bookstore.models.BookModel.Status;
 
-public class BrowseProductPanel extends javax.swing.JPanel {
+public class BrowseProductPanel extends JPanel {
 private static BrowseProductPanel instance;
     private BookBUS bookBUS;
     private List<BookModel> listBook;
