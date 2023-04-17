@@ -549,3 +549,26 @@ VALUES
     (19, 19, 29, 175, 'credit', 19, 'pending'),
     (20, 20, 30, 250, 'cash', 20, 'success');
 
+INSERT INTO `shipping` (`id`, `order_id`, `shipping_method`, `address_id`, `status`) 
+VALUES
+(1, 1, 'DHL', 11, 'pending'),
+(2, 2, 'FedEx', 12, 'pending'),
+(3, 3, 'UPS', 13, 'pending'),
+(4, 4, 'DHL', 14, 'pending'),
+(5, 5, 'USPS', 15, 'pending'),
+(6, 6, 'FedEx', 16, 'pending'),
+(7, 7, 'DHL', 17, 'pending'),
+(8, 8, 'UPS', 18, 'pending'),
+(9, 9, 'USPS', 19, 'pending'),
+(10, 10, 'FedEx', 20, 'pending'),
+(11, 11, 'DHL', 21, 'pending'),
+(12, 12, 'UPS', 22, 'pending'),
+(13, 13, 'USPS', 23, 'pending'),
+(14, 14, 'FedEx', 24, 'pending'),
+(15, 15, 'DHL', 25, 'pending'),
+(16, 16, 'UPS', 26, 'pending'),
+(17, 17, 'USPS', 27, 'pending'),
+(18, 18, 'FedEx', 28, 'pending'),
+(19, 19, 'DHL', 29, 'pending'),
+(20, 20, 'UPS', 30, 'pending');
+
