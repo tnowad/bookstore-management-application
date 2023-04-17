@@ -47,7 +47,7 @@ public class CustomerListPanel extends javax.swing.JPanel {
     jScrollPane2 = new javax.swing.JScrollPane();
     customerTableList = new javax.swing.JTable();
 
-    exportCustomerBtn.setFont(new java.awt.Font("Segoe UI", 0, 18));
+    exportCustomerBtn.setFont(new java.awt.Font("Arial", 0, 18));
     exportCustomerBtn.setIcon(
         new javax.swing.ImageIcon(getClass().getResource("../../../../../../resources/images/export.png")));
     exportCustomerBtn.setText("Export");

@@ -19,10 +19,11 @@ public class BookListPanel extends javax.swing.JPanel {
 
     private void listBooks() {
         DefaultTableModel model = new DefaultTableModel();
-        model.addColumn("Id");
-        model.addColumn("Name");
-        model.addColumn("Email");
-        model.addColumn("Phone");
+        // "ISBN", "Title", "Quantity", "Price", "Status"
+        model.addColumn("ISBN");
+        model.addColumn("Title");
+        model.addColumn("Quantity");
+        model.addColumn("Price");
         model.addColumn("Status");
         for (BookModel book : bookList) {
             model.addRow(new Object[] {
