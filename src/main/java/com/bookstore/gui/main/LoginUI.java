@@ -288,7 +288,7 @@ public class LoginUI extends JFrame {
   public static void main(String[] args) {
     try {
       UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel"); 
-      UIManager.put("Button.background", Color.WHITE); 
+      UIManager.put("Button.background", Color.BLUE); 
     } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
         | UnsupportedLookAndFeelException e) {
       e.printStackTrace();

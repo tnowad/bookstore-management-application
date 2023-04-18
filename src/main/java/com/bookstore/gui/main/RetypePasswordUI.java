@@ -12,7 +12,6 @@ import java.util.Arrays;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -180,9 +179,6 @@ public class RetypePasswordUI extends JFrame {
     groupPhone.setBackground(Color.white);
     groupForgetPassword.setBackground(Color.white);
     groupButton.setBackground(Color.white);
-    // updateButton.setBackground(Color.white);
-    // cancelButton.setBackground(Color.white);
-    // registerButton.setBackground(Color.white);
   }
 
   private void handleEvent() {
@@ -305,3 +301,4 @@ public class RetypePasswordUI extends JFrame {
     new RetypePasswordUI();
   }
 }
+

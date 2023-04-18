@@ -8,6 +8,8 @@ import java.awt.Font;
 import javax.swing.*;
 import javax.swing.border.Border;
 
+import com.bookstore.gui.Theme.ThemeColor;
+
 public class GroupInput extends JPanel {
 
   private JLabel label;
@@ -17,7 +19,7 @@ public class GroupInput extends JPanel {
   public GroupInput(String name, String typeField) {
     initComponents(name, typeField);
     setBackground();
-    this.setBackground(Color.white);
+    this.setBackground(new ThemeColor().getBackground());
   }
 
   private void setBackground() {

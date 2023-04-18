@@ -201,18 +201,11 @@ public class SalesmanFrame extends JFrame {
   }
 
   public static void main(String args[]) {
-    // try {
-    // UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-    // } catch (ClassNotFoundException | IllegalAccessException |
-    // InstantiationException
-    // | UnsupportedLookAndFeelException ignored) {
-    // }
     try {
-      UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel"); // Đặt Windows Look and Feel
-      UIManager.put("Button.background", Color.BLUE); // Đặt màu nền cho các nút là màu trắng
-    } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
-        | UnsupportedLookAndFeelException e) {
-      e.printStackTrace();
+    UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+    } catch (ClassNotFoundException | IllegalAccessException |
+    InstantiationException
+    | UnsupportedLookAndFeelException ignored) {
     }
 
     java.awt.EventQueue.invokeLater(new Runnable() {
