@@ -23,6 +23,7 @@ import javax.swing.WindowConstants;
 import javax.swing.border.Border;
 
 import com.bookstore.bus.UserBUS;
+import com.bookstore.gui.component.button.Button;
 import com.bookstore.models.UserModel;
 
 public class ForgotPasswordUI extends JFrame {
@@ -41,9 +42,9 @@ public class ForgotPasswordUI extends JFrame {
   private JPanel groupForgetPassword;
 
   private JPanel groupButton;
-  private JButton resetButton;
-  private JButton cancelButton;
-  private JButton registerButton;
+  private Button resetButton;
+  private Button cancelButton;
+  private Button registerButton;
   private JLabel iconLabel;
   private JLabel nameStoreLabel;
 
@@ -74,9 +75,9 @@ public class ForgotPasswordUI extends JFrame {
     phoneTextField = new JTextField();
     groupForgetPassword = new JPanel();
     groupButton = new JPanel();
-    resetButton = new JButton();
-    cancelButton = new JButton();
-    registerButton = new JButton();
+    resetButton = new Button("Reset");
+    cancelButton = new Button("Cancel");
+    registerButton = new Button("Don't have account? Register");
     icon = new ImageIcon("icon/book.png");
     iconLabel = new JLabel(icon);
 
@@ -152,16 +153,14 @@ public class ForgotPasswordUI extends JFrame {
 
     groupButton.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 50));
 
-    resetButton.setText("Reset");
     resetButton.setPreferredSize(new Dimension(100, 50));
     groupButton.add(resetButton);
 
-    cancelButton.setText("Cancel");
     cancelButton.setPreferredSize(new Dimension(100, 50));
     groupButton.add(cancelButton);
 
-    registerButton.setText("Don't have account? Register");
-    registerButton.setPreferredSize(new Dimension(300, 50));
+    // registerButton.setText("Don't have account? Register");
+    // registerButton.setPreferredSize(new Dimension(300, 50));
     groupButton.add(registerButton);
 
     groupContent.add(groupButton, BorderLayout.PAGE_END);
@@ -178,9 +177,9 @@ public class ForgotPasswordUI extends JFrame {
     groupPhone.setBackground(Color.white);
     groupForgetPassword.setBackground(Color.white);
     groupButton.setBackground(Color.white);
-    resetButton.setBackground(Color.white);
-    cancelButton.setBackground(Color.white);
-    registerButton.setBackground(Color.white);
+    // resetButton.setBackground(Color.white);
+    // cancelButton.setBackground(Color.white);
+    // registerButton.setBackground(Color.white);
   }
 
   private void handleEvent() {
@@ -255,9 +254,9 @@ public class ForgotPasswordUI extends JFrame {
           phoneTextField.setFont(new Font("sansserif", 0, 16));
           phoneTextField.setPreferredSize(new Dimension(150, 50));
 
+          resetButton.setPreferredSize(new Dimension (100, 35));
           cancelButton.setPreferredSize(new Dimension(100, 35));
-          registerButton.setPreferredSize(new Dimension(100, 35));
-          resetButton.setPreferredSize(new Dimension(300, 35));
+          registerButton.setPreferredSize(new Dimension(200, 35));
 
           if (height < 600) {
             nameStoreLabel.setFont(new Font("sansserif", 0, 24));

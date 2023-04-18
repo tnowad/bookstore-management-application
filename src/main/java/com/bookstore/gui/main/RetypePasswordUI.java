@@ -23,6 +23,7 @@ import javax.swing.WindowConstants;
 import javax.swing.border.Border;
 
 import com.bookstore.bus.UserBUS;
+import com.bookstore.gui.component.button.Button;
 import com.bookstore.models.UserModel;
 
 public class RetypePasswordUI extends JFrame {
@@ -41,9 +42,9 @@ public class RetypePasswordUI extends JFrame {
   private JPanel groupForgetPassword;
 
   private JPanel groupButton;
-  private JButton updateButton;
-  private JButton cancelButton;
-  private JButton registerButton;
+  private Button updateButton;
+  private Button cancelButton;
+  private Button registerButton;
   private JLabel iconLabel;
   private JLabel nameStoreLabel;
 
@@ -78,9 +79,9 @@ public class RetypePasswordUI extends JFrame {
     confirmPasswordField = new JPasswordField();
     groupForgetPassword = new JPanel();
     groupButton = new JPanel();
-    updateButton = new JButton();
-    cancelButton = new JButton();
-    registerButton = new JButton();
+    updateButton = new Button("Update");
+    cancelButton = new Button("Cancel");
+    registerButton = new Button("Don't have account? Register");
     icon = new ImageIcon("icon/book.png");
     iconLabel = new JLabel(icon);
     nameStoreLabel = new JLabel("Bookstore Management Application");
@@ -156,15 +157,12 @@ public class RetypePasswordUI extends JFrame {
 
     groupButton.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 50));
 
-    updateButton.setText("Update");
     updateButton.setPreferredSize(new Dimension(100, 50));
     groupButton.add(updateButton);
 
-    cancelButton.setText("Cancel");
     cancelButton.setPreferredSize(new Dimension(100, 50));
     groupButton.add(cancelButton);
 
-    registerButton.setText("Don't have account? Register");
     registerButton.setPreferredSize(new Dimension(300, 50));
     groupButton.add(registerButton);
 
@@ -182,9 +180,9 @@ public class RetypePasswordUI extends JFrame {
     groupPhone.setBackground(Color.white);
     groupForgetPassword.setBackground(Color.white);
     groupButton.setBackground(Color.white);
-    updateButton.setBackground(Color.white);
-    cancelButton.setBackground(Color.white);
-    registerButton.setBackground(Color.white);
+    // updateButton.setBackground(Color.white);
+    // cancelButton.setBackground(Color.white);
+    // registerButton.setBackground(Color.white);
   }
 
   private void handleEvent() {
