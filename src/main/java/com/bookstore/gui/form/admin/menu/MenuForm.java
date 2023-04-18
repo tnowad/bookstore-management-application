@@ -88,6 +88,8 @@ public class MenuForm extends javax.swing.JPanel {
                 System.out.println("Xóa panel cũ và thêm panel mới ở đây");
                 RunForm.getConstruct().removeAll();
                 RunForm.getConstruct().add(new JLabel("News"));
+                RunForm.getConstruct().revalidate();
+                RunForm.getConstruct().repaint();
             }
         });
         jPanel1.add(ButtonListBook);
