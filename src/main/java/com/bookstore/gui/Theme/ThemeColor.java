@@ -5,10 +5,10 @@ import java.awt.Color;
 public class ThemeColor {
 
     private Color background = new Color(255, 255, 255);
-    private Color buttonBackground = new Color(0, 119, 190);
-    private Color buttonForeground = Color.WHITE;
+    private Color buttonBackground = new Color(255, 255, 255);
+    private Color buttonForeground = Color.BLUE;
     private Color buttonHoverBackground = new Color(0, 119, 250);
-    private Color buttonHoverForeground  ;
+    private Color buttonHoverForeground = new Color(255, 255, 255) ;
     private Color buttonPressedBackground;
     private Color buttonPressedForeground;
     private Color buttonDisabledBackground;

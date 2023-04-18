@@ -16,12 +16,13 @@ import javax.swing.UIManager;
 import javax.swing.border.Border;
 
 import com.bookstore.gui.Theme.ThemeColor;
+import com.bookstore.gui.Theme.ThemeFont;
 
 public class Button extends JButton {
   public Button(String name) {
     initComponents(name);
     // if (!"Forgot password".equals(name))
-      handleEvent();
+    handleEvent();
   }
 
   private void handleEvent() {
@@ -58,17 +59,20 @@ public class Button extends JButton {
     // timer.start();
     // }
     // });
-    hoverBackground(new ThemeColor().getButtonBackground(), new ThemeColor().getButtonHoverBackground(),Color.WHITE, Color.WHITE);
+    hoverBackground(new ThemeColor().getButtonBackground(), new ThemeColor().getButtonHoverBackground(),
+        new ThemeColor().getButtonForeground(),
+        new ThemeColor().getButtonHoverForeground());
   }
 
-  public void hoverBackground(Color originalBackgroundColor, Color laterBackgroundColor,Color originalForegroundColor,Color laterForegroundColor) {
+  public void hoverBackground(Color originalBackgroundColor, Color laterBackgroundColor, Color originalForegroundColor,
+      Color laterForegroundColor) {
     addMouseListener(new MouseAdapter() {
       @Override
       public void mouseEntered(MouseEvent evt) {
         setBackground(laterBackgroundColor);
         setForeground(laterForegroundColor);
       }
-      
+
       @Override
       public void mouseExited(MouseEvent evt) {
         setBackground(UIManager.getColor("control"));
@@ -80,10 +84,10 @@ public class Button extends JButton {
 
   private void initComponents(String name) {
     setText(name);
-    setFont(new Font("Arial", Font.ITALIC, 14));
+    setFont(new ThemeFont().getSmallFont());
     setButtonSize(100, 50);
-    setBackground(new Color(0, 119, 190));
-    setForeground(Color.WHITE);
+    setBackground(new ThemeColor().getButtonBackground());
+    setForeground(new ThemeColor().getButtonForeground());
     setBorder(null);
     setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
   }
