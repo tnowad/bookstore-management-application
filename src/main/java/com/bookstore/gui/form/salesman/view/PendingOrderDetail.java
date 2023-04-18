@@ -2,12 +2,9 @@ package com.bookstore.gui.form.salesman.view;
 
 import javax.swing.JFrame;
 
-
 public class PendingOrderDetail extends JFrame {
 
   // "ISBN", "Title ", "Quantity", "Price"
-
- 
 
   public PendingOrderDetail() {
     initComponents();
@@ -78,21 +75,21 @@ public class PendingOrderDetail extends JFrame {
     jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.LINE_AXIS));
 
     // orderTableList.setModel(new javax.swing.table.DefaultTableModel(
-    //     new Object[][] {
-    //         { null, null, null, null },
-    //         { null, null, null, null },
-    //         { null, null, null, null },
-    //         { null, null, null, null },
-    //         { null, null, null, null },
-    //         { null, null, null, null },
-    //         { null, null, null, null },
-    //         { null, null, null, null },
-    //         { null, null, null, null },
-    //         { null, null, null, null }
-    //     },
-    //     new String[] {
-    //         "ISBN", "Title ", "Quantity", "Price"
-    //     }));
+    // new Object[][] {
+    // { null, null, null, null },
+    // { null, null, null, null },
+    // { null, null, null, null },
+    // { null, null, null, null },
+    // { null, null, null, null },
+    // { null, null, null, null },
+    // { null, null, null, null },
+    // { null, null, null, null },
+    // { null, null, null, null },
+    // { null, null, null, null }
+    // },
+    // new String[] {
+    // "ISBN", "Title ", "Quantity", "Price"
+    // }));
     // jScrollPane1.setViewportView(orderTableList);
 
     // jPanel2.add(jScrollPane1);

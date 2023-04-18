@@ -19,9 +19,10 @@ public class Button extends JButton {
 
   private void initComponents(String name) {
     setText(name);
-    setFont(new Font("Arial", Font.BOLD, 14));
+    setFont(new Font("Helvetica", Font.ITALIC, 14));
     setButtonSize(100, 50);
-    setButtonBorder();
+    setBackground(Color.BLUE);
+    // setButtonBorder();
   }
 
   private void setButtonBorder() {
