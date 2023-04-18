@@ -23,12 +23,12 @@ public class PaymentMethodDAO implements IDAO<PaymentMethodModel> {
 
   private PaymentMethodModel createPaymentMethodModelFromResultSet(ResultSet rs) throws SQLException {
     PaymentMethodModel paymentMethodModel = new PaymentMethodModel(
+        rs.getInt("id"),
         rs.getString("payment_id"),
         rs.getString("card_number"),
         rs.getString("card_holder"),
-        rs.getDate("expiration_date"),
+        rs.getDate("expiration_date").toLocalDate(),
         rs.getInt("customer_id"));
-    paymentMethodModel.setId(rs.getInt("id"));
     return paymentMethodModel;
   }
 

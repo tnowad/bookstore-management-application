@@ -1,20 +1,20 @@
 package com.bookstore.models;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 public class ImportModel {
   private int id;
   private int providerId;
   private int employeeId;
   private Double totalPrice;
-  private Timestamp createdAt;
-  private Timestamp updatedAt;
+  private LocalDateTime createdAt;
+  private LocalDateTime updatedAt;
 
   public ImportModel() {
   }
 
-  public ImportModel(int id, int providerId, int employeeId, Double totalPrice, Timestamp createdAt,
-      Timestamp updatedAt) {
+  public ImportModel(int id, int providerId, int employeeId, Double totalPrice, LocalDateTime createdAt,
+      LocalDateTime updatedAt) {
     this.id = id;
     this.providerId = providerId;
     this.employeeId = employeeId;
@@ -24,11 +24,15 @@ public class ImportModel {
   }
 
   public int getId() {
-    return id;
+    return this.id;
+  }
+
+  public void setId(int id) {
+    this.id = id;
   }
 
   public int getProviderId() {
-    return providerId;
+    return this.providerId;
   }
 
   public void setProviderId(int providerId) {
@@ -36,7 +40,7 @@ public class ImportModel {
   }
 
   public int getEmployeeId() {
-    return employeeId;
+    return this.employeeId;
   }
 
   public void setEmployeeId(int employeeId) {
@@ -44,30 +48,26 @@ public class ImportModel {
   }
 
   public Double getTotalPrice() {
-    return totalPrice;
+    return this.totalPrice;
   }
 
   public void setTotalPrice(Double totalPrice) {
     this.totalPrice = totalPrice;
   }
 
-  public Timestamp getCreatedAt() {
-    return createdAt;
+  public LocalDateTime getCreatedAt() {
+    return this.createdAt;
   }
 
-  public Timestamp getUpdatedAt() {
-    return updatedAt;
-  }
-
-  public void setId(int id) {
-    this.id = id;
-  }
-
-  public void setCreatedAt(Timestamp createdAt) {
+  public void setCreatedAt(LocalDateTime createdAt) {
     this.createdAt = createdAt;
   }
 
-  public void setUpdatedAt(Timestamp updatedAt) {
+  public LocalDateTime getUpdatedAt() {
+    return this.updatedAt;
+  }
+
+  public void setUpdatedAt(LocalDateTime updatedAt) {
     this.updatedAt = updatedAt;
   }
 
@@ -91,13 +91,14 @@ public class ImportModel {
     return this;
   }
 
-  public ImportModel createdAt(Timestamp createdAt) {
+  public ImportModel createdAt(LocalDateTime createdAt) {
     setCreatedAt(createdAt);
     return this;
   }
 
-  public ImportModel updatedAt(Timestamp updatedAt) {
+  public ImportModel updatedAt(LocalDateTime updatedAt) {
     setUpdatedAt(updatedAt);
     return this;
   }
+
 }

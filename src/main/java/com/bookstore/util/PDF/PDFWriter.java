@@ -2,7 +2,8 @@ package com.bookstore.util.PDF;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
+import java.text.NumberFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -13,7 +14,6 @@ import javax.swing.JTable;
 import com.bookstore.bus.BookBUS;
 import com.bookstore.bus.CartBUS;
 import com.bookstore.bus.CartItemsBUS;
-import com.bookstore.bus.EmployeeBUS;
 import com.bookstore.bus.ImportBUS;
 import com.bookstore.bus.ImportItemsBUS;
 import com.bookstore.bus.OrderBUS;
@@ -24,7 +24,6 @@ import com.bookstore.bus.UserBUS;
 import com.bookstore.models.BookModel;
 import com.bookstore.models.CartItemsModel;
 import com.bookstore.models.CartModel;
-import com.bookstore.models.EmployeeModel;
 import com.bookstore.models.ImportItemsModel;
 import com.bookstore.models.ImportModel;
 import com.bookstore.models.OrderModel;
@@ -150,9 +149,6 @@ public class PDFWriter {
 
     // Get the provider data from the database
     ProviderModel providerData = ProviderBUS.getInstance().getModelById(importData.getProviderId());
-
-    // Get the employee data from the database
-    EmployeeModel employeeData = EmployeeBUS.getInstance().getModelById(importData.getEmployeeId());
 
     // Get the user data from employee
     UserModel userData = UserBUS.getInstance().getModelById(importData.getEmployeeId());
@@ -345,6 +341,7 @@ public class PDFWriter {
     close();
   }
 
+  // TODO: NEED A PROPER CHECK FOR THIS FUNCTION:
   public void exportReceiptToPDF(int orderId, String url) {
     OrderModel orderData = OrderBUS.getInstance().getModelById(orderId);
     CartModel cartData = CartBUS.getInstance().getModelById(orderData.getCartId());
@@ -358,8 +355,15 @@ public class PDFWriter {
     List<BookModel> books = BookBUS.getInstance().getAllModels();
     List<BookModel> modifiableBookList = new ArrayList<>(books);
     for (int i = modifiableCartItemsList.size() - 1; i >= 0; i--) {
-      if (!modifiableCartItemsList.get(i).getBookIsbn().equals(books.get(i).getIsbn())) {
-        modifiableBookList.remove(i);
+      boolean found = false;
+      for (BookModel book : modifiableBookList) {
+        if (modifiableCartItemsList.get(i).getBookIsbn().equals(book.getIsbn())) {
+          found = true;
+          break;
+        }
+      }
+      if (!found) {
+        modifiableCartItemsList.remove(i);
       }
     }
 
@@ -368,7 +372,6 @@ public class PDFWriter {
 
     // Get Employee Information
     UserModel employee = UserBUS.getInstance().getModelById(orderData.getEmployeeId());
-    EmployeeModel employeeModel = EmployeeBUS.getInstance().getModelById(employee.getId());
 
     // Get Payment & payment method
     List<PaymentModel> paymentData = PaymentBUS.getInstance().searchModel(String.valueOf(orderId),
@@ -382,11 +385,15 @@ public class PDFWriter {
 
     // Calculate Total Price
     double totalPrice = 0;
-    for (CartItemsModel cartItem : cartItemsList) {
+    for (CartItemsModel cartItem : modifiableCartItemsList) {
       BookModel book = BookBUS.getInstance().getBookByIsbn(cartItem.getBookIsbn());
       double itemTotalPrice = cartItem.getQuantity() * book.getPrice();
       totalPrice += itemTotalPrice;
     }
+
+    // Format Total Price as Currency
+    NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance();
+    String formattedTotalPrice = currencyFormatter.format(totalPrice);
 
     // Add receipt information into PDF File.
     chooseURL(url);
@@ -403,12 +410,12 @@ public class PDFWriter {
       document.add(title);
 
       // Add Order Information
-      SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+      DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
       Paragraph orderInfo = new Paragraph("Order Date: " + dateFormat.format(orderData.getCreatedAt()) + "\n"
           + "Order ID: " + orderData.getId() + "\n" + "Customer Name: " + customer.getName() + "\n"
           + "Employee Name: " + employee.getName() + "\n" + "Payment Method: "
-          + (paymentMethod != null ? payment.getPaymentMethod() : "") + "\n" + "Total Amount: $"
-          + totalPrice);
+          + (paymentMethod != null ? payment.getPaymentMethod() : "") + "\n" + "Total Amount: "
+          + formattedTotalPrice);
       orderInfo.setSpacingBefore(20f);
       orderInfo.setSpacingAfter(20f);
       document.add(orderInfo);
@@ -425,14 +432,14 @@ public class PDFWriter {
       table.addCell(cell3);
       table.addCell(cell4);
       table.addCell(cell5);
-      for (CartItemsModel cartItem : cartItemsList) {
+      for (CartItemsModel cartItem : modifiableCartItemsList) {
         BookModel book = BookBUS.getInstance().getBookByIsbn(cartItem.getBookIsbn());
         double itemTotalPrice = cartItem.getQuantity() * book.getPrice();
         table.addCell(book.getIsbn());
         table.addCell(book.getTitle());
         table.addCell("$" + book.getPrice());
-        table.addCell("" + book.getQuantity());
-        table.addCell("$" + itemTotalPrice);
+        table.addCell("" + cartItem.getQuantity());
+        table.addCell(currencyFormatter.format(itemTotalPrice));
       }
       document.add(table);
 

@@ -9,7 +9,6 @@ import java.util.List;
 
 import com.bookstore.interfaces.IDAO;
 import com.bookstore.models.BookModel;
-import com.bookstore.models.BookModel.Status;
 
 public class BookDAO implements IDAO<BookModel> {
   private static BookDAO instance;
@@ -85,7 +84,7 @@ public class BookDAO implements IDAO<BookModel> {
     }
   }
 
-  public int updateStatus(String isbn, Status status) {
+  public int updateStatus(String isbn, String status) {
     String updateSql = "UPDATE books SET status = ? WHERE isbn = ?";
     Object[] args = { status, isbn };
     try {

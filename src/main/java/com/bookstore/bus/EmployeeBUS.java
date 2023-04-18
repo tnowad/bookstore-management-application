@@ -127,12 +127,13 @@ public class EmployeeBUS implements IBUS<EmployeeModel> {
     return updatedRows;
   }
 
-  public int updateStatus(int userId, EmployeeType role) {
+  public int updateStatus(int userId, String role) {
     int success = EmployeeDAO.getInstance().updateStatus(userId, role);
     if (success == 1) {
       for (EmployeeModel employee : employeeList) {
         if (employee.getUserId() == userId) {
-          employee.setEmployeeType(role);
+          EmployeeType roleEnum = EmployeeType.valueOf(role.toUpperCase());
+          employee.setEmployeeType(roleEnum);
           return 1;
         }
       }

@@ -1,29 +1,19 @@
 package com.bookstore.models;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class PaymentMethodModel {
   private int id;
   private String paymentId;
   private String cardNumber;
   private String cardHolder;
-  private Date expirationDate;
+  private LocalDate expirationDate;
   private int customerId;
 
   public PaymentMethodModel() {
   }
 
-  public PaymentMethodModel(String paymentId, String cardNumber, String cardHolder,
-      Date expirationDate, int customerId) {
-    this.paymentId = paymentId;
-    this.cardNumber = cardNumber;
-    this.cardHolder = cardHolder;
-    this.expirationDate = expirationDate;
-    this.customerId = customerId;
-  }
-
-  public PaymentMethodModel(int id, String paymentId, String cardNumber, String cardHolder,
-      Date expirationDate,
+  public PaymentMethodModel(int id, String paymentId, String cardNumber, String cardHolder, LocalDate expirationDate,
       int customerId) {
     this.id = id;
     this.paymentId = paymentId;
@@ -34,7 +24,7 @@ public class PaymentMethodModel {
   }
 
   public int getId() {
-    return id;
+    return this.id;
   }
 
   public void setId(int id) {
@@ -42,7 +32,7 @@ public class PaymentMethodModel {
   }
 
   public String getPaymentId() {
-    return paymentId;
+    return this.paymentId;
   }
 
   public void setPaymentId(String paymentId) {
@@ -50,7 +40,7 @@ public class PaymentMethodModel {
   }
 
   public String getCardNumber() {
-    return cardNumber;
+    return this.cardNumber;
   }
 
   public void setCardNumber(String cardNumber) {
@@ -58,26 +48,57 @@ public class PaymentMethodModel {
   }
 
   public String getCardHolder() {
-    return cardHolder;
+    return this.cardHolder;
   }
 
   public void setCardHolder(String cardHolder) {
     this.cardHolder = cardHolder;
   }
 
-  public Date getExpirationDate() {
-    return expirationDate;
+  public LocalDate getExpirationDate() {
+    return this.expirationDate;
   }
 
-  public void setExpirationDate(Date expirationDate) {
+  public void setExpirationDate(LocalDate expirationDate) {
     this.expirationDate = expirationDate;
   }
 
   public int getCustomerId() {
-    return customerId;
+    return this.customerId;
   }
 
   public void setCustomerId(int customerId) {
     this.customerId = customerId;
   }
+
+  public PaymentMethodModel id(int id) {
+    setId(id);
+    return this;
+  }
+
+  public PaymentMethodModel paymentId(String paymentId) {
+    setPaymentId(paymentId);
+    return this;
+  }
+
+  public PaymentMethodModel cardNumber(String cardNumber) {
+    setCardNumber(cardNumber);
+    return this;
+  }
+
+  public PaymentMethodModel cardHolder(String cardHolder) {
+    setCardHolder(cardHolder);
+    return this;
+  }
+
+  public PaymentMethodModel expirationDate(LocalDate expirationDate) {
+    setExpirationDate(expirationDate);
+    return this;
+  }
+
+  public PaymentMethodModel customerId(int customerId) {
+    setCustomerId(customerId);
+    return this;
+  }
+
 }

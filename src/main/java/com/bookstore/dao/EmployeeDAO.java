@@ -9,7 +9,6 @@ import java.util.List;
 
 import com.bookstore.interfaces.IDAO;
 import com.bookstore.models.EmployeeModel;
-import com.bookstore.models.EmployeeModel.EmployeeType;
 
 public class EmployeeDAO implements IDAO<EmployeeModel> {
   private static EmployeeDAO instance;
@@ -22,25 +21,25 @@ public class EmployeeDAO implements IDAO<EmployeeModel> {
   }
 
   private EmployeeModel createEmployeeModelFromResultSet(ResultSet rs) throws SQLException {
-    int userId = rs.getInt("user_id");
-    int salary = rs.getInt("salary");
-    EmployeeType employeeType = EmployeeType.valueOf(rs.getString("employee_type").toUpperCase());
-    String information = rs.getString("contact_information");
-    return new EmployeeModel(userId, salary, employeeType, information);
+    return new EmployeeModel(
+        rs.getInt("user_id"),
+        rs.getInt("salary"),
+        EmployeeModel.EmployeeType.valueOf(rs.getString("employee_type").toUpperCase()),
+        rs.getString("contact_information"));
   }
 
   @Override
   public ArrayList<EmployeeModel> readDatabase() {
-    ArrayList<EmployeeModel> employeesList = new ArrayList<>();
+    ArrayList<EmployeeModel> employeeList = new ArrayList<>();
     try (ResultSet rs = DatabaseConnection.executeQuery("SELECT * FROM employees")) {
       while (rs.next()) {
         EmployeeModel employeeModel = createEmployeeModelFromResultSet(rs);
-        employeesList.add(employeeModel);
+        employeeList.add(employeeModel);
       }
     } catch (SQLException e) {
       e.printStackTrace();
     }
-    return employeesList;
+    return employeeList;
   }
 
   @Override
@@ -70,7 +69,7 @@ public class EmployeeDAO implements IDAO<EmployeeModel> {
     }
   }
 
-  public int updateStatus(int userId, EmployeeType role) {
+  public int updateStatus(int userId, String role) {
     String updateSql = "UPDATE employees SET employee_type = ? WHERE user_id = ?";
     Object[] args = { userId, role };
     try {

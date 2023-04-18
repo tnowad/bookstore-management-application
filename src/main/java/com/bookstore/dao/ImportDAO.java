@@ -6,7 +6,7 @@ import com.bookstore.models.ImportModel;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -26,8 +26,8 @@ public class ImportDAO implements IDAO<ImportModel> {
     int providerId = rs.getInt("provider_id");
     int employeeId = rs.getInt("employee_id");
     Double totalPrice = rs.getDouble("total_price");
-    Timestamp createdAt = rs.getTimestamp("created_at");
-    Timestamp updatedAt = rs.getTimestamp("updated_at");
+    LocalDateTime createdAt = rs.getTimestamp("created_at").toLocalDateTime();
+    LocalDateTime updatedAt = rs.getTimestamp("updated_at").toLocalDateTime();
 
     return new ImportModel(id, providerId, employeeId, totalPrice, createdAt, updatedAt);
   }
@@ -60,7 +60,7 @@ public class ImportDAO implements IDAO<ImportModel> {
 
   @Override
   public int update(ImportModel imports) {
-    String updateSql = "UPDATE imports SET provider_id = ?, employee_id = ?, total_price = ? WHERE id = ?";
+    String updateSql = "UPDATE imports SET provider_id = ?, employee_id = ?, total_price = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?";
     Object[] args = { imports.getProviderId(), imports.getEmployeeId(), imports.getTotalPrice(), imports.getId() };
     try {
       return DatabaseConnection.executeUpdate(updateSql, args);
