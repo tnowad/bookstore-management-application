@@ -31,7 +31,6 @@ import com.bookstore.models.PaymentMethodModel;
 import com.bookstore.models.PaymentModel;
 import com.bookstore.models.ProviderModel;
 import com.bookstore.models.UserModel;
-import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -100,16 +99,15 @@ public class PDFWriter {
   }
 
   public void writeObject(String[] data) {
-    StringBuilder sb = new StringBuilder();
     for (String datum : data) {
-      sb.append(datum).append("  ");
-    }
-    Paragraph pdfData = new Paragraph(sb.toString(), fontData);
-    try {
-      document.add(pdfData);
-    } catch (DocumentException ex) {
-      Logger.getLogger(PDFWriter.class.getName()).log(Level.SEVERE, null, ex);
-      throw new RuntimeException("Failed to write object to PDF", ex);
+      Paragraph pdfData = new Paragraph(datum, fontData);
+      pdfData.setSpacingAfter(10f); // Add some spacing after each line
+      try {
+        document.add(pdfData);
+      } catch (DocumentException ex) {
+        Logger.getLogger(PDFWriter.class.getName()).log(Level.SEVERE, null, ex);
+        throw new RuntimeException("Failed to write object to PDF", ex);
+      }
     }
   }
 
@@ -143,205 +141,82 @@ public class PDFWriter {
   }
 
   // TODO: THE FUNCTION WORKS AS INTENTED TO BE BUT IT NEEDS A PROPER CHECK
-  public void exportImportsToPDF(int id, String url) {
-    // Get the import data from the database
-    ImportModel importData = ImportBUS.getInstance().getModelById(id);
+  public void exportImportsToPDF(int importId, String url) {
+    ImportModel importData = ImportBUS.getInstance().getModelById(importId);
+    List<ImportItemsModel> importItemsList = ImportItemsBUS.getInstance().getAllModels();
+    List<ImportItemsModel> modifiableItemsList = new ArrayList<>(importItemsList);
+    modifiableItemsList.removeIf(items -> items.getImportId() != importData.getId());
 
-    // Get the provider data from the database
-    ProviderModel providerData = ProviderBUS.getInstance().getModelById(importData.getProviderId());
-
-    // Get the user data from employee
-    UserModel userData = UserBUS.getInstance().getModelById(importData.getEmployeeId());
-
-    // Create a new PDF document
-    chooseURL(url);
-
-    // Add the title to the PDF document
-    setTitle("Import Receipt");
-
-    // Add the import data to the PDF document
-    Paragraph importTitle = new Paragraph(new Phrase("Import Data", fontHeader));
-    importTitle.setAlignment(Element.ALIGN_LEFT);
-    try {
-      document.add(importTitle);
-      document.add(new Paragraph(Chunk.NEWLINE));
-
-      PdfPTable importTable = new PdfPTable(2);
-      importTable.setWidthPercentage(100);
-      importTable.setSpacingBefore(10f);
-      importTable.setSpacingAfter(10f);
-
-      PdfPCell cell1 = new PdfPCell(new Phrase("ID", fontHeader));
-      cell1.setBorderColor(BaseColor.BLACK);
-      cell1.setPaddingLeft(10);
-      cell1.setHorizontalAlignment(Element.ALIGN_CENTER);
-      cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
-
-      PdfPCell cell2 = new PdfPCell(new Phrase(String.valueOf(importData.getId()), fontData));
-      cell2.setBorderColor(BaseColor.BLACK);
-      cell2.setPaddingLeft(10);
-      cell2.setHorizontalAlignment(Element.ALIGN_CENTER);
-      cell2.setVerticalAlignment(Element.ALIGN_MIDDLE);
-
-      importTable.addCell(cell1);
-      importTable.addCell(cell2);
-
-      cell1 = new PdfPCell(new Phrase("Provider", fontHeader));
-      cell1.setBorderColor(BaseColor.BLACK);
-      cell1.setPaddingLeft(10);
-      cell1.setHorizontalAlignment(Element.ALIGN_CENTER);
-      cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
-
-      cell2 = new PdfPCell(new Phrase(providerData.getName(), fontData));
-      cell2.setBorderColor(BaseColor.BLACK);
-      cell2.setPaddingLeft(10);
-      cell2.setHorizontalAlignment(Element.ALIGN_CENTER);
-      cell2.setVerticalAlignment(Element.ALIGN_MIDDLE);
-
-      importTable.addCell(cell1);
-      importTable.addCell(cell2);
-
-      cell1 = new PdfPCell(new Phrase("Employee", fontHeader));
-      cell1.setBorderColor(BaseColor.BLACK);
-      cell1.setPaddingLeft(10);
-      cell1.setHorizontalAlignment(Element.ALIGN_CENTER);
-      cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
-
-      cell2 = new PdfPCell(new Phrase(userData.getName(), fontData));
-      cell2.setBorderColor(BaseColor.BLACK);
-      cell2.setPaddingLeft(10);
-      cell2.setHorizontalAlignment(Element.ALIGN_CENTER);
-      cell2.setVerticalAlignment(Element.ALIGN_MIDDLE);
-
-      importTable.addCell(cell1);
-      importTable.addCell(cell2);
-
-      cell1 = new PdfPCell(new Phrase("Total Price", fontHeader));
-      cell1.setBorderColor(BaseColor.BLACK);
-      cell1.setPaddingLeft(10);
-      cell1.setHorizontalAlignment(Element.ALIGN_CENTER);
-      cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
-
-      cell2 = new PdfPCell(new Phrase(String.valueOf(importData.getTotalPrice()), fontData));
-      cell2.setBorderColor(BaseColor.BLACK);
-      cell2.setPaddingLeft(10);
-      cell2.setHorizontalAlignment(Element.ALIGN_CENTER);
-      cell2.setVerticalAlignment(Element.ALIGN_MIDDLE);
-
-      importTable.addCell(cell1);
-      importTable.addCell(cell2);
-
-      cell1 = new PdfPCell(new Phrase("Created At", fontHeader));
-      cell1.setBorderColor(BaseColor.BLACK);
-      cell1.setPaddingLeft(10);
-      cell1.setHorizontalAlignment(Element.ALIGN_CENTER);
-      cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
-
-      cell2 = new PdfPCell(new Phrase(importData.getCreatedAt().toString(), fontData));
-      cell2.setBorderColor(BaseColor.BLACK);
-      cell2.setPaddingLeft(10);
-      cell2.setHorizontalAlignment(Element.ALIGN_CENTER);
-      cell2.setVerticalAlignment(Element.ALIGN_MIDDLE);
-
-      importTable.addCell(cell1);
-      importTable.addCell(cell2);
-
-      document.add(importTable);
-      document.add(new Paragraph(Chunk.NEWLINE));
-    } catch (DocumentException ex) {
-      Logger.getLogger(PDFWriter.class.getName()).log(Level.SEVERE, null, ex);
-      throw new RuntimeException("Failed to write import data to PDF", ex);
-    }
-
-    // Add the import items to the PDF document
-    Paragraph importItemsTitle = new Paragraph(new Phrase("Import Items", fontHeader));
-    importItemsTitle.setAlignment(Element.ALIGN_LEFT);
-    try {
-      document.add(importItemsTitle);
-      document.add(new Paragraph(Chunk.NEWLINE));
-
-      PdfPTable importItemsTable = new PdfPTable(4);
-      importItemsTable.setWidthPercentage(100);
-      importItemsTable.setSpacingBefore(10f);
-      importItemsTable.setSpacingAfter(10f);
-
-      PdfPCell cell1 = new PdfPCell(new Phrase("Book ISBN", fontHeader));
-      cell1.setBorderColor(BaseColor.BLACK);
-      cell1.setPaddingLeft(10);
-      cell1.setHorizontalAlignment(Element.ALIGN_CENTER);
-      cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
-
-      PdfPCell cell2 = new PdfPCell(new Phrase("Book Title", fontHeader));
-      cell2.setBorderColor(BaseColor.BLACK);
-      cell2.setPaddingLeft(10);
-      cell2.setHorizontalAlignment(Element.ALIGN_CENTER);
-      cell2.setVerticalAlignment(Element.ALIGN_MIDDLE);
-
-      PdfPCell cell3 = new PdfPCell(new Phrase("Quantity", fontHeader));
-      cell3.setBorderColor(BaseColor.BLACK);
-      cell3.setPaddingLeft(10);
-      cell3.setHorizontalAlignment(Element.ALIGN_CENTER);
-      cell3.setVerticalAlignment(Element.ALIGN_MIDDLE);
-
-      PdfPCell cell4 = new PdfPCell(new Phrase("Price", fontHeader));
-      cell4.setBorderColor(BaseColor.BLACK);
-      cell4.setPaddingLeft(10);
-      cell4.setHorizontalAlignment(Element.ALIGN_CENTER);
-      cell4.setVerticalAlignment(Element.ALIGN_MIDDLE);
-
-      importItemsTable.addCell(cell1);
-      importItemsTable.addCell(cell2);
-      importItemsTable.addCell(cell3);
-      importItemsTable.addCell(cell4);
-
-      List<ImportItemsModel> importItemsData = new ArrayList<>(ImportItemsBUS.getInstance().getAllModels());
-      importItemsData.removeIf(importItem -> importItem.getImportId() != id);
-
-      for (ImportItemsModel importItem : importItemsData) {
-        BookModel bookData = BookBUS.getInstance().getBookByIsbn(importItem.getBookIsbn());
-
-        cell1 = new PdfPCell(new Phrase(bookData.getIsbn(), fontData));
-        cell1.setBorderColor(BaseColor.BLACK);
-        cell1.setPaddingLeft(10);
-        cell1.setHorizontalAlignment(Element.ALIGN_CENTER);
-        cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
-
-        cell2 = new PdfPCell(new Phrase(bookData.getTitle(), fontData));
-        cell2.setBorderColor(BaseColor.BLACK);
-        cell2.setPaddingLeft(10);
-        cell2.setHorizontalAlignment(Element.ALIGN_CENTER);
-        cell2.setVerticalAlignment(Element.ALIGN_MIDDLE);
-
-        cell3 = new PdfPCell(new Phrase(String.valueOf(importItem.getQuantity()), fontData));
-        cell3.setBorderColor(BaseColor.BLACK);
-        cell3.setPaddingLeft(10);
-        cell3.setHorizontalAlignment(Element.ALIGN_CENTER);
-        cell3.setVerticalAlignment(Element.ALIGN_MIDDLE);
-
-        cell4 = new PdfPCell(new Phrase(String.valueOf(importItem.getPrice()), fontData));
-        cell4.setBorderColor(BaseColor.BLACK);
-        cell4.setPaddingLeft(10);
-        cell4.setHorizontalAlignment(Element.ALIGN_CENTER);
-        cell4.setVerticalAlignment(Element.ALIGN_MIDDLE);
-
-        importItemsTable.addCell(cell1);
-        importItemsTable.addCell(cell2);
-        importItemsTable.addCell(cell3);
-        importItemsTable.addCell(cell4);
+    List<BookModel> booksList = BookBUS.getInstance().getAllModels();
+    List<BookModel> modifiableBooksList = new ArrayList<>(booksList);
+    for (int i = modifiableItemsList.size() - 1; i >= 0; i--) {
+      boolean found = false;
+      for (BookModel book : modifiableBooksList) {
+        if (modifiableItemsList.get(i).getBookIsbn().equals(book.getIsbn())) {
+          found = true;
+          break;
+        }
       }
-
-      document.add(importItemsTable);
-      document.add(new Paragraph(Chunk.NEWLINE));
-    } catch (DocumentException ex) {
-      Logger.getLogger(PDFWriter.class.getName()).log(Level.SEVERE, null, ex);
-      throw new RuntimeException("Failed to write import items to PDF", ex);
+      if (!found) {
+        modifiableItemsList.remove(i);
+      }
     }
 
-    // Close the PDF document
-    close();
+    ProviderModel provider = ProviderBUS.getInstance().getModelById(importData.getProviderId());
+    UserModel employee = UserBUS.getInstance().getModelById(importData.getEmployeeId());
+
+    // Calculate Total Price
+    double totalPrice = 0;
+    for (ImportItemsModel items : modifiableItemsList) {
+      BookModel book = BookBUS.getInstance().getBookByIsbn(items.getBookIsbn());
+      double itemTotalPrice = (items.getQuantity() * book.getPrice());
+      totalPrice += itemTotalPrice;
+    }
+
+    // Format Total Price as Currency
+    NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance();
+    String formattedTotalPrice = currencyFormatter.format(totalPrice);
+
+    chooseURL(url);
+    try {
+      Document document = new Document();
+      PdfWriter.getInstance(document, new FileOutputStream(url));
+      document.open();
+
+      setTitle("Import Receipt");
+
+      // Add header information
+      DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+      String headerInfoString = "ID: " + importData.getId() + "\n"
+          + "Provider: " + provider.getName() + "\n" + "Employee: " + employee.getName() + "\n"
+          + "Total Price: " + /* importData.getTotalPrice() */ formattedTotalPrice + "\n"
+          + "Created At: " + dateFormat.format(importData.getCreatedAt());
+      writeObject(headerInfoString.split("\n"));
+
+      // Add Book Information
+      String[] columnNames = { "ISBN", "Title", "Price", "Quantity", "Total Price" };
+      Object[][] data = new Object[modifiableItemsList.size()][5];
+      for (int i = 0; i < modifiableItemsList.size(); i++) {
+        ImportItemsModel item = modifiableItemsList.get(i);
+        BookModel book = BookBUS.getInstance().getBookByIsbn(item.getBookIsbn());
+        double itemTotalPrice = item.getQuantity() * book.getPrice();
+        data[i][0] = book.getIsbn();
+        data[i][1] = book.getTitle();
+        data[i][2] = "$" + book.getPrice();
+        data[i][3] = item.getQuantity();
+        data[i][4] = currencyFormatter.format(itemTotalPrice);
+      }
+      JTable table = new JTable(data, columnNames);
+      writeTable(table);
+
+      // Close the document
+      close();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
-  // TODO: NEED A PROPER CHECK FOR THIS FUNCTION:
+  // TODO: NEED A PROPER CHECK FOR THIS FUNCTION (IT WORKS NORMALLY).
   public void exportReceiptToPDF(int orderId, String url) {
     OrderModel orderData = OrderBUS.getInstance().getModelById(orderId);
     CartModel cartData = CartBUS.getInstance().getModelById(orderData.getCartId());
@@ -397,58 +272,43 @@ public class PDFWriter {
 
     // Add receipt information into PDF File.
     chooseURL(url);
-    setTitle("Purchase Receipt");
     try {
       Document document = new Document();
       PdfWriter.getInstance(document, new FileOutputStream(url));
       document.open();
 
-      // Add Title
-      Font titleFont = new Font(Font.FontFamily.TIMES_ROMAN, 24, Font.BOLD);
-      Paragraph title = new Paragraph("Purchase Receipt", titleFont);
-      title.setAlignment(Element.ALIGN_CENTER);
-      document.add(title);
+      setTitle("Purchase Receipt");
 
       // Add Order Information
       DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-      Paragraph orderInfo = new Paragraph("Order Date: " + dateFormat.format(orderData.getCreatedAt()) + "\n"
+      String orderInfoString = "Order Date: " + dateFormat.format(orderData.getCreatedAt()) + "\n"
           + "Order ID: " + orderData.getId() + "\n" + "Customer Name: " + customer.getName() + "\n"
           + "Employee Name: " + employee.getName() + "\n" + "Payment Method: "
           + (paymentMethod != null ? payment.getPaymentMethod() : "") + "\n" + "Total Amount: "
-          + formattedTotalPrice);
-      orderInfo.setSpacingBefore(20f);
-      orderInfo.setSpacingAfter(20f);
-      document.add(orderInfo);
+          + formattedTotalPrice;
+      writeObject(orderInfoString.split("\n"));
 
       // Add Book Information
-      PdfPTable table = new PdfPTable(6);
-      PdfPCell cell1 = new PdfPCell(new Paragraph("ISBN"));
-      PdfPCell cell2 = new PdfPCell(new Paragraph("Title"));
-      PdfPCell cell3 = new PdfPCell(new Paragraph("Price"));
-      PdfPCell cell4 = new PdfPCell(new Paragraph("Quantity"));
-      PdfPCell cell5 = new PdfPCell(new Paragraph("Discount"));
-      PdfPCell cell6 = new PdfPCell(new Paragraph("Total Price"));
-      table.addCell(cell1);
-      table.addCell(cell2);
-      table.addCell(cell3);
-      table.addCell(cell4);
-      table.addCell(cell5);
-      table.addCell(cell6);
-      for (CartItemsModel cartItem : modifiableCartItemsList) {
+      String[] columnNames = { "ISBN", "Title", "Price", "Quantity", "Discount", "Total Price" };
+      Object[][] data = new Object[modifiableCartItemsList.size()][6];
+      for (int i = 0; i < modifiableCartItemsList.size(); i++) {
+        CartItemsModel cartItem = modifiableCartItemsList.get(i);
         BookModel book = BookBUS.getInstance().getBookByIsbn(cartItem.getBookIsbn());
         double itemTotalPrice = cartItem.getQuantity() * book.getPrice();
-        table.addCell(book.getIsbn());
-        table.addCell(book.getTitle());
-        table.addCell("$" + book.getPrice());
-        table.addCell("" + cartItem.getQuantity());
-        table.addCell("$" + cartItem.getDiscount());
-        table.addCell(currencyFormatter.format(itemTotalPrice));
+        data[i][0] = book.getIsbn();
+        data[i][1] = book.getTitle();
+        data[i][2] = "$" + book.getPrice();
+        data[i][3] = cartItem.getQuantity();
+        data[i][4] = "$" + cartItem.getDiscount();
+        data[i][5] = currencyFormatter.format(itemTotalPrice);
       }
-      document.add(table);
+      JTable table = new JTable(data, columnNames);
+      writeTable(table);
 
-      document.close();
+      close();
     } catch (Exception e) {
       e.printStackTrace();
     }
   }
+
 }
