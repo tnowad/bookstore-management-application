@@ -44,7 +44,7 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
 public class PDFWriter {
-
+  // TODO: Change the font location
   private static final String FONT_FILE_PATH = "C:\\Windows\\Fonts\\Arial.ttf";
   private static PDFWriter instance;
 
@@ -179,9 +179,6 @@ public class PDFWriter {
 
     chooseURL(url);
     try {
-      Document document = new Document();
-      PdfWriter.getInstance(document, new FileOutputStream(url));
-      document.open();
 
       setTitle("Import Receipt");
 
@@ -273,10 +270,6 @@ public class PDFWriter {
     // Add receipt information into PDF File.
     chooseURL(url);
     try {
-      Document document = new Document();
-      PdfWriter.getInstance(document, new FileOutputStream(url));
-      document.open();
-
       setTitle("Purchase Receipt");
 
       // Add Order Information
