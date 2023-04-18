@@ -387,7 +387,7 @@ public class PDFWriter {
     double totalPrice = 0;
     for (CartItemsModel cartItem : modifiableCartItemsList) {
       BookModel book = BookBUS.getInstance().getBookByIsbn(cartItem.getBookIsbn());
-      double itemTotalPrice = cartItem.getQuantity() * book.getPrice();
+      double itemTotalPrice = (cartItem.getQuantity() * book.getPrice()) - cartItem.getDiscount();
       totalPrice += itemTotalPrice;
     }
 
@@ -421,17 +421,19 @@ public class PDFWriter {
       document.add(orderInfo);
 
       // Add Book Information
-      PdfPTable table = new PdfPTable(5);
+      PdfPTable table = new PdfPTable(6);
       PdfPCell cell1 = new PdfPCell(new Paragraph("ISBN"));
       PdfPCell cell2 = new PdfPCell(new Paragraph("Title"));
       PdfPCell cell3 = new PdfPCell(new Paragraph("Price"));
       PdfPCell cell4 = new PdfPCell(new Paragraph("Quantity"));
-      PdfPCell cell5 = new PdfPCell(new Paragraph("Total Price"));
+      PdfPCell cell5 = new PdfPCell(new Paragraph("Discount"));
+      PdfPCell cell6 = new PdfPCell(new Paragraph("Total Price"));
       table.addCell(cell1);
       table.addCell(cell2);
       table.addCell(cell3);
       table.addCell(cell4);
       table.addCell(cell5);
+      table.addCell(cell6);
       for (CartItemsModel cartItem : modifiableCartItemsList) {
         BookModel book = BookBUS.getInstance().getBookByIsbn(cartItem.getBookIsbn());
         double itemTotalPrice = cartItem.getQuantity() * book.getPrice();
@@ -439,6 +441,7 @@ public class PDFWriter {
         table.addCell(book.getTitle());
         table.addCell("$" + book.getPrice());
         table.addCell("" + cartItem.getQuantity());
+        table.addCell("$" + cartItem.getDiscount());
         table.addCell(currencyFormatter.format(itemTotalPrice));
       }
       document.add(table);
