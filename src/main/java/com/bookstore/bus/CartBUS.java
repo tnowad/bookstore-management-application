@@ -1,6 +1,8 @@
 package com.bookstore.bus;
 
-import java.sql.Timestamp;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -117,8 +119,8 @@ public class CartBUS implements IBUS<CartModel> {
       cartModel.setStatus(Status.SHOPPING);
     }
     if (cartModel.getExpires() == null) {
-      cartModel.setExpires(new Timestamp(System.currentTimeMillis()));
-    }
+      cartModel.setExpires(LocalDateTime.ofInstant(Instant.ofEpochMilli(System.currentTimeMillis()), ZoneId.systemDefault()));
+  }
     if (cartModel.getPromotionId() < 0) {
       throw new IllegalArgumentException("Promotion ID cannot be negative!");
     }
@@ -143,12 +145,13 @@ public class CartBUS implements IBUS<CartModel> {
     return updatedRows;
   }
 
-  public int updateStatus(int userId, Status status) {
+  public int updateStatus(int userId, String status) {
     int success = CartDAO.getInstance().updateStatus(userId, status);
     if (success == 1) {
       for (CartModel cart : cartList) {
         if (cart.getUserId() == userId) {
-          cart.setStatus(status);
+          Status roleEnum = Status.valueOf(status.toUpperCase());
+          cart.setStatus(roleEnum);
           return 1;
         }
       }

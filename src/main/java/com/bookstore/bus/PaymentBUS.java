@@ -1,6 +1,5 @@
 package com.bookstore.bus;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -151,18 +150,19 @@ public class PaymentBUS implements IBUS<PaymentModel> {
     return updatedRows;
   }
 
-  public int updateStatus(int orderId, PaymentStatus status) {
+  public int updateStatus(int orderId, String status) {
     int success = PaymentDAO.getInstance().updateStatus(orderId, status);
+    int numUpdated = 0;
     if (success == 1) {
       for (PaymentModel payment : paymentList) {
         if (payment.getOrderId() == orderId) {
-          payment.setStatus(status);
-          payment.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
-          return 1;
+          PaymentStatus roleEnum = PaymentStatus.valueOf(status.toUpperCase());
+          payment.setStatus(roleEnum);
+          numUpdated++;
         }
       }
     }
-    return 0;
+    return numUpdated;
   }
 
   @Override

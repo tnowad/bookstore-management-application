@@ -22,6 +22,8 @@ import com.bookstore.bus.UserBUS;
 import com.bookstore.gui.component.button.Button;
 import com.bookstore.gui.component.input.GroupInput;
 import com.bookstore.models.UserModel;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 public class LoginUI extends JFrame {
   private static LoginUI instance;
@@ -283,6 +285,13 @@ public class LoginUI extends JFrame {
   }
 
   public static void main(String[] args) {
+    try {
+      UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel"); 
+      UIManager.put("Button.background", Color.BLUE); 
+    } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+        | UnsupportedLookAndFeelException e) {
+      e.printStackTrace();
+    }
     new LoginUI();
   }
 }

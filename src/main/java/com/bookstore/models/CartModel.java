@@ -1,13 +1,13 @@
 package com.bookstore.models;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 public class CartModel {
   private int id;
   private int userId;
-  private Timestamp createdAt;
+  private LocalDateTime createdAt;
   private Status status;
-  private Timestamp expires;
+  private LocalDateTime expires;
   private int promotionId;
 
   public enum Status {
@@ -20,7 +20,7 @@ public class CartModel {
   public CartModel() {
   }
 
-  public CartModel(int id, int userId, Timestamp createdAt, Status status, Timestamp expires, Integer promotionId) {
+  public CartModel(int id, int userId, LocalDateTime createdAt, Status status, LocalDateTime expires, int promotionId) {
     this.id = id;
     this.userId = userId;
     this.createdAt = createdAt;
@@ -30,7 +30,7 @@ public class CartModel {
   }
 
   public int getId() {
-    return id;
+    return this.id;
   }
 
   public void setId(int id) {
@@ -38,42 +38,73 @@ public class CartModel {
   }
 
   public int getUserId() {
-    return userId;
+    return this.userId;
   }
 
   public void setUserId(int userId) {
     this.userId = userId;
   }
 
-  public Timestamp getCreatedAt() {
-    return createdAt;
+  public LocalDateTime getCreatedAt() {
+    return this.createdAt;
   }
 
-  public void setCreatedAt(Timestamp createdAt) {
+  public void setCreatedAt(LocalDateTime createdAt) {
     this.createdAt = createdAt;
   }
 
   public Status getStatus() {
-    return status;
+    return this.status;
   }
 
   public void setStatus(Status status) {
     this.status = status;
   }
 
-  public Timestamp getExpires() {
-    return expires;
+  public LocalDateTime getExpires() {
+    return this.expires;
   }
 
-  public void setExpires(Timestamp expires) {
+  public void setExpires(LocalDateTime expires) {
     this.expires = expires;
   }
 
-  public Integer getPromotionId() {
-    return promotionId;
+  public int getPromotionId() {
+    return this.promotionId;
   }
 
-  public void setPromotionId(Integer promotionId) {
+  public void setPromotionId(int promotionId) {
     this.promotionId = promotionId;
   }
+
+  public CartModel id(int id) {
+    setId(id);
+    return this;
+  }
+
+  public CartModel userId(int userId) {
+    setUserId(userId);
+    return this;
+  }
+
+  public CartModel createdAt(LocalDateTime createdAt) {
+    setCreatedAt(createdAt);
+    return this;
+  }
+
+  public CartModel status(Status status) {
+    setStatus(status);
+    return this;
+  }
+
+  public CartModel expires(LocalDateTime expires) {
+    setExpires(expires);
+    return this;
+  }
+
+  public CartModel promotionId(int promotionId) {
+    setPromotionId(promotionId);
+    return this;
+  }
+
 }

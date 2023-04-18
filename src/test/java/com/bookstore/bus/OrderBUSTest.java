@@ -2,7 +2,6 @@ package com.bookstore.bus;
 
 import org.junit.jupiter.api.Test;
 
-import com.bookstore.models.AddressModel;
 import com.bookstore.models.OrderModel;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -37,8 +36,8 @@ public class OrderBUSTest {
   @Test
   public void testGetModelById() {
     OrderModel orderModel = OrderBUS.getInstance().getModelById(4);
-    //AddressModel addressModel = AddressBUS.getInstance().getModelById(4);
-    //assertNotNull(orderModel);
+    // AddressModel addressModel = AddressBUS.getInstance().getModelById(4);
+    // assertNotNull(orderModel);
     assertEquals(4, orderModel.getId());
   }
 

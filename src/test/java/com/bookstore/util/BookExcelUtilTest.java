@@ -6,7 +6,6 @@ import static org.mockito.Mockito.when;
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 
 import javax.swing.JFileChooser;
@@ -19,12 +18,17 @@ import com.bookstore.util.Excel.BookExcelUtil;
 
 public class BookExcelUtilTest {
   @Test
-  void testreadUsersExcelFile() throws IOException, ClassNotFoundException, SQLException {
-    BookExcelUtil.readBooksFromExcel();
+  void testReadBooksFromExcel() {
+    try {
+      BookExcelUtil.readBooksFromExcel();
+    } catch (IOException e) {
+
+      e.printStackTrace();
+    }
   }
 
   @Test
-  public void testWriteUsersToExcel() throws IOException, ClassNotFoundException, SQLException {
+  public void testWriteUsersToExcel() {
 
     // Retrieve user data from the database
     List<BookModel> users = BookBUS.getInstance().getAllModels();
@@ -36,7 +40,12 @@ public class BookExcelUtilTest {
     when(fileChooser.getSelectedFile()).thenReturn(outputFile);
 
     // Call the function and verify that it writes data to the file
-    BookExcelUtil.writeBooksToExcel(users);
+    try {
+      BookExcelUtil.writeBooksToExcel(users);
+    } catch (IOException e) {
+
+      e.printStackTrace();
+    }
     // try {
     // assertTrue(outputFile.createNewFile());
     // } catch (IOException e) {

@@ -1,6 +1,5 @@
 package com.bookstore.bus;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -160,7 +159,6 @@ public class OrderBUS implements IBUS<OrderModel> {
       throw new IllegalArgumentException("Order with ID " + id + " does not exist.");
     }
     orderModel.setPaid(paid);
-    orderModel.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
     int updatedRows = updateModel(orderModel);
     if (updatedRows > 0) {
       return orderModel.getTotal() - orderModel.getPaid();
@@ -168,12 +166,13 @@ public class OrderBUS implements IBUS<OrderModel> {
     return -1;
   }
 
-  public int updateStatus(int cartId, Status status) {
+  public int updateStatus(int cartId, String status) {
     int success = OrderDAO.getInstance().updateStatus(cartId, status);
     if (success == 1) {
       for (OrderModel order : orderList) {
         if (order.getCartId() == cartId) {
-          order.setStatus(status);
+          Status roleEnum = Status.valueOf(status.toUpperCase());
+          order.setStatus(roleEnum);
           return 1;
         }
       }

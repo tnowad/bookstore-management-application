@@ -1,6 +1,5 @@
 package com.bookstore.interfaces;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public interface IBUS<T> {
@@ -17,40 +16,32 @@ public interface IBUS<T> {
    *
    * @param id the id of the model to retrieve
    * @return the model with the given id, or null if not found
-   * @throws SQLException           if there is an error accessing the database
-   * @throws ClassNotFoundException if the driver class cannot be found
    */
-  T getModelById(int id) throws SQLException, ClassNotFoundException;
+  T getModelById(int id);
 
   /**
    * Adds the given model to the database.
    *
    * @param model the model to add
    * @return the number of rows affected by the operation
-   * @throws SQLException           if there is an error accessing the database
-   * @throws ClassNotFoundException if the driver class cannot be found
    */
-  int addModel(T model) throws SQLException, ClassNotFoundException;
+  int addModel(T model);
 
   /**
    * Updates the given model in the database.
    *
    * @param model the model to update
    * @return the number of rows affected by the operation
-   * @throws SQLException           if there is an error accessing the database
-   * @throws ClassNotFoundException if the driver class cannot be found
    */
-  int updateModel(T model) throws SQLException, ClassNotFoundException;
+  int updateModel(T model);
 
   /**
    * Deletes the model with the given id from the database.
    *
    * @param id the id of the model to delete
    * @return the number of rows affected by the operation
-   * @throws SQLException           if there is an error accessing the database
-   * @throws ClassNotFoundException if the driver class cannot be found
    */
-  int deleteModel(int id) throws SQLException, ClassNotFoundException;
+  int deleteModel(int id);
 
   /**
    * Searches for models that match the given value in the specified columns.
@@ -58,8 +49,6 @@ public interface IBUS<T> {
    * @param value   the value to search for
    * @param columns the columns to search in
    * @return a list of models that match the search criteria
-   * @throws SQLException           if there is an error accessing the database
-   * @throws ClassNotFoundException if the driver class cannot be found
    */
-  List<T> searchModel(String value, String[] columns) throws SQLException, ClassNotFoundException;
+  List<T> searchModel(String value, String[] columns);
 }

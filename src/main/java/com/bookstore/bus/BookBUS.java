@@ -200,12 +200,13 @@ public class BookBUS implements IBUS<BookModel> {
     return 0;
   }
 
-  public int updateStatus(String isbn, Status status) {
+  public int updateStatus(String isbn, String status) {
     int success = BookDAO.getInstance().updateStatus(isbn, status);
     if (success == 1) {
       for (BookModel book : bookList) {
         if (book.getIsbn().equals(isbn)) {
-          book.setStatus(status);
+          Status roleEnum = Status.valueOf(status.toUpperCase());
+          book.setStatus(roleEnum);
           return 1;
         }
       }

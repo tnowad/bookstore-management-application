@@ -1,4 +1,4 @@
--- Active: 1681623675640@@127.0.0.1@3306@bookstore
+-- Active: 1676799504168@@127.0.0.1@3306@bookstore
 
 DROP DATABASE IF EXISTS bookstore;
 
@@ -60,8 +60,8 @@ CREATE TABLE
         `provider_id` INT NULL,
         `employee_id` INT NOT NULL,
         `total_price` DECIMAL(11, 0) NOT NULL,
-        `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-        `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
         PRIMARY KEY (`id`)
     );
 
@@ -90,8 +90,8 @@ CREATE TABLE
         `name` NVARCHAR (100) NOT NULL,
         `email` VARCHAR(255),
         `phone` VARCHAR(50),
-        `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-        `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
         `role` ENUM (
             'customer',
             'employee',
@@ -127,14 +127,14 @@ CREATE TABLE
     `carts` (
         `id` INT NOT NULL AUTO_INCREMENT,
         `user_id` INT NOT NULL,
-        `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
         `status` ENUM (
             'shopping',
             'pending',
             'reject',
             'accept'
         ) NOT NULL DEFAULT "shopping",
-        `expires` TIMESTAMP NULL,
+        `expires` DATETIME NULL,
         `promotion_id` INT NULL,
         PRIMARY KEY (`id`)
     );
@@ -169,8 +169,8 @@ CREATE TABLE
         `employee_id` INT NOT NULL,
         `total` INT NOT NULL,
         `paid` INT NOT NULL,
-        `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-        `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
         `status` ENUM ('pending', 'solved') NOT NULL DEFAULT "pending",
         PRIMARY KEY (`id`)
     );
@@ -194,8 +194,8 @@ CREATE TABLE
         `payment_method` ENUM ('cash', 'credit') NOT NULL DEFAULT 'cash',
         `payment_method_id` INT,
         `status` ENUM ('pending', 'success', 'failed') NOT NULL DEFAULT 'pending',
-        `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-        `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
         PRIMARY KEY (`id`)
     );
 

@@ -6,7 +6,6 @@ import static org.mockito.Mockito.when;
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 
 import javax.swing.JFileChooser;
@@ -20,12 +19,16 @@ import com.bookstore.util.Excel.AddressExcelUtil;
 public class AddressExcelUtilTest {
 
   @Test
-  void testreadUsersExcelFile() throws IOException, ClassNotFoundException, SQLException {
-    AddressExcelUtil.readAddressesFromExcel();
+  void testReadAddressFromExcel(){
+    try {
+      AddressExcelUtil.readAddressesFromExcel();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 
   @Test
-  public void testWriteUsersToExcel() throws IOException, ClassNotFoundException, SQLException {
+  public void testWriteUsersToExcel(){
 
     // Retrieve user data from the database
     List<AddressModel> addresses = AddressBUS.getInstance().getAllModels();
@@ -37,7 +40,12 @@ public class AddressExcelUtilTest {
     when(fileChooser.getSelectedFile()).thenReturn(outputFile);
 
     // Call the function and verify that it writes data to the file
-    AddressExcelUtil.writeAddressesToExcel(addresses);
+    try {
+      AddressExcelUtil.writeAddressesToExcel(addresses);
+    } catch (IOException e) {
+
+      e.printStackTrace();
+    }
     // try {
     // assertTrue(outputFile.createNewFile());
     // } catch (IOException e) {

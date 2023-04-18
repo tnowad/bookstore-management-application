@@ -3,7 +3,7 @@ package com.bookstore.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -31,8 +31,8 @@ public class UserDAO implements IDAO<UserModel> {
     String name = rs.getString("name");
     String email = rs.getString("email");
     String phone = rs.getString("phone");
-    Timestamp createdAt = rs.getTimestamp("created_at");
-    Timestamp updatedAt = rs.getTimestamp("updated_at");
+    LocalDateTime createdAt = rs.getTimestamp("created_at").toLocalDateTime();
+    LocalDateTime updatedAt = rs.getTimestamp("updated_at").toLocalDateTime();
     Role role = Role.valueOf(rs.getString("role").toUpperCase());
     return new UserModel(id, username, password, status, name, email, phone, createdAt, updatedAt, role);
   }
@@ -66,7 +66,7 @@ public class UserDAO implements IDAO<UserModel> {
 
   @Override
   public int update(UserModel user) {
-    String updateSql = "UPDATE users SET username = ?, password = ?, status = ?, name = ?, email = ?, phone = ?, role = ? WHERE id = ?";
+    String updateSql = "UPDATE users SET username = ?, password = ?, status = ?, name = ?, email = ?, phone = ?, role = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?";
     Object[] args = { user.getUsername(), user.getPassword(), user.getStatus().toString().toUpperCase(),
         user.getName(), user.getEmail(), user.getPhone(), user.getRole().toString().toUpperCase(), user.getId() };
     try {
@@ -77,8 +77,8 @@ public class UserDAO implements IDAO<UserModel> {
     }
   }
 
-  public int updateStatus(String username, Status status) {
-    String updateSql = "UPDATE users SET status = ? WHERE username = ?";
+  public int updateStatus(String username, String status) {
+    String updateSql = "UPDATE users SET status = ?, updated_at = CURRENT_TIMESTAMP WHERE username = ?";
     Object[] args = { status, username };
     try {
       return DatabaseConnection.executeUpdate(updateSql, args);
@@ -89,7 +89,7 @@ public class UserDAO implements IDAO<UserModel> {
   }
 
   public int updateRole(String username, Role role) {
-    String updateSql = "UPDATE users SET role = ? WHERE username = ?";
+    String updateSql = "UPDATE users SET role = ?, updated_at = CURRENT_TIMESTAMP WHERE username = ?";
     Object[] args = { role, username };
     try {
       return DatabaseConnection.executeUpdate(updateSql, args);

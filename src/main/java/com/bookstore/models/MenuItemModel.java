@@ -1,7 +1,7 @@
 package com.bookstore.models;
 
 import java.awt.event.ActionListener;
-import java.util.List;
+import java.util.ArrayList;
 
 import javax.swing.Icon;
 
@@ -9,7 +9,7 @@ public class MenuItemModel {
     private String title;
     private Icon icon;
     private ActionListener actionListener;
-    private List<SubMenuItemModel> subMenuItems;
+    private ArrayList<SubMenuItemModel> subMenuItems;
 
     public MenuItemModel(String title, Icon icon, ActionListener actionListener) {
         this.title = title;
@@ -17,7 +17,7 @@ public class MenuItemModel {
         this.actionListener = actionListener;
     }
 
-    public MenuItemModel(String title, Icon icon, ActionListener actionListener, List<SubMenuItemModel> subMenuItems) {
+    public MenuItemModel(String title, Icon icon, ActionListener actionListener, ArrayList<SubMenuItemModel> subMenuItems) {
         this.title = title;
         this.icon = icon;
         this.actionListener = actionListener;
@@ -36,7 +36,7 @@ public class MenuItemModel {
         return actionListener;
     }
 
-    public List<SubMenuItemModel> getSubMenuItems() {
+    public ArrayList<SubMenuItemModel> getSubMenuItems() {
         return subMenuItems;
     }
 }

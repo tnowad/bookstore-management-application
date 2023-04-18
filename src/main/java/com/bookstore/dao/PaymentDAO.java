@@ -9,7 +9,8 @@ import java.util.List;
 
 import com.bookstore.interfaces.IDAO;
 import com.bookstore.models.PaymentModel;
-import com.bookstore.models.PaymentModel.*;
+import com.bookstore.models.PaymentModel.PaymentStatus;
+import com.bookstore.models.PaymentModel.PaymentMethod;
 
 public class PaymentDAO implements IDAO<PaymentModel> {
 
@@ -31,8 +32,8 @@ public class PaymentDAO implements IDAO<PaymentModel> {
         PaymentMethod.valueOf(rs.getString("payment_method").toUpperCase()),
         rs.getInt("payment_method_id"),
         PaymentStatus.valueOf(rs.getString("status").toUpperCase()),
-        rs.getTimestamp("created_at"),
-        rs.getTimestamp("updated_at"));
+        rs.getTimestamp("created_at").toLocalDateTime(),
+        rs.getTimestamp("updated_at").toLocalDateTime());
   }
 
   @Override
@@ -53,8 +54,8 @@ public class PaymentDAO implements IDAO<PaymentModel> {
   public int insert(PaymentModel payment) {
     String insertSql = "INSERT INTO payments (order_id, user_id, amount, payment_method, payment_method_id, status) VALUES (?, ?, ?, ?, ?, ?)";
     Object[] args = { payment.getOrderId(), payment.getUserId(), payment.getAmount(),
-        payment.getPaymentMethod().toString().toUpperCase(), payment.getPaymentMethodId(),
-        payment.getStatus().toString().toUpperCase() };
+        payment.getPaymentMethod().name(), payment.getPaymentMethodId(),
+        payment.getStatus().name() };
     try {
       return DatabaseConnection.executeUpdate(insertSql, args);
     } catch (SQLException e) {
@@ -67,8 +68,8 @@ public class PaymentDAO implements IDAO<PaymentModel> {
   public int update(PaymentModel payment) {
     String updateSql = "UPDATE payments SET order_id = ?, user_id = ?, amount = ?, payment_method = ?, payment_method_id = ?, status = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?";
     Object[] args = { payment.getOrderId(), payment.getUserId(), payment.getAmount(),
-        payment.getPaymentMethod().toString().toUpperCase(), payment.getPaymentMethodId(),
-        payment.getStatus().toString().toUpperCase(), payment.getId() };
+        payment.getPaymentMethod().name(), payment.getPaymentMethodId(),
+        payment.getStatus().name(), payment.getId() };
     try {
       return DatabaseConnection.executeUpdate(updateSql, args);
     } catch (SQLException e) {
@@ -77,9 +78,9 @@ public class PaymentDAO implements IDAO<PaymentModel> {
     }
   }
 
-  public int updateStatus(int orderId, PaymentStatus status) {
-    String updateSql = "UPDATE payments SET status = ? WHERE order_id = ?";
-    Object[] args = { status.toString().toUpperCase(), orderId };
+  public int updateStatus(int orderId, String status) {
+    String updateSql = "UPDATE payments SET status = ?, updated_at = CURRENT_TIMESTAMP WHERE order_id = ?";
+    Object[] args = { status, orderId };
     try {
       return DatabaseConnection.executeUpdate(updateSql, args);
     } catch (SQLException e) {
