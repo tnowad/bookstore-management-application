@@ -52,11 +52,9 @@ public class RunForm extends JFrame {
     Construct.add(DashboardPanel.getInstance(), BorderLayout.CENTER);
     break;
     case "UserList":
-    removeAll();
     Construct.add(UserComponent.getInstance(), BorderLayout.CENTER);
     break;
     case "BookList":
-    Construct.removeAll();
     Construct.add(BrowseProductPanel.getInstance(), BorderLayout.CENTER);
     break;
     }
