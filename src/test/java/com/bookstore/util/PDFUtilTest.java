@@ -2,7 +2,6 @@ package com.bookstore.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
@@ -91,7 +90,7 @@ public class PDFUtilTest {
     PDFWriter pdfWriter = PDFWriter.getInstance();
 
     // Act & Assert
-    //assertThrows(RuntimeException.class, () -> pdfWriter.exportImportsToPDF(id));
+    // assertThrows(RuntimeException.class, () -> pdfWriter.exportImportsToPDF(id));
   }
 
   @Test
@@ -101,7 +100,7 @@ public class PDFUtilTest {
     PDFWriter pdfWriter = PDFWriter.getInstance();
 
     // Act & Assert
-    //assertThrows(RuntimeException.class, () -> pdfWriter.exportImportsToPDF(id));
+    // assertThrows(RuntimeException.class, () -> pdfWriter.exportImportsToPDF(id));
   }
 
   @Test
@@ -121,7 +120,7 @@ public class PDFUtilTest {
   @Test
   public void testExportImportsToPDF_WithImportItems() {
     // Arrange
-    int id = 220;
+    int id = 4;
     PDFWriter pdfWriter = PDFWriter.getInstance();
 
     // Act
@@ -133,7 +132,9 @@ public class PDFUtilTest {
     // ...
   }
 
+  @Test
   public void textExportReceiptToPDF() {
-    
+    PDFWriter pdfWriter = PDFWriter.getInstance();
+    pdfWriter.exportReceiptToPDF(2, "C:\\Users\\Danh\\Desktop\\test.pdf");
   }
 }

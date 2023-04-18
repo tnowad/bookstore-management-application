@@ -16,13 +16,13 @@ public class UserFactory implements IFactory<UserModel> {
 
   public UserModel create() {
     return new UserModel(
-        getNewId(),
+        faker.number().numberBetween(1, 100),
         faker.name().username(),
         PasswordUtil.hashPassword("password"),
         UserModel.Status.values()[faker.number().numberBetween(0, 3)],
         faker.name().fullName(),
         faker.internet().emailAddress(),
-        faker.phoneNumber().phoneNumber(),
+        faker.phoneNumber().cellPhone(),
         Timestamp.from(faker.date().birthday().toInstant()),
         Timestamp.from(faker.date().birthday().toInstant()),
         UserModel.Role.values()[faker.number().numberBetween(0, 3)]);

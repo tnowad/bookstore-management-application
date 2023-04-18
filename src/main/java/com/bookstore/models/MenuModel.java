@@ -1,43 +1,19 @@
 package com.bookstore.models;
 
-import javax.swing.Icon;
+import java.util.List;
 
 public class MenuModel {
+    private List<MenuItemModel> menuItems;
 
-  private Icon icon;
-  private String menuName;
-  private MenuItemModel[] subMenu;
+    public MenuModel(List<MenuItemModel> menuItems) {
+        this.menuItems = menuItems;
+    }
 
-  public Icon getIcon() {
-    return icon;
-  }
+    public List<MenuItemModel> getMenuItems() {
+        return menuItems;
+    }
 
-  public void setIcon(Icon icon) {
-    this.icon = icon;
-  }
-
-  public String getMenuName() {
-    return menuName;
-  }
-
-  public void setMenuName(String menuName) {
-    this.menuName = menuName;
-  }
-
-  public MenuItemModel[] getSubMenu() {
-    return subMenu;
-  }
-
-  public void setSubMenu(MenuItemModel[] subMenu) {
-    this.subMenu = subMenu;
-  }
-
-  public MenuModel(Icon icon, String menuName, MenuItemModel... subMenu) {
-    this.icon = icon;
-    this.menuName = menuName;
-    this.subMenu = subMenu;
-  }
-
-  public MenuModel() {
-  }
+    public void setMenuItems(List<MenuItemModel> menuItems) {
+        this.menuItems = menuItems;
+    }
 }

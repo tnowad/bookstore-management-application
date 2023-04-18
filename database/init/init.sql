@@ -1,4 +1,4 @@
--- Active: 1681349351469@@127.0.0.1@3306@bookstore
+-- Active: 1681623675640@@127.0.0.1@3306@bookstore
 
 DROP DATABASE IF EXISTS bookstore;
 
@@ -89,7 +89,7 @@ CREATE TABLE
         `status` ENUM ('active', 'inactive', 'banned') NOT NULL DEFAULT "active",
         `name` NVARCHAR (100) NOT NULL,
         `email` VARCHAR(255),
-        `phone` VARCHAR(15),
+        `phone` VARCHAR(50),
         `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
         `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
         `role` ENUM (

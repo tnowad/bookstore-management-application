@@ -21,7 +21,6 @@ import javax.swing.WindowConstants;
 import com.bookstore.bus.UserBUS;
 import com.bookstore.gui.component.button.Button;
 import com.bookstore.gui.component.input.GroupInput;
-import com.bookstore.interfaces.FactoryFrame;
 import com.bookstore.models.UserModel;
 
 public class LoginUI extends JFrame {

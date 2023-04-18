@@ -60,6 +60,58 @@ public class PaymentBUS implements IBUS<PaymentModel> {
     to.setUpdatedAt(from.getUpdatedAt());
   }
 
+  private boolean checkFilter(PaymentModel paymentModel, String value, String[] columns) {
+    for (String column : columns) {
+      switch (column.toLowerCase()) {
+        case "id" -> {
+          if (paymentModel.getId() == Integer.parseInt(value)) {
+            return true;
+          }
+        }
+        case "order_id" -> {
+          if (paymentModel.getOrderId() == Integer.parseInt(value)) {
+            return true;
+          }
+        }
+        case "user_id" -> {
+          if (paymentModel.getUserId() == Integer.parseInt(value)) {
+            return true;
+          }
+        }
+        case "amount" -> {
+          if (paymentModel.getAmount() == Integer.parseInt(value)) {
+            return true;
+          }
+        }
+        case "payment_method" -> {
+          if (paymentModel.getPaymentMethod().toString().equals(value)) {
+            return true;
+          }
+        }
+        case "payment_method_id" -> {
+          if (paymentModel.getPaymentMethodId() == Integer.parseInt(value)) {
+            return true;
+          }
+        }
+        default -> {
+          if (checkAllColumns(paymentModel, value)) {
+            return true;
+          }
+        }
+      }
+    }
+    return false;
+  }
+
+  private boolean checkAllColumns(PaymentModel paymentModel, String value) {
+    return paymentModel.getId() == Integer.parseInt(value)
+        || paymentModel.getUserId() == Integer.parseInt(value)
+        || paymentModel.getAmount() == Integer.parseInt(value)
+        || paymentModel.getPaymentMethod().toString().equals(value)
+        || paymentModel.getPaymentMethodId() == Integer.parseInt(value)
+        || paymentModel.getStatus().toString().equals(value);
+  }
+
   @Override
   public int addModel(PaymentModel paymentModel) {
     if (paymentModel.getOrderId() <= 0) {
@@ -128,7 +180,19 @@ public class PaymentBUS implements IBUS<PaymentModel> {
 
   @Override
   public List<PaymentModel> searchModel(String value, String[] columns) {
-    throw new UnsupportedOperationException("Search is not supported for PaymentBUS.");
-  }
+    List<PaymentModel> results = new ArrayList<>();
+    List<PaymentModel> entities = PaymentDAO.getInstance().search(value, columns);
+    for (PaymentModel entity : entities) {
+      PaymentModel model = mapToEntity(entity);
+      if (checkFilter(model, value, columns)) {
+        results.add(model);
+      }
+    }
 
+    if (results.isEmpty()) {
+      throw new IllegalArgumentException("No address found with the specified search criteria.");
+    }
+
+    return results;
+  }
 }

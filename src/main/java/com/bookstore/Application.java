@@ -1,6 +1,6 @@
 package com.bookstore;
 
-import com.formdev.flatlaf.FlatLightLaf;
+import com.formdev.flatlaf.themes.FlatMacLightLaf;
 
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -12,11 +12,7 @@ import com.bookstore.runnable.CheckConnectionRunnable;
 public class Application {
   public static void main(String[] args) {
     SwingUtilities.invokeLater(() -> {
-      try {
-        UIManager.setLookAndFeel(new FlatLightLaf());
-      } catch (Exception e) {
-        e.printStackTrace();
-      }
+      FlatMacLightLaf.setup();
 
       Thread updateDataThread = new Thread(new UpdateDataRunnable());
       Thread checkConnectionThread = new Thread(new CheckConnectionRunnable());

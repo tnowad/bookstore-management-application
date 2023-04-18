@@ -17,7 +17,7 @@ public class ImportsFactory implements IFactory<ImportModel> {
     return new ImportModel(
         getNewId(),
         faker.number().numberBetween(1, 100),
-        faker.number().numberBetween(1, 100),
+        faker.number().numberBetween(1, 3),
         Double.valueOf(faker.number().randomDouble(0, 20000, 500000)),
         Timestamp.from(faker.date().birthday().toInstant()),
         Timestamp.from(faker.date().birthday().toInstant()));

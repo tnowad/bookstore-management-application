@@ -7,30 +7,29 @@ public class DatabaseSeeder {
   }
 
   public static void seeder() {
-    ISeeder[] seeders = new ISeeder[] {
-        new PromotionSeeder(),
-        new ImportsSeeder(),
-        new UserSeeder(),
-        new BookSeeder(),
-        new AddressSeeder(),
-        new AuthorSeeder(),
-        new CartSeeder(),
-        new CategorySeeder(),
-        new PaymentSeeder(),
-        new PaymentMethodSeeder(),
-        new PublisherSeeder(),
-        new ProvidersSeeder(),
-        new OrderSeeder(),
-        new EmployeeSeeder(),
-        new ImportDetailSeeder(),
-        new CartItemSeeder(),
-        new CategoriesSeeder(),
-        new ImportDetailSeeder()
-    };
+    // ISeeder[] seeders = new ISeeder[] {
+    //     new UserSeeder(),
+    //     new AuthorSeeder(),
+    //     new PromotionSeeder(),
+    //     new BookSeeder(),
+    //     new ImportsSeeder(),
+    //     new AddressSeeder(),
+    //     new CartSeeder(),
+    //     new CategorySeeder(),
+    //     new PaymentSeeder(),
+    //     new PaymentMethodSeeder(),
+    //     new PublisherSeeder(),
+    //     new ProvidersSeeder(),
+    //     new OrderSeeder(),
+    //     new EmployeeSeeder(),
+    //     new CartItemSeeder(),
+    //     new CategoriesSeeder(),
+    //     new ImportDetailSeeder()
+    // };
 
-    for (ISeeder seeder : seeders) {
-      new Thread(seeder::run).start();
-    }
+    // for (ISeeder seeder : seeders) {
+    //   new Thread(seeder::run).start();
+    // }
   }
 
   public static void main(String[] args) {

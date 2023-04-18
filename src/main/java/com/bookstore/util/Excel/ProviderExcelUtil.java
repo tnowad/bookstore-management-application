@@ -62,7 +62,12 @@ public class ProviderExcelUtil extends ExcelUtil {
       List<String> row = data.get(i);
       int id;
       try {
-        id = Integer.parseInt(row.get(0));
+
+        if (row.get(0).contains(".")) {
+          id = (int) Float.parseFloat(row.get(0));
+        } else
+          id = Integer.parseInt(row.get(0));
+
       } catch (NumberFormatException e) {
         throw new IllegalArgumentException("Invalid integer value in input data", e);
       }
