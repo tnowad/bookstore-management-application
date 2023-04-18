@@ -1,6 +1,6 @@
 package com.bookstore.bus;
 
-import java.sql.Timestamp;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -117,7 +117,7 @@ public class CartBUS implements IBUS<CartModel> {
       cartModel.setStatus(Status.SHOPPING);
     }
     if (cartModel.getExpires() == null) {
-      cartModel.setExpires(new Timestamp(System.currentTimeMillis()));
+      cartModel.setExpires(new Date(System.currentTimeMillis()));
     }
     if (cartModel.getPromotionId() < 0) {
       throw new IllegalArgumentException("Promotion ID cannot be negative!");

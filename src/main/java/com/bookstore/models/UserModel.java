@@ -1,6 +1,6 @@
 package com.bookstore.models;
 
-import java.sql.Timestamp;
+import java.sql.Date;
 
 public class UserModel {
   private int id;
@@ -10,8 +10,8 @@ public class UserModel {
   private String name;
   private String email;
   private String phone;
-  private Timestamp createdAt;
-  private Timestamp updatedAt;
+  private Date createdAt;
+  private Date updatedAt;
   private Role role;
 
   public enum Status {
@@ -30,7 +30,7 @@ public class UserModel {
   }
 
   public UserModel(int id, String username, String password, Status status, String name, String email, String phone,
-      Timestamp createdAt, Timestamp updatedAt, Role role) {
+      Date createdAt, Date updatedAt, Role role) {
     this.id = id;
     this.username = username;
     this.password = password;
@@ -44,7 +44,7 @@ public class UserModel {
   }
 
   public int getId() {
-    return id;
+    return this.id;
   }
 
   public void setId(int id) {
@@ -52,7 +52,7 @@ public class UserModel {
   }
 
   public String getUsername() {
-    return username;
+    return this.username;
   }
 
   public void setUsername(String username) {
@@ -60,7 +60,7 @@ public class UserModel {
   }
 
   public String getPassword() {
-    return password;
+    return this.password;
   }
 
   public void setPassword(String password) {
@@ -68,10 +68,7 @@ public class UserModel {
   }
 
   public Status getStatus() {
-    if (status == null) {
-      status = Status.ACTIVE;
-    }
-    return status;
+    return this.status;
   }
 
   public void setStatus(Status status) {
@@ -79,7 +76,7 @@ public class UserModel {
   }
 
   public String getName() {
-    return name;
+    return this.name;
   }
 
   public void setName(String name) {
@@ -87,7 +84,7 @@ public class UserModel {
   }
 
   public String getEmail() {
-    return email;
+    return this.email;
   }
 
   public void setEmail(String email) {
@@ -95,35 +92,85 @@ public class UserModel {
   }
 
   public String getPhone() {
-    return phone;
+    return this.phone;
   }
 
   public void setPhone(String phone) {
     this.phone = phone;
   }
 
-  public Timestamp getCreatedAt() {
-    return createdAt;
+  public Date getCreatedAt() {
+    return this.createdAt;
   }
 
-  public void setCreatedAt(Timestamp createdAt) {
+  public void setCreatedAt(Date createdAt) {
     this.createdAt = createdAt;
   }
 
-  public Timestamp getUpdatedAt() {
-    return updatedAt;
+  public Date getUpdatedAt() {
+    return this.updatedAt;
   }
 
-  public void setUpdatedAt(Timestamp updatedAt) {
+  public void setUpdatedAt(Date updatedAt) {
     this.updatedAt = updatedAt;
   }
 
   public Role getRole() {
-    return role;
+    return this.role;
   }
 
   public void setRole(Role role) {
     this.role = role;
+  }
+
+  public UserModel id(int id) {
+    setId(id);
+    return this;
+  }
+
+  public UserModel username(String username) {
+    setUsername(username);
+    return this;
+  }
+
+  public UserModel password(String password) {
+    setPassword(password);
+    return this;
+  }
+
+  public UserModel status(Status status) {
+    setStatus(status);
+    return this;
+  }
+
+  public UserModel name(String name) {
+    setName(name);
+    return this;
+  }
+
+  public UserModel email(String email) {
+    setEmail(email);
+    return this;
+  }
+
+  public UserModel phone(String phone) {
+    setPhone(phone);
+    return this;
+  }
+
+  public UserModel createdAt(Date createdAt) {
+    setCreatedAt(createdAt);
+    return this;
+  }
+
+  public UserModel updatedAt(Date updatedAt) {
+    setUpdatedAt(updatedAt);
+    return this;
+  }
+
+  public UserModel role(Role role) {
+    setRole(role);
+    return this;
   }
 
 }
