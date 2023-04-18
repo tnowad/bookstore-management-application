@@ -1,7 +1,6 @@
 package com.bookstore.gui.form.admin.component.userListComponent;
 
-import java.sql.Timestamp;
-import java.time.Instant;
+import java.time.LocalDateTime;
 
 import javax.swing.*;
 
@@ -57,17 +56,21 @@ public class CreateUserForm extends javax.swing.JFrame {
     jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
     jLabel5.setText("Name");
 
-    // ButtonCancer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/bookstore/gui/form/admin/icon/back.png"))); // NOI18N
+    // ButtonCancer.setIcon(new
+    // javax.swing.ImageIcon(getClass().getResource("/com/bookstore/gui/form/admin/icon/back.png")));
+    // // NOI18N
     ButtonCancer.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         ButtonCancerActionPerformed(evt);
       }
     });
 
-    // ButtonSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/bookstore/gui/admin/form/icon/save.png"))); // NOI18N
+    // ButtonSave.setIcon(new
+    // javax.swing.ImageIcon(getClass().getResource("/com/bookstore/gui/admin/form/icon/save.png")));
+    // // NOI18N
     ButtonSave.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
-        Status newstatus = Status.valueOf("ACTIVE");
+        Status newstatus = Status.ACTIVE;
         Object selectedRoleItem = SetRole.getSelectedItem();
         if (selectedRoleItem != null) {
           String roleString = selectedRoleItem.toString().toUpperCase();
@@ -75,21 +78,27 @@ public class CreateUserForm extends javax.swing.JFrame {
           char[] password = SetPassword.getPassword();
           String passwordString = new String(password);
 
-          long epochTime = Instant.now().getEpochSecond();
-          Timestamp timeNow = new Timestamp(epochTime * 1000L);
-          int size;
-          size = UserBUS.getInstance().getAllModels().size();
-          UserModel newUser = new UserModel(size + 1, SetUserName.getText(), passwordString,
-              newstatus, SetName.getText(), SetEmail.getText(),
-              SetPhone.getText(), timeNow, timeNow, newRole);
+          LocalDateTime now = LocalDateTime.now();
+          UserModel newUser = new UserModel(
+              UserBUS.getInstance().getAllModels().size() + 1,
+              SetUserName.getText(),
+              passwordString,
+              newstatus,
+              SetName.getText(),
+              SetEmail.getText(),
+              SetPhone.getText(),
+              now,
+              now,
+              newRole);
+
           int confirm = JOptionPane.showConfirmDialog(null, "Do you want to continue?", "Confirmation",
               JOptionPane.YES_NO_OPTION);
           if (confirm == JOptionPane.YES_OPTION) {
             UserBUS.getInstance().addModel(newUser);
           }
-
         }
       }
+
     });
 
     jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -120,36 +129,51 @@ public class CreateUserForm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(28, 28, 28)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 92,
+                        .addGroup(layout
+                            .createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                92,
                                 javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 92,
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                92,
                                 javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 92,
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                92,
                                 javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 92,
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                92,
                                 javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 92,
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                92,
                                 javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(SetPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 186,
+                        .addGroup(layout
+                            .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(SetPassword,
+                                javax.swing.GroupLayout.PREFERRED_SIZE, 186,
                                 javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(SetPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 186,
+                            .addComponent(SetPhone, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                186,
                                 javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(SetEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 260,
+                            .addComponent(SetEmail, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                260,
                                 javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(SetName, javax.swing.GroupLayout.PREFERRED_SIZE, 260,
+                            .addComponent(SetName, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                260,
                                 javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(78, 78, 78)
-                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 140,
+                                .addComponent(jLabel6,
+                                    javax.swing.GroupLayout.PREFERRED_SIZE, 140,
                                     javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(SetUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 197,
+                                .addComponent(SetUserName,
+                                    javax.swing.GroupLayout.PREFERRED_SIZE, 197,
                                     javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(Errol, javax.swing.GroupLayout.PREFERRED_SIZE, 193,
+                                .addPreferredGap(
+                                    javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(Errol,
+                                    javax.swing.GroupLayout.PREFERRED_SIZE, 193,
                                     javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(195, 195, 195)
@@ -162,9 +186,11 @@ public class CreateUserForm extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
+                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE,
+                        javax.swing.GroupLayout.DEFAULT_SIZE,
                         Short.MAX_VALUE)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE))
+                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 51,
+                        Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(SetRole, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -182,7 +208,8 @@ public class CreateUserForm extends javax.swing.JFrame {
                         javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(7, 7, 7)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(layout
+                            .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(SetUserName)
                             .addComponent(Errol))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -217,7 +244,8 @@ public class CreateUserForm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 30,
                         javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(SetRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
+                    .addComponent(SetRole, javax.swing.GroupLayout.PREFERRED_SIZE,
+                        javax.swing.GroupLayout.DEFAULT_SIZE,
                         javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
                     javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -226,9 +254,12 @@ public class CreateUserForm extends javax.swing.JFrame {
                         .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 24,
                             javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(ButtonCancer, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(ButtonSave, javax.swing.GroupLayout.Alignment.TRAILING)))
+                        .addGroup(layout
+                            .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(ButtonCancer,
+                                javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(ButtonSave,
+                                javax.swing.GroupLayout.Alignment.TRAILING)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(2, 2, 2)
                         .addComponent(SetStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 28,
@@ -245,7 +276,6 @@ public class CreateUserForm extends javax.swing.JFrame {
   /**
    * @param args the command line arguments
    */
- 
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JButton ButtonCancer;
