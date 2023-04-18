@@ -11,6 +11,7 @@ import com.bookstore.models.UserModel.Status;
 
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.time.LocalDateTime;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -27,7 +28,7 @@ public class PopupUser extends javax.swing.JFrame {
    * Creates new form UserFullForm
    */
   public PopupUser(int idUser, String userName, String password, Status status, String name, String email, String phone,
-      Role role, Timestamp dateCreate, Timestamp dateUpdate) {
+      Role role, LocalDateTime dateCreate, LocalDateTime dateUpdate) {
     initComponents(idUser, userName, password, status, name, email, phone, role, dateCreate, dateUpdate);
     setStatus(status);
     setRole(role);
@@ -46,7 +47,7 @@ public class PopupUser extends javax.swing.JFrame {
   // <editor-fold defaultstate="collapsed" desc="Generated
   // Code">//GEN-BEGIN:initComponents
   private void initComponents(int idUser, String userName, String password, Status status, String name, String email,
-      String phone, Role role, Timestamp dateCreate, Timestamp dateUpdate) {
+      String phone, Role role, LocalDateTime dateCreate, LocalDateTime dateUpdate) {
 
     jPanel2 = new javax.swing.JPanel();
     jLabel3 = new javax.swing.JLabel();
@@ -168,8 +169,7 @@ public class PopupUser extends javax.swing.JFrame {
           char[] password = SetPassword.getPassword();
           String passwordString = new String(password);
 
-          long epochTime = Instant.now().getEpochSecond();
-          Timestamp timeNow = new Timestamp(epochTime * 1000L);
+          LocalDateTime timeNow = LocalDateTime.now();
           UserModel newUser = new UserModel(idUser, userName, passwordString,
               newstatus, SetName.getText(), SetEmail.getText(),
               SetPhone.getText(), dateCreate, timeNow, newRole);

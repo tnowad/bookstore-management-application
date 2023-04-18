@@ -2,6 +2,7 @@ package com.bookstore.gui.form.admin.component.userListComponent;
 
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.time.LocalDateTime;
 
 import javax.swing.*;
 
@@ -75,8 +76,7 @@ public class CreateUserForm extends javax.swing.JFrame {
           char[] password = SetPassword.getPassword();
           String passwordString = new String(password);
 
-          long epochTime = Instant.now().getEpochSecond();
-          Timestamp timeNow = new Timestamp(epochTime * 1000L);
+          LocalDateTime timeNow = LocalDateTime.now();
           int size;
           size = UserBUS.getInstance().getAllModels().size();
           UserModel newUser = new UserModel(size + 1, SetUserName.getText(), passwordString,

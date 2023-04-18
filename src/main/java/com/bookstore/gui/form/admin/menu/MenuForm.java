@@ -5,15 +5,13 @@
 package com.bookstore.gui.form.admin.menu;
 
 import java.awt.BorderLayout;
-import java.awt.event.ActionListener;
-import java.sql.SQLException;
 
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 
 import com.bookstore.gui.form.admin.RunForm;
 import com.bookstore.gui.form.admin.component.bookListComponent.BrowseProductPanel;
+import com.bookstore.gui.form.admin.component.dashboardComponent.DashboardPanel;
+import com.bookstore.gui.form.admin.component.userListComponent.UserComponent;
 
 /**
  *
@@ -21,6 +19,7 @@ import com.bookstore.gui.form.admin.component.bookListComponent.BrowseProductPan
  */
 public class MenuForm extends javax.swing.JPanel {
     private static MenuForm instance;
+    private JPanel panel;
 
     /**
      * Creates new form MenuForm
@@ -53,6 +52,8 @@ public class MenuForm extends javax.swing.JPanel {
         ButtonListBook = new javax.swing.JButton();
         ButtonListUser = new javax.swing.JButton();
         ButtonOrder = new javax.swing.JButton();
+        panel = new JPanel();
+        panel.setLayout(new BorderLayout());
 
         jTextField6.setEditable(false);
         jTextField6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -74,7 +75,16 @@ public class MenuForm extends javax.swing.JPanel {
         ButtonDashboard.setText("Dashboard");
         jPanel1.add(ButtonDashboard);
         ButtonDashboard.addActionListener(new java.awt.event.ActionListener() {
+            
+
             public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RunForm.getConstruct().removeAll();
+                panel.removeAll();
+                panel.add(HeaderForm.getInstance(), BorderLayout.NORTH);
+                panel.add(DashboardPanel.getInstance(), BorderLayout.CENTER);
+                RunForm.getConstruct().add(panel);
+                RunForm.getConstruct().revalidate();
+                RunForm.getConstruct().repaint();
             }
         });
 
@@ -84,10 +94,11 @@ public class MenuForm extends javax.swing.JPanel {
         ButtonListBook.setText("List Book");
         ButtonListBook.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                // RunForm.getInstance().action("BookList");
-                System.out.println("Xóa panel cũ và thêm panel mới ở đây");
                 RunForm.getConstruct().removeAll();
-                RunForm.getConstruct().add(new JLabel("News"));
+                panel.removeAll();
+                panel.add(HeaderForm.getInstance(), BorderLayout.NORTH);
+                panel.add(BrowseProductPanel.getInstance(), BorderLayout.CENTER);
+                RunForm.getConstruct().add(panel);
                 RunForm.getConstruct().revalidate();
                 RunForm.getConstruct().repaint();
             }
@@ -97,7 +108,13 @@ public class MenuForm extends javax.swing.JPanel {
         ButtonListUser.setText("List User");
         ButtonListUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RunForm.getInstance().action("UserList");
+                RunForm.getConstruct().removeAll();
+                panel.removeAll();
+                panel.add(HeaderForm.getInstance(), BorderLayout.NORTH);
+                panel.add(UserComponent.getInstance(), BorderLayout.CENTER);
+                RunForm.getConstruct().add(panel);
+                RunForm.getConstruct().revalidate();
+                RunForm.getConstruct().repaint();
             }
         });
         jPanel1.add(ButtonListUser);

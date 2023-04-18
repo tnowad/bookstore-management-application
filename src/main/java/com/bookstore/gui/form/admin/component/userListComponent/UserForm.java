@@ -8,6 +8,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 import javax.swing.JTextField;
 
@@ -26,7 +27,7 @@ public class UserForm extends javax.swing.JPanel implements MouseListener {
    * Creates new form UserForm
    */
   public UserForm(int Serial, int idUser, String userName, String password, Status status, String name, String email,
-      String phone, Role role, Timestamp dateCreate, Timestamp dateUpdate) {
+      String phone, Role role, LocalDateTime dateCreate, LocalDateTime dateUpdate) {
     initComponents(Serial, idUser, userName, password, status, name, email, phone, role);
     addMouseListener(new MouseAdapter() {
       @Override

@@ -7,6 +7,9 @@ package com.bookstore.gui.form.admin.component.dashboardComponent;
 import java.awt.Container;
 import java.awt.GridLayout;
 import java.sql.Timestamp;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -34,6 +37,7 @@ public class DashboardPanel extends javax.swing.JPanel {
     public DashboardPanel() {
         initComponents();
         addTable();
+        CartDashboard();
     }
     public static DashboardPanel getInstance()  {
         if (instance == null) {
@@ -433,8 +437,10 @@ public class DashboardPanel extends javax.swing.JPanel {
            if(!user.getStatus().toString().equals("BANNED")){
             Timestamp now = new Timestamp(System.currentTimeMillis());
             long currentTime = now.getTime();
-            long getTime = (long) user.getCreatedAt().getTime();
-            long timeDiff = currentTime - getTime;
+            LocalDateTime getTime = user.getCreatedAt();
+            Instant instant = getTime.atZone(ZoneId.systemDefault()).toInstant();
+            long epochSecond = instant.getEpochSecond();
+            long timeDiff = currentTime - epochSecond;
             long daysDiff = TimeUnit.MILLISECONDS.toDays(timeDiff);
             UserPanel userPanel = new UserPanel(1,user.getName(),user.getPhone(),user.getStatus(),user.getRole(),daysDiff);
             tableUser.add(userPanel);
@@ -445,25 +451,21 @@ public class DashboardPanel extends javax.swing.JPanel {
     }
 
     public void CartDashboard(){
-        List<CartItemsModel> listCartItems = CartItemsBUS.getInstance().getAllModels();
-        for(CartItemsModel cartItems : listCartItems){
-            totalProductsSold = totalProductsSold + cartItems.getQuantity();
-        }
+        // List<CartItemsModel> listCartItems = CartItemsBUS.getInstance().getAllModels();
+        // for(CartItemsModel cartItems : listCartItems){
+        //     totalProductsSold = totalProductsSold + cartItems.getQuantity();
+        // }
 
         List<CartModel> listCart = CartBUS.getInstance().getAllModels();
-        for( CartModel cart : listCart){
-            Timestamp now = new Timestamp(System.currentTimeMillis());
-            long currentTime = now.getTime();
-            long getTime = (long) cart.getCreatedAt().getTime();
-            long timeDiff = currentTime - getTime;
-            long daysDiff = TimeUnit.MILLISECONDS.toDays(timeDiff);
-            if(daysDiff <=7){
-                List<CartItemsModel> listCartItemsThis = CartItemsBUS.getInstance().searchModel(String.valueOf(cart.getId()), new String[] {"cart_id"});
-                for(CartItemsModel cartItemsThis : listCartItemsThis){
-                    totalProductsSold7days = totalProductsSold7days + cartItemsThis.getQuantity() ;
-                }
-            }
-        }
+        // for( CartModel cart : listCart){
+            
+            // if(daysDiff <=7){
+            //     List<CartItemsModel> listCartItemsThis = CartItemsBUS.getInstance().searchModel(String.valueOf(cart.getId()), new String[] {"cart_id"});
+            //     for(CartItemsModel cartItemsThis : listCartItemsThis){
+            //         totalProductsSold7days = totalProductsSold7days + cartItemsThis.getQuantity() ;
+            //     }
+            // }
+        // }
         
 
 
