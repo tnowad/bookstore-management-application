@@ -1,6 +1,9 @@
 package com.bookstore.gui.form.salesman.view.Account;
 
-import javax.swing.JPanel;
+import javax.swing.*;
+
+import com.bookstore.gui.Theme.ThemeFont;
+import com.bookstore.gui.component.button.Button;
 
 public class AccountSettings extends JPanel {
 
@@ -16,21 +19,17 @@ public class AccountSettings extends JPanel {
     jLabel2 = new javax.swing.JLabel();
     currentPasswordTxtFld = new javax.swing.JPasswordField();
     jLabel1 = new javax.swing.JLabel();
-    jButton1 = new javax.swing.JButton();
-    jButton2 = new javax.swing.JButton();
+    Button1 = new Button("Update");
+    Button2 = new Button("Reset");
 
-    jLabel3.setFont(new java.awt.Font("Comic Sans MS", 0, 14));
+    jLabel3.setFont(new ThemeFont().getSmallFont());
     jLabel3.setText("Confirm new password");
 
-    jLabel2.setFont(new java.awt.Font("Comic Sans MS", 0, 14));
+    jLabel2.setFont(new ThemeFont().getSmallFont());
     jLabel2.setText("New password");
 
-    jLabel1.setFont(new java.awt.Font("Comic Sans MS", 0, 14));
+    jLabel1.setFont(new ThemeFont().getSmallFont());
     jLabel1.setText("Your current password");
-
-    jButton1.setText("Update");
-
-    jButton2.setText("Cancel");
 
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
     this.setLayout(layout);
@@ -51,9 +50,9 @@ public class AccountSettings extends JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(Button1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
+                .addComponent(Button2)
                 .addContainerGap()));
     layout.setVerticalGroup(
         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -75,17 +74,17 @@ public class AccountSettings extends JPanel {
                     javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(Button1)
+                    .addComponent(Button2))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
   }
 
-  private javax.swing.JPasswordField confirmNewPasswordTxtFld;
-  private javax.swing.JPasswordField currentPasswordTxtFld;
-  private javax.swing.JButton jButton1;
-  private javax.swing.JButton jButton2;
-  private javax.swing.JLabel jLabel1;
-  private javax.swing.JLabel jLabel2;
-  private javax.swing.JLabel jLabel3;
-  private javax.swing.JPasswordField newPasswordTxtFld;
+  private JPasswordField confirmNewPasswordTxtFld;
+  private JPasswordField currentPasswordTxtFld;
+  private Button Button1;
+  private Button Button2;
+  private JLabel jLabel1;
+  private JLabel jLabel2;
+  private JLabel jLabel3;
+  private JPasswordField newPasswordTxtFld;
 }

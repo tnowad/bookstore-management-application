@@ -1,303 +1,331 @@
 package com.bookstore.gui.form.salesman.view.Account;
 
-import javax.swing.JPanel;
+import javax.swing.*;
+
+import com.bookstore.gui.Theme.ThemeColor;
+import com.bookstore.gui.Theme.ThemeFont;
+import com.bookstore.gui.component.button.Button;
 
 public class ProfileSettings extends JPanel {
 
-  public ProfileSettings() {
-    initComponents();
-  }
+    public ProfileSettings() {
+        initComponents();
+        // setBackground();
+    }
 
-  private void initComponents() {
+    private void setBackground() {
+        confirmPasswordFld.setBackground(new ThemeColor().getBackground());
+        getCityTxtFld.setBackground(new ThemeColor().getBackground());
+        getEmailInEditTxtFld.setBackground(new ThemeColor().getBackground());
+        getInformationPanel.setBackground(new ThemeColor().getBackground());
+        getNameInEditTxtFld.setBackground(new ThemeColor().getBackground());
+        getPhoneTxtFld.setBackground(new ThemeColor().getBackground());
+        getStateTxtFld.setBackground(new ThemeColor().getBackground());
+        getStreetTxtFld.setBackground(new ThemeColor().getBackground());
+        getUserNameTxtFld.setBackground(new ThemeColor().getBackground());
+        getZipTxtFld.setBackground(new ThemeColor().getBackground());
+        jLabel1.setBackground(new ThemeColor().getBackground());
+        jLabel11.setBackground(new ThemeColor().getBackground());
+        jLabel12.setBackground(new ThemeColor().getBackground());
+        jLabel14.setBackground(new ThemeColor().getBackground());
+        jLabel15.setBackground(new ThemeColor().getBackground());
+        jLabel2.setBackground(new ThemeColor().getBackground());
+        jLabel3.setBackground(new ThemeColor().getBackground());
+        jLabel4.setBackground(new ThemeColor().getBackground());
+        jLabel7.setBackground(new ThemeColor().getBackground());
+        jLabel8.setBackground(new ThemeColor().getBackground());
+        jLabel9.setBackground(new ThemeColor().getBackground());
+    }
 
-    jLabel1 = new javax.swing.JLabel();
-    getInformationPanel = new javax.swing.JPanel();
-    jLabel2 = new javax.swing.JLabel();
-    getEmailInEditTxtFld = new javax.swing.JTextField();
-    jLabel3 = new javax.swing.JLabel();
-    getNameInEditTxtFld = new javax.swing.JTextField();
-    jLabel4 = new javax.swing.JLabel();
-    getPhoneTxtFld = new javax.swing.JTextField();
-    getUserNameTxtFld = new javax.swing.JTextField();
-    jLabel14 = new javax.swing.JLabel();
-    updateUserInformationBtn = new javax.swing.JButton();
-    resetUserInformation = new javax.swing.JButton();
-    jLabel7 = new javax.swing.JLabel();
-    getCityTxtFld = new javax.swing.JTextField();
-    jLabel8 = new javax.swing.JLabel();
-    getStreetTxtFld = new javax.swing.JTextField();
-    jLabel9 = new javax.swing.JLabel();
-    getZipTxtFld = new javax.swing.JTextField();
-    jLabel11 = new javax.swing.JLabel();
-    jLabel12 = new javax.swing.JLabel();
-    getStateTxtFld = new javax.swing.JTextField();
-    jLabel15 = new javax.swing.JLabel();
-    confirmPasswordFld = new javax.swing.JPasswordField();
+    private void initComponents() {
 
-    setPreferredSize(new java.awt.Dimension(821, 548));
+        jLabel1 = new JLabel();
+        getInformationPanel = new JPanel();
+        jLabel2 = new JLabel();
+        getEmailInEditTxtFld = new JTextField();
+        jLabel3 = new JLabel();
+        getNameInEditTxtFld = new JTextField();
+        jLabel4 = new JLabel();
+        getPhoneTxtFld = new JTextField();
+        getUserNameTxtFld = new JTextField();
+        jLabel14 = new JLabel();
+        updateUserInformationBtn = new Button("Update");
+        resetUserInformation = new Button("Reset");
+        jLabel7 = new JLabel();
+        getCityTxtFld = new JTextField();
+        jLabel8 = new JLabel();
+        getStreetTxtFld = new JTextField();
+        jLabel9 = new JLabel();
+        getZipTxtFld = new JTextField();
+        jLabel11 = new JLabel();
+        jLabel12 = new JLabel();
+        getStateTxtFld = new JTextField();
+        jLabel15 = new JLabel();
+        confirmPasswordFld = new JPasswordField();
 
-    jLabel1.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
-    jLabel1.setText("Edit Your Personal Settings");
+        setPreferredSize(new java.awt.Dimension(821, 548));
 
-    jLabel2.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
-    jLabel2.setText("Name");
+        jLabel1.setFont(new ThemeFont().getSmallFont());
+        jLabel1.setText("Edit Your Personal Settings");
 
-    jLabel3.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
-    jLabel3.setText("Email");
+        jLabel2.setFont(new ThemeFont().getSmallFont());
+        jLabel2.setText("Name");
 
-    jLabel4.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
-    jLabel4.setText("Phone Number");
+        jLabel3.setFont(new ThemeFont().getSmallFont());
+        jLabel3.setText("Email");
 
-    getPhoneTxtFld.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
-        getPhoneTxtFldActionPerformed(evt);
-      }
-    });
+        jLabel4.setFont(new ThemeFont().getSmallFont());
+        jLabel4.setText("Phone Number");
 
-    getUserNameTxtFld.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
-        getUserNameTxtFldActionPerformed(evt);
-      }
-    });
+        getPhoneTxtFld.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                getPhoneTxtFldActionPerformed(evt);
+            }
+        });
 
-    jLabel14.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
-    jLabel14.setText("Username");
+        getUserNameTxtFld.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                getUserNameTxtFldActionPerformed(evt);
+            }
+        });
 
-    javax.swing.GroupLayout getInformationPanelLayout = new javax.swing.GroupLayout(getInformationPanel);
-    getInformationPanel.setLayout(getInformationPanelLayout);
-    getInformationPanelLayout.setHorizontalGroup(
-        getInformationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(getInformationPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(
-                    getInformationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 50,
-                            javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 50,
-                            javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE,
-                            javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(getInformationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(getNameInEditTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, 300,
-                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(getEmailInEditTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, 300,
-                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(getUserNameTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, 300,
-                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(getPhoneTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, 150,
-                        javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(106, Short.MAX_VALUE)));
-    getInformationPanelLayout.setVerticalGroup(
-        getInformationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(getInformationPanelLayout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addGroup(getInformationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(getNameInEditTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE,
-                        javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(getInformationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel14)
-                    .addComponent(getUserNameTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE,
-                        javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
-                .addGroup(getInformationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(getEmailInEditTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE,
-                        javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(getInformationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(getPhoneTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE,
-                        javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
-                .addGap(17, 17, 17)));
+        jLabel14.setFont(new ThemeFont().getSmallFont());
+        jLabel14.setText("Username");
 
-    updateUserInformationBtn.setBackground(new java.awt.Color(255, 255, 255));
-    updateUserInformationBtn.setFont(new java.awt.Font("Comic Sans MS", 1, 14));
-    updateUserInformationBtn.setForeground(new java.awt.Color(0, 0, 255));
-    updateUserInformationBtn.setText("UPDATE");
-    updateUserInformationBtn.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
-        updateUserInformationBtnActionPerformed(evt);
-      }
-    });
+        GroupLayout getInformationPanelLayout = new GroupLayout(getInformationPanel);
+        getInformationPanel.setLayout(getInformationPanelLayout);
+        getInformationPanelLayout.setHorizontalGroup(
+                getInformationPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addGroup(getInformationPanelLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(
+                                        getInformationPanelLayout
+                                                .createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(jLabel3, GroupLayout.PREFERRED_SIZE, 50,
+                                                        GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(jLabel2, GroupLayout.PREFERRED_SIZE, 50,
+                                                        GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(jLabel14, GroupLayout.DEFAULT_SIZE,
+                                                        GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(jLabel4, GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
+                                .addGroup(getInformationPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                        .addComponent(getNameInEditTxtFld, GroupLayout.PREFERRED_SIZE, 300,
+                                                GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(getEmailInEditTxtFld, GroupLayout.PREFERRED_SIZE, 300,
+                                                GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(getUserNameTxtFld, GroupLayout.PREFERRED_SIZE, 300,
+                                                GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(getPhoneTxtFld, GroupLayout.PREFERRED_SIZE, 150,
+                                                GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap(106, Short.MAX_VALUE)));
+        getInformationPanelLayout.setVerticalGroup(
+                getInformationPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addGroup(getInformationPanelLayout.createSequentialGroup()
+                                .addGap(17, 17, 17)
+                                .addGroup(getInformationPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel2)
+                                        .addComponent(getNameInEditTxtFld, GroupLayout.PREFERRED_SIZE,
+                                                GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(getInformationPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel14)
+                                        .addComponent(getUserNameTxtFld, GroupLayout.PREFERRED_SIZE,
+                                                GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                                .addGroup(getInformationPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                        .addComponent(getEmailInEditTxtFld, GroupLayout.PREFERRED_SIZE,
+                                                GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel3))
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(getInformationPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                        .addComponent(getPhoneTxtFld, GroupLayout.PREFERRED_SIZE,
+                                                GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel4))
+                                .addGap(17, 17, 17)));
 
-    resetUserInformation.setBackground(new java.awt.Color(255, 255, 255));
-    resetUserInformation.setFont(new java.awt.Font("Comic Sans MS", 1, 14));
-    resetUserInformation.setForeground(new java.awt.Color(0, 0, 255));
-    resetUserInformation.setText("RESET");
-    resetUserInformation.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
-        resetUserInformationActionPerformed(evt);
-      }
-    });
+        updateUserInformationBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateUserInformationBtnActionPerformed(evt);
+            }
+        });
 
-    jLabel7.setFont(new java.awt.Font("Comic Sans MS", 0, 14));
-    jLabel7.setText("Street");
+        resetUserInformation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resetUserInformationActionPerformed(evt);
+            }
+        });
 
-    jLabel8.setFont(new java.awt.Font("Comic Sans MS", 0, 14));
-    jLabel8.setText("City");
+        jLabel7.setFont(new ThemeFont().getSmallFont());
+        jLabel7.setText("Street");
 
-    jLabel9.setFont(new java.awt.Font("Comic Sans MS", 0, 14));
-    jLabel9.setText("State");
+        jLabel8.setFont(new ThemeFont().getSmallFont());
+        jLabel8.setText("City");
 
-    getZipTxtFld.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
-        getZipTxtFldActionPerformed(evt);
-      }
-    });
+        jLabel9.setFont(new ThemeFont().getSmallFont());
+        jLabel9.setText("State");
 
-    jLabel11.setFont(new java.awt.Font("Comic Sans MS", 0, 14));
-    jLabel11.setText("Confirm Password");
+        getZipTxtFld.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                getZipTxtFldActionPerformed(evt);
+            }
+        });
 
-    jLabel12.setFont(new java.awt.Font("Comic Sans MS", 0, 14));
-    jLabel12.setText("Update Address Informations");
+        jLabel11.setFont(new ThemeFont().getSmallFont());
+        jLabel11.setText("Confirm Password");
 
-    getStateTxtFld.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
-        getStateTxtFldActionPerformed(evt);
-      }
-    });
+        jLabel12.setFont(new ThemeFont().getSmallFont());
+        jLabel12.setText("Update Address Informations");
 
-    jLabel15.setFont(new java.awt.Font("Comic Sans MS", 0, 14));
-    jLabel15.setText("Zip");
+        getStateTxtFld.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                getStateTxtFldActionPerformed(evt);
+            }
+        });
 
-    javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-    this.setLayout(layout);
-    layout.setHorizontalGroup(
-        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(147, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE,
-                            javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 140,
-                            javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel12)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 39,
-                                javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(getCityTxtFld, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(getZipTxtFld, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(getStreetTxtFld, javax.swing.GroupLayout.Alignment.LEADING,
-                                javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(getStateTxtFld, javax.swing.GroupLayout.Alignment.LEADING,
-                                javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jLabel15.setFont(new ThemeFont().getSmallFont());
+        jLabel15.setText("Zip");
+
+        GroupLayout layout = new GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addContainerGap(147, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(jLabel8, GroupLayout.DEFAULT_SIZE,
+                                                        GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(jLabel7, GroupLayout.PREFERRED_SIZE, 140,
+                                                        GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jLabel12)
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addGroup(
+                                                        layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                                                                .addComponent(jLabel9, GroupLayout.DEFAULT_SIZE,
+                                                                        GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                                .addComponent(jLabel15, GroupLayout.PREFERRED_SIZE, 39,
+                                                                        GroupLayout.PREFERRED_SIZE))
+                                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addGroup(layout
+                                                        .createParallelGroup(GroupLayout.Alignment.TRAILING, false)
+                                                        .addComponent(getCityTxtFld, GroupLayout.Alignment.LEADING)
+                                                        .addComponent(getZipTxtFld, GroupLayout.Alignment.LEADING)
+                                                        .addComponent(getStreetTxtFld, GroupLayout.Alignment.LEADING,
+                                                                GroupLayout.PREFERRED_SIZE, 430,
+                                                                GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(getStateTxtFld, GroupLayout.Alignment.LEADING,
+                                                                GroupLayout.PREFERRED_SIZE, 430,
+                                                                GroupLayout.PREFERRED_SIZE)
+                                                        .addGroup(layout
+                                                                .createParallelGroup(GroupLayout.Alignment.LEADING)
+                                                                .addComponent(jLabel11)
+                                                                .addComponent(confirmPasswordFld,
+                                                                        GroupLayout.PREFERRED_SIZE, 200,
+                                                                        GroupLayout.PREFERRED_SIZE))))
+                                        .addComponent(jLabel1)
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                                                        .addComponent(getInformationPanel, GroupLayout.PREFERRED_SIZE,
+                                                                GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(updateUserInformationBtn))
+                                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(resetUserInformation)))
+                                .addGap(53, 53, 53)));
+        layout.setVerticalGroup(
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addGap(21, 21, 21)
+                                .addComponent(jLabel1, GroupLayout.PREFERRED_SIZE, 32,
+                                        GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(getInformationPanel, GroupLayout.PREFERRED_SIZE,
+                                        GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                .addGap(24, 24, 24)
+                                .addComponent(jLabel12, GroupLayout.PREFERRED_SIZE, 32,
+                                        GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel7)
+                                        .addComponent(getStreetTxtFld, GroupLayout.PREFERRED_SIZE,
+                                                GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel8)
+                                        .addComponent(getCityTxtFld, GroupLayout.PREFERRED_SIZE,
+                                                GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jLabel9)
+                                                .addGap(8, 8, 8))
+                                        .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                .addComponent(getStateTxtFld, GroupLayout.PREFERRED_SIZE,
+                                                        GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)))
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                        .addComponent(getZipTxtFld, GroupLayout.PREFERRED_SIZE,
+                                                GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel15))
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel11)
-                                .addComponent(confirmPasswordFld, javax.swing.GroupLayout.PREFERRED_SIZE, 200,
-                                    javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(jLabel1)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(getInformationPanel, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(updateUserInformationBtn))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(resetUserInformation)))
-                .addGap(53, 53, 53)));
-    layout.setVerticalGroup(
-        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 32,
-                    javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(getInformationPanel, javax.swing.GroupLayout.PREFERRED_SIZE,
-                    javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24)
-                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 32,
-                    javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(getStreetTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE,
-                        javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(getCityTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE,
-                        javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel9)
-                        .addGap(8, 8, 8))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(getStateTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE,
-                            javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(getZipTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE,
-                        javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel15))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel11)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(confirmPasswordFld, javax.swing.GroupLayout.PREFERRED_SIZE,
-                    javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(updateUserInformationBtn)
-                    .addComponent(resetUserInformation))
-                .addContainerGap(26, Short.MAX_VALUE)));
-  }// </editor-fold>
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(confirmPasswordFld, GroupLayout.PREFERRED_SIZE,
+                                        GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                .addGap(30, 30, 30)
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                        .addComponent(updateUserInformationBtn)
+                                        .addComponent(resetUserInformation))
+                                .addContainerGap(26, Short.MAX_VALUE)));
+    }// </editor-fold>
 
-  private void getPhoneTxtFldActionPerformed(java.awt.event.ActionEvent evt) {
-    // TODO add your handling code here:
-  }
+    private void getPhoneTxtFldActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+    }
 
-  private void updateUserInformationBtnActionPerformed(java.awt.event.ActionEvent evt) {
-    // TODO add your handling code here:
-  }
+    private void updateUserInformationBtnActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+    }
 
-  private void getZipTxtFldActionPerformed(java.awt.event.ActionEvent evt) {
-    // TODO add your handling code here:
-  }
+    private void getZipTxtFldActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+    }
 
-  private void getUserNameTxtFldActionPerformed(java.awt.event.ActionEvent evt) {
-    // TODO add your handling code here:
-  }
+    private void getUserNameTxtFldActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+    }
 
-  private void resetUserInformationActionPerformed(java.awt.event.ActionEvent evt) {
-    // TODO add your handling code here:
-  }
+    private void resetUserInformationActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+    }
 
-  private void getStateTxtFldActionPerformed(java.awt.event.ActionEvent evt) {
-    // TODO add your handling code here:
-  }
+    private void getStateTxtFldActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+    }
 
-  // Variables declaration - do not modify
-  private javax.swing.JPasswordField confirmPasswordFld;
-  private javax.swing.JTextField getCityTxtFld;
-  private javax.swing.JTextField getEmailInEditTxtFld;
-  private javax.swing.JPanel getInformationPanel;
-  private javax.swing.JTextField getNameInEditTxtFld;
-  private javax.swing.JTextField getPhoneTxtFld;
-  private javax.swing.JTextField getStateTxtFld;
-  private javax.swing.JTextField getStreetTxtFld;
-  private javax.swing.JTextField getUserNameTxtFld;
-  private javax.swing.JTextField getZipTxtFld;
-  private javax.swing.JLabel jLabel1;
-  private javax.swing.JLabel jLabel11;
-  private javax.swing.JLabel jLabel12;
-  private javax.swing.JLabel jLabel14;
-  private javax.swing.JLabel jLabel15;
-  private javax.swing.JLabel jLabel2;
-  private javax.swing.JLabel jLabel3;
-  private javax.swing.JLabel jLabel4;
-  private javax.swing.JLabel jLabel7;
-  private javax.swing.JLabel jLabel8;
-  private javax.swing.JLabel jLabel9;
-  private javax.swing.JButton resetUserInformation;
-  private javax.swing.JButton updateUserInformationBtn;
+    // Variables declaration - do not modify
+    private JPasswordField confirmPasswordFld;
+    private JTextField getCityTxtFld;
+    private JTextField getEmailInEditTxtFld;
+    private JPanel getInformationPanel;
+    private JTextField getNameInEditTxtFld;
+    private JTextField getPhoneTxtFld;
+    private JTextField getStateTxtFld;
+    private JTextField getStreetTxtFld;
+    private JTextField getUserNameTxtFld;
+    private JTextField getZipTxtFld;
+    private JLabel jLabel1;
+    private JLabel jLabel11;
+    private JLabel jLabel12;
+    private JLabel jLabel14;
+    private JLabel jLabel15;
+    private JLabel jLabel2;
+    private JLabel jLabel3;
+    private JLabel jLabel4;
+    private JLabel jLabel7;
+    private JLabel jLabel8;
+    private JLabel jLabel9;
+    private Button resetUserInformation;
+    private Button updateUserInformationBtn;
 
 }

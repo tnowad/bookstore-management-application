@@ -1,19 +1,20 @@
 package com.bookstore.gui.form.salesman.view.Account;
 
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import com.bookstore.gui.component.button.Button;
 
 public class AccountPanel extends JPanel {
   private JPanel titleButton;
   private JPanel contentSetting;
-  private JButton accountSettingButton;
-  private JButton profileSettingButton;
+  private Button accountSettingButton;
+  private Button profileSettingButton;
 
   public AccountPanel() {
     initComponents();
@@ -46,8 +47,10 @@ public class AccountPanel extends JPanel {
   private void initComponents() {
     titleButton = new JPanel();
     contentSetting = new JPanel();
-    accountSettingButton = new JButton("Account settings");
-    profileSettingButton = new JButton("Profile settings");
+    accountSettingButton = new Button("Account settings");
+    profileSettingButton = new Button("Profile settings");
+    accountSettingButton.setPreferredSize(new Dimension(200, 50));
+    profileSettingButton.setPreferredSize(new Dimension(200, 50));
     setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
     titleButton.setLayout(new FlowLayout());
     add(titleButton);
