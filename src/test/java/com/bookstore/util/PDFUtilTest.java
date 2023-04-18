@@ -135,6 +135,6 @@ public class PDFUtilTest {
   @Test
   public void textExportReceiptToPDF() {
     PDFWriter pdfWriter = PDFWriter.getInstance();
-    pdfWriter.exportReceiptToPDF(2, "C:\\Users\\Danh\\Desktop\\test.pdf");
+    pdfWriter.exportReceiptToPDF(5, "C:\\Users\\Danh\\Desktop\\test.pdf");
   }
 }

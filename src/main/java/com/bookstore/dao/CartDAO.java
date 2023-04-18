@@ -3,6 +3,7 @@ package com.bookstore.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -21,13 +22,16 @@ public class CartDAO implements IDAO<CartModel> {
   }
 
   private CartModel createCartModelFromResultSet(ResultSet rs) throws SQLException {
-    return new CartModel(
-        rs.getInt("id"),
-        rs.getInt("user_id"),
-        rs.getTimestamp("created_at").toLocalDateTime(),
-        CartModel.Status.valueOf(rs.getString("status").toUpperCase()),
-        rs.getTimestamp("expires").toLocalDateTime(),
-        rs.getInt("promotion_id"));
+    int id = rs.getInt("id");
+    int userId = rs.getInt("user_id");
+    LocalDateTime createdAt = rs.getTimestamp("created_at").toLocalDateTime();
+    CartModel.Status status = CartModel.Status.valueOf(rs.getString("status").toUpperCase());
+    LocalDateTime expires = null;
+    if (rs.getTimestamp("expires") != null) {
+      expires = rs.getTimestamp("expires").toLocalDateTime();
+    }
+    int promotionId = rs.getInt("promotion_id");
+    return new CartModel(id, userId, createdAt, status, expires, promotionId);
   }
 
   @Override

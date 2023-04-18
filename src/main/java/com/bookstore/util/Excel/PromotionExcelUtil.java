@@ -2,10 +2,10 @@ package com.bookstore.util.Excel;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.sql.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -13,7 +13,6 @@ import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
-
 import com.bookstore.bus.PromotionBUS;
 import com.bookstore.models.PromotionModel;
 
@@ -57,10 +56,11 @@ public class PromotionExcelUtil extends ExcelUtil {
     LOGGER.log(Level.WARNING, "Error occurred: " + message);
     JOptionPane.showMessageDialog(null, "Error: " + message, title, JOptionPane.ERROR_MESSAGE);
   }
-  //TODO: Need to fix date format.
+
+  // TODO: Need to fix date format.
   private static List<PromotionModel> convertToPromotionModelList(List<List<String>> data) {
     List<PromotionModel> promotionModels = new ArrayList<>();
-    SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
 
     for (int i = 1; i < data.size(); i++) {
       List<String> row = data.get(i);
@@ -71,8 +71,8 @@ public class PromotionExcelUtil extends ExcelUtil {
       int quantity;
       Integer discountPercent = null;
       Integer discountAmount = null;
-      Date startDate;
-      Date endDate;
+      LocalDate startDate, startAtDate;
+      LocalDate endDate, endAtDate;
       String description = row.get(1);
       String conditionApply = null;
       if (row.size() > 5 && !row.get(5).isEmpty()) {
@@ -107,15 +107,16 @@ public class PromotionExcelUtil extends ExcelUtil {
             discountAmount = Integer.parseInt(row.get(7));
           }
         }
-
         try {
-          startDate = (Date) dateFormat.parse(row.get(3));
+          startDate = LocalDate.parse(row.get(3), formatter);
+          startAtDate = startDate.atStartOfDay().toLocalDate();
         } catch (Exception e) {
           throw new IllegalArgumentException("Invalid value in input data for startDate at line: " + row, e);
         }
 
         try {
-          endDate = (Date) dateFormat.parse(row.get(4));
+          endDate = LocalDate.parse(row.get(4), formatter);
+          endAtDate = endDate.atStartOfDay().toLocalDate();
         } catch (Exception e) {
           throw new IllegalArgumentException("Invalid value in input data for endDate at line: " + row, e);
         }
@@ -124,7 +125,7 @@ public class PromotionExcelUtil extends ExcelUtil {
         throw new IllegalArgumentException("Invalid integer value in input data", e);
       }
 
-      PromotionModel model = new PromotionModel(id, description, quantity, startDate, endDate, conditionApply,
+      PromotionModel model = new PromotionModel(id, description, quantity, startAtDate, endAtDate, conditionApply,
           discountPercent, discountAmount);
       promotionModels.add(model);
       PromotionBUS.getInstance().addModel(model);

@@ -2,10 +2,10 @@ package com.bookstore.util.Excel;
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.Date;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -59,10 +59,11 @@ public class ImportModelExcelUtil extends ExcelUtil {
     LOGGER.log(Level.WARNING, "Error occurred: " + message);
     JOptionPane.showMessageDialog(null, "Error: " + message, title, JOptionPane.ERROR_MESSAGE);
   }
-  //TODO: Need to fix Date Format.
+
+  // TODO: Need to fix Date Format.
   private static List<ImportModel> convertToImportModelList(List<List<String>> data) {
     List<ImportModel> importModels = new ArrayList<>();
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm:ss");
 
     for (int i = 1; i < data.size(); i++) {
       List<String> row = data.get(i);
@@ -70,8 +71,8 @@ public class ImportModelExcelUtil extends ExcelUtil {
       int providerId;
       int employeeId;
       Double totalPrice;
-      Date createdAt;
-      Date updatedAt;
+      LocalDateTime createdAt;
+      LocalDateTime updatedAt;
 
       if (row.get(0).contains(".")) {
         id = (int) Float.parseFloat(row.get(0)) + 1;
@@ -98,17 +99,17 @@ public class ImportModelExcelUtil extends ExcelUtil {
       }
 
       try {
-        LocalDate localDate = LocalDate.parse(row.get(4), formatter);
-        createdAt = (Date) Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-      } catch (Exception e) {
-        throw new IllegalArgumentException("Invalid value in input data for createdAt at line: " + row, e);
-      }
+        createdAt = LocalDateTime.parse(row.get(4), formatter);
+        LocalDateTime createdAtDate = LocalDateTime.from(createdAt.atZone(ZoneId.of("UTC")).toInstant());
 
-      try {
-        LocalDate localDate = LocalDate.parse(row.get(5), formatter);
-        updatedAt = (Date) Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-      } catch (Exception e) {
-        throw new IllegalArgumentException("Invalid value in input data for updatedAt at line: " + row, e);
+        updatedAt = LocalDateTime.parse(row.get(5), formatter);
+        LocalDateTime updatedAtDate = LocalDateTime.from(updatedAt.atZone(ZoneId.of("UTC")).toInstant());
+
+        ImportModel model = new ImportModel(id, providerId, employeeId, totalPrice, createdAtDate, updatedAtDate);
+        importModels.add(model);
+        ImportBUS.getInstance().addModel(model);
+      } catch (DateTimeParseException e) {
+        throw new IllegalArgumentException("Invalid date-time value in input data at line: " + row, e);
       }
 
       ImportModel model = new ImportModel(id, providerId, employeeId, totalPrice, createdAt, updatedAt);
