@@ -218,12 +218,13 @@ public class UserBUS implements IBUS<UserModel> {
     return updatedRows;
   }
 
-  public int updateStatus(String username, Status status) {
+  public int updateStatus(String username, String status) {
     int success = UserDAO.getInstance().updateStatus(username, status);
     if (success == 1) {
       for (UserModel user : userList) {
         if (user.getUsername().equals(username)) {
-          user.setStatus(status);
+          Status roleEnum = Status.valueOf(status.toUpperCase());
+          user.setStatus(roleEnum);
           return 1;
         }
       }

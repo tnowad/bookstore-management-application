@@ -66,7 +66,7 @@ public class UserDAO implements IDAO<UserModel> {
 
   @Override
   public int update(UserModel user) {
-    String updateSql = "UPDATE users SET username = ?, password = ?, status = ?, name = ?, email = ?, phone = ?, role = ? WHERE id = ?";
+    String updateSql = "UPDATE users SET username = ?, password = ?, status = ?, name = ?, email = ?, phone = ?, role = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?";
     Object[] args = { user.getUsername(), user.getPassword(), user.getStatus().toString().toUpperCase(),
         user.getName(), user.getEmail(), user.getPhone(), user.getRole().toString().toUpperCase(), user.getId() };
     try {
@@ -77,8 +77,8 @@ public class UserDAO implements IDAO<UserModel> {
     }
   }
 
-  public int updateStatus(String username, Status status) {
-    String updateSql = "UPDATE users SET status = ? WHERE username = ?";
+  public int updateStatus(String username, String status) {
+    String updateSql = "UPDATE users SET status = ?, updated_at = CURRENT_TIMESTAMP WHERE username = ?";
     Object[] args = { status, username };
     try {
       return DatabaseConnection.executeUpdate(updateSql, args);
@@ -89,7 +89,7 @@ public class UserDAO implements IDAO<UserModel> {
   }
 
   public int updateRole(String username, Role role) {
-    String updateSql = "UPDATE users SET role = ? WHERE username = ?";
+    String updateSql = "UPDATE users SET role = ?, updated_at = CURRENT_TIMESTAMP WHERE username = ?";
     Object[] args = { role, username };
     try {
       return DatabaseConnection.executeUpdate(updateSql, args);

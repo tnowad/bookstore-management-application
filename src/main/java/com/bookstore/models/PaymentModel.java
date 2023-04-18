@@ -1,6 +1,6 @@
 package com.bookstore.models;
 
-import java.sql.Timestamp;
+import java.sql.Date;
 
 public class PaymentModel {
   private int id;
@@ -10,8 +10,8 @@ public class PaymentModel {
   private PaymentMethod paymentMethod;
   private int paymentMethodId;
   private PaymentStatus status;
-  private Timestamp createdAt;
-  private Timestamp updatedAt;
+  private Date createdAt;
+  private Date updatedAt;
 
   public enum PaymentMethod {
     CASH,
@@ -28,8 +28,7 @@ public class PaymentModel {
   }
 
   public PaymentModel(int id, int orderId, int userId, int amount, PaymentMethod paymentMethod, int paymentMethodId,
-      PaymentStatus status, Timestamp createdAt, Timestamp updatedAt) {
-    super();
+      PaymentStatus status, Date createdAt, Date updatedAt) {
     this.id = id;
     this.orderId = orderId;
     this.userId = userId;
@@ -42,7 +41,7 @@ public class PaymentModel {
   }
 
   public int getId() {
-    return id;
+    return this.id;
   }
 
   public void setId(int id) {
@@ -50,7 +49,7 @@ public class PaymentModel {
   }
 
   public int getOrderId() {
-    return orderId;
+    return this.orderId;
   }
 
   public void setOrderId(int orderId) {
@@ -58,7 +57,7 @@ public class PaymentModel {
   }
 
   public int getUserId() {
-    return userId;
+    return this.userId;
   }
 
   public void setUserId(int userId) {
@@ -66,7 +65,7 @@ public class PaymentModel {
   }
 
   public int getAmount() {
-    return amount;
+    return this.amount;
   }
 
   public void setAmount(int amount) {
@@ -74,7 +73,7 @@ public class PaymentModel {
   }
 
   public PaymentMethod getPaymentMethod() {
-    return paymentMethod;
+    return this.paymentMethod;
   }
 
   public void setPaymentMethod(PaymentMethod paymentMethod) {
@@ -82,7 +81,7 @@ public class PaymentModel {
   }
 
   public int getPaymentMethodId() {
-    return paymentMethodId;
+    return this.paymentMethodId;
   }
 
   public void setPaymentMethodId(int paymentMethodId) {
@@ -90,27 +89,72 @@ public class PaymentModel {
   }
 
   public PaymentStatus getStatus() {
-    return status;
+    return this.status;
   }
 
   public void setStatus(PaymentStatus status) {
     this.status = status;
   }
 
-  public Timestamp getCreatedAt() {
-    return createdAt;
+  public Date getCreatedAt() {
+    return this.createdAt;
   }
 
-  public void setCreatedAt(Timestamp createdAt) {
+  public void setCreatedAt(Date createdAt) {
     this.createdAt = createdAt;
   }
 
-  public Timestamp getUpdatedAt() {
-    return updatedAt;
+  public Date getUpdatedAt() {
+    return this.updatedAt;
   }
 
-  public void setUpdatedAt(Timestamp updatedAt) {
+  public void setUpdatedAt(Date updatedAt) {
     this.updatedAt = updatedAt;
+  }
+
+  public PaymentModel id(int id) {
+    setId(id);
+    return this;
+  }
+
+  public PaymentModel orderId(int orderId) {
+    setOrderId(orderId);
+    return this;
+  }
+
+  public PaymentModel userId(int userId) {
+    setUserId(userId);
+    return this;
+  }
+
+  public PaymentModel amount(int amount) {
+    setAmount(amount);
+    return this;
+  }
+
+  public PaymentModel paymentMethod(PaymentMethod paymentMethod) {
+    setPaymentMethod(paymentMethod);
+    return this;
+  }
+
+  public PaymentModel paymentMethodId(int paymentMethodId) {
+    setPaymentMethodId(paymentMethodId);
+    return this;
+  }
+
+  public PaymentModel status(PaymentStatus status) {
+    setStatus(status);
+    return this;
+  }
+
+  public PaymentModel createdAt(Date createdAt) {
+    setCreatedAt(createdAt);
+    return this;
+  }
+
+  public PaymentModel updatedAt(Date updatedAt) {
+    setUpdatedAt(updatedAt);
+    return this;
   }
 
 }

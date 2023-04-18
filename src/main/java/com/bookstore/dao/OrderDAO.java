@@ -2,7 +2,6 @@ package com.bookstore.dao;
 
 import com.bookstore.interfaces.IDAO;
 import com.bookstore.models.OrderModel;
-import com.bookstore.models.OrderModel.Status;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -29,8 +28,8 @@ public class OrderDAO implements IDAO<OrderModel> {
         rs.getInt("employee_id"),
         rs.getInt("total"),
         rs.getInt("paid"),
-        rs.getTimestamp("created_at"),
-        rs.getTimestamp("updated_at"),
+        rs.getDate("created_at"),
+        rs.getDate("updated_at"),
         OrderModel.Status.valueOf(rs.getString("status").toUpperCase()));
   }
 
@@ -65,7 +64,7 @@ public class OrderDAO implements IDAO<OrderModel> {
 
   @Override
   public int update(OrderModel order) {
-    String updateSql = "UPDATE orders SET cart_id=?, customer_id=?, employee_id=?, total=?, paid=?, status=? WHERE id=?";
+    String updateSql = "UPDATE orders SET cart_id=?, customer_id=?, employee_id=?, total=?, paid=?, updated_at = CURRENT_TIMESTAMP, status=? WHERE id=?";
     Object[] args = { order.getCartId(), order.getCustomerId(), order.getEmployeeId(), order.getTotal(),
         order.getPaid(), order.getStatus().name(), order.getId() };
     try {
@@ -76,7 +75,7 @@ public class OrderDAO implements IDAO<OrderModel> {
     }
   }
 
-  public int updateStatus(int cartId, Status status) {
+  public int updateStatus(int cartId, String status) {
     String updateSql = "UPDATE orders SET status = ? WHERE cart_id = ?";
     Object[] args = { status, cartId };
     try {

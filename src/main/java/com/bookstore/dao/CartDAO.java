@@ -9,7 +9,6 @@ import java.util.List;
 
 import com.bookstore.interfaces.IDAO;
 import com.bookstore.models.CartModel;
-import com.bookstore.models.CartModel.Status;
 
 public class CartDAO implements IDAO<CartModel> {
   private static CartDAO instance;
@@ -70,7 +69,7 @@ public class CartDAO implements IDAO<CartModel> {
     }
   }
 
-  public int updateStatus(int userId, Status status) {
+  public int updateStatus(int userId, String status) {
     String updateSql = "UPDATE carts SET status = ? WHERE userId = ?";
     Object[] args = { status, userId };
     try {

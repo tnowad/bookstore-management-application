@@ -2,8 +2,10 @@ package com.bookstore.util.Excel;
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -57,10 +59,10 @@ public class ImportModelExcelUtil extends ExcelUtil {
     LOGGER.log(Level.WARNING, "Error occurred: " + message);
     JOptionPane.showMessageDialog(null, "Error: " + message, title, JOptionPane.ERROR_MESSAGE);
   }
-
+  //TODO: Need to fix Date Format.
   private static List<ImportModel> convertToImportModelList(List<List<String>> data) {
     List<ImportModel> importModels = new ArrayList<>();
-    SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
 
     for (int i = 1; i < data.size(); i++) {
       List<String> row = data.get(i);
@@ -68,8 +70,8 @@ public class ImportModelExcelUtil extends ExcelUtil {
       int providerId;
       int employeeId;
       Double totalPrice;
-      Timestamp createdAt;
-      Timestamp updatedAt;
+      Date createdAt;
+      Date updatedAt;
 
       if (row.get(0).contains(".")) {
         id = (int) Float.parseFloat(row.get(0)) + 1;
@@ -94,16 +96,17 @@ public class ImportModelExcelUtil extends ExcelUtil {
       } else {
         totalPrice = Double.parseDouble(row.get(3));
       }
-      //TODO: Need to fix timestamp format.
-      // Parse createdAt and updatedAt
+
       try {
-        createdAt = new Timestamp(dateFormat.parse(row.get(4)).getTime());
+        LocalDate localDate = LocalDate.parse(row.get(4), formatter);
+        createdAt = (Date) Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
       } catch (Exception e) {
         throw new IllegalArgumentException("Invalid value in input data for createdAt at line: " + row, e);
       }
 
       try {
-        updatedAt = new Timestamp(dateFormat.parse(row.get(5)).getTime());
+        LocalDate localDate = LocalDate.parse(row.get(5), formatter);
+        updatedAt = (Date) Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
       } catch (Exception e) {
         throw new IllegalArgumentException("Invalid value in input data for updatedAt at line: " + row, e);
       }

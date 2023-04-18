@@ -143,12 +143,13 @@ public class CartBUS implements IBUS<CartModel> {
     return updatedRows;
   }
 
-  public int updateStatus(int userId, Status status) {
+  public int updateStatus(int userId, String status) {
     int success = CartDAO.getInstance().updateStatus(userId, status);
     if (success == 1) {
       for (CartModel cart : cartList) {
         if (cart.getUserId() == userId) {
-          cart.setStatus(status);
+          Status roleEnum = Status.valueOf(status.toUpperCase());
+          cart.setStatus(roleEnum);
           return 1;
         }
       }
