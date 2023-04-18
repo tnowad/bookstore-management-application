@@ -2,27 +2,90 @@ package com.bookstore.gui.component.button;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Insets;
 import java.awt.RenderingHints;
-
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.JButton;
+import javax.swing.UIManager;
 import javax.swing.border.Border;
+
+import com.bookstore.gui.Theme.ThemeColor;
 
 public class Button extends JButton {
   public Button(String name) {
     initComponents(name);
+    // if (!"Forgot password".equals(name))
+      handleEvent();
+  }
+
+  private void handleEvent() {
+    // addMouseListener((MouseListener) new MouseAdapter() {
+    // private Timer timer;
+    // private int alpha = 0;
+
+    // public void mouseEntered(MouseEvent e) {
+    // timer = new Timer(10, new ActionListener() {
+    // public void actionPerformed(ActionEvent e) {
+    // alpha += 5;
+    // if (alpha >= 200) {
+    // // alpha = 200;
+    // timer.stop();
+    // }
+    // setBackground(new Color(0, 119, alpha));
+
+    // }
+    // });
+    // timer.start();
+    // }
+
+    // public void mouseExited(MouseEvent e) {
+    // timer = new Timer(10, new ActionListener() {
+    // public void actionPerformed(ActionEvent e) {
+    // alpha -= 25;
+    // if (alpha <= 190) {
+    // // alpha = 190;
+    // timer.stop();
+    // }
+    // setBackground(new Color(0, 119, alpha));
+    // }
+    // });
+    // timer.start();
+    // }
+    // });
+    hoverBackground(new ThemeColor().getButtonBackground(), new ThemeColor().getButtonHoverBackground(),Color.WHITE, Color.WHITE);
+  }
+
+  public void hoverBackground(Color originalBackgroundColor, Color laterBackgroundColor,Color originalForegroundColor,Color laterForegroundColor) {
+    addMouseListener(new MouseAdapter() {
+      @Override
+      public void mouseEntered(MouseEvent evt) {
+        setBackground(laterBackgroundColor);
+        setForeground(laterForegroundColor);
+      }
+      
+      @Override
+      public void mouseExited(MouseEvent evt) {
+        setBackground(UIManager.getColor("control"));
+        setBackground(originalBackgroundColor);
+        setForeground(originalForegroundColor);
+      }
+    });
   }
 
   private void initComponents(String name) {
     setText(name);
     setFont(new Font("Helvetica", Font.ITALIC, 14));
     setButtonSize(100, 50);
-    setBackground(Color.BLUE);
-    // setButtonBorder();
+    setBackground(new Color(0, 119, 190));
+    setForeground(Color.WHITE);
+    setBorder(null);
+    setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
   }
 
   private void setButtonBorder() {

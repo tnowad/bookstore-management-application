@@ -75,7 +75,7 @@ public class LoginUI extends JFrame {
     icon = new ImageIcon("../../../../resources/book_logo.png");
     iconLabel = new JLabel(icon);
     nameStoreLabel = new JLabel("Bookstore Management Application");
-    nameStoreLabel.setForeground(Color.BLUE);
+    // nameStoreLabel.setForeground(Color.BLUE);
 
     getContentPane().setLayout(new FlowLayout());
 
@@ -121,8 +121,9 @@ public class LoginUI extends JFrame {
     groupForgotPassword.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
     forgetButton.setPreferredSize(new Dimension(200, 20));
-    forgetButton.setForeground(Color.RED);
-    forgetButton.setBorder(null);
+    forgetButton.setForeground(new Color(180, 0, 0));
+    forgetButton.setBackground(Color.white);
+    forgetButton.hoverBackground(Color.WHITE,Color.WHITE,new Color(180, 0, 0),new Color(255, 0, 0));
     groupForgotPassword.setBorder(BorderFactory.createEmptyBorder());
 
     groupForgotPassword.add(forgetButton);
@@ -146,7 +147,7 @@ public class LoginUI extends JFrame {
     groupLogo.setBackground(Color.white);
     groupContent.setBackground(Color.white);
     groupAccount.setBackground(Color.white);
-    groupForgotPassword.setBackground(Color.WHITE);
+    groupForgotPassword.setBackground(Color.white);
     groupButton.setBackground(Color.white);
   }
 
@@ -287,7 +288,7 @@ public class LoginUI extends JFrame {
   public static void main(String[] args) {
     try {
       UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel"); 
-      UIManager.put("Button.background", Color.BLUE); 
+      UIManager.put("Button.background", Color.WHITE); 
     } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
         | UnsupportedLookAndFeelException e) {
       e.printStackTrace();

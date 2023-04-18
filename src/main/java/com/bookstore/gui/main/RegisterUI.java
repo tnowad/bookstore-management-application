@@ -6,6 +6,7 @@ import java.awt.event.*;
 import java.util.ArrayList;
 
 import com.bookstore.bus.UserBUS;
+import com.bookstore.gui.component.button.Button;
 import com.bookstore.gui.component.input.GroupInput;
 import com.bookstore.models.UserModel;
 
@@ -23,9 +24,9 @@ public class RegisterUI extends JFrame {
   private GroupInput groupPhone;
 
   private JPanel groupButton;
-  private JButton loginButton;
-  private JButton cancelButton;
-  private JButton registerButton;
+  private Button loginButton;
+  private Button cancelButton;
+  private Button registerButton;
   private JLabel iconLabel;
   private JLabel nameStoreLabel;
 
@@ -54,9 +55,9 @@ public class RegisterUI extends JFrame {
     groupPassword = new GroupInput("Password", "hide");
     groupPasswordAgain = new GroupInput("Password Again", "hide");
     groupButton = new JPanel();
-    loginButton = new JButton();
-    cancelButton = new JButton();
-    registerButton = new JButton();
+    loginButton = new Button("Do you have account? Login");
+    cancelButton = new Button("Cancel");
+    registerButton = new Button("Register");
     icon = new ImageIcon("icon/book.png");
     iconLabel = new JLabel(icon);
     nameStoreLabel = new JLabel("Bookstore Management Application");
@@ -123,15 +124,12 @@ public class RegisterUI extends JFrame {
 
     groupButton.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 50));
 
-    registerButton.setText("Register");
     registerButton.setPreferredSize(new Dimension(100, 50));
     groupButton.add(registerButton);
 
-    cancelButton.setText("Cancel");
     cancelButton.setPreferredSize(new Dimension(100, 50));
     groupButton.add(cancelButton);
 
-    loginButton.setText("Do you have account? Login");
     loginButton.setPreferredSize(new Dimension(300, 50));
     groupButton.add(loginButton);
 
@@ -145,16 +143,7 @@ public class RegisterUI extends JFrame {
     groupLogo.setBackground(Color.white);
     groupContent.setBackground(Color.white);
     groupAccount.setBackground(Color.white);
-    groupFullname.setBackground(Color.white);
-    groupEmail.setBackground(Color.white);
-    groupPhone.setBackground(Color.white);
-    groupUsername.setBackground(Color.white);
-    groupPassword.setBackground(Color.white);
-    groupPasswordAgain.setBackground(Color.white);
     groupButton.setBackground(Color.white);
-    loginButton.setBackground(Color.white);
-    cancelButton.setBackground(Color.white);
-    registerButton.setBackground(Color.white);
   }
 
   private void handleEvent() {
