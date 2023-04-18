@@ -80,7 +80,7 @@ public class Button extends JButton {
 
   private void initComponents(String name) {
     setText(name);
-    setFont(new Font("Helvetica", Font.ITALIC, 14));
+    setFont(new Font("Arial", Font.ITALIC, 14));
     setButtonSize(100, 50);
     setBackground(new Color(0, 119, 190));
     setForeground(Color.WHITE);

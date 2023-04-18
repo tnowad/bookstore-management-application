@@ -18,6 +18,7 @@ import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 import com.bookstore.bus.UserBUS;
 import com.bookstore.gui.Theme.ThemeColor;
+import com.bookstore.gui.Theme.ThemeFont;
 import com.bookstore.gui.component.button.Button;
 import com.bookstore.gui.component.input.GroupInput;
 import com.bookstore.models.UserModel;
@@ -84,7 +85,7 @@ public class ForgotPasswordUI extends JFrame {
     nameStoreLabel = new JLabel();
     nameStoreLabel.setText("Bookstore Management Application");
     nameStoreLabel.setForeground(Color.BLACK);
-    nameStoreLabel.setFont(new Font("sansserif", 0, 24));
+    nameStoreLabel.setFont(new ThemeFont().getMediumFont());
     nameStoreLabel.setHorizontalAlignment(SwingConstants.CENTER);
     nameStoreLabel.setPreferredSize(new Dimension(100, 50));
     groupLogo.add(nameStoreLabel, BorderLayout.CENTER);
@@ -98,7 +99,7 @@ public class ForgotPasswordUI extends JFrame {
 
     titleResetPassword.setHorizontalAlignment(SwingConstants.CENTER);
     titleResetPassword.setText("Reset Password");
-    titleResetPassword.setFont(new Font("sansserif", 0, 50));
+    titleResetPassword.setFont(new ThemeFont().getLargeFont());
     titleResetPassword.setForeground(Color.BLACK);
     titleResetPassword.setPreferredSize(new Dimension(100, 100));
     groupContent.add(titleResetPassword, BorderLayout.PAGE_START);
@@ -192,9 +193,9 @@ public class ForgotPasswordUI extends JFrame {
         int height = getContentPane().getHeight();
         if (width < 1020) {
           groupLogo.setPreferredSize(new Dimension(500, 300));
-          nameStoreLabel.setFont(new Font("sansserif", 0, 32));
+          nameStoreLabel.setFont(new ThemeFont().getMediumFont());
           nameStoreLabel.setText("Forgot Password?");
-          titleResetPassword.setFont(new Font("sansserif", 0, 16));
+          titleResetPassword.setFont(new ThemeFont().getSmallFont());
           titleResetPassword.setText("You can reset your password here");
           nameStoreLabel.setPreferredSize(new Dimension(100, 20));
           iconLabel.setIcon(new ImageIcon(getClass().getResource("../../../../resources/fogotpass_icon.png")));
@@ -206,7 +207,7 @@ public class ForgotPasswordUI extends JFrame {
           registerButton.setPreferredSize(new Dimension(200, 35));
 
           if (height < 600) {
-            nameStoreLabel.setFont(new Font("sansserif", 0, 24));
+            nameStoreLabel.setFont(new ThemeFont().getSmallFont());
             iconLabel.setIcon(new ImageIcon(getClass().getResource("../../../../resources/fogotpass_reponsive.png")));
             groupLogo.setPreferredSize(new Dimension(500, 200));
           }

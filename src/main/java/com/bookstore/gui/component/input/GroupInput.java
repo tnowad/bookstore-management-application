@@ -29,7 +29,7 @@ public class GroupInput extends JPanel {
     this.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 50));
     this.setBackground(Color.WHITE);
     label = new JLabel(name);
-    label.setFont(new Font("Arial", 0, 16));
+    label.setFont(new Font("Arial", Font.ITALIC, 16));
     label.setPreferredSize(new Dimension(150, 50));
     this.add(label);
 

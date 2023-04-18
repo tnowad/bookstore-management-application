@@ -19,6 +19,7 @@ import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
 import com.bookstore.bus.UserBUS;
+import com.bookstore.gui.Theme.ThemeFont;
 import com.bookstore.gui.component.button.Button;
 import com.bookstore.gui.component.input.GroupInput;
 import com.bookstore.models.UserModel;
@@ -90,7 +91,7 @@ public class LoginUI extends JFrame {
     iconLabel.setIcon(new ImageIcon(getClass().getResource("../../../../resources/book_logo.png")));
     groupLogo.setPreferredSize(new Dimension(400, 450));
 
-    nameStoreLabel.setFont(new Font("sansserif", 0, 24));
+    nameStoreLabel.setFont(new ThemeFont().getMediumFont());
     nameStoreLabel.setHorizontalAlignment(SwingConstants.CENTER);
     nameStoreLabel.setPreferredSize(new Dimension(100, 50));
     groupLogo.add(nameStoreLabel, BorderLayout.CENTER);
@@ -104,7 +105,7 @@ public class LoginUI extends JFrame {
 
     titleLogin.setHorizontalAlignment(SwingConstants.CENTER);
     titleLogin.setText("Login");
-    titleLogin.setFont(new Font("sansserif", 0, 50));
+    titleLogin.setFont(new ThemeFont().getLargeFont());
     titleLogin.setForeground(Color.BLUE);
     titleLogin.setPreferredSize(new Dimension(100, 100));
     groupContent.add(titleLogin, BorderLayout.PAGE_START);
@@ -223,25 +224,25 @@ public class LoginUI extends JFrame {
         if (width < 1020) {
           groupLogo.setPreferredSize(new Dimension(500, 200));
 
-          nameStoreLabel.setFont(new Font("Arial", 0, 16));
-          titleLogin.setFont(new Font("Arial", 0, 24));
+          nameStoreLabel.setFont(new ThemeFont().getSmallFont());
+          titleLogin.setFont(new ThemeFont().getLargeFont());
           nameStoreLabel.setPreferredSize(new Dimension(100, 20));
           iconLabel.setIcon(new ImageIcon(getClass().getResource("../../../../resources/book_logo_responsive.png")));
 
           groupUsername.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
 
-          groupUsername.getLabel().setFont(new Font("sansserif", 0, 16));
+          groupUsername.getLabel().setFont(new ThemeFont().getSmallFont());
           groupUsername.getLabel().setPreferredSize(new Dimension(100, 50));
 
-          groupUsername.getTextField().setFont(new Font("sansserif", 0, 16));
+          groupUsername.getTextField().setFont(new ThemeFont().getSmallFont());
           groupUsername.getTextField().setPreferredSize(new Dimension(150, 50));
 
           groupPassword.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
 
-          groupPassword.getLabel().setFont(new Font("sansserif", 0, 16));
+          groupPassword.getLabel().setFont(new ThemeFont().getSmallFont());
           groupPassword.getLabel().setPreferredSize(new Dimension(100, 50));
 
-          groupPassword.getPasswordField().setFont(new Font("sansserif", 0, 16));
+          groupPassword.getPasswordField().setFont(new ThemeFont().getSmallFont());
           groupPassword.getPasswordField().setPreferredSize(new Dimension(150, 50));
 
           cancelButton.setPreferredSize(new Dimension(100, 35));
@@ -251,18 +252,18 @@ public class LoginUI extends JFrame {
         } else {
           groupUsername.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 50));
 
-          groupUsername.getLabel().setFont(new Font("sansserif", 0, 24));
+          groupUsername.getLabel().setFont(new ThemeFont().getMediumFont());
           groupUsername.getLabel().setPreferredSize(new Dimension(120, 50));
 
-          groupUsername.getTextField().setFont(new Font("sansserif", 0, 24));
+          groupUsername.getTextField().setFont(new ThemeFont().getMediumFont());
           groupUsername.getTextField().setPreferredSize(new Dimension(300, 50));
 
           groupPassword.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 50));
 
-          groupPassword.getLabel().setFont(new Font("sansserif", 0, 24));
+          groupPassword.getLabel().setFont(new ThemeFont().getMediumFont());
           groupPassword.getLabel().setPreferredSize(new Dimension(120, 50));
 
-          groupPassword.getPasswordField().setFont(new Font("sansserif", 0, 24));
+          groupPassword.getPasswordField().setFont(new ThemeFont().getMediumFont());
           groupPassword.getPasswordField().setPreferredSize(new Dimension(300, 50));
           loginButton.setButtonSize(100, 50);
           cancelButton.setButtonSize(100, 50);

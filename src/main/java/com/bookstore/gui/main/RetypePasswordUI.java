@@ -22,6 +22,7 @@ import javax.swing.WindowConstants;
 import javax.swing.border.Border;
 
 import com.bookstore.bus.UserBUS;
+import com.bookstore.gui.Theme.ThemeFont;
 import com.bookstore.gui.component.button.Button;
 import com.bookstore.models.UserModel;
 
@@ -99,7 +100,7 @@ public class RetypePasswordUI extends JFrame {
     iconLabel.setIcon(new ImageIcon(getClass().getResource("../../resources/book_logo.png")));
     groupLogo.setPreferredSize(new Dimension(400, 450));
 
-    nameStoreLabel.setFont(new Font("sansserif", 0, 24));
+    nameStoreLabel.setFont(new ThemeFont().getMediumFont());
     nameStoreLabel.setHorizontalAlignment(SwingConstants.CENTER);
     nameStoreLabel.setPreferredSize(new Dimension(100, 50));
     groupLogo.add(nameStoreLabel, BorderLayout.CENTER);
@@ -113,7 +114,7 @@ public class RetypePasswordUI extends JFrame {
 
     titleResetPassword.setHorizontalAlignment(SwingConstants.CENTER);
     titleResetPassword.setText("Reset Password");
-    titleResetPassword.setFont(new Font("sansserif", 0, 50));
+    titleResetPassword.setFont(new ThemeFont().getLargeFont());
     titleResetPassword.setForeground(Color.BLUE);
     titleResetPassword.setPreferredSize(new Dimension(100, 100));
     groupContent.add(titleResetPassword, BorderLayout.PAGE_START);
@@ -124,7 +125,7 @@ public class RetypePasswordUI extends JFrame {
     groupEmail.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 50));
 
     passwordLabel.setText("Password");
-    passwordLabel.setFont(new Font("sansserif", 0, 24));
+    passwordLabel.setFont(new ThemeFont().getMediumFont());
     passwordLabel.setPreferredSize(new Dimension(120, 50));
     groupEmail.add(passwordLabel);
 
@@ -139,7 +140,7 @@ public class RetypePasswordUI extends JFrame {
     groupPhone.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));
 
     confirmPasswordLabel.setText("Confirm Password");
-    confirmPasswordLabel.setFont(new Font("sansserif", 0, 24));
+    confirmPasswordLabel.setFont(new ThemeFont().getMediumFont());
     confirmPasswordLabel.setPreferredSize(new Dimension(120, 50));
     groupPhone.add(confirmPasswordLabel);
 
@@ -231,25 +232,25 @@ public class RetypePasswordUI extends JFrame {
         if (width < 1020) {
           groupLogo.setPreferredSize(new Dimension(500, 200));
 
-          nameStoreLabel.setFont(new Font("sansserif", 0, 16));
-          titleResetPassword.setFont(new Font("sansserif", 0, 24));
+          nameStoreLabel.setFont(new ThemeFont().getSmallFont());
+          titleResetPassword.setFont(new ThemeFont().getMediumFont());
           nameStoreLabel.setPreferredSize(new Dimension(100, 20));
           iconLabel.setIcon(new ImageIcon(getClass().getResource("../../resources/book_logo_responsive.png")));
 
           groupEmail.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
 
-          passwordLabel.setFont(new Font("sansserif", 0, 16));
+          passwordLabel.setFont(new ThemeFont().getSmallFont());
           passwordLabel.setPreferredSize(new Dimension(100, 50));
 
-          passwordField.setFont(new Font("sansserif", 0, 16));
+          passwordField.setFont(new ThemeFont().getSmallFont());
           passwordField.setPreferredSize(new Dimension(150, 50));
 
           groupPhone.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
 
-          confirmPasswordLabel.setFont(new Font("sansserif", 0, 16));
+          confirmPasswordLabel.setFont(new ThemeFont().getSmallFont());
           confirmPasswordLabel.setPreferredSize(new Dimension(100, 50));
 
-          confirmPasswordField.setFont(new Font("sansserif", 0, 16));
+          confirmPasswordField.setFont(new ThemeFont().getSmallFont());
           confirmPasswordField.setPreferredSize(new Dimension(150, 50));
 
           cancelButton.setPreferredSize(new Dimension(100, 35));
