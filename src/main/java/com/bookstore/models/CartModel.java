@@ -1,13 +1,13 @@
 package com.bookstore.models;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 
 public class CartModel {
   private int id;
   private int userId;
-  private Date createdAt;
+  private LocalDateTime createdAt;
   private Status status;
-  private Date expires;
+  private LocalDateTime expires;
   private int promotionId;
 
   public enum Status {
@@ -20,7 +20,7 @@ public class CartModel {
   public CartModel() {
   }
 
-  public CartModel(int id, int userId, Date createdAt, Status status, Date expires, int promotionId) {
+  public CartModel(int id, int userId, LocalDateTime createdAt, Status status, LocalDateTime expires, int promotionId) {
     this.id = id;
     this.userId = userId;
     this.createdAt = createdAt;
@@ -45,11 +45,11 @@ public class CartModel {
     this.userId = userId;
   }
 
-  public Date getCreatedAt() {
+  public LocalDateTime getCreatedAt() {
     return this.createdAt;
   }
 
-  public void setCreatedAt(Date createdAt) {
+  public void setCreatedAt(LocalDateTime createdAt) {
     this.createdAt = createdAt;
   }
 
@@ -61,11 +61,11 @@ public class CartModel {
     this.status = status;
   }
 
-  public Date getExpires() {
+  public LocalDateTime getExpires() {
     return this.expires;
   }
 
-  public void setExpires(Date expires) {
+  public void setExpires(LocalDateTime expires) {
     this.expires = expires;
   }
 
@@ -87,7 +87,7 @@ public class CartModel {
     return this;
   }
 
-  public CartModel createdAt(Date createdAt) {
+  public CartModel createdAt(LocalDateTime createdAt) {
     setCreatedAt(createdAt);
     return this;
   }
@@ -97,7 +97,7 @@ public class CartModel {
     return this;
   }
 
-  public CartModel expires(Date expires) {
+  public CartModel expires(LocalDateTime expires) {
     setExpires(expires);
     return this;
   }

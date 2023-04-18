@@ -32,8 +32,8 @@ public class PaymentDAO implements IDAO<PaymentModel> {
         PaymentMethod.valueOf(rs.getString("payment_method").toUpperCase()),
         rs.getInt("payment_method_id"),
         PaymentStatus.valueOf(rs.getString("status").toUpperCase()),
-        rs.getDate("created_at"),
-        rs.getDate("updated_at"));
+        rs.getTimestamp("created_at").toLocalDateTime(),
+        rs.getTimestamp("updated_at").toLocalDateTime());
   }
 
   @Override

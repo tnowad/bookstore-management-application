@@ -28,8 +28,8 @@ public class OrderDAO implements IDAO<OrderModel> {
         rs.getInt("employee_id"),
         rs.getInt("total"),
         rs.getInt("paid"),
-        rs.getDate("created_at"),
-        rs.getDate("updated_at"),
+        rs.getTimestamp("created_at").toLocalDateTime(),
+        rs.getTimestamp("updated_at").toLocalDateTime(),
         OrderModel.Status.valueOf(rs.getString("status").toUpperCase()));
   }
 

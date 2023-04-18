@@ -1,6 +1,6 @@
 package com.bookstore.models;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 
 public class OrderModel {
   private int id;
@@ -9,8 +9,8 @@ public class OrderModel {
   private int employeeId;
   private int total;
   private int paid;
-  private Date createdAt;
-  private Date updatedAt;
+  private LocalDateTime createdAt;
+  private LocalDateTime updatedAt;
   private Status status;
 
   public enum Status {
@@ -21,8 +21,8 @@ public class OrderModel {
   public OrderModel() {
   }
 
-  public OrderModel(int id, int cartId, int customerId, int employeeId, int total, int paid, Date createdAt,
-      Date updatedAt, Status status) {
+  public OrderModel(int id, int cartId, int customerId, int employeeId, int total, int paid, LocalDateTime createdAt,
+      LocalDateTime updatedAt, Status status) {
     this.id = id;
     this.cartId = cartId;
     this.customerId = customerId;
@@ -82,19 +82,19 @@ public class OrderModel {
     this.paid = paid;
   }
 
-  public Date getCreatedAt() {
+  public LocalDateTime getCreatedAt() {
     return this.createdAt;
   }
 
-  public void setCreatedAt(Date createdAt) {
+  public void setCreatedAt(LocalDateTime createdAt) {
     this.createdAt = createdAt;
   }
 
-  public Date getUpdatedAt() {
+  public LocalDateTime getUpdatedAt() {
     return this.updatedAt;
   }
 
-  public void setUpdatedAt(Date updatedAt) {
+  public void setUpdatedAt(LocalDateTime updatedAt) {
     this.updatedAt = updatedAt;
   }
 
@@ -136,12 +136,12 @@ public class OrderModel {
     return this;
   }
 
-  public OrderModel createdAt(Date createdAt) {
+  public OrderModel createdAt(LocalDateTime createdAt) {
     setCreatedAt(createdAt);
     return this;
   }
 
-  public OrderModel updatedAt(Date updatedAt) {
+  public OrderModel updatedAt(LocalDateTime updatedAt) {
     setUpdatedAt(updatedAt);
     return this;
   }

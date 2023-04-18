@@ -1,9 +1,9 @@
 package com.bookstore.dao;
 
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -31,8 +31,8 @@ public class UserDAO implements IDAO<UserModel> {
     String name = rs.getString("name");
     String email = rs.getString("email");
     String phone = rs.getString("phone");
-    Date createdAt = rs.getDate("created_at");
-    Date updatedAt = rs.getDate("updated_at");
+    LocalDateTime createdAt = rs.getTimestamp("created_at").toLocalDateTime();
+    LocalDateTime updatedAt = rs.getTimestamp("updated_at").toLocalDateTime();
     Role role = Role.valueOf(rs.getString("role").toUpperCase());
     return new UserModel(id, username, password, status, name, email, phone, createdAt, updatedAt, role);
   }

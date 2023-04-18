@@ -1,6 +1,6 @@
 package com.bookstore.models;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 
 public class UserModel {
   private int id;
@@ -10,8 +10,8 @@ public class UserModel {
   private String name;
   private String email;
   private String phone;
-  private Date createdAt;
-  private Date updatedAt;
+  private LocalDateTime createdAt;
+  private LocalDateTime updatedAt;
   private Role role;
 
   public enum Status {
@@ -30,7 +30,7 @@ public class UserModel {
   }
 
   public UserModel(int id, String username, String password, Status status, String name, String email, String phone,
-      Date createdAt, Date updatedAt, Role role) {
+      LocalDateTime createdAt, LocalDateTime updatedAt, Role role) {
     this.id = id;
     this.username = username;
     this.password = password;
@@ -99,19 +99,19 @@ public class UserModel {
     this.phone = phone;
   }
 
-  public Date getCreatedAt() {
+  public LocalDateTime getCreatedAt() {
     return this.createdAt;
   }
 
-  public void setCreatedAt(Date createdAt) {
+  public void setCreatedAt(LocalDateTime createdAt) {
     this.createdAt = createdAt;
   }
 
-  public Date getUpdatedAt() {
+  public LocalDateTime getUpdatedAt() {
     return this.updatedAt;
   }
 
-  public void setUpdatedAt(Date updatedAt) {
+  public void setUpdatedAt(LocalDateTime updatedAt) {
     this.updatedAt = updatedAt;
   }
 
@@ -158,12 +158,12 @@ public class UserModel {
     return this;
   }
 
-  public UserModel createdAt(Date createdAt) {
+  public UserModel createdAt(LocalDateTime createdAt) {
     setCreatedAt(createdAt);
     return this;
   }
 
-  public UserModel updatedAt(Date updatedAt) {
+  public UserModel updatedAt(LocalDateTime updatedAt) {
     setUpdatedAt(updatedAt);
     return this;
   }

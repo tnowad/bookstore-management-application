@@ -1,6 +1,8 @@
 package com.bookstore.bus;
 
-import java.sql.Date;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -117,8 +119,8 @@ public class CartBUS implements IBUS<CartModel> {
       cartModel.setStatus(Status.SHOPPING);
     }
     if (cartModel.getExpires() == null) {
-      cartModel.setExpires(new Date(System.currentTimeMillis()));
-    }
+      cartModel.setExpires(LocalDateTime.ofInstant(Instant.ofEpochMilli(System.currentTimeMillis()), ZoneId.systemDefault()));
+  }
     if (cartModel.getPromotionId() < 0) {
       throw new IllegalArgumentException("Promotion ID cannot be negative!");
     }

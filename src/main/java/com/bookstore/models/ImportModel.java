@@ -1,19 +1,20 @@
 package com.bookstore.models;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 
 public class ImportModel {
   private int id;
   private int providerId;
   private int employeeId;
   private Double totalPrice;
-  private Date createdAt;
-  private Date updatedAt;
+  private LocalDateTime createdAt;
+  private LocalDateTime updatedAt;
 
   public ImportModel() {
   }
 
-  public ImportModel(int id, int providerId, int employeeId, Double totalPrice, Date createdAt, Date updatedAt) {
+  public ImportModel(int id, int providerId, int employeeId, Double totalPrice, LocalDateTime createdAt,
+      LocalDateTime updatedAt) {
     this.id = id;
     this.providerId = providerId;
     this.employeeId = employeeId;
@@ -54,19 +55,19 @@ public class ImportModel {
     this.totalPrice = totalPrice;
   }
 
-  public Date getCreatedAt() {
+  public LocalDateTime getCreatedAt() {
     return this.createdAt;
   }
 
-  public void setCreatedAt(Date createdAt) {
+  public void setCreatedAt(LocalDateTime createdAt) {
     this.createdAt = createdAt;
   }
 
-  public Date getUpdatedAt() {
+  public LocalDateTime getUpdatedAt() {
     return this.updatedAt;
   }
 
-  public void setUpdatedAt(Date updatedAt) {
+  public void setUpdatedAt(LocalDateTime updatedAt) {
     this.updatedAt = updatedAt;
   }
 
@@ -90,12 +91,12 @@ public class ImportModel {
     return this;
   }
 
-  public ImportModel createdAt(Date createdAt) {
+  public ImportModel createdAt(LocalDateTime createdAt) {
     setCreatedAt(createdAt);
     return this;
   }
 
-  public ImportModel updatedAt(Date updatedAt) {
+  public ImportModel updatedAt(LocalDateTime updatedAt) {
     setUpdatedAt(updatedAt);
     return this;
   }

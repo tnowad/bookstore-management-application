@@ -1,13 +1,13 @@
 package com.bookstore.models;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class PromotionModel {
   private int id;
   private String description;
   private int quantity;
-  private Date startDate;
-  private Date endDate;
+  private LocalDate startDate;
+  private LocalDate endDate;
   private String conditionApply;
   private int discountPercent;
   private int discountAmount;
@@ -15,7 +15,7 @@ public class PromotionModel {
   public PromotionModel() {
   }
 
-  public PromotionModel(int id, String description, int quantity, Date startDate, Date endDate,
+  public PromotionModel(int id, String description, int quantity, LocalDate startDate, LocalDate endDate,
       String conditionApply, int discountPercent, int discountAmount) {
     this.id = id;
     this.description = description;
@@ -28,7 +28,7 @@ public class PromotionModel {
   }
 
   public int getId() {
-    return id;
+    return this.id;
   }
 
   public void setId(int id) {
@@ -36,7 +36,7 @@ public class PromotionModel {
   }
 
   public String getDescription() {
-    return description;
+    return this.description;
   }
 
   public void setDescription(String description) {
@@ -44,31 +44,31 @@ public class PromotionModel {
   }
 
   public int getQuantity() {
-    return quantity;
+    return this.quantity;
   }
 
   public void setQuantity(int quantity) {
     this.quantity = quantity;
   }
 
-  public Date getStartDate() {
-    return startDate;
+  public LocalDate getStartDate() {
+    return this.startDate;
   }
 
-  public void setStartDate(Date startDate) {
+  public void setStartDate(LocalDate startDate) {
     this.startDate = startDate;
   }
 
-  public Date getEndDate() {
-    return endDate;
+  public LocalDate getEndDate() {
+    return this.endDate;
   }
 
-  public void setEndDate(Date endDate) {
+  public void setEndDate(LocalDate endDate) {
     this.endDate = endDate;
   }
 
   public String getConditionApply() {
-    return conditionApply;
+    return this.conditionApply;
   }
 
   public void setConditionApply(String conditionApply) {
@@ -76,7 +76,7 @@ public class PromotionModel {
   }
 
   public int getDiscountPercent() {
-    return discountPercent;
+    return this.discountPercent;
   }
 
   public void setDiscountPercent(int discountPercent) {
@@ -84,10 +84,51 @@ public class PromotionModel {
   }
 
   public int getDiscountAmount() {
-    return discountAmount;
+    return this.discountAmount;
   }
 
   public void setDiscountAmount(int discountAmount) {
     this.discountAmount = discountAmount;
   }
+
+  public PromotionModel id(int id) {
+    setId(id);
+    return this;
+  }
+
+  public PromotionModel description(String description) {
+    setDescription(description);
+    return this;
+  }
+
+  public PromotionModel quantity(int quantity) {
+    setQuantity(quantity);
+    return this;
+  }
+
+  public PromotionModel startDate(LocalDate startDate) {
+    setStartDate(startDate);
+    return this;
+  }
+
+  public PromotionModel endDate(LocalDate endDate) {
+    setEndDate(endDate);
+    return this;
+  }
+
+  public PromotionModel conditionApply(String conditionApply) {
+    setConditionApply(conditionApply);
+    return this;
+  }
+
+  public PromotionModel discountPercent(int discountPercent) {
+    setDiscountPercent(discountPercent);
+    return this;
+  }
+
+  public PromotionModel discountAmount(int discountAmount) {
+    setDiscountAmount(discountAmount);
+    return this;
+  }
+
 }

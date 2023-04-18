@@ -3,10 +3,10 @@ package com.bookstore.dao;
 import com.bookstore.interfaces.IDAO;
 import com.bookstore.models.ImportModel;
 
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -26,8 +26,8 @@ public class ImportDAO implements IDAO<ImportModel> {
     int providerId = rs.getInt("provider_id");
     int employeeId = rs.getInt("employee_id");
     Double totalPrice = rs.getDouble("total_price");
-    Date createdAt = rs.getDate("created_at");
-    Date updatedAt = rs.getDate("updated_at");
+    LocalDateTime createdAt = rs.getTimestamp("created_at").toLocalDateTime();
+    LocalDateTime updatedAt = rs.getTimestamp("updated_at").toLocalDateTime();
 
     return new ImportModel(id, providerId, employeeId, totalPrice, createdAt, updatedAt);
   }

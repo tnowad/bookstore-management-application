@@ -24,9 +24,9 @@ public class CartDAO implements IDAO<CartModel> {
     return new CartModel(
         rs.getInt("id"),
         rs.getInt("user_id"),
-        rs.getDate("created_at"),
+        rs.getTimestamp("created_at").toLocalDateTime(),
         CartModel.Status.valueOf(rs.getString("status").toUpperCase()),
-        rs.getDate("expires"),
+        rs.getTimestamp("expires").toLocalDateTime(),
         rs.getInt("promotion_id"));
   }
 

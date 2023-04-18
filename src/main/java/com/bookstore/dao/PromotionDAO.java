@@ -25,8 +25,8 @@ public class PromotionDAO implements IDAO<PromotionModel> {
         rs.getInt("id"),
         rs.getString("description"),
         rs.getInt("quantity"),
-        rs.getDate("start_date"),
-        rs.getDate("end_date"),
+        rs.getDate("start_date").toLocalDate(),
+        rs.getDate("end_date").toLocalDate(),
         rs.getString("condition_apply"),
         rs.getInt("discount_percent"),
         rs.getInt("discount_amount"));
