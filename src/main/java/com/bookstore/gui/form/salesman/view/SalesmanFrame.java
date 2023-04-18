@@ -1,5 +1,6 @@
 package com.bookstore.gui.form.salesman.view;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.*;
 import com.bookstore.gui.form.salesman.view.Account.AccountPanel;
@@ -7,6 +8,7 @@ import com.bookstore.gui.main.LoginUI;
 import java.awt.event.*;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+
 public class SalesmanFrame extends JFrame {
 
   public SalesmanFrame() {
@@ -118,7 +120,18 @@ public class SalesmanFrame extends JFrame {
         contentCustomerList.revalidate();
         contentCustomerList.repaint();
       }
+
     });
+
+    // customerListButton.addMouseListener(new java.awt.event.MouseAdapter() {
+    // public void mouseEntered(java.awt.event.MouseEvent evt) {
+    // customerListButton.setBackground(Color.RED);
+    // }
+
+    // public void mouseExited(java.awt.event.MouseEvent evt) {
+    // customerListButton.setBackground(Color.BLUE);
+    // }
+    // });
 
     pendingOrderButton.addActionListener(new ActionListener() {
 
@@ -188,11 +201,20 @@ public class SalesmanFrame extends JFrame {
   }
 
   public static void main(String args[]) {
+    // try {
+    // UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+    // } catch (ClassNotFoundException | IllegalAccessException |
+    // InstantiationException
+    // | UnsupportedLookAndFeelException ignored) {
+    // }
     try {
-      UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-  } catch (ClassNotFoundException | IllegalAccessException | InstantiationException
-          | UnsupportedLookAndFeelException ignored) {
-  }
+      UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel"); // Đặt Windows Look and Feel
+      UIManager.put("Button.background", Color.BLUE); // Đặt màu nền cho các nút là màu trắng
+    } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+        | UnsupportedLookAndFeelException e) {
+      e.printStackTrace();
+    }
+
     java.awt.EventQueue.invokeLater(new Runnable() {
       public void run() {
         new SalesmanFrame();
