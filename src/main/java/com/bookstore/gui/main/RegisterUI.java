@@ -6,6 +6,8 @@ import java.awt.event.*;
 import java.util.ArrayList;
 
 import com.bookstore.bus.UserBUS;
+import com.bookstore.gui.Theme.ThemeFont;
+import com.bookstore.gui.component.button.Button;
 import com.bookstore.gui.component.input.GroupInput;
 import com.bookstore.models.UserModel;
 
@@ -23,9 +25,9 @@ public class RegisterUI extends JFrame {
   private GroupInput groupPhone;
 
   private JPanel groupButton;
-  private JButton loginButton;
-  private JButton cancelButton;
-  private JButton registerButton;
+  private Button loginButton;
+  private Button cancelButton;
+  private Button registerButton;
   private JLabel iconLabel;
   private JLabel nameStoreLabel;
 
@@ -54,9 +56,9 @@ public class RegisterUI extends JFrame {
     groupPassword = new GroupInput("Password", "hide");
     groupPasswordAgain = new GroupInput("Password Again", "hide");
     groupButton = new JPanel();
-    loginButton = new JButton();
-    cancelButton = new JButton();
-    registerButton = new JButton();
+    loginButton = new Button("Do you have account? Login");
+    cancelButton = new Button("Cancel");
+    registerButton = new Button("Register");
     icon = new ImageIcon("icon/book.png");
     iconLabel = new JLabel(icon);
     nameStoreLabel = new JLabel("Bookstore Management Application");
@@ -75,7 +77,7 @@ public class RegisterUI extends JFrame {
     iconLabel.setIcon(new ImageIcon(getClass().getResource("../../../../resources/book_logo.png")));
     groupLogo.setPreferredSize(new Dimension(400, 450));
 
-    nameStoreLabel.setFont(new Font("Arial", 0, 24));
+    nameStoreLabel.setFont(new ThemeFont().getMediumFont());
     nameStoreLabel.setHorizontalAlignment(SwingConstants.CENTER);
     nameStoreLabel.setPreferredSize(new Dimension(100, 50));
     groupLogo.add(nameStoreLabel, BorderLayout.CENTER);
@@ -87,10 +89,9 @@ public class RegisterUI extends JFrame {
   private void initGroupContent() {
     groupContent.setLayout(new BorderLayout());
 
-    titleRegister.setFont(new Font("Arial", 0, 48));
+    titleRegister.setFont(new ThemeFont().getLargeFont());
     titleRegister.setHorizontalAlignment(SwingConstants.CENTER);
     titleRegister.setText("Register");
-    titleRegister.setFont(new Font("Arial", 0, 50));
     titleRegister.setForeground(Color.BLUE);
     titleRegister.setPreferredSize(new Dimension(100, 100));
     groupContent.add(titleRegister, BorderLayout.PAGE_START);
@@ -123,15 +124,12 @@ public class RegisterUI extends JFrame {
 
     groupButton.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 50));
 
-    registerButton.setText("Register");
     registerButton.setPreferredSize(new Dimension(100, 50));
     groupButton.add(registerButton);
 
-    cancelButton.setText("Cancel");
     cancelButton.setPreferredSize(new Dimension(100, 50));
     groupButton.add(cancelButton);
 
-    loginButton.setText("Do you have account? Login");
     loginButton.setPreferredSize(new Dimension(300, 50));
     groupButton.add(loginButton);
 
@@ -145,16 +143,7 @@ public class RegisterUI extends JFrame {
     groupLogo.setBackground(Color.white);
     groupContent.setBackground(Color.white);
     groupAccount.setBackground(Color.white);
-    groupFullname.setBackground(Color.white);
-    groupEmail.setBackground(Color.white);
-    groupPhone.setBackground(Color.white);
-    groupUsername.setBackground(Color.white);
-    groupPassword.setBackground(Color.white);
-    groupPasswordAgain.setBackground(Color.white);
     groupButton.setBackground(Color.white);
-    loginButton.setBackground(Color.white);
-    cancelButton.setBackground(Color.white);
-    registerButton.setBackground(Color.white);
   }
 
   private void handleEvent() {
@@ -231,57 +220,57 @@ public class RegisterUI extends JFrame {
           setPreferredSize(new Dimension(1150, 800));
           groupLogo.setPreferredSize(new Dimension(500, 200));
 
-          nameStoreLabel.setFont(new Font("Arial", 0, 16));
-          titleRegister.setFont(new Font("Arial", 0, 24));
+          nameStoreLabel.setFont(new ThemeFont().getSmallFont());
+          titleRegister.setFont(new ThemeFont().getMediumFont());
           nameStoreLabel.setPreferredSize(new Dimension(100, 20));
           iconLabel.setIcon(new ImageIcon(getClass().getResource("../../../../resources/book_logo_responsive.png")));
 
           groupUsername.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
 
-          groupUsername.getLabel().setFont(new Font("Arial", 0, 16));
+          groupUsername.getLabel().setFont(new ThemeFont().getSmallFont());
           groupUsername.getLabel().setPreferredSize(new Dimension(200, 50));
 
-          groupUsername.getTextField().setFont(new Font("Arial", 0, 16));
+          groupUsername.getTextField().setFont(new ThemeFont().getSmallFont());
           groupUsername.getTextField().setPreferredSize(new Dimension(150, 50));
 
           groupPassword.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
 
-          groupPassword.getLabel().setFont(new Font("Arial", 0, 16));
+          groupPassword.getLabel().setFont(new ThemeFont().getSmallFont());
           groupPassword.getLabel().setPreferredSize(new Dimension(200, 50));
 
-          groupPassword.getPasswordField().setFont(new Font("Arial", 0, 16));
+          groupPassword.getPasswordField().setFont(new ThemeFont().getSmallFont());
           groupPassword.getPasswordField().setPreferredSize(new Dimension(150, 50));
 
           groupPasswordAgain.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
 
-          groupPasswordAgain.getLabel().setFont(new Font("Arial", 0, 16));
+          groupPasswordAgain.getLabel().setFont(new ThemeFont().getSmallFont());
           groupPasswordAgain.getLabel().setPreferredSize(new Dimension(200, 50));
 
-          groupPasswordAgain.getPasswordField().setFont(new Font("Arial", 0, 16));
+          groupPasswordAgain.getPasswordField().setFont(new ThemeFont().getSmallFont());
           groupPasswordAgain.getPasswordField().setPreferredSize(new Dimension(150, 50));
 
           groupPasswordAgain.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
-          groupPasswordAgain.getLabel().setFont(new Font("Arial", 0, 16));
+          groupPasswordAgain.getLabel().setFont(new ThemeFont().getSmallFont());
           groupPasswordAgain.getLabel().setPreferredSize(new Dimension(200, 50));
-          groupPasswordAgain.getPasswordField().setFont(new Font("Arial", 0, 16));
+          groupPasswordAgain.getPasswordField().setFont(new ThemeFont().getSmallFont());
           groupPasswordAgain.getPasswordField().setPreferredSize(new Dimension(150, 50));
 
           groupFullname.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
-          groupFullname.getLabel().setFont(new Font("Arial", 0, 16));
+          groupFullname.getLabel().setFont(new ThemeFont().getSmallFont());
           groupFullname.getLabel().setPreferredSize(new Dimension(200, 50));
-          groupFullname.getTextField().setFont(new Font("Arial", 0, 16));
+          groupFullname.getTextField().setFont(new ThemeFont().getSmallFont());
           groupFullname.getTextField().setPreferredSize(new Dimension(150, 50));
 
           groupEmail.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
-          groupEmail.getLabel().setFont(new Font("Arial", 0, 16));
+          groupEmail.getLabel().setFont(new ThemeFont().getSmallFont());
           groupEmail.getLabel().setPreferredSize(new Dimension(200, 50));
-          groupEmail.getTextField().setFont(new Font("Arial", 0, 16));
+          groupEmail.getTextField().setFont(new ThemeFont().getSmallFont());
           groupEmail.getTextField().setPreferredSize(new Dimension(150, 50));
 
           groupPhone.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
-          groupPhone.getLabel().setFont(new Font("Arial", 0, 16));
+          groupPhone.getLabel().setFont(new ThemeFont().getSmallFont());
           groupPhone.getLabel().setPreferredSize(new Dimension(200, 50));
-          groupPhone.getTextField().setFont(new Font("Arial", 0, 16));
+          groupPhone.getTextField().setFont(new ThemeFont().getSmallFont());
           groupPhone.getTextField().setPreferredSize(new Dimension(150, 50));
 
           cancelButton.setPreferredSize(new Dimension(100, 35));
@@ -292,43 +281,43 @@ public class RegisterUI extends JFrame {
           setPreferredSize(new Dimension(1150, 625));
 
           groupUsername.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 5));
-          groupUsername.getLabel().setFont(new Font("Arial", 0, 24));
+          groupUsername.getLabel().setFont(new ThemeFont().getMediumFont());
           groupUsername.getLabel().setPreferredSize(new Dimension(200, 50));
-          groupUsername.getTextField().setFont(new Font("Arial", 0, 24));
+          groupUsername.getTextField().setFont(new ThemeFont().getMediumFont());
           groupUsername.getTextField().setPreferredSize(new Dimension(300, 50));
 
           groupPassword.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 5));
 
-          groupPassword.getLabel().setFont(new Font("Arial", 0, 24));
+          groupPassword.getLabel().setFont(new ThemeFont().getMediumFont());
           groupPassword.getLabel().setPreferredSize(new Dimension(200, 50));
 
-          groupPassword.getPasswordField().setFont(new Font("Arial", 0, 24));
+          groupPassword.getPasswordField().setFont(new ThemeFont().getMediumFont());
           groupPassword.getPasswordField().setPreferredSize(new Dimension(300, 50));
 
           groupPasswordAgain.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 5));
 
-          groupPasswordAgain.getLabel().setFont(new Font("Arial", 0, 24));
+          groupPasswordAgain.getLabel().setFont(new ThemeFont().getMediumFont());
           groupPasswordAgain.getLabel().setPreferredSize(new Dimension(200, 50));
 
-          groupPasswordAgain.getPasswordField().setFont(new Font("Arial", 0, 24));
+          groupPasswordAgain.getPasswordField().setFont(new ThemeFont().getMediumFont());
           groupPasswordAgain.getPasswordField().setPreferredSize(new Dimension(300, 50));
 
           groupFullname.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 5));
-          groupFullname.getLabel().setFont(new Font("Arial", 0, 24));
+          groupFullname.getLabel().setFont(new ThemeFont().getMediumFont());
           groupFullname.getLabel().setPreferredSize(new Dimension(200, 50));
-          groupFullname.getTextField().setFont(new Font("Arial", 0, 24));
+          groupFullname.getTextField().setFont(new ThemeFont().getMediumFont());
           groupFullname.getTextField().setPreferredSize(new Dimension(300, 50));
 
           groupEmail.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 5));
-          groupEmail.getLabel().setFont(new Font("Arial", 0, 24));
+          groupEmail.getLabel().setFont(new ThemeFont().getMediumFont());
           groupEmail.getLabel().setPreferredSize(new Dimension(200, 50));
-          groupEmail.getTextField().setFont(new Font("Arial", 0, 24));
+          groupEmail.getTextField().setFont(new ThemeFont().getMediumFont());
           groupEmail.getTextField().setPreferredSize(new Dimension(300, 50));
 
           groupPhone.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 5));
-          groupPhone.getLabel().setFont(new Font("Arial", 0, 24));
+          groupPhone.getLabel().setFont(new ThemeFont().getMediumFont());
           groupPhone.getLabel().setPreferredSize(new Dimension(200, 50));
-          groupPhone.getTextField().setFont(new Font("Arial", 0, 24));
+          groupPhone.getTextField().setFont(new ThemeFont().getMediumFont());
           groupPhone.getTextField().setPreferredSize(new Dimension(300, 50));
 
           initGroupContent();

@@ -8,21 +8,19 @@ import java.awt.Font;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.util.Optional;
-
-import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
-import javax.swing.border.Border;
-
 import com.bookstore.bus.UserBUS;
+import com.bookstore.gui.Theme.ThemeColor;
+import com.bookstore.gui.Theme.ThemeFont;
+import com.bookstore.gui.component.button.Button;
+import com.bookstore.gui.component.input.GroupInput;
 import com.bookstore.models.UserModel;
 
 public class ForgotPasswordUI extends JFrame {
@@ -30,20 +28,16 @@ public class ForgotPasswordUI extends JFrame {
   private JPanel groupAccount;
   private JPanel groupContent;
   private JPanel groupLogo;
-  private JPanel groupPhone;
-  private JPanel groupEmail;
+  private GroupInput groupPhone;
+  private GroupInput groupEmail;
 
   private JLabel titleResetPassword;
-  private JLabel emailLabel;
-  private JTextField emailTextField;
-  private JTextField phoneTextField;
-  private JLabel phoneLabel;
   private JPanel groupForgetPassword;
 
   private JPanel groupButton;
-  private JButton resetButton;
-  private JButton cancelButton;
-  private JButton registerButton;
+  private Button resetButton;
+  private Button cancelButton;
+  private Button registerButton;
   private JLabel iconLabel;
   private JLabel nameStoreLabel;
 
@@ -66,17 +60,13 @@ public class ForgotPasswordUI extends JFrame {
     groupContent = new JPanel();
     titleResetPassword = new JLabel();
     groupAccount = new JPanel();
-    groupEmail = new JPanel();
-    emailLabel = new JLabel();
-    emailTextField = new JTextField();
-    groupPhone = new JPanel();
-    phoneLabel = new JLabel();
-    phoneTextField = new JTextField();
+    groupEmail = new GroupInput("Email", "show");
+    groupPhone = new GroupInput("Phone number", "show");
     groupForgetPassword = new JPanel();
     groupButton = new JPanel();
-    resetButton = new JButton();
-    cancelButton = new JButton();
-    registerButton = new JButton();
+    resetButton = new Button("Reset");
+    cancelButton = new Button("Cancel");
+    registerButton = new Button("Don't have account? Register");
     icon = new ImageIcon("icon/book.png");
     iconLabel = new JLabel(icon);
 
@@ -95,7 +85,7 @@ public class ForgotPasswordUI extends JFrame {
     nameStoreLabel = new JLabel();
     nameStoreLabel.setText("Bookstore Management Application");
     nameStoreLabel.setForeground(Color.BLACK);
-    nameStoreLabel.setFont(new Font("sansserif", 0, 24));
+    nameStoreLabel.setFont(new ThemeFont().getMediumFont());
     nameStoreLabel.setHorizontalAlignment(SwingConstants.CENTER);
     nameStoreLabel.setPreferredSize(new Dimension(100, 50));
     groupLogo.add(nameStoreLabel, BorderLayout.CENTER);
@@ -109,7 +99,7 @@ public class ForgotPasswordUI extends JFrame {
 
     titleResetPassword.setHorizontalAlignment(SwingConstants.CENTER);
     titleResetPassword.setText("Reset Password");
-    titleResetPassword.setFont(new Font("sansserif", 0, 50));
+    titleResetPassword.setFont(new ThemeFont().getLargeFont());
     titleResetPassword.setForeground(Color.BLACK);
     titleResetPassword.setPreferredSize(new Dimension(100, 100));
     groupContent.add(titleResetPassword, BorderLayout.PAGE_START);
@@ -118,32 +108,10 @@ public class ForgotPasswordUI extends JFrame {
 
     // group Email
     groupEmail.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 50));
-
-    emailLabel.setText("Email");
-    emailLabel.setFont(new Font("sansserif", 0, 24));
-    emailLabel.setPreferredSize(new Dimension(120, 50));
-    groupEmail.add(emailLabel);
-
-    emailTextField.setPreferredSize(new Dimension(300, 50));
-    Border borderemailTextField = BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLUE);
-    emailTextField.setBorder(borderemailTextField);
-    groupEmail.add(emailTextField);
-
     groupAccount.add(groupEmail);
 
     // group Phone
     groupPhone.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));
-
-    phoneLabel.setText("Phone");
-    phoneLabel.setFont(new Font("sansserif", 0, 24));
-    phoneLabel.setPreferredSize(new Dimension(120, 50));
-    groupPhone.add(phoneLabel);
-
-    phoneTextField.setPreferredSize(new Dimension(300, 50));
-    Border borderPasswordField = BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLUE);
-    phoneTextField.setBorder(borderPasswordField);
-    groupPhone.add(phoneTextField);
-
     groupAccount.add(groupPhone);
 
     groupAccount.add(groupForgetPassword, BorderLayout.EAST);
@@ -152,16 +120,12 @@ public class ForgotPasswordUI extends JFrame {
 
     groupButton.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 50));
 
-    resetButton.setText("Reset");
     resetButton.setPreferredSize(new Dimension(100, 50));
     groupButton.add(resetButton);
 
-    cancelButton.setText("Cancel");
     cancelButton.setPreferredSize(new Dimension(100, 50));
     groupButton.add(cancelButton);
 
-    registerButton.setText("Don't have account? Register");
-    registerButton.setPreferredSize(new Dimension(300, 50));
     groupButton.add(registerButton);
 
     groupContent.add(groupButton, BorderLayout.PAGE_END);
@@ -170,24 +134,21 @@ public class ForgotPasswordUI extends JFrame {
   }
 
   private void setBackground() {
-    getContentPane().setBackground(Color.white);
-    groupLogo.setBackground(Color.white);
-    groupContent.setBackground(Color.white);
-    groupAccount.setBackground(Color.white);
+    getContentPane().setBackground(new ThemeColor().getBackground());
+    groupLogo.setBackground(new ThemeColor().getBackground());
+    groupContent.setBackground(new ThemeColor().getBackground());
+    groupAccount.setBackground(new ThemeColor().getBackground());
     groupEmail.setBackground(Color.white);
     groupPhone.setBackground(Color.white);
     groupForgetPassword.setBackground(Color.white);
     groupButton.setBackground(Color.white);
-    resetButton.setBackground(Color.white);
-    cancelButton.setBackground(Color.white);
-    registerButton.setBackground(Color.white);
   }
 
   private void handleEvent() {
 
     resetButton.addActionListener(e -> {
-      String email = emailTextField.getText().trim();
-      String phone = phoneTextField.getText().trim();
+      String email = groupEmail.getTextField().getText().trim();
+      String phone = groupPhone.getTextField().getText().trim();
 
       if (email.isEmpty() && phone.isEmpty()) {
         showError("Email or phone cannot be empty, please check the input and try again.");
@@ -232,35 +193,21 @@ public class ForgotPasswordUI extends JFrame {
         int height = getContentPane().getHeight();
         if (width < 1020) {
           groupLogo.setPreferredSize(new Dimension(500, 300));
-          nameStoreLabel.setFont(new Font("sansserif", 0, 32));
+          nameStoreLabel.setFont(new ThemeFont().getMediumFont());
           nameStoreLabel.setText("Forgot Password?");
-          titleResetPassword.setFont(new Font("sansserif", 0, 16));
+          titleResetPassword.setFont(new ThemeFont().getSmallFont());
           titleResetPassword.setText("You can reset your password here");
           nameStoreLabel.setPreferredSize(new Dimension(100, 20));
           iconLabel.setIcon(new ImageIcon(getClass().getResource("../../../../resources/fogotpass_icon.png")));
 
           groupEmail.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
 
-          emailLabel.setFont(new Font("sansserif", 0, 16));
-          emailLabel.setPreferredSize(new Dimension(100, 50));
-
-          emailTextField.setFont(new Font("sansserif", 0, 16));
-          emailTextField.setPreferredSize(new Dimension(150, 50));
-
-          groupPhone.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
-
-          phoneLabel.setFont(new Font("sansserif", 0, 16));
-          phoneLabel.setPreferredSize(new Dimension(100, 50));
-
-          phoneTextField.setFont(new Font("sansserif", 0, 16));
-          phoneTextField.setPreferredSize(new Dimension(150, 50));
-
+          resetButton.setPreferredSize(new Dimension (100, 35));
           cancelButton.setPreferredSize(new Dimension(100, 35));
-          registerButton.setPreferredSize(new Dimension(100, 35));
-          resetButton.setPreferredSize(new Dimension(300, 35));
+          registerButton.setPreferredSize(new Dimension(200, 35));
 
           if (height < 600) {
-            nameStoreLabel.setFont(new Font("sansserif", 0, 24));
+            nameStoreLabel.setFont(new ThemeFont().getSmallFont());
             iconLabel.setIcon(new ImageIcon(getClass().getResource("../../../../resources/fogotpass_reponsive.png")));
             groupLogo.setPreferredSize(new Dimension(500, 200));
           }

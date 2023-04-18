@@ -3,6 +3,8 @@ package com.bookstore.gui.form.salesman.view;
 import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.*;
+
+import com.bookstore.gui.component.button.Button;
 import com.bookstore.gui.form.salesman.view.Account.AccountPanel;
 import com.bookstore.gui.main.LoginUI;
 import java.awt.event.*;
@@ -14,7 +16,19 @@ public class SalesmanFrame extends JFrame {
   public SalesmanFrame() {
     initFrame();
     initComponents();
+    hoverBackground();
     handleEvent();
+  }
+
+  private void hoverBackground() {
+  //   logoutButton.hoverBackground(getBackground(), getBackground(), getForeground(), getForeground());
+  //   customerListButton.hoverBackground(getBackground(), getBackground(), getForeground(), getForeground());
+  //   pendingOrderButton.hoverBackground(getBackground(), getBackground(), getForeground(), getForeground());
+  //   importButton.hoverBackground(getBackground(), getBackground(), getForeground(), getForeground());
+  //   aboutUsButton.hoverBackground(getBackground(), getBackground(), getForeground(), getForeground());
+  //   contactButton.hoverBackground(getBackground(), getBackground(), getForeground(), getForeground());
+  //   accountButton.hoverBackground(getBackground(), getBackground(), getForeground(), getForeground());
+  //   bookListButton.hoverBackground(getBackground(), getBackground(), getForeground(), getForeground());
   }
 
   private void initFrame() {
@@ -27,16 +41,16 @@ public class SalesmanFrame extends JFrame {
   private void initComponents() {
 
     container = new JPanel();
-    logoutButton = new JButton();
-    customerListButton = new JButton();
-    pendingOrderButton = new JButton();
-    importButton = new JButton();
-    aboutUsButton = new JButton();
-    contactButton = new JButton();
-    accountButton = new JButton();
-    bookListButton = new JButton();
+    logoutButton = new Button("Logout");
+    customerListButton = new Button("Customer List");
+    pendingOrderButton = new Button("Pending Order List");
+    importButton = new Button("Import");
+    aboutUsButton = new Button("About Us");
+    contactButton = new Button("Contact Us");
+    accountButton = new Button("Account");
+    bookListButton = new Button("Book List");
     jTextField1 = new JTextField();
-    // searchButton = new JButton();
+    // searchButton = new Button();
     jScrollPane1 = new JScrollPane();
     contentCustomerList = new JPanel();
 
@@ -48,11 +62,8 @@ public class SalesmanFrame extends JFrame {
 
     container.setLayout(null);
 
-    logoutButton.setText("Logout");
     container.add(logoutButton);
     logoutButton.setBounds(0, 540, 160, 50);
-
-    customerListButton.setText("Customer list");
     customerListButton.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent evt) {
         customerListButtonActionPerformed(evt);
@@ -63,27 +74,21 @@ public class SalesmanFrame extends JFrame {
     customerListButton.getAccessibleContext().setAccessibleName("Customer list");
     customerListButton.getAccessibleContext().setAccessibleDescription("");
 
-    pendingOrderButton.setText("Pending order");
     container.add(pendingOrderButton);
     pendingOrderButton.setBounds(0, 80, 160, 50);
 
-    importButton.setText("Import");
     container.add(importButton);
     importButton.setBounds(0, 180, 160, 50);
 
-    aboutUsButton.setText("About us");
     container.add(aboutUsButton);
     aboutUsButton.setBounds(0, 440, 160, 50);
 
-    contactButton.setText("Contact");
     container.add(contactButton);
     contactButton.setBounds(0, 490, 160, 50);
 
-    accountButton.setText("Account");
     container.add(accountButton);
     accountButton.setBounds(0, 390, 160, 50);
 
-    bookListButton.setText("Book list");
     container.add(bookListButton);
     bookListButton.setBounds(0, 130, 160, 50);
 
@@ -201,18 +206,10 @@ public class SalesmanFrame extends JFrame {
   }
 
   public static void main(String args[]) {
-    // try {
-    // UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-    // } catch (ClassNotFoundException | IllegalAccessException |
-    // InstantiationException
-    // | UnsupportedLookAndFeelException ignored) {
-    // }
     try {
-      UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel"); // Đặt Windows Look and Feel
-      UIManager.put("Button.background", Color.BLUE); // Đặt màu nền cho các nút là màu trắng
-    } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
-        | UnsupportedLookAndFeelException e) {
-      e.printStackTrace();
+      UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+    } catch (ClassNotFoundException | IllegalAccessException | InstantiationException
+        | UnsupportedLookAndFeelException ignored) {
     }
 
     java.awt.EventQueue.invokeLater(new Runnable() {
@@ -222,15 +219,15 @@ public class SalesmanFrame extends JFrame {
     });
   }
 
-  private JButton logoutButton;
-  private JButton customerListButton;
-  private JButton pendingOrderButton;
-  private JButton importButton;
-  private JButton aboutUsButton;
-  private JButton contactButton;
-  private JButton accountButton;
-  private JButton bookListButton;
-  // private JButton searchButton;
+  private Button logoutButton;
+  private Button customerListButton;
+  private Button pendingOrderButton;
+  private Button importButton;
+  private Button aboutUsButton;
+  private Button contactButton;
+  private Button accountButton;
+  private Button bookListButton;
+
   private JPanel container;
   private JPanel contentCustomerList;
   private JScrollPane jScrollPane1;
