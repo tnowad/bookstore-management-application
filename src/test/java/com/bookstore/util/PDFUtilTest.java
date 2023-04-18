@@ -84,52 +84,12 @@ public class PDFUtilTest {
   }
 
   @Test
-  public void testExportImportsToPDF_FailedToWriteImportData() {
+  public void testExportImportsToPDF() {
     // Arrange
-    int id = 1;
-    PDFWriter pdfWriter = PDFWriter.getInstance();
-
-    // Act & Assert
-    // assertThrows(RuntimeException.class, () -> pdfWriter.exportImportsToPDF(id));
-  }
-
-  @Test
-  public void testExportImportsToPDF_FailedToWriteImportItems() {
-    // Arrange
-    int id = 2;
-    PDFWriter pdfWriter = PDFWriter.getInstance();
-
-    // Act & Assert
-    // assertThrows(RuntimeException.class, () -> pdfWriter.exportImportsToPDF(id));
-  }
-
-  @Test
-  public void testExportImportsToPDF_WithImportData() {
-    // Arrange
-    int id = 175;
-    PDFWriter pdfWriter = PDFWriter.getInstance();
-    // Act
-    pdfWriter.exportImportsToPDF(id, "C:\\Users\\Danh\\Desktop\\test.pdf");
-
-    // Assert
-    // Check that the PDF document was created with the correct title and import
-    // data
-    // ...
-  }
-
-  @Test
-  public void testExportImportsToPDF_WithImportItems() {
-    // Arrange
-    int id = 4;
     PDFWriter pdfWriter = PDFWriter.getInstance();
 
     // Act
-    pdfWriter.exportImportsToPDF(id, "C:\\Users\\Danh\\Desktop\\test.pdf");
-
-    // Assert
-    // Check that the PDF document was created with the correct title and import
-    // items
-    // ...
+    pdfWriter.exportImportsToPDF(4, "C:\\Users\\Danh\\Desktop\\test.pdf");
   }
 
   @Test
