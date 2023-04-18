@@ -1,11 +1,12 @@
 package com.bookstore.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MenuModel {
-    private List<MenuItemModel> menuItems;
+    private ArrayList<MenuItemModel> menuItems;
 
-    public MenuModel(List<MenuItemModel> menuItems) {
+    public MenuModel(ArrayList<MenuItemModel> menuItems) {
         this.menuItems = menuItems;
     }
 
@@ -13,7 +14,7 @@ public class MenuModel {
         return menuItems;
     }
 
-    public void setMenuItems(List<MenuItemModel> menuItems) {
+    public void setMenuItems(ArrayList<MenuItemModel> menuItems) {
         this.menuItems = menuItems;
     }
 }
