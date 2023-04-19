@@ -52,6 +52,7 @@ VALUES
 (49, 'customer39', MD5('customer123'), 'active', 'Customer 39', 'customer39@example.com', '+84987654369', NOW(), NOW(), 'customer'),
 (50, 'customer40', MD5('customer123'), 'active', 'Customer 40', 'customer40@example.com', '+84987654370', NOW(), NOW(), 'customer');
 
+INSERT INTO `current_user` (`id`) VALUES (1);
 
 INSERT INTO `authors` (`id`, `name`, `description`) VALUES
 (1, 'J.K. Rowling', 'British author, best known for writing the Harry Potter series'),

@@ -38,11 +38,9 @@ public class PendingOrderDetail extends JFrame {
     jPanel1.setLayout(null);
 
     jPanel1.add(jLabel1);
-    // jLabel1.setBounds(180, 10, 130, 40);
 
     jLabel2.setText("Full name:");
     jPanel1.add(jLabel2);
-    // jLabel2.setBounds(20, 70, 60, 30);
 
     jTextField1.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -54,7 +52,6 @@ public class PendingOrderDetail extends JFrame {
 
     jLabel3.setText("Address:");
     jPanel1.add(jLabel3);
-    // jLabel3.setBounds(20, 110, 60, 30);
 
     jTextField2.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -65,7 +62,6 @@ public class PendingOrderDetail extends JFrame {
     jTextField2.setBounds(130, 110, 220, 28);
 
     jLabel4.setText("Phone number:");
-    // jLabel4.setBounds(20, 150, 90, 30);
     jPanel1.add(jLabel4);
     jPanel1.add(jTextField3);
     jTextField3.setBounds(130, 150, 220, 28);
@@ -74,31 +70,14 @@ public class PendingOrderDetail extends JFrame {
 
     jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.LINE_AXIS));
 
-    // orderTableList.setModel(new javax.swing.table.DefaultTableModel(
-    // new Object[][] {
-    // { null, null, null, null },
-    // { null, null, null, null },
-    // { null, null, null, null },
-    // { null, null, null, null },
-    // { null, null, null, null },
-    // { null, null, null, null },
-    // { null, null, null, null },
-    // { null, null, null, null },
-    // { null, null, null, null },
-    // { null, null, null, null }
-    // },
-    // new String[] {
-    // "ISBN", "Title ", "Quantity", "Price"
-    // }));
-    // jScrollPane1.setViewportView(orderTableList);
+    jScrollPane1.setViewportView(orderTableList);
 
-    // jPanel2.add(jScrollPane1);
+    jPanel2.add(jScrollPane1);
 
     getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);
 
     jPanel3.setLayout(new javax.swing.BoxLayout(jPanel3, javax.swing.BoxLayout.LINE_AXIS));
 
-    // jLabel5.setText("Total price");
     jPanel3.add(jLabel5);
     jPanel3.add(jTextField4);
 
@@ -111,14 +90,12 @@ public class PendingOrderDetail extends JFrame {
     getContentPane().add(jPanel3, java.awt.BorderLayout.PAGE_END);
 
     pack();
-  }// </editor-fold>
+  }
 
   private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {
-    // TODO add your handling code here:
   }
 
   private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {
-    // TODO add your handling code here:
   }
 
   public static void main(String args[]) {

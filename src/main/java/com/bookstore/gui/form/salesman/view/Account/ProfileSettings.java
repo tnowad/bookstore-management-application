@@ -1,6 +1,7 @@
 package com.bookstore.gui.form.salesman.view.Account;
 
 import javax.swing.*;
+import java.awt.event.*;
 
 import com.bookstore.gui.Theme.ThemeFont;
 import com.bookstore.gui.component.button.Button;
@@ -10,20 +11,26 @@ public class ProfileSettings extends JPanel {
 
         public ProfileSettings() {
                 initComponents();
+                updateInformation();
+        }
+
+        private void updateInformation() {
+          
         }
 
         private void initComponents() {
 
                 editLabel = new Label("Edit Your Personal Settings");
+                editLabel.setFont(new ThemeFont().getMediumFont());
                 getInformationPanel = new JPanel();
                 nameLabel = new Label("Name");
-                getEmailInEditTxtFld = new JTextField();
-                emailLabel = new Label("Email");
                 getNameInEditTxtFld = new JTextField();
+                emailLabel = new Label("Email");
+                getEmailInEditTxtFld = new JTextField();
                 phoneNumberLabel = new Label("Phone number");
                 getPhoneTxtFld = new JTextField();
-                getUserNameTxtFld = new JTextField();
                 usernameLabel = new Label("Username");
+                getUserNameTxtFld = new JTextField();
                 updateUserInformationBtn = new Button("Update");
                 resetUserInformation = new Button("Reset");
                 streetLabel = new Label("Street");
@@ -34,19 +41,20 @@ public class ProfileSettings extends JPanel {
                 getZipTxtFld = new JTextField();
                 editLabel1 = new Label("Confirm Password");
                 editnameLabel = new Label("Update Address Informations");
+                editnameLabel.setFont(new ThemeFont().getMediumFont());
                 getStateTxtFld = new JTextField();
                 zipLabel = new Label("Zip");
                 confirmPasswordFld = new JPasswordField();
 
                 setPreferredSize(new java.awt.Dimension(821, 548));
-                getPhoneTxtFld.addActionListener(new java.awt.event.ActionListener() {
-                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                getPhoneTxtFld.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent evt) {
                                 getPhoneTxtFldActionPerformed(evt);
                         }
                 });
 
-                getUserNameTxtFld.addActionListener(new java.awt.event.ActionListener() {
-                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                getUserNameTxtFld.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent evt) {
                                 getUserNameTxtFldActionPerformed(evt);
                         }
                 });
@@ -138,27 +146,27 @@ public class ProfileSettings extends JPanel {
                                                                                 .addComponent(phoneNumberLabel))
                                                                 .addGap(17, 17, 17)));
 
-                updateUserInformationBtn.addActionListener(new java.awt.event.ActionListener() {
-                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateUserInformationBtn.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent evt) {
                                 updateUserInformationBtnActionPerformed(evt);
                         }
                 });
 
-                resetUserInformation.addActionListener(new java.awt.event.ActionListener() {
-                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resetUserInformation.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent evt) {
                                 resetUserInformationActionPerformed(evt);
                         }
                 });
 
-                getZipTxtFld.addActionListener(new java.awt.event.ActionListener() {
-                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                getZipTxtFld.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent evt) {
                                 getZipTxtFldActionPerformed(evt);
                         }
                 });
 
           
-                getStateTxtFld.addActionListener(new java.awt.event.ActionListener() {
-                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                getStateTxtFld.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent evt) {
                                 getStateTxtFldActionPerformed(evt);
                         }
                 });
@@ -307,27 +315,27 @@ public class ProfileSettings extends JPanel {
                                                                 .addContainerGap(26, Short.MAX_VALUE)));
         }// </editor-fold>
 
-        private void getPhoneTxtFldActionPerformed(java.awt.event.ActionEvent evt) {
+        private void getPhoneTxtFldActionPerformed(ActionEvent evt) {
                 // TODO add your handling code here:
         }
 
-        private void updateUserInformationBtnActionPerformed(java.awt.event.ActionEvent evt) {
+        private void updateUserInformationBtnActionPerformed(ActionEvent evt) {
                 // TODO add your handling code here:
         }
 
-        private void getZipTxtFldActionPerformed(java.awt.event.ActionEvent evt) {
+        private void getZipTxtFldActionPerformed(ActionEvent evt) {
                 // TODO add your handling code here:
         }
 
-        private void getUserNameTxtFldActionPerformed(java.awt.event.ActionEvent evt) {
+        private void getUserNameTxtFldActionPerformed(ActionEvent evt) {
                 // TODO add your handling code here:
         }
 
-        private void resetUserInformationActionPerformed(java.awt.event.ActionEvent evt) {
+        private void resetUserInformationActionPerformed(ActionEvent evt) {
                 // TODO add your handling code here:
         }
 
-        private void getStateTxtFldActionPerformed(java.awt.event.ActionEvent evt) {
+        private void getStateTxtFldActionPerformed(ActionEvent evt) {
                 // TODO add your handling code here:
         }
 
