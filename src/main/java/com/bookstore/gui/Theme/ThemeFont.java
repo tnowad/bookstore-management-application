@@ -3,7 +3,7 @@ package com.bookstore.gui.Theme;
 import java.awt.Font;
 
 public class ThemeFont {
-    private String fontStyle = "Arial";
+    private String fontStyle = "Segoe UI";
     private int fontFamily = Font.ITALIC;
     private int largeFontSize = 48;
     private int mediumFontSize = 24;

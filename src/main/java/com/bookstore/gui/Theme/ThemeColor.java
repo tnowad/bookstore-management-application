@@ -4,11 +4,11 @@ import java.awt.Color;
 
 public class ThemeColor {
 
-    private Color background = new Color(255, 255, 255);
-    private Color buttonBackground = new Color(255, 255, 255);
+    private Color background = new Color(250, 250, 250);
+    private Color buttonBackground = new Color(250, 250, 250);
     private Color buttonForeground = Color.BLUE;
     private Color buttonHoverBackground = new Color(0, 119, 250);
-    private Color buttonHoverForeground = new Color(255, 255, 255) ;
+    private Color buttonHoverForeground = new Color(250, 250, 250);
     private Color buttonPressedBackground;
     private Color buttonPressedForeground;
     private Color buttonDisabledBackground;
@@ -17,7 +17,7 @@ public class ThemeColor {
     private Color buttonFocusForeground;
     private Color buttonSelectedBackground;
     private Color buttonSelectedForeground;
-    private Color text;
+    private Color text = new Color(0, 119, 250);
     private Color textDisabled;
     private Color textFocus;
     private Color textSelected;

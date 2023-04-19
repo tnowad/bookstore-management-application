@@ -145,6 +145,9 @@ public class CartItemsBUS implements IBUS<CartItemsModel> {
       }
     }
 
+    if (results.isEmpty()) {
+    }
+
     return results;
   }
 }

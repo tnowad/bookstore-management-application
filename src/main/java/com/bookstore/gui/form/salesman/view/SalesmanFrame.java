@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.*;
 
+import com.bookstore.gui.Theme.ThemeColor;
 import com.bookstore.gui.component.button.Button;
 import com.bookstore.gui.form.salesman.view.Account.AccountPanel;
 import com.bookstore.gui.main.LoginUI;
@@ -16,19 +17,14 @@ public class SalesmanFrame extends JFrame {
   public SalesmanFrame() {
     initFrame();
     initComponents();
-    hoverBackground();
+    // setBackground();
     handleEvent();
   }
 
-  private void hoverBackground() {
-  //   logoutButton.hoverBackground(getBackground(), getBackground(), getForeground(), getForeground());
-  //   customerListButton.hoverBackground(getBackground(), getBackground(), getForeground(), getForeground());
-  //   pendingOrderButton.hoverBackground(getBackground(), getBackground(), getForeground(), getForeground());
-  //   importButton.hoverBackground(getBackground(), getBackground(), getForeground(), getForeground());
-  //   aboutUsButton.hoverBackground(getBackground(), getBackground(), getForeground(), getForeground());
-  //   contactButton.hoverBackground(getBackground(), getBackground(), getForeground(), getForeground());
-  //   accountButton.hoverBackground(getBackground(), getBackground(), getForeground(), getForeground());
-  //   bookListButton.hoverBackground(getBackground(), getBackground(), getForeground(), getForeground());
+  private void setBackground() {
+    container.setBackground(new ThemeColor().getBackground());
+    contentCustomerList.setBackground(new ThemeColor().getBackground());
+    jScrollPane1.setBackground(new ThemeColor().getBackground());
   }
 
   private void initFrame() {
@@ -49,8 +45,6 @@ public class SalesmanFrame extends JFrame {
     contactButton = new Button("Contact Us");
     accountButton = new Button("Account");
     bookListButton = new Button("Book List");
-    jTextField1 = new JTextField();
-    // searchButton = new Button();
     jScrollPane1 = new JScrollPane();
     contentCustomerList = new JPanel();
 
@@ -208,6 +202,7 @@ public class SalesmanFrame extends JFrame {
   public static void main(String args[]) {
     try {
       UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+      UIManager.put("Panel.background", new Color(250, 250, 250));
     } catch (ClassNotFoundException | IllegalAccessException | InstantiationException
         | UnsupportedLookAndFeelException ignored) {
     }
@@ -231,5 +226,4 @@ public class SalesmanFrame extends JFrame {
   private JPanel container;
   private JPanel contentCustomerList;
   private JScrollPane jScrollPane1;
-  private JTextField jTextField1;
 }

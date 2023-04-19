@@ -7,7 +7,6 @@ package com.bookstore.gui.form.admin.component.userListComponent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 import javax.swing.JTextField;

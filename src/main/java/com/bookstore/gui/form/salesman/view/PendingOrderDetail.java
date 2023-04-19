@@ -1,6 +1,8 @@
 package com.bookstore.gui.form.salesman.view;
 
-import javax.swing.JFrame;
+import javax.swing.*;
+
+import com.bookstore.gui.component.button.Label;
 
 public class PendingOrderDetail extends JFrame {
 
@@ -13,19 +15,19 @@ public class PendingOrderDetail extends JFrame {
 
   private void initComponents() {
 
-    jPanel1 = new javax.swing.JPanel();
-    jLabel1 = new javax.swing.JLabel();
-    jLabel2 = new javax.swing.JLabel();
-    jTextField1 = new javax.swing.JTextField();
-    jLabel3 = new javax.swing.JLabel();
-    jTextField2 = new javax.swing.JTextField();
-    jLabel4 = new javax.swing.JLabel();
+    jPanel1 = new JPanel();
+    jLabel1 = new Label("Customer Information");
+    jLabel2 = new Label("Fullname");
+    jTextField1 = new JTextField();
+    jLabel3 = new Label("Address");
+    jTextField2 = new JTextField();
+    jLabel4 = new Label("Phone Number");
     jTextField3 = new javax.swing.JTextField();
     jPanel2 = new javax.swing.JPanel();
     jScrollPane1 = new javax.swing.JScrollPane();
     orderTableList = new javax.swing.JTable();
     jPanel3 = new javax.swing.JPanel();
-    jLabel5 = new javax.swing.JLabel();
+    jLabel5 = new Label("Total price");
     jTextField4 = new javax.swing.JTextField();
     jButton1 = new javax.swing.JButton();
     jButton2 = new javax.swing.JButton();
@@ -35,14 +37,12 @@ public class PendingOrderDetail extends JFrame {
     jPanel1.setPreferredSize(new java.awt.Dimension(471, 200));
     jPanel1.setLayout(null);
 
-    jLabel1.setText("Thông tin khách hàng");
-    jLabel1.setPreferredSize(new java.awt.Dimension(118, 20));
     jPanel1.add(jLabel1);
-    jLabel1.setBounds(180, 10, 130, 40);
+    // jLabel1.setBounds(180, 10, 130, 40);
 
     jLabel2.setText("Full name:");
     jPanel1.add(jLabel2);
-    jLabel2.setBounds(20, 70, 60, 30);
+    // jLabel2.setBounds(20, 70, 60, 30);
 
     jTextField1.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -54,7 +54,7 @@ public class PendingOrderDetail extends JFrame {
 
     jLabel3.setText("Address:");
     jPanel1.add(jLabel3);
-    jLabel3.setBounds(20, 110, 60, 30);
+    // jLabel3.setBounds(20, 110, 60, 30);
 
     jTextField2.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -65,8 +65,8 @@ public class PendingOrderDetail extends JFrame {
     jTextField2.setBounds(130, 110, 220, 28);
 
     jLabel4.setText("Phone number:");
+    // jLabel4.setBounds(20, 150, 90, 30);
     jPanel1.add(jLabel4);
-    jLabel4.setBounds(20, 150, 90, 30);
     jPanel1.add(jTextField3);
     jTextField3.setBounds(130, 150, 220, 28);
 
@@ -98,7 +98,7 @@ public class PendingOrderDetail extends JFrame {
 
     jPanel3.setLayout(new javax.swing.BoxLayout(jPanel3, javax.swing.BoxLayout.LINE_AXIS));
 
-    jLabel5.setText("Total price");
+    // jLabel5.setText("Total price");
     jPanel3.add(jLabel5);
     jPanel3.add(jTextField4);
 
@@ -152,11 +152,11 @@ public class PendingOrderDetail extends JFrame {
 
   private javax.swing.JButton jButton1;
   private javax.swing.JButton jButton2;
-  private javax.swing.JLabel jLabel1;
-  private javax.swing.JLabel jLabel2;
-  private javax.swing.JLabel jLabel3;
-  private javax.swing.JLabel jLabel4;
-  private javax.swing.JLabel jLabel5;
+  private Label jLabel1;
+  private Label jLabel2;
+  private Label jLabel3;
+  private Label jLabel4;
+  private Label jLabel5;
   private javax.swing.JPanel jPanel1;
   private javax.swing.JPanel jPanel2;
   private javax.swing.JPanel jPanel3;

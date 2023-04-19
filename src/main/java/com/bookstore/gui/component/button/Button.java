@@ -21,7 +21,6 @@ import com.bookstore.gui.Theme.ThemeFont;
 public class Button extends JButton {
   public Button(String name) {
     initComponents(name);
-    // if (!"Forgot password".equals(name))
     handleEvent();
   }
 

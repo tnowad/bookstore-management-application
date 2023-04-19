@@ -3,8 +3,6 @@ package com.bookstore;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
 
 import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-
 import com.bookstore.runnable.LoadGuiRunnable;
 import com.bookstore.runnable.UpdateDataRunnable;
 import com.bookstore.runnable.CheckConnectionRunnable;
