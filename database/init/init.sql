@@ -1,4 +1,4 @@
--- Active: 1676799504168@@127.0.0.1@3306@bookstore
+-- Active: 1681922137111@@127.0.0.1@3306@bookstore
 
 DROP DATABASE IF EXISTS bookstore;
 
