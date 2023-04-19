@@ -2,43 +2,101 @@ package com.bookstore.gui.form.salesman.view;
 
 import javax.swing.JFrame;
 import com.bookstore.bus.ImportBUS;
+import com.bookstore.bus.ProviderBUS;
 import com.bookstore.gui.Theme.ThemeFont;
 import com.bookstore.gui.component.button.Button;
 import com.bookstore.gui.component.button.Label;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.*;
 
 import javax.swing.table.DefaultTableModel;
 import com.bookstore.models.ImportModel;
+import com.bookstore.models.ProviderModel;
 
 public class ImportListPanel extends JPanel {
 
         ImportBUS importBus = ImportBUS.getInstance();
+        ProviderBUS providerBus = ProviderBUS.getInstance();
         List<ImportModel> importList = importBus.getAllModels();
+        List<ProviderModel> providerList = providerBus.getAllModels();
 
         public ImportListPanel() {
                 initComponents();
                 listImport();
+                searh();
+        }
+
+        private void searh() {
+                searchBtn.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                                String text = searchCustomerTxtFld.getText();
+                                if (text == null || text.isBlank()) {
+                                        JOptionPane.showMessageDialog(null, "Vui lòng nhập thông tin tìm kiếm !");
+                                        showTable();
+                                } else {
+                                        ProviderModel provider = new ProviderModel();
+                                        DefaultTableModel model = new DefaultTableModel();
+                                        model.addColumn("Id");
+                                        model.addColumn("Provider");
+                                        model.addColumn("Employee ID");
+                                        model.addColumn("Price");
+                                        model.addColumn("Created at");
+                                        model.addColumn("Updated at");
+                                        for (ImportModel imports : importList) {
+                                                for (ProviderModel providerModel : providerList) {
+                                                        if (providerModel.getName().toLowerCase()
+                                                                        .contains(text.toLowerCase())) {
+                                                                provider = providerModel;
+                                                                break;
+                                                        }
+                                                }
+                                                if (provider.getId() == imports.getProviderId()) {
+                                                        model.addRow(new Object[] {
+                                                                        imports.getId(), provider.getName(),
+                                                                        imports.getEmployeeId(),
+                                                                        imports.getTotalPrice(),
+                                                                        imports.getCreatedAt(), imports.getUpdatedAt()
+                                                        });
+                                                        importTableList.setModel(model);
+                                                }
+
+                                        }
+                                }
+                        }
+
+                });
         }
 
         private void listImport() {
-                // "ID", "Provider ID", "Employee ID", "Price", "Status"
+                showTable();
+        }
+
+        private void showTable() {
                 DefaultTableModel model = new DefaultTableModel();
                 model.addColumn("Id");
-                model.addColumn("Provider ID");
+                model.addColumn("Provider");
                 model.addColumn("Employee ID");
                 model.addColumn("Price");
                 model.addColumn("Created at");
                 model.addColumn("Updated at");
                 for (ImportModel imports : importList) {
-                        model.addRow(new Object[] {
-                                        imports.getId(), imports.getProviderId(), imports.getEmployeeId(),
-                                        imports.getTotalPrice(),
-                                        imports.getCreatedAt(), imports.getUpdatedAt()
-                        });
-                        importTableList.setModel(model);
+                        for (ProviderModel providerModel : providerList) {
+                                if (providerModel.getId() == imports.getProviderId()) {
+                                        model.addRow(new Object[] {
+                                                        imports.getId(), providerModel.getName(),
+                                                        imports.getEmployeeId(),
+                                                        imports.getTotalPrice(),
+                                                        imports.getCreatedAt(), imports.getUpdatedAt()
+                                        });
+                                        importTableList.setModel(model);
+                                        break;
+                                }
+                        }
+
                 }
                 importTableList.getTableHeader().setReorderingAllowed(false);
                 jScrollPane2.setViewportView(importTableList);
