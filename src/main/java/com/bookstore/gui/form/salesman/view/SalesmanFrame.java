@@ -202,6 +202,7 @@ public class SalesmanFrame extends JFrame {
   public static void main(String args[]) {
     try {
       UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+      UIManager.put("Panel.background", new Color(250, 250, 250));
     } catch (ClassNotFoundException | IllegalAccessException | InstantiationException
         | UnsupportedLookAndFeelException ignored) {
     }

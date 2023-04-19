@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 import com.bookstore.bus.ImportBUS;
 import com.bookstore.gui.Theme.ThemeFont;
 import com.bookstore.gui.component.button.Button;
+import com.bookstore.gui.component.button.Label;
 
 import java.util.List;
 
@@ -53,7 +54,7 @@ public class ImportListPanel extends JPanel {
                 importCustomerListBtn = new Button("Import");
                 searchBtn = new Button("Search");
                 searchCustomerTxtFld = new JTextField();
-                jLabel1 = new JLabel();
+                jLabel1 = new Label("List import");
                 addCustomerBtn = new Button("Add");
                 jSeparator1 = new JSeparator();
 
@@ -84,9 +85,6 @@ public class ImportListPanel extends JPanel {
                 searchBtn.setText("Search");
 
                 searchCustomerTxtFld.setFont(new ThemeFont().getSmallFont());
-
-                jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24));
-                jLabel1.setText("Imports");
 
                 addCustomerBtn.setFont(new ThemeFont().getSmallFont());
                 addCustomerBtn
@@ -218,7 +216,7 @@ public class ImportListPanel extends JPanel {
         private Button searchBtn;
         private JPanel CustomerListUtility;
         private JTable importTableList;
-        private JLabel jLabel1;
+        private Label jLabel1;
         private JScrollPane jScrollPane2;
         private JSeparator jSeparator1;
         private JSeparator jSeparator2;

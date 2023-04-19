@@ -5,6 +5,7 @@ import javax.swing.JTextField;
 
 import com.bookstore.bus.OrderBUS;
 import com.bookstore.gui.component.button.Button;
+import com.bookstore.gui.component.button.Label;
 
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -43,6 +44,7 @@ public class PendingOrderPanel extends JPanel {
 
   private void initComponents() {
 
+    pendingOrderTitle = new Label("Pending Order List");
     jPanel1 = new JPanel();
     jTextField1 = new JTextField();
     jButton1 = new Button("Search");
@@ -65,6 +67,7 @@ public class PendingOrderPanel extends JPanel {
     jPanel1Layout.setHorizontalGroup(
         jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(pendingOrderTitle)
                 .addGap(183, 183, 183)
                 .addComponent(jTextField1, GroupLayout.PREFERRED_SIZE, 248,
                     GroupLayout.PREFERRED_SIZE)
@@ -75,6 +78,7 @@ public class PendingOrderPanel extends JPanel {
     jPanel1Layout.setVerticalGroup(
         jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(pendingOrderTitle)
                 .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1, GroupLayout.PREFERRED_SIZE, 40,
@@ -97,6 +101,7 @@ public class PendingOrderPanel extends JPanel {
     // TODO add your handling code here:
   }
 
+  private Label pendingOrderTitle;
   private Button jButton1;
   private JPanel jPanel1;
   private JPanel jPanel4;

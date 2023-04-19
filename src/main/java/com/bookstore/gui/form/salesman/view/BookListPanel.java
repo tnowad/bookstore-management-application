@@ -20,6 +20,7 @@ import com.bookstore.models.BookModel;
 import com.bookstore.bus.BookBUS;
 import com.bookstore.gui.Theme.ThemeFont;
 import com.bookstore.gui.component.button.Button;
+import com.bookstore.gui.component.button.Label;
 
 public class BookListPanel extends javax.swing.JPanel {
         BookBUS bookBus = BookBUS.getInstance();
@@ -55,7 +56,7 @@ public class BookListPanel extends javax.swing.JPanel {
                 importCustomerListBtn = new Button("Import Customer");
                 searchBtn = new Button("Search Customer");
                 searchCustomerTxtFld = new JTextField();
-                jLabel1 = new JLabel();
+                bookTitle = new Label("Books");
                 addCustomerBtn = new Button("Add Cusomer");
                 jSeparator1 = new JSeparator();
                 jScrollPane2 = new JScrollPane();
@@ -82,9 +83,6 @@ public class BookListPanel extends javax.swing.JPanel {
 
                 searchCustomerTxtFld.setFont(new ThemeFont().getSmallFont()); // NOI18N
 
-                jLabel1.setFont(new ThemeFont().getMediumFont()); // NOI18N
-                jLabel1.setText("Books");
-
                 addCustomerBtn.setFont(new ThemeFont().getSmallFont()); // NOI18N
                 addCustomerBtn
                                 .setIcon(new ImageIcon(getClass().getResource(
@@ -104,7 +102,7 @@ public class BookListPanel extends javax.swing.JPanel {
                                                                 .addGroup(CustomerListUtilityLayout
                                                                                 .createParallelGroup(
                                                                                                 GroupLayout.Alignment.LEADING)
-                                                                                .addComponent(jLabel1)
+                                                                                .addComponent(bookTitle)
                                                                                 .addGroup(CustomerListUtilityLayout
                                                                                                 .createSequentialGroup()
                                                                                                 .addComponent(searchCustomerTxtFld,
@@ -147,7 +145,7 @@ public class BookListPanel extends javax.swing.JPanel {
                                                                 .addGroup(CustomerListUtilityLayout
                                                                                 .createParallelGroup(
                                                                                                 GroupLayout.Alignment.BASELINE)
-                                                                                .addComponent(jLabel1)
+                                                                                .addComponent(bookTitle)
                                                                                 .addComponent(addCustomerBtn))
                                                                 .addGap(23, 23, 23)
                                                                 .addGroup(CustomerListUtilityLayout
@@ -215,7 +213,7 @@ public class BookListPanel extends javax.swing.JPanel {
         // Variables declaration - do not modify
         private JPanel CustomerListUtility;
         private JTable bookTableList;
-        private JLabel jLabel1;
+        private Label bookTitle;
         private Button addCustomerBtn;
         private Button exportCustomerBtn;
         private Button importCustomerListBtn;
