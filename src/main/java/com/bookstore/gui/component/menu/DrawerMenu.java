@@ -1,12 +1,11 @@
 package com.bookstore.gui.component.menu;
 
-import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.Box;
-import javax.swing.BoxLayout;
+import javax.swing.GroupLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -24,18 +23,43 @@ public class DrawerMenu extends JPanel {
     public DrawerMenu(MenuModel menuModel) {
         this.menuModel = menuModel;
         initComponents();
+
+        for (MenuItemModel menuItemModel : menuModel.getMenuItems()) {
+            addMenuItem(menuItemModel);
+        }
     }
 
     private void initComponents() {
-        setLayout(new BorderLayout());
-
-        JPanel profilePanel = new JPanel();
-        profilePanel.setPreferredSize(new Dimension(200, 100));
-        add(profilePanel, BorderLayout.NORTH);
+        scrollPane = new JScrollPane();
         menuItemsPanel = new JPanel();
-        menuItemsPanel.setLayout(new BoxLayout(menuItemsPanel, BoxLayout.Y_AXIS));
-        scrollPane = new JScrollPane(menuItemsPanel);
-        add(scrollPane, BorderLayout.CENTER);
+
+        scrollPane.setBorder(null);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.setViewport(null);
+
+        GroupLayout menuItemsPanelLayout = new GroupLayout(menuItemsPanel);
+        menuItemsPanel.setLayout(menuItemsPanelLayout);
+
+        menuItemsPanelLayout.setHorizontalGroup(
+                menuItemsPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addGap(0, 312, Short.MAX_VALUE));
+
+        menuItemsPanelLayout.setVerticalGroup(
+                menuItemsPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addGap(0, 523, Short.MAX_VALUE));
+
+        scrollPane.setViewportView(menuItemsPanel);
+
+        GroupLayout layout = new GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE));
+
+        layout.setVerticalGroup(
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE));
+
     }
 
     public MenuModel getMenuModel() {
@@ -51,18 +75,15 @@ public class DrawerMenu extends JPanel {
         menuItemsPanel.add(drawerMenuItem);
 
         menuItemsPanel.add(Box.createRigidArea(new Dimension(0, 5)));
-
-        menuItemsPanel.revalidate();
-        menuItemsPanel.repaint();
     }
+
     public static void main(String[] args) {
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 400);
         frame.setLocationRelativeTo(null);
-        
-        
-        MenuModel menuModel = new MenuModel(new ArrayList<MenuItemModel>(){
+
+        MenuModel menuModel = new MenuModel(new ArrayList<MenuItemModel>() {
             {
                 add(new MenuItemModel("Home", null, null));
                 add(new MenuItemModel("Books", null, null));
@@ -73,10 +94,10 @@ public class DrawerMenu extends JPanel {
                 add(new MenuItemModel("Settings", null, null));
             }
         });
-        
+
         DrawerMenu drawerMenu = new DrawerMenu(menuModel);
-        
+
         frame.add(drawerMenu);
-        frame.setVisible(true);        
+        frame.setVisible(true);
     }
 }
