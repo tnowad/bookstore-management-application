@@ -36,12 +36,15 @@ public class BookListPanel extends javax.swing.JPanel {
                 // "ISBN", "Title", "Quantity", "Price", "Status"
                 model.addColumn("ISBN");
                 model.addColumn("Title");
-                model.addColumn("Quantity");
+                model.addColumn("Description");
                 model.addColumn("Price");
+                model.addColumn("Quantity");
                 model.addColumn("Status");
+                model.addColumn("Publisher");
+                model.addColumn("Author");
                 for (BookModel book : bookList) {
                         model.addRow(new Object[] {
-                                        book.getIsbn(), book.getTitle(), book.getDescription(), book.getImage(),
+                                        book.getIsbn(), book.getTitle(), book.getDescription(),
                                         book.getPrice(), book.getQuantity(), book.getStatus(), book.getPublisherId(),
                                         book.getAuthorId()
                         });
