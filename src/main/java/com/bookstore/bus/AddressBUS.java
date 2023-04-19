@@ -142,7 +142,7 @@ public class AddressBUS implements IBUS<AddressModel> {
   public int deleteModel(int id) {
     AddressModel addressModel = getModelById(id);
     if (addressModel == null) {
-      throw new IllegalArgumentException("User with ID " + id + " does not exist.");
+      throw new IllegalArgumentException("Address with ID " + id + " does not exist.");
     }
     int deletedRows = AddressDAO.getInstance().delete(id);
     if (deletedRows > 0) {

@@ -61,7 +61,7 @@ public class CartItemsBUS implements IBUS<CartItemsModel> {
           }
         }
         case "book_isbn" -> {
-          if (CartItemsModel.getBookIsbn().contains(value)) {
+          if (CartItemsModel.getBookIsbn().equals(value)) {
             return true;
           }
         }

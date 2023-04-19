@@ -18,7 +18,7 @@ public class HeaderForm extends javax.swing.JPanel implements MouseListener {
     /**
      * Creates new form HeaderForm
      */
-    public HeaderForm() {
+    private HeaderForm() {
         initComponents();
     }
 

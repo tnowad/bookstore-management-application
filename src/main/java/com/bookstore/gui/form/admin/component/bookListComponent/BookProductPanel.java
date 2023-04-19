@@ -57,14 +57,10 @@ public class BookProductPanel extends javax.swing.JPanel {
         ButtonDetail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BookDetailFrame bookDetailFrame;
-                try {
-                    bookDetailFrame = new BookDetailFrame(isbn, title, description, image, price, quantity, status,
-                            publisher_id, author_id);
-                    bookDetailFrame.setVisible(true);
-                } catch (ClassNotFoundException | SQLException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
+                bookDetailFrame = new BookDetailFrame(isbn, title, description, image, price, quantity, status,
+                        publisher_id, author_id);
+                bookDetailFrame.setVisible(true);
+
             }
         });
 
