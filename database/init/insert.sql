@@ -1,4 +1,4 @@
--- Active: 1676799504168@@127.0.0.1@3306@bookstore
+-- Active: 1681915510218@@127.0.0.1@3306@bookstore_java
 INSERT INTO `users` (`id`, `username`, `password`, `status`, `name`, `email`, `phone`, `created_at`, `updated_at`, `role`)
 VALUES
 (1, 'admin', MD5('admin123'), 'active', 'Admin', 'admin@example.com', '+84987654321', NOW(), NOW(), 'admin'),
