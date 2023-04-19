@@ -9,6 +9,7 @@ import java.awt.event.MouseListener;
 import java.sql.SQLException;
 
 import com.bookstore.gui.form.admin.RunForm;
+import com.bookstore.gui.form.admin.component.dashboardComponent.DashboardPanel;
 import com.bookstore.gui.form.admin.component.userListComponent.UserComponent;
 
 /**
@@ -17,6 +18,7 @@ import com.bookstore.gui.form.admin.component.userListComponent.UserComponent;
  */
 public class HeaderForm extends javax.swing.JPanel implements MouseListener {
     private static HeaderForm instance;
+    private String namePanel;
 
     /**
      * Creates new form HeaderForm
@@ -24,12 +26,21 @@ public class HeaderForm extends javax.swing.JPanel implements MouseListener {
     public HeaderForm() {
         initComponents();
     }
+    public HeaderForm(String namePanel){
+        this.namePanel=namePanel;
+    }
     public static HeaderForm getInstance()  {
         if (instance == null) {
           instance = new HeaderForm();
         }
         return instance;
-      }
+    }
+    public void setPanelNow(String namePanel){
+        this.namePanel= namePanel;
+    }
+    public String getPanelNow(){
+        return namePanel;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -98,7 +109,14 @@ public class HeaderForm extends javax.swing.JPanel implements MouseListener {
     @Override
     public void mouseClicked(MouseEvent e) {
         String value = valueSearch.getText();
-        UserComponent.getInstance().receivevalue(value);
+        if(HeaderForm.getInstance().getPanelNow().equals("UserList")){
+            UserComponent.getInstance().receivevalue(value);
+        }
+        if(HeaderForm.getInstance().getPanelNow().equals("DashBoard")){
+            DashboardPanel.getInstance().receivevalue(value);
+        }
+        if(HeaderForm.getInstance().getPanelNow().equals("BookList")){
+        }
     }
 
     @Override

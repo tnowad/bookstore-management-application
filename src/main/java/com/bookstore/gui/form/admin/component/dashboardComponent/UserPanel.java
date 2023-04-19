@@ -47,11 +47,7 @@ public class UserPanel extends javax.swing.JPanel {
     getNameUser.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
     getNameUser.setText(name);
 
-<<<<<<< HEAD
         getPhone.setText(phone);
-=======
-    getPhone.setText("0941045139");
->>>>>>> 6f04b721fec0897e24cfb61f3a1cd6e57b680f29
 
     getAgeUser.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     getAgeUser.setText("" + createdTime);

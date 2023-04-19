@@ -121,7 +121,8 @@ public class BrowseProductPanel extends JPanel {
 
     jPanel1.add(jPanel2, java.awt.BorderLayout.PAGE_START);
 
-    table.setLayout(new GridLayout(0, 3, 10, 10));
+    table.setLayout(new GridLayout(0, 3, 5, 5));
+    
     for (BookModel book : listBook) {
       if (!book.getStatus().toString().equals("DELETED")) {
         BookProductPanel bookProductPanel = new BookProductPanel(book.getIsbn(), book.getTitle(),
@@ -132,6 +133,7 @@ public class BrowseProductPanel extends JPanel {
     }
 
     jScrollPane1.setViewportView(table);
+    jScrollPane1.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
     jPanel1.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 

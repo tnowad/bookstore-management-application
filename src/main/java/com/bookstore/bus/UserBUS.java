@@ -91,6 +91,8 @@ public class UserBUS implements IBUS<UserModel> {
     to.setName(from.getName());
     to.setEmail(from.getEmail());
     to.setPhone(from.getPhone());
+    to.setCreatedAt(from.getCreatedAt());
+    to.setUpdatedAt(from.getUpdatedAt());
     to.setRole(from.getRole());
   }
 
@@ -133,6 +135,7 @@ public class UserBUS implements IBUS<UserModel> {
             return true;
           }
         }
+        
         default -> {
           if (checkAllColumns(userModel, value)) {
             return true;

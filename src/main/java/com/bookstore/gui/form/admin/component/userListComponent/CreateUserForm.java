@@ -1,10 +1,6 @@
 package com.bookstore.gui.form.admin.component.userListComponent;
 
-<<<<<<< HEAD
-import java.sql.Timestamp;
-import java.time.Instant;
-=======
->>>>>>> 6f04b721fec0897e24cfb61f3a1cd6e57b680f29
+
 import java.time.LocalDateTime;
 
 import javax.swing.*;
@@ -83,28 +79,12 @@ public class CreateUserForm extends javax.swing.JFrame {
           char[] password = SetPassword.getPassword();
           String passwordString = new String(password);
 
-<<<<<<< HEAD
           LocalDateTime timeNow = LocalDateTime.now();
           int size;
           size = UserBUS.getInstance().getAllModels().size();
           UserModel newUser = new UserModel(size + 1, SetUserName.getText(), passwordString,
               newstatus, SetName.getText(), SetEmail.getText(),
               SetPhone.getText(), timeNow, timeNow, newRole);
-=======
-          LocalDateTime now = LocalDateTime.now();
-          UserModel newUser = new UserModel(
-              UserBUS.getInstance().getAllModels().size() + 1,
-              SetUserName.getText(),
-              passwordString,
-              newstatus,
-              SetName.getText(),
-              SetEmail.getText(),
-              SetPhone.getText(),
-              now,
-              now,
-              newRole);
-
->>>>>>> 6f04b721fec0897e24cfb61f3a1cd6e57b680f29
           int confirm = JOptionPane.showConfirmDialog(null, "Do you want to continue?", "Confirmation",
               JOptionPane.YES_NO_OPTION);
           if (confirm == JOptionPane.YES_OPTION) {
