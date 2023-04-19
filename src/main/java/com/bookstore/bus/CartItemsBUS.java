@@ -61,7 +61,8 @@ public class CartItemsBUS implements IBUS<CartItemsModel> {
           }
         }
         case "book_isbn" -> {
-          if (CartItemsModel.getBookIsbn().contains(value)) {
+          System.out.println(CartItemsModel.getBookIsbn());
+          if (CartItemsModel.getBookIsbn().toString().equals(value)) {
             return true;
           }
         }
@@ -145,7 +146,6 @@ public class CartItemsBUS implements IBUS<CartItemsModel> {
     }
 
     if (results.isEmpty()) {
-      throw new IllegalArgumentException("No cart_items found with the specified search criteria.");
     }
 
     return results;

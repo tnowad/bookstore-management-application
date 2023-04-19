@@ -424,6 +424,7 @@ public class UserComponent extends javax.swing.JPanel implements MouseListener {
             .addGap(0, 278, Short.MAX_VALUE));
     findAllUser();
     jScrollPane1.setViewportView(table);
+    jScrollPane1.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
     jPanel4.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
@@ -591,11 +592,10 @@ public class UserComponent extends javax.swing.JPanel implements MouseListener {
   }
 
   public void receivevalue(String value) {
-    System.out.println(value);
-    String[] columns = new String[] { "id", "username", "name", "email" };
+    String[] columns = new String[] {"name" };
     table.removeAll();
     List<UserModel> list = UserBUS.getInstance().searchModel(value, columns);
-    table.setLayout(new GridLayout(10, 0, 10, 10));
+    table.setLayout(new GridLayout(0, 1, 10, 10));
     for (UserModel user : list) {
       if (!user.getStatus().toString().equals("DELETED")) {
         UserForm userForm = new UserForm(1, user.getId(), user.getUsername(), user.getPassword(), user.getStatus(),

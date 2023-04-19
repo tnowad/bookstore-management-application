@@ -28,11 +28,9 @@ public class BookDetailFrame extends javax.swing.JFrame {
     /**
      * Creates new form BookDetailFrame
      * 
-     * @throws SQLException
-     * @throws ClassNotFoundException
      */
     public BookDetailFrame(String isbn, String title, String description, String image, int price, int quantity,
-            Enum status, int publisher_id, int author_id) throws ClassNotFoundException, SQLException {
+            Enum status, int publisher_id, int author_id) {
         initComponents(isbn, title, description, image, price, quantity, status, publisher_id, author_id);
         setStatus(status);
         setTitle("Book");
@@ -54,7 +52,7 @@ public class BookDetailFrame extends javax.swing.JFrame {
     // Code">//GEN-BEGIN:initComponents
     private void initComponents(String isbn, String title, String description, String image, int price,
             int quantity,
-            Enum status, int publisher_id, int author_id) throws ClassNotFoundException, SQLException {
+            Enum status, int publisher_id, int author_id) {
 
         jButton1 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
@@ -498,7 +496,7 @@ public class BookDetailFrame extends javax.swing.JFrame {
     }
 
     private void getBookTitleActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_getBookTitleActionPerformed
-        // TODO add your handling code here:
+
     }// GEN-LAST:event_getBookTitleActionPerformed
 
     /**
