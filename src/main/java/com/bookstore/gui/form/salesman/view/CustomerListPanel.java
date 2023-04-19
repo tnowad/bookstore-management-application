@@ -50,7 +50,6 @@ public class CustomerListPanel extends JPanel {
                                         model.addColumn("Phone");
                                         model.addColumn("Status");
                                         for (UserModel customer : customersList) {
-                                                // boolean result = str.contains("World");
                                                 if (customer.getName().toLowerCase().contains(text.toLowerCase())) {
                                                         model.addRow(new Object[] { customer.getId(),
                                                                         customer.getName(), customer.getEmail(),

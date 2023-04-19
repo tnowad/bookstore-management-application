@@ -29,9 +29,51 @@ public class BookListPanel extends javax.swing.JPanel {
         public BookListPanel() {
                 initComponents();
                 listBooks();
+                search();
+        }
+
+        private void search() {
+                searchBtn.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                                String text = searchCustomerTxtFld.getText();
+                                if (text == null || text.isBlank()) {
+                                        JOptionPane.showMessageDialog(null, "Vui lòng nhập thông tin tìm kiếm !");
+                                        showTable();
+                                } else {
+
+                                        DefaultTableModel model = new DefaultTableModel();
+                                        // "ISBN", "Title", "Quantity", "Price", "Status"
+                                        model.addColumn("ISBN");
+                                        model.addColumn("Title");
+                                        model.addColumn("Description");
+                                        model.addColumn("Price");
+                                        model.addColumn("Quantity");
+                                        model.addColumn("Status");
+                                        model.addColumn("Publisher");
+                                        model.addColumn("Author");
+                                        for (BookModel bookModel : bookList) {
+                                                if (bookModel.getTitle().toLowerCase().contains(text.toLowerCase())) {
+                                                        model.addRow(new Object[] {
+                                                                        bookModel.getIsbn(), bookModel.getTitle(),
+                                                                        bookModel.getDescription(),
+                                                                        bookModel.getPrice(), bookModel.getQuantity(),
+                                                                        bookModel.getStatus(), bookModel.getPublisherId(),
+                                                                        bookModel.getAuthorId()
+                                                        });
+                                                        bookTableList.setModel(model);
+                                                }
+                                        }
+
+                                }
+                        }
+                });
         }
 
         private void listBooks() {
+                showTable();
+        }
+
+        private void showTable() {
                 DefaultTableModel model = new DefaultTableModel();
                 // "ISBN", "Title", "Quantity", "Price", "Status"
                 model.addColumn("ISBN");
