@@ -5,22 +5,70 @@ import java.awt.event.*;
 import javax.swing.table.DefaultTableModel;
 import java.util.List;
 import com.bookstore.bus.UserBUS;
-import com.bookstore.gui.Theme.ThemeColor;
 import com.bookstore.gui.Theme.ThemeFont;
 import com.bookstore.gui.component.button.Button;
 import com.bookstore.gui.component.button.Label;
 import com.bookstore.models.UserModel;
+import com.bookstore.models.UserModel.Role;
 
 public class CustomerListPanel extends JPanel {
+
+        private JPanel CustomerListUtility;
+        private Button addCustomerBtn;
+        private JTable customerTableList;
+        private Button exportCustomerBtn;
+        private Button importCustomerListBtn;
+        private Label titleLabel;
+        private JPanel container;
+        private JScrollPane jScrollPane1;
+        private JScrollPane jScrollPane2;
+        private JSeparator jSeparator1;
+        private Button searchBtn;
+        private JTextField searchCustomerTxtFld;
+
         UserBUS userBus = UserBUS.getInstance();
         List<UserModel> customersList = userBus.getAllModels();
 
         public CustomerListPanel() {
                 initComponents();
                 listCustomer();
+                search();
+        }
+
+        private void search() {
+                searchBtn.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                                String text = searchCustomerTxtFld.getText();
+                                if (text == null || text.isBlank()) {
+                                        JOptionPane.showMessageDialog(null, "Vui lòng nhập thông tin tìm kiếm !");
+                                        showTable();
+                                } else {
+                                        DefaultTableModel model = new DefaultTableModel();
+                                        model.addColumn("Id");
+                                        model.addColumn("Name");
+                                        model.addColumn("Email");
+                                        model.addColumn("Phone");
+                                        model.addColumn("Status");
+                                        for (UserModel customer : customersList) {
+                                                // boolean result = str.contains("World");
+                                                if (customer.getName().toLowerCase().contains(text.toLowerCase())) {
+                                                        model.addRow(new Object[] { customer.getId(),
+                                                                        customer.getName(), customer.getEmail(),
+                                                                        customer.getPhone(),
+                                                                        customer.getStatus() });
+                                                        customerTableList.setModel(model);
+                                                }
+                                        }
+                                }
+                        }
+                });
         }
 
         private void listCustomer() {
+                showTable();
+        }
+
+        private void showTable() {
                 DefaultTableModel model = new DefaultTableModel();
                 model.addColumn("Id");
                 model.addColumn("Name");
@@ -28,10 +76,12 @@ public class CustomerListPanel extends JPanel {
                 model.addColumn("Phone");
                 model.addColumn("Status");
                 for (UserModel customer : customersList) {
-                        model.addRow(new Object[] { customer.getId(), customer.getName(), customer.getEmail(),
-                                        customer.getPhone(),
-                                        customer.getStatus() });
-                        customerTableList.setModel(model);
+                        if (customer.getRole() == Role.CUSTOMER) {
+                                model.addRow(new Object[] { customer.getId(), customer.getName(), customer.getEmail(),
+                                                customer.getPhone(),
+                                                customer.getStatus() });
+                                customerTableList.setModel(model);
+                        }
                 }
         }
 
@@ -70,8 +120,6 @@ public class CustomerListPanel extends JPanel {
                                                 .getResource("../../../../../../resources/images/search.png")));
 
                 searchCustomerTxtFld.setFont(new ThemeFont().getSmallFont());
-
-
 
                 addCustomerBtn.setFont(new ThemeFont().getSmallFont());
                 addCustomerBtn.setIcon(
@@ -196,19 +244,6 @@ public class CustomerListPanel extends JPanel {
         private void importCustomerListBtnActionPerformed(java.awt.event.ActionEvent evt) {
                 // TODO add your handling code here:
         }
-
-        private JPanel CustomerListUtility;
-        private Button addCustomerBtn;
-        private JTable customerTableList;
-        private Button exportCustomerBtn;
-        private Button importCustomerListBtn;
-        private Label titleLabel;
-        private JPanel container;
-        private JScrollPane jScrollPane1;
-        private JScrollPane jScrollPane2;
-        private JSeparator jSeparator1;
-        private Button searchBtn;
-        private JTextField searchCustomerTxtFld;
 
         public static void main(String[] args) {
                 JFrame jFrame = new JFrame();
