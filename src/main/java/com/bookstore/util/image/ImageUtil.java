@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.Base64;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
@@ -15,7 +16,7 @@ public class ImageUtil {
     ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
     ImageIO.write(bufferedImage, formatName, byteArrayOutputStream);
     byte[] bytes = byteArrayOutputStream.toByteArray();
-    return java.util.Base64.getEncoder().encodeToString(bytes);
+    return Base64.getEncoder().encodeToString(bytes);
   }
 
   public static Image decodeFromBase64(String base64) throws IOException {
