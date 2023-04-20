@@ -61,7 +61,6 @@ public class CartItemsBUS implements IBUS<CartItemsModel> {
           }
         }
         case "book_isbn" -> {
-          System.out.println(CartItemsModel.getBookIsbn());
           if (CartItemsModel.getBookIsbn().toString().equals(value)) {
             return true;
           }
@@ -143,9 +142,6 @@ public class CartItemsBUS implements IBUS<CartItemsModel> {
       if (checkFilter(model, value, columns)) {
         results.add(model);
       }
-    }
-
-    if (results.isEmpty()) {
     }
 
     return results;

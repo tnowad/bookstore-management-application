@@ -1,30 +1,35 @@
-package com.bookstore.gui.form.salesman.view;
+package com.bookstore.gui.form.manager.view;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 
-import com.bookstore.gui.Theme.ThemeColor;
-import com.bookstore.gui.component.button.Button;
-import com.bookstore.gui.form.salesman.view.Account.AccountPanel;
-import com.bookstore.gui.main.LoginUI;
-import java.awt.event.*;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-public class SalesmanFrame extends JFrame {
+import org.apache.commons.lang3.ObjectUtils.Null;
 
-  public SalesmanFrame() {
+import com.bookstore.gui.component.button.Button;
+import com.bookstore.gui.form.salesman.view.*;
+import com.bookstore.gui.form.salesman.view.Account.AccountPanel;
+import com.bookstore.gui.main.LoginUI;
+
+public class managerFrame extends JFrame {
+  private JPanel grHeader;
+  private JPanel grMenu;
+  private JPanel grContent;
+
+  public managerFrame() {
     initFrame();
     initComponents();
     // setBackground();
     handleEvent();
-  }
-
-  private void setBackground() {
-    container.setBackground(new ThemeColor().getBackground());
-    contentCustomerList.setBackground(new ThemeColor().getBackground());
-    jScrollPane1.setBackground(new ThemeColor().getBackground());
   }
 
   private void initFrame() {
@@ -36,7 +41,8 @@ public class SalesmanFrame extends JFrame {
 
   private void initComponents() {
 
-    container = new JPanel();
+    grMenu = new JPanel();
+
     logoutButton = new Button("Logout");
     customerListButton = new Button("Customer List");
     pendingOrderButton = new Button("Pending Order List");
@@ -45,71 +51,68 @@ public class SalesmanFrame extends JFrame {
     contactButton = new Button("Contact Us");
     accountButton = new Button("Account");
     bookListButton = new Button("Book List");
+    salesmanListButton = new Button("Salesman List");
     jScrollPane1 = new JScrollPane();
     contentCustomerList = new JPanel();
 
-    addWindowListener(new WindowAdapter() {
-      public void windowClosing(WindowEvent evt) {
-        exitForm(evt);
-      }
-    });
+    grMenu.setLayout(null);
 
-    container.setLayout(null);
-
-    container.add(logoutButton);
-    logoutButton.setBounds(0, 540, 160, 50);
-    customerListButton.addActionListener(new ActionListener() {
+    bookListButton.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent evt) {
         customerListButtonActionPerformed(evt);
       }
     });
-    container.add(customerListButton);
-    customerListButton.setBounds(0, 30, 160, 50);
-    // customerListButton.getAccessibleContext().setAccessibleName("Customer list");
-    // customerListButton.getAccessibleContext().setAccessibleDescription("");
 
-    container.add(pendingOrderButton);
-    pendingOrderButton.setBounds(0, 80, 160, 50);
+    grMenu.add(bookListButton);
+    bookListButton.setBounds(0, 30, 160, 50);
 
-    container.add(importButton);
-    importButton.setBounds(0, 180, 160, 50);
+    grMenu.add(customerListButton);
+    customerListButton.setBounds(0, 80, 160, 50);
 
-    container.add(aboutUsButton);
-    aboutUsButton.setBounds(0, 440, 160, 50);
+    grMenu.add(customerListButton);
+    pendingOrderButton.setBounds(0, 130, 160, 50);
 
-    container.add(contactButton);
-    contactButton.setBounds(0, 490, 160, 50);
+    grMenu.add(pendingOrderButton);
+    pendingOrderButton.setBounds(0, 180, 160, 50);
 
-    container.add(accountButton);
-    accountButton.setBounds(0, 390, 160, 50);
+    grMenu.add(importButton);
+    importButton.setBounds(0, 230, 160, 50);
 
-    container.add(bookListButton);
-    bookListButton.setBounds(0, 130, 160, 50);
+    grMenu.add(accountButton);
+    accountButton.setBounds(0, 440, 160, 50);
 
-    // jTextField1.addActionListener(new ActionListener() {
-    // public void actionPerformed(ActionEvent evt) {
-    // jTextField1ActionPerformed(evt);
-    // }
-    // });
-    // container.add(jTextField1);
-    // jTextField1.setBounds(370, 10, 340, 50);
+    grMenu.add(aboutUsButton);
+    aboutUsButton.setBounds(0, 490, 160, 50);
 
-    // searchButton.setText("Search");
-    // container.add(searchButton);
-    // searchButton.setBounds(727, 10, 90, 50);
-    contentCustomerList.add(new CustomerListPanel());
+    grMenu.add(contactButton);
+    contactButton.setBounds(0, 540, 160, 50);
 
+    grMenu.add(logoutButton);
+    logoutButton.setBounds(0, 590, 160, 50);
+
+    contentCustomerList.add(new BookListPanel());
     jScrollPane1.setViewportView(contentCustomerList);
     contentCustomerList.setPreferredSize(new Dimension(900, 0));
 
-    container.add(jScrollPane1);
+    grMenu.add(jScrollPane1);
     jScrollPane1.setBounds(160, 70, 980, 580);
 
-    add(container, java.awt.BorderLayout.CENTER);
-
+    add(grMenu, java.awt.BorderLayout.CENTER);
   }
 
   private void handleEvent() {
+
+    bookListButton.addActionListener(new ActionListener() {
+
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        contentCustomerList.removeAll();
+        contentCustomerList.add(new BookListPanel());
+        contentCustomerList.revalidate();
+        contentCustomerList.repaint();
+      }
+    });
+
     customerListButton.addActionListener(new ActionListener() {
 
       @Override
@@ -122,15 +125,15 @@ public class SalesmanFrame extends JFrame {
 
     });
 
-    // customerListButton.addMouseListener(new java.awt.event.MouseAdapter() {
-    // public void mouseEntered(java.awt.event.MouseEvent evt) {
-    // customerListButton.setBackground(Color.RED);
-    // }
+    salesmanListButton.addActionListener(new ActionListener() {
 
-    // public void mouseExited(java.awt.event.MouseEvent evt) {
-    // customerListButton.setBackground(Color.BLUE);
-    // }
-    // });
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        //
+        //
+        //
+      }
+    });
 
     pendingOrderButton.addActionListener(new ActionListener() {
 
@@ -143,16 +146,6 @@ public class SalesmanFrame extends JFrame {
       }
     });
 
-    bookListButton.addActionListener(new ActionListener() {
-
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        contentCustomerList.removeAll();
-        contentCustomerList.add(new BookListPanel());
-        contentCustomerList.revalidate();
-        contentCustomerList.repaint();
-      }
-    });
 
     importButton.addActionListener(new ActionListener() {
 
@@ -189,6 +182,7 @@ public class SalesmanFrame extends JFrame {
         }
       }
     });
+
   }
 
   private void exitForm(WindowEvent evt) {
@@ -203,6 +197,10 @@ public class SalesmanFrame extends JFrame {
 
   }
 
+  // private void showConfirm(String message) {
+  // JOptionPane.showConfirmDialog(rootPane, message, message, ALLBITS, ABORT)
+  // }
+
   public static void main(String args[]) {
     try {
       UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
@@ -213,7 +211,7 @@ public class SalesmanFrame extends JFrame {
 
     java.awt.EventQueue.invokeLater(new Runnable() {
       public void run() {
-        new SalesmanFrame();
+        new managerFrame();
       }
     });
   }
@@ -226,8 +224,7 @@ public class SalesmanFrame extends JFrame {
   private Button contactButton;
   private Button accountButton;
   private Button bookListButton;
-
-  private JPanel container;
+  private Button salesmanListButton;
   private JPanel contentCustomerList;
   private JScrollPane jScrollPane1;
 }

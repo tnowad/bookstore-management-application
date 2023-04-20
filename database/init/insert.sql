@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 -- Active: 1681922137111@@127.0.0.1@3306@bookstore
+=======
+-- Active: 1681915510218@@127.0.0.1@3306@bookstore_java
+>>>>>>> 3c253edc55d95a97b01f8bf2cbf911c82440444e
 INSERT INTO `users` (`id`, `username`, `password`, `status`, `name`, `email`, `phone`, `created_at`, `updated_at`, `role`)
 VALUES
 (1, 'admin', MD5('admin123'), 'active', 'Admin', 'admin@example.com', '+84987654321', NOW(), NOW(), 'admin'),
@@ -52,6 +56,7 @@ VALUES
 (49, 'customer39', MD5('customer123'), 'active', 'Customer 39', 'customer39@example.com', '+84987654369', NOW(), NOW(), 'customer'),
 (50, 'customer40', MD5('customer123'), 'active', 'Customer 40', 'customer40@example.com', '+84987654370', NOW(), NOW(), 'customer');
 
+INSERT INTO `current_user` (`id`) VALUES (1);
 
 INSERT INTO `authors` (`id`, `name`, `description`) VALUES
 (1, 'J.K. Rowling', 'British author, best known for writing the Harry Potter series'),

@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 -- Active: 1681922137111@@127.0.0.1@3306@bookstore
+=======
+-- Active: 1681915510218@@127.0.0.1@3306@bookstore_java
+>>>>>>> 3c253edc55d95a97b01f8bf2cbf911c82440444e
 
 DROP DATABASE IF EXISTS bookstore;
 
