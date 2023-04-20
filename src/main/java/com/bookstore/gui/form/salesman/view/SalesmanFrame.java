@@ -38,14 +38,6 @@ public class SalesmanFrame extends JFrame {
     handleEvent();
   }
 
-  // private void setBackground() {
-  //   container.setBackground(new ThemeColor().getBackground());
-  //   contentCustomerList.setBackground(new ThemeColor().getBackground());
-  //   jScrollPane1.setBackground(new ThemeColor().getBackground());
-  // }
-
-
-
   private void initFrame() {
     setPreferredSize(new Dimension(1200, 700));
     setVisible(true);
@@ -105,17 +97,6 @@ public class SalesmanFrame extends JFrame {
     container.add(bookListButton);
     bookListButton.setBounds(0, 130, 160, 50);
 
-    // jTextField1.addActionListener(new ActionListener() {
-    // public void actionPerformed(ActionEvent evt) {
-    // jTextField1ActionPerformed(evt);
-    // }
-    // });
-    // container.add(jTextField1);
-    // jTextField1.setBounds(370, 10, 340, 50);
-
-    // searchButton.setText("Search");
-    // container.add(searchButton);
-    // searchButton.setBounds(727, 10, 90, 50);
     contentCustomerList.add(new CustomerListPanel());
 
     jScrollPane1.setViewportView(contentCustomerList);
@@ -140,16 +121,6 @@ public class SalesmanFrame extends JFrame {
       }
 
     });
-
-    // customerListButton.addMouseListener(new java.awt.event.MouseAdapter() {
-    // public void mouseEntered(java.awt.event.MouseEvent evt) {
-    // customerListButton.setBackground(Color.RED);
-    // }
-
-    // public void mouseExited(java.awt.event.MouseEvent evt) {
-    // customerListButton.setBackground(Color.BLUE);
-    // }
-    // });
 
     pendingOrderButton.addActionListener(new ActionListener() {
 
@@ -194,7 +165,7 @@ public class SalesmanFrame extends JFrame {
         contentCustomerList.repaint();
       }
     });
-    
+
     logoutButton.addActionListener(new ActionListener() {
 
       @Override
@@ -237,5 +208,4 @@ public class SalesmanFrame extends JFrame {
     });
   }
 
- 
 }

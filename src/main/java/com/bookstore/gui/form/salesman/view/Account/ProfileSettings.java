@@ -367,8 +367,6 @@ public class ProfileSettings extends JPanel {
 
         private void updateUserInformationBtnActionPerformed(ActionEvent evt) {
                 String confirmPassword = new String(confirmPasswordFld.getPassword());
-                System.out.println(confirmPassword);
-                System.out.println(userModel.getPassword());
                 if (confirmPassword.equals(userModel.getPassword())) {
                         userModel.setName(getNameInEditTxtFld.getText());
                         userModel.setUsername(getUserNameTxtFld.getText());
