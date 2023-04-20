@@ -9,12 +9,15 @@ package com.bookstore.gui.form.admin.component.bookListComponent;
  * @author yanti
  */
 import java.awt.*;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.*;
 
 import com.bookstore.bus.BookBUS;
 import com.bookstore.models.BookModel;
+import com.bookstore.util.Excel.BookExcelUtil;
 
 public class BrowseProductPanel extends JPanel {
     private static BrowseProductPanel instance;
@@ -52,8 +55,8 @@ public class BrowseProductPanel extends JPanel {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
-        ButtonExport = new javax.swing.JButton();
-        ButtonImport = new javax.swing.JButton();
+        ButtonExportExcel = new javax.swing.JButton();
+        ButtonImportExcel = new javax.swing.JButton();
         ButtonCreate = new javax.swing.JButton();
         ButtonDelete = new javax.swing.JButton();
         ButtonSearch = new javax.swing.JButton();
@@ -71,12 +74,26 @@ public class BrowseProductPanel extends JPanel {
 
         jPanel2.setLayout(new java.awt.BorderLayout());
 
-        ButtonExport.setText("Export File");
-        ButtonExport.setToolTipText("");
+        ButtonExportExcel.setText("Export to Excel");
+        ButtonExportExcel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                actionExport();
+            }
+        });
+        ButtonExportExcel.setToolTipText("");
 
-        ButtonImport.setText("Import File");
-
+        ButtonImportExcel.setText("Import Excel File");
+        ButtonImportExcel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                actionImport();
+            }
+        });
         ButtonCreate.setText("Create");
+        ButtonCreate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                actionAdd();
+            }
+        });
 
         ButtonDelete.setText("Delete");
         ButtonDelete.addActionListener(new java.awt.event.ActionListener() {
@@ -96,9 +113,9 @@ public class BrowseProductPanel extends JPanel {
         jPanel3Layout.setHorizontalGroup(
                 jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(ButtonExport)
+                                .addComponent(ButtonExportExcel)
                                 .addGap(18, 18, 18)
-                                .addComponent(ButtonImport)
+                                .addComponent(ButtonImportExcel)
                                 .addGap(18, 18, 18)
                                 .addComponent(ButtonCreate)
                                 .addGap(18, 18, 18)
@@ -111,9 +128,9 @@ public class BrowseProductPanel extends JPanel {
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(ButtonCreate, javax.swing.GroupLayout.DEFAULT_SIZE, 31,
                                                 Short.MAX_VALUE)
-                                        .addComponent(ButtonExport, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                        .addComponent(ButtonExportExcel, javax.swing.GroupLayout.DEFAULT_SIZE,
                                                 javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(ButtonImport, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                        .addComponent(ButtonImportExcel, javax.swing.GroupLayout.DEFAULT_SIZE,
                                                 javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(ButtonDelete, javax.swing.GroupLayout.DEFAULT_SIZE,
                                                 javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -187,6 +204,32 @@ public class BrowseProductPanel extends JPanel {
         table.repaint();
     }
 
+    public void actionAdd() {
+        // TODO: Create a JFrame to add a book to List.
+    }
+
+    public void actionExport() {
+        List<BookModel> listBooks = BookBUS.getInstance().getAllModels();
+        try {
+            BookExcelUtil.writeBooksToExcel(listBooks);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void actionImport() {
+        try {
+            List<BookModel> listBooks = BookExcelUtil.readBooksFromExcel();
+            for (BookModel book : listBooks) {
+                if (book.getStatus().toString().equals("deleted")) {
+                    listBooks.remove(book);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void actionSearch() {
         String searchData = searchBookField.getText();
         if (searchData.trim().isEmpty()) {
@@ -215,8 +258,8 @@ public class BrowseProductPanel extends JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ButtonCreate;
     private javax.swing.JButton ButtonDelete;
-    private javax.swing.JButton ButtonExport;
-    private javax.swing.JButton ButtonImport;
+    private javax.swing.JButton ButtonExportExcel;
+    private javax.swing.JButton ButtonImportExcel;
     private javax.swing.JButton ButtonSearch;
     private javax.swing.JTextField searchBookField;
     private javax.swing.JLabel jLabel1;
