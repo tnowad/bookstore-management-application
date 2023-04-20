@@ -1,6 +1,6 @@
 package com.bookstore.gui.main;
 
-import com.bookstore.models.CurrentUserModel;
+import com.bookstore.models.*;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -21,12 +21,16 @@ import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
 import com.bookstore.bus.CurrentUserBUS;
+import com.bookstore.bus.EmployeeBUS;
 import com.bookstore.bus.UserBUS;
 import com.bookstore.gui.Theme.ThemeFont;
 import com.bookstore.gui.component.button.Button;
 import com.bookstore.gui.component.input.GroupInput;
+import com.bookstore.gui.form.manager.view.managerFrame;
 import com.bookstore.gui.form.salesman.view.SalesmanFrame;
 import com.bookstore.models.UserModel;
+import com.bookstore.models.EmployeeModel.EmployeeType;
+
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -193,7 +197,13 @@ public class LoginUI extends JFrame {
             }
             case EMPLOYEE -> {
               dispose();
-              new SalesmanFrame();
+              EmployeeBUS employeeBUS = EmployeeBUS.getInstance();
+              EmployeeModel employeeModel = employeeBUS.getModelById(userModel.getId());
+              if(employeeModel.getEmployeeType().equals(EmployeeType.EMPLOYEE_MANAGER)) {
+                new managerFrame();
+              }
+              else
+                new SalesmanFrame();
             }
             case ADMIN -> {
             }
