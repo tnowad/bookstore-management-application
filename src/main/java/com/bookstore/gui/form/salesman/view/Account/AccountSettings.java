@@ -17,11 +17,11 @@ public class AccountSettings extends JPanel {
         newPasswordLabel = new Label("New Password");
         confirmPasswordLabel = new Label("Confirm New Password");
         yourCurrentPasswordLabel = new Label("Your current password");
-        confirmNewPasswordTxtFld = new JPasswordField();
-        currentPasswordTxtFld = new JPasswordField();
-        newPasswordTxtFld = new JPasswordField();
-        Button1 = new Button("Update");
-        Button2 = new Button("Reset");
+        confirmNewPasswordField = new JPasswordField();
+        currentPasswordField = new JPasswordField();
+        newPasswordTxtField = new JPasswordField();
+        updateButton = new Button("Update");
+        resetButton = new Button("Reset");
 
         GroupLayout layout = new GroupLayout(this);
         this.setLayout(layout);
@@ -31,22 +31,22 @@ public class AccountSettings extends JPanel {
                                 .addContainerGap()
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                         .addComponent(confirmPasswordLabel)
-                                        .addComponent(confirmNewPasswordTxtFld, GroupLayout.PREFERRED_SIZE,
+                                        .addComponent(confirmNewPasswordField, GroupLayout.PREFERRED_SIZE,
                                                 240,
                                                 GroupLayout.PREFERRED_SIZE)
                                         .addComponent(newPasswordLabel)
-                                        .addComponent(newPasswordTxtFld, GroupLayout.PREFERRED_SIZE, 240,
+                                        .addComponent(newPasswordTxtField, GroupLayout.PREFERRED_SIZE, 240,
                                                 GroupLayout.PREFERRED_SIZE)
                                         .addComponent(yourCurrentPasswordLabel)
-                                        .addComponent(currentPasswordTxtFld, GroupLayout.PREFERRED_SIZE,
+                                        .addComponent(currentPasswordField, GroupLayout.PREFERRED_SIZE,
                                                 240,
                                                 GroupLayout.PREFERRED_SIZE))
                                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(Button1)
+                                .addComponent(updateButton)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(Button2)
+                                .addComponent(resetButton)
                                 .addContainerGap()));
         layout.setVerticalGroup(
                 layout.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -54,31 +54,31 @@ public class AccountSettings extends JPanel {
                                 .addContainerGap()
                                 .addComponent(yourCurrentPasswordLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(currentPasswordTxtFld, GroupLayout.PREFERRED_SIZE,
+                                .addComponent(currentPasswordField, GroupLayout.PREFERRED_SIZE,
                                         GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(newPasswordLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(newPasswordTxtFld, GroupLayout.PREFERRED_SIZE,
+                                .addComponent(newPasswordTxtField, GroupLayout.PREFERRED_SIZE,
                                         GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(confirmPasswordLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(confirmNewPasswordTxtFld, GroupLayout.PREFERRED_SIZE,
+                                .addComponent(confirmNewPasswordField, GroupLayout.PREFERRED_SIZE,
                                         GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                        .addComponent(Button1)
-                                        .addComponent(Button2))
+                                        .addComponent(updateButton)
+                                        .addComponent(resetButton))
                                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
     }
 
-    private JPasswordField confirmNewPasswordTxtFld;
-    private JPasswordField currentPasswordTxtFld;
-    private Button Button1;
-    private Button Button2;
+    private JPasswordField confirmNewPasswordField;
+    private JPasswordField currentPasswordField;
+    private Button updateButton;
+    private Button resetButton;
     private Label yourCurrentPasswordLabel;
     private Label newPasswordLabel;
     private Label confirmPasswordLabel;
-    private JPasswordField newPasswordTxtFld;
+    private JPasswordField newPasswordTxtField;
 }

@@ -4,15 +4,33 @@ import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.*;
 
+import com.bookstore.bus.CurrentUserBUS;
 import com.bookstore.gui.Theme.ThemeColor;
 import com.bookstore.gui.component.button.Button;
 import com.bookstore.gui.form.salesman.view.Account.AccountPanel;
 import com.bookstore.gui.main.LoginUI;
+import com.bookstore.models.CurrentUserModel;
+
 import java.awt.event.*;
+import java.util.List;
+
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 public class SalesmanFrame extends JFrame {
+
+  private Button logoutButton;
+  private Button customerListButton;
+  private Button pendingOrderButton;
+  private Button importButton;
+  private Button aboutUsButton;
+  private Button contactButton;
+  private Button accountButton;
+  private Button bookListButton;
+
+  private JPanel container;
+  private JPanel contentCustomerList;
+  private JScrollPane jScrollPane1;
 
   public SalesmanFrame() {
     initFrame();
@@ -25,6 +43,8 @@ public class SalesmanFrame extends JFrame {
   //   contentCustomerList.setBackground(new ThemeColor().getBackground());
   //   jScrollPane1.setBackground(new ThemeColor().getBackground());
   // }
+
+
 
   private void initFrame() {
     setPreferredSize(new Dimension(1200, 700));
@@ -174,7 +194,7 @@ public class SalesmanFrame extends JFrame {
         contentCustomerList.repaint();
       }
     });
-
+    
     logoutButton.addActionListener(new ActionListener() {
 
       @Override
@@ -217,16 +237,5 @@ public class SalesmanFrame extends JFrame {
     });
   }
 
-  private Button logoutButton;
-  private Button customerListButton;
-  private Button pendingOrderButton;
-  private Button importButton;
-  private Button aboutUsButton;
-  private Button contactButton;
-  private Button accountButton;
-  private Button bookListButton;
-
-  private JPanel container;
-  private JPanel contentCustomerList;
-  private JScrollPane jScrollPane1;
+ 
 }
