@@ -50,16 +50,27 @@ public class CurrentUserBUS implements IBUS<CurrentUserModel> {
     return id;
   }
 
+  // @Override
+  // public int updateModel(CurrentUserModel currentUserModel) {
+  // int updatedRows =
+  // CurrentUserDAO.getInstance().update(mapToEntity(currentUserModel));
+  // if (updatedRows > 0) {
+  // for (int i = 0; i < currentUserList.size(); i++) {
+  // if (currentUserList.get(i).getCurrentUserId() ==
+  // currentUserModel.getCurrentUserId()) {
+  // currentUserList.set(i, currentUserModel);
+  // break;
+  // }
+  // }
+  // }
+  // return updatedRows;
+  // }
+
   @Override
   public int updateModel(CurrentUserModel currentUserModel) {
     int updatedRows = CurrentUserDAO.getInstance().update(mapToEntity(currentUserModel));
     if (updatedRows > 0) {
-      for (int i = 0; i < currentUserList.size(); i++) {
-        if (currentUserList.get(i).getCurrentUserId() == currentUserModel.getCurrentUserId()) {
-          currentUserList.set(i, currentUserModel);
-          break;
-        }
-      }
+      currentUserList.set(0, currentUserModel);
     }
     return updatedRows;
   }

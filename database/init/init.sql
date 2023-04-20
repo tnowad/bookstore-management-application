@@ -1,4 +1,4 @@
--- Active: 1681915510218@@127.0.0.1@3306@bookstore_java
+-- Active: 1681623675640@@127.0.0.1@3306@bookstore
 
 DROP DATABASE IF EXISTS bookstore;
 
@@ -108,6 +108,13 @@ CREATE TABLE
         `city` NVARCHAR (255) NOT NULL,
         `state` NVARCHAR (255) NOT NULL,
         `zip` NVARCHAR (20) NOT NULL,
+        PRIMARY KEY (`id`)
+    );
+
+CREATE TABLE
+    `current_user_id` (
+        `id` INT NOT NULL AUTO_INCREMENT,
+        `user_id` INT NOT NULL,
         PRIMARY KEY (`id`)
     );
 
@@ -291,6 +298,10 @@ ADD
     FOREIGN KEY (`payment_method_id`) REFERENCES `payment_methods` (`id`);
 
 ALTER TABLE `payments`
+ADD
+    FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+
+ALTER TABLE `current_user_id`
 ADD
     FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
