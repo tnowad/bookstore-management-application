@@ -183,10 +183,6 @@ public class CartBUS implements IBUS<CartModel> {
       }
     }
 
-    if (results.isEmpty()) {
-      throw new IllegalArgumentException("No cart found with the specified search criteria.");
-    }
-
     return results;
   }
 }

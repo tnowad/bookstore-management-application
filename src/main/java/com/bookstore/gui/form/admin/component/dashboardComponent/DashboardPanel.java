@@ -7,7 +7,10 @@ package com.bookstore.gui.form.admin.component.dashboardComponent;
 import java.awt.GridLayout;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.JOptionPane;
 
 import com.bookstore.bus.BookBUS;
 import com.bookstore.bus.CartBUS;
@@ -601,6 +604,14 @@ public class DashboardPanel extends javax.swing.JPanel {
                         List<CartItemsModel> listCartItems = CartItemsBUS.getInstance()
                                         .searchModel(book.getIsbn().toString(), new String[] { "book_isbn" });
                         int value = 0;
+                        for(CartItemsModel cartItem : listCartItems){
+                                value = value + cartItem.getQuantity();
+                        }
+                        if(value > top1){
+                                TopProductPanel topProductPanel = new TopProductPanel(serial, book.getTitle());
+                                tableTopBook.add(topProductPanel,0);
+                                top1 = value;
+                        }
                         
 
                 }
@@ -624,7 +635,14 @@ public class DashboardPanel extends javax.swing.JPanel {
         }
 
         public void CartDashboard() {
-                List<CartModel> listCart = CartBUS.getInstance().searchModel("ACCEPT", new String[] { "status" });
+                
+                List<CartModel> listCart = CartBUS.getInstance().searchModel("accept", new String[] { "status" });
+                if(listCart.isEmpty()){
+                        setTotalProductSold.setText("0%");
+                        setTotalRevenue.setText("0%");
+
+
+                }
                 LocalDateTime timeNow = LocalDateTime.now();
                 int productSold7Days = 0;
                 int productSoldAllTime = 0;
