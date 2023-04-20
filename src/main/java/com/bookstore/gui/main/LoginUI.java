@@ -62,7 +62,6 @@ public class LoginUI extends JFrame {
 
   private void updateCurrentUser() {
     UserBUS userBus = UserBUS.getInstance();
-    List<UserModel> userList = userBus.getAllModels();
     String username = groupUsername.getTextField().getText();
     UserModel userModel = userBus.getModelByUsername(username);
 
