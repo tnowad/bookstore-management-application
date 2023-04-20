@@ -75,9 +75,8 @@ public class MenuForm extends javax.swing.JPanel {
         ButtonDashboard.setText("Dashboard");
         jPanel1.add(ButtonDashboard);
         ButtonDashboard.addActionListener(new java.awt.event.ActionListener() {
-            
-
             public void actionPerformed(java.awt.event.ActionEvent evt) {
+                HeaderForm.getInstance().setPanelNow("DashBoard");
                 RunForm.getConstruct().removeAll();
                 panel.removeAll();
                 panel.add(HeaderForm.getInstance(), BorderLayout.NORTH);
@@ -94,6 +93,7 @@ public class MenuForm extends javax.swing.JPanel {
         ButtonListBook.setText("List Book");
         ButtonListBook.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
+                HeaderForm.getInstance().setPanelNow("BookList");
                 RunForm.getConstruct().removeAll();
                 panel.removeAll();
                 panel.add(HeaderForm.getInstance(), BorderLayout.NORTH);
@@ -108,6 +108,7 @@ public class MenuForm extends javax.swing.JPanel {
         ButtonListUser.setText("List User");
         ButtonListUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
+                HeaderForm.getInstance().setPanelNow("UserList");
                 RunForm.getConstruct().removeAll();
                 panel.removeAll();
                 panel.add(HeaderForm.getInstance(), BorderLayout.NORTH);

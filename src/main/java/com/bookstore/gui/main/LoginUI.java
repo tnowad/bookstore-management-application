@@ -22,6 +22,7 @@ import com.bookstore.bus.UserBUS;
 import com.bookstore.gui.Theme.ThemeFont;
 import com.bookstore.gui.component.button.Button;
 import com.bookstore.gui.component.input.GroupInput;
+import com.bookstore.gui.form.salesman.view.SalesmanFrame;
 import com.bookstore.models.UserModel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -164,24 +165,21 @@ public class LoginUI extends JFrame {
       try {
         UserModel userModel = UserBUS.getInstance().getModelByUsername(username);
         if (passwordFld.equals(userModel.getPassword())) {
-          System.out.println("Logged in successfully");
-          //dispose();
-          //FactoryFrame frameFactory = null;
+          JOptionPane.showMessageDialog(null, "Logged in successfully");
+
           switch (userModel.getRole()) {
             case CUSTOMER -> {
             }
-            // case EMPLOYEE -> {
-            // frameFactory = new EmployeeFrameFactory();
-            // }
-            // case ADMIN -> {
-            // frameFactory = new AdminFrameFactory();
-            // }
+            case EMPLOYEE -> {
+              dispose();
+              new SalesmanFrame();
+            }
+            case ADMIN -> {
+            }
             default -> {
               break;
             }
           }
-          // JFrame homeUI = frameFactory.createFrame();
-          // homeUI.setVisible(true);
         } else {
           JOptionPane.showMessageDialog(null,
               "Invalid username or password. Please check the username or password and try again.");
@@ -190,19 +188,7 @@ public class LoginUI extends JFrame {
         JOptionPane.showMessageDialog(null, "An error occurred while logging in. Please try again." + ex);
       }
 
-      // try {
-      // UserModel user = UserBUS.getInstance().login(username, passwordFld);
-      // if (user != null) {
-      // System.out.println("Logged in Successfully");
-      // } else {
-      // JOptionPane.showMessageDialog(null,
-      // "Invalid username or password. Please check the username or password and try
-      // again.");
-      // }
-      // } catch (Exception ex) {
-      // JOptionPane.showMessageDialog(null, "An error occurred while logging in: " +
-      // ex);
-      // }
+ 
 
     });
 

@@ -9,6 +9,8 @@ import javax.swing.*;
 import com.bookstore.gui.form.admin.component.dashboardComponent.DashboardPanel;
 import com.bookstore.gui.form.admin.menu.HeaderForm;
 import com.bookstore.gui.form.admin.menu.MenuForm;
+import com.formdev.flatlaf.themes.FlatMacLightLaf;
+
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -54,11 +56,7 @@ public class RunForm extends JFrame {
   }
 
   public static void main(String[] args) {
-    try {
-      UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-    } catch (ClassNotFoundException | IllegalAccessException | InstantiationException
-        | UnsupportedLookAndFeelException ignored) {
-    }
+    FlatMacLightLaf.setup();
     new RunForm();
   }
 }

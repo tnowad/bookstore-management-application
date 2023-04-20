@@ -34,11 +34,11 @@ public class TopProductPanel extends javax.swing.JPanel {
                 new java.awt.Color(255, 102, 153), new java.awt.Color(153, 153, 0), java.awt.Color.black,
                 java.awt.Color.darkGray));
 
-        setSerial.setText("01");
+        setSerial.setText(""+serial);
 
         getNameBook.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
         getNameBook.setForeground(new java.awt.Color(153, 0, 153));
-        getNameBook.setText("the last and the last the last ");
+        getNameBook.setText(title);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

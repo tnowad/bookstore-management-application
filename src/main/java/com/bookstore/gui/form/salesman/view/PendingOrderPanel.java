@@ -47,7 +47,7 @@ public class PendingOrderPanel extends JPanel {
     pendingOrderTitle = new Label("Pending Order List");
     jPanel1 = new JPanel();
     jTextField1 = new JTextField();
-    jButton1 = new Button("Search");
+    searchButton = new Button("Search");
     jPanel4 = new JPanel();
     jScrollPane1 = new JScrollPane();
     orderTableList = new JTable();
@@ -60,7 +60,7 @@ public class PendingOrderPanel extends JPanel {
       }
     });
 
-    jButton1.setText("Search");
+    searchButton.setText("Search");
 
     GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
     jPanel1.setLayout(jPanel1Layout);
@@ -72,7 +72,7 @@ public class PendingOrderPanel extends JPanel {
                 .addComponent(jTextField1, GroupLayout.PREFERRED_SIZE, 248,
                     GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33)
-                .addComponent(jButton1, GroupLayout.PREFERRED_SIZE, 99,
+                .addComponent(searchButton, GroupLayout.PREFERRED_SIZE, 99,
                     GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(273, Short.MAX_VALUE)));
     jPanel1Layout.setVerticalGroup(
@@ -81,7 +81,7 @@ public class PendingOrderPanel extends JPanel {
                 .addComponent(pendingOrderTitle)
                 .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, GroupLayout.PREFERRED_SIZE, 40,
+                    .addComponent(searchButton, GroupLayout.PREFERRED_SIZE, 40,
                         GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField1, GroupLayout.PREFERRED_SIZE, 40,
                         GroupLayout.PREFERRED_SIZE))
@@ -102,7 +102,7 @@ public class PendingOrderPanel extends JPanel {
   }
 
   private Label pendingOrderTitle;
-  private Button jButton1;
+  private Button searchButton;
   private JPanel jPanel1;
   private JPanel jPanel4;
   private JScrollPane jScrollPane1;
