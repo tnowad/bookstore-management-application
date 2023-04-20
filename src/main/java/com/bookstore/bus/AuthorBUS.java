@@ -138,10 +138,6 @@ public class AuthorBUS implements IBUS<AuthorModel> {
       }
     }
 
-    if (results.isEmpty()) {
-      throw new IllegalArgumentException("No author found with the specified search criteria.");
-    }
-
     return results;
   }
 }

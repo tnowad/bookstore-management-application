@@ -138,10 +138,6 @@ public class ProviderBUS implements IBUS<ProviderModel> {
       }
     }
 
-    if (results.isEmpty()) {
-      throw new IllegalArgumentException("No provider found with the specified search criteria.");
-    }
-
     return results;
   }
 }

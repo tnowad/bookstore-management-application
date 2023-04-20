@@ -155,10 +155,6 @@ public class ImportItemsBUS implements IBUS<ImportItemsModel> {
       }
     }
 
-    if (results.isEmpty()) {
-      throw new IllegalArgumentException("No import_items found with the specified search criteria.");
-    }
-
     return results;
   }
 }

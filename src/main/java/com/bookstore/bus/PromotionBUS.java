@@ -198,10 +198,6 @@ public class PromotionBUS implements IBUS<PromotionModel> {
       }
     }
 
-    if (results.isEmpty()) {
-      throw new IllegalArgumentException("No promotion found with the specified search criteria.");
-    }
-
     return results;
   }
 }

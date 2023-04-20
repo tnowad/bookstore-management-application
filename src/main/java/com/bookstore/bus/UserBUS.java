@@ -272,9 +272,6 @@ public class UserBUS implements IBUS<UserModel> {
         results.add(model);
       }
     }
-    if (results.isEmpty()) {
-      throw new IllegalArgumentException("No users found with the specified search criteria.");
-    }
 
     return results;
   }

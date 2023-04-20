@@ -128,10 +128,6 @@ public class CategoryBUS implements IBUS<CategoryModel> {
       }
     }
 
-    if (results.isEmpty()) {
-      throw new IllegalArgumentException("No category found with the specified search criteria.");
-    }
-
     return results;
   }
 }

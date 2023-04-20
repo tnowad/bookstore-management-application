@@ -189,10 +189,6 @@ public class PaymentBUS implements IBUS<PaymentModel> {
       }
     }
 
-    if (results.isEmpty()) {
-      throw new IllegalArgumentException("No address found with the specified search criteria.");
-    }
-
     return results;
   }
 }

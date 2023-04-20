@@ -167,10 +167,6 @@ public class PaymentMethodBUS implements IBUS<PaymentMethodModel> {
       }
     }
 
-    if (results.isEmpty()) {
-      throw new IllegalArgumentException("No payment method found with the specified search criteria.");
-    }
-
     return results;
   }
 }
