@@ -251,10 +251,6 @@ public class BookBUS implements IBUS<BookModel> {
       }
     }
 
-    if (results.isEmpty()) {
-      throw new IllegalArgumentException("No book found with the specified search criteria.");
-    }
-
     return results;
   }
 }

@@ -138,10 +138,6 @@ public class PublisherBUS implements IBUS<PublisherModel> {
       }
     }
 
-    if (results.isEmpty()) {
-      throw new IllegalArgumentException("No publisher found with the specified search criteria.");
-    }
-
     return results;
   }
 }

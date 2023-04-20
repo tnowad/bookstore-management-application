@@ -178,10 +178,6 @@ public class EmployeeBUS implements IBUS<EmployeeModel> {
       }
     }
 
-    if (results.isEmpty()) {
-      throw new IllegalArgumentException("No employee found with the specified search criteria.");
-    }
-
     return results;
   }
 }

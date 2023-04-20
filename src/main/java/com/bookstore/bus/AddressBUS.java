@@ -162,10 +162,6 @@ public class AddressBUS implements IBUS<AddressModel> {
       }
     }
 
-    if (results.isEmpty()) {
-      throw new IllegalArgumentException("No address found with the specified search criteria.");
-    }
-
     return results;
   }
 }

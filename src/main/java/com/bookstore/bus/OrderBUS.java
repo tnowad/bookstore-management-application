@@ -204,10 +204,6 @@ public class OrderBUS implements IBUS<OrderModel> {
       }
     }
 
-    if (results.isEmpty()) {
-      throw new IllegalArgumentException("No order found with the specified search criteria.");
-    }
-
     return results;
   }
 }

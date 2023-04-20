@@ -189,10 +189,6 @@ public class ImportBUS implements IBUS<ImportModel> {
       }
     }
 
-    if (results.isEmpty()) {
-      throw new IllegalArgumentException("No import found with the specified search criteria.");
-    }
-
     return results;
   }
 }
