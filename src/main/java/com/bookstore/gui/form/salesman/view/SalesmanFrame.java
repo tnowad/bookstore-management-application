@@ -17,15 +17,14 @@ public class SalesmanFrame extends JFrame {
   public SalesmanFrame() {
     initFrame();
     initComponents();
-    // setBackground();
     handleEvent();
   }
 
-  private void setBackground() {
-    container.setBackground(new ThemeColor().getBackground());
-    contentCustomerList.setBackground(new ThemeColor().getBackground());
-    jScrollPane1.setBackground(new ThemeColor().getBackground());
-  }
+  // private void setBackground() {
+  //   container.setBackground(new ThemeColor().getBackground());
+  //   contentCustomerList.setBackground(new ThemeColor().getBackground());
+  //   jScrollPane1.setBackground(new ThemeColor().getBackground());
+  // }
 
   private void initFrame() {
     setPreferredSize(new Dimension(1200, 700));

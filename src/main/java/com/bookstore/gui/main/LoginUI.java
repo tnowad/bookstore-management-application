@@ -1,10 +1,12 @@
 package com.bookstore.gui.main;
 
+import com.bookstore.models.CurrentUserModel;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.util.List;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
@@ -18,6 +20,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
+import com.bookstore.bus.CurrentUserBUS;
 import com.bookstore.bus.UserBUS;
 import com.bookstore.gui.Theme.ThemeFont;
 import com.bookstore.gui.component.button.Button;
@@ -45,11 +48,29 @@ public class LoginUI extends JFrame {
   private Button registerButton;
   private JLabel iconLabel;
   private JLabel nameStoreLabel;
+  
 
   public LoginUI() {
     initComponent();
     handleEvent();
     initFrame();
+  }
+
+  private void updateCurrentUser() {
+    UserBUS userBus = UserBUS.getInstance();
+    List<UserModel> userList = userBus.getAllModels();
+    String username = groupUsername.getTextField().getText();
+    UserModel userModel = userBus.getModelByUsername(username);
+
+    CurrentUserBUS currentUserBus = CurrentUserBUS.getInstance();
+    List<CurrentUserModel> currentUser = currentUserBus.getAllModels();
+    int idPrev = currentUser.get(0).getCurrentUserId();
+    System.out.println(idPrev);
+    CurrentUserModel currentUserModel = new CurrentUserModel(userModel.getId());
+    int i = currentUserBus.updateModel(currentUserModel);
+    System.out.println(i);
+    int idNext = currentUser.get(0).getCurrentUserId();
+    System.out.println("id sau: " + idNext);
   }
 
   public static LoginUI getInstance() {
@@ -125,7 +146,7 @@ public class LoginUI extends JFrame {
     forgetButton.setPreferredSize(new Dimension(200, 20));
     forgetButton.setForeground(new Color(180, 0, 0));
     forgetButton.setBackground(Color.white);
-    forgetButton.hoverBackground(Color.WHITE,Color.WHITE,new Color(180, 0, 0),new Color(255, 0, 0));
+    forgetButton.hoverBackground(Color.WHITE, Color.WHITE, new Color(180, 0, 0), new Color(255, 0, 0));
     groupForgotPassword.setBorder(BorderFactory.createEmptyBorder());
 
     groupForgotPassword.add(forgetButton);
@@ -166,7 +187,7 @@ public class LoginUI extends JFrame {
         UserModel userModel = UserBUS.getInstance().getModelByUsername(username);
         if (passwordFld.equals(userModel.getPassword())) {
           JOptionPane.showMessageDialog(null, "Logged in successfully");
-
+          updateCurrentUser();
           switch (userModel.getRole()) {
             case CUSTOMER -> {
             }
@@ -187,8 +208,6 @@ public class LoginUI extends JFrame {
       } catch (Exception ex) {
         JOptionPane.showMessageDialog(null, "An error occurred while logging in. Please try again." + ex);
       }
-
- 
 
     });
 
@@ -274,8 +293,8 @@ public class LoginUI extends JFrame {
 
   public static void main(String[] args) {
     try {
-      UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel"); 
-      UIManager.put("Button.background", Color.BLUE); 
+      UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+      UIManager.put("Button.background", Color.BLUE);
     } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
         | UnsupportedLookAndFeelException e) {
       e.printStackTrace();

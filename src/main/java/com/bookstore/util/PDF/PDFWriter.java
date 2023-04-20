@@ -44,8 +44,7 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
 public class PDFWriter {
-  // TODO: Change the font location
-  private static final String FONT_FILE_PATH = "C:\\Windows\\Fonts\\Arial.ttf";
+  private static final String FONT_FILE_PATH = "../../../../resources/fonts/Arial.ttf";
   private static PDFWriter instance;
 
   public Document document;
@@ -213,7 +212,7 @@ public class PDFWriter {
     }
   }
 
-  // TODO: NEED A PROPER CHECK FOR THIS FUNCTION (IT WORKS NORMALLY).
+  // TODO: NEED A PROPER CHECK FOR THIS FUNCTION.
   public void exportReceiptToPDF(int orderId, String url) {
     OrderModel orderData = OrderBUS.getInstance().getModelById(orderId);
     CartModel cartData = CartBUS.getInstance().getModelById(orderData.getCartId());

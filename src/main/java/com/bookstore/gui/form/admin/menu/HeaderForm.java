@@ -10,7 +10,7 @@ import java.sql.SQLException;
 
 import com.bookstore.gui.form.admin.RunForm;
 import com.bookstore.gui.form.admin.component.dashboardComponent.DashboardPanel;
-import com.bookstore.gui.form.admin.component.userListComponent.UserComponent;
+import com.bookstore.gui.form.admin.component.userListComponent.UserPanel;
 
 /**
  *
@@ -110,7 +110,7 @@ public class HeaderForm extends javax.swing.JPanel implements MouseListener {
     public void mouseClicked(MouseEvent e) {
         String value = valueSearch.getText();
         if(HeaderForm.getInstance().getPanelNow().equals("UserList")){
-            UserComponent.getInstance().receivevalue(value);
+            UserPanel.getInstance().receivevalue(value);
         }
         if(HeaderForm.getInstance().getPanelNow().equals("DashBoard")){
             DashboardPanel.getInstance().receivevalue(value);

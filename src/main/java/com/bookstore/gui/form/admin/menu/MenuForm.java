@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 import com.bookstore.gui.form.admin.RunForm;
 import com.bookstore.gui.form.admin.component.bookListComponent.BrowseProductPanel;
 import com.bookstore.gui.form.admin.component.dashboardComponent.DashboardPanel;
-import com.bookstore.gui.form.admin.component.userListComponent.UserComponent;
+import com.bookstore.gui.form.admin.component.userListComponent.UserPanel;
 
 /**
  *
@@ -112,7 +112,7 @@ public class MenuForm extends javax.swing.JPanel {
                 RunForm.getConstruct().removeAll();
                 panel.removeAll();
                 panel.add(HeaderForm.getInstance(), BorderLayout.NORTH);
-                panel.add(UserComponent.getInstance(), BorderLayout.CENTER);
+                panel.add(UserPanel.getInstance(), BorderLayout.CENTER);
                 RunForm.getConstruct().add(panel);
                 RunForm.getConstruct().revalidate();
                 RunForm.getConstruct().repaint();

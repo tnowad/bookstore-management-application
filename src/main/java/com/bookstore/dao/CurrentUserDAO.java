@@ -19,13 +19,13 @@ public class CurrentUserDAO implements IDAO<CurrentUserModel> {
   }
 
   private CurrentUserModel createCurrentUserModelFromResultSet(ResultSet rs) throws SQLException {
-    return new CurrentUserModel(rs.getInt("current_user_id"));
+    return new CurrentUserModel(rs.getInt("user_id"));
   }
 
   @Override
   public ArrayList<CurrentUserModel> readDatabase() {
     ArrayList<CurrentUserModel> currentUserList = new ArrayList<>();
-    try (ResultSet rs = DatabaseConnection.executeQuery("SELECT * FROM current_user")) {
+    try (ResultSet rs = DatabaseConnection.executeQuery("SELECT * FROM current_user_id")) {
       while (rs.next()) {
         CurrentUserModel currentUserModel = createCurrentUserModelFromResultSet(rs);
         currentUserList.add(currentUserModel);
@@ -38,7 +38,7 @@ public class CurrentUserDAO implements IDAO<CurrentUserModel> {
 
   @Override
   public int insert(CurrentUserModel currentUser) {
-    String insertSql = "INSERT INTO current_user (current_user_id) VALUES (?)";
+    String insertSql = "INSERT INTO current_user_id (user_id) VALUES (?)";
     Object[] args = { currentUser.getCurrentUserId() };
     try {
       return DatabaseConnection.executeUpdate(insertSql, args);
@@ -50,7 +50,7 @@ public class CurrentUserDAO implements IDAO<CurrentUserModel> {
 
   @Override
   public int update(CurrentUserModel currentUser) {
-    String updateSql = "UPDATE current_user SET current_user_id = ?";
+    String updateSql = "UPDATE current_user_id SET user_id = ?";
     Object[] args = { currentUser.getCurrentUserId() };
     try {
       return DatabaseConnection.executeUpdate(updateSql, args);
@@ -62,7 +62,7 @@ public class CurrentUserDAO implements IDAO<CurrentUserModel> {
 
   @Override
   public int delete(int id) {
-    String deleteSql = "DELETE FROM current_user WHERE current_user_id = ?";
+    String deleteSql = "DELETE FROM current_user_id WHERE user_id = ?";
     Object[] args = { id };
     try {
       return DatabaseConnection.executeUpdate(deleteSql, args);

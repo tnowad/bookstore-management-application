@@ -15,10 +15,12 @@ import javax.swing.JOptionPane;
 import com.bookstore.bus.BookBUS;
 import com.bookstore.bus.CartBUS;
 import com.bookstore.bus.CartItemsBUS;
+import com.bookstore.bus.OrderBUS;
 import com.bookstore.bus.UserBUS;
 import com.bookstore.models.BookModel;
 import com.bookstore.models.CartItemsModel;
 import com.bookstore.models.CartModel;
+import com.bookstore.models.OrderModel;
 import com.bookstore.models.UserModel;
 
 /**
@@ -377,14 +379,7 @@ public class DashboardPanel extends javax.swing.JPanel {
                 jLabel4.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
                 jLabel4.setText("Top");
 
-                javax.swing.GroupLayout tableTopBookLayout = new javax.swing.GroupLayout(tableTopBook);
-                tableTopBook.setLayout(tableTopBookLayout);
-                tableTopBookLayout.setHorizontalGroup(
-                                tableTopBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addGap(0, 0, Short.MAX_VALUE));
-                tableTopBookLayout.setVerticalGroup(
-                                tableTopBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addGap(0, 266, Short.MAX_VALUE));
+                tableTopBook.setLayout(new GridLayout(3, 1));
 
                 javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
                 jPanel6.setLayout(jPanel6Layout);
@@ -442,7 +437,7 @@ public class DashboardPanel extends javax.swing.JPanel {
 
                 jLabel33.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
                 jLabel33.setForeground(new java.awt.Color(0, 0, 204));
-                jLabel33.setText("User Age");
+                jLabel33.setText("Age (Days)");
 
                 jLabel34.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
                 jLabel34.setForeground(new java.awt.Color(0, 0, 204));
@@ -595,26 +590,43 @@ public class DashboardPanel extends javax.swing.JPanel {
 
         public void addTable() {
                 List<BookModel> listBook = BookBUS.getInstance().getAllModels();
-                int serial = 1;
+                TopProductPanel topProductPanel;
                 int top1 = 0;
                 int top2 = 0;
                 int top3 = 0;
+                BookModel booktop1Model = null;
+                BookModel booktop2Model = null;
+                BookModel booktop3Model = null;
                 tableTopBook.setLayout(new GridLayout(3, 1, 5, 5));
                 for (BookModel book : listBook) {
                         List<CartItemsModel> listCartItems = CartItemsBUS.getInstance()
                                         .searchModel(book.getIsbn().toString(), new String[] { "book_isbn" });
                         int value = 0;
-                        for(CartItemsModel cartItem : listCartItems){
+                        for (CartItemsModel cartItem : listCartItems) {
                                 value = value + cartItem.getQuantity();
                         }
-                        if(value > top1){
-                                TopProductPanel topProductPanel = new TopProductPanel(serial, book.getTitle());
-                                tableTopBook.add(topProductPanel,0);
+                        if (value > top1) {
+                                booktop3Model = booktop2Model;
+                                booktop2Model = booktop1Model;
+                                booktop1Model = book;
                                 top1 = value;
+                        } else if (value >= top2) {
+                                booktop3Model = booktop2Model;
+                                booktop2Model = book;
+                                top2 = value;
+
+                        } else if (value >= top3) {
+                                booktop3Model = book;
+                                top3 = value;
                         }
-                        
 
                 }
+                topProductPanel = new TopProductPanel(1, booktop1Model.getTitle());
+                tableTopBook.add(topProductPanel);
+                topProductPanel = new TopProductPanel(2, booktop2Model.getTitle());
+                tableTopBook.add(topProductPanel);
+                topProductPanel = new TopProductPanel(3, booktop3Model.getTitle());
+                tableTopBook.add(topProductPanel);
 
                 List<UserModel> listUser = UserBUS.getInstance().getAllModels();
                 tableUser.setLayout(new GridLayout(0, 1, 5, 5));
@@ -635,14 +647,8 @@ public class DashboardPanel extends javax.swing.JPanel {
         }
 
         public void CartDashboard() {
-                
+
                 List<CartModel> listCart = CartBUS.getInstance().searchModel("accept", new String[] { "status" });
-                if(listCart.isEmpty()){
-                        setTotalProductSold.setText("0%");
-                        setTotalRevenue.setText("0%");
-
-
-                }
                 LocalDateTime timeNow = LocalDateTime.now();
                 int productSold7Days = 0;
                 int productSoldAllTime = 0;
@@ -691,6 +697,10 @@ public class DashboardPanel extends javax.swing.JPanel {
                                 - UserBUS.getInstance().searchModel("BANNED", new String[] { "status" }).size());
                 setTotalNewUser.setText(String.format("%.02f", ratioNewUser * 100) + "%");
                 valueNewUser.setText("Actual Value: " + userNearly7Days);
+                if (listCart.isEmpty()) {
+                        setTotalProductSold.setText("0%");
+                        setTotalRevenue.setText("0%");
+                }
 
         }
 

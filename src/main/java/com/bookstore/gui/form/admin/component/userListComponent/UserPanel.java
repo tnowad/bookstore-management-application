@@ -27,9 +27,9 @@ import javax.swing.*;
  *
  * @author yanti
  */
-public class UserComponent extends javax.swing.JPanel implements MouseListener {
+public class UserPanel extends javax.swing.JPanel implements MouseListener {
 
-  private static UserComponent instance;
+  private static UserPanel instance;
 
   private int quantityAdmin;
   private int quantityCustomer;
@@ -42,13 +42,13 @@ public class UserComponent extends javax.swing.JPanel implements MouseListener {
    * @throws SQLException
    * @throws ClassNotFoundException
    */
-  private UserComponent() {
+  private UserPanel() {
     initComponents();
   }
 
-  public static UserComponent getInstance() {
+  public static UserPanel getInstance() {
     if (instance == null) {
-      instance = new UserComponent();
+      instance = new UserPanel();
     }
     return instance;
   }

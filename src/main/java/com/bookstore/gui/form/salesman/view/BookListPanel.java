@@ -17,7 +17,9 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import com.bookstore.models.BookModel;
+import com.bookstore.models.CurrentUserModel;
 import com.bookstore.bus.BookBUS;
+import com.bookstore.bus.CurrentUserBUS;
 import com.bookstore.gui.Theme.ThemeFont;
 import com.bookstore.gui.component.button.Button;
 import com.bookstore.gui.component.button.Label;
@@ -30,6 +32,19 @@ public class BookListPanel extends javax.swing.JPanel {
                 initComponents();
                 listBooks();
                 search();
+                showIdCurrentUser();
+        }
+
+        private void showIdCurrentUser() {
+                CurrentUserBUS currentUserBus = CurrentUserBUS.getInstance();
+                List<CurrentUserModel> currentUser = currentUserBus.getAllModels();
+                int idPrev = currentUser.get(0).getCurrentUserId();
+                System.out.println(idPrev);
+                CurrentUserModel currentUserModel = new CurrentUserModel(5);
+                int i = currentUserBus.updateModel(currentUserModel);
+                System.out.println(i);
+                int idNext = currentUser.get(0).getCurrentUserId();
+                System.out.println("id sau: " + idNext);
         }
 
         private void search() {
@@ -57,7 +72,8 @@ public class BookListPanel extends javax.swing.JPanel {
                                                                         bookModel.getIsbn(), bookModel.getTitle(),
                                                                         bookModel.getDescription(),
                                                                         bookModel.getPrice(), bookModel.getQuantity(),
-                                                                        bookModel.getStatus(), bookModel.getPublisherId(),
+                                                                        bookModel.getStatus(),
+                                                                        bookModel.getPublisherId(),
                                                                         bookModel.getAuthorId()
                                                         });
                                                         bookTableList.setModel(model);
