@@ -30,6 +30,7 @@ import com.bookstore.gui.form.manager.view.managerFrame;
 import com.bookstore.gui.form.salesman.view.SalesmanFrame;
 import com.bookstore.models.UserModel;
 import com.bookstore.models.EmployeeModel.EmployeeType;
+import com.bookstore.services.CheckCurrentUser;
 
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -52,7 +53,6 @@ public class LoginUI extends JFrame {
   private Button registerButton;
   private JLabel iconLabel;
   private JLabel nameStoreLabel;
-  
 
   public LoginUI() {
     initComponent();
@@ -61,19 +61,8 @@ public class LoginUI extends JFrame {
   }
 
   private void updateCurrentUser() {
-    UserBUS userBus = UserBUS.getInstance();
     String username = groupUsername.getTextField().getText();
-    UserModel userModel = userBus.getModelByUsername(username);
-
-    CurrentUserBUS currentUserBus = CurrentUserBUS.getInstance();
-    List<CurrentUserModel> currentUser = currentUserBus.getAllModels();
-    int idPrev = currentUser.get(0).getCurrentUserId();
-    System.out.println(idPrev);
-    CurrentUserModel currentUserModel = new CurrentUserModel(userModel.getId());
-    int i = currentUserBus.updateModel(currentUserModel);
-    System.out.println(i);
-    int idNext = currentUser.get(0).getCurrentUserId();
-    System.out.println("id sau: " + idNext);
+    new CheckCurrentUser().setCurrentUserId(UserBUS.getInstance().getModelByUsername(username).getId());
   }
 
   public static LoginUI getInstance() {
@@ -198,10 +187,9 @@ public class LoginUI extends JFrame {
               dispose();
               EmployeeBUS employeeBUS = EmployeeBUS.getInstance();
               EmployeeModel employeeModel = employeeBUS.getModelById(userModel.getId());
-              if(employeeModel.getEmployeeType().equals(EmployeeType.EMPLOYEE_MANAGER)) {
+              if (employeeModel.getEmployeeType().equals(EmployeeType.EMPLOYEE_MANAGER)) {
                 new managerFrame();
-              }
-              else
+              } else
                 new SalesmanFrame();
             }
             case ADMIN -> {

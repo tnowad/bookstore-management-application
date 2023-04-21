@@ -22,6 +22,7 @@ import com.bookstore.gui.component.button.Button;
 import com.bookstore.gui.form.salesman.view.*;
 import com.bookstore.gui.form.salesman.view.Account.AccountPanel;
 import com.bookstore.gui.main.LoginUI;
+import com.bookstore.services.CheckCurrentUser;
 
 public class managerFrame extends JFrame {
   private JPanel grHeader;
@@ -228,6 +229,7 @@ public class managerFrame extends JFrame {
             JOptionPane.OK_OPTION);
         if (option == 0) {
           dispose();
+          new CheckCurrentUser().setCurrentUserId(0);
           LoginUI loginFrame = new LoginUI();
           loginFrame.setVisible(true);
         }
