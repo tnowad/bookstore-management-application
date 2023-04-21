@@ -704,7 +704,7 @@ public class DashboardPanel extends javax.swing.JPanel {
 
         }
 
-        public void receivevalue(String value) {
+        public void receiveValue(String value) {
                 String[] columns = new String[] { "name" };
                 tableUser.removeAll();
                 List<UserModel> list = UserBUS.getInstance().searchModel(value, columns);

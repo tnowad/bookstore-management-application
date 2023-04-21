@@ -11,8 +11,6 @@ import com.bookstore.gui.form.admin.menu.HeaderForm;
 import com.bookstore.gui.form.admin.menu.MenuForm;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
 
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 
 public class RunForm extends JFrame {
   private static RunForm instance;
@@ -52,6 +50,7 @@ public class RunForm extends JFrame {
 
     Construct.add(HeaderForm.getInstance(), BorderLayout.NORTH);
     Construct.add(DashboardPanel.getInstance(), BorderLayout.CENTER);
+    HeaderForm.getInstance().setPanelNow("DashBoard");
 
   }
 

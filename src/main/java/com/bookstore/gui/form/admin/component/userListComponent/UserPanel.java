@@ -591,7 +591,7 @@ public class UserPanel extends javax.swing.JPanel implements MouseListener {
     table.repaint();
   }
 
-  public void receivevalue(String value) {
+  public void receiveValue(String value) {
     String[] columns = new String[] {"name" };
     table.removeAll();
     List<UserModel> list = UserBUS.getInstance().searchModel(value, columns);

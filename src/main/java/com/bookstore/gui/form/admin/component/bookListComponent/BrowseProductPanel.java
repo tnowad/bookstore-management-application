@@ -85,11 +85,6 @@ public class BrowseProductPanel extends JPanel {
             }
         });
 
-        ButtonSearch.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                actionSearch();
-            }
-        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -187,18 +182,16 @@ public class BrowseProductPanel extends JPanel {
         table.repaint();
     }
 
-    public void actionSearch() {
-        String searchData = searchBookField.getText();
-        if (searchData.trim().isEmpty()) {
+    public void receiveValue(String value) {
+        if (value.trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Search field can't be empty. Please try again.");
             return;
         }
 
-        String[] columns = new String[] { "isbn", "title", "description", "price", "quantity", "status", "publisher_id",
-                "author_id" };
-        List<BookModel> list = BookBUS.getInstance().searchModel(searchData, columns);
+        String[] columns = new String[] { "title"};
+        List<BookModel> list = BookBUS.getInstance().searchModel(value, columns);
         table.removeAll();
-        table.setLayout(new GridLayout(0, 0, 10, 10));
+        table.setLayout(new GridLayout(0, 3, 10, 10));
         for (BookModel book : list) {
             if (!book.getStatus().toString().equals("DELETED")) {
                 BookProductPanel bookProductPanel = new BookProductPanel(book.getIsbn(), book.getTitle(),
