@@ -4,12 +4,15 @@ import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.*;
 
+import com.bookstore.bus.AddressBUS;
 import com.bookstore.bus.CurrentUserBUS;
+import com.bookstore.bus.UserBUS;
 import com.bookstore.gui.Theme.ThemeColor;
 import com.bookstore.gui.component.button.Button;
 import com.bookstore.gui.form.salesman.view.Account.AccountPanel;
 import com.bookstore.gui.main.LoginUI;
 import com.bookstore.models.CurrentUserModel;
+import com.bookstore.services.CheckCurrentUser;
 
 import java.awt.event.*;
 import java.util.List;
@@ -36,6 +39,7 @@ public class SalesmanFrame extends JFrame {
     initFrame();
     initComponents();
     handleEvent();
+    checkCurrentUser();
   }
 
   private void initFrame() {
@@ -172,8 +176,10 @@ public class SalesmanFrame extends JFrame {
       public void actionPerformed(ActionEvent e) {
         int option = JOptionPane.showConfirmDialog(null, "Bạn chắc chắn muốn đăng xuất?", "Đăng xuất",
             JOptionPane.OK_OPTION);
+
         if (option == 0) {
           dispose();
+          new CheckCurrentUser().setCurrentUserId(0);
           LoginUI loginFrame = new LoginUI();
           loginFrame.setVisible(true);
         }
@@ -191,6 +197,17 @@ public class SalesmanFrame extends JFrame {
 
   private void jTextField1ActionPerformed(ActionEvent evt) {
 
+  }
+
+  private void checkCurrentUser() {
+    if (new CheckCurrentUser().getCurrentUserId() == 0) {
+      JOptionPane.showMessageDialog(null,
+          "You are not logged in, please login!");
+      dispose();
+      LoginUI loginUI = new LoginUI();
+      loginUI.setVisible(true);
+      return;
+    }
   }
 
   public static void main(String args[]) {

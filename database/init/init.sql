@@ -1,4 +1,4 @@
--- Active: 1681915670376@@127.0.0.1@3306@bookstore
+-- Active: 1682057971137@@127.0.0.1@3306@bookstore
 DROP DATABASE IF EXISTS bookstore;
 
 CREATE DATABASE bookstore;
@@ -300,9 +300,9 @@ ALTER TABLE `payments`
 ADD
     FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
-ALTER TABLE `current_user_id`
-ADD
-    FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+-- ALTER TABLE `current_user_id`
+-- ADD
+--     FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 ALTER TABLE `shipping`
 ADD

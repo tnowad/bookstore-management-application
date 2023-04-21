@@ -517,6 +517,7 @@ INSERT INTO `shipping` (`id`, `order_id`, `shipping_method`, `address_id`, `stat
 (20, 20, 'UPS', 30, 'pending');
 
 INSERT INTO `users` (`id`, `username`, `password`, `status`, `name`, `email`, `phone`, `created_at`, `updated_at`, `role`) VALUES
+-- (0, 'guest', '', '', '', '', '', '', '', ''),
 (1, 'admin', 'admin123', 'active', 'Nguyễn Văn A', 'admin@example.com', '0987654321', '2023-04-20 02:55:50', '2023-04-20 02:55:50', 'admin'),
 (2, 'employee1', 'password1', 'active', 'Nguyễn Thị B', 'employee1@example.com', '0912345678', '2023-04-20 02:55:50', '2023-04-20 02:55:50', 'employee'),
 (3, 'employee2', 'password2', 'active', 'Trần Văn C', 'employee2@example.com', '0923456789', '2023-04-20 02:55:50', '2023-04-20 02:55:50', 'employee'),

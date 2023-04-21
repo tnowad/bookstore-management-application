@@ -10,6 +10,7 @@ import com.bookstore.bus.UserBUS;
 import com.bookstore.gui.Theme.ThemeFont;
 import com.bookstore.gui.component.button.Button;
 import com.bookstore.gui.component.button.Label;
+import com.bookstore.gui.main.LoginUI;
 import com.bookstore.models.AddressModel;
 import com.bookstore.models.CurrentUserModel;
 import com.bookstore.models.UserModel;
@@ -55,6 +56,7 @@ public class ProfileSettings extends JPanel {
 
         private void updateInformation() {
 
+            
                 getCityTxtFld.setText(addressModel.getCity());
                 getStreetTxtFld.setText(addressModel.getStreet());
                 getZipTxtFld.setText(addressModel.getZip());
