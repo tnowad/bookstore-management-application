@@ -12,6 +12,7 @@ import javax.swing.JScrollPane;
 
 import com.bookstore.models.MenuItemModel;
 import com.bookstore.models.MenuModel;
+import com.bookstore.models.SubMenuItemModel;
 
 public class DrawerMenu extends JPanel {
     private MenuModel menuModel;
@@ -85,15 +86,31 @@ public class DrawerMenu extends JPanel {
 
         MenuModel menuModel = new MenuModel(new ArrayList<MenuItemModel>() {
             {
-                add(new MenuItemModel("Home", null, null));
-                add(new MenuItemModel("Books", null, null));
-                add(new MenuItemModel("Authors", null, null));
-                add(new MenuItemModel("Publishers", null, null));
-                add(new MenuItemModel("Categories", null, null));
-                add(new MenuItemModel("Users", null, null));
-                add(new MenuItemModel("Settings", null, null));
+                add(new MenuItemModel("Home", null, null, new ArrayList<SubMenuItemModel>() {
+                    {
+                        add(new SubMenuItemModel("Home 1", null, null));
+                        add(new SubMenuItemModel("Home 2", null, null));
+                        add(new SubMenuItemModel("Home 3", null, null));
+                    }
+                }));
+                add(new MenuItemModel("Home 2", null, null, new ArrayList<SubMenuItemModel>() {
+                    {
+                        add(new SubMenuItemModel("Home 1", null, null));
+                        add(new SubMenuItemModel("Home 2", null, null));
+                        add(new SubMenuItemModel("Home 3", null, null));
+                    }
+                }));
+                add(new MenuItemModel("Home 3", null, null, new ArrayList<SubMenuItemModel>() {
+                    {
+                        add(new SubMenuItemModel("Home 1", null, null));
+                        add(new SubMenuItemModel("Home 2", null, null));
+                        add(new SubMenuItemModel("Home 3", null, null));
+                    }
+                }));
+                add(new MenuItemModel("Home 4", null, null));
             }
         });
+        System.out.println(menuModel.getMenuItems().size());
 
         DrawerMenu drawerMenu = new DrawerMenu(menuModel);
 

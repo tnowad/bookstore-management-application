@@ -2,12 +2,51 @@ package com.bookstore.gui.form.salesman.view.Account;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.util.List;
 
+import com.bookstore.bus.AddressBUS;
+import com.bookstore.bus.CurrentUserBUS;
+import com.bookstore.bus.UserBUS;
 import com.bookstore.gui.Theme.ThemeFont;
 import com.bookstore.gui.component.button.Button;
 import com.bookstore.gui.component.button.Label;
+import com.bookstore.models.AddressModel;
+import com.bookstore.models.CurrentUserModel;
+import com.bookstore.models.UserModel;
 
 public class ProfileSettings extends JPanel {
+
+        private JPanel getInformationPanel;
+        private JPasswordField confirmPasswordFld;
+        private JTextField getCityTxtFld;
+        private JTextField getEmailInEditTxtFld;
+        private JTextField getNameInEditTxtFld;
+        private JTextField getPhoneTxtFld;
+        private JTextField getStateTxtFld;
+        private JTextField getStreetTxtFld;
+        private JTextField getUserNameTxtFld;
+        private JTextField getZipTxtFld;
+        private Label editLabel;
+        private Label editLabel1;
+        private Label editnameLabel;
+        private Label usernameLabel;
+        private Label zipLabel;
+        private Label nameLabel;
+        private Label emailLabel;
+        private Label phoneNumberLabel;
+        private Label streetLabel;
+        private Label cityLabel;
+        private Label stateLabel;
+        private Button resetUserInformation;
+        private Button updateUserInformationBtn;
+
+        UserBUS userBus = UserBUS.getInstance();
+        CurrentUserBUS currentUserBus = CurrentUserBUS.getInstance();
+        AddressBUS addressBus = AddressBUS.getInstance();
+        List<CurrentUserModel> currentUser = currentUserBus.getAllModels();
+        int idCurrent = currentUser.get(0).getCurrentUserId();
+        UserModel userModel = userBus.getModelById(idCurrent);
+        AddressModel addressModel = addressBus.getModelById(idCurrent);
 
         public ProfileSettings() {
                 initComponents();
@@ -15,7 +54,15 @@ public class ProfileSettings extends JPanel {
         }
 
         private void updateInformation() {
-          
+
+                getCityTxtFld.setText(addressModel.getCity());
+                getStreetTxtFld.setText(addressModel.getStreet());
+                getZipTxtFld.setText(addressModel.getZip());
+                getStateTxtFld.setText(addressModel.getState());
+                getUserNameTxtFld.setText(userModel.getUsername());
+                getNameInEditTxtFld.setText(userModel.getName());
+                getEmailInEditTxtFld.setText(userModel.getEmail());
+                getPhoneTxtFld.setText(userModel.getPhone());
         }
 
         private void initComponents() {
@@ -164,14 +211,12 @@ public class ProfileSettings extends JPanel {
                         }
                 });
 
-          
                 getStateTxtFld.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent evt) {
                                 getStateTxtFldActionPerformed(evt);
                         }
                 });
 
-          
                 GroupLayout layout = new GroupLayout(this);
                 this.setLayout(layout);
                 layout.setHorizontalGroup(
@@ -258,7 +303,8 @@ public class ProfileSettings extends JPanel {
                                                                                 GroupLayout.DEFAULT_SIZE,
                                                                                 GroupLayout.PREFERRED_SIZE)
                                                                 .addGap(24, 24, 24)
-                                                                .addComponent(editnameLabel, GroupLayout.PREFERRED_SIZE, 32,
+                                                                .addComponent(editnameLabel, GroupLayout.PREFERRED_SIZE,
+                                                                                32,
                                                                                 GroupLayout.PREFERRED_SIZE)
                                                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                                                 .addGroup(layout.createParallelGroup(
@@ -313,14 +359,32 @@ public class ProfileSettings extends JPanel {
                                                                                 .addComponent(updateUserInformationBtn)
                                                                                 .addComponent(resetUserInformation))
                                                                 .addContainerGap(26, Short.MAX_VALUE)));
-        }// </editor-fold>
+        }
 
         private void getPhoneTxtFldActionPerformed(ActionEvent evt) {
                 // TODO add your handling code here:
         }
 
         private void updateUserInformationBtnActionPerformed(ActionEvent evt) {
-                // TODO add your handling code here:
+                String confirmPassword = new String(confirmPasswordFld.getPassword());
+                if (confirmPassword.equals(userModel.getPassword())) {
+                        userModel.setName(getNameInEditTxtFld.getText());
+                        userModel.setUsername(getUserNameTxtFld.getText());
+                        userModel.setEmail(getEmailInEditTxtFld.getText());
+                        userModel.setPhone(getPhoneTxtFld.getText());
+                        addressModel.setCity(getCityTxtFld.getText());
+                        addressModel.setState(getStateTxtFld.getText());
+                        addressModel.setStreet(getStreetTxtFld.getText());
+                        addressModel.setZip(getZipTxtFld.getText());
+
+                        userBus.updateModel(userModel);
+                        addressBus.updateModel(addressModel);
+                        confirmPasswordFld.setText("");
+                        JOptionPane.showMessageDialog(null, "Confirm Password Successfully");
+                } else {
+                        JOptionPane.showMessageDialog(null, "Passwords do not match");
+                }
+
         }
 
         private void getZipTxtFldActionPerformed(ActionEvent evt) {
@@ -332,36 +396,19 @@ public class ProfileSettings extends JPanel {
         }
 
         private void resetUserInformationActionPerformed(ActionEvent evt) {
-                // TODO add your handling code here:
+                confirmPasswordFld.setText("");
+                getCityTxtFld.setText("");
+                getEmailInEditTxtFld.setText("");
+                getNameInEditTxtFld.setText("");
+                getPhoneTxtFld.setText("");
+                getStateTxtFld.setText("");
+                getStreetTxtFld.setText("");
+                getUserNameTxtFld.setText("");
+                getZipTxtFld.setText("");
         }
 
         private void getStateTxtFldActionPerformed(ActionEvent evt) {
                 // TODO add your handling code here:
         }
-
-        // Variables declaration - do not modify
-        private JPasswordField confirmPasswordFld;
-        private JTextField getCityTxtFld;
-        private JTextField getEmailInEditTxtFld;
-        private JPanel getInformationPanel;
-        private JTextField getNameInEditTxtFld;
-        private JTextField getPhoneTxtFld;
-        private JTextField getStateTxtFld;
-        private JTextField getStreetTxtFld;
-        private JTextField getUserNameTxtFld;
-        private JTextField getZipTxtFld;
-        private Label editLabel;
-        private Label editLabel1;
-        private Label editnameLabel;
-        private Label usernameLabel;
-        private Label zipLabel;
-        private Label nameLabel;
-        private Label emailLabel;
-        private Label phoneNumberLabel;
-        private Label streetLabel;
-        private Label cityLabel;
-        private Label stateLabel;
-        private Button resetUserInformation;
-        private Button updateUserInformationBtn;
 
 }

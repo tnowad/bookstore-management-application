@@ -32,7 +32,7 @@ public class BookListPanel extends javax.swing.JPanel {
                 initComponents();
                 listBooks();
                 search();
-                showIdCurrentUser();
+                // showIdCurrentUser();
         }
 
         private void showIdCurrentUser() {

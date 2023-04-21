@@ -1,10 +1,16 @@
 package com.bookstore.gui.form.manager.view;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.event.WindowEvent;
+import java.util.TimerTask;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -12,9 +18,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-
-import org.apache.commons.lang3.ObjectUtils.Null;
-
 import com.bookstore.gui.component.button.Button;
 import com.bookstore.gui.form.salesman.view.*;
 import com.bookstore.gui.form.salesman.view.Account.AccountPanel;
@@ -23,7 +26,23 @@ import com.bookstore.gui.main.LoginUI;
 public class managerFrame extends JFrame {
   private JPanel grHeader;
   private JPanel grMenu;
+  private JPanel grMenu1;
+  private JPanel grMenu2;
   private JPanel grContent;
+
+  private Button menuButton;
+  private Button logoutButton;
+  private Button customerListButton;
+  private Button pendingOrderButton;
+  private Button importButton;
+  private Button aboutUsButton;
+  private Button contactButton;
+  private Button accountButton;
+  private Button bookListButton;
+  private Button salesmanListButton;
+  private JScrollPane jScrollPane1;
+
+  public TimerTask timerTask;
 
   public managerFrame() {
     initFrame();
@@ -42,10 +61,21 @@ public class managerFrame extends JFrame {
   private void initComponents() {
 
     grMenu = new JPanel();
+    grHeader = new JPanel();
+    grContent = new JPanel();
+
+    grMenu1 = new JPanel();
+    grMenu2 = new JPanel();
+
+    menuButton = new Button("|||");
+    grHeader.setLayout(new FlowLayout(FlowLayout.LEFT));
+    grHeader.add(menuButton);
+    grHeader.setBackground(Color.BLUE);
 
     logoutButton = new Button("Logout");
     customerListButton = new Button("Customer List");
     pendingOrderButton = new Button("Pending Order List");
+    pendingOrderButton.setPreferredSize(new Dimension(150, 50));
     importButton = new Button("Import");
     aboutUsButton = new Button("About Us");
     contactButton = new Button("Contact Us");
@@ -53,9 +83,6 @@ public class managerFrame extends JFrame {
     bookListButton = new Button("Book List");
     salesmanListButton = new Button("Salesman List");
     jScrollPane1 = new JScrollPane();
-    contentCustomerList = new JPanel();
-
-    grMenu.setLayout(null);
 
     bookListButton.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent evt) {
@@ -63,53 +90,78 @@ public class managerFrame extends JFrame {
       }
     });
 
-    grMenu.add(bookListButton);
-    bookListButton.setBounds(0, 30, 160, 50);
+    grMenu1.add(bookListButton);
+    grMenu1.add(customerListButton);
+    grMenu1.add(salesmanListButton);
+    grMenu1.add(pendingOrderButton);
+    grMenu1.add(importButton);
+    grMenu1.setLayout(new GridLayout(5, 1));
 
-    grMenu.add(customerListButton);
-    customerListButton.setBounds(0, 80, 160, 50);
+    grMenu2.add(accountButton);
+    grMenu2.add(aboutUsButton);
+    grMenu2.add(contactButton);
+    grMenu2.add(logoutButton);
+    grMenu2.setLayout(new GridLayout(4, 1));
 
-    grMenu.add(customerListButton);
-    pendingOrderButton.setBounds(0, 130, 160, 50);
+    grMenu.setLayout(new BorderLayout());
+    grMenu.add(grMenu1, BorderLayout.NORTH);
+    grMenu.add(grMenu2, BorderLayout.SOUTH);
 
-    grMenu.add(pendingOrderButton);
-    pendingOrderButton.setBounds(0, 180, 160, 50);
+    grContent.add(new BookListPanel());
+    jScrollPane1.setViewportView(grContent);
+    grContent.setPreferredSize(new Dimension(900, 0));
 
-    grMenu.add(importButton);
-    importButton.setBounds(0, 230, 160, 50);
-
-    grMenu.add(accountButton);
-    accountButton.setBounds(0, 440, 160, 50);
-
-    grMenu.add(aboutUsButton);
-    aboutUsButton.setBounds(0, 490, 160, 50);
-
-    grMenu.add(contactButton);
-    contactButton.setBounds(0, 540, 160, 50);
-
-    grMenu.add(logoutButton);
-    logoutButton.setBounds(0, 590, 160, 50);
-
-    contentCustomerList.add(new BookListPanel());
-    jScrollPane1.setViewportView(contentCustomerList);
-    contentCustomerList.setPreferredSize(new Dimension(900, 0));
-
-    grMenu.add(jScrollPane1);
-    jScrollPane1.setBounds(160, 70, 980, 580);
-
-    add(grMenu, java.awt.BorderLayout.CENTER);
+    add(grMenu, java.awt.BorderLayout.WEST);
+    grMenu.setVisible(false);
+    add(grHeader, java.awt.BorderLayout.NORTH);
+    add(grContent, java.awt.BorderLayout.CENTER);
   }
 
   private void handleEvent() {
 
+    grMenu.addComponentListener(new ComponentListener() {
+
+      @Override
+      public void componentResized(ComponentEvent e) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'componentResized'");
+      }
+
+      @Override
+      public void componentMoved(ComponentEvent e) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'componentMoved'");
+      }
+
+      @Override
+      public void componentShown(ComponentEvent e) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'componentShown'");
+      }
+
+      @Override
+      public void componentHidden(ComponentEvent e) {
+      }
+      
+    });
+
+    menuButton.addActionListener(new ActionListener() {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+    if (grMenu.isVisible() == false)
+    grMenu.setVisible(true);
+    else
+    grMenu.setVisible(false);
+    }
+    });
     bookListButton.addActionListener(new ActionListener() {
 
       @Override
       public void actionPerformed(ActionEvent e) {
-        contentCustomerList.removeAll();
-        contentCustomerList.add(new BookListPanel());
-        contentCustomerList.revalidate();
-        contentCustomerList.repaint();
+        grContent.removeAll();
+        grContent.add(new BookListPanel());
+        grContent.revalidate();
+        grContent.repaint();
       }
     });
 
@@ -117,10 +169,10 @@ public class managerFrame extends JFrame {
 
       @Override
       public void actionPerformed(ActionEvent e) {
-        contentCustomerList.removeAll();
-        contentCustomerList.add(new CustomerListPanel());
-        contentCustomerList.revalidate();
-        contentCustomerList.repaint();
+        grContent.removeAll();
+        grContent.add(new CustomerListPanel());
+        grContent.revalidate();
+        grContent.repaint();
       }
 
     });
@@ -139,22 +191,21 @@ public class managerFrame extends JFrame {
 
       @Override
       public void actionPerformed(ActionEvent e) {
-        contentCustomerList.removeAll();
-        contentCustomerList.add(new PendingOrderPanel());
-        contentCustomerList.revalidate();
-        contentCustomerList.repaint();
+        grContent.removeAll();
+        grContent.add(new PendingOrderPanel());
+        grContent.revalidate();
+        grContent.repaint();
       }
     });
-
 
     importButton.addActionListener(new ActionListener() {
 
       @Override
       public void actionPerformed(ActionEvent e) {
-        contentCustomerList.removeAll();
-        contentCustomerList.add(new ImportListPanel());
-        contentCustomerList.revalidate();
-        contentCustomerList.repaint();
+        grContent.removeAll();
+        grContent.add(new ImportListPanel());
+        grContent.revalidate();
+        grContent.repaint();
       }
     });
 
@@ -162,10 +213,10 @@ public class managerFrame extends JFrame {
 
       @Override
       public void actionPerformed(ActionEvent e) {
-        contentCustomerList.removeAll();
-        contentCustomerList.add(new AccountPanel());
-        contentCustomerList.revalidate();
-        contentCustomerList.repaint();
+        grContent.removeAll();
+        grContent.add(new AccountPanel());
+        grContent.revalidate();
+        grContent.repaint();
       }
     });
 
@@ -216,15 +267,4 @@ public class managerFrame extends JFrame {
     });
   }
 
-  private Button logoutButton;
-  private Button customerListButton;
-  private Button pendingOrderButton;
-  private Button importButton;
-  private Button aboutUsButton;
-  private Button contactButton;
-  private Button accountButton;
-  private Button bookListButton;
-  private Button salesmanListButton;
-  private JPanel contentCustomerList;
-  private JScrollPane jScrollPane1;
 }
