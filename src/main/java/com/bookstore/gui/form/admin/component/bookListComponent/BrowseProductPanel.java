@@ -59,7 +59,6 @@ public class BrowseProductPanel extends JPanel {
         ButtonImportExcel = new javax.swing.JButton();
         ButtonCreate = new javax.swing.JButton();
         ButtonDelete = new javax.swing.JButton();
-        ButtonSearch = new javax.swing.JButton();
         searchBookField = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         table = new javax.swing.JPanel();
@@ -199,10 +198,6 @@ public class BrowseProductPanel extends JPanel {
         table.repaint();
     }
 
-<<<<<<< HEAD
-    public void receiveValue(String value) {
-        if (value.trim().isEmpty()) {
-=======
     public void actionAdd() {
         // TODO: Create a JFrame to add a book to List.
     }
@@ -229,10 +224,9 @@ public class BrowseProductPanel extends JPanel {
         }
     }
 
-    public void actionSearch() {
+    public void receiveValue(String value) {
         String searchData = searchBookField.getText();
         if (searchData.trim().isEmpty()) {
->>>>>>> e97e384b106e9eed19eb96ee9b9fda5c5339b41a
             JOptionPane.showMessageDialog(null, "Search field can't be empty. Please try again.");
             return;
         }
@@ -259,7 +253,6 @@ public class BrowseProductPanel extends JPanel {
     private javax.swing.JButton ButtonDelete;
     private javax.swing.JButton ButtonExportExcel;
     private javax.swing.JButton ButtonImportExcel;
-    private javax.swing.JButton ButtonSearch;
     private javax.swing.JTextField searchBookField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;

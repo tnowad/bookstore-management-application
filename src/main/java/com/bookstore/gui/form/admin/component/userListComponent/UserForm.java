@@ -48,109 +48,92 @@ public class UserForm extends javax.swing.JPanel implements MouseListener {
   @SuppressWarnings("unchecked")
   // <editor-fold defaultstate="collapsed" desc="Generated
   // <editor-fold defaultstate="collapsed" desc="Generated
-  // Code">//GEN-BEGIN:initComponents
-  private void initComponents(int Serial, int idUser, String userName, String password, Status status, String name,
-      String email,
-      String phone, Role role) {
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents(int Serial, int idUser, String userName, String password, Status status, String name, String email,
+    String phone, Role role) {
 
-    stt = new javax.swing.JLabel();
-    RoleUser = new javax.swing.JTextField();
-    NameUser = new javax.swing.JLabel();
-    PhoneUser = new javax.swing.JLabel();
-    EmailUser = new javax.swing.JLabel();
-    StatusUser = new javax.swing.JTextField();
-    jCheckBox1 = new javax.swing.JCheckBox();
-    IdUser = new JTextField();
+        stt = new javax.swing.JLabel();
+        RoleUser = new javax.swing.JTextField();
+        NameUser = new javax.swing.JLabel();
+        PhoneUser = new javax.swing.JLabel();
+        EmailUser = new javax.swing.JLabel();
+        StatusUser = new javax.swing.JTextField();
+        jCheckBox1 = new javax.swing.JCheckBox();
 
-    IdUser.setText("" + idUser);
-    add(IdUser);
+        stt.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        stt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        stt.setText(""+Serial);
+        stt.setMaximumSize(new java.awt.Dimension(12, 18));
+        stt.setMinimumSize(new java.awt.Dimension(12, 18));
+        stt.setName(""); // NOI18N
+        stt.setPreferredSize(new java.awt.Dimension(12, 19));
 
-    stt.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-    stt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-    stt.setText("" + Serial);
-    stt.setMaximumSize(new java.awt.Dimension(12, 18));
-    stt.setMinimumSize(new java.awt.Dimension(12, 18));
-    stt.setName(""); // NOI18N
-    stt.setPreferredSize(new java.awt.Dimension(12, 19));
+        RoleUser.setEditable(false);
+        RoleUser.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        RoleUser.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        RoleUser.setText(""+role);
+        RoleUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RoleUserActionPerformed(evt);
+            }
+        });
 
-    RoleUser.setEditable(false);
-    RoleUser.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-    RoleUser.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-    RoleUser.setText("" + role);
-    RoleUser.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
-        RoleUserActionPerformed(evt);
-      }
-    });
+        NameUser.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        NameUser.setText(""+name);
 
-    NameUser.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-    NameUser.setText(name);
+        PhoneUser.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        PhoneUser.setText(phone);
 
-    PhoneUser.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-    PhoneUser.setText(phone);
+        EmailUser.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        EmailUser.setText(email);
 
-    EmailUser.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-    EmailUser.setText(email);
+        StatusUser.setEditable(false);
+        StatusUser.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        StatusUser.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        StatusUser.setText(""+status);
+        StatusUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                StatusUserActionPerformed(evt);
+            }
+        });
 
-    StatusUser.setEditable(false);
-    StatusUser.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-    StatusUser.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-    StatusUser.setText("" + status);
-    StatusUser.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
-        StatusUserActionPerformed(evt);
-      }
-    });
-
-    javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-    this.setLayout(layout);
-    layout.setHorizontalGroup(
-        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jCheckBox1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-                    javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(stt, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, Short.MAX_VALUE)
-                .addComponent(NameUser, javax.swing.GroupLayout.PREFERRED_SIZE, 115,
-                    javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED,
-                    javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(PhoneUser, javax.swing.GroupLayout.PREFERRED_SIZE, 101,
-                    javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-                    javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(EmailUser, javax.swing.GroupLayout.PREFERRED_SIZE, 141,
-                    javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-                    javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(RoleUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
-                    javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(NameUser, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(PhoneUser, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(EmailUser, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(RoleUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, Short.MAX_VALUE)
-                .addComponent(StatusUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
-                    javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
-    layout.setVerticalGroup(
-        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(StatusUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jCheckBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 53,
-                    javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jCheckBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addComponent(stt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
-                Short.MAX_VALUE)
+            .addComponent(stt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(StatusUser, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
                     .addComponent(RoleUser))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(NameUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
-                Short.MAX_VALUE)
-            .addComponent(PhoneUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
-                Short.MAX_VALUE)
-            .addComponent(EmailUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
-                Short.MAX_VALUE));
-  }// </editor-fold>//GEN-END:initComponents
+            .addComponent(NameUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(PhoneUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(EmailUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+    }// </editor-fold>//GEN-END:initComponents
 
   private void RoleUserActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_RoleUserActionPerformed
     // TODO add your handling code here:
@@ -160,16 +143,15 @@ public class UserForm extends javax.swing.JPanel implements MouseListener {
     // TODO add your handling code here:
   }// GEN-LAST:event_StatusUserActionPerformed
 
-  // Variables declaration - do not modify//GEN-BEGIN:variables
-  private javax.swing.JLabel EmailUser;
-  private javax.swing.JLabel NameUser;
-  private javax.swing.JLabel PhoneUser;
-  private javax.swing.JTextField RoleUser;
-  private javax.swing.JTextField StatusUser;
-  private javax.swing.JCheckBox jCheckBox1;
-  private javax.swing.JLabel stt;
-
-  // End of variables declaration//GEN-END:variables
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel EmailUser;
+    private javax.swing.JLabel NameUser;
+    private javax.swing.JLabel PhoneUser;
+    private javax.swing.JTextField RoleUser;
+    private javax.swing.JTextField StatusUser;
+    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JLabel stt;
+    // End of variables declaration//GEN-END:variables
   @Override
   public void mouseClicked(MouseEvent e) {
 
