@@ -8,6 +8,7 @@ import com.bookstore.gui.component.button.Button;
 import com.bookstore.gui.form.salesman.view.Account.AccountPanel;
 import com.bookstore.gui.main.LoginUI;
 import com.bookstore.services.CheckCurrentUser;
+import com.formdev.flatlaf.themes.FlatMacLightLaf;
 
 import java.awt.event.*;
 
@@ -203,7 +204,7 @@ public class SalesmanFrame extends JFrame {
     } catch (ClassNotFoundException | IllegalAccessException | InstantiationException
         | UnsupportedLookAndFeelException ignored) {
     }
-
+    FlatMacLightLaf.setup();
     java.awt.EventQueue.invokeLater(new Runnable() {
       public void run() {
         new SalesmanFrame();
