@@ -5,12 +5,11 @@ import java.awt.Dimension;
 
 import javax.swing.*;
 
-
 import com.bookstore.gui.form.admin.component.dashboardComponent.DashboardPanel;
 import com.bookstore.gui.form.admin.menu.HeaderForm;
 import com.bookstore.gui.form.admin.menu.MenuForm;
+import com.bookstore.services.CheckCurrentUser;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
-
 
 public class RunForm extends JFrame {
   private static RunForm instance;
@@ -32,9 +31,13 @@ public class RunForm extends JFrame {
   }
 
   public RunForm() {
-    initComponents();
-    setLocationRelativeTo(null);
-    setVisible(true);
+    if (new CheckCurrentUser().checkStatus()) {
+      initComponents();
+      setLocationRelativeTo(null);
+      setVisible(true);
+    } else {
+      dispose();
+    }
   }
 
   private void initComponents() {

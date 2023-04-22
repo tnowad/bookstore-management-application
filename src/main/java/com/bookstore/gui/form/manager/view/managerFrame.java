@@ -47,9 +47,12 @@ public class managerFrame extends JFrame {
 
   public managerFrame() {
     initFrame();
-    initComponents();
-    // setBackground();
-    handleEvent();
+    if (new CheckCurrentUser().checkStatus()) {
+      initComponents();
+      handleEvent();
+    } else {
+      dispose();
+    }
   }
 
   private void initFrame() {
@@ -143,17 +146,17 @@ public class managerFrame extends JFrame {
       @Override
       public void componentHidden(ComponentEvent e) {
       }
-      
+
     });
 
     menuButton.addActionListener(new ActionListener() {
-    @Override
-    public void actionPerformed(ActionEvent e) {
-    if (grMenu.isVisible() == false)
-    grMenu.setVisible(true);
-    else
-    grMenu.setVisible(false);
-    }
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        if (grMenu.isVisible() == false)
+          grMenu.setVisible(true);
+        else
+          grMenu.setVisible(false);
+      }
     });
     bookListButton.addActionListener(new ActionListener() {
 

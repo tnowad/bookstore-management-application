@@ -1,7 +1,11 @@
 package com.bookstore.services;
 
 import java.util.List;
+
+import javax.swing.JOptionPane;
+
 import com.bookstore.bus.CurrentUserBUS;
+import com.bookstore.gui.main.LoginUI;
 import com.bookstore.models.CurrentUserModel;
 
 public class CheckCurrentUser {
@@ -20,5 +24,17 @@ public class CheckCurrentUser {
     public void setCurrentUserId(int currentUserId) {
         CurrentUserModel currentUserModel = new CurrentUserModel(currentUserId);
         currentUserBus.updateModel(currentUserModel);
+    }
+
+    public boolean checkStatus() {
+        if (getCurrentUserId() == 0) {
+            JOptionPane.showMessageDialog(null,
+                    "You are not logged in, please login!");
+            LoginUI loginUI = new LoginUI();
+            loginUI.setVisible(true);
+            return false;
+        } else {
+            return true;
+        }
     }
 }

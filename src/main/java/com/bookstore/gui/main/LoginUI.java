@@ -5,8 +5,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Font;
-import java.util.List;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
@@ -20,7 +18,6 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
-import com.bookstore.bus.CurrentUserBUS;
 import com.bookstore.bus.EmployeeBUS;
 import com.bookstore.bus.UserBUS;
 import com.bookstore.gui.Theme.ThemeFont;

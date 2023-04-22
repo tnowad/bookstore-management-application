@@ -4,18 +4,12 @@ import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.*;
 
-import com.bookstore.bus.AddressBUS;
-import com.bookstore.bus.CurrentUserBUS;
-import com.bookstore.bus.UserBUS;
-import com.bookstore.gui.Theme.ThemeColor;
 import com.bookstore.gui.component.button.Button;
 import com.bookstore.gui.form.salesman.view.Account.AccountPanel;
 import com.bookstore.gui.main.LoginUI;
-import com.bookstore.models.CurrentUserModel;
 import com.bookstore.services.CheckCurrentUser;
 
 import java.awt.event.*;
-import java.util.List;
 
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -37,9 +31,12 @@ public class SalesmanFrame extends JFrame {
 
   public SalesmanFrame() {
     initFrame();
-    initComponents();
-    handleEvent();
-    checkCurrentUser();
+    if (new CheckCurrentUser().checkStatus()) {
+      initComponents();
+      handleEvent();
+    } else {
+      dispose();
+    }
   }
 
   private void initFrame() {
@@ -197,17 +194,6 @@ public class SalesmanFrame extends JFrame {
 
   private void jTextField1ActionPerformed(ActionEvent evt) {
 
-  }
-
-  private void checkCurrentUser() {
-    if (new CheckCurrentUser().getCurrentUserId() == 0) {
-      JOptionPane.showMessageDialog(null,
-          "You are not logged in, please login!");
-      dispose();
-      LoginUI loginUI = new LoginUI();
-      loginUI.setVisible(true);
-      return;
-    }
   }
 
   public static void main(String args[]) {
