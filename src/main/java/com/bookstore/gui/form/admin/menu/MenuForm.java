@@ -13,8 +13,9 @@ import javax.swing.JPanel;
 import com.bookstore.gui.form.admin.RunForm;
 import com.bookstore.gui.form.admin.component.bookListComponent.BrowseProductPanel;
 import com.bookstore.gui.form.admin.component.dashboardComponent.DashboardPanel;
-import com.bookstore.gui.form.admin.component.orderListComponent.OrderPanel;
-import com.bookstore.gui.form.admin.component.userListComponent.UserPanel;
+import com.bookstore.gui.form.admin.component.orderListComponent.OrderListPanel;
+import com.bookstore.gui.form.admin.component.userListComponent.UserListPanel;
+import com.bookstore.gui.form.admin.controller.ActionMenu;
 
 /**
  *
@@ -57,6 +58,7 @@ public class MenuForm extends javax.swing.JPanel {
         ButtonOrder = new javax.swing.JButton();
         panel = new JPanel();
         panel.setLayout(new BorderLayout());
+        ActionMenu actionMenu = new ActionMenu(this);
 
         jTextField6.setEditable(false);
         jTextField6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -77,66 +79,23 @@ public class MenuForm extends javax.swing.JPanel {
 
         ButtonDashboard.setText("Dashboard");
         jPanel1.add(ButtonDashboard);
-        ButtonDashboard.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                HeaderForm.getInstance().setPanelNow("DashBoard");
-                RunForm.getConstruct().removeAll();
-                panel.removeAll();
-                panel.add(HeaderForm.getInstance(), BorderLayout.NORTH);
-                panel.add(DashboardPanel.getInstance(), BorderLayout.CENTER);
-                RunForm.getConstruct().add(panel);
-                RunForm.getConstruct().revalidate();
-                RunForm.getConstruct().repaint();
-            }
-        });
+        ButtonDashboard.addActionListener(actionMenu);
 
         ButtonRepository.setText("Repository");
         jPanel1.add(ButtonRepository);
 
         ButtonListBook.setText("List Book");
-        ButtonListBook.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                HeaderForm.getInstance().setPanelNow("BookList");
-                RunForm.getConstruct().removeAll();
-                panel.removeAll();
-                panel.add(HeaderForm.getInstance(), BorderLayout.NORTH);
-                panel.add(BrowseProductPanel.getInstance(), BorderLayout.CENTER);
-                RunForm.getConstruct().add(panel);
-                RunForm.getConstruct().revalidate();
-                RunForm.getConstruct().repaint();
-            }
-        });
+        ButtonListBook.addActionListener(actionMenu);
+        
         jPanel1.add(ButtonListBook);
 
         ButtonListUser.setText("List User");
-        ButtonListUser.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                HeaderForm.getInstance().setPanelNow("UserList");
-                RunForm.getConstruct().removeAll();
-                panel.removeAll();
-                panel.add(HeaderForm.getInstance(), BorderLayout.NORTH);
-                panel.add(UserPanel.getInstance(), BorderLayout.CENTER);
-                RunForm.getConstruct().add(panel);
-                RunForm.getConstruct().revalidate();
-                RunForm.getConstruct().repaint();
-            }
-        });
+        ButtonListUser.addActionListener(actionMenu);
         jPanel1.add(ButtonListUser);
 
         ButtonOrder.setText("List Order");
         jPanel1.add(ButtonOrder);
-        ButtonOrder.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                HeaderForm.getInstance().setPanelNow("OrderList");
-                RunForm.getConstruct().removeAll();
-                panel.removeAll();
-                panel.add(HeaderForm.getInstance(), BorderLayout.NORTH);
-                panel.add(OrderPanel.getInstance(), BorderLayout.CENTER);
-                RunForm.getConstruct().add(panel);
-                RunForm.getConstruct().revalidate();
-                RunForm.getConstruct().repaint();
-            }
-        });
+        ButtonOrder.addActionListener(actionMenu);
 
         jScrollPane1.setViewportView(jPanel1);
 

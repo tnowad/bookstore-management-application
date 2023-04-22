@@ -17,12 +17,12 @@ import com.bookstore.models.OrderModel.Status;
  *
  * @author yanti
  */
-public class OrderForm extends javax.swing.JPanel {
+public class ItemOrderPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form OrderForm
      */
-    public OrderForm(int serial, int idOrder, int idCart,int idCustomer, int idEmployee,int total, LocalDateTime dateCreated, LocalDateTime dateUpdated, Status status ) {
+    public ItemOrderPanel(int serial, int idOrder, int idCart,int idCustomer, int idEmployee,int total, LocalDateTime dateCreated, LocalDateTime dateUpdated, Status status ) {
         initComponents(serial,idOrder,idCart,idCustomer,idEmployee, total,dateCreated,dateUpdated,status);
         addMouseListener((MouseListener) new MouseAdapter() {
             @Override

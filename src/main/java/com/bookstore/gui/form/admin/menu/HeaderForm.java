@@ -11,7 +11,8 @@ import java.sql.SQLException;
 import com.bookstore.gui.form.admin.RunForm;
 import com.bookstore.gui.form.admin.component.bookListComponent.BrowseProductPanel;
 import com.bookstore.gui.form.admin.component.dashboardComponent.DashboardPanel;
-import com.bookstore.gui.form.admin.component.userListComponent.UserPanel;
+import com.bookstore.gui.form.admin.component.orderListComponent.OrderListPanel;
+import com.bookstore.gui.form.admin.component.userListComponent.UserListPanel;
 
 /**
  *
@@ -112,13 +113,16 @@ public class HeaderForm extends javax.swing.JPanel implements MouseListener {
     public void mouseClicked(MouseEvent e) {
         String value = valueSearch.getText();
         if(HeaderForm.getInstance().getPanelNow().equals("UserList")){
-            UserPanel.getInstance().receiveValue(value);
+            UserListPanel.getInstance().receiveValue(value);
         }
         if(HeaderForm.getInstance().getPanelNow().equals("DashBoard")){
             DashboardPanel.getInstance().receiveValue(value);
         }
         if(HeaderForm.getInstance().getPanelNow().equals("BookList")){
             BrowseProductPanel.getInstance().receiveValue(value);
+        }
+        if(HeaderForm.getInstance().getPanelNow().equals("OrderList")){
+            OrderListPanel.getInstance().receiveValue(value);
         }
     }
 
