@@ -115,6 +115,15 @@ public class Button extends JButton {
 
   public void setButtonSize(int width, int height) {
     setPreferredSize(new Dimension(width, height));
+
   }
 
+  public void setButtonMaxSize(int maxWidth, int maxHeight) {
+    setMaximumSize(new Dimension(maxWidth, maxHeight));
+  }
+
+  public void setButtonMinSize(int minWidth, int minHeight) {
+    setMinimumSize(new Dimension(minWidth, minHeight));
+
+  }
 }

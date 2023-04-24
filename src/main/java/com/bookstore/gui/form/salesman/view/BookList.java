@@ -24,7 +24,7 @@ import com.bookstore.gui.component.button.Label;
 public class BookList extends JPanel {
 
     private Button addBookButton;
-    private JLabel bookListLabel;
+    private Label bookListLabel;
     private JTable bookListTable;
     private JPanel excelButtonPanel;
     private Button exportToExcelButton;
@@ -52,7 +52,7 @@ public class BookList extends JPanel {
 
         jPanel1 = new JPanel();
         jPanel3 = new JPanel();
-        bookListLabel = new JLabel();
+        bookListLabel = new Label("Book List");
         jPanel5 = new JPanel();
         addBookButton = new Button("Add Book");
         jPanel4 = new JPanel();
@@ -73,9 +73,7 @@ public class BookList extends JPanel {
 
         jPanel3.setLayout(new java.awt.GridLayout(1, 2, 0, 10));
 
-        bookListLabel.setFont(new java.awt.Font("Arial", 0, 18));
         bookListLabel.setHorizontalAlignment(SwingConstants.LEFT);
-        bookListLabel.setText("Book List");
         jPanel3.add(bookListLabel);
 
         jPanel5.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));

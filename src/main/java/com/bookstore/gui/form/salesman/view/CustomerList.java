@@ -74,7 +74,7 @@ public class CustomerList extends JPanel {
 
         headerPanel = new JPanel();
         groupTopHeaderPanel = new JPanel();
-        customerListLabel = new JLabel();
+        customerListLabel = new Label("Customer List");
         addCustomerPanel = new JPanel();
         addCustomerButton = new Button("Add Customer");
         groupBottomHeaderPanel = new JPanel();
@@ -93,9 +93,6 @@ public class CustomerList extends JPanel {
 
         groupTopHeaderPanel.setLayout(new java.awt.GridLayout(1, 2));
 
-        customerListLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        customerListLabel.setText("Customer List");
-        customerListLabel.setPreferredSize(new java.awt.Dimension(87, 30));
         groupTopHeaderPanel.add(customerListLabel);
 
         addCustomerPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
@@ -160,7 +157,7 @@ public class CustomerList extends JPanel {
     private Button searchButton;
     private Button addCustomerButton;
     private JTable customerTableList;
-    private JLabel customerListLabel;
+    private Label customerListLabel;
     private JPanel addCustomerPanel;
 
     private JPanel headerPanel;

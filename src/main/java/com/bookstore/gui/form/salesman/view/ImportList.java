@@ -33,7 +33,7 @@ public class ImportList extends JPanel {
     private void initComponents() {
 
         headerPanel = new JPanel();
-        importLabel = new JLabel();
+        importLabel = new Label("Import list");
         addPanel = new JPanel();
         addReceiptButton = new Button("Add import");
         groupSearchPanel = new JPanel();
@@ -53,8 +53,7 @@ public class ImportList extends JPanel {
 
         headerPanel.setLayout(new java.awt.GridLayout(2, 2));
 
-        importLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        importLabel.setText("Imports List");
+  
         headerPanel.add(importLabel);
 
         addPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
@@ -224,7 +223,7 @@ public class ImportList extends JPanel {
     private JPanel groupSearchPanel;
     private JPanel headerPanel;
     private Button importFromExcelButton;
-    private JLabel importLabel;
+    private Label importLabel;
     private JTable importTableList;
     private JScrollPane jScrollPane1;
     private JScrollPane scrollPaneTableList;

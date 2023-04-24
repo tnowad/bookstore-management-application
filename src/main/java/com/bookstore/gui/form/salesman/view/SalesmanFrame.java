@@ -114,9 +114,6 @@ public class SalesmanFrame extends JFrame {
 
     menuTopPanel.setLayout(new java.awt.GridLayout(4, 1, 0, 5));
 
-    customerListButton.setMaximumSize(new java.awt.Dimension(120, 30));
-    customerListButton.setMinimumSize(new java.awt.Dimension(80, 30));
-    customerListButton.setPreferredSize(new java.awt.Dimension(120, 30));
     customerListButton.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         homeButtonActionPerformed(evt);
@@ -124,14 +121,8 @@ public class SalesmanFrame extends JFrame {
     });
     menuTopPanel.add(customerListButton);
 
-    pendingOrderButton.setMaximumSize(new java.awt.Dimension(120, 30));
-    pendingOrderButton.setMinimumSize(new java.awt.Dimension(120, 30));
-    pendingOrderButton.setPreferredSize(new java.awt.Dimension(120, 30));
     menuTopPanel.add(pendingOrderButton);
 
-    bookListButton.setMaximumSize(new java.awt.Dimension(120, 30));
-    bookListButton.setMinimumSize(new java.awt.Dimension(120, 30));
-    bookListButton.setPreferredSize(new java.awt.Dimension(120, 30));
     bookListButton.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         myOrderButtonActionPerformed(evt);
@@ -139,9 +130,7 @@ public class SalesmanFrame extends JFrame {
     });
     menuTopPanel.add(bookListButton);
 
-    importListButton.setMaximumSize(new java.awt.Dimension(120, 30));
-    importListButton.setMinimumSize(new java.awt.Dimension(120, 30));
-    importListButton.setPreferredSize(new java.awt.Dimension(120, 30));
+  
     importListButton.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         importListButtonActionPerformed(evt);
@@ -153,9 +142,6 @@ public class SalesmanFrame extends JFrame {
 
     menuBottomPanel.setLayout(new java.awt.GridLayout(4, 1, 0, 5));
 
-    accountButton.setMaximumSize(new java.awt.Dimension(120, 30));
-    accountButton.setMinimumSize(new java.awt.Dimension(120, 30));
-    accountButton.setPreferredSize(new java.awt.Dimension(120, 30));
     accountButton.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         accountSettingButtonActionPerformed(evt);
@@ -163,9 +149,6 @@ public class SalesmanFrame extends JFrame {
     });
     menuBottomPanel.add(accountButton);
 
-    contactButton.setMaximumSize(new java.awt.Dimension(120, 30));
-    contactButton.setMinimumSize(new java.awt.Dimension(120, 30));
-    contactButton.setPreferredSize(new java.awt.Dimension(120, 30));
     contactButton.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         contactSupportButtonActionPerformed(evt);
@@ -173,9 +156,6 @@ public class SalesmanFrame extends JFrame {
     });
     menuBottomPanel.add(contactButton);
 
-    aboutUsButton.setMaximumSize(new java.awt.Dimension(120, 30));
-    aboutUsButton.setMinimumSize(new java.awt.Dimension(120, 30));
-    aboutUsButton.setPreferredSize(new java.awt.Dimension(120, 30));
     aboutUsButton.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         aboutUsButtonActionPerformed(evt);
@@ -183,9 +163,7 @@ public class SalesmanFrame extends JFrame {
     });
     menuBottomPanel.add(aboutUsButton);
 
-    logoutButton.setMaximumSize(new java.awt.Dimension(120, 30));
-    logoutButton.setMinimumSize(new java.awt.Dimension(120, 30));
-    logoutButton.setPreferredSize(new java.awt.Dimension(120, 30));
+
     logoutButton.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         logoutButtonActionPerformed(evt);
@@ -220,7 +198,7 @@ public class SalesmanFrame extends JFrame {
       @Override
       public void actionPerformed(ActionEvent e) {
         contentPanel.removeAll();
-        contentPanel.add(new PendingOrderPanel());
+        contentPanel.add(new PendingOrderList());
         contentPanel.revalidate();
         contentPanel.repaint();
       }
