@@ -1,110 +1,179 @@
 package com.bookstore.gui.component.card;
 
+import com.bookstore.models.StatisticCardModel;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import javax.swing.GroupLayout;
+import javax.swing.Icon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.LayoutStyle;
 
-import com.bookstore.models.ModelStatisticCard;
+public class Card extends JPanel {
 
-public class Card extends javax.swing.JPanel {
+  private JLabel labelDescription;
+  private JLabel labelIcon;
+  private JLabel labelTitle;
+  private JLabel labelValues;
 
-  public Color getColor1() {
-    return color1;
+  private Color colorTop;
+  private Color colorBottom;
+
+  public Color getColorTop() {
+    return colorTop;
   }
 
-  public void setColor1(Color color1) {
-    this.color1 = color1;
+  public void setColorTop(Color color1) {
+    this.colorTop = color1;
   }
 
-  public Color getColor2() {
-    return color2;
+  public Color getColorBottom() {
+    return colorBottom;
   }
 
-  public void setColor2(Color color2) {
-    this.color2 = color2;
+  public void setColorBottom(Color color2) {
+    this.colorBottom = color2;
   }
-
-  private Color color1;
-  private Color color2;
 
   public Card() {
     initComponents();
     setOpaque(false);
-    color1 = Color.BLACK;
-    color2 = Color.WHITE;
+    colorTop = Color.BLACK;
+    colorBottom = Color.WHITE;
   }
 
-  public void setData(ModelStatisticCard data) {
-    lbIcon.setIcon(data.getIcon());
-    lbTitle.setText(data.getTitle());
-    lbValues.setText(data.getValues());
-    lbDescription.setText(data.getDescription());
+  public void setData(StatisticCardModel data) {
+    labelIcon.setIcon(data.getIcon());
+    labelTitle.setText(data.getTitle());
+    labelValues.setText(data.getValues());
+    labelDescription.setText(data.getDescription());
   }
 
   private void initComponents() {
+    labelIcon = new JLabel();
+    labelTitle = new JLabel();
+    labelValues = new JLabel();
+    labelDescription = new JLabel();
 
-    lbIcon = new javax.swing.JLabel();
-    lbTitle = new javax.swing.JLabel();
-    lbValues = new javax.swing.JLabel();
-    lbDescription = new javax.swing.JLabel();
+    labelIcon.setIcon(
+      new Icon() {
+        @Override
+        public void paintIcon(Component c, Graphics g, int x, int y) {
+          Graphics2D g2d = (Graphics2D) g;
+          g2d.setRenderingHint(
+            RenderingHints.KEY_ANTIALIASING,
+            RenderingHints.VALUE_ANTIALIAS_ON
+          );
+          GradientPaint gp = new GradientPaint(
+            0,
+            0,
+            colorTop,
+            0,
+            50,
+            colorBottom,
+            true
+          );
+          g2d.setPaint(gp);
+          g2d.fillOval(0, 0, 50, 50);
+        }
 
-    lbIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/bookstore/gui/icon/stock.png")));
+        @Override
+        public int getIconWidth() {
+          return 50;
+        }
 
-    lbTitle.setFont(new java.awt.Font("sansserif", 1, 14));
-    lbTitle.setForeground(new java.awt.Color(255, 255, 255));
-    lbTitle.setText("Title");
+        @Override
+        public int getIconHeight() {
+          return 50;
+        }
+      }
+    );
 
-    lbValues.setFont(new java.awt.Font("sansserif", 1, 18));
-    lbValues.setForeground(new java.awt.Color(255, 255, 255));
-    lbValues.setText("Values");
+    labelTitle.setFont(new java.awt.Font("sansserif", 1, 14));
+    labelTitle.setForeground(new java.awt.Color(255, 255, 255));
+    labelTitle.setText("Title");
 
-    lbDescription.setFont(new java.awt.Font("sansserif", 0, 14));
-    lbDescription.setForeground(new java.awt.Color(255, 255, 255));
-    lbDescription.setText("Description");
+    labelValues.setFont(new java.awt.Font("sansserif", 1, 18));
+    labelValues.setForeground(new java.awt.Color(255, 255, 255));
+    labelValues.setText("Values");
 
-    javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+    labelDescription.setFont(new java.awt.Font("sansserif", 0, 14));
+    labelDescription.setForeground(new java.awt.Color(255, 255, 255));
+    labelDescription.setText("Description");
+
+    GroupLayout layout = new GroupLayout(this);
     this.setLayout(layout);
     layout.setHorizontalGroup(
-        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbDescription)
-                    .addComponent(lbValues)
-                    .addComponent(lbTitle)
-                    .addComponent(lbIcon))
-                .addContainerGap(283, Short.MAX_VALUE)));
+      layout
+        .createParallelGroup(GroupLayout.Alignment.LEADING)
+        .addGroup(
+          layout
+            .createSequentialGroup()
+            .addGap(25, 25, 25)
+            .addGroup(
+              layout
+                .createParallelGroup(GroupLayout.Alignment.LEADING)
+                .addComponent(labelDescription)
+                .addComponent(labelValues)
+                .addComponent(labelTitle)
+                .addComponent(labelIcon)
+            )
+            .addContainerGap(283, Short.MAX_VALUE)
+        )
+    );
     layout.setVerticalGroup(
-        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addComponent(lbIcon)
-                .addGap(18, 18, 18)
-                .addComponent(lbTitle)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbValues)
-                .addGap(18, 18, 18)
-                .addComponent(lbDescription)
-                .addContainerGap(25, Short.MAX_VALUE)));
+      layout
+        .createParallelGroup(GroupLayout.Alignment.LEADING)
+        .addGroup(
+          layout
+            .createSequentialGroup()
+            .addGap(32, 32, 32)
+            .addComponent(labelIcon)
+            .addGap(18, 18, 18)
+            .addComponent(labelTitle)
+            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(labelValues)
+            .addGap(18, 18, 18)
+            .addComponent(labelDescription)
+            .addContainerGap(25, Short.MAX_VALUE)
+        )
+    );
   }
 
   @Override
   protected void paintComponent(Graphics graphics) {
-    Graphics2D g2 = (Graphics2D) graphics;
-    g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-    GradientPaint g = new GradientPaint(0, 0, color1, 0, getHeight(), color2);
-    g2.setPaint(g);
-    g2.fillRoundRect(0, 0, getWidth(), getHeight(), 15, 15);
-    g2.setColor(new Color(255, 255, 255, 50));
-    g2.fillOval(getWidth() - (getHeight() / 2), 10, getHeight(), getHeight());
-    g2.fillOval(getWidth() - (getHeight() / 2) - 20, getHeight() / 2 + 20, getHeight(), getHeight());
+    Graphics2D graphics2d = (Graphics2D) graphics;
+    graphics2d.setRenderingHint(
+      RenderingHints.KEY_ANTIALIASING,
+      RenderingHints.VALUE_ANTIALIAS_ON
+    );
+    GradientPaint g = new GradientPaint(
+      0,
+      0,
+      colorTop,
+      0,
+      getHeight(),
+      colorBottom
+    );
+    graphics2d.setPaint(g);
+    graphics2d.fillRoundRect(0, 0, getWidth(), getHeight(), 15, 15);
+    graphics2d.setColor(new Color(255, 255, 255, 50));
+    graphics2d.fillOval(
+      getWidth() - (getHeight() / 2),
+      10,
+      getHeight(),
+      getHeight()
+    );
+    graphics2d.fillOval(
+      getWidth() - (getHeight() / 2) - 20,
+      getHeight() / 2 + 20,
+      getHeight(),
+      getHeight()
+    );
     super.paintComponent(graphics);
   }
-
-  private javax.swing.JLabel lbDescription;
-  private javax.swing.JLabel lbIcon;
-  private javax.swing.JLabel lbTitle;
-  private javax.swing.JLabel lbValues;
 }

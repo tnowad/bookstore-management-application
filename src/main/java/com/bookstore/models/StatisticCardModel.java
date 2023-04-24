@@ -2,16 +2,21 @@ package com.bookstore.models;
 
 import javax.swing.Icon;
 
-public class ModelStatisticCard {
+public class StatisticCardModel {
+
   private Icon icon;
   private String title;
   private String values;
   private String description;
 
-  public ModelStatisticCard() {
-  }
+  public StatisticCardModel() {}
 
-  public ModelStatisticCard(Icon icon, String title, String values, String description) {
+  public StatisticCardModel(
+    Icon icon,
+    String title,
+    String values,
+    String description
+  ) {
     this.icon = icon;
     this.title = title;
     this.values = values;
@@ -49,5 +54,4 @@ public class ModelStatisticCard {
   public void setDescription(String description) {
     this.description = description;
   }
-
 }
