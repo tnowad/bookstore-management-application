@@ -11,11 +11,11 @@ import com.bookstore.gui.component.button.Label;
 import com.bookstore.models.UserModel;
 import com.bookstore.models.UserModel.Role;
 
-public class CustomerListFormat extends JPanel {
+public class CustomerList extends JPanel {
     UserBUS userBus = UserBUS.getInstance();
     List<UserModel> customersList = userBus.getAllModels();
 
-    public CustomerListFormat() {
+    public CustomerList() {
         initComponents();
         listCustomer();
         search();
@@ -72,16 +72,16 @@ public class CustomerListFormat extends JPanel {
 
     private void initComponents() {
 
-        jPanel1 = new JPanel();
-        jPanel3 = new JPanel();
+        headerPanel = new JPanel();
+        groupTopHeaderPanel = new JPanel();
         customerListLabel = new JLabel();
         addCustomerPanel = new JPanel();
         addCustomerButton = new Button("Add Customer");
-        jPanel4 = new JPanel();
+        groupBottomHeaderPanel = new JPanel();
         searchCustomerTxtFld = new JTextField();
         searchButton = new Button("Search");
         jScrollPane1 = new JScrollPane();
-        jPanel2 = new JPanel();
+        tableContainerPanel = new JPanel();
         jScrollPane2 = new JScrollPane();
         customerTableList = new JTable();
 
@@ -89,14 +89,14 @@ public class CustomerListFormat extends JPanel {
         setPreferredSize(new java.awt.Dimension(1180, 620));
         setLayout(new java.awt.BorderLayout());
 
-        jPanel1.setLayout(new java.awt.GridLayout(2, 0));
+        headerPanel.setLayout(new java.awt.GridLayout(2, 1));
 
-        jPanel3.setLayout(new java.awt.GridLayout(1, 2));
+        groupTopHeaderPanel.setLayout(new java.awt.GridLayout(1, 2));
 
         customerListLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         customerListLabel.setText("Customer List");
         customerListLabel.setPreferredSize(new java.awt.Dimension(87, 30));
-        jPanel3.add(customerListLabel);
+        groupTopHeaderPanel.add(customerListLabel);
 
         addCustomerPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
 
@@ -107,13 +107,13 @@ public class CustomerListFormat extends JPanel {
         });
         addCustomerPanel.add(addCustomerButton);
 
-        jPanel3.add(addCustomerPanel);
+        groupTopHeaderPanel.add(addCustomerPanel);
 
-        jPanel1.add(jPanel3);
+        headerPanel.add(groupTopHeaderPanel);
 
         searchCustomerTxtFld.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         searchCustomerTxtFld.setPreferredSize(new java.awt.Dimension(450, 30));
-        jPanel4.add(searchCustomerTxtFld);
+        groupBottomHeaderPanel.add(searchCustomerTxtFld);
 
         searchButton.setMaximumSize(new java.awt.Dimension(75, 30));
         searchButton.setMinimumSize(new java.awt.Dimension(75, 30));
@@ -122,13 +122,13 @@ public class CustomerListFormat extends JPanel {
                 searchButtonActionPerformed(evt);
             }
         });
-        jPanel4.add(searchButton);
+        groupBottomHeaderPanel.add(searchButton);
 
-        jPanel1.add(jPanel4);
+        headerPanel.add(groupBottomHeaderPanel);
 
-        add(jPanel1, java.awt.BorderLayout.PAGE_START);
+        add(headerPanel, java.awt.BorderLayout.PAGE_START);
 
-        jPanel2.setLayout(new java.awt.BorderLayout());
+        tableContainerPanel.setLayout(new java.awt.BorderLayout());
 
         customerTableList.getTableHeader().setReorderingAllowed(false);
         customerTableList.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -138,9 +138,9 @@ public class CustomerListFormat extends JPanel {
         });
         jScrollPane2.setViewportView(customerTableList);
 
-        jPanel2.add(jScrollPane2, java.awt.BorderLayout.CENTER);
+        tableContainerPanel.add(jScrollPane2, java.awt.BorderLayout.CENTER);
 
-        jScrollPane1.setViewportView(jPanel2);
+        jScrollPane1.setViewportView(tableContainerPanel);
 
         add(jScrollPane1, java.awt.BorderLayout.CENTER);
     }
@@ -160,13 +160,13 @@ public class CustomerListFormat extends JPanel {
     private Button searchButton;
     private Button addCustomerButton;
     private JTable customerTableList;
-
-    private JPanel addCustomerPanel;
     private JLabel customerListLabel;
-    private JPanel jPanel1;
-    private JPanel jPanel2;
-    private JPanel jPanel3;
-    private JPanel jPanel4;
+    private JPanel addCustomerPanel;
+
+    private JPanel headerPanel;
+    private JPanel tableContainerPanel;
+    private JPanel groupTopHeaderPanel;
+    private JPanel groupBottomHeaderPanel;
     private JScrollPane jScrollPane1;
     private JScrollPane jScrollPane2;
     private JTextField searchCustomerTxtFld;

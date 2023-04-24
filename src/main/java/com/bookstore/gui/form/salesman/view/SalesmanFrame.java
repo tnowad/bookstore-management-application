@@ -72,7 +72,7 @@ public class SalesmanFrame extends JFrame {
     logoutButton = new Button("Logout");
     contentPanel = new JPanel();
 
-    contentPanel.add(new CustomerListPanel());
+    contentPanel.add(new CustomerList());
 
     headerPanel.setAlignmentX(1.0F);
     headerPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
@@ -208,7 +208,7 @@ public class SalesmanFrame extends JFrame {
       @Override
       public void actionPerformed(ActionEvent e) {
         contentPanel.removeAll();
-        contentPanel.add(new CustomerListFormat());
+        contentPanel.add(new CustomerList());
         contentPanel.revalidate();
         contentPanel.repaint();
       }
@@ -231,7 +231,7 @@ public class SalesmanFrame extends JFrame {
       @Override
       public void actionPerformed(ActionEvent e) {
         contentPanel.removeAll();
-        contentPanel.add(new BookListPanel());
+        contentPanel.add(new BookList());
         contentPanel.revalidate();
         contentPanel.repaint();
       }
