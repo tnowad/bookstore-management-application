@@ -3,6 +3,8 @@ package com.bookstore.gui.form.salesman.view;
 import com.bookstore.bus.ImportBUS;
 import com.bookstore.bus.ProviderBUS;
 import com.bookstore.gui.component.button.Button;
+import com.bookstore.gui.component.button.Label;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;

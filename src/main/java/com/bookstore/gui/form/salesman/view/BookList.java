@@ -15,6 +15,7 @@ import com.bookstore.models.BookModel;
 import com.bookstore.bus.BookBUS;
 import com.bookstore.gui.Theme.ThemeFont;
 import com.bookstore.gui.component.button.Button;
+import com.bookstore.gui.component.button.Label;
 
 public class BookList extends JPanel {
 
