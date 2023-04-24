@@ -5,21 +5,16 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import com.bookstore.models.BookModel;
-import com.bookstore.models.CurrentUserModel;
 import com.bookstore.bus.BookBUS;
-import com.bookstore.bus.CurrentUserBUS;
 import com.bookstore.gui.Theme.ThemeFont;
 import com.bookstore.gui.component.button.Button;
-import com.bookstore.gui.component.button.Label;
 
 public class BookList extends JPanel {
 

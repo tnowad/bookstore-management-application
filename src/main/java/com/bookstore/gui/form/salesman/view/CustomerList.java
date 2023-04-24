@@ -5,9 +5,7 @@ import java.awt.event.*;
 import javax.swing.table.DefaultTableModel;
 import java.util.List;
 import com.bookstore.bus.UserBUS;
-import com.bookstore.gui.Theme.ThemeFont;
 import com.bookstore.gui.component.button.Button;
-import com.bookstore.gui.component.button.Label;
 import com.bookstore.models.UserModel;
 import com.bookstore.models.UserModel.Role;
 
@@ -26,7 +24,7 @@ public class CustomerList extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 String text = searchCustomerTxtFld.getText();
                 if (text == null || text.isBlank()) {
-                    JOptionPane.showMessageDialog(null, "Vui lòng nhập thông tin tìm kiếm !");
+                    JOptionPane.showMessageDialog(null, "Search field cannot be empty. Please try again!");
                     showTable();
                 } else {
                     DefaultTableModel model = new DefaultTableModel();

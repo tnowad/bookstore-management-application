@@ -1,12 +1,8 @@
 package com.bookstore.gui.form.salesman.view;
 
-import javax.swing.JFrame;
 import com.bookstore.bus.ImportBUS;
 import com.bookstore.bus.ProviderBUS;
-import com.bookstore.gui.Theme.ThemeFont;
 import com.bookstore.gui.component.button.Button;
-import com.bookstore.gui.component.button.Label;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -133,7 +129,7 @@ public class ImportList extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 String text = searchBarTextField.getText();
                 if (text == null || text.isBlank()) {
-                    JOptionPane.showMessageDialog(null, "Vui lòng nhập thông tin tìm kiếm !");
+                    JOptionPane.showMessageDialog(null, "Search field cannot be empty. Please try again!");
                     showTable();
                 } else {
                     ProviderModel provider = new ProviderModel();
