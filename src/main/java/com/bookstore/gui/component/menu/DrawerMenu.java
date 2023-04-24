@@ -1,120 +1,136 @@
 package com.bookstore.gui.component.menu;
 
+import com.bookstore.gui.component.scrollbar.ScrollBarCustom;
+import com.bookstore.models.MenuItemModel;
 import java.awt.Color;
-import java.awt.Dimension;
-import java.util.ArrayList;
-
-import javax.swing.Box;
+import java.awt.GradientPaint;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import javax.swing.GroupLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-
-import com.bookstore.models.MenuItemModel;
-import com.bookstore.models.MenuModel;
-import com.bookstore.models.SubMenuItemModel;
+import javax.swing.LayoutStyle;
+import javax.swing.ScrollPaneConstants;
+import net.miginfocom.swing.MigLayout;
 
 public class DrawerMenu extends JPanel {
-    private MenuModel menuModel;
-    private Boolean isExpanded = true;
 
-    private JScrollPane scrollPane;
-    private JPanel menuItemsPanel;
+  private JPanel panel;
+  private JScrollPane scrollPane;
 
-    public DrawerMenu(MenuModel menuModel) {
-        this.menuModel = menuModel;
-        initComponents();
+  private final MigLayout layout;
 
-        for (MenuItemModel menuItemModel : menuModel.getMenuItems()) {
-            addMenuItem(menuItemModel);
-        }
-    }
+  public DrawerMenu() {
+    initComponents();
+    setOpaque(false);
+    scrollPane.getViewport().setOpaque(false);
+    scrollPane.setVerticalScrollBar(new ScrollBarCustom());
+    layout = new MigLayout("wrap, fillx, insets 0", "[fill]", "[]0[]");
+    panel.setLayout(layout);
+  }
 
-    private void initComponents() {
-        scrollPane = new JScrollPane();
-        menuItemsPanel = new JPanel();
+  public void addMenu(MenuItemModel menuItemModel) {
+    panel.add(new DrawerMenuItem(menuItemModel), "h 40!");
+  }
 
-        scrollPane.setBorder(null);
-        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollPane.setViewport(null);
+  private void initComponents() {
+    // Profile profile;
 
-        GroupLayout menuItemsPanelLayout = new GroupLayout(menuItemsPanel);
-        menuItemsPanel.setLayout(menuItemsPanelLayout);
+    JPanel profile;
 
-        menuItemsPanelLayout.setHorizontalGroup(
-                menuItemsPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGap(0, 312, Short.MAX_VALUE));
+    scrollPane = new JScrollPane();
+    panel = new JPanel();
+    // profile = new com.bookstore.gui.component.Profile();
+    profile = new JPanel();
+    scrollPane.setBorder(null);
+    scrollPane.setHorizontalScrollBarPolicy(
+      ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER
+    );
+    scrollPane.setViewportBorder(null);
 
-        menuItemsPanelLayout.setVerticalGroup(
-                menuItemsPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGap(0, 523, Short.MAX_VALUE));
+    panel.setOpaque(false);
 
-        scrollPane.setViewportView(menuItemsPanel);
+    GroupLayout panelLayout = new GroupLayout(panel);
+    panel.setLayout(panelLayout);
+    panelLayout.setHorizontalGroup(
+      panelLayout
+        .createParallelGroup(GroupLayout.Alignment.LEADING)
+        .addGap(0, 312, Short.MAX_VALUE)
+    );
+    panelLayout.setVerticalGroup(
+      panelLayout
+        .createParallelGroup(GroupLayout.Alignment.LEADING)
+        .addGap(0, 523, Short.MAX_VALUE)
+    );
 
-        GroupLayout layout = new GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE));
+    scrollPane.setViewportView(panel);
 
-        layout.setVerticalGroup(
-                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE));
+    GroupLayout menuLayout = new GroupLayout(this);
+    this.setLayout(menuLayout);
+    menuLayout.setHorizontalGroup(
+      menuLayout
+        .createParallelGroup(GroupLayout.Alignment.LEADING)
+        .addComponent(
+          scrollPane,
+          GroupLayout.DEFAULT_SIZE,
+          230,
+          Short.MAX_VALUE
+        )
+        .addComponent(profile, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+    );
+    menuLayout.setVerticalGroup(
+      menuLayout
+        .createParallelGroup(GroupLayout.Alignment.LEADING)
+        .addGroup(
+          GroupLayout.Alignment.TRAILING,
+          menuLayout
+            .createSequentialGroup()
+            .addComponent(
+              profile,
+              GroupLayout.PREFERRED_SIZE,
+              GroupLayout.DEFAULT_SIZE,
+              GroupLayout.PREFERRED_SIZE
+            )
+            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(
+              scrollPane,
+              GroupLayout.DEFAULT_SIZE,
+              523,
+              Short.MAX_VALUE
+            )
+        )
+    );
+  }
 
-    }
+  @Override
+  protected void paintComponent(Graphics graphics) {
+    Graphics2D graphics2d = (Graphics2D) graphics;
+    graphics2d.setRenderingHint(
+      RenderingHints.KEY_ANTIALIASING,
+      RenderingHints.VALUE_ANTIALIAS_ON
+    );
+    GradientPaint gradientPaint = new GradientPaint(
+      0,
+      0,
+      new Color(33, 105, 249),
+      getWidth(),
+      0,
+      new Color(93, 58, 196)
+    );
+    graphics2d.setPaint(gradientPaint);
+    graphics2d.fillRect(0, 0, getWidth(), getHeight());
+    super.paintComponent(graphics);
+  }
 
-    public MenuModel getMenuModel() {
-        return menuModel;
-    }
-
-    public void setMenuModel(MenuModel menuModel) {
-        this.menuModel = menuModel;
-    }
-
-    public void addMenuItem(MenuItemModel menuItemModel) {
-        DrawerMenuItem drawerMenuItem = new DrawerMenuItem(menuItemModel);
-        menuItemsPanel.add(drawerMenuItem);
-
-        menuItemsPanel.add(Box.createRigidArea(new Dimension(0, 5)));
-    }
-
-    public static void main(String[] args) {
-        JFrame frame = new JFrame();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 400);
-        frame.setLocationRelativeTo(null);
-
-        MenuModel menuModel = new MenuModel(new ArrayList<MenuItemModel>() {
-            {
-                add(new MenuItemModel("Home", null, null, new ArrayList<SubMenuItemModel>() {
-                    {
-                        add(new SubMenuItemModel("Home 1", null, null));
-                        add(new SubMenuItemModel("Home 2", null, null));
-                        add(new SubMenuItemModel("Home 3", null, null));
-                    }
-                }));
-                add(new MenuItemModel("Home 2", null, null, new ArrayList<SubMenuItemModel>() {
-                    {
-                        add(new SubMenuItemModel("Home 1", null, null));
-                        add(new SubMenuItemModel("Home 2", null, null));
-                        add(new SubMenuItemModel("Home 3", null, null));
-                    }
-                }));
-                add(new MenuItemModel("Home 3", null, null, new ArrayList<SubMenuItemModel>() {
-                    {
-                        add(new SubMenuItemModel("Home 1", null, null));
-                        add(new SubMenuItemModel("Home 2", null, null));
-                        add(new SubMenuItemModel("Home 3", null, null));
-                    }
-                }));
-                add(new MenuItemModel("Home 4", null, null));
-            }
-        });
-        System.out.println(menuModel.getMenuItems().size());
-
-        DrawerMenu drawerMenu = new DrawerMenu(menuModel);
-
-        frame.add(drawerMenu);
-        frame.setVisible(true);
-    }
+  public static void main(String[] args) {
+    JFrame frame = new JFrame();
+    frame.setSize(300, 600);
+    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    frame.add(new DrawerMenu());
+    frame.setVisible(true);
+    frame.setLocationRelativeTo(null);
+    frame.setVisible(true);
+  }
 }

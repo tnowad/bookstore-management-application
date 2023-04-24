@@ -6,62 +6,59 @@ import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.RenderingHints;
-import java.util.ArrayList;
 import javax.swing.GroupLayout;
-import javax.swing.JPanel;
+import net.miginfocom.swing.MigLayout;
 
-public class DrawerMenuItem extends JPanel {
-
-  private MenuItemModel menuItemModel;
+public class DrawerMenuItem extends javax.swing.JPanel {
 
   private float alpha;
+  private transient MenuItemModel menuItemModel;
+  private boolean open;
+  private int index;
 
   public DrawerMenuItem(MenuItemModel menuItemModel) {
-    this.menuItemModel = menuItemModel;
     initComponents();
 
-    GridBagConstraints gridBagConstraints = new GridBagConstraints();
-    gridBagConstraints.gridx = 0;
-    gridBagConstraints.gridy = 0;
-    gridBagConstraints.weightx = 1;
-    gridBagConstraints.weighty = 1;
-    gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-    gridBagConstraints.anchor = GridBagConstraints.NORTH;
-
+    setOpaque(false);
+    setLayout(
+      new MigLayout(
+        "wrap, fillx, insets 0",
+        "[fill]",
+        "[fill, 40!]0[fill, 35!]"
+      )
+    );
     MenuButton firstItem = new MenuButton(
       menuItemModel.getIcon(),
-      "     " + menuItemModel.getTitle()
+      "      " + menuItemModel.getTitle()
     );
-    firstItem.setBackground(Color.RED);
-    firstItem.addActionListener(menuItemModel.getActionListener());
 
-    gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 0);
+    firstItem.addActionListener(ae -> {});
 
-    this.add(firstItem, gridBagConstraints);
-
-    if (menuItemModel.getSubMenuItems() != null) {
-      for (SubMenuItemModel subMenuItemModel : menuItemModel.getSubMenuItems()) {
-        MenuButton subItem = new MenuButton(
-          subMenuItemModel.getIcon(),
-          "     " + subMenuItemModel.getTitle()
-        );
-        subItem.addActionListener(subMenuItemModel.getActionListener());
-        
-        gridBagConstraints.gridy++;
-
-        this.add(subItem, gridBagConstraints);
-      }
+    add(firstItem);
+    for (SubMenuItemModel subMenuItemModel : menuItemModel.getSubMenuItems()) {
+      MenuButton item = new MenuButton(subMenuItemModel.getTitle());
+      item.addActionListener(subMenuItemModel.getActionListener());
+      add(item);
     }
   }
 
   private void initComponents() {
-    GridBagLayout layout = new GridBagLayout();
+    GroupLayout layout = new GroupLayout(this);
     this.setLayout(layout);
+    layout.setHorizontalGroup(
+      layout
+        .createParallelGroup(GroupLayout.Alignment.LEADING)
+        .addGap(0, 400, Short.MAX_VALUE)
+    );
+    layout.setVerticalGroup(
+      layout
+        .createParallelGroup(GroupLayout.Alignment.LEADING)
+        .addGap(0, 300, Short.MAX_VALUE)
+    );
   }
 
+  @Override
   protected void paintComponent(Graphics graphics) {
     int width = getWidth();
     int height = getPreferredSize().height;
@@ -70,13 +67,12 @@ public class DrawerMenuItem extends JPanel {
       RenderingHints.KEY_ANTIALIASING,
       RenderingHints.VALUE_ANTIALIAS_ON
     );
-    g2.setColor(new Color(255, 255, 255));
-    g2.setComposite(
-      AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha * 0.5f)
-    );
-    g2.fillRect(0, 0, width, 40);
+    g2.setColor(new Color(50, 50, 50));
+    g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
+    g2.fillRect(0, 2, width, 38);
     g2.setComposite(AlphaComposite.SrcOver);
-    g2.setColor(new Color(60, 60, 60));
+    g2.fillRect(0, 40, width, height - 40);
+    g2.setColor(new Color(100, 100, 100));
     g2.drawLine(30, 40, 30, height - 17);
     for (int i = 0; i < menuItemModel.getSubMenuItems().size(); i++) {
       int y = ((i + 1) * 35 + 40) - 17;
@@ -92,36 +88,10 @@ public class DrawerMenuItem extends JPanel {
     int size = 4;
     int y = 19;
     int x = 205;
-    g2.setColor(new Color(60, 60, 60));
+    g2.setColor(new Color(230, 230, 230));
     float ay = alpha * size;
     float ay1 = (1f - alpha) * size;
     g2.drawLine(x, (int) (y + ay), x + 4, (int) (y + ay1));
     g2.drawLine(x + 4, (int) (y + ay1), x + 8, (int) (y + ay));
-  }
-
-  public static void main(String[] args) {
-    javax.swing.JFrame frame = new javax.swing.JFrame();
-    frame.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-    frame
-      .getContentPane()
-      .add(
-        new DrawerMenuItem(
-          new MenuItemModel(
-            "Menu",
-            null,
-            null,
-            new ArrayList<SubMenuItemModel>() {
-              {
-                add(new SubMenuItemModel("Sub Menu", null, null));
-              }
-            }
-          )
-        )
-      );
-
-    frame.pack();
-    frame.setLocationRelativeTo(null);
-    frame.setVisible(true);
   }
 }
