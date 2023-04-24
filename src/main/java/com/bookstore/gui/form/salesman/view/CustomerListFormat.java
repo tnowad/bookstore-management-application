@@ -11,7 +11,7 @@ import com.bookstore.gui.component.button.Label;
 import com.bookstore.models.UserModel;
 import com.bookstore.models.UserModel.Role;
 
-public class CustomerListFormat extends javax.swing.JPanel {
+public class CustomerListFormat extends JPanel {
     UserBUS userBus = UserBUS.getInstance();
     List<UserModel> customersList = userBus.getAllModels();
 
@@ -70,21 +70,20 @@ public class CustomerListFormat extends javax.swing.JPanel {
         }
     }
 
-    @SuppressWarnings("unchecked")
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
-        customerListLabel = new javax.swing.JLabel();
-        addCustomerPanel = new javax.swing.JPanel();
-        addCustomerButton = new javax.swing.JButton();
-        jPanel4 = new javax.swing.JPanel();
-        searchCustomerTxtFld = new javax.swing.JTextField();
-        searchButton = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jPanel2 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        customerTableList = new javax.swing.JTable();
+        jPanel1 = new JPanel();
+        jPanel3 = new JPanel();
+        customerListLabel = new JLabel();
+        addCustomerPanel = new JPanel();
+        addCustomerButton = new Button("Add Customer");
+        jPanel4 = new JPanel();
+        searchCustomerTxtFld = new JTextField();
+        searchButton = new Button("Search");
+        jScrollPane1 = new JScrollPane();
+        jPanel2 = new JPanel();
+        jScrollPane2 = new JScrollPane();
+        customerTableList = new JTable();
 
         setMinimumSize(new java.awt.Dimension(1180, 620));
         setPreferredSize(new java.awt.Dimension(1180, 620));
@@ -101,9 +100,6 @@ public class CustomerListFormat extends javax.swing.JPanel {
 
         addCustomerPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
 
-        addCustomerButton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        addCustomerButton.setText("Add Customer");
-        addCustomerButton.setPreferredSize(new java.awt.Dimension(120, 30));
         addCustomerButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addCustomerButtonActionPerformed(evt);
@@ -119,11 +115,8 @@ public class CustomerListFormat extends javax.swing.JPanel {
         searchCustomerTxtFld.setPreferredSize(new java.awt.Dimension(450, 30));
         jPanel4.add(searchCustomerTxtFld);
 
-        searchButton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        searchButton.setText("Search");
         searchButton.setMaximumSize(new java.awt.Dimension(75, 30));
         searchButton.setMinimumSize(new java.awt.Dimension(75, 30));
-        searchButton.setPreferredSize(new java.awt.Dimension(75, 30));
         searchButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchButtonActionPerformed(evt);
@@ -137,32 +130,6 @@ public class CustomerListFormat extends javax.swing.JPanel {
 
         jPanel2.setLayout(new java.awt.BorderLayout());
 
-        // customerTableList.setModel(new javax.swing.table.DefaultTableModel(
-        //         new Object[][] {
-        //                 { null, null, null, null, null },
-        //                 { null, null, null, null, null },
-        //                 { null, null, null, null, null },
-        //                 { null, null, null, null, null }
-        //         },
-        //         new String[] {
-        //                 "ID", "Name", "Email", "Phone number", "Status"
-        //         }) {
-        //     Class[] types = new Class[] {
-        //             java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class,
-        //             java.lang.String.class
-        //     };
-        //     boolean[] canEdit = new boolean[] {
-        //             false, false, false, false, false
-        //     };
-
-        //     public Class getColumnClass(int columnIndex) {
-        //         return types[columnIndex];
-        //     }
-
-        //     public boolean isCellEditable(int rowIndex, int columnIndex) {
-        //         return canEdit[columnIndex];
-        //     }
-        // });
         customerTableList.getTableHeader().setReorderingAllowed(false);
         customerTableList.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -170,44 +137,37 @@ public class CustomerListFormat extends javax.swing.JPanel {
             }
         });
         jScrollPane2.setViewportView(customerTableList);
-        // if (customerTableList.getColumnModel().getColumnCount() > 0) {
-        //     customerTableList.getColumnModel().getColumn(0).setResizable(false);
-        //     customerTableList.getColumnModel().getColumn(1).setResizable(false);
-        //     customerTableList.getColumnModel().getColumn(2).setResizable(false);
-        //     customerTableList.getColumnModel().getColumn(3).setResizable(false);
-        //     customerTableList.getColumnModel().getColumn(4).setResizable(false);
-        // }
 
         jPanel2.add(jScrollPane2, java.awt.BorderLayout.CENTER);
 
         jScrollPane1.setViewportView(jPanel2);
 
         add(jScrollPane1, java.awt.BorderLayout.CENTER);
-    }// </editor-fold>
+    }
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+
     }
 
     private void customerTableListMouseClicked(java.awt.event.MouseEvent evt) {
-        // TODO add your handling code here:
+
     }
 
     private void addCustomerButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+
     }
 
-    private javax.swing.JButton searchButton;
-    private javax.swing.JButton addCustomerButton;
-    private javax.swing.JTable customerTableList;
+    private Button searchButton;
+    private Button addCustomerButton;
+    private JTable customerTableList;
 
-    private javax.swing.JPanel addCustomerPanel;
-    private javax.swing.JLabel customerListLabel;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField searchCustomerTxtFld;
+    private JPanel addCustomerPanel;
+    private JLabel customerListLabel;
+    private JPanel jPanel1;
+    private JPanel jPanel2;
+    private JPanel jPanel3;
+    private JPanel jPanel4;
+    private JScrollPane jScrollPane1;
+    private JScrollPane jScrollPane2;
+    private JTextField searchCustomerTxtFld;
 }

@@ -7,7 +7,7 @@ public class ThemeFont {
     private int fontFamily = Font.ITALIC;
     private int largeFontSize = 48;
     private int mediumFontSize = 24;
-    private int smallFontSize = 16;
+    private int smallFontSize = 14;
     private Font largeFont = new Font(fontStyle, fontFamily, largeFontSize);
     private Font mediumFont = new Font(fontStyle, fontFamily, mediumFontSize);
     private Font smallFont = new Font(fontStyle, fontFamily, smallFontSize);

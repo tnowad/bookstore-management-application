@@ -83,7 +83,7 @@ public class Button extends JButton {
   private void initComponents(String name) {
     setText(name);
     setFont(new ThemeFont().getSmallFont());
-    setButtonSize(100, 50);
+    setButtonSize(100, 40);
     setBackground(new ThemeColor().getButtonBackground());
     setForeground(new ThemeColor().getButtonForeground());
     // setBorder(null);
