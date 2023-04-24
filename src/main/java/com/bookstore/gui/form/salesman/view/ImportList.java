@@ -35,13 +35,13 @@ public class ImportList extends JPanel {
         headerPanel = new JPanel();
         importLabel = new JLabel();
         addPanel = new JPanel();
-        addReceiptButton = new JButton();
+        addReceiptButton = new Button("Add import");
         groupSearchPanel = new JPanel();
         searchBarTextField = new JTextField();
-        searchButton = new JButton();
+        searchButton = new Button("Search");
         groupExcel = new JPanel();
-        importFromExcelButton = new JButton();
-        exportToExcelButton = new JButton();
+        importFromExcelButton = new Button("Import excel");
+        exportToExcelButton = new Button("Export excel");
         jScrollPane1 = new JScrollPane();
         groupListImport = new JPanel();
         scrollPaneTableList = new JScrollPane();
@@ -59,9 +59,6 @@ public class ImportList extends JPanel {
 
         addPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
 
-        addReceiptButton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        addReceiptButton.setText("Add receipt");
-        addReceiptButton.setPreferredSize(new java.awt.Dimension(110, 30));
         addReceiptButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addReceiptButtonActionPerformed(evt);
@@ -78,9 +75,6 @@ public class ImportList extends JPanel {
         searchBarTextField.setPreferredSize(new java.awt.Dimension(450, 30));
         groupSearchPanel.add(searchBarTextField);
 
-        searchButton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        searchButton.setText("Search");
-        searchButton.setPreferredSize(new java.awt.Dimension(80, 30));
         searchButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchButtonActionPerformed(evt);
@@ -93,9 +87,6 @@ public class ImportList extends JPanel {
         groupExcel.setPreferredSize(new java.awt.Dimension(590, 30));
         groupExcel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
 
-        importFromExcelButton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        importFromExcelButton.setText("Import from Excel file");
-        importFromExcelButton.setPreferredSize(new java.awt.Dimension(160, 30));
         importFromExcelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 importFromExcelButtonActionPerformed(evt);
@@ -103,9 +94,6 @@ public class ImportList extends JPanel {
         });
         groupExcel.add(importFromExcelButton);
 
-        exportToExcelButton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        exportToExcelButton.setText("Export to Excel file");
-        exportToExcelButton.setPreferredSize(new java.awt.Dimension(145, 30));
         exportToExcelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 exportToExcelButtonActionPerformed(evt);
@@ -119,32 +107,6 @@ public class ImportList extends JPanel {
 
         groupListImport.setLayout(new java.awt.BorderLayout());
 
-        importTableList.setModel(new DefaultTableModel(
-                new Object[][] {
-                        { null, null, null, null, null },
-                        { null, null, null, null, null },
-                        { null, null, null, null, null },
-                        { null, null, null, null, null }
-                },
-                new String[] {
-                        "ID", "Provider ID", "Employee ID", "Price", "Status"
-                }) {
-            Class[] types = new Class[] {
-                    java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Double.class,
-                    java.lang.String.class
-            };
-            boolean[] canEdit = new boolean[] {
-                    false, false, false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types[columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit[columnIndex];
-            }
-        });
         importTableList.getTableHeader().setReorderingAllowed(false);
         importTableList.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -240,39 +202,32 @@ public class ImportList extends JPanel {
     }
 
     private void addReceiptButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
     }
 
     private void exportToExcelButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
     }
 
     private void importFromExcelButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
     }
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
     }
 
     private void importTableListMouseClicked(java.awt.event.MouseEvent evt) {
-        // TODO add your handling code here:
     }
 
-    // Variables declaration - do not modify
     private JPanel addPanel;
-    private JButton addReceiptButton;
-    private JButton exportToExcelButton;
+    private Button addReceiptButton;
+    private Button exportToExcelButton;
     private JPanel groupExcel;
     private JPanel groupListImport;
     private JPanel groupSearchPanel;
     private JPanel headerPanel;
-    private JButton importFromExcelButton;
+    private Button importFromExcelButton;
     private JLabel importLabel;
     private JTable importTableList;
     private JScrollPane jScrollPane1;
     private JScrollPane scrollPaneTableList;
     private JTextField searchBarTextField;
-    private JButton searchButton;
-    // End of variables declaration
+    private Button searchButton;
 }
