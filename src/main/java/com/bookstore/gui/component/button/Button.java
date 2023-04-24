@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Insets;
@@ -87,7 +86,7 @@ public class Button extends JButton {
     setButtonSize(100, 50);
     setBackground(new ThemeColor().getButtonBackground());
     setForeground(new ThemeColor().getButtonForeground());
-    setBorder(null);
+    // setBorder(null);
     setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
   }
 
