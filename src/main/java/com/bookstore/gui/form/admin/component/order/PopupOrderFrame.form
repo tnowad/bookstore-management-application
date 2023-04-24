@@ -92,7 +92,11 @@
               <Component id="buttonBack" min="-2" pref="83" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
               <Component id="buttonSave" min="-2" pref="83" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="ButtonExportPDF" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="ButtonExportExcel" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -153,6 +157,10 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="buttonBack" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="buttonSave" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="ButtonExportPDF" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="ButtonExportExcel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace pref="13" max="32767" attributes="0"/>
           </Group>
@@ -308,7 +316,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="711" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="767" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -437,6 +445,17 @@
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/resources/images/save.png"/>
         </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="ButtonExportPDF">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Export PDF"/>
+        <Property name="toolTipText" type="java.lang.String" value=""/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="ButtonExportExcel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Export Excel"/>
       </Properties>
     </Component>
   </SubComponents>

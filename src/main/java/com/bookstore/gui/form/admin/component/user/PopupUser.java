@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.bookstore.gui.form.admin.component.userListComponent;
+package com.bookstore.gui.form.admin.component.user;
 
 import com.bookstore.bus.UserBUS;
 import com.bookstore.models.UserModel;
@@ -156,7 +156,7 @@ public class PopupUser extends javax.swing.JFrame {
         frame.dispose();
       }
     });
-    // Save.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/images/save.png"))); // NOI18N
+    Save.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/images/save.png"))); // NOI18N
     Save.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         Object selectedStatusItem = SetStatus.getSelectedItem();

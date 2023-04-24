@@ -1,4 +1,4 @@
-package com.bookstore.gui.form.admin.component.userListComponent;
+package com.bookstore.gui.form.admin.component.user;
 
 
 import java.time.LocalDateTime;

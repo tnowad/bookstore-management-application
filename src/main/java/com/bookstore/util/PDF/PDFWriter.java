@@ -44,7 +44,7 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
 public class PDFWriter {
-  private static final String FONT_FILE_PATH = "../../../../resources/fonts/Arial.ttf";
+  private static final String FONT_FILE_PATH = "./src/main/java/resources/fonts/Arial.ttf";
   private static PDFWriter instance;
 
   public Document document;

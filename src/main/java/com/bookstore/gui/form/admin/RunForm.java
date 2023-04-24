@@ -5,7 +5,7 @@ import java.awt.Dimension;
 
 import javax.swing.*;
 
-import com.bookstore.gui.form.admin.component.dashboardComponent.DashboardPanel;
+import com.bookstore.gui.form.admin.component.dashboard.DashboardPanel;
 import com.bookstore.gui.form.admin.menu.HeaderForm;
 import com.bookstore.gui.form.admin.menu.MenuForm;
 import com.bookstore.services.CheckCurrentUser;

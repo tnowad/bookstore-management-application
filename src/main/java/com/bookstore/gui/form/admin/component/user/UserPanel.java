@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package com.bookstore.gui.form.admin.component.userListComponent;
+package com.bookstore.gui.form.admin.component.user;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;

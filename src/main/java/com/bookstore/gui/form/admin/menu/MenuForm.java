@@ -11,10 +11,6 @@ import java.awt.event.MouseListener;
 import javax.swing.JPanel;
 
 import com.bookstore.gui.form.admin.RunForm;
-import com.bookstore.gui.form.admin.component.bookListComponent.BrowseProductPanel;
-import com.bookstore.gui.form.admin.component.dashboardComponent.DashboardPanel;
-import com.bookstore.gui.form.admin.component.orderListComponent.OrderListPanel;
-import com.bookstore.gui.form.admin.component.userListComponent.UserListPanel;
 import com.bookstore.gui.form.admin.controller.ActionMenu;
 
 /**

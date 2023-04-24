@@ -2,9 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package com.bookstore.gui.form.admin.component.bookListComponent;
+package com.bookstore.gui.form.admin.component.book;
 
+import javax.swing.ImageIcon;
 import javax.swing.JTextField;
+
+import com.itextpdf.text.Image;
 
 /**
  *
@@ -20,6 +23,7 @@ public class BookProductPanel extends javax.swing.JPanel {
         public BookProductPanel(String isbn, String title, String description, String image, int price, int quantity,
                         Enum status, int publisher_id, int author_id) {
                 initComponents(isbn, title, description, image, price, quantity, status, publisher_id, author_id);
+                setImage(image);
         }
 
         /**
@@ -29,10 +33,10 @@ public class BookProductPanel extends javax.swing.JPanel {
          */
         @SuppressWarnings("unchecked")
         // <editor-fold defaultstate="collapsed" desc="Generated
+        // <editor-fold defaultstate="collapsed" desc="Generated
         // Code">//GEN-BEGIN:initComponents
         private void initComponents(String isbn, String title, String description, String image, int price,
-                        int quantity,
-                        Enum status, int publisher_id, int author_id) {
+                        int quantity, Enum status, int publisher_id, int author_id) {
 
                 GetImageBook = new javax.swing.JLabel();
                 ButtonDetail = new javax.swing.JButton();
@@ -43,13 +47,12 @@ public class BookProductPanel extends javax.swing.JPanel {
                 isbnBook.setText("" + isbn);
                 add(isbnBook);
 
-                // setBackground(new java.awt.Color(153, 255, 51));
+                setBackground(new java.awt.Color(255, 255, 255));
                 setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
                 setMaximumSize(new java.awt.Dimension(201, 246));
 
                 GetImageBook.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-                GetImageBook.setIcon(new javax.swing.ImageIcon(
-                                "../../../../../../../resources/images_products/nhagiakim.png")); // NOI18N
+                
                 GetImageBook.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
                 ButtonDetail.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -66,42 +69,30 @@ public class BookProductPanel extends javax.swing.JPanel {
                 });
 
                 setName.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-                setName.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-                setName.setText(title);
+                setName.setText("name");
 
                 javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
                 this.setLayout(layout);
                 layout.setHorizontalGroup(
                                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout
-                                                                .createSequentialGroup()
+                                                .addGroup(layout.createSequentialGroup()
                                                                 .addContainerGap()
                                                                 .addGroup(layout.createParallelGroup(
-                                                                                javax.swing.GroupLayout.Alignment.TRAILING)
+                                                                                javax.swing.GroupLayout.Alignment.LEADING)
+                                                                                .addComponent(setName)
                                                                                 .addComponent(GetImageBook,
-                                                                                                javax.swing.GroupLayout.Alignment.LEADING,
                                                                                                 javax.swing.GroupLayout.DEFAULT_SIZE,
                                                                                                 187, Short.MAX_VALUE)
-                                                                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING,
-                                                                                                layout
-                                                                                                                .createSequentialGroup()
-                                                                                                                .addGap(8, 8, 8)
-                                                                                                                .addComponent(checkBox)
-                                                                                                                .addGap(18, 18, 18)
-                                                                                                                .addComponent(ButtonDetail,
-                                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                                                                                                99,
-                                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                                                                .addGap(0, 0, Short.MAX_VALUE)))
-                                                                .addContainerGap())
-                                                .addGroup(layout.createSequentialGroup()
-                                                                .addGap(16, 16, 16)
-                                                                .addComponent(setName,
-                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                                                168,
-                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                                Short.MAX_VALUE)));
+                                                                                .addGroup(layout.createSequentialGroup()
+                                                                                                .addGap(8, 8, 8)
+                                                                                                .addComponent(checkBox)
+                                                                                                .addGap(27, 27, 27)
+                                                                                                .addComponent(ButtonDetail,
+                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                                                86,
+                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                                .addGap(0, 0, Short.MAX_VALUE)))
+                                                                .addContainerGap()));
                 layout.setVerticalGroup(
                                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                 .addGroup(layout.createSequentialGroup()
@@ -114,10 +105,10 @@ public class BookProductPanel extends javax.swing.JPanel {
                                                                                 javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                                 .addComponent(GetImageBook,
                                                                                 javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                                                158,
+                                                                                228,
                                                                                 javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                 .addPreferredGap(
-                                                                                javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                                 .addGroup(layout.createParallelGroup(
                                                                                 javax.swing.GroupLayout.Alignment.LEADING)
                                                                                 .addComponent(ButtonDetail,
@@ -125,9 +116,18 @@ public class BookProductPanel extends javax.swing.JPanel {
                                                                                                 30,
                                                                                                 javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                                 .addComponent(checkBox))
-                                                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                                Short.MAX_VALUE)));
+                                                                .addContainerGap(7, Short.MAX_VALUE)));
         }// </editor-fold>//GEN-END:initComponents
+
+        public void setImage(String image) {
+                GetImageBook.setIcon(new javax.swing.ImageIcon(image));
+                ImageIcon icon = (ImageIcon) GetImageBook.getIcon();
+                int imageLoadStatus = icon.getImageLoadStatus();
+                if (imageLoadStatus != 8) {
+                        GetImageBook.setIcon(new javax.swing.ImageIcon(
+                                        getClass().getResource("/resources/images_products/imagenull.png")));
+                }
+        }
 
         // Variables declaration - do not modify//GEN-BEGIN:variables
         private javax.swing.JButton ButtonDetail;

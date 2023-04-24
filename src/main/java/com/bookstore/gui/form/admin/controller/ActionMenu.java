@@ -6,10 +6,10 @@ import java.awt.event.*;
 import javax.swing.JPanel;
 
 import com.bookstore.gui.form.admin.RunForm;
-import com.bookstore.gui.form.admin.component.bookListComponent.BrowseProductPanel;
-import com.bookstore.gui.form.admin.component.dashboardComponent.DashboardPanel;
-import com.bookstore.gui.form.admin.component.orderListComponent.OrderListPanel;
-import com.bookstore.gui.form.admin.component.userListComponent.UserListPanel;
+import com.bookstore.gui.form.admin.component.book.BrowseProductPanel;
+import com.bookstore.gui.form.admin.component.dashboard.DashboardPanel;
+import com.bookstore.gui.form.admin.component.order.OrderListPanel;
+import com.bookstore.gui.form.admin.component.user.UserListPanel;
 import com.bookstore.gui.form.admin.menu.HeaderForm;
 import com.bookstore.gui.form.admin.menu.MenuForm;
 

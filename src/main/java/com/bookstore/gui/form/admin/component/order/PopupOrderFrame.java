@@ -2,14 +2,25 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.bookstore.gui.form.admin.component.orderListComponent;
+package com.bookstore.gui.form.admin.component.order;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
+import javax.swing.JFileChooser;
 import javax.swing.WindowConstants;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
 
+import com.bookstore.bus.BookBUS;
+import com.bookstore.bus.CartItemsBUS;
 import com.bookstore.bus.UserBUS;
+import com.bookstore.models.CartItemsModel;
 import com.bookstore.models.OrderModel.Status;
+import com.bookstore.util.PDF.PDFWriter;
+import com.itextpdf.text.DocumentException;
 
 /**
  *
@@ -26,6 +37,9 @@ public class PopupOrderFrame extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setResizable(false);
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+
+        addTable(idCart);
+        setStatus(status);
     }
 
     /**
@@ -36,7 +50,7 @@ public class PopupOrderFrame extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents(int serial, int idOrder, int idCart,int idCustomer, int idEmployee,int total, LocalDateTime dateCreated, LocalDateTime dateUpdated, Status status ) {
+    private void initComponents(int serial, int idOrder, int idCart,int idCustomer, int idEmployee,int total, LocalDateTime dateCreated, LocalDateTime dateUpdated, Status status) {
 
         jLabel1 = new javax.swing.JLabel();
         getNameCustomer = new javax.swing.JTextField();
@@ -66,6 +80,8 @@ public class PopupOrderFrame extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         buttonBack = new javax.swing.JButton();
         buttonSave = new javax.swing.JButton();
+        ButtonExportPDF = new javax.swing.JButton();
+        ButtonExportExcel = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -81,7 +97,7 @@ public class PopupOrderFrame extends javax.swing.JFrame {
         jLabel2.setText("Customer Name");
 
         getNameEmployee.setEditable(false);
-        getNameEmployee.setText(UserBUS.getInstance().getModelById(idEmployee).getEmail());
+        getNameEmployee.setText(UserBUS.getInstance().getModelById(idEmployee).getName());
 
         getIdOrder.setEditable(false);
         getIdOrder.setText(""+idOrder);
@@ -115,7 +131,7 @@ public class PopupOrderFrame extends javax.swing.JFrame {
         jLabel6.setText("Product Quantity");
 
         getQuantityProduct.setEditable(false);
-        getQuantityProduct.setText("0");
+        getQuantityProduct.setText("");
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 0, 0));
@@ -127,7 +143,7 @@ public class PopupOrderFrame extends javax.swing.JFrame {
         table.setLayout(tableLayout);
         tableLayout.setHorizontalGroup(
             tableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 711, Short.MAX_VALUE)
+            .addGap(0, 767, Short.MAX_VALUE)
         );
         tableLayout.setVerticalGroup(
             tableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -201,6 +217,18 @@ public class PopupOrderFrame extends javax.swing.JFrame {
 
         buttonSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/images/save.png"))); // NOI18N
 
+        ButtonExportPDF.setText("Export PDF");
+        ButtonExportPDF.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                importPDF(idOrder);
+            }
+            
+        });
+        ButtonExportPDF.setToolTipText("");
+
+        ButtonExportExcel.setText("Export Excel");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -258,7 +286,11 @@ public class PopupOrderFrame extends javax.swing.JFrame {
                 .addComponent(buttonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(66, 66, 66)
                 .addComponent(buttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(ButtonExportPDF)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(ButtonExportExcel)
+                .addGap(13, 13, 13))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -304,7 +336,10 @@ public class PopupOrderFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(buttonBack)
-                    .addComponent(buttonSave))
+                    .addComponent(buttonSave)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(ButtonExportPDF)
+                        .addComponent(ButtonExportExcel)))
                 .addContainerGap(13, Short.MAX_VALUE))
         );
 
@@ -314,42 +349,48 @@ public class PopupOrderFrame extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        // <editor-fold defaultstate="collapsed" desc=" Look and feel setting code
-        // (optional) ">
-        /*
-         * If Nimbus (introduced in Java SE 6) is not available, stay with the default
-         * look and feel.
-         * For details see
-         * http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PopupOrderFrame.class.getName()).log(java.util.logging.Level.SEVERE,
-                    null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PopupOrderFrame.class.getName()).log(java.util.logging.Level.SEVERE,
-                    null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PopupOrderFrame.class.getName()).log(java.util.logging.Level.SEVERE,
-                    null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PopupOrderFrame.class.getName()).log(java.util.logging.Level.SEVERE,
-                    null, ex);
+    public void addTable(int idCart){
+        table.setLayout(new GridLayout(0,1,0,5));
+        List<CartItemsModel> listCartItems = CartItemsBUS.getInstance().searchModel(String.valueOf(idCart), new String[] {"cart_id"});
+        int Serial = 0;
+        for(CartItemsModel cartItems : listCartItems){
+            String nameTitle = BookBUS.getInstance().getBookByIsbn(cartItems.getBookIsbn()).getTitle();
+            String status = String.valueOf(BookBUS.getInstance().getBookByIsbn(cartItems.getBookIsbn()).getStatus());
+            BookOrderPanel bookOrderPanel = new BookOrderPanel(Serial, nameTitle,cartItems.getBookIsbn(),cartItems.getPrice(),cartItems.getQuantity(),1000,status);
+            table.add(bookOrderPanel);
+            Serial = Serial + 1;
         }
-        // </editor-fold>
-
-        /* Create and display the form */
+        getQuantityProduct.setText(""+listCartItems.size());
     }
 
+    public void setStatus(Status status) {
+        int index = -1;
+        switch (status.toString()) {
+          case "SOLVED" -> {
+            index = 0;
+          }
+          case "PENDING" -> {
+            index = 1;
+          }
+        }
+        getStatus.setSelectedIndex(index);
+    
+      }
+
+      public void importPDF(int idOrder){
+        JFileChooser fileChooser = new JFileChooser();
+                int returnValue = fileChooser.showSaveDialog(null);
+                if (returnValue == JFileChooser.APPROVE_OPTION) {
+                    File selectedFile = fileChooser.getSelectedFile();
+                    String filePath = selectedFile.getAbsolutePath();
+                    PDFWriter.getInstance().exportReceiptToPDF(idOrder, filePath);
+
+                }
+      }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton ButtonExportExcel;
+    private javax.swing.JButton ButtonExportPDF;
     private javax.swing.JButton buttonBack;
     private javax.swing.JButton buttonSave;
     private javax.swing.JTextField getDateCreated;
