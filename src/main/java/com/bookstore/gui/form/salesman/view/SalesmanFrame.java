@@ -208,7 +208,7 @@ public class SalesmanFrame extends JFrame {
       @Override
       public void actionPerformed(ActionEvent e) {
         contentPanel.removeAll();
-        contentPanel.add(new CustomerListPanel());
+        contentPanel.add(new CustomerListFormat());
         contentPanel.revalidate();
         contentPanel.repaint();
       }

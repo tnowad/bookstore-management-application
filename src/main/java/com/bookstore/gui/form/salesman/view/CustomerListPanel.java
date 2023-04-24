@@ -13,9 +13,11 @@ import com.bookstore.models.UserModel.Role;
 
 public class CustomerListPanel extends JPanel {
 
-        private JPanel CustomerListUtility;
-        private Button addCustomerBtn;
+        private Button searchButton;
+        private Button addCustomerButton;
         private JTable customerTableList;
+        private JPanel CustomerListUtility;
+
         private Button exportCustomerBtn;
         private Button importCustomerListBtn;
         private Label titleLabel;
@@ -23,7 +25,6 @@ public class CustomerListPanel extends JPanel {
         private JScrollPane jScrollPane1;
         private JScrollPane jScrollPane2;
         private JSeparator jSeparator1;
-        private Button searchBtn;
         private JTextField searchCustomerTxtFld;
 
         UserBUS userBus = UserBUS.getInstance();
@@ -36,7 +37,7 @@ public class CustomerListPanel extends JPanel {
         }
 
         private void search() {
-                searchBtn.addActionListener(new ActionListener() {
+                searchButton.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
                                 String text = searchCustomerTxtFld.getText();
                                 if (text == null || text.isBlank()) {
@@ -91,10 +92,10 @@ public class CustomerListPanel extends JPanel {
                 CustomerListUtility = new JPanel();
                 exportCustomerBtn = new Button("Export");
                 importCustomerListBtn = new Button("Import");
-                searchBtn = new Button("Search");
+                searchButton = new Button("Search");
                 searchCustomerTxtFld = new JTextField();
                 titleLabel = new Label("Customer List");
-                addCustomerBtn = new Button("Add Customer");
+                addCustomerButton = new Button("Add Customer");
                 jScrollPane1 = new JScrollPane();
                 jScrollPane2 = new JScrollPane();
                 customerTableList = new JTable();
@@ -114,20 +115,20 @@ public class CustomerListPanel extends JPanel {
                         }
                 });
 
-                searchBtn.setIcon(
+                searchButton.setIcon(
                                 new ImageIcon(getClass()
                                                 .getResource("../../../../../../resources/images/search.png")));
 
                 searchCustomerTxtFld.setFont(new ThemeFont().getSmallFont());
 
-                addCustomerBtn.setFont(new ThemeFont().getSmallFont());
-                addCustomerBtn.setIcon(
+                addCustomerButton.setFont(new ThemeFont().getSmallFont());
+                addCustomerButton.setIcon(
                                 new ImageIcon(
                                                 getClass().getResource(
                                                                 "../../../../../../resources/images/addCustomer.png")));
-                addCustomerBtn.addActionListener(new java.awt.event.ActionListener() {
+                addCustomerButton.addActionListener(new java.awt.event.ActionListener() {
                         public void actionPerformed(java.awt.event.ActionEvent evt) {
-                                addCustomerBtnActionPerformed(evt);
+                                addCustomerButtonActionPerformed(evt);
                         }
                 });
 
@@ -149,7 +150,7 @@ public class CustomerListPanel extends JPanel {
                                                                                                                 GroupLayout.PREFERRED_SIZE)
                                                                                                 .addPreferredGap(
                                                                                                                 LayoutStyle.ComponentPlacement.RELATED)
-                                                                                                .addComponent(searchBtn)))
+                                                                                                .addComponent(searchButton)))
                                                                 .addGroup(CustomerListUtilityLayout
                                                                                 .createParallelGroup(
                                                                                                 GroupLayout.Alignment.LEADING)
@@ -167,7 +168,7 @@ public class CustomerListPanel extends JPanel {
                                                                                                 CustomerListUtilityLayout
                                                                                                                 .createSequentialGroup()
                                                                                                                 .addGap(0, 0, Short.MAX_VALUE)
-                                                                                                                .addComponent(addCustomerBtn)))
+                                                                                                                .addComponent(addCustomerButton)))
                                                                 .addContainerGap()));
                 CustomerListUtilityLayout.setVerticalGroup(
                                 CustomerListUtilityLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -177,7 +178,7 @@ public class CustomerListPanel extends JPanel {
                                                                                 .createParallelGroup(
                                                                                                 GroupLayout.Alignment.BASELINE)
                                                                                 .addComponent(titleLabel)
-                                                                                .addComponent(addCustomerBtn))
+                                                                                .addComponent(addCustomerButton))
                                                                 .addGap(23, 23, 23)
                                                                 .addGroup(CustomerListUtilityLayout
                                                                                 .createParallelGroup(
@@ -190,7 +191,7 @@ public class CustomerListPanel extends JPanel {
                                                                                                                                                 GroupLayout.Alignment.BASELINE)
                                                                                                                                 .addComponent(importCustomerListBtn)
                                                                                                                                 .addComponent(exportCustomerBtn)
-                                                                                                                                .addComponent(searchBtn))
+                                                                                                                                .addComponent(searchButton))
                                                                                                 .addGap(0, 0, Short.MAX_VALUE))
                                                                                 .addComponent(searchCustomerTxtFld))
                                                                 .addContainerGap()));
@@ -236,7 +237,7 @@ public class CustomerListPanel extends JPanel {
                                                 .addComponent(jScrollPane1)));
         }
 
-        private void addCustomerBtnActionPerformed(java.awt.event.ActionEvent evt) {
+        private void addCustomerButtonActionPerformed(java.awt.event.ActionEvent evt) {
                 // TODO add your handling code here:
         }
 
