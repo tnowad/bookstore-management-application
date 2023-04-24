@@ -3,6 +3,14 @@ package com.bookstore.gui.form.salesman.view;
 import javax.swing.*;
 import javax.swing.JTextField;
 
+import com.bookstore.bus.OrderBUS;
+import com.bookstore.gui.component.button.Button;
+import com.bookstore.gui.component.button.Label;
+
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import com.bookstore.models.OrderModel;
+
 public class PendingOrderList extends JPanel {
     OrderBUS orderBus = OrderBUS.getInstance();
     List<OrderModel> orderList = orderBus.getAllModels();
