@@ -13,7 +13,6 @@ public class ImportTableModel extends DefaultTableModel {
     "Total Price",
     "Created At",
     "Updated At",
-    "Action",
   };
 
   public ImportTableModel(List<ImportModel> importList) {

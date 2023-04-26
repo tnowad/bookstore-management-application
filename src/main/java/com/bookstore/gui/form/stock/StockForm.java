@@ -3,82 +3,165 @@ package com.bookstore.gui.form.stock;
 import com.bookstore.bus.ImportBUS;
 import com.bookstore.dao.ImportDAO;
 import com.bookstore.gui.component.table.Table;
-import com.bookstore.gui.component.table.TableActionCellEditor;
-import com.bookstore.gui.component.table.TableActionCellRender;
 import com.bookstore.models.ImportModel;
 import com.bookstore.models.ImportTableModel;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import java.awt.BorderLayout;
-import java.awt.Button;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.LayoutManager;
-import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellEditor;
 
 public class StockForm extends JPanel {
 
-  private static final long serialVersionUID = 1L;
   private LayoutManager layout;
   private JPanel topPanel;
   private Table table;
-  ScrollPane scrollPane;
+  private JScrollPane scrollPane;
+
+  private JLabel titleLabel;
+  private JTextField searchImportTextField;
+  private JButton addImportButton;
+  private JButton editImportButton;
+  private JButton deleteImportButton;
+  private JButton searchImportButton;
+  private JButton refreshImportButton;
+  private JButton filterImportButton;
+  private JButton exportExcelButton;
+  private JButton importExcelButton;
 
   public StockForm() {
     initComponents();
     List<ImportModel> importList = ImportBUS.getInstance().getAllModels();
+
     DefaultTableModel tableModel = new ImportTableModel(importList);
+
     table.setModel(tableModel);
-    table
-      .getColumnModel()
-      .getColumn(6)
-      .setCellRenderer(new TableActionCellRender());
-    table
-      .getColumnModel()
-      .getColumn(6)
-      .setCellEditor(new TableActionCellEditor());
   }
 
   private void initComponents() {
     layout = new BorderLayout();
+    setLayout(layout);
     topPanel = new JPanel();
+    GridBagLayout topPanelLayout = new GridBagLayout() {
+      {
+        columnWidths = new int[] { 0, 0, 0, 0, 0, 0, 0, 0 };
+        rowHeights = new int[] { 0, 0, 0, 0 };
+        columnWeights =
+          new double[] { 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+        rowWeights = new double[] { 0.0, 0.0, 0.0, Double.MIN_VALUE };
+      }
+    };
+    topPanel.setLayout(topPanelLayout);
 
-    topPanel.setLayout(new GridBagLayout());
     GridBagConstraints gridBagConstraints = new GridBagConstraints();
     gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
 
-    ActionListener addImportActionListener = new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        System.out.println("Add import");
-      }
-    };
+    titleLabel = new JLabel("Stock Management");
+    searchImportTextField = new JTextField(20);
+    searchImportButton = new JButton("Search");
+    addImportButton = new JButton("Create");
+    editImportButton = new JButton("Edit");
+    deleteImportButton = new JButton("Delete");
+    refreshImportButton = new JButton("Refresh");
+    exportExcelButton = new JButton("Export Excel");
+    importExcelButton = new JButton("Import Excel");
 
-    JButton button = new JButton("Add");
-    button.addActionListener(addImportActionListener);
-    topPanel.add(button, gridBagConstraints);
+    // Add the buttons to the top panel
+    gridBagConstraints.gridx = 0;
+    gridBagConstraints.gridy = 0;
+    gridBagConstraints.insets = new Insets(5, 5, 5, 5);
 
-    scrollPane = new ScrollPane();
+    topPanel.add(titleLabel, gridBagConstraints);
 
-    setLayout(layout);
+    gridBagConstraints.gridx = 0;
+    gridBagConstraints.gridy = 1;
+    topPanel.add(searchImportTextField, gridBagConstraints);
+
+    gridBagConstraints.gridx = 1;
+    gridBagConstraints.gridy = 1;
+    topPanel.add(searchImportButton, gridBagConstraints);
+
+    gridBagConstraints.gridx = 2;
+    gridBagConstraints.gridy = 1;
+    topPanel.add(addImportButton, gridBagConstraints);
+
+    gridBagConstraints.gridx = 3;
+    gridBagConstraints.gridy = 1;
+    topPanel.add(editImportButton, gridBagConstraints);
+
+    gridBagConstraints.gridx = 4;
+    gridBagConstraints.gridy = 1;
+    topPanel.add(deleteImportButton, gridBagConstraints);
+
+    gridBagConstraints.gridx = 5;
+    gridBagConstraints.gridy = 1;
+    topPanel.add(refreshImportButton, gridBagConstraints);
+
+    gridBagConstraints.gridx = 5;
+    gridBagConstraints.gridy = 1;
+    topPanel.add(exportExcelButton, gridBagConstraints);
+    gridBagConstraints.gridx = 7;
+    gridBagConstraints.gridy = 1;
+    topPanel.add(importExcelButton, gridBagConstraints);
+
     setPreferredSize(new Dimension(1200, 800));
     table = new Table();
-    scrollPane.add(table.getTableHeader());
-    scrollPane.add(table);
-
+    scrollPane = new JScrollPane(table);
     add(topPanel, BorderLayout.NORTH);
     add(scrollPane, BorderLayout.CENTER);
   }
+
+  private ActionListener addImportActionListener = new ActionListener() {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+      System.out.println("Add import");
+    }
+  };
+
+  private ActionListener editImportActionListener = new ActionListener() {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+      // show import model are selected
+      System.out.println("Edit import");
+      int selectedRow = table.getSelectedRow();
+      if (selectedRow != -1) {
+        int importId = (int) table.getValueAt(selectedRow, 0);
+        ImportModel importModel = ImportBUS
+          .getInstance()
+          .getModelById(importId);
+        System.out.println(importModel);
+      }
+    }
+  };
+
+  private ActionListener deleteImportActionListener = new ActionListener() {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+      // show import model are selected
+      System.out.println("Delete import");
+      int selectedRow = table.getSelectedRow();
+      if (selectedRow != -1) {
+        int importId = (int) table.getValueAt(selectedRow, 0);
+        ImportDAO.getInstance().delete(importId);
+        DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
+        // tableModel.removeRow(selectedRow);
+        System.out.println(importId);
+      }
+    }
+  };
 
   public static void main(String[] args) {
     FlatMacLightLaf.setup();
