@@ -8,6 +8,7 @@ import com.bookstore.models.ImportTableModel;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.LayoutManager;
+import java.awt.ScrollPane;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -19,24 +20,27 @@ public class StockForm extends JPanel {
   private static final long serialVersionUID = 1L;
   private LayoutManager layout;
   private Table table;
+  ScrollPane scrollPane;
 
   public StockForm() {
     initComponents();
-    List<ImportModel> importModelList = ImportBUS.getInstance().getAllModels();
+    List<ImportModel> importList = ImportBUS.getInstance().getAllModels();
+    DefaultTableModel tableModel = new ImportTableModel(importList);
 
-    importModelList.add(new ImportModel(0, 1, 1, 12.2, null, null));
-
-    ImportModel[] importModelArray = new ImportModel[importModelList.size()];
-
-    importModelList.toArray(importModelArray);
-    table.setModel(new ImportTableModel(importModelArray));
+    table.setModel(tableModel);
   }
 
   private void initComponents() {
     layout = new BorderLayout();
+    scrollPane = new ScrollPane();
+
     setLayout(layout);
+    setPreferredSize(new Dimension(1200, 800));
     table = new Table();
-    add(table, BorderLayout.CENTER);
+    scrollPane.add(table);
+    add(scrollPane, BorderLayout.CENTER);
+
+    table.setFillsViewportHeight(true);
   }
 
   public static void main(String[] args) {

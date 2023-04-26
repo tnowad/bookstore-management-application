@@ -1,54 +1,45 @@
 package com.bookstore.models;
 
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
 public class ImportTableModel extends DefaultTableModel {
 
-  private static final long serialVersionUID = 1L;
+  private static final String[] columnNames = {
+    "ID",
+    "Provider ID",
+    "Employee ID",
+    "Total Price",
+    "Created At",
+    "Updated At",
+  };
 
-  private ImportModel[] data;
-
-  public ImportTableModel(ImportModel[] data) {
-    this.data = data;
-    setColumnIdentifiers(
-      new Object[] {
-        "ID",
-        "Provider ID",
-        "Employee ID",
-        "Total Price",
-        "Created At",
-        "Updated At",
-      }
+  public ImportTableModel(List<ImportModel> importList) {
+    super(new Object[][] {}, columnNames);
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(
+      "yyyy-MM-dd HH:mm:ss"
     );
-  }
 
-  @Override
-  public int getRowCount() {
-    return data.length;
-  }
-
-  @Override
-  public int getColumnCount() {
-    return 6;
-  }
-
-  @Override
-  public Object getValueAt(int rowIndex, int columnIndex) {
-    switch (columnIndex) {
-      case 0:
-        return data[rowIndex].getId();
-      case 1:
-        return data[rowIndex].getProviderId();
-      case 2:
-        return data[rowIndex].getEmployeeId();
-      case 3:
-        return data[rowIndex].getTotalPrice();
-      case 4:
-        return data[rowIndex].getCreatedAt();
-      case 5:
-        return data[rowIndex].getUpdatedAt();
-      default:
-        return null;
+    for (ImportModel anImport : importList) {
+      Object[] row = new Object[] {
+        anImport.getId(),
+        anImport.getProviderId(),
+        anImport.getEmployeeId(),
+        anImport.getTotalPrice(),
+        anImport.getCreatedAt() == null
+          ? ""
+          : anImport.getCreatedAt().format(formatter),
+        anImport.getUpdatedAt() == null
+          ? ""
+          : anImport.getUpdatedAt().format(formatter),
+      };
+      addRow(row);
     }
+  }
+
+  @Override
+  public boolean isCellEditable(int row, int column) {
+    return false;
   }
 }
