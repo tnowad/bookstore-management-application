@@ -3,6 +3,7 @@ package com.bookstore.gui.component.button;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.event.MouseAdapter;
 import java.awt.geom.Ellipse2D;
 import javax.swing.JButton;
 import javax.swing.border.EmptyBorder;
@@ -21,6 +22,17 @@ public class ActionButton extends JButton {
   private void initComponents() {
     setContentAreaFilled(false);
     setBorder(new EmptyBorder(3, 3, 3, 3));
+    addMouseListener(
+      new MouseAdapter() {
+        public void mouseEntered(java.awt.event.MouseEvent evt) {
+          System.out.println("Mouse entered");
+        }
+
+        public void mouseExited(java.awt.event.MouseEvent evt) {
+          System.out.println("Mouse exited");
+        }
+      }
+    );
   }
 
   protected void paintComponent(Graphics graphics) {

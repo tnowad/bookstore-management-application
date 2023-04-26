@@ -26,11 +26,23 @@ public class TableActionCellRender extends DefaultTableCellRenderer {
       column
     );
     ActionPanel actionPanel = (ActionPanel) new ActionPanel();
+
+    actionPanel.addViewListener(e -> {
+      System.out.println("View");
+    });
+    actionPanel.addUpdateListener(e -> {
+      System.out.println("Edit");
+    });
+    actionPanel.addDeleteListener(e -> {
+      System.out.println("Delete");
+    });
+
     if (isSelected == false && row % 2 == 0) {
       actionPanel.setBackground(Color.WHITE);
     } else {
       actionPanel.setBackground(component.getBackground());
     }
+
     return actionPanel;
   }
 }
