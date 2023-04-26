@@ -8,6 +8,7 @@ package com.bookstore.gui.form.admin.component.book;
  *
  * @author yanti
  */
+import com.bookstore.gui.component.book.BookProductPanel;
 import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;

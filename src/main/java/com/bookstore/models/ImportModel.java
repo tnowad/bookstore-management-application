@@ -3,6 +3,7 @@ package com.bookstore.models;
 import java.time.LocalDateTime;
 
 public class ImportModel {
+
   private int id;
   private int providerId;
   private int employeeId;
@@ -10,11 +11,16 @@ public class ImportModel {
   private LocalDateTime createdAt;
   private LocalDateTime updatedAt;
 
-  public ImportModel() {
-  }
+  public ImportModel() {}
 
-  public ImportModel(int id, int providerId, int employeeId, Double totalPrice, LocalDateTime createdAt,
-      LocalDateTime updatedAt) {
+  public ImportModel(
+    int id,
+    int providerId,
+    int employeeId,
+    Double totalPrice,
+    LocalDateTime createdAt,
+    LocalDateTime updatedAt
+  ) {
     this.id = id;
     this.providerId = providerId;
     this.employeeId = employeeId;
@@ -100,5 +106,4 @@ public class ImportModel {
     setUpdatedAt(updatedAt);
     return this;
   }
-
 }
