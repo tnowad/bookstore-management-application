@@ -1,9 +1,14 @@
 package com.bookstore.gui.form.stock;
 
+import com.bookstore.bus.ImportBUS;
+import com.bookstore.dao.ImportDAO;
 import com.bookstore.gui.component.table.Table;
+import com.bookstore.models.ImportModel;
+import com.bookstore.models.ImportTableModel;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.LayoutManager;
+import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
@@ -17,39 +22,14 @@ public class StockForm extends JPanel {
 
   public StockForm() {
     initComponents();
-    table.setModel(
-      new DefaultTableModel(
-        new Object[][] {},
-        new String[] { "Name", "Email", "User Type", "Joined", "Status" }
-      ) {
-        private static final long serialVersionUID = 1L;
-        Class<?>[] types = new Class[] {
-          java.lang.String.class,
-          java.lang.String.class,
-          java.lang.String.class,
-          java.lang.String.class,
-          java.lang.Boolean.class,
-        };
-        boolean[] canEdit = new boolean[] { false, false, false, false, false };
+    List<ImportModel> importModelList = ImportBUS.getInstance().getAllModels();
 
-        public Class<?> getColumnClass(int columnIndex) {
-          return types[columnIndex];
-        }
+    importModelList.add(new ImportModel(0, 1, 1, 12.2, null, null));
 
-        public boolean isCellEditable(int rowIndex, int columnIndex) {
-          return canEdit[columnIndex];
-        }
-      }
-    );
-    table.addRow(
-      new Object[] {
-        "Mike Bhand",
-        "mikebhand@gmail.com",
-        "Admin",
-        "25 Apr,2018",
-        true,
-      }
-    );
+    ImportModel[] importModelArray = new ImportModel[importModelList.size()];
+
+    importModelList.toArray(importModelArray);
+    table.setModel(new ImportTableModel(importModelArray));
   }
 
   private void initComponents() {

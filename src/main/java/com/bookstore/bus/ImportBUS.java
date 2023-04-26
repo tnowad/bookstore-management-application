@@ -1,16 +1,15 @@
 package com.bookstore.bus;
 
+import com.bookstore.dao.ImportDAO;
+import com.bookstore.interfaces.IBUS;
+import com.bookstore.models.ImportModel;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.bookstore.dao.ImportDAO;
-import com.bookstore.interfaces.IBUS;
-import com.bookstore.models.ImportModel;
-
 public class ImportBUS implements IBUS<ImportModel> {
 
-  private final List<ImportModel> importList = new ArrayList<>();
+  private final List<ImportModel> importList = new ArrayList<ImportModel>();
   private static ImportBUS instance;
 
   public static ImportBUS getInstance() {
@@ -27,6 +26,16 @@ public class ImportBUS implements IBUS<ImportModel> {
   @Override
   public List<ImportModel> getAllModels() {
     return Collections.unmodifiableList(importList);
+  }
+
+  // get all model but return array
+  public ImportModel[] getAllModelsAsArray() {
+    if (importList.isEmpty()) {
+      return new ImportModel[] {};
+    }
+    ImportModel[] importModelArray = new ImportModel[importList.size()];
+    importList.toArray(importModelArray);
+    return importModelArray;
   }
 
   @Override
@@ -54,7 +63,11 @@ public class ImportBUS implements IBUS<ImportModel> {
     to.setUpdatedAt(from.getUpdatedAt());
   }
 
-  private boolean checkFilter(ImportModel importModel, String value, String[] columns) {
+  private boolean checkFilter(
+    ImportModel importModel,
+    String value,
+    String[] columns
+  ) {
     for (String column : columns) {
       if (checkColumn(importModel, value, column)) {
         return true;
@@ -63,7 +76,11 @@ public class ImportBUS implements IBUS<ImportModel> {
     return false;
   }
 
-  private boolean checkColumn(ImportModel importModel, String value, String column) {
+  private boolean checkColumn(
+    ImportModel importModel,
+    String value,
+    String column
+  ) {
     switch (column.toLowerCase()) {
       case "id":
         return checkId(importModel, value);
@@ -107,24 +124,32 @@ public class ImportBUS implements IBUS<ImportModel> {
   }
 
   private boolean checkAllColumns(ImportModel importModel, String value) {
-    return importModel.getId() == Integer.parseInt(value)
-        || importModel.getProviderId() == Integer.parseInt(value)
-        || importModel.getEmployeeId() == Integer.parseInt(value)
-        || importModel.getTotalPrice() == Double.parseDouble(value)
-        || importModel.getCreatedAt().toString().contains(value)
-        || importModel.getUpdatedAt().toString().contains(value);
+    return (
+      importModel.getId() == Integer.parseInt(value) ||
+      importModel.getProviderId() == Integer.parseInt(value) ||
+      importModel.getEmployeeId() == Integer.parseInt(value) ||
+      importModel.getTotalPrice() == Double.parseDouble(value) ||
+      importModel.getCreatedAt().toString().contains(value) ||
+      importModel.getUpdatedAt().toString().contains(value)
+    );
   }
 
   @Override
   public int addModel(ImportModel importModel) {
     if (importModel.getProviderId() <= 0) {
-      throw new IllegalArgumentException("Provider ID cannot be less than or equal to zero!");
+      throw new IllegalArgumentException(
+        "Provider ID cannot be less than or equal to zero!"
+      );
     }
     if (importModel.getEmployeeId() <= 0) {
-      throw new IllegalArgumentException("Employee ID cannot be less than or equal to zero!");
+      throw new IllegalArgumentException(
+        "Employee ID cannot be less than or equal to zero!"
+      );
     }
     if (importModel.getTotalPrice() <= 0) {
-      throw new IllegalArgumentException("Total price cannot be less than or equal to zero!");
+      throw new IllegalArgumentException(
+        "Total price cannot be less than or equal to zero!"
+      );
     }
 
     int id = ImportDAO.getInstance().insert(mapToEntity(importModel));
@@ -150,7 +175,9 @@ public class ImportBUS implements IBUS<ImportModel> {
   public int updateTotal(int id, Double total) {
     ImportModel importModel = getModelById(id);
     if (importModel == null) {
-      throw new IllegalArgumentException("Import with ID " + id + " does not exist.");
+      throw new IllegalArgumentException(
+        "Import with ID " + id + " does not exist."
+      );
     }
     importModel.setTotalPrice(total);
     int updatedRows = ImportDAO.getInstance().update(importModel);
@@ -169,7 +196,9 @@ public class ImportBUS implements IBUS<ImportModel> {
   public int deleteModel(int id) {
     ImportModel importModel = getModelById(id);
     if (importModel == null) {
-      throw new IllegalArgumentException("Import with ID " + id + " does not exist.");
+      throw new IllegalArgumentException(
+        "Import with ID " + id + " does not exist."
+      );
     }
     int deletedRows = ImportDAO.getInstance().delete(id);
     if (deletedRows > 0) {
