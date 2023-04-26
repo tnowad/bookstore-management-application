@@ -50,7 +50,6 @@ public class Table extends JTable {
         }
       }
     );
-    setAutoCreateRowSorter(true);
   }
 
   public void addRow(Object[] row) {
