@@ -26,7 +26,6 @@ public class StockForm extends JPanel {
     initComponents();
     List<ImportModel> importList = ImportBUS.getInstance().getAllModels();
     DefaultTableModel tableModel = new ImportTableModel(importList);
-
     table.setModel(tableModel);
   }
 
