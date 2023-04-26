@@ -35,17 +35,6 @@ public class Table extends JTable {
             row,
             column
           );
-          setHorizontalAlignment(SwingConstants.CENTER);
-          if (value instanceof StatusType) {
-            StatusType status = (StatusType) value;
-            if (status == StatusType.ACTIVE) {
-              setBackground(new Color(0, 255, 0));
-            } else {
-              setBackground(new Color(255, 0, 0));
-            }
-          } else {
-            setBackground(Color.WHITE);
-          }
           return this;
         }
       }
