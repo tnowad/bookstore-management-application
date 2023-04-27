@@ -14,7 +14,31 @@ public class Table extends JTable {
     setShowHorizontalLines(true);
     setGridColor(new Color(230, 230, 230));
     setRowHeight(40);
-    getTableHeader().setReorderingAllowed(false);
+    // getTableHeader().setReorderingAllowed(false);
+    setDefaultRenderer(
+      Object.class,
+      new DefaultTableCellRenderer() {
+        @Override
+        public Component getTableCellRendererComponent(
+          JTable table,
+          Object value,
+          boolean isSelected,
+          boolean hasFocus,
+          int row,
+          int column
+        ) {
+          super.getTableCellRendererComponent(
+            table,
+            value,
+            isSelected,
+            hasFocus,
+            row,
+            column
+          );
+          return this;
+        }
+      }
+    );
   }
 
   public void addRow(Object[] row) {
