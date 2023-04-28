@@ -3,6 +3,7 @@ package com.bookstore.models;
 import java.time.LocalDateTime;
 
 public class UserModel {
+
   private int id;
   private String username;
   private String password;
@@ -23,14 +24,23 @@ public class UserModel {
   public enum Role {
     CUSTOMER,
     EMPLOYEE,
-    ADMIN
+    ADMIN,
   }
 
-  public UserModel() {
-  }
+  public UserModel() {}
 
-  public UserModel(int id, String username, String password, Status status, String name, String email, String phone,
-      LocalDateTime createdAt, LocalDateTime updatedAt, Role role) {
+  public UserModel(
+    int id,
+    String username,
+    String password,
+    Status status,
+    String name,
+    String email,
+    String phone,
+    LocalDateTime createdAt,
+    LocalDateTime updatedAt,
+    Role role
+  ) {
     this.id = id;
     this.username = username;
     this.password = password;
@@ -173,4 +183,30 @@ public class UserModel {
     return this;
   }
 
+  @Override
+  public String toString() {
+    return (
+      "UserModel [id=" +
+      id +
+      ", username=" +
+      username +
+      ", password=" +
+      password +
+      ", status=" +
+      status +
+      ", name=" +
+      name +
+      ", email=" +
+      email +
+      ", phone=" +
+      phone +
+      ", createdAt=" +
+      createdAt +
+      ", updatedAt=" +
+      updatedAt +
+      ", role=" +
+      role +
+      "]"
+    );
+  }
 }
