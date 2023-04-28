@@ -3,7 +3,7 @@ package com.bookstore.gui.form.manager.view;
 import com.bookstore.gui.component.button.Button;
 import com.bookstore.gui.form.salesman.view.*;
 import com.bookstore.gui.form.salesman.view.Account.AccountPanel;
-import com.bookstore.gui.main.LoginUI;
+import com.bookstore.gui.main.RegisterUI;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -242,7 +242,7 @@ public class ManagerFrame extends JFrame {
           );
           if (option == 0) {
             dispose();
-            LoginUI loginFrame = new LoginUI();
+            RegisterUI loginFrame = new RegisterUI();
             loginFrame.setVisible(true);
           }
         }

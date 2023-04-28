@@ -42,6 +42,26 @@ public class UserBUS implements IBUS<UserModel> {
     return userModel;
   }
 
+  public UserModel register(
+    String username,
+    String password,
+    String name,
+    String email,
+    String phone
+  ) {
+    UserModel userModel = new UserModel();
+    userModel.setUsername(username);
+    userModel.setPassword(PasswordUtil.hashPassword(password));
+    userModel.setName(name);
+    userModel.setEmail(email);
+    userModel.setPhone(phone);
+    userModel.setStatus(Status.ACTIVE);
+    userModel.setRole(Role.CUSTOMER);
+    userModel.setId(addModel(userModel));
+    userModel = getModelById(userModel.getId());
+    return userModel;
+  }
+
   @Override
   public List<UserModel> getAllModels() {
     return Collections.unmodifiableList(userList);

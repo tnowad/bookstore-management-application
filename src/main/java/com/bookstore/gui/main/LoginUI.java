@@ -22,7 +22,7 @@ import javax.swing.WindowConstants;
 
 public class LoginUI extends JFrame {
 
-  private static LoginUI instance;
+  private static RegisterUI instance;
 
   private LayoutManager layout;
   private JPanel loginPanel;
@@ -38,16 +38,16 @@ public class LoginUI extends JFrame {
 
   public LoginUI() {
     initComponents();
-    setPreferredSize(new Dimension(1000, 600));
+    setPreferredSize(new Dimension(700, 600));
     setMinimumSize(new Dimension(700, 600));
     setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     pack();
     setLocationRelativeTo(null);
   }
 
-  public static LoginUI getInstance() {
+  public static RegisterUI getInstance() {
     if (instance == null) {
-      instance = new LoginUI();
+      instance = new RegisterUI();
     }
     return instance;
   }
