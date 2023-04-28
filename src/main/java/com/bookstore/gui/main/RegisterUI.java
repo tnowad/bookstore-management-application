@@ -12,6 +12,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.LayoutManager;
 import java.awt.event.ActionListener;
+import java.time.LocalDateTime;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -158,7 +159,7 @@ public class RegisterUI extends JFrame {
       }
       UserModel user = UserBUS
         .getInstance()
-        .register(username, name, email, phone, password);
+        .register(username, password, name, email, phone);
       Authentication.setCurrentUser(user);
       JOptionPane.showMessageDialog(
         null,

@@ -182,6 +182,7 @@ public class UserBUS implements IBUS<UserModel> {
 
   @Override
   public int addModel(UserModel userModel) {
+    System.out.println(userModel);
     if (
       userModel.getUsername() == null ||
       userModel.getUsername().isEmpty() ||
@@ -227,8 +228,15 @@ public class UserBUS implements IBUS<UserModel> {
   }
 
   private boolean isValidEmailAddress(String email) {
-    Pattern pattern = Pattern.compile("^\\S+@\\S+\\.\\S+$");
-
+    // pattern to validate email
+    Pattern pattern = Pattern.compile(
+      "^[a-zA-Z0-9_+&*-]+(?:\\." +
+      "[a-zA-Z0-9_+&*-]+)*@" +
+      "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
+      "A-Z]{2,7}$",
+      Pattern.CASE_INSENSITIVE
+    );
+    // check if email is valid
     if (email == null) {
       return false;
     }
