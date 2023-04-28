@@ -1,13 +1,18 @@
-package com.bookstore.gui.form.account;
+package com.bookstore.gui.form.account.views;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.*;
 import javax.swing.*;
 
+import com.bookstore.bus.UserBUS;
+import com.bookstore.models.CurrentUserModel;
+import com.bookstore.models.UserModel;
+import com.bookstore.services.Authentication;
+
 public class AccountSettings extends JPanel {
 
-    private JButton cancelButton;
+    private JButton resetButton;
     private JPasswordField confirmNewPasswordField;
     private JLabel confirmNewPasswordLabel;
     private JPasswordField currentPasswordField;
@@ -17,8 +22,14 @@ public class AccountSettings extends JPanel {
     private JPasswordField newPasswordField;
     private JButton updateButton;
 
+    UserBUS userBus = UserBUS.getInstance();
+    UserModel currentUser = Authentication.getCurrentUser();
+  
+
+
     public AccountSettings() {
         initComponents();
+        handleEvent();
     }
 
     private void initComponents() {
@@ -31,7 +42,7 @@ public class AccountSettings extends JPanel {
         confirmNewPasswordField = new JPasswordField();
         groupButton = new JPanel();
         updateButton = new JButton();
-        cancelButton = new JButton();
+        resetButton = new JButton();
 
         setMaximumSize(new Dimension(300, 200));
         setMinimumSize(new Dimension(300, 200));
@@ -60,30 +71,55 @@ public class AccountSettings extends JPanel {
         add(confirmNewPasswordField);
 
         updateButton.setText("Update");
-        updateButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                updateButtonActionPerformed(evt);
-            }
-        });
+
         groupButton.add(updateButton);
 
-        cancelButton.setText("Cancel");
-        cancelButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                cancelButtonActionPerformed(evt);
-            }
-        });
-        groupButton.add(cancelButton);
+        resetButton.setText("Cancel");
+
+        groupButton.add(resetButton);
 
         add(groupButton);
     }
 
-    private void cancelButtonActionPerformed(ActionEvent evt) {
-        // TODO add your handling code here:
+    private void handleEvent() {
+        updateButton.addActionListener((ActionListener) new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                updatePasswordButtonActionPerformed(evt);
+            }
+        });
+        resetButton.addActionListener((ActionListener) new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                resetPasswordButtonActionPerformed(evt);
+            }
+        });
     }
 
-    private void updateButtonActionPerformed(ActionEvent evt) {
-        // TODO add your handling code here:
+    private void resetPasswordButtonActionPerformed(ActionEvent evt) {
+        currentPasswordField.setText("");
+        confirmNewPasswordField.setText("");
+        newPasswordField.setText("");
+
+        resetButton.setEnabled(false);
+        updateButton.setEnabled(false);
+    }
+
+    protected void updatePasswordButtonActionPerformed(ActionEvent evt) {
+        String currentPassword = new String(currentPasswordField.getPassword());
+        if (currentPassword.equals(currentUser.getPassword())) {
+            String newPassword = new String(newPasswordField.getPassword());
+            String confirmPassword = new String(confirmNewPasswordField.getPassword());
+            if (newPassword.equals(confirmPassword)) {
+                currentUser.setPassword(newPassword);
+                userBus.updateModel(currentUser);
+                JOptionPane.showMessageDialog(null, "Password updated successfully");
+                resetButton.setEnabled(false);
+                updateButton.setEnabled(false);
+            } else {
+                JOptionPane.showMessageDialog(null, "New password and confirm password do not match");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Current password does not match");
+        }
     }
 
 }

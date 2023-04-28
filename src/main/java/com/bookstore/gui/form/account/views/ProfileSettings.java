@@ -1,9 +1,15 @@
-package com.bookstore.gui.form.account;
+package com.bookstore.gui.form.account.views;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.*;
 import javax.swing.*;
+
+import com.bookstore.bus.AddressBUS;
+import com.bookstore.bus.UserBUS;
+import com.bookstore.models.AddressModel;
+import com.bookstore.models.UserModel;
+import com.bookstore.services.Authentication;
 
 public class ProfileSettings extends JPanel {
     private JLabel cityLabel;
@@ -34,8 +40,75 @@ public class ProfileSettings extends JPanel {
     private JLabel zipLabel;
     private JTextField zipTextField;
 
+    UserBUS userBus = UserBUS.getInstance();
+    AddressBUS addressBus = AddressBUS.getInstance();
+    UserModel currentUser = Authentication.getCurrentUser();
+    AddressModel addressModel = addressBus.getModelById(currentUser.getId());
+
     public ProfileSettings() {
         initComponents();
+        updateInformation();
+        handleEvent();
+    }
+
+    private void handleEvent() {
+
+        updateButton.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        updateUserInformationButtonActionPerformed(evt);
+                    }
+                });
+        resetButton.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        resetUserInformationButtonActionPerformed(evt);
+                    }
+                });
+    }
+
+    protected void updateUserInformationButtonActionPerformed(ActionEvent evt) {
+        String confirmPassword = new String(confirmPasswordField.getPassword());
+        if (confirmPassword.equals(currentUser.getPassword())) {
+            currentUser.setName(nameTextField.getText());
+            currentUser.setUsername(usernameTextField.getText());
+            currentUser.setEmail(emailTextField.getText());
+            currentUser.setPhone(phoneTextField.getText());
+            addressModel.setCity(cityTextField.getText());
+            addressModel.setState(stateTextField.getText());
+            addressModel.setStreet(stateTextField.getText());
+            addressModel.setZip(zipTextField.getText());
+
+            userBus.updateModel(currentUser);
+            addressBus.updateModel(addressModel);
+            confirmPasswordField.setText("");
+            JOptionPane.showMessageDialog(null, "Confirm Password Successfully");
+        } else {
+            JOptionPane.showMessageDialog(null, "Passwords do not match");
+        }
+    }
+
+    protected void resetUserInformationButtonActionPerformed(ActionEvent evt) {
+        confirmPasswordField.setText("");
+        cityTextField.setText("");
+        emailTextField.setText("");
+        nameTextField.setText("");
+        phoneTextField.setText("");
+        stateTextField.setText("");
+        stateTextField.setText("");
+        usernameTextField.setText("");
+        zipTextField.setText("");
+    }
+
+    private void updateInformation() {
+        cityTextField.setText(addressModel.getCity());
+        streetTextField.setText(addressModel.getStreet());
+        zipTextField.setText(addressModel.getZip());
+        stateTextField.setText(addressModel.getState());
+        usernameTextField.setText(currentUser.getUsername());
+        nameTextField.setText(currentUser.getName());
+        emailTextField.setText(currentUser.getEmail());
+        phoneTextField.setText(currentUser.getPhone());
     }
 
     private void initComponents() {
@@ -218,5 +291,4 @@ public class ProfileSettings extends JPanel {
     private void cityTextFieldActionPerformed(ActionEvent evt) {
 
     }
-
 }
