@@ -27,11 +27,9 @@ public class AccountSettings extends JPanel {
 
         UserBUS userBus = UserBUS.getInstance();
         CurrentUserBUS currentUserBus = CurrentUserBUS.getInstance();
-        // AddressBUS addressBus = AddressBUS.getInstance();
         List<CurrentUserModel> currentUser = currentUserBus.getAllModels();
         int idCurrent = currentUser.get(0).getCurrentUserId();
         UserModel userModel = userBus.getModelById(idCurrent);
-        // AddressModel addressModel = addressBus.getModelById(idCurrent);
 
         public AccountSettings() {
                 initComponents();

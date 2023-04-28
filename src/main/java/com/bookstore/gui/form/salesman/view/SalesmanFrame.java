@@ -2,7 +2,7 @@ package com.bookstore.gui.form.salesman.view;
 
 import com.bookstore.gui.component.button.Button;
 import com.bookstore.gui.form.salesman.view.Account.AccountPanel;
-import com.bookstore.gui.main.LoginUI;
+import com.bookstore.gui.main.RegisterUI;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -238,7 +238,7 @@ public class SalesmanFrame extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
           contentPanel.removeAll();
-          contentPanel.add(new AccountPanel());
+          contentPanel.add(new com.bookstore.gui.form.account.views.AccountPanel());
           contentPanel.revalidate();
           contentPanel.repaint();
         }
@@ -257,7 +257,7 @@ public class SalesmanFrame extends JFrame {
           );
           if (option == 0) {
             dispose();
-            LoginUI loginFrame = new LoginUI();
+            RegisterUI loginFrame = new RegisterUI();
             loginFrame.setVisible(true);
           }
         }

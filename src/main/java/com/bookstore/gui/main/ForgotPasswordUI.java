@@ -1,5 +1,11 @@
 package com.bookstore.gui.main;
 
+import com.bookstore.bus.UserBUS;
+import com.bookstore.gui.Theme.ThemeColor;
+import com.bookstore.gui.Theme.ThemeFont;
+import com.bookstore.gui.component.button.Button;
+import com.bookstore.gui.component.input.GroupInput;
+import com.bookstore.models.UserModel;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -16,14 +22,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
-import com.bookstore.bus.UserBUS;
-import com.bookstore.gui.Theme.ThemeColor;
-import com.bookstore.gui.Theme.ThemeFont;
-import com.bookstore.gui.component.button.Button;
-import com.bookstore.gui.component.input.GroupInput;
-import com.bookstore.models.UserModel;
 
 public class ForgotPasswordUI extends JFrame {
+
   private static ForgotPasswordUI instance;
   private JPanel groupAccount;
   private JPanel groupContent;
@@ -80,7 +81,11 @@ public class ForgotPasswordUI extends JFrame {
   private void initGroupLogo() {
     groupLogo.setLayout(new BorderLayout());
 
-    iconLabel.setIcon(new ImageIcon(getClass().getResource("../../../../resources/fogotpass_icon.png")));
+    iconLabel.setIcon(
+      new ImageIcon(
+        getClass().getResource("../../../../resources/fogotpass_icon.png")
+      )
+    );
     groupLogo.setPreferredSize(new Dimension(400, 450));
     nameStoreLabel = new JLabel();
     nameStoreLabel.setText("Bookstore Management Application");
@@ -145,26 +150,38 @@ public class ForgotPasswordUI extends JFrame {
   }
 
   private void handleEvent() {
-
     resetButton.addActionListener(e -> {
       String email = groupEmail.getTextField().getText().trim();
       String phone = groupPhone.getTextField().getText().trim();
 
       if (email.isEmpty() && phone.isEmpty()) {
-        showError("Email or phone cannot be empty, please check the input and try again.");
+        showError(
+          "Email or phone cannot be empty, please check the input and try again."
+        );
       } else {
-        Optional<UserModel> optionalUser = UserBUS.getInstance().getAllModels().stream()
-            .filter(user -> user.getEmail().equals(email) || user.getPhone().equals(phone))
-            .findFirst();
+        Optional<UserModel> optionalUser = UserBUS
+          .getInstance()
+          .getAllModels()
+          .stream()
+          .filter(user ->
+            user.getEmail().equals(email) || user.getPhone().equals(phone)
+          )
+          .findFirst();
         if (optionalUser.isPresent()) {
           UserModel userModel = optionalUser.get();
           int userId = userModel.getId();
           RetypePasswordUI.getInstance().setInformations(userId, email, phone);
 
-          int option = JOptionPane.showOptionDialog(null,
-              "Based on your information, we found your account, you can now reset your password.",
-              "Reset Password", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE,
-              null, new Object[] { "OK" }, "OK");
+          int option = JOptionPane.showOptionDialog(
+            null,
+            "Based on your information, we found your account, you can now reset your password.",
+            "Reset Password",
+            JOptionPane.DEFAULT_OPTION,
+            JOptionPane.INFORMATION_MESSAGE,
+            null,
+            new Object[] { "OK" },
+            "OK"
+          );
 
           if (option == 0) {
             ForgotPasswordUI.getInstance().setVisible(true);
@@ -177,7 +194,7 @@ public class ForgotPasswordUI extends JFrame {
     });
 
     cancelButton.addActionListener(e -> {
-      LoginUI.getInstance().setVisible(true);
+      RegisterUI.getInstance().setVisible(true);
       setVisible(false);
     });
 
@@ -186,45 +203,63 @@ public class ForgotPasswordUI extends JFrame {
       setVisible(false);
     });
 
-    addComponentListener(new ComponentAdapter() {
-      @Override
-      public void componentResized(ComponentEvent e) {
-        int width = getContentPane().getWidth();
-        int height = getContentPane().getHeight();
-        if (width < 1020) {
-          groupLogo.setPreferredSize(new Dimension(500, 300));
-          nameStoreLabel.setFont(new ThemeFont().getMediumFont());
-          nameStoreLabel.setText("Forgot Password?");
-          titleResetPassword.setFont(new ThemeFont().getSmallFont());
-          titleResetPassword.setText("You can reset your password here");
-          nameStoreLabel.setPreferredSize(new Dimension(100, 20));
-          iconLabel.setIcon(new ImageIcon(getClass().getResource("../../../../resources/fogotpass_icon.png")));
+    addComponentListener(
+      new ComponentAdapter() {
+        @Override
+        public void componentResized(ComponentEvent e) {
+          int width = getContentPane().getWidth();
+          int height = getContentPane().getHeight();
+          if (width < 1020) {
+            groupLogo.setPreferredSize(new Dimension(500, 300));
+            nameStoreLabel.setFont(new ThemeFont().getMediumFont());
+            nameStoreLabel.setText("Forgot Password?");
+            titleResetPassword.setFont(new ThemeFont().getSmallFont());
+            titleResetPassword.setText("You can reset your password here");
+            nameStoreLabel.setPreferredSize(new Dimension(100, 20));
+            iconLabel.setIcon(
+              new ImageIcon(
+                getClass()
+                  .getResource("../../../../resources/fogotpass_icon.png")
+              )
+            );
 
-          groupEmail.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
+            groupEmail.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
 
-          resetButton.setPreferredSize(new Dimension (100, 35));
-          cancelButton.setPreferredSize(new Dimension(100, 35));
-          registerButton.setPreferredSize(new Dimension(200, 35));
+            resetButton.setPreferredSize(new Dimension(100, 35));
+            cancelButton.setPreferredSize(new Dimension(100, 35));
+            registerButton.setPreferredSize(new Dimension(200, 35));
 
-          if (height < 600) {
-            nameStoreLabel.setFont(new ThemeFont().getSmallFont());
-            iconLabel.setIcon(new ImageIcon(getClass().getResource("../../../../resources/fogotpass_reponsive.png")));
-            groupLogo.setPreferredSize(new Dimension(500, 200));
+            if (height < 600) {
+              nameStoreLabel.setFont(new ThemeFont().getSmallFont());
+              iconLabel.setIcon(
+                new ImageIcon(
+                  getClass()
+                    .getResource(
+                      "../../../../resources/fogotpass_reponsive.png"
+                    )
+                )
+              );
+              groupLogo.setPreferredSize(new Dimension(500, 200));
+            }
+          } else {
+            nameStoreLabel.setVisible(false);
+            initGroupContent();
+            initGroupLogo();
           }
-
-        } else {
-          nameStoreLabel.setVisible(false);
-          initGroupContent();
-          initGroupLogo();
+          revalidate();
+          repaint();
         }
-        revalidate();
-        repaint();
       }
-    });
+    );
   }
 
   private void showError(String message) {
-    JOptionPane.showMessageDialog(null, message, "Error", JOptionPane.ERROR_MESSAGE);
+    JOptionPane.showMessageDialog(
+      null,
+      message,
+      "Error",
+      JOptionPane.ERROR_MESSAGE
+    );
   }
 
   private void initFrame() {
@@ -239,5 +274,4 @@ public class ForgotPasswordUI extends JFrame {
   public static void main(String[] args) {
     new ForgotPasswordUI();
   }
-
 }

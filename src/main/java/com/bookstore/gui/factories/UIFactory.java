@@ -1,5 +1,7 @@
 package com.bookstore.gui.factories;
 
+import com.bookstore.gui.form.customer.views.CustomerFrame;
+import com.bookstore.gui.form.salesman.view.SalesmanFrame;
 import com.bookstore.models.UserModel;
 
 public class UIFactory {
@@ -20,9 +22,11 @@ public class UIFactory {
         break;
       case CUSTOMER:
         System.out.println("Customer form");
+        new CustomerFrame();
         break;
       case EMPLOYEE:
         System.out.println("Employee form");
+        new SalesmanFrame();
         break;
       default:
         System.out.println("Unknown role");
