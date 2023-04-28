@@ -33,8 +33,6 @@ public class SalesmanFrame extends JFrame {
   private JLabel statusLabel;
   private JLabel welcomeLabel;
   private Button importListButton;
-  // JButton[] buttonsListTop = { homeButton, discoverButton,
-  // myOrderButton };
 
   public SalesmanFrame() {
     initFrame();
@@ -77,9 +75,9 @@ public class SalesmanFrame extends JFrame {
     headerPanel.setAlignmentX(1.0F);
     headerPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
     headerPanel.setDoubleBuffered(false);
-    headerPanel.setMaximumSize(new java.awt.Dimension(832, 40));
+    headerPanel.setMaximumSize(new java.awt.Dimension(832, 80));
     headerPanel.setMinimumSize(new java.awt.Dimension(413, 40));
-    headerPanel.setPreferredSize(new java.awt.Dimension(672, 40));
+    headerPanel.setPreferredSize(new java.awt.Dimension(672, 80));
 
     welcomeLabel.setHorizontalAlignment(SwingConstants.CENTER);
     welcomeLabel.setText("Welcome, ");
@@ -109,7 +107,7 @@ public class SalesmanFrame extends JFrame {
 
     getContentPane().add(headerPanel, java.awt.BorderLayout.PAGE_START);
 
-    menuPanel.setPreferredSize(new java.awt.Dimension(120, 399));
+    menuPanel.setPreferredSize(new java.awt.Dimension(200, 399));
     menuPanel.setLayout(new java.awt.GridLayout(2, 1, 0, 150));
 
     menuTopPanel.setLayout(new java.awt.GridLayout(4, 1, 0, 5));
@@ -130,7 +128,6 @@ public class SalesmanFrame extends JFrame {
     });
     menuTopPanel.add(bookListButton);
 
-  
     importListButton.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         importListButtonActionPerformed(evt);
@@ -162,7 +159,6 @@ public class SalesmanFrame extends JFrame {
       }
     });
     menuBottomPanel.add(aboutUsButton);
-
 
     logoutButton.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -220,7 +216,7 @@ public class SalesmanFrame extends JFrame {
       @Override
       public void actionPerformed(ActionEvent e) {
         contentPanel.removeAll();
-        contentPanel.add(new ImportListPanel());
+        contentPanel.add(new ImportList());
         contentPanel.revalidate();
         contentPanel.repaint();
       }

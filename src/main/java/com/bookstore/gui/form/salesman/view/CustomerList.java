@@ -1,10 +1,13 @@
 package com.bookstore.gui.form.salesman.view;
 
 import javax.swing.*;
+
+import java.awt.Dimension;
 import java.awt.event.*;
 import javax.swing.table.DefaultTableModel;
 import java.util.List;
 import com.bookstore.bus.UserBUS;
+import com.bookstore.gui.Theme.ThemeFont;
 import com.bookstore.gui.component.button.Button;
 import com.bookstore.gui.component.button.Label;
 import com.bookstore.models.UserModel;
@@ -29,6 +32,7 @@ public class CustomerList extends JPanel {
                     showTable();
                 } else {
                     DefaultTableModel model = new DefaultTableModel();
+                    customerTableList.setModel(model);
                     model.addColumn("Id");
                     model.addColumn("Name");
                     model.addColumn("Email");
@@ -43,6 +47,11 @@ public class CustomerList extends JPanel {
                             customerTableList.setModel(model);
                         }
                     }
+                    if (customerTableList.getRowCount() == 0) {
+                        JOptionPane.showMessageDialog(null, "No customers found!");
+                        showTable();
+                    }
+                    System.out.println(customerTableList.getRowCount());
                 }
             }
         });
@@ -76,6 +85,7 @@ public class CustomerList extends JPanel {
         customerListLabel = new Label("Customer List");
         addCustomerPanel = new JPanel();
         addCustomerButton = new Button("Add Customer");
+        addCustomerButton.setPreferredSize(new Dimension(200, 40));
         groupBottomHeaderPanel = new JPanel();
         searchCustomerTxtFld = new JTextField();
         searchButton = new Button("Search");
@@ -107,7 +117,7 @@ public class CustomerList extends JPanel {
 
         headerPanel.add(groupTopHeaderPanel);
 
-        searchCustomerTxtFld.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        searchCustomerTxtFld.setFont(new ThemeFont().getSmallFont());
         searchCustomerTxtFld.setPreferredSize(new java.awt.Dimension(450, 30));
         groupBottomHeaderPanel.add(searchCustomerTxtFld);
 

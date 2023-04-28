@@ -59,9 +59,9 @@ public class CustomerFrame extends JFrame {
         headerPanel.setAlignmentX(1.0F);
         headerPanel.setCursor(new Cursor(Cursor.TEXT_CURSOR));
         headerPanel.setDoubleBuffered(false);
-        headerPanel.setMaximumSize(new Dimension(832, 40));
+        headerPanel.setMaximumSize(new Dimension(832, 80));
         headerPanel.setMinimumSize(new Dimension(413, 40));
-        headerPanel.setPreferredSize(new Dimension(672, 40));
+        headerPanel.setPreferredSize(new Dimension(672, 80));
 
         welcomeLabel.setHorizontalAlignment(SwingConstants.CENTER);
         welcomeLabel.setText("Welcome, ");
@@ -92,8 +92,8 @@ public class CustomerFrame extends JFrame {
 
         getContentPane().add(headerPanel, BorderLayout.PAGE_START);
 
-        menuPanel.setPreferredSize(new Dimension(120, 399));
-        menuPanel.setLayout(new GridLayout(2, 1, 0, 150));
+        menuPanel.setPreferredSize(new Dimension(200, 80));
+        menuPanel.setLayout(new GridLayout(2, 1, 0, 250));
 
         menuTopPanel.setLayout(new GridLayout(3, 1, 0, 5));
         homeButton.addActionListener(new ActionListener() {
@@ -155,7 +155,7 @@ public class CustomerFrame extends JFrame {
     }// </editor-fold>
 
     private void cartButtonActionPerformed(ActionEvent evt) {
-        // TODO add your handling code here:
+        System.out.println(1);
     }
 
     private void homeButtonActionPerformed(ActionEvent evt) {
