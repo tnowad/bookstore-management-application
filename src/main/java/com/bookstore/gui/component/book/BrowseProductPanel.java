@@ -18,6 +18,7 @@ import java.util.List;
 import javax.swing.*;
 
 import com.bookstore.bus.BookBUS;
+import com.bookstore.gui.form.admin.component.book.AddProductFrame;
 import com.bookstore.gui.form.admin.component.book.BookProductPanel;
 import com.bookstore.models.BookModel;
 import com.bookstore.util.Excel.BookExcelUtil;
@@ -103,7 +104,15 @@ public class BrowseProductPanel extends JPanel {
         });
         jPanel3.add(ButtonImport);
 
-        ButtonCreate.setText("Create");
+        ButtonCreate.setText("Add");
+        ButtonCreate.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                actionAdd();
+            }
+            
+        });
         jPanel3.add(ButtonCreate);
 
         ButtonDelete.setText("Delete");
@@ -165,7 +174,8 @@ public class BrowseProductPanel extends JPanel {
     }
 
     public void actionAdd() {
-        // TODO: Create a JFrame to add a book to List.
+       AddProductFrame addProductFrame = new AddProductFrame();
+       addProductFrame.setVisible(true);
     }
 
     public void actionExport() {

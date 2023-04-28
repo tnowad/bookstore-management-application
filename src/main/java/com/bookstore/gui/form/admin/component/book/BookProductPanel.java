@@ -5,6 +5,9 @@
 package com.bookstore.gui.form.admin.component.book;
 
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 
@@ -33,59 +36,86 @@ public class BookProductPanel extends javax.swing.JPanel {
   // <editor-fold defaultstate="collapsed" desc="Generated
   // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents(String isbn,String title,String description,String image,int price,int quantity,Enum status,int publisher_id,int author_id) {
 
-        getTitle = new javax.swing.JLabel();
-        GetImageBook = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        ButtonDetail = new javax.swing.JButton();
         checkBox = new javax.swing.JCheckBox();
+        jPanel2 = new javax.swing.JPanel();
+        ButtonDetail = new javax.swing.JButton();
+        getImageBook = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        getTitle = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         setMaximumSize(new java.awt.Dimension(199, 333));
         setMinimumSize(new java.awt.Dimension(199, 333));
         setPreferredSize(new java.awt.Dimension(199, 333));
+        setLayout(new java.awt.BorderLayout());
 
-        getTitle.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        getTitle.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        getTitle.setText("title");
-        add(getTitle);
+        checkBox.setPreferredSize(new java.awt.Dimension(50, 19));
+        checkBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkBoxActionPerformed(evt);
+            }
+        });
+        add(checkBox, java.awt.BorderLayout.PAGE_END);
 
-        GetImageBook.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        GetImageBook.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/bookstore/gui/admin/imageBook/imagebook1.png"))); // NOI18N
-        GetImageBook.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        GetImageBook.setPreferredSize(new java.awt.Dimension(200, 260));
-        add(GetImageBook);
-
-        jPanel1.setLayout(new java.awt.GridLayout(1, 2));
+        jPanel2.setLayout(new java.awt.BorderLayout());
 
         ButtonDetail.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         ButtonDetail.setText("Detail");
-        jPanel1.add(ButtonDetail);
+        ButtonDetail.addActionListener(new ActionListener() {
 
-        add(jPanel1);
-        add(checkBox);
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            BookDetailFrame bookDetailFrame = new BookDetailFrame(isbn, title, description, image, price, quantity, status, publisher_id, author_id);
+            bookDetailFrame.setVisible(true);
+          }
+          
+        });
+        jPanel2.add(ButtonDetail, java.awt.BorderLayout.PAGE_END);
+
+        getImageBook.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        getImageBook.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        getImageBook.setPreferredSize(new java.awt.Dimension(399, 260));
+        jPanel2.add(getImageBook, java.awt.BorderLayout.CENTER);
+
+        jPanel1.setMinimumSize(new java.awt.Dimension(30, 30));
+
+        getTitle.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        getTitle.setText(title);
+        getTitle.setPreferredSize(new java.awt.Dimension(220, 22));
+        jPanel1.add(getTitle);
+
+        jPanel2.add(jPanel1, java.awt.BorderLayout.PAGE_START);
+
+        add(jPanel2, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void checkBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_checkBoxActionPerformed
+
   public void setImage(String image) {
-    GetImageBook.setIcon(new javax.swing.ImageIcon(image));
-    ImageIcon icon = (ImageIcon) GetImageBook.getIcon();
+    getImageBook.setIcon(new javax.swing.ImageIcon(image));
+    ImageIcon icon = (ImageIcon) getImageBook.getIcon();
     int imageLoadStatus = icon.getImageLoadStatus();
     if (imageLoadStatus != 8) {
-      GetImageBook.setIcon(
+      getImageBook.setIcon(
         new javax.swing.ImageIcon(
           getClass().getResource("/resources/images_products/imagenull.png")
         )
       );
     }
   }
+  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ButtonDetail;
-    private javax.swing.JLabel GetImageBook;
     private javax.swing.JCheckBox checkBox;
-    private javax.swing.JLabel getTitle;
+    private javax.swing.JLabel getImageBook;
+    private javax.swing.JTextField getTitle;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
 }
