@@ -1,4 +1,4 @@
-package com.bookstore.gui.form.customer;
+package com.bookstore.gui.form.customer.views;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
