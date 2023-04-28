@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.*;
 import javax.swing.*;
 
+import com.bookstore.gui.Theme.ThemeFont;
 import com.bookstore.gui.component.button.Button; 
 
 public class PaymentPanel extends JPanel {
@@ -58,7 +59,7 @@ public class PaymentPanel extends JPanel {
         setPreferredSize(new Dimension(427, 208));
         setLayout(new BorderLayout());
 
-        updatePaymentHeaderLabel.setFont(new Font("Arial", 0, 18));
+        updatePaymentHeaderLabel.setFont(new ThemeFont().getSmallFont());
         updatePaymentHeaderLabel.setText("Update Payment Informations");
         updatePaymentHeaderLabel.setEnabled(false);
         updatePaymentHeaderLabel.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -73,7 +74,7 @@ public class PaymentPanel extends JPanel {
         cardNumberPanel.setMinimumSize(new Dimension(101, 40));
         cardNumberPanel.setLayout(new BoxLayout(cardNumberPanel, BoxLayout.LINE_AXIS));
 
-        cardNumberLabel.setFont(new Font("Arial", 0, 14));
+        cardNumberLabel.setFont(new ThemeFont().getSmallFont());
         cardNumberLabel.setHorizontalAlignment(SwingConstants.CENTER);
         cardNumberLabel.setText("Card Number");
         cardNumberLabel.setToolTipText("");
@@ -82,7 +83,7 @@ public class PaymentPanel extends JPanel {
         cardNumberLabel.setRequestFocusEnabled(false);
         cardNumberPanel.add(cardNumberLabel);
 
-        cardNumberTextField.setFont(new Font("Arial", 0, 14));
+        cardNumberTextField.setFont(new ThemeFont().getSmallFont());
         cardNumberTextField.setPreferredSize(new Dimension(150, 22));
         cardNumberPanel.add(cardNumberTextField);
 
@@ -91,7 +92,7 @@ public class PaymentPanel extends JPanel {
         cardHolderPanel.setMaximumSize(new Dimension(500, 50));
         cardHolderPanel.setLayout(new BoxLayout(cardHolderPanel, BoxLayout.LINE_AXIS));
 
-        cardHolderLabel.setFont(new Font("Arial", 0, 14));
+        cardHolderLabel.setFont(new ThemeFont().getSmallFont());
         cardHolderLabel.setHorizontalAlignment(SwingConstants.CENTER);
         cardHolderLabel.setText("Card Holder");
         cardHolderLabel.setToolTipText("");
@@ -100,7 +101,7 @@ public class PaymentPanel extends JPanel {
         cardHolderLabel.setPreferredSize(new Dimension(150, 30));
         cardHolderPanel.add(cardHolderLabel);
 
-        cardHolderTextField.setFont(new Font("Arial", 0, 14));
+        cardHolderTextField.setFont(new ThemeFont().getSmallFont());
         cardHolderPanel.add(cardHolderTextField);
 
         groupContent.add(cardHolderPanel);
@@ -109,7 +110,7 @@ public class PaymentPanel extends JPanel {
         expirationDatePanel.setPreferredSize(new Dimension(438, 40));
         expirationDatePanel.setLayout(new BoxLayout(expirationDatePanel, BoxLayout.LINE_AXIS));
 
-        expirationDateLabel.setFont(new Font("Arial", 0, 14));
+        expirationDateLabel.setFont(new ThemeFont().getSmallFont());
         expirationDateLabel.setHorizontalAlignment(SwingConstants.CENTER);
         expirationDateLabel.setText("Expiration Date");
         expirationDateLabel.setMaximumSize(new Dimension(150, 30));
@@ -117,11 +118,11 @@ public class PaymentPanel extends JPanel {
         expirationDateLabel.setPreferredSize(new Dimension(150, 30));
         expirationDatePanel.add(expirationDateLabel);
 
-        expirationTextField.setFont(new Font("Arial", 0, 14));
+        expirationTextField.setFont(new ThemeFont().getSmallFont());
         expirationTextField.setPreferredSize(new Dimension(100, 30));
         expirationDatePanel.add(expirationTextField);
 
-        dateLabel.setFont(new Font("Arial", 0, 14));
+        dateLabel.setFont(new ThemeFont().getSmallFont());
         dateLabel.setHorizontalAlignment(SwingConstants.CENTER);
         dateLabel.setText("dd/MM/yyyy");
         dateLabel.setMaximumSize(new Dimension(100, 30));
@@ -135,7 +136,7 @@ public class PaymentPanel extends JPanel {
         confirmPasswordPanel
                 .setLayout(new BoxLayout(confirmPasswordPanel, BoxLayout.LINE_AXIS));
 
-        confirmLabel.setFont(new Font("Arial", 0, 14));
+        confirmLabel.setFont(new ThemeFont().getSmallFont());
         confirmLabel.setHorizontalAlignment(SwingConstants.CENTER);
         confirmLabel.setText("Confirm Password");
         confirmLabel.setMaximumSize(new Dimension(150, 30));
@@ -143,7 +144,7 @@ public class PaymentPanel extends JPanel {
         confirmLabel.setPreferredSize(new Dimension(150, 30));
         confirmPasswordPanel.add(confirmLabel);
 
-        confirmPasswordField.setFont(new Font("Arial", 0, 14));
+        confirmPasswordField.setFont(new ThemeFont().getSmallFont());
         confirmPasswordField.setPreferredSize(new Dimension(100, 23));
         confirmPasswordPanel.add(confirmPasswordField);
 
