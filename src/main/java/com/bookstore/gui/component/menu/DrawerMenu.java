@@ -3,13 +3,12 @@ package com.bookstore.gui.component.menu;
 import com.bookstore.models.MenuItemModel;
 import com.bookstore.models.MenuModel;
 import com.bookstore.models.SubMenuItemModel;
+import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.ArrayList;
-import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.GroupLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -17,7 +16,6 @@ import javax.swing.JScrollPane;
 public class DrawerMenu extends JPanel {
 
   private MenuModel menuModel;
-  private Boolean isExpanded = true;
 
   private JScrollPane scrollPane;
   private JPanel menuItemsPanel;
@@ -35,6 +33,7 @@ public class DrawerMenu extends JPanel {
   private void initComponents() {
     scrollPane = new JScrollPane();
     menuItemsPanel = new JPanel();
+    menuItemsPanel.setBackground(Color.decode("#273853"));
 
     menuItemsPanel.setLayout(new BoxLayout(menuItemsPanel, BoxLayout.Y_AXIS));
 
@@ -65,6 +64,7 @@ public class DrawerMenu extends JPanel {
   }
 
   public static void main(String[] args) {
+    FlatMacLightLaf.setup();
     JFrame frame = new JFrame();
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.setSize(400, 400);
