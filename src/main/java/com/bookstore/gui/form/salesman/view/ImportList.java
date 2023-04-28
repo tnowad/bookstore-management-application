@@ -51,7 +51,6 @@ public class ImportList extends JPanel {
 
         headerPanel.setLayout(new java.awt.GridLayout(2, 2));
 
-  
         headerPanel.add(importLabel);
 
         addPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
@@ -65,8 +64,8 @@ public class ImportList extends JPanel {
 
         headerPanel.add(addPanel);
 
-        groupSearchPanel.setPreferredSize(new java.awt.Dimension(590, 30));
-        groupSearchPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+        groupSearchPanel.setPreferredSize(new java.awt.Dimension(1000, 30));
+        groupSearchPanel.setLayout(new BoxLayout(groupSearchPanel, BoxLayout.X_AXIS));
 
         searchBarTextField.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         searchBarTextField.setPreferredSize(new java.awt.Dimension(450, 30));
@@ -136,21 +135,25 @@ public class ImportList extends JPanel {
                 } else {
                     ProviderModel provider = new ProviderModel();
                     DefaultTableModel model = new DefaultTableModel();
+                    System.out.println(text);
                     model.addColumn("Id");
                     model.addColumn("Provider");
                     model.addColumn("Employee ID");
                     model.addColumn("Price");
                     model.addColumn("Created at");
                     model.addColumn("Updated at");
-                    for (ImportModel imports : importList) {
-                        for (ProviderModel providerModel : providerList) {
-                            if (providerModel.getName().toLowerCase()
-                                    .contains(text.toLowerCase())) {
-                                provider = providerModel;
-                                break;
-                            }
+                    for (ProviderModel providerModel : providerList) {
+                        if (providerModel.getName().toLowerCase()
+                                .contains(text.toLowerCase())) {
+                            provider = providerModel;
+                            System.out.println(providerModel.getName());
+                            break;
                         }
+                    }
+                    for (ImportModel imports : importList) {
+
                         if (provider.getId() == imports.getProviderId()) {
+                            System.out.println(provider.getId() + " and " + imports.getProviderId());
                             model.addRow(new Object[] {
                                     imports.getId(), provider.getName(),
                                     imports.getEmployeeId(),

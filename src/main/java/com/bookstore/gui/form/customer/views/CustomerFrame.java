@@ -152,7 +152,7 @@ public class CustomerFrame extends JFrame {
         getContentPane().add(contentPanel, BorderLayout.CENTER);
 
         pack();
-    }// </editor-fold>
+    }
 
     private void cartButtonActionPerformed(ActionEvent evt) {
         System.out.println(1);
