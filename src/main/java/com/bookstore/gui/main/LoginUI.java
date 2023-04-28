@@ -5,6 +5,7 @@ import com.bookstore.gui.component.button.Button;
 import com.bookstore.gui.factories.UIFactory;
 import com.bookstore.models.UserModel;
 import com.bookstore.services.Authentication;
+import com.bookstore.util.PasswordUtil;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -150,6 +151,7 @@ public class LoginUI extends JFrame {
   };
 
   public static void main(String[] args) {
+    System.out.println(PasswordUtil.hashPassword("password"));
     FlatMacLightLaf.setup();
     new LoginUI().setVisible(true);
   }
