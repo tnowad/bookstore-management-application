@@ -83,7 +83,7 @@ CREATE TABLE
 CREATE TABLE
     `users` (
         `id` INT NOT NULL AUTO_INCREMENT,
-        `username` VARCHAR(100) NOT NULL,
+        `username` VARCHAR(100) NOT NULL UNIQUE,
         `password` VARCHAR(100) NOT NULL,
         `status` ENUM ('active', 'inactive', 'banned') NOT NULL DEFAULT "active",
         `name` NVARCHAR (100) NOT NULL,
