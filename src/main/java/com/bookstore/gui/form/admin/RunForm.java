@@ -3,7 +3,6 @@ package com.bookstore.gui.form.admin;
 import com.bookstore.gui.component.header.HeaderAdmin;
 import com.bookstore.gui.component.menu.MenuAdmin;
 import com.bookstore.gui.form.admin.component.dashboard.DashboardPanel;
-import com.bookstore.services.CheckCurrentUser;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import java.awt.BorderLayout;
 import java.awt.Dimension;

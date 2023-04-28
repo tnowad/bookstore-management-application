@@ -257,7 +257,6 @@ public class SalesmanFrame extends JFrame {
           );
           if (option == 0) {
             dispose();
-            new CheckCurrentUser().setCurrentUserId(0);
             LoginUI loginFrame = new LoginUI();
             loginFrame.setVisible(true);
           }
