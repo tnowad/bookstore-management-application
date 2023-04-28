@@ -1,4 +1,4 @@
-package com.bookstore.gui.form.stock;
+package com.bookstore.gui.form.imports;
 
 import com.bookstore.bus.ImportBUS;
 import com.bookstore.dao.ImportDAO;
@@ -15,6 +15,7 @@ import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -24,7 +25,7 @@ import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
 
-public class StockForm extends JPanel {
+public class ImportForm extends JPanel {
 
   private LayoutManager layout;
   private JPanel topPanel;
@@ -42,10 +43,9 @@ public class StockForm extends JPanel {
   private JButton exportExcelButton;
   private JButton importExcelButton;
 
-  public StockForm() {
+  public ImportForm() {
     initComponents();
     List<ImportModel> importList = ImportBUS.getInstance().getAllModels();
-
     DefaultTableModel tableModel = new ImportTableModel(importList);
 
     table.setModel(tableModel);
@@ -55,23 +55,24 @@ public class StockForm extends JPanel {
     layout = new BorderLayout();
     setLayout(layout);
     topPanel = new JPanel();
-    GridBagLayout topPanelLayout = new GridBagLayout() {
-      {
-        columnWidths = new int[] { 0, 0, 0, 0, 0, 0, 0, 0 };
-        rowHeights = new int[] { 0, 0, 0, 0 };
-        columnWeights =
-          new double[] { 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
-        rowWeights = new double[] { 0.0, 0.0, 0.0, Double.MIN_VALUE };
-      }
-    };
+    GridBagLayout topPanelLayout = new GridBagLayout();
     topPanel.setLayout(topPanelLayout);
 
     GridBagConstraints gridBagConstraints = new GridBagConstraints();
     gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
 
     titleLabel = new JLabel("Stock Management");
+    titleLabel.setIcon(
+      new ImageIcon("src/main/java/resources/icons/stock.png")
+    );
+    JPanel filterPanel = new JPanel();
+    filterPanel.setLayout(new BorderLayout());
     searchImportTextField = new JTextField(20);
     searchImportButton = new JButton("Search");
+    filterPanel.add(searchImportTextField, BorderLayout.CENTER);
+    filterPanel.add(searchImportButton, BorderLayout.EAST);
+
+    filterImportButton = new JButton("Filter");
     addImportButton = new JButton("Create");
     editImportButton = new JButton("Edit");
     deleteImportButton = new JButton("Delete");
@@ -79,43 +80,31 @@ public class StockForm extends JPanel {
     exportExcelButton = new JButton("Export Excel");
     importExcelButton = new JButton("Import Excel");
 
-    // Add the buttons to the top panel
     gridBagConstraints.gridx = 0;
     gridBagConstraints.gridy = 0;
-    gridBagConstraints.insets = new Insets(5, 5, 5, 5);
-
+    gridBagConstraints.insets = new Insets(0, 0, 0, 10);
     topPanel.add(titleLabel, gridBagConstraints);
-
     gridBagConstraints.gridx = 0;
     gridBagConstraints.gridy = 1;
-    topPanel.add(searchImportTextField, gridBagConstraints);
-
-    gridBagConstraints.gridx = 1;
-    gridBagConstraints.gridy = 1;
-    topPanel.add(searchImportButton, gridBagConstraints);
-
+    topPanel.add(filterPanel, gridBagConstraints);
     gridBagConstraints.gridx = 2;
     gridBagConstraints.gridy = 1;
-    topPanel.add(addImportButton, gridBagConstraints);
-
+    topPanel.add(filterImportButton, gridBagConstraints);
     gridBagConstraints.gridx = 3;
     gridBagConstraints.gridy = 1;
-    topPanel.add(editImportButton, gridBagConstraints);
-
+    topPanel.add(addImportButton, gridBagConstraints);
     gridBagConstraints.gridx = 4;
     gridBagConstraints.gridy = 1;
-    topPanel.add(deleteImportButton, gridBagConstraints);
-
+    topPanel.add(editImportButton, gridBagConstraints);
     gridBagConstraints.gridx = 5;
+    gridBagConstraints.gridy = 1;
+    topPanel.add(deleteImportButton, gridBagConstraints);
+    gridBagConstraints.gridx = 6;
     gridBagConstraints.gridy = 1;
     topPanel.add(refreshImportButton, gridBagConstraints);
-
-    gridBagConstraints.gridx = 5;
-    gridBagConstraints.gridy = 1;
-    topPanel.add(exportExcelButton, gridBagConstraints);
     gridBagConstraints.gridx = 7;
     gridBagConstraints.gridy = 1;
-    topPanel.add(importExcelButton, gridBagConstraints);
+    topPanel.add(exportExcelButton, gridBagConstraints);
 
     setPreferredSize(new Dimension(1200, 800));
     table = new Table();
@@ -170,7 +159,7 @@ public class StockForm extends JPanel {
     frame.setPreferredSize(new Dimension(1200, 800));
     frame.setTitle("Stock Form");
     frame.setLocationRelativeTo(null);
-    frame.getContentPane().add(new StockForm());
+    frame.getContentPane().add(new ImportForm());
     frame.pack();
     frame.setVisible(true);
   }

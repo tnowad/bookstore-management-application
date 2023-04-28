@@ -1,17 +1,17 @@
 package com.bookstore.gui.main;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
-import java.util.ArrayList;
-
 import com.bookstore.bus.UserBUS;
 import com.bookstore.gui.Theme.ThemeFont;
 import com.bookstore.gui.component.button.Button;
 import com.bookstore.gui.component.input.GroupInput;
 import com.bookstore.models.UserModel;
+import java.awt.*;
+import java.awt.event.*;
+import java.util.ArrayList;
+import javax.swing.*;
 
 public class RegisterUI extends JFrame {
+
   private static RegisterUI instance;
   private JPanel groupAccount;
   private JPanel groupContent;
@@ -38,8 +38,7 @@ public class RegisterUI extends JFrame {
   }
 
   public static RegisterUI getInstance() {
-    if (instance == null)
-      instance = new RegisterUI();
+    if (instance == null) instance = new RegisterUI();
     return instance;
   }
 
@@ -74,7 +73,11 @@ public class RegisterUI extends JFrame {
     groupLogo.setLayout(new BorderLayout());
 
     nameStoreLabel.setForeground(Color.BLUE);
-    iconLabel.setIcon(new ImageIcon(getClass().getResource("../../../../resources/book_logo.png")));
+    iconLabel.setIcon(
+      new ImageIcon(
+        getClass().getResource("../../../../resources/book_logo.png")
+      )
+    );
     groupLogo.setPreferredSize(new Dimension(400, 450));
 
     nameStoreLabel.setFont(new ThemeFont().getMediumFont());
@@ -147,7 +150,6 @@ public class RegisterUI extends JFrame {
   }
 
   private void handleEvent() {
-
     loginButton.addActionListener(e -> {
       LoginUI.getInstance().setVisible(true);
       setVisible(false);
@@ -159,7 +161,9 @@ public class RegisterUI extends JFrame {
       String email = groupEmail.getTextField().getText();
       String phone = groupPhone.getTextField().getText();
       char[] password = groupPassword.getPasswordField().getPassword();
-      char[] passwordAgain = groupPasswordAgain.getPasswordField().getPassword();
+      char[] passwordAgain = groupPasswordAgain
+        .getPasswordField()
+        .getPassword();
       String passwordText = new String(password);
       String passwordAgainText = new String(passwordAgain);
 
@@ -183,9 +187,19 @@ public class RegisterUI extends JFrame {
             break;
         }
         try {
-          if (UserBUS.getInstance().checkForDuplicate(checkDuplicate, new String[] { field })) {
-            JOptionPane.showMessageDialog(null,
-                "The " + field + " is already taken. Please try another " + field + ".");
+          if (
+            UserBUS
+              .getInstance()
+              .checkForDuplicate(checkDuplicate, new String[] { field })
+          ) {
+            JOptionPane.showMessageDialog(
+              null,
+              "The " +
+              field +
+              " is already taken. Please try another " +
+              field +
+              "."
+            );
             return;
           }
         } catch (HeadlessException e1) {
@@ -194,139 +208,219 @@ public class RegisterUI extends JFrame {
       }
 
       if (!passwordText.equals(passwordAgainText)) {
-        JOptionPane.showMessageDialog(null, "Your password doesn't match. Please check and re-type password.");
+        JOptionPane.showMessageDialog(
+          null,
+          "Your password doesn't match. Please check and re-type password."
+        );
         return;
       }
 
-      UserModel newUser = new UserModel(0, username, passwordText, null, name, email, phone, null, null, null);
+      UserModel newUser = new UserModel(
+        0,
+        username,
+        passwordText,
+        null,
+        name,
+        email,
+        phone,
+        null,
+        null,
+        null
+      );
       int added = UserBUS.getInstance().addModel(newUser);
       if (added == 1) {
         // ProfileModel.getInstance().setUser(newUser);
-        JOptionPane.showMessageDialog(null, "You've successfully registered! You can log in now.");
+        JOptionPane.showMessageDialog(
+          null,
+          "You've successfully registered! You can log in now."
+        );
         dispose(); // close the registration UI
         new LoginUI();
       } else {
-        JOptionPane.showMessageDialog(null, "Registration failed. Please try again!");
+        JOptionPane.showMessageDialog(
+          null,
+          "Registration failed. Please try again!"
+        );
       }
     });
 
     cancelButton.addActionListener(e -> System.exit(0));
 
-    addComponentListener(new ComponentAdapter() {
-      @Override
-      public void componentResized(ComponentEvent e) {
-        int width = getContentPane().getWidth();
-        if (width < 1020) {
-          setPreferredSize(new Dimension(1150, 800));
-          groupLogo.setPreferredSize(new Dimension(500, 200));
+    addComponentListener(
+      new ComponentAdapter() {
+        @Override
+        public void componentResized(ComponentEvent e) {
+          int width = getContentPane().getWidth();
+          if (width < 1020) {
+            setPreferredSize(new Dimension(1150, 800));
+            groupLogo.setPreferredSize(new Dimension(500, 200));
 
-          nameStoreLabel.setFont(new ThemeFont().getSmallFont());
-          titleRegister.setFont(new ThemeFont().getMediumFont());
-          nameStoreLabel.setPreferredSize(new Dimension(100, 20));
-          iconLabel.setIcon(new ImageIcon(getClass().getResource("../../../../resources/book_logo_responsive.png")));
+            nameStoreLabel.setFont(new ThemeFont().getSmallFont());
+            titleRegister.setFont(new ThemeFont().getMediumFont());
+            nameStoreLabel.setPreferredSize(new Dimension(100, 20));
+            iconLabel.setIcon(
+              new ImageIcon(
+                getClass()
+                  .getResource("../../../../resources/book_logo_responsive.png")
+              )
+            );
 
-          groupUsername.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
+            groupUsername.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
 
-          groupUsername.getLabel().setFont(new ThemeFont().getSmallFont());
-          groupUsername.getLabel().setPreferredSize(new Dimension(200, 50));
+            groupUsername.getLabel().setFont(new ThemeFont().getSmallFont());
+            groupUsername.getLabel().setPreferredSize(new Dimension(200, 50));
 
-          groupUsername.getTextField().setFont(new ThemeFont().getSmallFont());
-          groupUsername.getTextField().setPreferredSize(new Dimension(150, 50));
+            groupUsername
+              .getTextField()
+              .setFont(new ThemeFont().getSmallFont());
+            groupUsername
+              .getTextField()
+              .setPreferredSize(new Dimension(150, 50));
 
-          groupPassword.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
+            groupPassword.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
 
-          groupPassword.getLabel().setFont(new ThemeFont().getSmallFont());
-          groupPassword.getLabel().setPreferredSize(new Dimension(200, 50));
+            groupPassword.getLabel().setFont(new ThemeFont().getSmallFont());
+            groupPassword.getLabel().setPreferredSize(new Dimension(200, 50));
 
-          groupPassword.getPasswordField().setFont(new ThemeFont().getSmallFont());
-          groupPassword.getPasswordField().setPreferredSize(new Dimension(150, 50));
+            groupPassword
+              .getPasswordField()
+              .setFont(new ThemeFont().getSmallFont());
+            groupPassword
+              .getPasswordField()
+              .setPreferredSize(new Dimension(150, 50));
 
-          groupPasswordAgain.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
+            groupPasswordAgain.setLayout(
+              new FlowLayout(FlowLayout.CENTER, 5, 0)
+            );
 
-          groupPasswordAgain.getLabel().setFont(new ThemeFont().getSmallFont());
-          groupPasswordAgain.getLabel().setPreferredSize(new Dimension(200, 50));
+            groupPasswordAgain
+              .getLabel()
+              .setFont(new ThemeFont().getSmallFont());
+            groupPasswordAgain
+              .getLabel()
+              .setPreferredSize(new Dimension(200, 50));
 
-          groupPasswordAgain.getPasswordField().setFont(new ThemeFont().getSmallFont());
-          groupPasswordAgain.getPasswordField().setPreferredSize(new Dimension(150, 50));
+            groupPasswordAgain
+              .getPasswordField()
+              .setFont(new ThemeFont().getSmallFont());
+            groupPasswordAgain
+              .getPasswordField()
+              .setPreferredSize(new Dimension(150, 50));
 
-          groupPasswordAgain.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
-          groupPasswordAgain.getLabel().setFont(new ThemeFont().getSmallFont());
-          groupPasswordAgain.getLabel().setPreferredSize(new Dimension(200, 50));
-          groupPasswordAgain.getPasswordField().setFont(new ThemeFont().getSmallFont());
-          groupPasswordAgain.getPasswordField().setPreferredSize(new Dimension(150, 50));
+            groupPasswordAgain.setLayout(
+              new FlowLayout(FlowLayout.CENTER, 5, 0)
+            );
+            groupPasswordAgain
+              .getLabel()
+              .setFont(new ThemeFont().getSmallFont());
+            groupPasswordAgain
+              .getLabel()
+              .setPreferredSize(new Dimension(200, 50));
+            groupPasswordAgain
+              .getPasswordField()
+              .setFont(new ThemeFont().getSmallFont());
+            groupPasswordAgain
+              .getPasswordField()
+              .setPreferredSize(new Dimension(150, 50));
 
-          groupFullname.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
-          groupFullname.getLabel().setFont(new ThemeFont().getSmallFont());
-          groupFullname.getLabel().setPreferredSize(new Dimension(200, 50));
-          groupFullname.getTextField().setFont(new ThemeFont().getSmallFont());
-          groupFullname.getTextField().setPreferredSize(new Dimension(150, 50));
+            groupFullname.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
+            groupFullname.getLabel().setFont(new ThemeFont().getSmallFont());
+            groupFullname.getLabel().setPreferredSize(new Dimension(200, 50));
+            groupFullname
+              .getTextField()
+              .setFont(new ThemeFont().getSmallFont());
+            groupFullname
+              .getTextField()
+              .setPreferredSize(new Dimension(150, 50));
 
-          groupEmail.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
-          groupEmail.getLabel().setFont(new ThemeFont().getSmallFont());
-          groupEmail.getLabel().setPreferredSize(new Dimension(200, 50));
-          groupEmail.getTextField().setFont(new ThemeFont().getSmallFont());
-          groupEmail.getTextField().setPreferredSize(new Dimension(150, 50));
+            groupEmail.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
+            groupEmail.getLabel().setFont(new ThemeFont().getSmallFont());
+            groupEmail.getLabel().setPreferredSize(new Dimension(200, 50));
+            groupEmail.getTextField().setFont(new ThemeFont().getSmallFont());
+            groupEmail.getTextField().setPreferredSize(new Dimension(150, 50));
 
-          groupPhone.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
-          groupPhone.getLabel().setFont(new ThemeFont().getSmallFont());
-          groupPhone.getLabel().setPreferredSize(new Dimension(200, 50));
-          groupPhone.getTextField().setFont(new ThemeFont().getSmallFont());
-          groupPhone.getTextField().setPreferredSize(new Dimension(150, 50));
+            groupPhone.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
+            groupPhone.getLabel().setFont(new ThemeFont().getSmallFont());
+            groupPhone.getLabel().setPreferredSize(new Dimension(200, 50));
+            groupPhone.getTextField().setFont(new ThemeFont().getSmallFont());
+            groupPhone.getTextField().setPreferredSize(new Dimension(150, 50));
 
-          cancelButton.setPreferredSize(new Dimension(100, 35));
-          registerButton.setPreferredSize(new Dimension(100, 35));
-          loginButton.setPreferredSize(new Dimension(300, 35));
+            cancelButton.setPreferredSize(new Dimension(100, 35));
+            registerButton.setPreferredSize(new Dimension(100, 35));
+            loginButton.setPreferredSize(new Dimension(300, 35));
+          } else {
+            setPreferredSize(new Dimension(1150, 625));
 
-        } else {
-          setPreferredSize(new Dimension(1150, 625));
+            groupUsername.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 5));
+            groupUsername.getLabel().setFont(new ThemeFont().getMediumFont());
+            groupUsername.getLabel().setPreferredSize(new Dimension(200, 50));
+            groupUsername
+              .getTextField()
+              .setFont(new ThemeFont().getMediumFont());
+            groupUsername
+              .getTextField()
+              .setPreferredSize(new Dimension(300, 50));
 
-          groupUsername.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 5));
-          groupUsername.getLabel().setFont(new ThemeFont().getMediumFont());
-          groupUsername.getLabel().setPreferredSize(new Dimension(200, 50));
-          groupUsername.getTextField().setFont(new ThemeFont().getMediumFont());
-          groupUsername.getTextField().setPreferredSize(new Dimension(300, 50));
+            groupPassword.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 5));
 
-          groupPassword.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 5));
+            groupPassword.getLabel().setFont(new ThemeFont().getMediumFont());
+            groupPassword.getLabel().setPreferredSize(new Dimension(200, 50));
 
-          groupPassword.getLabel().setFont(new ThemeFont().getMediumFont());
-          groupPassword.getLabel().setPreferredSize(new Dimension(200, 50));
+            groupPassword
+              .getPasswordField()
+              .setFont(new ThemeFont().getMediumFont());
+            groupPassword
+              .getPasswordField()
+              .setPreferredSize(new Dimension(300, 50));
 
-          groupPassword.getPasswordField().setFont(new ThemeFont().getMediumFont());
-          groupPassword.getPasswordField().setPreferredSize(new Dimension(300, 50));
+            groupPasswordAgain.setLayout(
+              new FlowLayout(FlowLayout.CENTER, 10, 5)
+            );
 
-          groupPasswordAgain.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 5));
+            groupPasswordAgain
+              .getLabel()
+              .setFont(new ThemeFont().getMediumFont());
+            groupPasswordAgain
+              .getLabel()
+              .setPreferredSize(new Dimension(200, 50));
 
-          groupPasswordAgain.getLabel().setFont(new ThemeFont().getMediumFont());
-          groupPasswordAgain.getLabel().setPreferredSize(new Dimension(200, 50));
+            groupPasswordAgain
+              .getPasswordField()
+              .setFont(new ThemeFont().getMediumFont());
+            groupPasswordAgain
+              .getPasswordField()
+              .setPreferredSize(new Dimension(300, 50));
 
-          groupPasswordAgain.getPasswordField().setFont(new ThemeFont().getMediumFont());
-          groupPasswordAgain.getPasswordField().setPreferredSize(new Dimension(300, 50));
+            groupFullname.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 5));
+            groupFullname.getLabel().setFont(new ThemeFont().getMediumFont());
+            groupFullname.getLabel().setPreferredSize(new Dimension(200, 50));
+            groupFullname
+              .getTextField()
+              .setFont(new ThemeFont().getMediumFont());
+            groupFullname
+              .getTextField()
+              .setPreferredSize(new Dimension(300, 50));
 
-          groupFullname.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 5));
-          groupFullname.getLabel().setFont(new ThemeFont().getMediumFont());
-          groupFullname.getLabel().setPreferredSize(new Dimension(200, 50));
-          groupFullname.getTextField().setFont(new ThemeFont().getMediumFont());
-          groupFullname.getTextField().setPreferredSize(new Dimension(300, 50));
+            groupEmail.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 5));
+            groupEmail.getLabel().setFont(new ThemeFont().getMediumFont());
+            groupEmail.getLabel().setPreferredSize(new Dimension(200, 50));
+            groupEmail.getTextField().setFont(new ThemeFont().getMediumFont());
+            groupEmail.getTextField().setPreferredSize(new Dimension(300, 50));
 
-          groupEmail.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 5));
-          groupEmail.getLabel().setFont(new ThemeFont().getMediumFont());
-          groupEmail.getLabel().setPreferredSize(new Dimension(200, 50));
-          groupEmail.getTextField().setFont(new ThemeFont().getMediumFont());
-          groupEmail.getTextField().setPreferredSize(new Dimension(300, 50));
+            groupPhone.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 5));
+            groupPhone.getLabel().setFont(new ThemeFont().getMediumFont());
+            groupPhone.getLabel().setPreferredSize(new Dimension(200, 50));
+            groupPhone.getTextField().setFont(new ThemeFont().getMediumFont());
+            groupPhone.getTextField().setPreferredSize(new Dimension(300, 50));
 
-          groupPhone.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 5));
-          groupPhone.getLabel().setFont(new ThemeFont().getMediumFont());
-          groupPhone.getLabel().setPreferredSize(new Dimension(200, 50));
-          groupPhone.getTextField().setFont(new ThemeFont().getMediumFont());
-          groupPhone.getTextField().setPreferredSize(new Dimension(300, 50));
-
-          initGroupContent();
-          initGroupLogo();
+            initGroupContent();
+            initGroupLogo();
+          }
+          revalidate();
+          repaint();
         }
-        revalidate();
-        repaint();
       }
-    });
+    );
   }
 
   private void initFrame() {
@@ -341,5 +435,4 @@ public class RegisterUI extends JFrame {
   public static void main(String[] args) {
     new RegisterUI();
   }
-
 }

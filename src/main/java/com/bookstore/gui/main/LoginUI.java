@@ -1,65 +1,52 @@
 package com.bookstore.gui.main;
 
-import com.bookstore.models.*;
-import java.awt.BorderLayout;
-import java.awt.Color;
+import com.bookstore.bus.UserBUS;
+import com.bookstore.gui.component.button.Button;
+import com.bookstore.gui.factories.UIFactory;
+import com.bookstore.models.UserModel;
+import com.bookstore.services.Authentication;
+import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.LayoutManager;
+import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
-import com.bookstore.bus.EmployeeBUS;
-import com.bookstore.bus.UserBUS;
-import com.bookstore.gui.Theme.ThemeFont;
-import com.bookstore.gui.component.button.Button;
-import com.bookstore.gui.component.input.GroupInput;
-import com.bookstore.gui.form.manager.view.managerFrame;
-import com.bookstore.gui.form.salesman.view.SalesmanFrame;
-import com.bookstore.models.UserModel;
-import com.bookstore.models.EmployeeModel.EmployeeType;
-import com.bookstore.services.CheckCurrentUser;
-
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-
 public class LoginUI extends JFrame {
+
   private static LoginUI instance;
-  private JPanel groupAccount;
-  private JPanel groupContent;
-  private JPanel groupLogo;
-  private GroupInput groupUsername;
-  private GroupInput groupPassword;
 
-  private JLabel titleLogin;
-  private JPanel groupForgotPassword;
-  private Button forgetButton;
-
-  private JPanel groupButton;
+  private LayoutManager layout;
+  private JPanel loginPanel;
+  private Button exitButton;
+  private Button forgotPasswordButton;
   private Button loginButton;
-  private Button cancelButton;
   private Button registerButton;
-  private JLabel iconLabel;
-  private JLabel nameStoreLabel;
+  private JLabel LogoLabel;
+  private JLabel passwordLabel;
+  private JLabel usernameLabel;
+  private JLabel welcomeLabel;
+  private JPasswordField passwordField;
+  private JTextField usernameTextField;
 
   public LoginUI() {
-    initComponent();
-    handleEvent();
-    initFrame();
-  }
+    initComponents();
 
-  private void updateCurrentUser() {
-    String username = groupUsername.getTextField().getText();
-    new CheckCurrentUser().setCurrentUserId(UserBUS.getInstance().getModelByUsername(username).getId());
+    setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+    setLocationRelativeTo(null);
+    setLocationRelativeTo(null);
+    setMinimumSize(new Dimension(700, 500));
+    setPreferredSize(new Dimension(1000, 500));
+    pack();
   }
 
   public static LoginUI getInstance() {
@@ -69,230 +56,101 @@ public class LoginUI extends JFrame {
     return instance;
   }
 
-  private void initComponent() {
-    ImageIcon icon;
-    groupLogo = new JPanel();
-    groupContent = new JPanel();
-    titleLogin = new JLabel();
-    groupAccount = new JPanel();
-    groupUsername = new GroupInput("Username", "show");
-    groupPassword = new GroupInput("Password", "hide");
+  private void initComponents() {
+    layout = new FlowLayout(FlowLayout.CENTER, 10, 50);
+    setLayout(layout);
+    LogoLabel = new JLabel();
+    LogoLabel.setIcon(new ImageIcon("src/main/java/resources/book_logo.png"));
 
-    groupForgotPassword = new JPanel();
-    forgetButton = new Button("Forgot password");
-    groupButton = new JPanel();
+    loginPanel = new JPanel();
+
+    loginPanel.setLayout(new GridBagLayout());
+    usernameLabel = new JLabel();
+    usernameLabel.setText("Username");
+    passwordLabel = new JLabel();
+    passwordLabel.setText("Password");
+    usernameTextField = new JTextField();
+    passwordField = new JPasswordField();
     loginButton = new Button("Login");
-    cancelButton = new Button("Cancel");
+    loginButton.addActionListener(loginButtonActionListener);
+    exitButton = new Button("Exit");
+    exitButton.addActionListener(exitButtonActionListener);
     registerButton = new Button("Register");
-    icon = new ImageIcon("../../../../resources/book_logo.png");
-    iconLabel = new JLabel(icon);
-    nameStoreLabel = new JLabel("Bookstore Management Application");
-    // nameStoreLabel.setForeground(Color.BLUE);
+    registerButton.addActionListener(registerButtonActionListener);
+    forgotPasswordButton = new Button("Forgot Password");
+    forgotPasswordButton.addActionListener(forgotPasswordButtonActionListener);
 
-    getContentPane().setLayout(new FlowLayout());
+    loginPanel.setLayout(new GridBagLayout());
+    GridBagConstraints gridBagConstraints = new GridBagConstraints();
 
-    setBackground();
-    initGroupContent();
-    initGroupLogo();
+    gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+
+    gridBagConstraints.gridx = 0;
+    gridBagConstraints.gridy = 0;
+    gridBagConstraints.gridwidth = 4;
+    loginPanel.add(usernameLabel, gridBagConstraints);
+
+    gridBagConstraints.gridy = 1;
+    loginPanel.add(usernameTextField, gridBagConstraints);
+
+    gridBagConstraints.gridy = 2;
+    loginPanel.add(passwordLabel, gridBagConstraints);
+    gridBagConstraints.gridy = 3;
+    loginPanel.add(passwordField, gridBagConstraints);
+
+    gridBagConstraints.gridwidth = 1;
+    gridBagConstraints.gridy = 4;
+    loginPanel.add(loginButton, gridBagConstraints);
+    gridBagConstraints.gridx = 1;
+    loginPanel.add(registerButton, gridBagConstraints);
+    gridBagConstraints.gridx = 2;
+    loginPanel.add(forgotPasswordButton, gridBagConstraints);
+    gridBagConstraints.gridx = 3;
+    loginPanel.add(exitButton, gridBagConstraints);
+
+    add(LogoLabel);
+    add(loginPanel);
   }
 
-  private void initGroupLogo() {
-    groupLogo.setLayout(new BorderLayout());
+  private ActionListener loginButtonActionListener = e -> {
+    String username = usernameTextField.getText();
+    String password = new String(passwordField.getPassword());
+    System.out.println("Username: " + username);
+    System.out.println("Password: " + password);
 
-    iconLabel.setIcon(new ImageIcon(getClass().getResource("../../../../resources/book_logo.png")));
-    groupLogo.setPreferredSize(new Dimension(400, 450));
-
-    nameStoreLabel.setFont(new ThemeFont().getMediumFont());
-    nameStoreLabel.setHorizontalAlignment(SwingConstants.CENTER);
-    nameStoreLabel.setPreferredSize(new Dimension(100, 50));
-    groupLogo.add(nameStoreLabel, BorderLayout.CENTER);
-    groupLogo.add(iconLabel, BorderLayout.PAGE_START);
-
-    getContentPane().add(groupLogo, BoxLayout.X_AXIS);
-  }
-
-  private void initGroupContent() {
-    groupContent.setLayout(new BorderLayout());
-
-    titleLogin.setHorizontalAlignment(SwingConstants.CENTER);
-    titleLogin.setText("Login");
-    titleLogin.setFont(new ThemeFont().getLargeFont());
-    titleLogin.setForeground(Color.BLUE);
-    titleLogin.setPreferredSize(new Dimension(100, 100));
-    groupContent.add(titleLogin, BorderLayout.PAGE_START);
-
-    groupAccount.setLayout(new BoxLayout(groupAccount, BoxLayout.Y_AXIS));
-
-    // group username
-    groupAccount.add(groupUsername);
-
-    // group password
-    groupAccount.add(groupPassword);
-
-    // group forget password
-    groupForgotPassword.setLayout(new FlowLayout(FlowLayout.RIGHT));
-
-    forgetButton.setPreferredSize(new Dimension(200, 20));
-    forgetButton.setForeground(new Color(180, 0, 0));
-    forgetButton.setBackground(Color.white);
-    forgetButton.hoverBackground(Color.WHITE, Color.WHITE, new Color(180, 0, 0), new Color(255, 0, 0));
-    groupForgotPassword.setBorder(BorderFactory.createEmptyBorder());
-
-    groupForgotPassword.add(forgetButton);
-
-    groupAccount.add(groupForgotPassword, BorderLayout.EAST);
-
-    groupContent.add(groupAccount, BorderLayout.CENTER);
-
-    // group button
-    groupButton.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 50));
-    groupButton.add(loginButton);
-    groupButton.add(cancelButton);
-    groupButton.add(registerButton);
-    groupContent.add(groupButton, BorderLayout.PAGE_END);
-
-    getContentPane().add(groupContent, BoxLayout.X_AXIS);
-  }
-
-  private void setBackground() {
-    getContentPane().setBackground(Color.white);
-    groupLogo.setBackground(Color.white);
-    groupContent.setBackground(Color.white);
-    groupAccount.setBackground(Color.white);
-    groupForgotPassword.setBackground(Color.white);
-    groupButton.setBackground(Color.white);
-  }
-
-  private void handleEvent() {
-    loginButton.addActionListener(e -> {
-      String username = groupUsername.getTextField().getText();
-      char[] password = groupPassword.getPasswordField().getPassword();
-      String passwordFld = new String(password);
-      if (username.isEmpty() || passwordFld.isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Please enter username and password");
-        return;
+    try {
+      if (username.isEmpty() || password.isEmpty()) {
+        throw new Exception("Username and password must not be empty");
       }
-      try {
-        UserModel userModel = UserBUS.getInstance().getModelByUsername(username);
-        if (passwordFld.equals(userModel.getPassword())) {
-          JOptionPane.showMessageDialog(null, "Logged in successfully");
-          updateCurrentUser();
-          switch (userModel.getRole()) {
-            case CUSTOMER -> {
-            }
-            case EMPLOYEE -> {
-              dispose();
-              EmployeeBUS employeeBUS = EmployeeBUS.getInstance();
-              EmployeeModel employeeModel = employeeBUS.getModelById(userModel.getId());
-              if (employeeModel.getEmployeeType().equals(EmployeeType.EMPLOYEE_MANAGER)) {
-                new managerFrame();
-              } else
-                new SalesmanFrame();
-            }
-            case ADMIN -> {
-            }
-            default -> {
-              break;
-            }
-          }
-        } else {
-          JOptionPane.showMessageDialog(null,
-              "Invalid username or password. Please check the username or password and try again.");
-        }
-      } catch (Exception ex) {
-        JOptionPane.showMessageDialog(null, "An error occurred while logging in. Please try again." + ex);
-      }
+      UserModel user = UserBUS.getInstance().login(username, password);
+      Authentication.setCurrentUser(user);
+      JOptionPane.showMessageDialog(null, "Login successfully");
+      UIFactory.showForm(user);
+      dispose();
+    } catch (Exception exception) {
+      JOptionPane.showMessageDialog(null, exception.getMessage());
+    }
+    passwordField.setText("");
+  };
 
-    });
+  private ActionListener exitButtonActionListener = e -> {
+    System.exit(0);
+  };
 
-    cancelButton.addActionListener(e -> dispose());
-    registerButton.addActionListener(e -> {
-      RegisterUI.getInstance().setVisible(true);
-      setVisible(false);
-    });
+  private ActionListener registerButtonActionListener = e -> {
+    System.out.println("Register Button Clicked");
+    RegisterUI.getInstance().setVisible(true);
+    dispose();
+  };
 
-    forgetButton.addActionListener(e -> {
-      ForgotPasswordUI.getInstance().setVisible(true);
-      setVisible(false);
-    });
-
-    addComponentListener(new ComponentAdapter() {
-      @Override
-      public void componentResized(ComponentEvent e) {
-        int width = getContentPane().getWidth();
-        if (width < 1020) {
-          groupLogo.setPreferredSize(new Dimension(500, 200));
-
-          nameStoreLabel.setFont(new ThemeFont().getSmallFont());
-          titleLogin.setFont(new ThemeFont().getLargeFont());
-          nameStoreLabel.setPreferredSize(new Dimension(100, 20));
-          iconLabel.setIcon(new ImageIcon(getClass().getResource("../../../../resources/book_logo_responsive.png")));
-
-          groupUsername.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
-
-          groupUsername.getLabel().setFont(new ThemeFont().getSmallFont());
-          groupUsername.getLabel().setPreferredSize(new Dimension(100, 50));
-
-          groupUsername.getTextField().setFont(new ThemeFont().getSmallFont());
-          groupUsername.getTextField().setPreferredSize(new Dimension(150, 50));
-
-          groupPassword.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
-
-          groupPassword.getLabel().setFont(new ThemeFont().getSmallFont());
-          groupPassword.getLabel().setPreferredSize(new Dimension(100, 50));
-
-          groupPassword.getPasswordField().setFont(new ThemeFont().getSmallFont());
-          groupPassword.getPasswordField().setPreferredSize(new Dimension(150, 50));
-
-          cancelButton.setPreferredSize(new Dimension(100, 35));
-          registerButton.setPreferredSize(new Dimension(100, 35));
-          loginButton.setPreferredSize(new Dimension(100, 35));
-
-        } else {
-          groupUsername.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 50));
-
-          groupUsername.getLabel().setFont(new ThemeFont().getMediumFont());
-          groupUsername.getLabel().setPreferredSize(new Dimension(120, 50));
-
-          groupUsername.getTextField().setFont(new ThemeFont().getMediumFont());
-          groupUsername.getTextField().setPreferredSize(new Dimension(300, 50));
-
-          groupPassword.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 50));
-
-          groupPassword.getLabel().setFont(new ThemeFont().getMediumFont());
-          groupPassword.getLabel().setPreferredSize(new Dimension(120, 50));
-
-          groupPassword.getPasswordField().setFont(new ThemeFont().getMediumFont());
-          groupPassword.getPasswordField().setPreferredSize(new Dimension(300, 50));
-          loginButton.setButtonSize(100, 50);
-          cancelButton.setButtonSize(100, 50);
-          registerButton.setButtonSize(100, 50);
-          initGroupContent();
-          initGroupLogo();
-        }
-        revalidate();
-        repaint();
-      }
-    });
-  }
-
-  private void initFrame() {
-    setPreferredSize(new Dimension(1100, 550));
-    setMinimumSize(new Dimension(700, 600));
-    setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-    pack();
-    setLocationRelativeTo(null);
-    setVisible(true);
-  }
+  private ActionListener forgotPasswordButtonActionListener = e -> {
+    System.out.println("Forgot Password Button Clicked");
+    ForgotPasswordUI.getInstance().setVisible(true);
+    dispose();
+  };
 
   public static void main(String[] args) {
-    try {
-      UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-      UIManager.put("Button.background", Color.BLUE);
-    } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
-        | UnsupportedLookAndFeelException e) {
-      e.printStackTrace();
-    }
-    new LoginUI();
+    FlatMacLightLaf.setup();
+    new LoginUI().setVisible(true);
   }
 }
