@@ -1,3 +1,4 @@
+-- Active: 1676799504168@@127.0.0.1@3306@bookstore
 USE bookstore;
 SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -285,9 +286,6 @@ INSERT INTO `categories_books` (`categories_id`, `books_isbn`) VALUES
 (15, '9780000000265'),
 (15, '9780000000276'),
 (15, '9780000000287');
-
-INSERT INTO `current_user_id` (`id`, `user_id`) VALUES
-(1, 0);
 
 INSERT INTO `employees` (`user_id`, `salary`, `employee_type`, `contact_information`) VALUES
 (2, 10000, 'employee_manager', 'employee1@example.com'),
