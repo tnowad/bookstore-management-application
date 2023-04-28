@@ -1,120 +1,129 @@
 package com.bookstore.gui.component.menu;
 
+import com.bookstore.models.MenuItemModel;
+import com.bookstore.models.MenuModel;
+import com.bookstore.models.SubMenuItemModel;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.ArrayList;
-
 import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.GroupLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import com.bookstore.models.MenuItemModel;
-import com.bookstore.models.MenuModel;
-import com.bookstore.models.SubMenuItemModel;
-
 public class DrawerMenu extends JPanel {
-    private MenuModel menuModel;
-    private Boolean isExpanded = true;
 
-    private JScrollPane scrollPane;
-    private JPanel menuItemsPanel;
+  private MenuModel menuModel;
+  private Boolean isExpanded = true;
 
-    public DrawerMenu(MenuModel menuModel) {
-        this.menuModel = menuModel;
-        initComponents();
+  private JScrollPane scrollPane;
+  private JPanel menuItemsPanel;
 
-        for (MenuItemModel menuItemModel : menuModel.getMenuItems()) {
-            addMenuItem(menuItemModel);
+  public DrawerMenu(MenuModel menuModel) {
+    this.menuModel = menuModel;
+    initComponents();
+    if (menuModel.getMenuItems() != null) {
+      for (MenuItemModel menuItemModel : menuModel.getMenuItems()) {
+        addMenuItem(menuItemModel);
+      }
+    }
+  }
+
+  private void initComponents() {
+    scrollPane = new JScrollPane();
+    menuItemsPanel = new JPanel();
+
+    menuItemsPanel.setLayout(new BoxLayout(menuItemsPanel, BoxLayout.Y_AXIS));
+
+    scrollPane.setBorder(null);
+    scrollPane.setHorizontalScrollBarPolicy(
+      JScrollPane.HORIZONTAL_SCROLLBAR_NEVER
+    );
+
+    scrollPane.setViewport(null);
+    scrollPane.getVerticalScrollBar().setUnitIncrement(16);
+    scrollPane.setViewportView(menuItemsPanel);
+    setLayout(new BorderLayout());
+    add(scrollPane, BorderLayout.CENTER);
+    setPreferredSize(new Dimension(400, 400));
+  }
+
+  public MenuModel getMenuModel() {
+    return menuModel;
+  }
+
+  public void setMenuModel(MenuModel menuModel) {
+    this.menuModel = menuModel;
+  }
+
+  public void addMenuItem(MenuItemModel menuItemModel) {
+    DrawerMenuItem drawerMenuItem = new DrawerMenuItem(menuItemModel);
+    menuItemsPanel.add(drawerMenuItem);
+  }
+
+  public static void main(String[] args) {
+    JFrame frame = new JFrame();
+    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    frame.setSize(400, 400);
+    frame.setLocationRelativeTo(null);
+
+    MenuModel menuModel = new MenuModel(
+      new ArrayList<MenuItemModel>() {
+        {
+          add(
+            new MenuItemModel(
+              "Home",
+              null,
+              null,
+              new ArrayList<SubMenuItemModel>() {
+                {
+                  add(new SubMenuItemModel("Home 1", null, null));
+                  add(new SubMenuItemModel("Home 2", null, null));
+                  add(new SubMenuItemModel("Home 3", null, null));
+                }
+              }
+            )
+          );
+          add(
+            new MenuItemModel(
+              "Home 2",
+              null,
+              null,
+              new ArrayList<SubMenuItemModel>() {
+                {
+                  add(new SubMenuItemModel("Home 1", null, null));
+                  add(new SubMenuItemModel("Home 2", null, null));
+                  add(new SubMenuItemModel("Home 3", null, null));
+                }
+              }
+            )
+          );
+          add(
+            new MenuItemModel(
+              "Home 3",
+              null,
+              null,
+              new ArrayList<SubMenuItemModel>() {
+                {
+                  add(new SubMenuItemModel("Home 1", null, null));
+                  add(new SubMenuItemModel("Home 2", null, null));
+                  add(new SubMenuItemModel("Home 3", null, null));
+                }
+              }
+            )
+          );
+          add(new MenuItemModel("Home 4", null, null));
         }
-    }
+      }
+    );
+    System.out.println(menuModel.getMenuItems().size());
 
-    private void initComponents() {
-        scrollPane = new JScrollPane();
-        menuItemsPanel = new JPanel();
+    DrawerMenu drawerMenu = new DrawerMenu(menuModel);
 
-        scrollPane.setBorder(null);
-        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollPane.setViewport(null);
-
-        GroupLayout menuItemsPanelLayout = new GroupLayout(menuItemsPanel);
-        menuItemsPanel.setLayout(menuItemsPanelLayout);
-
-        menuItemsPanelLayout.setHorizontalGroup(
-                menuItemsPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGap(0, 312, Short.MAX_VALUE));
-
-        menuItemsPanelLayout.setVerticalGroup(
-                menuItemsPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGap(0, 523, Short.MAX_VALUE));
-
-        scrollPane.setViewportView(menuItemsPanel);
-
-        GroupLayout layout = new GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE));
-
-        layout.setVerticalGroup(
-                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE));
-
-    }
-
-    public MenuModel getMenuModel() {
-        return menuModel;
-    }
-
-    public void setMenuModel(MenuModel menuModel) {
-        this.menuModel = menuModel;
-    }
-
-    public void addMenuItem(MenuItemModel menuItemModel) {
-        DrawerMenuItem drawerMenuItem = new DrawerMenuItem(menuItemModel);
-        menuItemsPanel.add(drawerMenuItem);
-
-        menuItemsPanel.add(Box.createRigidArea(new Dimension(0, 5)));
-    }
-
-    public static void main(String[] args) {
-        JFrame frame = new JFrame();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 400);
-        frame.setLocationRelativeTo(null);
-
-        MenuModel menuModel = new MenuModel(new ArrayList<MenuItemModel>() {
-            {
-                add(new MenuItemModel("Home", null, null, new ArrayList<SubMenuItemModel>() {
-                    {
-                        add(new SubMenuItemModel("Home 1", null, null));
-                        add(new SubMenuItemModel("Home 2", null, null));
-                        add(new SubMenuItemModel("Home 3", null, null));
-                    }
-                }));
-                add(new MenuItemModel("Home 2", null, null, new ArrayList<SubMenuItemModel>() {
-                    {
-                        add(new SubMenuItemModel("Home 1", null, null));
-                        add(new SubMenuItemModel("Home 2", null, null));
-                        add(new SubMenuItemModel("Home 3", null, null));
-                    }
-                }));
-                add(new MenuItemModel("Home 3", null, null, new ArrayList<SubMenuItemModel>() {
-                    {
-                        add(new SubMenuItemModel("Home 1", null, null));
-                        add(new SubMenuItemModel("Home 2", null, null));
-                        add(new SubMenuItemModel("Home 3", null, null));
-                    }
-                }));
-                add(new MenuItemModel("Home 4", null, null));
-            }
-        });
-        System.out.println(menuModel.getMenuItems().size());
-
-        DrawerMenu drawerMenu = new DrawerMenu(menuModel);
-
-        frame.add(drawerMenu);
-        frame.setVisible(true);
-    }
+    frame.add(drawerMenu);
+    frame.setVisible(true);
+  }
 }
