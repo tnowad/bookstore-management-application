@@ -32,7 +32,6 @@ public class RunForm extends JFrame {
     initComponents();
     setLocationRelativeTo(null);
     setVisible(true);
-    dispose();
   }
 
   private void initComponents() {

@@ -45,7 +45,9 @@ public class ImportForm extends JPanel {
 
   public ImportForm() {
     initComponents();
+    // fill data to table model
     List<ImportModel> importList = ImportBUS.getInstance().getAllModels();
+
     DefaultTableModel tableModel = new ImportTableModel(importList);
 
     table.setModel(tableModel);
