@@ -66,7 +66,7 @@ public class UserDAO implements IDAO<UserModel> {
   }
 
   @Override
-  public int insert(UserModel user) {
+  public int insert(UserModel user) throws SQLException {
     String insertSql =
       "INSERT INTO users (username, password, status, name, email, phone, role) VALUES (?, ?, ?, ?, ?, ?, ?)";
     Object[] args = {
@@ -78,12 +78,7 @@ public class UserDAO implements IDAO<UserModel> {
       user.getPhone(),
       user.getRole().toString().toUpperCase(),
     };
-    try {
-      return DatabaseConnection.executeUpdate(insertSql, args);
-    } catch (SQLException e) {
-      e.printStackTrace();
-      return -1;
-    }
+    return DatabaseConnection.executeUpdate(insertSql, args);
   }
 
   @Override
