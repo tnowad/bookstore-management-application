@@ -18,6 +18,9 @@ import com.bookstore.gui.Theme.ThemeColor;
 import com.bookstore.gui.Theme.ThemeFont;
 
 public class Button extends JButton {
+  public Button(){
+    
+  }
   public Button(String name) {
     initComponents(name);
     handleEvent();
