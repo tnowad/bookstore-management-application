@@ -5,7 +5,6 @@ import com.bookstore.models.SubMenuItemModel;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
@@ -83,32 +82,4 @@ public class DrawerMenuItem extends JPanel {
     revalidate();
     repaint();
   };
-
-  public static void main(String[] args) {
-    javax.swing.JFrame frame = new javax.swing.JFrame();
-    frame.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-    frame
-      .getContentPane()
-      .add(
-        new DrawerMenuItem(
-          new MenuItemModel(
-            "Menu",
-            null,
-            null,
-            new ArrayList<SubMenuItemModel>() {
-              {
-                add(new SubMenuItemModel("Sub Menu", null, null));
-                add(new SubMenuItemModel("Sub Menu", null, null));
-                add(new SubMenuItemModel("Sub Menu", null, null));
-              }
-            }
-          )
-        )
-      );
-
-    frame.pack();
-    frame.setLocationRelativeTo(null);
-    frame.setVisible(true);
-  }
 }
