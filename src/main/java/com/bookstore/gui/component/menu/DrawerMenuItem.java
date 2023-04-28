@@ -22,7 +22,15 @@ public class DrawerMenuItem extends JPanel {
 
   private void addFirstButton() {
     MenuButton firstButton = new MenuButton("  " + menuItemModel.getTitle());
-    firstButton.addActionListener(toggleSubMenuItems);
+    firstButton.setIcon(menuItemModel.getIcon());
+    firstButton.setForeground(Color.decode("#FFFFFF"));
+    firstButton.setFont(firstButton.getFont().deriveFont(1));
+    firstButton.addActionListener(e -> {
+      if (menuItemModel.getActionListener() != null) {
+        menuItemModel.getActionListener().actionPerformed(e);
+      }
+      toggleSubMenuItems.actionPerformed(e);
+    });
     firstButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
     firstButton.setMinimumSize(new Dimension(Integer.MAX_VALUE, 40));
     firstButton.setPreferredSize(new Dimension(Integer.MAX_VALUE, 40));
@@ -41,8 +49,9 @@ public class DrawerMenuItem extends JPanel {
 
       for (SubMenuItemModel subMenuItemModel : menuItemModel.getSubMenuItems()) {
         MenuButton subMenuItemButton = new MenuButton(
-          "  " + subMenuItemModel.getTitle()
+          "   " + subMenuItemModel.getTitle()
         );
+        subMenuItemButton.setIcon(subMenuItemModel.getIcon());
         subMenuItemButton.addActionListener(
           subMenuItemModel.getActionListener()
         );
@@ -52,7 +61,7 @@ public class DrawerMenuItem extends JPanel {
         subMenuItemButton.setPreferredSize(
           new Dimension(Integer.MAX_VALUE, 40)
         );
-
+        subMenuItemButton.setForeground(Color.decode("#FFFFFF"));
         subMenuItemsPanel.add(subMenuItemButton);
       }
       add(subMenuItemsPanel);

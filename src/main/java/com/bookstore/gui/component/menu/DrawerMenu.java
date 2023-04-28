@@ -7,8 +7,10 @@ import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -69,18 +71,28 @@ public class DrawerMenu extends JPanel {
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.setSize(400, 400);
     frame.setLocationRelativeTo(null);
-
+    ActionListener showClickedActionListener = e -> {
+      System.out.println("Clicked");
+    };
+    // new icon from image
+    ImageIcon icon = new ImageIcon("src/main/java/resources/icons/menu.png");
     MenuModel menuModel = new MenuModel(
       new ArrayList<MenuItemModel>() {
         {
           add(
             new MenuItemModel(
               "Home",
-              null,
-              null,
+              icon,
+              showClickedActionListener,
               new ArrayList<SubMenuItemModel>() {
                 {
-                  add(new SubMenuItemModel("Home 1", null, null));
+                  add(
+                    new SubMenuItemModel(
+                      "Home 1",
+                      icon,
+                      showClickedActionListener
+                    )
+                  );
                   add(new SubMenuItemModel("Home 2", null, null));
                   add(new SubMenuItemModel("Home 3", null, null));
                 }
