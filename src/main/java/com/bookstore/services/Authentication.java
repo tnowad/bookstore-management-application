@@ -1,8 +1,11 @@
 package com.bookstore.services;
 
+import com.bookstore.bus.UserBUS;
 import com.bookstore.models.UserModel;
+import com.bookstore.models.UserModel.Role;
 
 public class Authentication {
+
   private static Authentication instance;
   private UserModel currentUser;
 
@@ -18,6 +21,14 @@ public class Authentication {
   }
 
   public static UserModel getCurrentUser() {
+    if (Authentication.getInstance().currentUser == null) {
+      return null;
+    }
+    setCurrentUser(
+      UserBUS
+        .getInstance()
+        .getModelById(Authentication.getInstance().currentUser.getId())
+    );
     return Authentication.getInstance().currentUser;
   }
 
@@ -31,5 +42,12 @@ public class Authentication {
 
   public static boolean isLoggedIn() {
     return Authentication.getInstance().currentUser != null;
+  }
+
+  public static boolean isRole(Role role) {
+    if (!Authentication.isLoggedIn()) {
+      return false;
+    }
+    return Authentication.getInstance().currentUser.getRole().equals(role);
   }
 }

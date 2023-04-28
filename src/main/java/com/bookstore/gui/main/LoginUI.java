@@ -5,8 +5,6 @@ import com.bookstore.gui.component.button.Button;
 import com.bookstore.gui.factories.UIFactory;
 import com.bookstore.models.UserModel;
 import com.bookstore.services.Authentication;
-import com.bookstore.util.PasswordUtil;
-import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
@@ -35,19 +33,16 @@ public class LoginUI extends JFrame {
   private JLabel LogoLabel;
   private JLabel passwordLabel;
   private JLabel usernameLabel;
-  private JLabel welcomeLabel;
   private JPasswordField passwordField;
   private JTextField usernameTextField;
 
   public LoginUI() {
     initComponents();
-
+    setPreferredSize(new Dimension(1000, 600));
+    setMinimumSize(new Dimension(700, 600));
     setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-    setLocationRelativeTo(null);
-    setLocationRelativeTo(null);
-    setMinimumSize(new Dimension(700, 500));
-    setPreferredSize(new Dimension(1000, 500));
     pack();
+    setLocationRelativeTo(null);
   }
 
   public static LoginUI getInstance() {
@@ -58,7 +53,7 @@ public class LoginUI extends JFrame {
   }
 
   private void initComponents() {
-    layout = new FlowLayout(FlowLayout.CENTER, 10, 50);
+    layout = new FlowLayout(FlowLayout.CENTER, 10, 10);
     setLayout(layout);
     LogoLabel = new JLabel();
     LogoLabel.setIcon(new ImageIcon("src/main/java/resources/book_logo.png"));
@@ -149,10 +144,4 @@ public class LoginUI extends JFrame {
     ForgotPasswordUI.getInstance().setVisible(true);
     dispose();
   };
-
-  public static void main(String[] args) {
-    System.out.println(PasswordUtil.hashPassword("password"));
-    FlatMacLightLaf.setup();
-    new LoginUI().setVisible(true);
-  }
 }

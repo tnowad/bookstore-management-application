@@ -111,13 +111,6 @@ CREATE TABLE
     );
 
 CREATE TABLE
-    `current_user_id` (
-        `id` INT NOT NULL AUTO_INCREMENT,
-        `user_id` INT NOT NULL,
-        PRIMARY KEY (`id`)
-    );
-
-CREATE TABLE
     `employees` (
         `user_id` INT NOT NULL,
         `salary` INT,
@@ -299,10 +292,6 @@ ADD
 ALTER TABLE `payments`
 ADD
     FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
-
--- ALTER TABLE `current_user_id`
--- ADD
---     FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 ALTER TABLE `shipping`
 ADD
