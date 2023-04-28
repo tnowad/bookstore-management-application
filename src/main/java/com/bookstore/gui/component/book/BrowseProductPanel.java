@@ -12,7 +12,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.*;
@@ -53,7 +52,8 @@ public class BrowseProductPanel extends JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
@@ -88,7 +88,7 @@ public class BrowseProductPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 actionExport();
             }
-            
+
         });
         ButtonExport.setToolTipText("");
         jPanel3.add(ButtonExport);
@@ -100,7 +100,7 @@ public class BrowseProductPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 actionImport();
             }
-            
+
         });
         jPanel3.add(ButtonImport);
 
@@ -111,7 +111,7 @@ public class BrowseProductPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 actionAdd();
             }
-            
+
         });
         jPanel3.add(ButtonCreate);
 
@@ -120,16 +120,15 @@ public class BrowseProductPanel extends JPanel {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-               actionDelete();
+                actionDelete();
             }
-            
+
         });
         jPanel3.add(ButtonDelete);
 
         jPanel2.add(jPanel3, java.awt.BorderLayout.LINE_END);
 
         jPanel1.add(jPanel2, java.awt.BorderLayout.PAGE_START);
-
 
         jScrollPane1.setViewportView(table);
 
@@ -138,44 +137,59 @@ public class BrowseProductPanel extends JPanel {
         add(jPanel1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
-    public void addTable(){
-        table.setLayout(new GridLayout(0, 3, 10, 10));
+    public void addTable() {
+        table = new JPanel(new GridLayout(0, 3, 10, 10)); // Use GridLayout with 3 columns and variable number of
+        // rows
+        int bookCount = 0;
         for (BookModel book : listBook) {
             if (!book.getStatus().toString().equals("DELETED")) {
                 BookProductPanel bookProductPanel = new BookProductPanel(book.getIsbn(), book.getTitle(),
                         book.getDescription(), book.getImage(), book.getPrice(), book.getQuantity(), book.getStatus(),
                         book.getPublisherId(), book.getAuthorId());
                 table.add(bookProductPanel);
+                bookCount++;
             }
         }
+        int columnCount = Math.max((int) Math.ceil(Math.sqrt(bookCount)), 3); // Calculate number of columns based on
+                                                                              // square root of book count or minimum of
+                                                                              // 3 columns
+        int rowCount = (int) Math.ceil((double) bookCount / columnCount); // Calculate number of rows based on number of
+                                                                          // books and number of columns
+        table.setLayout(new GridLayout(rowCount, columnCount, 10, 10)); // Set the layout with the calculated number of
+        
     }
+
     public void actionDelete() {
-        for (Component component : table.getComponents()) {
-            JPanel subPanel = (JPanel) component;
-            for (Component subComponent : subPanel.getComponents()) {
-                if (subComponent instanceof JCheckBox && ((JCheckBox) subComponent).isSelected()) {
-                    Component[] components = subPanel.getComponents();
-                    for (Component c : components) {
-                        if (c instanceof JTextField ) {
-                            String id = ((JTextField) c).getText();
-                            System.out.println(id);
-                            String status = "DELETED";
-                            int updateStatusRows = BookBUS.getInstance().updateStatus(id, status);
-                            if (updateStatusRows == 1) {
-                                JOptionPane.showMessageDialog(null, "You've successfully locked an account!");
+        int choice = JOptionPane.showConfirmDialog(null, "Do you want to banned products?", "Confirmation",
+                JOptionPane.YES_NO_OPTION);
+        if (choice == JOptionPane.YES_OPTION) {
+            for (Component component : table.getComponents()) {
+                JPanel subPanel = (JPanel) component;
+                for (Component subComponent : subPanel.getComponents()) {
+                    if (subComponent instanceof JCheckBox && ((JCheckBox) subComponent).isSelected()) {
+                        Component[] components = subPanel.getComponents();
+                        for (Component c : components) {
+                            if (c instanceof JTextField) {
+                                String id = ((JTextField) c).getText();
+                                System.out.println(id);
+                                String status = "DELETED";
+                                int updateStatusRows = BookBUS.getInstance().updateStatus(id, status);
+                                if (updateStatusRows == 1) {
+                                    JOptionPane.showMessageDialog(null, "You've successfully locked an products!");
+                                    table.revalidate();
+                                    table.repaint();
+                                }
                             }
                         }
                     }
                 }
             }
         }
-        table.revalidate();
-        table.repaint();
     }
 
     public void actionAdd() {
-       AddProductFrame addProductFrame = new AddProductFrame();
-       addProductFrame.setVisible(true);
+        AddProductFrame addProductFrame = new AddProductFrame();
+        addProductFrame.setVisible(true);
     }
 
     public void actionExport() {
@@ -202,7 +216,7 @@ public class BrowseProductPanel extends JPanel {
 
     public void receiveValue(String value) {
 
-        String[] columns = new String[] { "title"};
+        String[] columns = new String[] { "title" };
         List<BookModel> list = BookBUS.getInstance().searchModel(value, columns);
         table.removeAll();
         table.setLayout(new GridLayout(0, 3, 10, 10));
@@ -217,6 +231,11 @@ public class BrowseProductPanel extends JPanel {
         }
         table.revalidate();
         table.repaint();
+    }
+
+    public void actionResize() {
+        double width = jPanel1.getPreferredSize().getWidth();
+        System.out.println(width);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

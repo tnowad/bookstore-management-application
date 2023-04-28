@@ -45,6 +45,10 @@ public class BookProductPanel extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         getTitle = new javax.swing.JTextField();
 
+        isbnBook = new javax.swing.JTextField();
+        isbnBook.setText(""+isbn);
+        add(isbnBook);
+
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         setMaximumSize(new java.awt.Dimension(199, 333));

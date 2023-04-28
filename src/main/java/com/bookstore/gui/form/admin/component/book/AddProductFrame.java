@@ -6,11 +6,23 @@ package com.bookstore.gui.form.admin.component.book;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.io.File;
+import java.util.Arrays;
+import java.util.List;
 
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 
+import com.bookstore.bus.AuthorBUS;
 import com.bookstore.bus.BookBUS;
+import com.bookstore.bus.PublisherBUS;
+import com.bookstore.bus.UserBUS;
 import com.bookstore.models.BookModel;
+import com.bookstore.models.UserModel;
+import com.bookstore.models.BookModel.Status;
 import com.github.javafaker.Book;
 
 /**
@@ -50,7 +62,7 @@ public class AddProductFrame extends javax.swing.JFrame {
         setQuantity = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         setPublicserId = new javax.swing.JTextField();
-        namePubliscer = new javax.swing.JTextField();
+        namePublicser = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         setAuthorId = new javax.swing.JTextField();
         nameAuthor = new javax.swing.JTextField();
@@ -58,7 +70,7 @@ public class AddProductFrame extends javax.swing.JFrame {
         setImageLink = new javax.swing.JTextField();
         ChooseLink = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        setStatus = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         setDescription = new javax.swing.JTextArea();
         jPanel1 = new javax.swing.JPanel();
@@ -118,11 +130,24 @@ public class AddProductFrame extends javax.swing.JFrame {
 
         setPublicserId.setText("\n");
         setPublicserId.setPreferredSize(new java.awt.Dimension(140, 22));
+        setPublicserId.addFocusListener(new FocusListener() {
+
+            @Override
+            public void focusGained(FocusEvent e) {
+                
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                checkPublicser();
+            }
+            
+        });
         getContentPane().add(setPublicserId);
 
-        namePubliscer.setText("\n");
-        namePubliscer.setPreferredSize(new java.awt.Dimension(200, 22));
-        getContentPane().add(namePubliscer);
+        namePublicser.setText("\n");
+        namePublicser.setPreferredSize(new java.awt.Dimension(200, 22));
+        getContentPane().add(namePublicser);
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         jLabel6.setText("Author id");
@@ -131,6 +156,19 @@ public class AddProductFrame extends javax.swing.JFrame {
 
         setAuthorId.setText("\n");
         setAuthorId.setPreferredSize(new java.awt.Dimension(140, 22));
+        setAuthorId.addFocusListener(new FocusListener() {
+
+            @Override
+            public void focusGained(FocusEvent e) {
+                
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                checkAuthor();
+            }
+            
+        });
         getContentPane().add(setAuthorId);
 
         nameAuthor.setText("\n");
@@ -148,6 +186,14 @@ public class AddProductFrame extends javax.swing.JFrame {
         ChooseLink.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/images/categories.png"))); // NOI18N
         ChooseLink.setActionCommand("+");
         ChooseLink.setPreferredSize(new java.awt.Dimension(50, 23));
+        ChooseLink.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                addLinkImage();
+            }
+            
+        });
         getContentPane().add(ChooseLink);
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
@@ -156,8 +202,8 @@ public class AddProductFrame extends javax.swing.JFrame {
         jLabel8.setPreferredSize(new java.awt.Dimension(180, 16));
         getContentPane().add(jLabel8);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AVAILABLE", "INVAILABLE", "DELETED" }));
-        getContentPane().add(jComboBox1);
+        setStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AVAILABLE", "UNAVAILABLE", "DELETED" }));
+        getContentPane().add(setStatus);
 
         jScrollPane1.setPreferredSize(new java.awt.Dimension(550, 100));
 
@@ -192,9 +238,106 @@ public class AddProductFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    public void actionAdd(){
-        BookBUS.getInstance().addModel(new BookModel(setIsbn.getText(), setTitle.getText(), setDescription.getText(), setImageLink.getText(), Integer.parseInt(setPrice.getText()), Integer.parseInt(setQuantity.getText().trim()), null, Integer.parseInt(setPublicserId.getText().trim()), Integer.parseInt(setAuthorId.getText().trim())));
+
+    public void checkPublicser(){
+        if(PublisherBUS.getInstance().getModelById(Integer.parseInt(setPublicserId.getText().trim()))!=null){
+            namePublicser.setText(PublisherBUS.getInstance().getModelById(Integer.parseInt(setPublicserId.getText().trim())).getName());
+        }
+        else{
+            namePublicser.setText("");
+        }
     }
+    public void checkAuthor(){
+        if(AuthorBUS.getInstance().getModelById(Integer.parseInt(setAuthorId.getText().trim()))!=null){
+            nameAuthor.setText(AuthorBUS.getInstance().getModelById(Integer.parseInt(setAuthorId.getText().trim())).getName());
+        }
+        else{
+            nameAuthor.setText("");
+        }
+    }
+    public String addLinkImage(){
+        JFileChooser fileChooser = new JFileChooser();
+        int returnValue = fileChooser.showOpenDialog(null);
+        if (returnValue == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+            String filePath = selectedFile.getAbsolutePath();
+            setImageLink.setText(filePath);
+            return filePath;
+        }
+        return null;
+    }
+    
+    public void actionAdd(){
+        Boolean checkForDuplicate = true;
+        if(setIsbn.getText().trim().isEmpty())
+        {
+            checkForDuplicate = false;
+            JOptionPane.showMessageDialog(null, "Isbn cannot be empty!");
+            return;
+        }
+        if(setTitle.getText().trim().isEmpty())
+        {
+            checkForDuplicate = false;
+            JOptionPane.showMessageDialog(null, "Title cannot be empty!");
+            return;
+        }
+        if(setPrice.getText().trim().isEmpty() || !setPrice.getText().trim().matches("\\d+"))
+        {
+            checkForDuplicate = false;
+            JOptionPane.showMessageDialog(null, "Prince is not valid!");
+            return;
+        }
+        if(setQuantity.getText().trim().isEmpty()|| !setQuantity.getText().trim().matches("\\d+"))
+        {
+            checkForDuplicate = false;
+            JOptionPane.showMessageDialog(null, "Quantity is not valid!");
+            return;
+        }
+        if(setPublicserId.getText().trim().isEmpty() || !setPublicserId.getText().trim().matches("\\d+"))
+        {
+            checkForDuplicate = false;
+            JOptionPane.showMessageDialog(null, "Publicser Id is not valid!");
+            return;
+        }
+        if(setAuthorId.getText().trim().isEmpty() || !setAuthorId.getText().trim().matches("\\d+"))
+        {
+            checkForDuplicate = false;
+            JOptionPane.showMessageDialog(null, "Author Id is not valid!");
+            return;
+        }
+        if(nameAuthor.getText().trim().isEmpty() )
+        {
+            checkForDuplicate = false;
+            JOptionPane.showMessageDialog(null, "This author's name can't be found, please enter the author's name to add it!");
+            return;
+        }
+        if(namePublicser.getText().trim().isEmpty() )
+        {
+            checkForDuplicate = false;
+            JOptionPane.showMessageDialog(null, "This publisher's name could not be found, please enter the publisher's name to add it!");
+            return;
+        }
+
+
+        if(BookBUS.getInstance().checkForDuplicate(Arrays.asList(setIsbn.getText()), new String[] {"isbn"})){
+            checkForDuplicate = false;
+            JOptionPane.showMessageDialog(null, "Isbn already exists!");
+            return;
+        }
+        if(BookBUS.getInstance().checkForDuplicate(Arrays.asList(setTitle.getText()), new String[] {"title"})){
+            checkForDuplicate = false;
+            JOptionPane.showMessageDialog(null, "Title already exists!");
+            return;
+        }
+
+
+        if(checkForDuplicate) {
+            Status newStatus = Status.valueOf(setStatus.getSelectedItem().toString().toUpperCase());
+            BookBUS.getInstance().addModel(new BookModel(setIsbn.getText(), setTitle.getText(), setDescription.getText(), setImageLink.getText(), Integer.parseInt(setPrice.getText()), Integer.parseInt(setQuantity.getText().trim()), newStatus, Integer.parseInt(setPublicserId.getText().trim()), Integer.parseInt(setAuthorId.getText().trim())));
+            JOptionPane.showMessageDialog(null, "Completed!");
+        }
+    }
+    
 
     /**
      * @param args the command line arguments
@@ -205,7 +348,7 @@ public class AddProductFrame extends javax.swing.JFrame {
     private javax.swing.JButton ButtonSave;
     private javax.swing.JButton ChooseLink;
     private javax.swing.JLabel Price;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> setStatus;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -217,7 +360,7 @@ public class AddProductFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField nameAuthor;
-    private javax.swing.JTextField namePubliscer;
+    private javax.swing.JTextField namePublicser;
     private javax.swing.JTextField setAuthorId;
     private javax.swing.JTextArea setDescription;
     private javax.swing.JTextField setImageLink;
