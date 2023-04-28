@@ -1,5 +1,5 @@
 
-package com.bookstore.gui.form.admin.customer.formCustomer;
+package com.bookstore.gui.form.customer.formCustomer;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;

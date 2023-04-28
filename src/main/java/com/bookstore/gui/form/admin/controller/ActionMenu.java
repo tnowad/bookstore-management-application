@@ -5,20 +5,20 @@ import java.awt.event.*;
 
 import javax.swing.JPanel;
 
+import com.bookstore.gui.component.book.BrowseProductPanel;
+import com.bookstore.gui.component.header.HeaderAdmin;
+import com.bookstore.gui.component.menu.MenuAdmin;
 import com.bookstore.gui.form.admin.RunForm;
-import com.bookstore.gui.form.admin.component.book.BrowseProductPanel;
 import com.bookstore.gui.form.admin.component.dashboard.DashboardPanel;
 import com.bookstore.gui.form.admin.component.order.OrderListPanel;
 import com.bookstore.gui.form.admin.component.user.UserListPanel;
-import com.bookstore.gui.form.admin.menu.HeaderForm;
-import com.bookstore.gui.form.admin.menu.MenuForm;
 
 public class ActionMenu implements ActionListener {
 
-    private MenuForm menuForm;
+    private MenuAdmin menuForm;
     private JPanel panel = new JPanel();
 
-    public ActionMenu(MenuForm menuForm) {
+    public ActionMenu(MenuAdmin menuForm) {
         this.menuForm = menuForm;
     }
 
@@ -27,10 +27,10 @@ public class ActionMenu implements ActionListener {
         panel.setLayout(new BorderLayout());
         switch (e.getActionCommand().toString()) {
             case "Dashboard":
-                HeaderForm.getInstance().setPanelNow("DashBoard");
+                HeaderAdmin.getInstance().setPanelNow("DashBoard");
                 RunForm.getConstruct().removeAll();
                 panel.removeAll();
-                panel.add(HeaderForm.getInstance(), BorderLayout.NORTH);
+                panel.add(HeaderAdmin.getInstance(), BorderLayout.NORTH);
                 panel.add(DashboardPanel.getInstance(), BorderLayout.CENTER);
                 RunForm.getConstruct().add(panel);
                 RunForm.getConstruct().revalidate();
@@ -39,10 +39,10 @@ public class ActionMenu implements ActionListener {
 
             case "List Book":
                 panel.setLayout(new BorderLayout());
-                HeaderForm.getInstance().setPanelNow("BookList");
+                HeaderAdmin.getInstance().setPanelNow("BookList");
                 RunForm.getConstruct().removeAll();
                 panel.removeAll();
-                panel.add(HeaderForm.getInstance(), BorderLayout.NORTH);
+                panel.add(HeaderAdmin.getInstance(), BorderLayout.NORTH);
                 panel.add(BrowseProductPanel.getInstance(), BorderLayout.CENTER);
                 RunForm.getConstruct().add(panel);
                 RunForm.getConstruct().revalidate();
@@ -50,10 +50,10 @@ public class ActionMenu implements ActionListener {
                 break;
 
             case "List User":
-                HeaderForm.getInstance().setPanelNow("UserList");
+                HeaderAdmin.getInstance().setPanelNow("UserList");
                 RunForm.getConstruct().removeAll();
                 panel.removeAll();
-                panel.add(HeaderForm.getInstance(), BorderLayout.NORTH);
+                panel.add(HeaderAdmin.getInstance(), BorderLayout.NORTH);
                 panel.add(UserListPanel.getInstance(), BorderLayout.CENTER);
                 RunForm.getConstruct().add(panel);
                 RunForm.getConstruct().revalidate();
@@ -61,10 +61,10 @@ public class ActionMenu implements ActionListener {
                 break;
 
             case "List Order":
-                HeaderForm.getInstance().setPanelNow("OrderList");
+                HeaderAdmin.getInstance().setPanelNow("OrderList");
                 RunForm.getConstruct().removeAll();
                 panel.removeAll();
-                panel.add(HeaderForm.getInstance(), BorderLayout.NORTH);
+                panel.add(HeaderAdmin.getInstance(), BorderLayout.NORTH);
                 panel.add(OrderListPanel.getInstance(), BorderLayout.CENTER);
                 RunForm.getConstruct().add(panel);
                 RunForm.getConstruct().revalidate();

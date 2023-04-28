@@ -2,14 +2,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package com.bookstore.gui.form.admin.menu;
+package com.bookstore.gui.component.header;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.SQLException;
 
+import com.bookstore.gui.component.book.BrowseProductPanel;
 import com.bookstore.gui.form.admin.RunForm;
-import com.bookstore.gui.form.admin.component.book.BrowseProductPanel;
 import com.bookstore.gui.form.admin.component.dashboard.DashboardPanel;
 import com.bookstore.gui.form.admin.component.order.OrderListPanel;
 import com.bookstore.gui.form.admin.component.user.UserListPanel;
@@ -18,22 +18,22 @@ import com.bookstore.gui.form.admin.component.user.UserListPanel;
  *
  * @author yanti
  */
-public class HeaderForm extends javax.swing.JPanel implements MouseListener {
-    private static HeaderForm instance;
+public class HeaderAdmin extends javax.swing.JPanel implements MouseListener {
+    private static HeaderAdmin instance;
     private String namePanel;
 
     /**
      * Creates new form HeaderForm
      */
-    public HeaderForm() {
+    public HeaderAdmin() {
         initComponents();
     }
-    public HeaderForm(String namePanel){
+    public HeaderAdmin(String namePanel){
         this.namePanel=namePanel;
     }
-    public static HeaderForm getInstance()  {
+    public static HeaderAdmin getInstance()  {
         if (instance == null) {
-          instance = new HeaderForm();
+          instance = new HeaderAdmin();
         }
         return instance;
     }
@@ -112,16 +112,16 @@ public class HeaderForm extends javax.swing.JPanel implements MouseListener {
     @Override
     public void mouseClicked(MouseEvent e) {
         String value = valueSearch.getText();
-        if(HeaderForm.getInstance().getPanelNow().equals("UserList")){
+        if(HeaderAdmin.getInstance().getPanelNow().equals("UserList")){
             UserListPanel.getInstance().receiveValue(value);
         }
-        if(HeaderForm.getInstance().getPanelNow().equals("DashBoard")){
+        if(HeaderAdmin.getInstance().getPanelNow().equals("DashBoard")){
             DashboardPanel.getInstance().receiveValue(value);
         }
-        if(HeaderForm.getInstance().getPanelNow().equals("BookList")){
+        if(HeaderAdmin.getInstance().getPanelNow().equals("BookList")){
             BrowseProductPanel.getInstance().receiveValue(value);
         }
-        if(HeaderForm.getInstance().getPanelNow().equals("OrderList")){
+        if(HeaderAdmin.getInstance().getPanelNow().equals("OrderList")){
             OrderListPanel.getInstance().receiveValue(value);
         }
     }

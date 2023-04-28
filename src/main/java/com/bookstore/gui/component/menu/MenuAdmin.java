@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package com.bookstore.gui.form.admin.menu;
+package com.bookstore.gui.component.menu;
 
 import java.awt.BorderLayout;
 import java.awt.event.MouseAdapter;
@@ -10,26 +10,25 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JPanel;
 
-import com.bookstore.gui.form.admin.RunForm;
 import com.bookstore.gui.form.admin.controller.ActionMenu;
 
 /**
  *
  * @author yanti
  */
-public class MenuForm extends javax.swing.JPanel {
-    private static MenuForm instance;
+public class MenuAdmin extends javax.swing.JPanel {
+    private static MenuAdmin instance;
     private JPanel panel;
 
     /**
      * Creates new form MenuForm
      */
-    public MenuForm() {
+    public MenuAdmin() {
         initComponents();
     }
-    public static MenuForm getInstance()  {
+    public static MenuAdmin getInstance()  {
         if (instance == null) {
-          instance = new MenuForm();
+          instance = new MenuAdmin();
         }
         return instance;
       }

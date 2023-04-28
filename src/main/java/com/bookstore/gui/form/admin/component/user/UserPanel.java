@@ -59,6 +59,11 @@ public class UserPanel extends javax.swing.JPanel implements MouseListener {
         EmailUser = new javax.swing.JLabel();
         StatusUser = new javax.swing.JTextField();
         jCheckBox1 = new javax.swing.JCheckBox();
+        IdUser = new javax.swing.JTextField();
+
+        IdUser.setText(""+idUser);
+        add(IdUser);
+
 
         stt.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         stt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);

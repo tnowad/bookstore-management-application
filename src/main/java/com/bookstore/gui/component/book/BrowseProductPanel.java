@@ -2,14 +2,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package com.bookstore.gui.form.admin.component.book;
+package com.bookstore.gui.component.book;
 
 /**
  *
  * @author yanti
  */
-import com.bookstore.gui.component.book.BookProductPanel;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +18,7 @@ import java.util.List;
 import javax.swing.*;
 
 import com.bookstore.bus.BookBUS;
+import com.bookstore.gui.form.admin.component.book.BookProductPanel;
 import com.bookstore.models.BookModel;
 import com.bookstore.util.Excel.BookExcelUtil;
 
@@ -33,6 +35,7 @@ public class BrowseProductPanel extends JPanel {
         listBook = bookBUS.getAllModels();
 
         initComponents();
+        addTable();
     }
 
     public static BrowseProductPanel getInstance() {
@@ -49,92 +52,84 @@ public class BrowseProductPanel extends JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
-        ButtonExportExcel = new javax.swing.JButton();
-        ButtonImportExcel = new javax.swing.JButton();
+        ButtonExport = new javax.swing.JButton();
+        ButtonImport = new javax.swing.JButton();
         ButtonCreate = new javax.swing.JButton();
         ButtonDelete = new javax.swing.JButton();
-        searchBookField = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         table = new javax.swing.JPanel();
 
         setPreferredSize(new java.awt.Dimension(702, 444));
+        setLayout(new java.awt.BorderLayout());
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 0, 51));
         jLabel1.setText("List Book");
+        add(jLabel1, java.awt.BorderLayout.NORTH);
 
         jPanel1.setLayout(new java.awt.BorderLayout());
 
-        jPanel2.setLayout(new java.awt.BorderLayout());
+        jPanel2.setLayout(new java.awt.BorderLayout(5, 5));
 
-        ButtonExportExcel.setText("Export to Excel");
-        ButtonExportExcel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jPanel3.setLayout(new java.awt.GridLayout(1, 0, 10, 10));
+
+        ButtonExport.setText("Export to Excel");
+        ButtonExport.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
                 actionExport();
             }
+            
         });
-        ButtonExportExcel.setToolTipText("");
+        ButtonExport.setToolTipText("");
+        jPanel3.add(ButtonExport);
 
-        ButtonImportExcel.setText("Import Excel File");
-        ButtonImportExcel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        ButtonImport.setText("Import to Excel");
+        ButtonImport.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
                 actionImport();
             }
+            
         });
+        jPanel3.add(ButtonImport);
+
         ButtonCreate.setText("Create");
-        ButtonCreate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                actionAdd();
-            }
-        });
+        jPanel3.add(ButtonCreate);
 
         ButtonDelete.setText("Delete");
-        ButtonDelete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                actionDelete();
+        ButtonDelete.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+               actionDelete();
             }
+            
         });
-
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-                jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(ButtonExportExcel)
-                                .addGap(18, 18, 18)
-                                .addComponent(ButtonImportExcel)
-                                .addGap(18, 18, 18)
-                                .addComponent(ButtonCreate)
-                                .addGap(18, 18, 18)
-                                .addComponent(ButtonDelete)
-                                .addGap(0, 39, Short.MAX_VALUE)));
-        jPanel3Layout.setVerticalGroup(
-                jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(ButtonCreate, javax.swing.GroupLayout.DEFAULT_SIZE, 31,
-                                                Short.MAX_VALUE)
-                                        .addComponent(ButtonExportExcel, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(ButtonImportExcel, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(ButtonDelete, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addContainerGap()));
+        jPanel3.add(ButtonDelete);
 
         jPanel2.add(jPanel3, java.awt.BorderLayout.LINE_END);
 
         jPanel1.add(jPanel2, java.awt.BorderLayout.PAGE_START);
 
+
+        jScrollPane1.setViewportView(table);
+
+        jPanel1.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+
+        add(jPanel1, java.awt.BorderLayout.CENTER);
+    }// </editor-fold>//GEN-END:initComponents
+
+    public void addTable(){
         table.setLayout(new GridLayout(0, 3, 10, 10));
         for (BookModel book : listBook) {
             if (!book.getStatus().toString().equals("DELETED")) {
@@ -144,47 +139,17 @@ public class BrowseProductPanel extends JPanel {
                 table.add(bookProductPanel);
             }
         }
-
-        jScrollPane1.setViewportView(table);
-
-        jPanel1.add(jScrollPane1, java.awt.BorderLayout.CENTER);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 89,
-                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                        Short.MAX_VALUE)))));
-        layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 29,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
-    }// </editor-fold>//GEN-END:initComponents
-
+    }
     public void actionDelete() {
         for (Component component : table.getComponents()) {
             JPanel subPanel = (JPanel) component;
             for (Component subComponent : subPanel.getComponents()) {
                 if (subComponent instanceof JCheckBox && ((JCheckBox) subComponent).isSelected()) {
                     Component[] components = subPanel.getComponents();
-                    boolean foundTextField = false;
                     for (Component c : components) {
-                        if (c instanceof JTextField && !foundTextField) {
-                            foundTextField = true;
+                        if (c instanceof JTextField ) {
                             String id = ((JTextField) c).getText();
+                            System.out.println(id);
                             String status = "DELETED";
                             int updateStatusRows = BookBUS.getInstance().updateStatus(id, status);
                             if (updateStatusRows == 1) {
@@ -226,11 +191,6 @@ public class BrowseProductPanel extends JPanel {
     }
 
     public void receiveValue(String value) {
-        String searchData = searchBookField.getText();
-        if (searchData.trim().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Search field can't be empty. Please try again.");
-            return;
-        }
 
         String[] columns = new String[] { "title"};
         List<BookModel> list = BookBUS.getInstance().searchModel(value, columns);
@@ -252,9 +212,8 @@ public class BrowseProductPanel extends JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ButtonCreate;
     private javax.swing.JButton ButtonDelete;
-    private javax.swing.JButton ButtonExportExcel;
-    private javax.swing.JButton ButtonImportExcel;
-    private javax.swing.JTextField searchBookField;
+    private javax.swing.JButton ButtonExport;
+    private javax.swing.JButton ButtonImport;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
