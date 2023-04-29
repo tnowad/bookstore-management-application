@@ -255,30 +255,27 @@ public class BookBUS implements IBUS<BookModel> {
 
     return results;
   }
+
   public boolean checkForDuplicate(List<String> values, String[] columns) {
-    Optional<BookModel> optionalUser = BookBUS
-      .getInstance()
-      .getAllModels()
-      .stream()
-      .filter(user -> {
-        for (String value : values) {
-          if (
-            Arrays.asList(columns).contains("title") &&
-            !value.isEmpty() &&
-            user.getTitle().equals(value)
-          ) {
-            return true;
+    Optional<BookModel> optionalBook = BookBUS
+        .getInstance()
+        .getAllModels()
+        .stream()
+        .filter(user -> {
+          for (String value : values) {
+            if (Arrays.asList(columns).contains("title") &&
+                !value.isEmpty() &&
+                user.getTitle().equals(value)) {
+              return true;
+            }
+            if (Arrays.asList(columns).contains("isbn") &&
+                user.getIsbn().equals(value)) {
+              return true;
+            }
           }
-          if (
-            Arrays.asList(columns).contains("isbn") &&
-            user.getIsbn().equals(value)
-          ) {
-            return true;
-          }
-        }
-        return false;
-      })
-      .findFirst();
-    return optionalUser.isPresent();
+          return false;
+        })
+        .findFirst();
+    return optionalBook.isPresent();
   }
 }
