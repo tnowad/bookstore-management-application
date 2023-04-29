@@ -2,7 +2,6 @@ package com.bookstore.gui.main;
 
 import com.bookstore.bus.UserBUS;
 import com.bookstore.gui.component.button.Button;
-import com.bookstore.gui.component.label.IconLabel;
 import com.bookstore.gui.factories.UIFactory;
 import com.bookstore.models.UserModel;
 import com.bookstore.services.Authentication;
