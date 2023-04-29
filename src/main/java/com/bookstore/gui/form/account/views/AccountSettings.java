@@ -1,6 +1,5 @@
 package com.bookstore.gui.form.account.views;
 
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.*;
 import javax.swing.*;
@@ -23,13 +22,17 @@ public class AccountSettings extends JPanel {
     private Label newPassordLabel;
     private PasswordField newPasswordField;
     private Button updateButton;
+    private JToggleButton toggleCurrentPasswordButton;
+    private ImageIcon showPassword;
+    private ImageIcon hidePassword;
+    private JToggleButton toggleNewPasswordButton;
+    private JToggleButton toggleConfirmNewPasswordButton;
 
     UserBUS userBus = UserBUS.getInstance();
     UserModel currentUser = Authentication.getCurrentUser();
 
     public AccountSettings() {
         initComponents();
-        handleEvent();
     }
 
     private void initComponents() {
@@ -43,6 +46,17 @@ public class AccountSettings extends JPanel {
         groupButton = new JPanel();
         updateButton = new Button("Update");
         resetButton = new Button("Reset");
+        showPassword = new ImageIcon("src/main/java/resources/icons/show_password.png");
+        hidePassword = new ImageIcon("src/main/java/resources/icons/hide_password.png");
+        toggleCurrentPasswordButton = new JToggleButton(hidePassword);
+        toggleNewPasswordButton = new JToggleButton(hidePassword);
+        toggleConfirmNewPasswordButton = new JToggleButton(hidePassword);
+
+        updateButton.addActionListener(updateButtonActionListener);
+        resetButton.addActionListener(resetButtonActionListener);
+        toggleCurrentPasswordButton.addActionListener(toggleCurrentPasswordActionListener);
+        toggleNewPasswordButton.addActionListener(toggleNewPasswordActionListener);
+        toggleConfirmNewPasswordButton.addActionListener(toggleConfirmNewPasswordActionListener);
 
         setMaximumSize(new Dimension(300, 200));
         setMinimumSize(new Dimension(300, 200));
@@ -51,19 +65,30 @@ public class AccountSettings extends JPanel {
 
         currentPasswordLabel.setHorizontalAlignment(SwingConstants.LEFT);
         currentPasswordLabel.setVerticalAlignment(SwingConstants.BOTTOM);
-        add(currentPasswordLabel);
-        add(currentPasswordField);
 
         newPassordLabel.setHorizontalAlignment(SwingConstants.LEFT);
         newPassordLabel.setVerticalAlignment(SwingConstants.BOTTOM);
-        add(newPassordLabel);
-        add(newPasswordField);
 
         confirmNewPasswordLabel.setHorizontalAlignment(SwingConstants.LEFT);
         confirmNewPasswordLabel.setVerticalAlignment(SwingConstants.BOTTOM);
-        add(confirmNewPasswordLabel);
-        add(confirmNewPasswordField);
 
+        JPanel currentPasswordFieldPanel = new JPanel(new BorderLayout());
+        currentPasswordFieldPanel.add(currentPasswordField, BorderLayout.CENTER);
+        currentPasswordFieldPanel.add(toggleCurrentPasswordButton, BorderLayout.EAST);
+        add(currentPasswordLabel);
+        add(currentPasswordFieldPanel);
+
+        JPanel newPasswordFieldPanel = new JPanel(new BorderLayout());
+        newPasswordFieldPanel.add(newPasswordField, BorderLayout.CENTER);
+        newPasswordFieldPanel.add(toggleNewPasswordButton, BorderLayout.EAST);
+        add(newPassordLabel);
+        add(newPasswordFieldPanel);
+
+        JPanel confirmNewPasswordFieldPanel = new JPanel(new BorderLayout());
+        confirmNewPasswordFieldPanel.add(confirmNewPasswordField, BorderLayout.CENTER);
+        confirmNewPasswordFieldPanel.add(toggleConfirmNewPasswordButton, BorderLayout.EAST);
+        add(confirmNewPasswordLabel);
+        add(confirmNewPasswordFieldPanel);
         groupButton.add(updateButton);
 
         groupButton.add(resetButton);
@@ -71,29 +96,7 @@ public class AccountSettings extends JPanel {
         add(groupButton);
     }
 
-    private void handleEvent() {
-        updateButton.addActionListener((ActionListener) new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                updatePasswordButtonActionPerformed(evt);
-            }
-        });
-        resetButton.addActionListener((ActionListener) new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                resetPasswordButtonActionPerformed(evt);
-            }
-        });
-    }
-
-    private void resetPasswordButtonActionPerformed(ActionEvent evt) {
-        currentPasswordField.setText("");
-        confirmNewPasswordField.setText("");
-        newPasswordField.setText("");
-
-        resetButton.setEnabled(false);
-        updateButton.setEnabled(false);
-    }
-
-    protected void updatePasswordButtonActionPerformed(ActionEvent evt) {
+    private ActionListener updateButtonActionListener = e -> {
         String currentPassword = new String(currentPasswordField.getPassword());
         if (currentPassword.equals(currentUser.getPassword())) {
             String newPassword = new String(newPasswordField.getPassword());
@@ -110,6 +113,46 @@ public class AccountSettings extends JPanel {
         } else {
             JOptionPane.showMessageDialog(null, "Current password does not match");
         }
-    }
+    };
+
+    private ActionListener resetButtonActionListener = e -> {
+        currentPasswordField.setText("");
+        confirmNewPasswordField.setText("");
+        newPasswordField.setText("");
+
+        // resetButton.setEnabled(false);
+        // updateButton.setEnabled(false);
+    };
+
+    private ActionListener toggleCurrentPasswordActionListener = e -> {
+        if (toggleCurrentPasswordButton.isSelected()) {
+            currentPasswordField.setEchoChar((char) 0);
+            toggleCurrentPasswordButton.setIcon(showPassword);
+            System.out.println(1);
+        } else {
+            currentPasswordField.setEchoChar('\u25cf');
+            toggleCurrentPasswordButton.setIcon(hidePassword);
+        }
+    };
+
+    private ActionListener toggleNewPasswordActionListener = e -> {
+        if (toggleNewPasswordButton.isSelected()) {
+            newPasswordField.setEchoChar((char) 0);
+            toggleConfirmNewPasswordButton.setIcon(showPassword);
+        } else {
+            newPasswordField.setEchoChar('\u25cf');
+            toggleNewPasswordButton.setIcon(hidePassword);
+        }
+    };
+
+    private ActionListener toggleConfirmNewPasswordActionListener = e -> {
+        if (toggleConfirmNewPasswordButton.isSelected()) {
+            confirmNewPasswordField.setEchoChar((char) 0);
+            toggleConfirmNewPasswordButton.setIcon(showPassword);
+        } else {
+            confirmNewPasswordField.setEchoChar('\u25cf');
+            toggleConfirmNewPasswordButton.setIcon(hidePassword);
+        }
+    };
 
 }

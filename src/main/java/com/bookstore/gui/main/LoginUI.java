@@ -2,7 +2,6 @@ package com.bookstore.gui.main;
 
 import com.bookstore.bus.UserBUS;
 import com.bookstore.gui.component.button.Button;
-import com.bookstore.gui.component.label.IconLabel;
 import com.bookstore.gui.factories.UIFactory;
 import com.bookstore.models.UserModel;
 import com.bookstore.services.Authentication;
@@ -37,8 +36,9 @@ public class LoginUI extends JFrame {
   private JLabel usernameLabel;
   private JPasswordField passwordField;
   private JTextField usernameTextField;
-  JToggleButton toggleButton;
-  ImageIcon showPassword, hidePassword;
+  private JToggleButton toggleButton;
+  private ImageIcon showPassword;
+  private ImageIcon hidePassword;
 
   public LoginUI() {
     initComponents();
@@ -75,10 +75,9 @@ public class LoginUI extends JFrame {
     registerButton = new Button("Register");
     forgotPasswordButton = new Button("Forgot Password");
     forgotPasswordButton.setPreferredSize(new Dimension(150, 30));
-    toggleButton = new JToggleButton(hidePassword);
     showPassword = new ImageIcon("src/main/java/resources/icons/show_password.png");
     hidePassword = new ImageIcon("src/main/java/resources/icons/hide_password.png");
-    toggleButton.setIcon(hidePassword);
+    toggleButton = new JToggleButton(hidePassword);
     loginButton.addActionListener(loginButtonActionListener);
     exitButton.addActionListener(exitButtonActionListener);
     registerButton.addActionListener(registerButtonActionListener);
@@ -130,6 +129,7 @@ public class LoginUI extends JFrame {
     if (toggleButton.isSelected()) {
       passwordField.setEchoChar((char) 0);
       toggleButton.setIcon(showPassword);
+      System.out.println("Password is hidden");
     } else {
       passwordField.setEchoChar('\u25cf');
       toggleButton.setIcon(hidePassword);
