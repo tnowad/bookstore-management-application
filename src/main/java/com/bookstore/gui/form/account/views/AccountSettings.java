@@ -6,26 +6,26 @@ import java.awt.*;
 import javax.swing.*;
 
 import com.bookstore.bus.UserBUS;
-import com.bookstore.models.CurrentUserModel;
+import com.bookstore.gui.component.passwordfield.PasswordField;
 import com.bookstore.models.UserModel;
 import com.bookstore.services.Authentication;
+import com.bookstore.gui.component.button.Button;
+import com.bookstore.gui.component.label.Label;
 
 public class AccountSettings extends JPanel {
 
-    private JButton resetButton;
-    private JPasswordField confirmNewPasswordField;
-    private JLabel confirmNewPasswordLabel;
-    private JPasswordField currentPasswordField;
-    private JLabel currentPasswordLabel;
+    private Button resetButton;
+    private PasswordField confirmNewPasswordField;
+    private Label confirmNewPasswordLabel;
+    private PasswordField currentPasswordField;
+    private Label currentPasswordLabel;
     private JPanel groupButton;
-    private JLabel newPassordLabel;
-    private JPasswordField newPasswordField;
-    private JButton updateButton;
+    private Label newPassordLabel;
+    private PasswordField newPasswordField;
+    private Button updateButton;
 
     UserBUS userBus = UserBUS.getInstance();
     UserModel currentUser = Authentication.getCurrentUser();
-  
-
 
     public AccountSettings() {
         initComponents();
@@ -34,47 +34,37 @@ public class AccountSettings extends JPanel {
 
     private void initComponents() {
 
-        currentPasswordLabel = new JLabel();
-        currentPasswordField = new JPasswordField();
-        newPassordLabel = new JLabel();
-        newPasswordField = new JPasswordField();
-        confirmNewPasswordLabel = new JLabel();
-        confirmNewPasswordField = new JPasswordField();
+        currentPasswordLabel = new Label("Your current password");
+        currentPasswordField = new PasswordField();
+        newPassordLabel = new Label("New password");
+        newPasswordField = new PasswordField();
+        confirmNewPasswordLabel = new Label("Confirm new password");
+        confirmNewPasswordField = new PasswordField();
         groupButton = new JPanel();
-        updateButton = new JButton();
-        resetButton = new JButton();
+        updateButton = new Button("Update");
+        resetButton = new Button("Reset");
 
         setMaximumSize(new Dimension(300, 200));
         setMinimumSize(new Dimension(300, 200));
-        setPreferredSize(new Dimension(300, 200));
+        setPreferredSize(new Dimension(300, 250));
         setLayout(new GridLayout(7, 1));
 
-        currentPasswordLabel.setFont(new Font("Arial", 0, 18));
         currentPasswordLabel.setHorizontalAlignment(SwingConstants.LEFT);
-        currentPasswordLabel.setText("Your current password");
         currentPasswordLabel.setVerticalAlignment(SwingConstants.BOTTOM);
         add(currentPasswordLabel);
         add(currentPasswordField);
 
-        newPassordLabel.setFont(new Font("Arial", 0, 18));
         newPassordLabel.setHorizontalAlignment(SwingConstants.LEFT);
-        newPassordLabel.setText("New password");
         newPassordLabel.setVerticalAlignment(SwingConstants.BOTTOM);
         add(newPassordLabel);
         add(newPasswordField);
 
-        confirmNewPasswordLabel.setFont(new Font("Arial", 0, 18));
         confirmNewPasswordLabel.setHorizontalAlignment(SwingConstants.LEFT);
-        confirmNewPasswordLabel.setText("Confirm new password");
         confirmNewPasswordLabel.setVerticalAlignment(SwingConstants.BOTTOM);
         add(confirmNewPasswordLabel);
         add(confirmNewPasswordField);
 
-        updateButton.setText("Update");
-
         groupButton.add(updateButton);
-
-        resetButton.setText("Cancel");
 
         groupButton.add(resetButton);
 

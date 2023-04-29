@@ -5,7 +5,7 @@ import com.bookstore.bus.ImportBUS;
 import com.bookstore.bus.ProviderBUS;
 import com.bookstore.gui.Theme.ThemeFont;
 import com.bookstore.gui.component.button.Button;
-import com.bookstore.gui.component.button.Label;
+import com.bookstore.gui.component.label.Label;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

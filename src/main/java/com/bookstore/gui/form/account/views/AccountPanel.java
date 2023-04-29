@@ -49,8 +49,8 @@ public class AccountPanel extends JPanel {
         contentSetting = new JPanel();
         accountSettingButton = new Button("Account settings");
         profileSettingButton = new Button("Profile settings");
-        accountSettingButton.setPreferredSize(new Dimension(200, 50));
-        profileSettingButton.setPreferredSize(new Dimension(200, 50));
+        accountSettingButton.setPreferredSize(new Dimension(200, 30));
+        profileSettingButton.setPreferredSize(new Dimension(200, 30));
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         titleButton.setLayout(new FlowLayout());
         add(titleButton);

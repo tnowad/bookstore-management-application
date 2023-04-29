@@ -20,7 +20,7 @@ import com.bookstore.bus.BookBUS;
 import com.bookstore.bus.CurrentUserBUS;
 import com.bookstore.gui.Theme.ThemeFont;
 import com.bookstore.gui.component.button.Button;
-import com.bookstore.gui.component.button.Label;
+import com.bookstore.gui.component.label.Label;
 
 public class BookListPanel extends javax.swing.JPanel {
     BookBUS bookBus = BookBUS.getInstance();
