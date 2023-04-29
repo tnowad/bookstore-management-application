@@ -357,6 +357,7 @@ public class UserBUS implements IBUS<UserModel> {
             return true;
           }
         }
+        
         return false;
       })
       .findFirst();

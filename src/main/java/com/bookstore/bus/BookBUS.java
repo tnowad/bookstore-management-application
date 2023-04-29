@@ -1,8 +1,10 @@
 package com.bookstore.bus;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import com.bookstore.dao.BookDAO;
 import com.bookstore.interfaces.IBUS;
@@ -252,5 +254,31 @@ public class BookBUS implements IBUS<BookModel> {
     }
 
     return results;
+  }
+  public boolean checkForDuplicate(List<String> values, String[] columns) {
+    Optional<BookModel> optionalUser = BookBUS
+      .getInstance()
+      .getAllModels()
+      .stream()
+      .filter(user -> {
+        for (String value : values) {
+          if (
+            Arrays.asList(columns).contains("title") &&
+            !value.isEmpty() &&
+            user.getTitle().equals(value)
+          ) {
+            return true;
+          }
+          if (
+            Arrays.asList(columns).contains("isbn") &&
+            user.getIsbn().equals(value)
+          ) {
+            return true;
+          }
+        }
+        return false;
+      })
+      .findFirst();
+    return optionalUser.isPresent();
   }
 }
