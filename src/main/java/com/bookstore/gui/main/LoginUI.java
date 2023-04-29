@@ -2,6 +2,7 @@ package com.bookstore.gui.main;
 
 import com.bookstore.bus.UserBUS;
 import com.bookstore.gui.component.button.Button;
+import com.bookstore.gui.component.label.IconLabel;
 import com.bookstore.gui.factories.UIFactory;
 import com.bookstore.models.UserModel;
 import com.bookstore.services.Authentication;
@@ -77,6 +78,7 @@ public class LoginUI extends JFrame {
     toggleButton = new JToggleButton(hidePassword);
     showPassword = new ImageIcon("src/main/java/resources/icons/show_password.png");
     hidePassword = new ImageIcon("src/main/java/resources/icons/hide_password.png");
+    toggleButton.setIcon(hidePassword);
     loginButton.addActionListener(loginButtonActionListener);
     exitButton.addActionListener(exitButtonActionListener);
     registerButton.addActionListener(registerButtonActionListener);
