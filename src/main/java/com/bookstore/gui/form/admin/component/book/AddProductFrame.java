@@ -9,7 +9,9 @@ import javax.swing.*;
 import com.bookstore.bus.AuthorBUS;
 import com.bookstore.bus.BookBUS;
 import com.bookstore.bus.PublisherBUS;
+import com.bookstore.models.AuthorModel;
 import com.bookstore.models.BookModel;
+import com.bookstore.models.PublisherModel;
 import com.bookstore.models.BookModel.Status;
 
 /**
@@ -18,14 +20,12 @@ import com.bookstore.models.BookModel.Status;
  */
 public class AddProductFrame extends javax.swing.JFrame {
 
-
     public AddProductFrame() {
         initComponents();
         setLocationRelativeTo(null);
         setResizable(false);
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
     }
-
 
     @SuppressWarnings("unchecked")
 
@@ -111,6 +111,7 @@ public class AddProductFrame extends javax.swing.JFrame {
         getContentPane().add(setPublisherId);
 
         setPublisherName.setPreferredSize(new java.awt.Dimension(200, 22));
+        setPublisherName.setEditable(false);
         getContentPane().add(setPublisherName);
 
         authorText.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
@@ -122,6 +123,7 @@ public class AddProductFrame extends javax.swing.JFrame {
         getContentPane().add(setAuthorId);
 
         setAuthorName.setPreferredSize(new java.awt.Dimension(200, 22));
+        setAuthorName.setEditable(false);
         getContentPane().add(setAuthorName);
 
         imageText.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
@@ -141,7 +143,7 @@ public class AddProductFrame extends javax.swing.JFrame {
             public void actionPerformed(ActionEvent e) {
                 actionAddLinkImage();
             }
-            
+
         });
         getContentPane().add(chooseLink);
 
@@ -151,7 +153,8 @@ public class AddProductFrame extends javax.swing.JFrame {
         statusText.setPreferredSize(new java.awt.Dimension(180, 16));
         getContentPane().add(statusText);
 
-        setStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AVAILABLE", "INVAILABLE", "DELETED" }));
+        setStatus.setModel(
+                new javax.swing.DefaultComboBoxModel<>(new String[] { "available", "unavailable", "deleted" }));
         getContentPane().add(setStatus);
 
         scrollPane.setPreferredSize(new java.awt.Dimension(550, 100));
@@ -176,7 +179,7 @@ public class AddProductFrame extends javax.swing.JFrame {
                 JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(buttonBack);
                 frame.dispose();
             }
-            
+
         });
         buttonPanel.add(buttonBack);
 
@@ -188,7 +191,7 @@ public class AddProductFrame extends javax.swing.JFrame {
             public void actionPerformed(ActionEvent e) {
                 actionAdd();
             }
-            
+
         });
         buttonPanel.add(buttonSave);
 
@@ -197,23 +200,7 @@ public class AddProductFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void checkPublisher(){
-        if(PublisherBUS.getInstance().getModelById(Integer.parseInt(setPublisherId.getText().trim()))!=null){
-            setPublisherName.setText(PublisherBUS.getInstance().getModelById(Integer.parseInt(setPublisherId.getText().trim())).getName());
-        }
-        else{
-            setPublisherName.setText("");
-        }
-    }
-    public void checkAuthor(){
-        if(AuthorBUS.getInstance().getModelById(Integer.parseInt(setAuthorId.getText().trim()))!=null){
-            setAuthorName.setText(AuthorBUS.getInstance().getModelById(Integer.parseInt(setAuthorId.getText().trim())).getName());
-        }
-        else{
-            setAuthorName.setText("");
-        }
-    }
-    public String actionAddLinkImage(){
+    public String actionAddLinkImage() {
         JFileChooser fileChooser = new JFileChooser();
         int returnValue = fileChooser.showOpenDialog(null);
         if (returnValue == JFileChooser.APPROVE_OPTION) {
@@ -224,78 +211,96 @@ public class AddProductFrame extends javax.swing.JFrame {
         }
         return null;
     }
-    
-    public void actionAdd(){
-        Boolean checkForDuplicate = true;
-        if(setIsbn.getText().trim().isEmpty())
-        {
-            checkForDuplicate = false;
-            JOptionPane.showMessageDialog(null, "Isbn cannot be empty!");
-            return;
-        }
-        if(setTitle.getText().trim().isEmpty())
-        {
-            checkForDuplicate = false;
-            JOptionPane.showMessageDialog(null, "Title cannot be empty!");
-            return;
-        }
-        if(setPrice.getText().trim().isEmpty() || !setPrice.getText().trim().matches("\\d+"))
-        {
-            checkForDuplicate = false;
-            JOptionPane.showMessageDialog(null, "Prince is not valid!");
-            return;
-        }
-        if(setQuantity.getText().trim().isEmpty()|| !setQuantity.getText().trim().matches("\\d+"))
-        {
-            checkForDuplicate = false;
-            JOptionPane.showMessageDialog(null, "Quantity is not valid!");
-            return;
-        }
-        if(setPublisherId.getText().trim().isEmpty() || !setPublisherId.getText().trim().matches("\\d+"))
-        {
-            checkForDuplicate = false;
-            JOptionPane.showMessageDialog(null, "Publisher Id is not valid!");
-            return;
-        }
-        if(setAuthorId.getText().trim().isEmpty() || !setAuthorId.getText().trim().matches("\\d+"))
-        {
-            checkForDuplicate = false;
-            JOptionPane.showMessageDialog(null, "Author Id is not valid!");
-            return;
-        }
-        if(setAuthorName.getText().trim().isEmpty() )
-        {
-            checkForDuplicate = false;
-            JOptionPane.showMessageDialog(null, "This author's name can't be found, please enter the author's name to add it!");
-            return;
-        }
-        if(setPublisherName.getText().trim().isEmpty() )
-        {
-            checkForDuplicate = false;
-            JOptionPane.showMessageDialog(null, "This publisher's name could not be found, please enter the publisher's name to add it!");
+
+    // TODO: The function works but it doesn't update on GUI, need a fix, also need
+    // TODO: a proper Logic Error check.
+    public void actionAdd() {
+        final String EMPTY_FIELD_ERROR = " cannot be empty!";
+        final String INVALID_PRICE_ERROR = "Price is not valid!";
+        final String INVALID_QUANTITY_ERROR = "Quantity is not valid!";
+        final String INVALID_ID_ERROR = "Id is not valid!";
+        final String DUPLICATE_ISBN_ERROR = "Isbn already exists!";
+        final String DUPLICATE_TITLE_ERROR = "Title already exists!";
+
+        if (setIsbn.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Isbn" + EMPTY_FIELD_ERROR);
             return;
         }
 
-
-        if(BookBUS.getInstance().checkForDuplicate(Arrays.asList(setIsbn.getText()), new String[] {"isbn"})){
-            checkForDuplicate = false;
-            JOptionPane.showMessageDialog(null, "Isbn already exists!");
-            return;
-        }
-        if(BookBUS.getInstance().checkForDuplicate(Arrays.asList(setTitle.getText()), new String[] {"title"})){
-            checkForDuplicate = false;
-            JOptionPane.showMessageDialog(null, "Title already exists!");
+        if (setTitle.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Title" + EMPTY_FIELD_ERROR);
             return;
         }
 
-
-        if(checkForDuplicate) {
-            Status newStatus = Status.valueOf(setStatus.getSelectedItem().toString().toUpperCase());
-            BookBUS.getInstance().addModel(new BookModel(setIsbn.getText(), setTitle.getText(), setDescription.getText(), setImageLink.getText(), Integer.parseInt(setPrice.getText()), Integer.parseInt(setQuantity.getText().trim()), newStatus, Integer.parseInt(setPublisherId.getText().trim()), Integer.parseInt(setAuthorId.getText().trim())));
-            JOptionPane.showMessageDialog(null, "Completed!");
+        try {
+            int price = Integer.parseInt(setPrice.getText().trim());
+            if (price <= 0) {
+                throw new NumberFormatException();
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, INVALID_PRICE_ERROR);
+            return;
         }
+
+        try {
+            int quantity = Integer.parseInt(setQuantity.getText().trim());
+            if (quantity <= 0) {
+                throw new NumberFormatException();
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, INVALID_QUANTITY_ERROR);
+            return;
+        }
+
+        try {
+            int publisherId = Integer.parseInt(setPublisherId.getText().trim());
+            PublisherModel publisher = PublisherBUS.getInstance().getModelById(publisherId);
+            if (publisher == null) {
+                throw new NumberFormatException();
+            }
+            setPublisherName.setText(publisher.getName());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Publisher " + INVALID_ID_ERROR);
+            return;
+        }
+
+        try {
+            int authorId = Integer.parseInt(setAuthorId.getText().trim());
+            AuthorModel author = AuthorBUS.getInstance().getModelById(authorId);
+            if (author == null) {
+                throw new NumberFormatException();
+            }
+            setAuthorName.setText(author.getName());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Author " + INVALID_ID_ERROR);
+            return;
+        }
+
+        if (BookBUS.getInstance().checkForDuplicate(Arrays.asList(setIsbn.getText()),
+                new String[] { "isbn" })) {
+            JOptionPane.showMessageDialog(null, DUPLICATE_ISBN_ERROR);
+            return;
+        }
+        if (BookBUS.getInstance().checkForDuplicate(Arrays.asList(setTitle.getText()),
+                new String[] { "title" })) {
+            JOptionPane.showMessageDialog(null, DUPLICATE_TITLE_ERROR);
+            return;
+        }
+
+        Status newStatus = Status.valueOf(setStatus.getSelectedItem().toString().toUpperCase());
+        BookModel book = new BookModel();
+        book.setIsbn(setIsbn.getText());
+        book.setTitle(setTitle.getText());
+        book.setDescription(setDescription.getText());
+        book.setImage(setImageLink.getText());
+        book.setPrice(Integer.parseInt(setPrice.getText().trim()));
+        book.setQuantity(Integer.parseInt(setQuantity.getText().trim()));
+        book.setStatus(newStatus);
+        book.setPublisherId(Integer.parseInt(setPublisherId.getText().trim()));
+        book.setAuthorId(Integer.parseInt(setAuthorId.getText().trim()));
+        BookBUS.getInstance().addModel(book);
+        JOptionPane.showMessageDialog(null, "Completed!");
     }
-    
 
     /**
      * @param args the command line arguments
