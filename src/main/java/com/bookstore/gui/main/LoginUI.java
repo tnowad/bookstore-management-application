@@ -2,6 +2,7 @@ package com.bookstore.gui.main;
 
 import com.bookstore.bus.UserBUS;
 import com.bookstore.gui.component.button.Button;
+import com.bookstore.gui.component.label.IconLabel;
 import com.bookstore.gui.factories.UIFactory;
 import com.bookstore.models.UserModel;
 import com.bookstore.services.Authentication;
@@ -18,6 +19,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.JToggleButton;
 import javax.swing.WindowConstants;
 
 public class LoginUI extends JFrame {
@@ -35,6 +37,8 @@ public class LoginUI extends JFrame {
   private JLabel usernameLabel;
   private JPasswordField passwordField;
   private JTextField usernameTextField;
+  JToggleButton toggleButton;
+  ImageIcon showIcon, hideIcon;
 
   public LoginUI() {
     initComponents();
@@ -60,7 +64,6 @@ public class LoginUI extends JFrame {
 
     loginPanel = new JPanel();
 
-    loginPanel.setLayout(new GridBagLayout());
     usernameLabel = new JLabel();
     usernameLabel.setText("Username");
     passwordLabel = new JLabel();
@@ -68,14 +71,18 @@ public class LoginUI extends JFrame {
     usernameTextField = new JTextField();
     passwordField = new JPasswordField();
     loginButton = new Button("Login");
-    loginButton.addActionListener(loginButtonActionListener);
     exitButton = new Button("Exit");
-    exitButton.addActionListener(exitButtonActionListener);
     registerButton = new Button("Register");
-    registerButton.addActionListener(registerButtonActionListener);
     forgotPasswordButton = new Button("Forgot Password");
     forgotPasswordButton.setPreferredSize(new Dimension(150, 30));
+    toggleButton = new JToggleButton(hideIcon);
+    showIcon = new ImageIcon("src/main/java/resources/icons/show_password.png");
+    hideIcon = new ImageIcon("src/main/java/resources/icons/hide_password.png");
+    loginButton.addActionListener(loginButtonActionListener);
+    exitButton.addActionListener(exitButtonActionListener);
+    registerButton.addActionListener(registerButtonActionListener);
     forgotPasswordButton.addActionListener(forgotPasswordButtonActionListener);
+    toggleButton.addActionListener(showPasswordButtonActionListener);
 
     loginPanel.setLayout(new GridBagLayout());
     GridBagConstraints gridBagConstraints = new GridBagConstraints();
@@ -94,7 +101,16 @@ public class LoginUI extends JFrame {
     loginPanel.add(passwordLabel, gridBagConstraints);
     gridBagConstraints.gridy = 3;
     loginPanel.add(passwordField, gridBagConstraints);
+    Button addButton = new Button("");
 
+    addButton.add(toggleButton);
+
+    gridBagConstraints.gridx = 4;
+    gridBagConstraints.gridy = 3;
+
+    loginPanel.add(toggleButton, gridBagConstraints);
+
+    gridBagConstraints.gridx = 0;
     gridBagConstraints.gridwidth = 1;
     gridBagConstraints.gridy = 4;
     loginPanel.add(loginButton, gridBagConstraints);
@@ -108,6 +124,16 @@ public class LoginUI extends JFrame {
     add(LogoLabel);
     add(loginPanel);
   }
+
+  private ActionListener showPasswordButtonActionListener = e -> {
+    if (toggleButton.isSelected()) {
+      passwordField.setEchoChar((char) 0);
+      toggleButton.setIcon(showIcon);
+    } else {
+      passwordField.setEchoChar('\u25cf');
+      toggleButton.setIcon(hideIcon);
+    }
+  };
 
   private ActionListener loginButtonActionListener = e -> {
     String username = usernameTextField.getText();
