@@ -11,6 +11,7 @@ import com.bookstore.models.AddressModel;
 import com.bookstore.models.UserModel;
 import com.bookstore.services.Authentication;
 import com.bookstore.util.PasswordUtil;
+import com.bookstore.gui.component.button.Button;
 
 public class ProfileSettings extends JPanel {
     private JLabel cityLabel;
@@ -29,12 +30,12 @@ public class ProfileSettings extends JPanel {
     private JTextField nameTextField;
     private JLabel phoneLabel;
     private JTextField phoneTextField;
-    private JButton resetButton;
+    private Button resetButton;
     private JLabel stateLabel;
     private JTextField stateTextField;
     private JLabel streetLabel;
     private JTextField streetTextField;
-    private JButton updateButton;
+    private Button updateButton;
     private JLabel updateLabel;
     private JLabel usernameLabel;
     private JTextField usernameTextField;
@@ -50,66 +51,6 @@ public class ProfileSettings extends JPanel {
         initComponents();
         updateInformation();
         handleEvent();
-    }
-
-    private void handleEvent() {
-
-        updateButton.addActionListener(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        updateUserInformationButtonActionPerformed(evt);
-                    }
-                });
-        resetButton.addActionListener(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        resetUserInformationButtonActionPerformed(evt);
-                    }
-                });
-    }
-
-    protected void updateUserInformationButtonActionPerformed(ActionEvent evt) {
-        String confirmPassword = new String(confirmPasswordField.getPassword());
-        if (PasswordUtil.checkPassword(confirmPassword, currentUser.getPassword())) {
-            currentUser.setName(nameTextField.getText());
-            currentUser.setUsername(usernameTextField.getText());
-            currentUser.setEmail(emailTextField.getText());
-            currentUser.setPhone(phoneTextField.getText());
-            addressModel.setCity(cityTextField.getText());
-            addressModel.setState(stateTextField.getText());
-            addressModel.setStreet(stateTextField.getText());
-            addressModel.setZip(zipTextField.getText());
-
-            userBus.updateModel(currentUser);
-            addressBus.updateModel(addressModel);
-            confirmPasswordField.setText("");
-            JOptionPane.showMessageDialog(null, "Confirm Password Successfully");
-        } else {
-            JOptionPane.showMessageDialog(null, "Passwords do not match");
-        }
-    }
-
-    protected void resetUserInformationButtonActionPerformed(ActionEvent evt) {
-        confirmPasswordField.setText("");
-        cityTextField.setText("");
-        emailTextField.setText("");
-        nameTextField.setText("");
-        phoneTextField.setText("");
-        stateTextField.setText("");
-        stateTextField.setText("");
-        usernameTextField.setText("");
-        zipTextField.setText("");
-    }
-
-    private void updateInformation() {
-        cityTextField.setText(addressModel.getCity());
-        streetTextField.setText(addressModel.getStreet());
-        zipTextField.setText(addressModel.getZip());
-        stateTextField.setText(addressModel.getState());
-        usernameTextField.setText(currentUser.getUsername());
-        nameTextField.setText(currentUser.getName());
-        emailTextField.setText(currentUser.getEmail());
-        phoneTextField.setText(currentUser.getPhone());
     }
 
     private void initComponents() {
@@ -139,8 +80,8 @@ public class ProfileSettings extends JPanel {
         confirmLabel = new JLabel();
         confirmPasswordField = new JPasswordField();
         groupButtonPanel = new JPanel();
-        updateButton = new JButton();
-        resetButton = new JButton();
+        updateButton = new Button();
+        resetButton = new Button();
 
         setPreferredSize(new Dimension(550, 500));
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -246,23 +187,71 @@ public class ProfileSettings extends JPanel {
 
         groupButtonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 30, 5));
 
-        updateButton.setText("Update");
-        updateButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                updateButtonActionPerformed(evt);
-            }
-        });
         groupButtonPanel.add(updateButton);
 
-        resetButton.setText("Reset");
-        resetButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                resetButtonActionPerformed(evt);
-            }
-        });
         groupButtonPanel.add(resetButton);
 
         add(groupButtonPanel);
+    }
+
+    private void updateInformation() {
+        cityTextField.setText(addressModel.getCity());
+        streetTextField.setText(addressModel.getStreet());
+        zipTextField.setText(addressModel.getZip());
+        stateTextField.setText(addressModel.getState());
+        usernameTextField.setText(currentUser.getUsername());
+        nameTextField.setText(currentUser.getName());
+        emailTextField.setText(currentUser.getEmail());
+        phoneTextField.setText(currentUser.getPhone());
+    }
+
+    private void handleEvent() {
+
+        updateButton.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        updateUserInformationButtonActionPerformed(evt);
+                    }
+                });
+        resetButton.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        resetUserInformationButtonActionPerformed(evt);
+                    }
+                });
+    }
+
+    protected void updateUserInformationButtonActionPerformed(ActionEvent evt) {
+        String confirmPassword = new String(confirmPasswordField.getPassword());
+        if (PasswordUtil.checkPassword(confirmPassword, currentUser.getPassword())) {
+            currentUser.setName(nameTextField.getText());
+            currentUser.setUsername(usernameTextField.getText());
+            currentUser.setEmail(emailTextField.getText());
+            currentUser.setPhone(phoneTextField.getText());
+            addressModel.setCity(cityTextField.getText());
+            addressModel.setState(stateTextField.getText());
+            addressModel.setStreet(stateTextField.getText());
+            addressModel.setZip(zipTextField.getText());
+
+            userBus.updateModel(currentUser);
+            addressBus.updateModel(addressModel);
+            confirmPasswordField.setText("");
+            JOptionPane.showMessageDialog(null, "Confirm Password Successfully");
+        } else {
+            JOptionPane.showMessageDialog(null, "Passwords do not match");
+        }
+    }
+
+    protected void resetUserInformationButtonActionPerformed(ActionEvent evt) {
+        confirmPasswordField.setText("");
+        cityTextField.setText("");
+        emailTextField.setText("");
+        nameTextField.setText("");
+        phoneTextField.setText("");
+        stateTextField.setText("");
+        stateTextField.setText("");
+        usernameTextField.setText("");
+        zipTextField.setText("");
     }
 
     private void nameTextFieldActionPerformed(ActionEvent evt) {
@@ -278,14 +267,6 @@ public class ProfileSettings extends JPanel {
     }
 
     private void zipTextFieldActionPerformed(ActionEvent evt) {
-
-    }
-
-    private void updateButtonActionPerformed(ActionEvent evt) {
-
-    }
-
-    private void resetButtonActionPerformed(ActionEvent evt) {
 
     }
 
