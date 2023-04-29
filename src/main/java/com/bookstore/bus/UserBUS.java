@@ -6,6 +6,7 @@ import com.bookstore.models.UserModel;
 import com.bookstore.models.UserModel.Role;
 import com.bookstore.models.UserModel.Status;
 import com.bookstore.util.PasswordUtil;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -220,11 +221,16 @@ public class UserBUS implements IBUS<UserModel> {
     userModel.setStatus(
       userModel.getStatus() != null ? userModel.getStatus() : Status.ACTIVE
     );
-
-    int id = UserDAO.getInstance().insert(mapToEntity(userModel));
-    userModel.setId(id);
-    userList.add(userModel);
-    return id;
+    try {
+      int id = UserDAO.getInstance().insert(mapToEntity(userModel));
+      userModel.setId(id);
+      userList.add(userModel);
+      return id;
+    } catch (SQLException e) {
+      throw new IllegalArgumentException(
+        "Username already exists. Please try again."
+      );
+    }
   }
 
   private boolean isValidEmailAddress(String email) {

@@ -74,6 +74,7 @@ public class LoginUI extends JFrame {
     registerButton = new Button("Register");
     registerButton.addActionListener(registerButtonActionListener);
     forgotPasswordButton = new Button("Forgot Password");
+    forgotPasswordButton.setPreferredSize(new Dimension(150, 30));
     forgotPasswordButton.addActionListener(forgotPasswordButtonActionListener);
 
     loginPanel.setLayout(new GridBagLayout());

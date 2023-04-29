@@ -2,7 +2,7 @@ package com.bookstore.gui.form.salesman.view;
 
 import javax.swing.*;
 
-import com.bookstore.gui.component.button.Label;
+import com.bookstore.gui.component.label.Label;
 
 public class PendingOrderDetail extends JFrame {
 

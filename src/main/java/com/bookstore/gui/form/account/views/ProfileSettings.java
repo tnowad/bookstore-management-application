@@ -10,6 +10,7 @@ import com.bookstore.bus.UserBUS;
 import com.bookstore.models.AddressModel;
 import com.bookstore.models.UserModel;
 import com.bookstore.services.Authentication;
+import com.bookstore.util.PasswordUtil;
 
 public class ProfileSettings extends JPanel {
     private JLabel cityLabel;
@@ -69,7 +70,7 @@ public class ProfileSettings extends JPanel {
 
     protected void updateUserInformationButtonActionPerformed(ActionEvent evt) {
         String confirmPassword = new String(confirmPasswordField.getPassword());
-        if (confirmPassword.equals(currentUser.getPassword())) {
+        if (PasswordUtil.checkPassword(confirmPassword, currentUser.getPassword())) {
             currentUser.setName(nameTextField.getText());
             currentUser.setUsername(usernameTextField.getText());
             currentUser.setEmail(emailTextField.getText());

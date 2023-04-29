@@ -1,19 +1,19 @@
-package com.bookstore.gui.component.button;
+package com.bookstore.gui.component.textfield;
+
+import javax.swing.JTextField;
 
 import java.awt.Cursor;
 import java.awt.Dimension;
-import javax.swing.JLabel;
 
 import com.bookstore.gui.Theme.ThemeColor;
 import com.bookstore.gui.Theme.ThemeFont;
 
-public class Label extends JLabel {
-    public Label(String name) {
-        initComponents(name);
+public class TextField extends JTextField {
+    public TextField() {
+        initComponents();
     }
 
-    private void initComponents(String name) {
-        setText(name);
+    private void initComponents() {
         setFont(new ThemeFont().getSmallFont());
         setLabelSize(100, 50);
         setForeground(new ThemeColor().getButtonForeground());
@@ -24,5 +24,4 @@ public class Label extends JLabel {
     public void setLabelSize(int width, int height) {
         setPreferredSize(new Dimension(width, height));
     }
-
 }

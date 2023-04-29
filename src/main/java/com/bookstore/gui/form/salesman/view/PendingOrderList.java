@@ -5,7 +5,7 @@ import javax.swing.JTextField;
 
 import com.bookstore.bus.OrderBUS;
 import com.bookstore.gui.component.button.Button;
-import com.bookstore.gui.component.button.Label;
+import com.bookstore.gui.component.label.Label;
 
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
