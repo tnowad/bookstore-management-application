@@ -1,108 +1,113 @@
 package com.bookstore.gui.form.salesman.view;
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 
+import com.bookstore.gui.component.button.Button;
 import com.bookstore.gui.component.label.Label;
 
 public class PendingOrderDetail extends JFrame {
 
-  // "ISBN", "Title ", "Quantity", "Price"
-
   public PendingOrderDetail() {
     initComponents();
+    handleEvent();
     // listOrder();
   }
 
   private void initComponents() {
 
     jPanel1 = new JPanel();
-    jLabel1 = new Label("Customer Information");
-    jLabel2 = new Label("Fullname");
-    jTextField1 = new JTextField();
-    jLabel3 = new Label("Address");
-    jTextField2 = new JTextField();
-    jLabel4 = new Label("Phone Number");
-    jTextField3 = new javax.swing.JTextField();
-    jPanel2 = new javax.swing.JPanel();
-    jScrollPane1 = new javax.swing.JScrollPane();
-    orderTableList = new javax.swing.JTable();
-    jPanel3 = new javax.swing.JPanel();
-    jLabel5 = new Label("Total price");
-    jTextField4 = new javax.swing.JTextField();
-    jButton1 = new javax.swing.JButton();
-    jButton2 = new javax.swing.JButton();
+    customerInforLabel = new Label("Customer Information");
+    nameLabel = new Label("Fullname");
+    nameTextField = new JTextField();
+    addressLabel = new Label("Address");
+    addressTextField = new JTextField();
+    phoneLabel = new Label("Phone Number");
+    phoneTextField = new JTextField();
+    jPanel2 = new JPanel();
+    tableListScrollPane = new JScrollPane();
+    orderTableList = new JTable();
+    jPanel3 = new JPanel();
+    totalPriceLabel = new Label("Total price");
+    totalPriceTextField = new JTextField();
+    confirmButton = new Button();
+    rejectButton = new Button();
 
-    setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+    setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-    jPanel1.setPreferredSize(new java.awt.Dimension(471, 200));
+    jPanel1.setPreferredSize(new Dimension(471, 200));
     jPanel1.setLayout(null);
 
-    jPanel1.add(jLabel1);
+    jPanel1.add(customerInforLabel);
 
-    jLabel2.setText("Full name:");
-    jPanel1.add(jLabel2);
+    nameLabel.setText("Full name:");
+    jPanel1.add(nameLabel);
 
-    jTextField1.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
-        jTextField1ActionPerformed(evt);
+    nameTextField.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent evt) {
+        nameTextFieldActionPerformed(evt);
       }
     });
-    jPanel1.add(jTextField1);
-    jTextField1.setBounds(130, 70, 220, 28);
+    jPanel1.add(nameTextField);
+    nameTextField.setBounds(130, 70, 220, 28);
 
-    jLabel3.setText("Address:");
-    jPanel1.add(jLabel3);
+    addressLabel.setText("Address:");
+    jPanel1.add(addressLabel);
 
-    jTextField2.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
-        jTextField2ActionPerformed(evt);
+    addressTextField.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent evt) {
+        addressTextField2ActionPerforme(evt);
       }
     });
-    jPanel1.add(jTextField2);
-    jTextField2.setBounds(130, 110, 220, 28);
+    jPanel1.add(addressTextField);
+    addressTextField.setBounds(130, 110, 220, 28);
 
-    jLabel4.setText("Phone number:");
-    jPanel1.add(jLabel4);
-    jPanel1.add(jTextField3);
-    jTextField3.setBounds(130, 150, 220, 28);
+    phoneLabel.setText("Phone number:");
+    jPanel1.add(phoneLabel);
+    jPanel1.add(phoneTextField);
+    phoneTextField.setBounds(130, 150, 220, 28);
 
-    getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_START);
+    getContentPane().add(jPanel1, BorderLayout.PAGE_START);
 
-    jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.LINE_AXIS));
+    jPanel2.setLayout(new BoxLayout(jPanel2, BoxLayout.LINE_AXIS));
 
-    jScrollPane1.setViewportView(orderTableList);
+    tableListScrollPane.setViewportView(orderTableList);
 
-    jPanel2.add(jScrollPane1);
+    jPanel2.add(tableListScrollPane);
 
-    getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);
+    getContentPane().add(jPanel2, BorderLayout.CENTER);
 
-    jPanel3.setLayout(new javax.swing.BoxLayout(jPanel3, javax.swing.BoxLayout.LINE_AXIS));
+    jPanel3.setLayout(new BoxLayout(jPanel3, BoxLayout.LINE_AXIS));
 
-    jPanel3.add(jLabel5);
-    jPanel3.add(jTextField4);
+    jPanel3.add(totalPriceLabel);
+    jPanel3.add(totalPriceTextField);
 
-    jButton1.setText("Confirm");
-    jPanel3.add(jButton1);
+    confirmButton.setText("Confirm");
+    jPanel3.add(confirmButton);
 
-    jButton2.setText("Reject");
-    jPanel3.add(jButton2);
+    rejectButton.setText("Reject");
+    jPanel3.add(rejectButton);
 
-    getContentPane().add(jPanel3, java.awt.BorderLayout.PAGE_END);
+    getContentPane().add(jPanel3, BorderLayout.PAGE_END);
 
     pack();
   }
 
-  private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {
+  private void handleEvent() {
   }
 
-  private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {
+  private void nameTextFieldActionPerformed(ActionEvent evt) {
+  }
+
+  private void addressTextField2ActionPerforme(ActionEvent evt) {
   }
 
   public static void main(String args[]) {
     try {
-      for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+      for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
         if ("Nimbus".equals(info.getName())) {
-          javax.swing.UIManager.setLookAndFeel(info.getClassName());
+          UIManager.setLookAndFeel(info.getClassName());
           break;
         }
       }
@@ -115,32 +120,32 @@ public class PendingOrderDetail extends JFrame {
     } catch (IllegalAccessException ex) {
       java.util.logging.Logger.getLogger(PendingOrderDetail.class.getName()).log(java.util.logging.Level.SEVERE, null,
           ex);
-    } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+    } catch (UnsupportedLookAndFeelException ex) {
       java.util.logging.Logger.getLogger(PendingOrderDetail.class.getName()).log(java.util.logging.Level.SEVERE, null,
           ex);
     }
 
-    java.awt.EventQueue.invokeLater(new Runnable() {
+    EventQueue.invokeLater(new Runnable() {
       public void run() {
         new PendingOrderDetail().setVisible(true);
       }
     });
   }
 
-  private javax.swing.JButton jButton1;
-  private javax.swing.JButton jButton2;
-  private Label jLabel1;
-  private Label jLabel2;
-  private Label jLabel3;
-  private Label jLabel4;
-  private Label jLabel5;
-  private javax.swing.JPanel jPanel1;
-  private javax.swing.JPanel jPanel2;
-  private javax.swing.JPanel jPanel3;
-  private javax.swing.JScrollPane jScrollPane1;
-  private javax.swing.JTable orderTableList;
-  private javax.swing.JTextField jTextField1;
-  private javax.swing.JTextField jTextField2;
-  private javax.swing.JTextField jTextField3;
-  private javax.swing.JTextField jTextField4;
+  private Button confirmButton;
+  private Button rejectButton;
+  private Label customerInforLabel;
+  private Label nameLabel;
+  private Label addressLabel;
+  private Label phoneLabel;
+  private Label totalPriceLabel;
+  private JPanel jPanel1;
+  private JPanel jPanel2;
+  private JPanel jPanel3;
+  private JScrollPane tableListScrollPane;
+  private JTable orderTableList;
+  private JTextField nameTextField;
+  private JTextField addressTextField;
+  private JTextField phoneTextField;
+  private JTextField totalPriceTextField;
 }
