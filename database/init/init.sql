@@ -10,7 +10,7 @@ CREATE TABLE
         `isbn` VARCHAR(20) NOT NULL,
         `title` NVARCHAR (255) NOT NULL,
         `description` NVARCHAR (255) NOT NULL,
-        `image` VARCHAR(255) NOT NULL,
+        `image` TEXT DEFAULT NULL,
         `price` INT NOT NULL,
         `quantity` INT NOT NULL,
         `status` ENUM (

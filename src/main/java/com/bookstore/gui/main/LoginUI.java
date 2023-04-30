@@ -76,8 +76,10 @@ public class LoginUI extends JFrame {
     registerButton = new Button("Register");
     forgotPasswordButton = new Button("Forgot Password");
     forgotPasswordButton.setPreferredSize(new Dimension(150, 30));
-    showPassword = new ImageIcon("src/main/java/resources/icons/show_password.png");
-    hidePassword = new ImageIcon("src/main/java/resources/icons/hide_password.png");
+    showPassword =
+      new ImageIcon("src/main/java/resources/icons/show_password.png");
+    hidePassword =
+      new ImageIcon("src/main/java/resources/icons/hide_password.png");
     toggleButton = new JToggleButton(hidePassword);
     loginButton.addActionListener(loginButtonActionListener);
     exitButton.addActionListener(exitButtonActionListener);
@@ -130,7 +132,7 @@ public class LoginUI extends JFrame {
     if (toggleButton.isSelected()) {
       passwordField.setEchoChar((char) 0);
       toggleButton.setIcon(showPassword);
-     } else {
+    } else {
       passwordField.setEchoChar('\u25cf');
       toggleButton.setIcon(hidePassword);
     }
