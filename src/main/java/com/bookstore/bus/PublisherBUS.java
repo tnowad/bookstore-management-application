@@ -38,6 +38,19 @@ public class PublisherBUS implements IBUS<PublisherModel> {
     }
     return null;
   }
+  public PublisherModel getModelByPublisherName(String name) {
+    for (PublisherModel publisherModel : publisherList) {
+      if (publisherModel.getName().equals(name)) {
+        return publisherModel;
+      }
+    }
+
+    PublisherModel publisherModel = PublisherDAO.getInstance().getUserByPublisherName(name);
+    if (publisherModel != null) {
+      publisherList.add(publisherModel);
+    }
+    return publisherModel;
+  }
 
   private PublisherModel mapToEntity(PublisherModel from) {
     PublisherModel to = new PublisherModel();

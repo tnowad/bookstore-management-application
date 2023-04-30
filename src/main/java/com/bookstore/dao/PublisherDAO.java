@@ -114,4 +114,22 @@ public class PublisherDAO implements IDAO<PublisherModel> {
       return Collections.emptyList();
     }
   }
+  public PublisherModel getUserByPublisherName(String name) {
+    String query = "SELECT * FROM publishers WHERE name = ?";
+    Object[] args = { name };
+    try (
+      PreparedStatement pst = DatabaseConnection.getPreparedStatement(
+        query,
+        args
+      );
+      ResultSet rs = pst.executeQuery()
+    ) {
+      if (rs.next()) {
+        return createPublisherModelFromResultSet(rs);
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return null;
+  }
 }

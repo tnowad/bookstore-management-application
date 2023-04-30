@@ -114,4 +114,22 @@ public class AuthorDAO implements IDAO<AuthorModel> {
       return Collections.emptyList();
     }
   }
+  public AuthorModel getModelByAuthorName(String name) {
+    String query = "SELECT * FROM authors WHERE name = ?";
+    Object[] args = { name };
+    try (
+      PreparedStatement pst = DatabaseConnection.getPreparedStatement(
+        query,
+        args
+      );
+      ResultSet rs = pst.executeQuery()
+    ) {
+      if (rs.next()) {
+        return createAuthorModelFromResultSet(rs);
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return null;
+  }
 }

@@ -38,6 +38,19 @@ public class AuthorBUS implements IBUS<AuthorModel> {
     }
     return null;
   }
+  public AuthorModel getModelByAuthorName(String name) {
+    for (AuthorModel authorModel : authorList) {
+      if (authorModel.getName().equals(name)) {
+        return authorModel;
+      }
+    }
+
+    AuthorModel authorModel = AuthorDAO.getInstance().getModelByAuthorName(name);
+    if (authorModel != null) {
+      authorList.add(authorModel);
+    }
+    return authorModel;
+  }
 
   private AuthorModel mapToEntity(AuthorModel from) {
     AuthorModel to = new AuthorModel();
