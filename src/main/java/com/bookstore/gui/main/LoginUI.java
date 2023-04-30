@@ -42,6 +42,7 @@ public class LoginUI extends JFrame {
 
   public LoginUI() {
     initComponents();
+    getRootPane().setDefaultButton(loginButton);
     setPreferredSize(new Dimension(700, 600));
     setMinimumSize(new Dimension(700, 600));
     setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

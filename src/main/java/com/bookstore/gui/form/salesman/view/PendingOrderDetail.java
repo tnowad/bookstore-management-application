@@ -3,16 +3,41 @@ package com.bookstore.gui.form.salesman.view;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.List;
 
+import com.bookstore.bus.OrderBUS;
+import com.bookstore.bus.UserBUS;
 import com.bookstore.gui.component.button.Button;
 import com.bookstore.gui.component.label.Label;
+import com.bookstore.models.OrderModel;
+import com.bookstore.models.UserModel;
 
 public class PendingOrderDetail extends JFrame {
+  private int customerId;
+  private OrderBUS orderBUS;
+  private List<OrderModel> ordersList;
+  private OrderModel orderModel;
+  private UserModel userModel;
+  private UserBUS userBUS;
 
-  public PendingOrderDetail() {
+  public PendingOrderDetail(int customerId) {
+    this.customerId = customerId;
+    userBUS = UserBUS.getInstance();
+    userModel = userBUS.getModelById(customerId);
+    orderBUS = OrderBUS.getInstance();
+    ordersList = orderBUS.getAllModels();
+
+    orderModel = ordersList.stream()
+        .filter(order -> order.getCustomerId() == this.customerId)
+        .findFirst()
+        .orElse(null);
     initComponents();
     handleEvent();
-    // listOrder();
+    updateInformation();
+  }
+
+  private void updateInformation() {
+
   }
 
   private void initComponents() {
@@ -127,7 +152,7 @@ public class PendingOrderDetail extends JFrame {
 
     EventQueue.invokeLater(new Runnable() {
       public void run() {
-        new PendingOrderDetail().setVisible(true);
+        new PendingOrderDetail(0).setVisible(true);
       }
     });
   }
