@@ -52,7 +52,7 @@ public class PendingOrderList extends JPanel {
 
         headerTopPanel.add(customerNameLabel);
 
-        customerNameTextField.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        customerNameTextField.setFont(new java.awt.Font("Arial", 0, 14));
         customerNameTextField.setPreferredSize(new java.awt.Dimension(500, 30));
         customerNameTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -67,7 +67,7 @@ public class PendingOrderList extends JPanel {
 
         headerBottomPanel.add(phoneNumberLabel);
 
-        phoneNumberTextField.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        phoneNumberTextField.setFont(new java.awt.Font("Arial", 0, 14));
         phoneNumberTextField.setPreferredSize(new java.awt.Dimension(150, 30));
         phoneNumberTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -78,7 +78,7 @@ public class PendingOrderList extends JPanel {
 
         headerBottomPanel.add(emailLabel);
 
-        emailTextField.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        emailTextField.setFont(new java.awt.Font("Arial", 0, 14));
         emailTextField.setPreferredSize(new java.awt.Dimension(350, 30));
         headerBottomPanel.add(emailTextField);
 
@@ -100,7 +100,7 @@ public class PendingOrderList extends JPanel {
 
         topFooterPanel.add(totalCostLabel);
 
-        totalCostMoneyTextfield.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        totalCostMoneyTextfield.setFont(new java.awt.Font("Arial", 0, 14));
         totalCostMoneyTextfield.setPreferredSize(new java.awt.Dimension(200, 30));
         totalCostMoneyTextfield.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -130,7 +130,7 @@ public class PendingOrderList extends JPanel {
         footerPanel.add(bottomFooterPanel);
 
         add(footerPanel, java.awt.BorderLayout.PAGE_END);
-    }// </editor-fold>
+    }
 
     private void listOrder() {
         // "ID", "Provider ID", "Employee ID", "Price", "Status"
@@ -182,7 +182,6 @@ public class PendingOrderList extends JPanel {
         // TODO add your handling code here:
     }
 
-    // Variables declaration - do not modify
     private Button accpetButton;
     private JPanel bottomFooterPanel;
     private Label customerNameLabel;
@@ -203,5 +202,4 @@ public class PendingOrderList extends JPanel {
     private JPanel topFooterPanel;
     private Label totalCostLabel;
     private JTextField totalCostMoneyTextfield;
-    // End of variables declaration
 }
