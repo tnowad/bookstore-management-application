@@ -1,6 +1,7 @@
 package com.bookstore.models;
 
 public class EmployeeModel {
+
   private int userId;
   private int salary;
   private EmployeeType employeeType;
@@ -8,18 +9,22 @@ public class EmployeeModel {
 
   public enum EmployeeType {
     EMPLOYEE_MANAGER,
-    EMPLOYEE_SALES
+    EMPLOYEE_SALES,
   }
 
-  public EmployeeModel(int userId, int salary, EmployeeType employeeType, String contactInformation) {
+  public EmployeeModel(
+    int userId,
+    int salary,
+    EmployeeType employeeType,
+    String contactInformation
+  ) {
     this.userId = userId;
     this.salary = salary;
     this.employeeType = employeeType;
     this.contactInformation = contactInformation;
   }
 
-  public EmployeeModel() {
-  }
+  public EmployeeModel() {}
 
   public int getUserId() {
     return userId;
@@ -56,4 +61,14 @@ public class EmployeeModel {
     this.contactInformation = contactInformation;
   }
 
+  @Override
+  public String toString() {
+    return String.format(
+      "userId: %d\nsalary: %d\nemployeeType: %s\ncontactInformation: %s",
+      userId,
+      salary,
+      employeeType,
+      contactInformation
+    );
+  }
 }
