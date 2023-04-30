@@ -108,10 +108,35 @@ public class AddProductFrame extends javax.swing.JFrame {
         getContentPane().add(publisherText);
 
         setPublisherId.setPreferredSize(new java.awt.Dimension(140, 22));
+        setPublisherId.addFocusListener(new FocusListener() {
+
+            @Override
+            public void focusGained(FocusEvent e) {
+
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                checkPublisherId();
+            }
+
+        });
         getContentPane().add(setPublisherId);
 
         setPublisherName.setPreferredSize(new java.awt.Dimension(200, 22));
-        setPublisherName.setEditable(false);
+        setPublisherName.addFocusListener(new FocusListener() {
+
+            @Override
+            public void focusGained(FocusEvent e) {
+
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                checkPublisherName();
+            }
+
+        });
         getContentPane().add(setPublisherName);
 
         authorText.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
@@ -120,10 +145,35 @@ public class AddProductFrame extends javax.swing.JFrame {
         getContentPane().add(authorText);
 
         setAuthorId.setPreferredSize(new java.awt.Dimension(140, 22));
+        setAuthorId.addFocusListener(new FocusListener() {
+
+            @Override
+            public void focusGained(FocusEvent e) {
+
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                checkAuthorId();
+            }
+
+        });
         getContentPane().add(setAuthorId);
 
         setAuthorName.setPreferredSize(new java.awt.Dimension(200, 22));
-        setAuthorName.setEditable(false);
+        setAuthorName.addFocusListener(new FocusListener() {
+
+            @Override
+            public void focusGained(FocusEvent e) {
+
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                checkAuthorName();
+            }
+
+        });
         getContentPane().add(setAuthorName);
 
         imageText.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
@@ -214,6 +264,46 @@ public class AddProductFrame extends javax.swing.JFrame {
 
     // TODO: The function works but it doesn't update on GUI, need a fix, also need
     // TODO: a proper Logic Error check.
+    public void checkPublisherId() {
+        if (PublisherBUS.getInstance().getModelById(Integer.parseInt(setPublisherId.getText().trim())) != null) {
+            setPublisherName.setText(PublisherBUS.getInstance()
+                    .getModelById(Integer.parseInt(setPublisherId.getText().trim())).getName());
+        } else {
+            setPublisherName.setText(null);
+        }
+    }
+
+    public void checkAuthorId() {
+        if (AuthorBUS.getInstance().getModelById(Integer.parseInt(setAuthorId.getText().trim())) != null) {
+            setAuthorName.setText(
+                    AuthorBUS.getInstance().getModelById(Integer.parseInt(setAuthorId.getText().trim())).getName());
+        } else {
+            setAuthorName.setText(null);
+        }
+    }
+
+    public Boolean checkPublisherName() {
+        if (PublisherBUS.getInstance().getModelByPublisherName(setPublisherName.getText().trim()) != null) {
+            setPublisherId.setText(String.valueOf(
+                    PublisherBUS.getInstance().getModelByPublisherName(setPublisherName.getText().trim()).getId()));
+            return true;
+        } else {
+            setPublisherId.setText(null);
+            return false;
+        }
+    }
+
+    public Boolean checkAuthorName() {
+        if (AuthorBUS.getInstance().getModelByAuthorName(setAuthorName.getText().trim()) != null) {
+            setAuthorId.setText(String
+                    .valueOf(AuthorBUS.getInstance().getModelByAuthorName(setAuthorName.getText().trim()).getId()));
+            return true;
+        } else {
+            setAuthorId.setText(null);
+            return false;
+        }
+    }
+
     public void actionAdd() {
         final String EMPTY_FIELD_ERROR = " cannot be empty!";
         final String INVALID_PRICE_ERROR = "Price is not valid!";
@@ -252,27 +342,27 @@ public class AddProductFrame extends javax.swing.JFrame {
             return;
         }
 
-        try {
-            int publisherId = Integer.parseInt(setPublisherId.getText().trim());
-            PublisherModel publisher = PublisherBUS.getInstance().getModelById(publisherId);
-            if (publisher == null) {
-                throw new NumberFormatException();
-            }
-            setPublisherName.setText(publisher.getName());
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Publisher " + INVALID_ID_ERROR);
+        // try {
+        //     Integer.parseInt(setPublisherId.getText().trim());
+        // } catch (NumberFormatException e) {
+        //     JOptionPane.showMessageDialog(null, "Publisher " + INVALID_ID_ERROR);
+        //     return;
+        // }
+
+        // try {
+        //     Integer.parseInt(setAuthorId.getText().trim());
+        // } catch (NumberFormatException e) {
+        //     JOptionPane.showMessageDialog(null, "Author " + INVALID_ID_ERROR);
+        //     return;
+        // }
+
+        if (setPublisherName.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Publisher Name" + EMPTY_FIELD_ERROR);
             return;
         }
 
-        try {
-            int authorId = Integer.parseInt(setAuthorId.getText().trim());
-            AuthorModel author = AuthorBUS.getInstance().getModelById(authorId);
-            if (author == null) {
-                throw new NumberFormatException();
-            }
-            setAuthorName.setText(author.getName());
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Author " + INVALID_ID_ERROR);
+        if (setAuthorName.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Author Name" + EMPTY_FIELD_ERROR);
             return;
         }
 
@@ -287,6 +377,29 @@ public class AddProductFrame extends javax.swing.JFrame {
             return;
         }
 
+        if (!checkPublisherName()) {
+            int choice = JOptionPane.showConfirmDialog(null, "Do you want to add new publisher?");
+            if (choice == JOptionPane.YES_OPTION) {
+                PublisherModel publisherModel = new PublisherModel(0,setPublisherName.getText().trim(),"description ?");
+                PublisherBUS.getInstance().addModel(publisherModel);
+                setPublisherId.setText(String.valueOf(
+                    PublisherBUS.getInstance().getModelByPublisherName(setPublisherName.getText().trim()).getId()));
+            } else {
+                return;
+            }
+        }
+        if (!checkAuthorName()) {
+            int choice = JOptionPane.showConfirmDialog(null, "Do you want to add new author?");
+            if (choice == JOptionPane.YES_OPTION) {
+                AuthorModel authorModel = new AuthorModel(0,setAuthorName.getText().trim(),"description ?");
+                AuthorBUS.getInstance().addModel(authorModel);
+                setAuthorId.setText(String
+                    .valueOf(AuthorBUS.getInstance().getModelByAuthorName(setAuthorName.getText().trim()).getId()));
+            } else {
+                return;
+            }
+        }
+
         Status newStatus = Status.valueOf(setStatus.getSelectedItem().toString().toUpperCase());
         BookModel book = new BookModel();
         book.setIsbn(setIsbn.getText());
@@ -296,8 +409,9 @@ public class AddProductFrame extends javax.swing.JFrame {
         book.setPrice(Integer.parseInt(setPrice.getText().trim()));
         book.setQuantity(Integer.parseInt(setQuantity.getText().trim()));
         book.setStatus(newStatus);
-        book.setPublisherId(Integer.parseInt(setPublisherId.getText().trim()));
-        book.setAuthorId(Integer.parseInt(setAuthorId.getText().trim()));
+        book.setPublisherId(PublisherBUS.getInstance().getModelByPublisherName(setPublisherName.getText().trim()).getId());
+        System.out.println(setPublisherName.getText().trim());
+        book.setAuthorId(AuthorBUS.getInstance().getModelByAuthorName(setAuthorName.getText().trim()).getId());
         BookBUS.getInstance().addModel(book);
         JOptionPane.showMessageDialog(null, "Completed!");
     }

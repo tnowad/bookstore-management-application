@@ -159,26 +159,7 @@ public class PopupUser extends javax.swing.JFrame {
     Save.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/images/save.png"))); // NOI18N
     Save.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
-        Object selectedStatusItem = SetStatus.getSelectedItem();
-        Object selectedRoleItem = SetRole.getSelectedItem();
-        if (selectedStatusItem != null && selectedRoleItem != null) {
-          String statusString = selectedStatusItem.toString().toUpperCase();
-          Status newstatus = Status.valueOf(statusString);
-          String roleString = selectedRoleItem.toString().toUpperCase();
-          Role newRole = Role.valueOf(roleString);
-          char[] password = SetPassword.getPassword();
-          String passwordString = new String(password);
-
-          LocalDateTime timeNow = LocalDateTime.now();
-          UserModel newUser = new UserModel(idUser, userName, passwordString,
-              newstatus, SetName.getText(), SetEmail.getText(),
-              SetPhone.getText(), dateCreate, timeNow, newRole);
-          int confirm = JOptionPane.showConfirmDialog(null, "Do you want to continue?", "Confirmation",
-              JOptionPane.YES_NO_OPTION);
-          if (confirm == JOptionPane.YES_OPTION) {
-            UserBUS.getInstance().updateModel(newUser);
-          }
-        }
+        
       }
     });
 
@@ -385,6 +366,29 @@ public class PopupUser extends javax.swing.JFrame {
       }
     }
     SetRole.setSelectedIndex(index);
+  }
+
+  public void actionSave(int idUser, String userName,LocalDateTime dateCreate){
+    Object selectedStatusItem = SetStatus.getSelectedItem();
+        Object selectedRoleItem = SetRole.getSelectedItem();
+        if (selectedStatusItem != null && selectedRoleItem != null) {
+          String statusString = selectedStatusItem.toString().toUpperCase();
+          Status newStatus = Status.valueOf(statusString);
+          String roleString = selectedRoleItem.toString().toUpperCase();
+          Role newRole = Role.valueOf(roleString);
+          char[] password = SetPassword.getPassword();
+          String passwordString = new String(password);
+
+          LocalDateTime timeNow = LocalDateTime.now();
+          UserModel newUser = new UserModel(idUser, userName, passwordString,
+              newStatus, SetName.getText(), SetEmail.getText(),
+              SetPhone.getText(), dateCreate, timeNow, newRole);
+          int confirm = JOptionPane.showConfirmDialog(null, "Do you want to continue?", "Confirmation",
+              JOptionPane.YES_NO_OPTION);
+          if (confirm == JOptionPane.YES_OPTION) {
+            UserBUS.getInstance().updateModel(newUser);
+          }
+        }
   }
 
   private void SetNameActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_SetNameActionPerformed
