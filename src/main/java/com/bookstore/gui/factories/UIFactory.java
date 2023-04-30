@@ -1,9 +1,12 @@
 package com.bookstore.gui.factories;
 
 import com.bookstore.dao.EmployeeDAO;
+import com.bookstore.gui.component.header.HeaderDashboard;
 import com.bookstore.gui.component.menu.DrawerMenu;
+import com.bookstore.gui.component.panel.MainPanel;
 import com.bookstore.gui.form.customer.views.CustomerFrame;
 import com.bookstore.gui.form.salesman.view.SalesmanFrame;
+import com.bookstore.gui.main.MainUI;
 import com.bookstore.models.EmployeeModel;
 import com.bookstore.models.MenuItemModel;
 import com.bookstore.models.MenuModel;
@@ -31,6 +34,12 @@ public class UIFactory {
     }
 
     MenuModel menuModel = MenuFactory.getMenu(user);
-    DrawerMenu drawerMenu = null;
+
+    DrawerMenu drawerMenu = new DrawerMenu(menuModel);
+    MainPanel mainPanel = new MainPanel();
+    HeaderDashboard headerDashboard = new HeaderDashboard();
+    MainUI mainUI = new MainUI(drawerMenu, mainPanel, headerDashboard);
+
+    mainUI.setVisible(true);
   }
 }
