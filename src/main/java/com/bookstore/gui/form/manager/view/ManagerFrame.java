@@ -107,7 +107,7 @@ public class ManagerFrame extends JFrame {
     grMenu.add(grMenu1, BorderLayout.NORTH);
     grMenu.add(grMenu2, BorderLayout.SOUTH);
 
-    grContent.add(new BookListPanel());
+    grContent.add(new BookList());
     jScrollPane1.setViewportView(grContent);
     grContent.setPreferredSize(new Dimension(900, 0));
 
@@ -164,7 +164,7 @@ public class ManagerFrame extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
           grContent.removeAll();
-          grContent.add(new BookListPanel());
+          grContent.add(new BookList());
           grContent.revalidate();
           grContent.repaint();
         }
@@ -176,7 +176,7 @@ public class ManagerFrame extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
           grContent.removeAll();
-          grContent.add(new CustomerListPanel());
+          grContent.add(new CustomerList());
           grContent.revalidate();
           grContent.repaint();
         }
@@ -199,7 +199,7 @@ public class ManagerFrame extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
           grContent.removeAll();
-          grContent.add(new PendingOrderPanel());
+          grContent.add(new PendingOrderList());
           grContent.revalidate();
           grContent.repaint();
         }
@@ -211,7 +211,7 @@ public class ManagerFrame extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
           grContent.removeAll();
-          grContent.add(new ImportListPanel());
+          grContent.add(new ImportList());
           grContent.revalidate();
           grContent.repaint();
         }
