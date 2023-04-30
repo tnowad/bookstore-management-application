@@ -4,9 +4,7 @@
  */
 package com.bookstore.gui.form.admin.component.user;
 
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.*;
 import java.time.LocalDateTime;
 
 import javax.swing.JTextField;
@@ -25,9 +23,9 @@ public class UserPanel extends javax.swing.JPanel implements MouseListener {
   /**
    * Creates new form UserForm
    */
-  public UserPanel(int Serial, int idUser, String userName, String password, Status status, String name, String email,
+  public UserPanel(int serial, int idUser, String userName, String password, Status status, String name, String email,
       String phone, Role role, LocalDateTime dateCreate, LocalDateTime dateUpdate) {
-    initComponents(Serial, idUser, userName, password, status, name, email, phone, role);
+    initComponents(serial, idUser, userName, password, status, name, email, phone, role);
     addMouseListener(new MouseAdapter() {
       @Override
       public void mouseClicked(MouseEvent e) {
@@ -49,113 +47,132 @@ public class UserPanel extends javax.swing.JPanel implements MouseListener {
   // <editor-fold defaultstate="collapsed" desc="Generated
   // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents(int Serial, int idUser, String userName, String password, Status status, String name, String email,
+    private void initComponents(int serial, int idUser, String userName, String password, Status status, String name, String email,
     String phone, Role role) {
+        java.awt.GridBagConstraints gridBagConstraints;
 
-        stt = new javax.swing.JLabel();
-        RoleUser = new javax.swing.JTextField();
-        NameUser = new javax.swing.JLabel();
-        PhoneUser = new javax.swing.JLabel();
-        EmailUser = new javax.swing.JLabel();
-        StatusUser = new javax.swing.JTextField();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        checkBox = new javax.swing.JCheckBox();
+        setName = new javax.swing.JLabel();
+        setPhone = new javax.swing.JLabel();
+        setEmail = new javax.swing.JLabel();
+        setSerial = new javax.swing.JLabel();
+        setRole = new javax.swing.JTextField();
+        setStatus = new javax.swing.JTextField();
+
         IdUser = new javax.swing.JTextField();
-
         IdUser.setText(""+idUser);
+        IdUser.setVisible(false);
         add(IdUser);
 
+        java.awt.GridBagLayout layout = new java.awt.GridBagLayout();
+        layout.columnWeights = new double[] {1.0, 2.0, 3.0, 4.0, 5.0, 6.0};
+        setLayout(layout);
 
-        stt.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        stt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        stt.setText(""+Serial);
-        stt.setMaximumSize(new java.awt.Dimension(12, 18));
-        stt.setMinimumSize(new java.awt.Dimension(12, 18));
-        stt.setName(""); // NOI18N
-        stt.setPreferredSize(new java.awt.Dimension(12, 19));
+        checkBox.setMaximumSize(new java.awt.Dimension(21, 19));
+        checkBox.setMinimumSize(new java.awt.Dimension(21, 19));
+        checkBox.setPreferredSize(new java.awt.Dimension(20, 19));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.ipady = 34;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        add(checkBox, gridBagConstraints);
 
-        RoleUser.setEditable(false);
-        RoleUser.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        RoleUser.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        RoleUser.setText(""+role);
-        RoleUser.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RoleUserActionPerformed(evt);
-            }
-        });
+        setName.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        setName.setText(name);
+        setName.setMaximumSize(new java.awt.Dimension(50, 20));
+        setName.setMinimumSize(new java.awt.Dimension(50, 20));
+        setName.setPreferredSize(new java.awt.Dimension(50, 20));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.ipadx = 99;
+        gridBagConstraints.ipady = 33;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 18, 0, 0);
+        add(setName, gridBagConstraints);
 
-        NameUser.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        NameUser.setText(""+name);
+        setPhone.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        setPhone.setText(phone);
+        setPhone.setPreferredSize(new java.awt.Dimension(50, 20));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.ipadx = 85;
+        gridBagConstraints.ipady = 33;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 12, 0, 0);
+        add(setPhone, gridBagConstraints);
 
-        PhoneUser.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        PhoneUser.setText(phone);
+        setEmail.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        setEmail.setText(email);
+        setEmail.setPreferredSize(new java.awt.Dimension(45, 20));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.ipadx = 125;
+        gridBagConstraints.ipady = 33;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 6, 0, 0);
+        add(setEmail, gridBagConstraints);
 
-        EmailUser.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        EmailUser.setText(email);
+        setSerial.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        setSerial.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        setSerial.setText(""+serial);
+        setSerial.setMaximumSize(new java.awt.Dimension(12, 18));
+        setSerial.setMinimumSize(new java.awt.Dimension(12, 18));
+        setSerial.setPreferredSize(new java.awt.Dimension(12, 19));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.ipadx = 18;
+        gridBagConstraints.ipady = 35;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 6, 0, 0);
+        add(setSerial, gridBagConstraints);
 
-        StatusUser.setEditable(false);
-        StatusUser.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        StatusUser.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        StatusUser.setText(""+status);
-        StatusUser.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                StatusUserActionPerformed(evt);
-            }
-        });
+        setRole.setEditable(false);
+        setRole.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        setRole.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        setRole.setText(""+role);
+        setRole.setMinimumSize(new java.awt.Dimension(90, 26));
+        setRole.setPreferredSize(new java.awt.Dimension(90, 26));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 5;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipady = 10;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(6, 6, 0, 0);
+        add(setRole, gridBagConstraints);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jCheckBox1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(stt, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, Short.MAX_VALUE)
-                .addComponent(NameUser, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(PhoneUser, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(EmailUser, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(RoleUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, Short.MAX_VALUE)
-                .addComponent(StatusUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jCheckBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addComponent(stt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(StatusUser, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
-                    .addComponent(RoleUser))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(NameUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(PhoneUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(EmailUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        setStatus.setEditable(false);
+        setStatus.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        setStatus.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        setStatus.setText(""+status);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 6;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipadx = 7;
+        gridBagConstraints.ipady = 10;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(6, 18, 0, 6);
+        add(setStatus, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
-  private void RoleUserActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_RoleUserActionPerformed
-    // TODO add your handling code here:
-  }// GEN-LAST:event_RoleUserActionPerformed
-
-  private void StatusUserActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_StatusUserActionPerformed
-    // TODO add your handling code here:
-  }// GEN-LAST:event_StatusUserActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel EmailUser;
-    private javax.swing.JLabel NameUser;
-    private javax.swing.JLabel PhoneUser;
-    private javax.swing.JTextField RoleUser;
-    private javax.swing.JTextField StatusUser;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JLabel stt;
+    private javax.swing.JCheckBox checkBox;
+    private javax.swing.JLabel setEmail;
+    private javax.swing.JLabel setName;
+    private javax.swing.JLabel setPhone;
+    private javax.swing.JTextField setRole;
+    private javax.swing.JLabel setSerial;
+    private javax.swing.JTextField setStatus;
     // End of variables declaration//GEN-END:variables
   @Override
   public void mouseClicked(MouseEvent e) {

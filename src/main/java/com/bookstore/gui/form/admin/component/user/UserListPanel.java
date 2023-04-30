@@ -7,34 +7,26 @@ package com.bookstore.gui.form.admin.component.user;
 import com.bookstore.bus.UserBUS;
 import com.bookstore.models.UserModel;
 
-import java.awt.Component;
-import java.awt.GridLayout;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.time.Duration;
-import java.time.LocalDateTime;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.*;
+import java.time.*;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
-
-import javax.swing.JCheckBox;
-import javax.swing.border.Border;
 import javax.swing.*;
 
 /**
  *
  * @author yanti
  */
-public class UserListPanel extends javax.swing.JPanel implements MouseListener {
+public class UserListPanel extends javax.swing.JPanel {
 
   private static UserListPanel instance;
 
-  private int quantityAdmin;
-  private int quantityCustomer;
-  private int quantityUser;
-  private int quantityEmployee;
+  private int QuantityAdmin;
+  private int QuantityCustomer;
+  private int QuantityUser;
+  private int QuantityEmployee;
 
   /**
    * Creates new form UserComponent
@@ -44,6 +36,8 @@ public class UserListPanel extends javax.swing.JPanel implements MouseListener {
    */
   private UserListPanel() {
     initComponents();
+    findAllUser();
+    actionCard();
   }
 
   public static UserListPanel getInstance() {
@@ -66,397 +60,343 @@ public class UserListPanel extends javax.swing.JPanel implements MouseListener {
   @SuppressWarnings("unchecked")
   // <editor-fold defaultstate="collapsed" desc="Generated
   // <editor-fold defaultstate="collapsed" desc="Generated
-  // Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
-  private void initComponents() {
+        titlePanel = new javax.swing.JLabel();
+        contend = new javax.swing.JPanel();
+        cartPanel = new javax.swing.JPanel();
+        employeeCart = new javax.swing.JPanel();
+        iconEmployee = new javax.swing.JLabel();
+        textEmployee = new javax.swing.JLabel();
+        newEmployee = new javax.swing.JLabel();
+        quantityEmployee = new javax.swing.JLabel();
+        adminCart = new javax.swing.JPanel();
+        iconAdmin = new javax.swing.JLabel();
+        textAdmin = new javax.swing.JLabel();
+        newAdmin = new javax.swing.JLabel();
+        quantityAdmin = new javax.swing.JLabel();
+        customerCart = new javax.swing.JPanel();
+        iconCustomer = new javax.swing.JLabel();
+        textCustomer = new javax.swing.JLabel();
+        newCustomer = new javax.swing.JLabel();
+        quantityCustomer = new javax.swing.JLabel();
+        contendTable = new javax.swing.JPanel();
+        buttonPanel = new javax.swing.JPanel();
+        buttonFilter = new javax.swing.JPanel();
+        filterAll = new javax.swing.JButton();
+        filterAdmin = new javax.swing.JButton();
+        filterEmployee = new javax.swing.JButton();
+        filterCustomer = new javax.swing.JButton();
+        buttonAction = new javax.swing.JPanel();
+        buttonExport = new javax.swing.JButton();
+        buttonImport = new javax.swing.JButton();
+        buttonCreate = new javax.swing.JButton();
+        buttonBaned = new javax.swing.JButton();
+        tablePanel = new javax.swing.JPanel();
+        headerTable = new javax.swing.JPanel();
+        serialText = new javax.swing.JLabel();
+        nameText = new javax.swing.JLabel();
+        phoneText = new javax.swing.JLabel();
+        emailText = new javax.swing.JLabel();
+        roleText = new javax.swing.JTextField();
+        statusText = new javax.swing.JTextField();
+        scrollPane = new javax.swing.JScrollPane();
+        table = new javax.swing.JPanel();
 
-    jLabel1 = new javax.swing.JLabel();
-    jPanel2 = new javax.swing.JPanel();
-    jPanel3 = new javax.swing.JPanel();
-    EmployeeCart = new javax.swing.JPanel();
-    IconEmployee1 = new javax.swing.JLabel();
-    TextEmployee1 = new javax.swing.JLabel();
-    NewEmployee = new javax.swing.JLabel();
-    QuatityEmployee = new javax.swing.JLabel();
-    AdminCart = new javax.swing.JPanel();
-    IconAdmin1 = new javax.swing.JLabel();
-    TextAdmin1 = new javax.swing.JLabel();
-    NewAdmin = new javax.swing.JLabel();
-    QuatityAdmin = new javax.swing.JLabel();
-    CustomerCart = new javax.swing.JPanel();
-    IconCustomer1 = new javax.swing.JLabel();
-    TextCustomer1 = new javax.swing.JLabel();
-    NewCustomer = new javax.swing.JLabel();
-    QuatityCustomer = new javax.swing.JLabel();
-    jPanel4 = new javax.swing.JPanel();
-    jPanel5 = new javax.swing.JPanel();
-    jPanel7 = new javax.swing.JPanel();
-    jPanel8 = new javax.swing.JPanel();
-    ButtonExport = new javax.swing.JButton();
-    ButtonImport = new javax.swing.JButton();
-    ButtonCreate = new javax.swing.JButton();
-    ButtonBaned = new javax.swing.JButton();
-    jPanel9 = new javax.swing.JPanel();
-    AllUser = new javax.swing.JLabel();
-    Admin = new javax.swing.JLabel();
-    customer = new javax.swing.JLabel();
-    employee = new javax.swing.JLabel();
-    jScrollPane1 = new javax.swing.JScrollPane();
-    table = new javax.swing.JPanel();
+        setLayout(new java.awt.BorderLayout());
 
-    jLabel1.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
-    jLabel1.setText("User List");
+        titlePanel.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        titlePanel.setText("User List");
+        add(titlePanel, java.awt.BorderLayout.NORTH);
 
-    jPanel2.setLayout(new java.awt.BorderLayout(0, 5));
+        contend.setLayout(new java.awt.BorderLayout(0, 5));
 
-    jPanel3.setLayout(new java.awt.GridLayout(1, 0, 50, 0));
+        cartPanel.setLayout(new java.awt.GridLayout(1, 0, 50, 0));
 
-    EmployeeCart.setBackground(new java.awt.Color(255, 204, 255));
-    EmployeeCart.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        employeeCart.setBackground(new java.awt.Color(255, 204, 255));
+        employeeCart.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        employeeCart.setLayout(new java.awt.BorderLayout());
 
-    IconEmployee1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/images/employeeCart.png"))); // NOI18N
+        iconEmployee.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/images/employeeCart.png"))); // NOI18N
+        employeeCart.add(iconEmployee, java.awt.BorderLayout.WEST);
 
-    TextEmployee1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-    TextEmployee1.setForeground(new java.awt.Color(255, 51, 51));
-    TextEmployee1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-    TextEmployee1.setText("EMPLOYEE");
+        textEmployee.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        textEmployee.setForeground(new java.awt.Color(255, 51, 51));
+        textEmployee.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        textEmployee.setText("EMPLOYEE");
+        employeeCart.add(textEmployee, java.awt.BorderLayout.PAGE_START);
 
-    NewEmployee.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
-    NewEmployee.setText("New User: 100");
+        newEmployee.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        newEmployee.setText("New User: 100");
+        employeeCart.add(newEmployee, java.awt.BorderLayout.PAGE_END);
 
-    QuatityEmployee.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-    QuatityEmployee.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-    QuatityEmployee.setText("10000");
+        quantityEmployee.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        quantityEmployee.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        employeeCart.add(quantityEmployee, java.awt.BorderLayout.CENTER);
 
-    javax.swing.GroupLayout EmployeeCartLayout = new javax.swing.GroupLayout(EmployeeCart);
-    EmployeeCart.setLayout(EmployeeCartLayout);
-    EmployeeCartLayout.setHorizontalGroup(
-        EmployeeCartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EmployeeCartLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(IconEmployee1, javax.swing.GroupLayout.PREFERRED_SIZE, 52,
-                    javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(EmployeeCartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(QuatityEmployee, javax.swing.GroupLayout.DEFAULT_SIZE,
-                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(TextEmployee1, javax.swing.GroupLayout.DEFAULT_SIZE,
-                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(54, Short.MAX_VALUE))
-            .addGroup(EmployeeCartLayout.createSequentialGroup()
-                .addComponent(NewEmployee, javax.swing.GroupLayout.PREFERRED_SIZE, 114,
-                    javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE)));
-    EmployeeCartLayout.setVerticalGroup(
-        EmployeeCartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(EmployeeCartLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(EmployeeCartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(IconEmployee1, javax.swing.GroupLayout.PREFERRED_SIZE, 44,
-                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(EmployeeCartLayout.createSequentialGroup()
-                        .addComponent(TextEmployee1, javax.swing.GroupLayout.PREFERRED_SIZE, 28,
-                            javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(QuatityEmployee)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(NewEmployee)
-                .addContainerGap(16, Short.MAX_VALUE)));
+        cartPanel.add(employeeCart);
 
-    jPanel3.add(EmployeeCart);
+        adminCart.setBackground(new java.awt.Color(220, 207, 189));
+        adminCart.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        adminCart.setPreferredSize(new java.awt.Dimension(145, 100));
+        adminCart.setLayout(new java.awt.BorderLayout());
 
-    AdminCart.setBackground(new java.awt.Color(220, 207, 189));
-    AdminCart.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-    AdminCart.setPreferredSize(new java.awt.Dimension(145, 100));
+        iconAdmin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/images/adminCart.png"))); // NOI18N
+        adminCart.add(iconAdmin, java.awt.BorderLayout.WEST);
 
-    IconAdmin1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/images/adminCart.png"))); // NOI18N
+        textAdmin.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        textAdmin.setForeground(new java.awt.Color(255, 51, 51));
+        textAdmin.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        textAdmin.setText("ADMIN");
+        adminCart.add(textAdmin, java.awt.BorderLayout.PAGE_START);
 
-    TextAdmin1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-    TextAdmin1.setForeground(new java.awt.Color(255, 51, 51));
-    TextAdmin1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-    TextAdmin1.setText("ADMIN");
+        newAdmin.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        newAdmin.setText("New User: 100");
+        adminCart.add(newAdmin, java.awt.BorderLayout.PAGE_END);
 
-    NewAdmin.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
-    NewAdmin.setText("New User: 100");
+        quantityAdmin.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        quantityAdmin.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        adminCart.add(quantityAdmin, java.awt.BorderLayout.CENTER);
 
-    QuatityAdmin.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-    QuatityAdmin.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-    QuatityAdmin.setText("10000");
+        cartPanel.add(adminCart);
 
-    javax.swing.GroupLayout AdminCartLayout = new javax.swing.GroupLayout(AdminCart);
-    AdminCart.setLayout(AdminCartLayout);
-    AdminCartLayout.setHorizontalGroup(
-        AdminCartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AdminCartLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(IconAdmin1, javax.swing.GroupLayout.PREFERRED_SIZE, 52,
-                    javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(AdminCartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(QuatityAdmin, javax.swing.GroupLayout.DEFAULT_SIZE,
-                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(TextAdmin1, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE))
-                .addContainerGap(66, Short.MAX_VALUE))
-            .addGroup(AdminCartLayout.createSequentialGroup()
-                .addComponent(NewAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 114,
-                    javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE)));
-    AdminCartLayout.setVerticalGroup(
-        AdminCartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(AdminCartLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(AdminCartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(IconAdmin1, javax.swing.GroupLayout.PREFERRED_SIZE, 44,
-                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(AdminCartLayout.createSequentialGroup()
-                        .addComponent(TextAdmin1, javax.swing.GroupLayout.PREFERRED_SIZE, 28,
-                            javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(QuatityAdmin)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(NewAdmin)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+        customerCart.setBackground(new java.awt.Color(242, 149, 158));
+        customerCart.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        customerCart.setPreferredSize(new java.awt.Dimension(145, 100));
+        customerCart.setLayout(new java.awt.BorderLayout());
 
-    jPanel3.add(AdminCart);
+        iconCustomer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/images/customerCart.png"))); // NOI18N
+        customerCart.add(iconCustomer, java.awt.BorderLayout.WEST);
 
-    CustomerCart.setBackground(new java.awt.Color(242, 149, 158));
-    CustomerCart.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-    CustomerCart.setPreferredSize(new java.awt.Dimension(145, 100));
+        textCustomer.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        textCustomer.setForeground(new java.awt.Color(255, 51, 51));
+        textCustomer.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        textCustomer.setText("CUSTOMER");
+        customerCart.add(textCustomer, java.awt.BorderLayout.PAGE_START);
 
-    IconCustomer1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/images/customerCart.png"))); // NOI18N
+        newCustomer.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        newCustomer.setText("New User: 100");
+        customerCart.add(newCustomer, java.awt.BorderLayout.PAGE_END);
 
-    TextCustomer1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-    TextCustomer1.setForeground(new java.awt.Color(255, 51, 51));
-    TextCustomer1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-    TextCustomer1.setText("CUSTOMER");
+        quantityCustomer.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        quantityCustomer.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        customerCart.add(quantityCustomer, java.awt.BorderLayout.CENTER);
 
-    NewCustomer.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
-    NewCustomer.setText("New User: 100");
+        cartPanel.add(customerCart);
 
-    QuatityCustomer.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-    QuatityCustomer.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-    QuatityCustomer.setText("10000");
+        contend.add(cartPanel, java.awt.BorderLayout.PAGE_START);
 
-    javax.swing.GroupLayout CustomerCartLayout = new javax.swing.GroupLayout(CustomerCart);
-    CustomerCart.setLayout(CustomerCartLayout);
-    CustomerCartLayout.setHorizontalGroup(
-        CustomerCartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CustomerCartLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(IconCustomer1, javax.swing.GroupLayout.PREFERRED_SIZE, 52,
-                    javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(CustomerCartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(QuatityCustomer, javax.swing.GroupLayout.DEFAULT_SIZE,
-                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(TextCustomer1, javax.swing.GroupLayout.DEFAULT_SIZE,
-                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(CustomerCartLayout.createSequentialGroup()
-                .addComponent(NewCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 114,
-                    javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE)));
-    CustomerCartLayout.setVerticalGroup(
-        CustomerCartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(CustomerCartLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(CustomerCartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(IconCustomer1, javax.swing.GroupLayout.PREFERRED_SIZE, 44,
-                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(CustomerCartLayout.createSequentialGroup()
-                        .addComponent(TextCustomer1, javax.swing.GroupLayout.PREFERRED_SIZE, 28,
-                            javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(QuatityCustomer)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(NewCustomer)
-                .addContainerGap(16, Short.MAX_VALUE)));
+        contendTable.setLayout(new java.awt.BorderLayout());
 
-    jPanel3.add(CustomerCart);
+        buttonPanel.setBackground(new java.awt.Color(255, 255, 255));
+        buttonPanel.setPreferredSize(new java.awt.Dimension(688, 40));
+        buttonPanel.setLayout(new java.awt.BorderLayout());
 
-    jPanel2.add(jPanel3, java.awt.BorderLayout.PAGE_START);
+        buttonFilter.setBackground(new java.awt.Color(255, 255, 255));
+        buttonFilter.setLayout(new java.awt.GridLayout(1, 0, 10, 10));
 
-    jPanel4.setLayout(new java.awt.BorderLayout());
+        filterAll.setText("All");
+        filterAll.setBorder(null);
+        filterAll.addActionListener(new ActionListener() {
 
-    jPanel5.setPreferredSize(new java.awt.Dimension(688, 40));
-    jPanel5.setLayout(new java.awt.GridLayout(1, 0, 5, 0));
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            findAllUser();
+          }
+          
+        });
+        buttonFilter.add(filterAll);
 
-    jPanel7.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-    jPanel7.setPreferredSize(new java.awt.Dimension(110, 60));
-    jPanel7.setLayout(new java.awt.BorderLayout());
+        filterAdmin.setText("Admin");
+        filterAdmin.setToolTipText("");
+        filterAdmin.setBorder(null);
+        filterAdmin.addActionListener(new ActionListener() {
 
-    ButtonExport.setText("Xuất File");
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            findAdmin();;
+          }
+          
+        });
+        buttonFilter.add(filterAdmin);
 
-    ButtonImport.setText("Nhập File");
+        filterEmployee.setText("Employee");
+        filterEmployee.setBorder(null);
+        filterEmployee.addActionListener(new ActionListener() {
 
-    ButtonCreate.setText("Create");
-    ButtonCreate.addMouseListener(new MouseAdapter() {
-      @Override
-      public void mouseClicked(MouseEvent e) {
-        CreateUserForm createUserForm = new CreateUserForm();
-        createUserForm.setVisible(true);
-      }
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            findEmployee();
+          }
+          
+        });
+        buttonFilter.add(filterEmployee);
 
-    });
+        filterCustomer.setText("Customer");
+        filterCustomer.setBorder(null);
+        filterCustomer.addActionListener(new ActionListener() {
 
-    findAllUser();
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            findCustomer();
+          }
+          
+        });
+        buttonFilter.add(filterCustomer);
 
-    ButtonBaned.setText("Banned");
-    ButtonBaned.addMouseListener(new MouseAdapter() {
-      @Override
-      public void mouseClicked(MouseEvent e) {
-        actionDelete();
-      }
+        buttonPanel.add(buttonFilter, java.awt.BorderLayout.WEST);
 
-    });
+        buttonAction.setLayout(new java.awt.GridLayout(1, 0, 0, 5));
 
-    javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
-    jPanel8.setLayout(jPanel8Layout);
-    jPanel8Layout.setHorizontalGroup(
-        jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(ButtonExport)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ButtonImport)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ButtonCreate)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ButtonBaned)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
-    jPanel8Layout.setVerticalGroup(
-        jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ButtonExport)
-                    .addComponent(ButtonImport)
-                    .addComponent(ButtonCreate)
-                    .addComponent(ButtonBaned))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+        buttonExport.setText("Xuất File");
+        buttonExport.setPreferredSize(new java.awt.Dimension(70, 23));
+        buttonAction.add(buttonExport);
 
-    jPanel7.add(jPanel8, java.awt.BorderLayout.LINE_END);
+        buttonImport.setText("Nhập File");
+        buttonAction.add(buttonImport);
 
-    AllUser.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
-    AllUser.setForeground(new java.awt.Color(255, 51, 51));
-    AllUser.setText("AllUser");
+        buttonCreate.setText("Create");
+        buttonCreate.addActionListener(new ActionListener() {
 
-    AllUser.addMouseListener(new MouseAdapter() {
-      @Override
-      public void mouseClicked(MouseEvent e) {
-        findAllUser();
-      }
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            CreateUserForm createUserForm = new CreateUserForm();
+            createUserForm.setVisible(true);
+          }
+          
+        });
+        buttonAction.add(buttonCreate);
 
-    });
+        buttonBaned.setText("Banned");
+        buttonBaned.addActionListener(new ActionListener() {
 
-    Admin.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
-    Admin.setText("Admin");
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            actionDelete();
+          }
+          
+        });
+        buttonAction.add(buttonBaned);
 
-    Admin.addMouseListener(new MouseAdapter() {
-      @Override
-      public void mouseClicked(MouseEvent e) {
-        findAdmin();
-      }
+        buttonPanel.add(buttonAction, java.awt.BorderLayout.EAST);
 
-    });
+        contendTable.add(buttonPanel, java.awt.BorderLayout.PAGE_START);
 
-    customer.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
-    customer.setText("Customer");
+        tablePanel.setLayout(new java.awt.BorderLayout());
 
-    customer.addMouseListener(new MouseAdapter() {
-      @Override
-      public void mouseClicked(MouseEvent e) {
-        findCustomer();
-      }
+        headerTable.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        headerTable.setPreferredSize(new java.awt.Dimension(670, 40));
+        java.awt.GridBagLayout headerTableLayout = new java.awt.GridBagLayout();
+        headerTableLayout.columnWeights = new double[] {1.0, 2.0, 3.0, 4.0, 5.0, 6.0};
+        headerTable.setLayout(headerTableLayout);
 
-    });
+        serialText.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        serialText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        serialText.setText("Serial");
+        serialText.setMaximumSize(new java.awt.Dimension(16, 18));
+        serialText.setMinimumSize(new java.awt.Dimension(16, 18));
+        serialText.setPreferredSize(new java.awt.Dimension(16, 19));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.ipadx = 18;
+        gridBagConstraints.ipady = 35;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 6, 0, 0);
+        headerTable.add(serialText, gridBagConstraints);
 
-    employee.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
-    employee.setText("Employee");
+        nameText.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        nameText.setText("Name");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.ipadx = 99;
+        gridBagConstraints.ipady = 33;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 18, 0, 0);
+        headerTable.add(nameText, gridBagConstraints);
 
-    employee.addMouseListener(new MouseAdapter() {
-      @Override
-      public void mouseClicked(MouseEvent e) {
-        findEmployee();
-      }
+        phoneText.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        phoneText.setText("Phone");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.ipadx = 70;
+        gridBagConstraints.ipady = 33;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 12, 0, 0);
+        headerTable.add(phoneText, gridBagConstraints);
 
-    });
+        emailText.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        emailText.setText("Email");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.ipadx = 120;
+        gridBagConstraints.ipady = 33;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 6, 0, 0);
+        headerTable.add(emailText, gridBagConstraints);
 
-    javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
-    jPanel9.setLayout(jPanel9Layout);
-    jPanel9Layout.setHorizontalGroup(
-        jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(AllUser, javax.swing.GroupLayout.PREFERRED_SIZE, 50,
-                    javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(Admin)
-                .addGap(12, 12, 12)
-                .addComponent(customer)
-                .addGap(18, 18, 18)
-                .addComponent(employee)
-                .addGap(0, 102, Short.MAX_VALUE)));
-    jPanel9Layout.setVerticalGroup(
-        jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(AllUser)
-                    .addComponent(Admin)
-                    .addComponent(customer)
-                    .addComponent(employee))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+        roleText.setEditable(false);
+        roleText.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        roleText.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        roleText.setText("ROLE");
+        roleText.setBorder(null);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 5;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipady = 20;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(6, 6, 0, 0);
+        headerTable.add(roleText, gridBagConstraints);
 
-    jPanel7.add(jPanel9, java.awt.BorderLayout.LINE_START);
+        statusText.setEditable(false);
+        statusText.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        statusText.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        statusText.setText("STATUS");
+        statusText.setBorder(null);
+        statusText.setMinimumSize(new java.awt.Dimension(50, 26));
+        statusText.setPreferredSize(new java.awt.Dimension(50, 26));
 
-    jPanel5.add(jPanel7);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 6;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipadx = 28;
+        gridBagConstraints.ipady = 15;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(6, 18, 0, 6);
+        headerTable.add(statusText, gridBagConstraints);
 
-    jPanel4.add(jPanel5, java.awt.BorderLayout.PAGE_START);
+        tablePanel.add(headerTable, java.awt.BorderLayout.PAGE_START);
 
-    javax.swing.GroupLayout tableLayout = new javax.swing.GroupLayout(table);
-    table.setLayout(tableLayout);
-    tableLayout.setHorizontalGroup(
-        tableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 686, Short.MAX_VALUE));
-    tableLayout.setVerticalGroup(
-        tableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 278, Short.MAX_VALUE));
-    findAllUser();
-    jScrollPane1.setViewportView(table);
-    jScrollPane1.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.setViewportView(table);
 
-    jPanel4.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+        tablePanel.add(scrollPane, java.awt.BorderLayout.CENTER);
 
-    jPanel2.add(jPanel4, java.awt.BorderLayout.CENTER);
+        contendTable.add(tablePanel, java.awt.BorderLayout.CENTER);
 
-    javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-    this.setLayout(layout);
-    layout.setHorizontalGroup(
-        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 98,
-                    javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
-                Short.MAX_VALUE));
-    layout.setVerticalGroup(
-        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 28,
-                    javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)));
-  }// </editor-fold>//GEN-END:initComponents
+        contend.add(contendTable, java.awt.BorderLayout.CENTER);
+
+        add(contend, java.awt.BorderLayout.CENTER);
+    }// </editor-fold>//GEN-END:initComponents
+
+
 
   public void actionCard() {
     int QuantityAdminNew = 0;
     int QuantityCustomerNew = 0;
     int QuantityEmployeeNew = 0;
-    quantityAdmin = 0;
-    quantityCustomer = 0;
-    quantityEmployee = 0;
-    quantityUser = 0;
+    QuantityAdmin = 0;
+    QuantityCustomer = 0;
+    QuantityEmployee = 0;
+    QuantityUser = 0;
     List<UserModel> userList = UserBUS.getInstance().getAllModels();
     for (UserModel user : userList) {
       LocalDateTime getTime = user.getCreatedAt();
@@ -464,32 +404,32 @@ public class UserListPanel extends javax.swing.JPanel implements MouseListener {
       Duration duration = Duration.between(getTime, timeNow);
       long daysDiff = duration.toMillis();
       if (!user.getStatus().toString().equals("BANNED")) {
-        quantityUser = quantityUser + 1;
+        QuantityUser = QuantityUser + 1;
         if (user.getRole().toString().equals("ADMIN")) {
-          quantityAdmin = quantityAdmin + 1;
+          QuantityAdmin = QuantityAdmin + 1;
           if (daysDiff <= 7) {
             QuantityAdminNew = QuantityAdminNew + 1;
           }
         } else if (user.getRole().toString().equals("EMPLOYEE")) {
-          quantityEmployee = quantityEmployee + 1;
+          QuantityEmployee = QuantityEmployee + 1;
           if (daysDiff <= 7) {
             QuantityEmployeeNew = QuantityEmployeeNew + 1;
           }
         } else {
-          quantityCustomer = quantityCustomer + 1;
+          QuantityCustomer = QuantityCustomer + 1;
           if (daysDiff <= 7) {
             QuantityCustomerNew = QuantityCustomerNew + 1;
           }
         }
       }
     }
-    NewAdmin.setText("New User: " + QuantityAdminNew);
-    NewCustomer.setText("New User: " + QuantityCustomerNew);
-    NewEmployee.setText("New User: " + QuantityEmployeeNew);
+    newAdmin.setText("New User: " + QuantityAdminNew);
+    newCustomer.setText("New User: " + QuantityCustomerNew);
+    newEmployee.setText("New User: " + QuantityEmployeeNew);
 
-    QuatityAdmin.setText("" + quantityAdmin);
-    QuatityCustomer.setText("" + quantityCustomer);
-    QuatityEmployee.setText("" + quantityEmployee);
+    quantityAdmin.setText("" + QuantityAdmin);
+    quantityCustomer.setText("" + QuantityCustomer);
+    quantityEmployee.setText("" + QuantityEmployee);
 
   }
 
@@ -514,15 +454,14 @@ public class UserListPanel extends javax.swing.JPanel implements MouseListener {
         }
       }
     }
-    table.revalidate();
-    table.repaint();
+    tablePanel.revalidate();
+    tablePanel.repaint();
   }
 
   public void findAdmin() {
 
     table.removeAll();
-    actionCard();
-    table.setLayout(new GridLayout(quantityAdmin, 1));
+    table.setLayout(new GridLayout(0, 1));
     int serial = 0;
     List<UserModel> userList = UserBUS.getInstance().getAllModels();
     for (UserModel user : userList) {
@@ -539,8 +478,7 @@ public class UserListPanel extends javax.swing.JPanel implements MouseListener {
 
   public void findCustomer() {
     table.removeAll();
-    actionCard();
-    table.setLayout(new GridLayout(quantityCustomer, 1));
+    table.setLayout(new GridLayout(0, 1));
     int serial = 0;
     List<UserModel> userList = UserBUS.getInstance().getAllModels();
     for (UserModel user : userList) {
@@ -557,8 +495,7 @@ public class UserListPanel extends javax.swing.JPanel implements MouseListener {
 
   public void findEmployee() {
     table.removeAll();
-    actionCard();
-    table.setLayout(new GridLayout(quantityEmployee, 1));
+    table.setLayout(new GridLayout(0, 1));
     int serial = 0;
     List<UserModel> userList = UserBUS.getInstance().getAllModels();
     for (UserModel user : userList) {
@@ -575,8 +512,7 @@ public class UserListPanel extends javax.swing.JPanel implements MouseListener {
 
   public void findAllUser() {
     table.removeAll();
-    actionCard();
-    table.setLayout(new GridLayout(quantityUser, 1));
+    table.setLayout(new GridLayout(0, 1));
     List<UserModel> userList = UserBUS.getInstance().getAllModels();
     int serial = 0;
     for (UserModel user : userList) {
@@ -597,7 +533,7 @@ public class UserListPanel extends javax.swing.JPanel implements MouseListener {
     List<UserModel> list = UserBUS.getInstance().searchModel(value, columns);
     table.setLayout(new GridLayout(0, 1, 10, 10));
     for (UserModel user : list) {
-      if (!user.getStatus().toString().equals("DELETED")) {
+      if (!user.getStatus().toString().equals("BANNED")) {
         UserPanel userForm = new UserPanel(1, user.getId(), user.getUsername(), user.getPassword(), user.getStatus(),
             user.getName(), user.getEmail(), user.getPhone(), user.getRole(), user.getCreatedAt(), user.getUpdatedAt());
         table.add(userForm);
@@ -608,68 +544,47 @@ public class UserListPanel extends javax.swing.JPanel implements MouseListener {
 
   }
 
-  private void ButtonBanedActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_ButtonBanedActionPerformed
-    // TODO add your handling code here:
-  }// GEN-LAST:event_ButtonBanedActionPerformed
-
-  // Variables declaration - do not modify//GEN-BEGIN:variables
-  private javax.swing.JLabel Admin;
-  private javax.swing.JPanel AdminCart;
-  private javax.swing.JLabel AllUser;
-  private javax.swing.JButton ButtonBaned;
-  private javax.swing.JButton ButtonCreate;
-  private javax.swing.JButton ButtonExport;
-  private javax.swing.JButton ButtonImport;
-  private javax.swing.JPanel CustomerCart;
-  private javax.swing.JPanel EmployeeCart;
-  private javax.swing.JLabel IconAdmin1;
-  private javax.swing.JLabel IconCustomer1;
-  private javax.swing.JLabel IconEmployee1;
-  private javax.swing.JLabel NewAdmin;
-  private javax.swing.JLabel NewCustomer;
-  private javax.swing.JLabel NewEmployee;
-  private javax.swing.JLabel QuatityAdmin;
-  private javax.swing.JLabel QuatityCustomer;
-  private javax.swing.JLabel QuatityEmployee;
-  private javax.swing.JLabel TextAdmin1;
-  private javax.swing.JLabel TextCustomer1;
-  private javax.swing.JLabel TextEmployee1;
-  private javax.swing.JLabel customer;
-  private javax.swing.JLabel employee;
-  private javax.swing.JLabel jLabel1;
-  private javax.swing.JPanel jPanel2;
-  private javax.swing.JPanel jPanel3;
-  private javax.swing.JPanel jPanel4;
-  private javax.swing.JPanel jPanel5;
-  private javax.swing.JPanel jPanel7;
-  private javax.swing.JPanel jPanel8;
-  private javax.swing.JPanel jPanel9;
-  private javax.swing.JScrollPane jScrollPane1;
-  private javax.swing.JPanel table;
-
-  // End of variables declaration//GEN-END:variables
-  @Override
-  public void mouseClicked(MouseEvent e) {
-
-  }
-
-  @Override
-  public void mousePressed(MouseEvent e) {
-
-  }
-
-  @Override
-  public void mouseReleased(MouseEvent e) {
-
-  }
-
-  @Override
-  public void mouseEntered(MouseEvent e) {
-
-  }
-
-  @Override
-  public void mouseExited(MouseEvent e) {
-
-  }
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel adminCart;
+    private javax.swing.JPanel buttonAction;
+    private javax.swing.JButton buttonBaned;
+    private javax.swing.JButton buttonCreate;
+    private javax.swing.JButton buttonExport;
+    private javax.swing.JPanel buttonFilter;
+    private javax.swing.JButton buttonImport;
+    private javax.swing.JPanel buttonPanel;
+    private javax.swing.JPanel cartPanel;
+    private javax.swing.JPanel contend;
+    private javax.swing.JPanel contendTable;
+    private javax.swing.JPanel customerCart;
+    private javax.swing.JLabel emailText;
+    private javax.swing.JPanel employeeCart;
+    private javax.swing.JButton filterAdmin;
+    private javax.swing.JButton filterAll;
+    private javax.swing.JButton filterCustomer;
+    private javax.swing.JButton filterEmployee;
+    private javax.swing.JPanel headerTable;
+    private javax.swing.JLabel iconAdmin;
+    private javax.swing.JLabel iconCustomer;
+    private javax.swing.JLabel iconEmployee;
+    private javax.swing.JLabel nameText;
+    private javax.swing.JLabel newAdmin;
+    private javax.swing.JLabel newCustomer;
+    private javax.swing.JLabel newEmployee;
+    private javax.swing.JLabel phoneText;
+    private javax.swing.JLabel quantityAdmin;
+    private javax.swing.JLabel quantityCustomer;
+    private javax.swing.JLabel quantityEmployee;
+    private javax.swing.JTextField roleText;
+    private javax.swing.JScrollPane scrollPane;
+    private javax.swing.JLabel serialText;
+    private javax.swing.JTextField statusText;
+    private javax.swing.JPanel table;
+    private javax.swing.JPanel tablePanel;
+    private javax.swing.JLabel textAdmin;
+    private javax.swing.JLabel textCustomer;
+    private javax.swing.JLabel textEmployee;
+    private javax.swing.JLabel titlePanel;
+    // End of variables declaration//GEN-END:variables
+  
 }
