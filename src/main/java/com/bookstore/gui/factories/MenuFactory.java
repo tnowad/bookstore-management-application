@@ -1,9 +1,12 @@
 package com.bookstore.gui.factories;
 
+import com.bookstore.dao.EmployeeDAO;
+import com.bookstore.models.EmployeeModel;
 import com.bookstore.models.MenuItemModel;
 import com.bookstore.models.MenuModel;
 import com.bookstore.models.SubMenuItemModel;
-import com.bookstore.models.UserModel.Role;
+import com.bookstore.models.UserModel;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 
@@ -55,16 +58,26 @@ public class MenuFactory {
     return new MenuModel(null);
   }
 
-  public static MenuModel getMenu(Role role) {
-    switch (role) {
+  public static MenuModel getMenu(UserModel user) {
+    switch (user.getRole()) {
       case ADMIN:
         return getAdminMenu();
       case CUSTOMER:
         return getCustomerMenu();
-      case SALESMAN:
-        return getSalesmanMenu();
+      case EMPLOYEE:
+        return getMenuEmployee(
+          EmployeeDAO.getInstance().getEmployeeById(user.getId())
+        );
       default:
         return null;
     }
   }
+
+  public static MenuModel getMenuEmployee(EmployeeModel employee) {
+    return new MenuModel(null);
+  }
+
+  private static ActionListener showHome = e -> {
+    System.out.println("Show home");
+  };
 }

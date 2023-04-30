@@ -24,7 +24,7 @@ public class UIFactory {
     System.out.println("Role: " + user.getRole());
     System.out.println("Status: " + user.getStatus());
 
-    MenuModel menuModel = MenuFactory.getMenu(user.getRole());
+    MenuModel menuModel = MenuFactory.getMenu(user);
     DrawerMenu drawerMenu = null;
   }
 }
