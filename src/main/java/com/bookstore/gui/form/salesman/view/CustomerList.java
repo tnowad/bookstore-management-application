@@ -1,8 +1,10 @@
 package com.bookstore.gui.form.salesman.view;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
-import java.awt.Dimension;
+import java.awt.*;
 import java.awt.event.*;
 import javax.swing.table.DefaultTableModel;
 import java.util.List;
@@ -94,20 +96,20 @@ public class CustomerList extends JPanel {
         jScrollPane2 = new JScrollPane();
         customerTableList = new JTable();
 
-        setMinimumSize(new java.awt.Dimension(1180, 620));
-        setPreferredSize(new java.awt.Dimension(1180, 620));
-        setLayout(new java.awt.BorderLayout());
+        setMinimumSize(new Dimension(1180, 620));
+        setPreferredSize(new Dimension(1180, 620));
+        setLayout(new BorderLayout());
 
-        headerPanel.setLayout(new java.awt.GridLayout(2, 1));
+        headerPanel.setLayout(new GridLayout(2, 1));
 
-        groupTopHeaderPanel.setLayout(new java.awt.GridLayout(1, 2));
+        groupTopHeaderPanel.setLayout(new GridLayout(1, 2));
 
         groupTopHeaderPanel.add(customerListLabel);
 
-        addCustomerPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
+        addCustomerPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
-        addCustomerButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        addCustomerButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 addCustomerButtonActionPerformed(evt);
             }
         });
@@ -118,13 +120,13 @@ public class CustomerList extends JPanel {
         headerPanel.add(groupTopHeaderPanel);
 
         searchCustomerTxtFld.setFont(new ThemeFont().getSmallFont());
-        searchCustomerTxtFld.setPreferredSize(new java.awt.Dimension(450, 30));
+        searchCustomerTxtFld.setPreferredSize(new Dimension(450, 30));
         groupBottomHeaderPanel.add(searchCustomerTxtFld);
 
-        searchButton.setMaximumSize(new java.awt.Dimension(75, 30));
-        searchButton.setMinimumSize(new java.awt.Dimension(75, 30));
-        searchButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        searchButton.setMaximumSize(new Dimension(75, 30));
+        searchButton.setMinimumSize(new Dimension(75, 30));
+        searchButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 searchButtonActionPerformed(evt);
             }
         });
@@ -132,34 +134,34 @@ public class CustomerList extends JPanel {
 
         headerPanel.add(groupBottomHeaderPanel);
 
-        add(headerPanel, java.awt.BorderLayout.PAGE_START);
+        add(headerPanel, BorderLayout.PAGE_START);
 
-        tableContainerPanel.setLayout(new java.awt.BorderLayout());
+        tableContainerPanel.setLayout(new BorderLayout());
 
         customerTableList.getTableHeader().setReorderingAllowed(false);
-        customerTableList.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+        customerTableList.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
                 customerTableListMouseClicked(evt);
             }
         });
         jScrollPane2.setViewportView(customerTableList);
 
-        tableContainerPanel.add(jScrollPane2, java.awt.BorderLayout.CENTER);
+        tableContainerPanel.add(jScrollPane2, BorderLayout.CENTER);
 
         jScrollPane1.setViewportView(tableContainerPanel);
 
-        add(jScrollPane1, java.awt.BorderLayout.CENTER);
+        add(jScrollPane1, BorderLayout.CENTER);
     }
 
-    private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {
-
-    }
-
-    private void customerTableListMouseClicked(java.awt.event.MouseEvent evt) {
+    private void searchButtonActionPerformed(ActionEvent evt) {
 
     }
 
-    private void addCustomerButtonActionPerformed(java.awt.event.ActionEvent evt) {
+    private void customerTableListMouseClicked(MouseEvent evt) {
+
+    }
+
+    private void addCustomerButtonActionPerformed(ActionEvent evt) {
 
     }
 
