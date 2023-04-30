@@ -129,8 +129,7 @@ public class LoginUI extends JFrame {
     if (toggleButton.isSelected()) {
       passwordField.setEchoChar((char) 0);
       toggleButton.setIcon(showPassword);
-      System.out.println("Password is hidden");
-    } else {
+     } else {
       passwordField.setEchoChar('\u25cf');
       toggleButton.setIcon(hidePassword);
     }
@@ -139,9 +138,6 @@ public class LoginUI extends JFrame {
   private ActionListener loginButtonActionListener = e -> {
     String username = usernameTextField.getText();
     String password = new String(passwordField.getPassword());
-    System.out.println("Username: " + username);
-    System.out.println("Password: " + password);
-
     try {
       if (username.isEmpty() || password.isEmpty()) {
         throw new Exception("Username and password must not be empty");
@@ -162,13 +158,11 @@ public class LoginUI extends JFrame {
   };
 
   private ActionListener registerButtonActionListener = e -> {
-    System.out.println("Register Button Clicked");
     RegisterUI.getInstance().setVisible(true);
     dispose();
   };
 
   private ActionListener forgotPasswordButtonActionListener = e -> {
-    System.out.println("Forgot Password Button Clicked");
     ForgotPasswordUI.getInstance().setVisible(true);
     dispose();
   };
