@@ -6,6 +6,8 @@ import com.bookstore.models.MenuItemModel;
 import com.bookstore.models.MenuModel;
 import com.bookstore.models.SubMenuItemModel;
 import com.bookstore.models.UserModel;
+import com.bookstore.models.UserModel.Role;
+import java.awt.MenuItem;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
@@ -69,7 +71,7 @@ public class MenuFactory {
           EmployeeDAO.getInstance().getEmployeeById(user.getId())
         );
       default:
-        return null;
+        return new MenuModel(new ArrayList<MenuItemModel>());
     }
   }
 
