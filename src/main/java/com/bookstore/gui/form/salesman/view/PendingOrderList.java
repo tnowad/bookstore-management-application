@@ -2,6 +2,8 @@ package com.bookstore.gui.form.salesman.view;
 
 import javax.swing.*;
 import javax.swing.JTextField;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import com.bookstore.bus.OrderBUS;
 import com.bookstore.gui.component.button.Button;
@@ -18,6 +20,28 @@ public class PendingOrderList extends JPanel {
     public PendingOrderList() {
         initComponents();
         listOrder();
+        handleEvent();
+    }
+
+    private void handleEvent() {
+        orderTableList.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent event) {
+                int selectedRowIndex = orderTableList.getSelectedRow();
+                if (selectedRowIndex != -1) {
+                    String customerId = orderTableList.getValueAt(selectedRowIndex, 0).toString();
+                    System.out.println(customerId);
+                    JDialog dialog = new JDialog();
+                    dialog.setModal(true);
+                    dialog.getContentPane().add(new PendingOrderDetail().getContentPane());
+                    dialog.pack();
+                    dialog.setVisible(true);
+                    dialog.setLocationRelativeTo(null);
+
+                } else {
+                    System.out.println("Don't know how to handle this order");
+                }
+            }
+        });
     }
 
     private void initComponents() {
