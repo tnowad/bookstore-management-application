@@ -1,4 +1,4 @@
-package com.bookstore.gui.form.manager.view;
+package com.bookstore.gui.form.manager;
 
 import com.bookstore.gui.component.button.Button;
 import com.bookstore.gui.form.account.AccountPanel;
