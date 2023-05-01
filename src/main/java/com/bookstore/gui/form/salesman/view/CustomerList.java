@@ -24,36 +24,35 @@ public class CustomerList extends JPanel {
     }
 
     private void search() {
-        searchButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                String text = searchCustomerTxtFld.getText();
-                if (text == null || text.isBlank()) {
-                    JOptionPane.showMessageDialog(null, "Search field cannot be empty. Please try again!");
-                    showTable();
-                } else {
-                    DefaultTableModel model = new DefaultTableModel();
-                    customerTableList.setModel(model);
-                    model.addColumn("Id");
-                    model.addColumn("Name");
-                    model.addColumn("Email");
-                    model.addColumn("Phone");
-                    model.addColumn("Status");
-                    for (UserModel customer : customersList) {
-                        if (customer.getName().toLowerCase().contains(text.toLowerCase())) {
-                            model.addRow(new Object[] { customer.getId(),
-                                    customer.getName(), customer.getEmail(),
-                                    customer.getPhone(),
-                                    customer.getStatus() });
-                            customerTableList.setModel(model);
-                        }
+        searchButton.addActionListener(e -> {
+            String text = searchCustomerTxtFld.getText();
+            if (text == null || text.isBlank()) {
+                JOptionPane.showMessageDialog(null, "Search field cannot be empty. Please try again!");
+                showTable();
+            } else {
+                DefaultTableModel model = new DefaultTableModel();
+                customerTableList.setModel(model);
+                model.addColumn("Id");
+                model.addColumn("Name");
+                model.addColumn("Email");
+                model.addColumn("Phone");
+                model.addColumn("Status");
+                for (UserModel customer : customersList) {
+                    if (customer.getName().toLowerCase().contains(text.toLowerCase())) {
+                        model.addRow(new Object[] { customer.getId(),
+                                customer.getName(), customer.getEmail(),
+                                customer.getPhone(),
+                                customer.getStatus() });
+                        customerTableList.setModel(model);
                     }
-                    if (customerTableList.getRowCount() == 0) {
-                        JOptionPane.showMessageDialog(null, "No customers found!");
-                        showTable();
-                    }
-                    System.out.println(customerTableList.getRowCount());
                 }
+                if (customerTableList.getRowCount() == 0) {
+                    JOptionPane.showMessageDialog(null, "No customers found!");
+                    showTable();
+                }
+                System.out.println(customerTableList.getRowCount());
             }
+
         });
     }
 

@@ -27,35 +27,33 @@ public class EmployeeList extends JPanel {
     }
 
     private void search() {
-        searchButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                String text = searchCustomerTxtField.getText();
-                if (text == null || text.isBlank()) {
-                    JOptionPane.showMessageDialog(null, "Search field cannot be empty. Please try again!");
-                    showTable();
-                } else {
-                    DefaultTableModel model = new DefaultTableModel();
-                    employeeTableList.setModel(model);
-                    model.addColumn("Id");
-                    model.addColumn("Name");
-                    model.addColumn("Email");
-                    model.addColumn("Phone");
-                    model.addColumn("Status");
-                    for (UserModel customer : employeeList) {
-                        if (customer.getName().toLowerCase().contains(text.toLowerCase())) {
-                            model.addRow(new Object[] { customer.getId(),
-                                    customer.getName(), customer.getEmail(),
-                                    customer.getPhone(),
-                                    customer.getStatus() });
-                            employeeTableList.setModel(model);
-                        }
+        searchButton.addActionListener(e -> {
+            String text = searchCustomerTxtField.getText();
+            if (text == null || text.isBlank()) {
+                JOptionPane.showMessageDialog(null, "Search field cannot be empty. Please try again!");
+                showTable();
+            } else {
+                DefaultTableModel model = new DefaultTableModel();
+                employeeTableList.setModel(model);
+                model.addColumn("Id");
+                model.addColumn("Name");
+                model.addColumn("Email");
+                model.addColumn("Phone");
+                model.addColumn("Status");
+                for (UserModel customer : employeeList) {
+                    if (customer.getName().toLowerCase().contains(text.toLowerCase())) {
+                        model.addRow(new Object[] { customer.getId(),
+                                customer.getName(), customer.getEmail(),
+                                customer.getPhone(),
+                                customer.getStatus() });
+                        employeeTableList.setModel(model);
                     }
-                    if (employeeTableList.getRowCount() == 0) {
-                        JOptionPane.showMessageDialog(null, "No employee found!");
-                        showTable();
-                    }
-                    System.out.println(employeeTableList.getRowCount());
                 }
+                if (employeeTableList.getRowCount() == 0) {
+                    JOptionPane.showMessageDialog(null, "No employee found!");
+                    showTable();
+                }
+                System.out.println(employeeTableList.getRowCount());
             }
         });
     }
