@@ -5,7 +5,7 @@ import com.bookstore.interfaces.IBUS;
 import com.bookstore.models.UserModel;
 import com.bookstore.models.UserModel.Role;
 import com.bookstore.models.UserModel.Status;
-import com.bookstore.util.PasswordUtil;
+import com.bookstore.util.PasswordUtils;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -37,7 +37,7 @@ public class UserBUS implements IBUS<UserModel> {
     if (userModel == null) {
       throw new LoginException("User not found");
     }
-    if (!PasswordUtil.checkPassword(password, userModel.getPassword())) {
+    if (!PasswordUtils.checkPassword(password, userModel.getPassword())) {
       throw new LoginException("Incorrect password");
     }
     if (userModel.getStatus() == Status.INACTIVE) {
@@ -58,7 +58,7 @@ public class UserBUS implements IBUS<UserModel> {
   ) {
     UserModel userModel = new UserModel();
     userModel.setUsername(username);
-    userModel.setPassword(PasswordUtil.hashPassword(password));
+    userModel.setPassword(PasswordUtils.hashPassword(password));
     userModel.setName(name);
     userModel.setEmail(email);
     userModel.setPhone(phone);
