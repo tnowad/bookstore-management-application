@@ -199,7 +199,7 @@ public class ManagerFrame extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
           grContent.removeAll();
-          grContent.add(new PendingOrderList());
+          grContent.add(new OrderList());
           grContent.revalidate();
           grContent.repaint();
         }

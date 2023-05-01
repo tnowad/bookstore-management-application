@@ -75,13 +75,7 @@ public class SalesmanFrame extends JFrame {
     welcomeLabel.setMaximumSize(new java.awt.Dimension(380, 16));
     welcomeLabel.setMinimumSize(new java.awt.Dimension(300, 16));
     welcomeLabel.setPreferredSize(new java.awt.Dimension(300, 30));
-    welcomeLabel.addKeyListener(
-      new java.awt.event.KeyAdapter() {
-        public void keyPressed(java.awt.event.KeyEvent evt) {
-          welcomeLabelKeyPressed(evt);
-        }
-      }
-    );
+    
     headerPanel.add(welcomeLabel);
 
     statusLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -90,13 +84,7 @@ public class SalesmanFrame extends JFrame {
     statusLabel.setPreferredSize(new java.awt.Dimension(300, 16));
     headerPanel.add(statusLabel);
 
-    cartButton.addActionListener(
-      new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-          cartButtonActionPerformed(evt);
-        }
-      }
-    );
+    
     headerPanel.add(cartButton);
 
     getContentPane().add(headerPanel, java.awt.BorderLayout.PAGE_START);
@@ -106,73 +94,30 @@ public class SalesmanFrame extends JFrame {
 
     menuTopPanel.setLayout(new java.awt.GridLayout(4, 1, 0, 5));
 
-    customerListButton.addActionListener(
-      new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-          homeButtonActionPerformed(evt);
-        }
-      }
-    );
+    
     menuTopPanel.add(customerListButton);
 
     menuTopPanel.add(pendingOrderButton);
 
-    bookListButton.addActionListener(
-      new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-          myOrderButtonActionPerformed(evt);
-        }
-      }
-    );
+    
     menuTopPanel.add(bookListButton);
 
-    importListButton.addActionListener(
-      new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-          importListButtonActionPerformed(evt);
-        }
-      }
-    );
+   
     menuTopPanel.add(importListButton);
 
     menuPanel.add(menuTopPanel);
 
     menuBottomPanel.setLayout(new java.awt.GridLayout(4, 1, 0, 5));
 
-    accountButton.addActionListener(
-      new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-          accountSettingButtonActionPerformed(evt);
-        }
-      }
-    );
+   
     menuBottomPanel.add(accountButton);
 
-    contactButton.addActionListener(
-      new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-          contactSupportButtonActionPerformed(evt);
-        }
-      }
-    );
+  
     menuBottomPanel.add(contactButton);
 
-    aboutUsButton.addActionListener(
-      new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-          aboutUsButtonActionPerformed(evt);
-        }
-      }
-    );
+   
     menuBottomPanel.add(aboutUsButton);
 
-    logoutButton.addActionListener(
-      new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-          logoutButtonActionPerformed(evt);
-        }
-      }
-    );
     menuBottomPanel.add(logoutButton);
 
     menuPanel.add(menuBottomPanel);
@@ -185,128 +130,95 @@ public class SalesmanFrame extends JFrame {
 
   private void handleEvent() {
     customerListButton.addActionListener(
-      new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-          contentPanel.removeAll();
-          contentPanel.add(new CustomerList());
-          contentPanel.revalidate();
-          contentPanel.repaint();
-        }
-      }
-    );
+        new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            contentPanel.removeAll();
+            contentPanel.add(new CustomerList());
+            contentPanel.revalidate();
+            contentPanel.repaint();
+          }
+        });
 
     pendingOrderButton.addActionListener(
-      new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-          contentPanel.removeAll();
-          contentPanel.add(new PendingOrderList());
-          contentPanel.revalidate();
-          contentPanel.repaint();
-        }
-      }
-    );
+        new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            contentPanel.removeAll();
+            contentPanel.add(new OrderList());
+            contentPanel.revalidate();
+            contentPanel.repaint();
+          }
+        });
 
     bookListButton.addActionListener(
-      new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-          contentPanel.removeAll();
-          contentPanel.add(new BookList());
-          contentPanel.revalidate();
-          contentPanel.repaint();
-        }
-      }
-    );
+        new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            contentPanel.removeAll();
+            contentPanel.add(new BookList());
+            contentPanel.revalidate();
+            contentPanel.repaint();
+          }
+        });
 
     importListButton.addActionListener(
-      new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-          contentPanel.removeAll();
-          contentPanel.add(new ImportList());
-          contentPanel.revalidate();
-          contentPanel.repaint();
-        }
-      }
-    );
+        new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            contentPanel.removeAll();
+            contentPanel.add(new ImportList());
+            contentPanel.revalidate();
+            contentPanel.repaint();
+          }
+        });
 
     accountButton.addActionListener(
-      new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-          contentPanel.removeAll();
-          contentPanel.add(new com.bookstore.gui.form.account.views.AccountPanel());
-          contentPanel.revalidate();
-          contentPanel.repaint();
-        }
-      }
-    );
+        new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            contentPanel.removeAll();
+            contentPanel.add(new com.bookstore.gui.form.account.views.AccountPanel());
+            contentPanel.revalidate();
+            contentPanel.repaint();
+          }
+        });
 
     logoutButton.addActionListener(
-      new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-          int option = JOptionPane.showConfirmDialog(
-            null,
-            "Bạn chắc chắn muốn đăng xuất?",
-            "Đăng xuất",
-            JOptionPane.OK_OPTION
-          );
-          if (option == 0) {
-            dispose();
-            RegisterUI loginFrame = new RegisterUI();
-            loginFrame.setVisible(true);
+        new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            int option = JOptionPane.showConfirmDialog(
+                null,
+                "Bạn chắc chắn muốn đăng xuất?",
+                "Đăng xuất",
+                JOptionPane.OK_OPTION);
+            if (option == 0) {
+              dispose();
+              RegisterUI loginFrame = new RegisterUI();
+              loginFrame.setVisible(true);
+            }
           }
-        }
-      }
-    );
+        });
   }
-
-  private void cartButtonActionPerformed(java.awt.event.ActionEvent evt) {}
-
-  private void homeButtonActionPerformed(java.awt.event.ActionEvent evt) {}
-
-  private void myOrderButtonActionPerformed(java.awt.event.ActionEvent evt) {}
-
-  private void importListButtonActionPerformed(
-    java.awt.event.ActionEvent evt
-  ) {}
-
-  private void accountSettingButtonActionPerformed(
-    java.awt.event.ActionEvent evt
-  ) {}
-
-  private void contactSupportButtonActionPerformed(
-    java.awt.event.ActionEvent evt
-  ) {}
-
-  private void aboutUsButtonActionPerformed(java.awt.event.ActionEvent evt) {}
-
-  private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {}
-
-  private void welcomeLabelKeyPressed(java.awt.event.KeyEvent evt) {}
 
   public static void main(String args[]) {
     try {
       UIManager.setLookAndFeel(
-        "com.sun.java.swing.plaf.windows.WindowsLookAndFeel"
-      );
+          "com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
       UIManager.put("Panel.background", new Color(250, 250, 250));
     } catch (
-      ClassNotFoundException
-      | IllegalAccessException
-      | InstantiationException
-      | UnsupportedLookAndFeelException ignored
-    ) {}
+        ClassNotFoundException
+        | IllegalAccessException
+        | InstantiationException
+        | UnsupportedLookAndFeelException ignored) {
+    }
     FlatMacLightLaf.setup();
     java.awt.EventQueue.invokeLater(
-      new Runnable() {
-        public void run() {
-          new SalesmanFrame();
-        }
-      }
-    );
+        new Runnable() {
+          public void run() {
+            new SalesmanFrame();
+          }
+        });
   }
 }

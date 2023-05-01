@@ -1,6 +1,7 @@
 package com.bookstore.gui.factories;
 
 import com.bookstore.dao.EmployeeDAO;
+import com.bookstore.gui.form.salesman.view.SalesmanFrame;
 import com.bookstore.models.EmployeeModel;
 import com.bookstore.models.MenuItemModel;
 import com.bookstore.models.MenuModel;
@@ -19,9 +20,10 @@ public class MenuFactory {
       case CUSTOMER:
         return getCustomerMenu();
       case EMPLOYEE:
-        return getMenuEmployee(
-          EmployeeDAO.getInstance().getEmployeeById(user.getId())
-        );
+        // return getMenuEmployee(
+        //   EmployeeDAO.getInstance().getEmployeeById(user.getId())
+        // );
+        new SalesmanFrame();
       default:
         throw new IllegalArgumentException("User role is not supported");
     }
