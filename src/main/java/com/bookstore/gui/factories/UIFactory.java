@@ -1,11 +1,11 @@
 package com.bookstore.gui.factories;
 
 import com.bookstore.dao.EmployeeDAO;
-import com.bookstore.gui.component.header.HeaderDashboard;
-import com.bookstore.gui.component.menu.DrawerMenu;
-import com.bookstore.gui.component.panel.MainPanel;
-import com.bookstore.gui.form.customer.CustomerFrame;
-import com.bookstore.gui.form.user.SalesmanFrame;
+import com.bookstore.gui.components.header.HeaderDashboard;
+import com.bookstore.gui.components.menu.DrawerMenu;
+import com.bookstore.gui.components.panel.MainPanel;
+import com.bookstore.gui.forms.customer.CustomerFrame;
+import com.bookstore.gui.forms.users.SalesmanFrame;
 import com.bookstore.gui.main.MainUI;
 import com.bookstore.models.EmployeeModel;
 import com.bookstore.models.MenuItemModel;
