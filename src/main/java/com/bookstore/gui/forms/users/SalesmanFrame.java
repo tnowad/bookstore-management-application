@@ -7,7 +7,7 @@ import com.bookstore.gui.components.button.Button;
 import com.bookstore.gui.forms.books.BookList;
 import com.bookstore.gui.forms.imports.ImportList;
 import com.bookstore.gui.forms.orders.OrderList;
-import com.bookstore.gui.main.RegisterUI;
+import com.bookstore.gui.main.LoginUI;
 import com.bookstore.models.EmployeeModel;
 import com.bookstore.models.UserModel;
 import com.bookstore.services.Authentication;
@@ -195,7 +195,7 @@ public class SalesmanFrame extends JFrame {
       );
       if (option == 0) {
         dispose();
-        RegisterUI loginFrame = new RegisterUI();
+        LoginUI loginFrame = new LoginUI();
         loginFrame.setVisible(true);
       }
     });

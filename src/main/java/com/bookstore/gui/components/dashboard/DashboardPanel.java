@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package com.bookstore.gui.forms.admin.component.dashboard;
+package com.bookstore.gui.components.dashboard;
 
 import com.bookstore.bus.BookBUS;
 import com.bookstore.bus.CartBUS;

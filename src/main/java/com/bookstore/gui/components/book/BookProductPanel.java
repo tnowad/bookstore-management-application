@@ -1,4 +1,4 @@
-package com.bookstore.gui.forms.admin.component.book;
+package com.bookstore.gui.components.book;
 
 import java.awt.event.*;
 import javax.swing.*;
