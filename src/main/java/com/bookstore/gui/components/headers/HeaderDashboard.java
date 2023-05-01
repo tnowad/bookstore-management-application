@@ -1,5 +1,6 @@
 package com.bookstore.gui.components.headers;
 
+import com.bookstore.gui.components.inputs.SearchText;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -11,9 +12,16 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.LayoutStyle;
 
-import com.bookstore.gui.components.inputs.SearchText;
-
 public class HeaderDashboard extends JPanel {
+
+  private static HeaderDashboard instance = null;
+
+  public static HeaderDashboard getInstance() {
+    if (instance == null) {
+      instance = new HeaderDashboard();
+    }
+    return instance;
+  }
 
   private JLabel labelSearch;
   private JLabel labelMenu;
