@@ -1,5 +1,7 @@
 package com.bookstore.gui.form.salesman.view.salaryManagerment;
 
-public class SalaryDetail {
-    
+import javax.swing.JFrame;
+
+public class SalaryDetail extends JFrame {
+
 }

@@ -1,7 +1,7 @@
 package com.bookstore.gui.form.salesman.view.customerManagerment;
 
-import javax.swing.JPanel;
+import javax.swing.JFrame;
 
-public class CustomerDetail extends JPanel {
+public class CustomerDetail extends JFrame {
 
 }

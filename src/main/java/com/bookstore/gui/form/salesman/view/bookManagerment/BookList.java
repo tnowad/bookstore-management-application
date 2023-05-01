@@ -1,4 +1,4 @@
-package com.bookstore.gui.form.salesman.view;
+package com.bookstore.gui.form.salesman.view.bookManagerment;
 
 import javax.swing.*;
 

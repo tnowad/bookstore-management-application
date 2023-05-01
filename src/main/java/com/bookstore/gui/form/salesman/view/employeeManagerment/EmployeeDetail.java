@@ -1,7 +1,7 @@
 package com.bookstore.gui.form.salesman.view.employeeManagerment;
 
-import javax.swing.JPanel;
+import javax.swing.JFrame;
 
-public class EmployeeDetail extends JPanel {
+public class EmployeeDetail extends JFrame {
 
 }
