@@ -265,6 +265,7 @@ public class CreateUserFrame extends javax.swing.JFrame {
       JOptionPane.showMessageDialog(null, "Phone" + DUPLICATE_ERROR);
       return;
     }
+
     if (UserBUS.getInstance().checkForDuplicate(Arrays.asList(setEmail.getText()), new String[] { "email" })) {
       JOptionPane.showMessageDialog(null, "Email" + DUPLICATE_ERROR);
       return;
@@ -290,8 +291,13 @@ public class CreateUserFrame extends javax.swing.JFrame {
 
       UserBUS.getInstance().addModel(newUser);
 
-      int idUser = UserBUS.getInstance().getModelByUsername(setUserName.getText().trim()).getId();
+      JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(buttonSave);
+      frame.revalidate();
+      frame.repaint();
 
+      int idUser = UserBUS.getInstance().getModelById(newUser.getId()).getId();
+
+      
       AddressModel newAddress = new AddressModel(0, idUser, setStreet.getText().trim(), setCity.getText().trim(), setState.getText().trim(), setZip.getText().trim());
       AddressBUS.getInstance().addModel(newAddress);
       
