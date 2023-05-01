@@ -1,8 +1,6 @@
 package com.bookstore.gui.components.book;
 
 import com.bookstore.bus.BookBUS;
-import com.bookstore.gui.forms.admin.component.book.AddProductFrame;
-import com.bookstore.gui.forms.admin.component.book.BookProductPanel;
 import com.bookstore.models.BookModel;
 import com.bookstore.util.Excel.BookExcelUtil;
 /**
