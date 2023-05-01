@@ -1,4 +1,4 @@
-package com.bookstore.gui.form.salesman.importManagerment;
+package com.bookstore.gui.form.imports;
 
 import com.bookstore.bus.ImportBUS;
 import com.bookstore.bus.ProviderBUS;

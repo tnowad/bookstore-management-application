@@ -1,4 +1,4 @@
-package com.bookstore.gui.form.salesman.orderManagerment;
+package com.bookstore.gui.form.order;
 
 import com.bookstore.bus.OrderBUS;
 import com.bookstore.gui.component.button.Button;
