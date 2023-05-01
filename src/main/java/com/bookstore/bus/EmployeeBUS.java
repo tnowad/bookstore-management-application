@@ -1,9 +1,10 @@
 package com.bookstore.bus;
 
 import com.bookstore.dao.EmployeeDAO;
+import com.bookstore.enums.EmployeeType;
 import com.bookstore.interfaces.IBUS;
 import com.bookstore.models.EmployeeModel;
-import com.bookstore.models.EmployeeModel.EmployeeType;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

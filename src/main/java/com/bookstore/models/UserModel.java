@@ -1,5 +1,7 @@
 package com.bookstore.models;
 
+import com.bookstore.enums.UserRole;
+import com.bookstore.enums.UserStatus;
 import java.time.LocalDateTime;
 
 public class UserModel {
@@ -7,25 +9,13 @@ public class UserModel {
   private int id;
   private String username;
   private String password;
-  private Status status;
+  private UserStatus status;
   private String name;
   private String email;
   private String phone;
   private LocalDateTime createdAt;
   private LocalDateTime updatedAt;
-  private Role role;
-
-  public enum Status {
-    ACTIVE,
-    INACTIVE,
-    BANNED,
-  }
-
-  public enum Role {
-    CUSTOMER,
-    EMPLOYEE,
-    ADMIN,
-  }
+  private UserRole role;
 
   public UserModel() {}
 
@@ -33,13 +23,13 @@ public class UserModel {
     int id,
     String username,
     String password,
-    Status status,
+    UserStatus status,
     String name,
     String email,
     String phone,
     LocalDateTime createdAt,
     LocalDateTime updatedAt,
-    Role role
+    UserRole role
   ) {
     this.id = id;
     this.username = username;
@@ -77,11 +67,11 @@ public class UserModel {
     this.password = password;
   }
 
-  public Status getStatus() {
+  public UserStatus getStatus() {
     return this.status;
   }
 
-  public void setStatus(Status status) {
+  public void setStatus(UserStatus status) {
     this.status = status;
   }
 
@@ -125,11 +115,11 @@ public class UserModel {
     this.updatedAt = updatedAt;
   }
 
-  public Role getRole() {
+  public UserRole getRole() {
     return this.role;
   }
 
-  public void setRole(Role role) {
+  public void setRole(UserRole role) {
     this.role = role;
   }
 
@@ -148,7 +138,7 @@ public class UserModel {
     return this;
   }
 
-  public UserModel status(Status status) {
+  public UserModel status(UserStatus status) {
     setStatus(status);
     return this;
   }
@@ -178,7 +168,7 @@ public class UserModel {
     return this;
   }
 
-  public UserModel role(Role role) {
+  public UserModel role(UserRole role) {
     setRole(role);
     return this;
   }

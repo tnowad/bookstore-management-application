@@ -3,6 +3,7 @@ package com.bookstore.models;
 import java.time.LocalDate;
 
 public class PromotionModel {
+
   private int id;
   private String description;
   private int quantity;
@@ -12,11 +13,18 @@ public class PromotionModel {
   private int discountPercent;
   private int discountAmount;
 
-  public PromotionModel() {
-  }
+  public PromotionModel() {}
 
-  public PromotionModel(int id, String description, int quantity, LocalDate startDate, LocalDate endDate,
-      String conditionApply, int discountPercent, int discountAmount) {
+  public PromotionModel(
+    int id,
+    String description,
+    int quantity,
+    LocalDate startDate,
+    LocalDate endDate,
+    String conditionApply,
+    int discountPercent,
+    int discountAmount
+  ) {
     this.id = id;
     this.description = description;
     this.quantity = quantity;
@@ -130,5 +138,4 @@ public class PromotionModel {
     setDiscountAmount(discountAmount);
     return this;
   }
-
 }

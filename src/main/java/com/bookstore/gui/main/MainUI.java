@@ -1,10 +1,11 @@
 package com.bookstore.gui.main;
 
-import com.bookstore.gui.component.header.HeaderDashboard;
-import com.bookstore.gui.component.menu.DrawerMenu;
-import com.bookstore.gui.component.panel.MainPanel;
 import java.awt.LayoutManager;
 import javax.swing.JFrame;
+
+import com.bookstore.gui.components.header.HeaderDashboard;
+import com.bookstore.gui.components.menu.DrawerMenu;
+import com.bookstore.gui.components.panel.MainPanel;
 
 public class MainUI extends JFrame {
 

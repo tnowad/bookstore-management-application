@@ -1,5 +1,6 @@
 package com.bookstore.dao;
 
+import com.bookstore.enums.CartStatus;
 import com.bookstore.interfaces.IDAO;
 import com.bookstore.models.CartModel;
 import java.sql.PreparedStatement;
@@ -26,7 +27,7 @@ public class CartDAO implements IDAO<CartModel> {
     int id = rs.getInt("id");
     int userId = rs.getInt("user_id");
     LocalDateTime createdAt = rs.getTimestamp("created_at").toLocalDateTime();
-    CartModel.Status status = CartModel.Status.valueOf(
+    CartStatus status = CartStatus.valueOf(
       rs.getString("status").toUpperCase()
     );
     LocalDateTime expires = null;

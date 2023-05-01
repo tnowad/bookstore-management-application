@@ -1,13 +1,12 @@
 package com.bookstore.models;
 
 public class PublisherModel {
+
   private int id;
   private String name;
   private String description;
 
-  public PublisherModel() {
-
-  }
+  public PublisherModel() {}
 
   public PublisherModel(int id, String name, String description) {
     this.id = id;

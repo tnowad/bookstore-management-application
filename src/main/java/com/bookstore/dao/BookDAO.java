@@ -1,5 +1,6 @@
 package com.bookstore.dao;
 
+import com.bookstore.enums.BookStatus;
 import com.bookstore.interfaces.IDAO;
 import com.bookstore.models.BookModel;
 import java.sql.PreparedStatement;
@@ -29,7 +30,7 @@ public class BookDAO implements IDAO<BookModel> {
       rs.getString("image"),
       rs.getInt("price"),
       rs.getInt("quantity"),
-      BookModel.Status.valueOf(rs.getString("status").toUpperCase()),
+      BookStatus.valueOf(rs.getString("status").toUpperCase()),
       rs.getInt("publisher_id"),
       rs.getInt("author_id")
     );

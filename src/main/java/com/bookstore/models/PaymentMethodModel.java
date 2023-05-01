@@ -3,6 +3,7 @@ package com.bookstore.models;
 import java.time.LocalDate;
 
 public class PaymentMethodModel {
+
   private int id;
   private String paymentId;
   private String cardNumber;
@@ -10,11 +11,16 @@ public class PaymentMethodModel {
   private LocalDate expirationDate;
   private int customerId;
 
-  public PaymentMethodModel() {
-  }
+  public PaymentMethodModel() {}
 
-  public PaymentMethodModel(int id, String paymentId, String cardNumber, String cardHolder, LocalDate expirationDate,
-      int customerId) {
+  public PaymentMethodModel(
+    int id,
+    String paymentId,
+    String cardNumber,
+    String cardHolder,
+    LocalDate expirationDate,
+    int customerId
+  ) {
     this.id = id;
     this.paymentId = paymentId;
     this.cardNumber = cardNumber;
@@ -100,5 +106,4 @@ public class PaymentMethodModel {
     setCustomerId(customerId);
     return this;
   }
-
 }
