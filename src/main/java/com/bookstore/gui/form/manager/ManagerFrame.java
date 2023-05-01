@@ -2,7 +2,7 @@ package com.bookstore.gui.form.manager;
 
 import com.bookstore.gui.component.button.Button;
 import com.bookstore.gui.form.account.AccountPanel;
-import com.bookstore.gui.form.salesman.bookManagerment.BookList;
+import com.bookstore.gui.form.book.BookList;
 import com.bookstore.gui.form.salesman.customerManagerment.CustomerList;
 import com.bookstore.gui.form.salesman.importManagerment.ImportList;
 import com.bookstore.gui.form.salesman.orderManagerment.OrderList;

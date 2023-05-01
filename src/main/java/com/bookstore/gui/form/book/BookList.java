@@ -1,4 +1,4 @@
-package com.bookstore.gui.form.salesman.bookManagerment;
+package com.bookstore.gui.form.book;
 
 import com.bookstore.bus.BookBUS;
 import com.bookstore.gui.Theme.ThemeFont;

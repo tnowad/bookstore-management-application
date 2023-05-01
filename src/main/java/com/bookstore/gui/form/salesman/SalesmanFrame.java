@@ -3,7 +3,7 @@ package com.bookstore.gui.form.salesman;
 import com.bookstore.bus.EmployeeBUS;
 import com.bookstore.bus.UserBUS;
 import com.bookstore.gui.component.button.Button;
-import com.bookstore.gui.form.salesman.bookManagerment.BookList;
+import com.bookstore.gui.form.book.BookList;
 import com.bookstore.gui.form.salesman.customerManagerment.CustomerList;
 import com.bookstore.gui.form.salesman.employeeManagerment.EmployeeList;
 import com.bookstore.gui.form.salesman.importManagerment.ImportList;
