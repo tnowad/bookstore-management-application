@@ -2,7 +2,6 @@ package com.bookstore.gui.form.salesman.view;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 import javax.swing.table.DefaultTableModel;
 import java.util.List;
 
