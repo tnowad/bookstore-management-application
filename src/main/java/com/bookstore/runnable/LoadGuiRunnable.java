@@ -9,7 +9,7 @@ public class LoadGuiRunnable implements Runnable {
 
   @Override
   public void run() {
-    // new LoginUI().setVisible(true);
+    new LoginUI().setVisible(true);
     try {
       UIFactory.showForm(UserBUS.getInstance().login("admin", "password"));
     } catch (Exception e) {

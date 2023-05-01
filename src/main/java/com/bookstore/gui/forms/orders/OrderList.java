@@ -2,9 +2,9 @@ package com.bookstore.gui.forms.orders;
 
 import com.bookstore.bus.OrderBUS;
 import com.bookstore.enums.OrderStatus;
-import com.bookstore.gui.components.button.Button;
-import com.bookstore.gui.components.dialog.Dialog;
-import com.bookstore.gui.components.label.Label;
+import com.bookstore.gui.components.buttons.Button;
+import com.bookstore.gui.components.dialogs.Dialog;
+import com.bookstore.gui.components.labels.Label;
 import com.bookstore.models.OrderModel;
 
 import java.awt.*;

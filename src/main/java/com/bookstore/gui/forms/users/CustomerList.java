@@ -2,8 +2,8 @@ package com.bookstore.gui.forms.users;
 
 import com.bookstore.bus.UserBUS;
 import com.bookstore.enums.UserRole;
-import com.bookstore.gui.components.button.Button;
-import com.bookstore.gui.components.label.Label;
+import com.bookstore.gui.components.buttons.Button;
+import com.bookstore.gui.components.labels.Label;
 import com.bookstore.gui.theme.ThemeFont;
 import com.bookstore.models.UserModel;
 import java.awt.*;
