@@ -29,8 +29,8 @@ public class PendingOrderList extends JPanel {
             public void valueChanged(ListSelectionEvent event) {
                 int selectedRowIndex = orderTableList.getSelectedRow();
                 if (selectedRowIndex != -1) {
-                    int customerId = Integer.parseInt(orderTableList.getValueAt(selectedRowIndex, 0).toString());
-                    new Dialog(new PendingOrderDetail(customerId));
+                    int customerId = Integer.parseInt(orderTableList.getValueAt(selectedRowIndex, 2).toString());
+                    new Dialog(new OrderDetail(customerId));
 
                 } else {
                     System.out.println("Don't know how to handle this order");
