@@ -170,7 +170,7 @@ CREATE TABLE
         `paid` INT NOT NULL,
         `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
         `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-        `status` ENUM ('pending', 'solved') NOT NULL DEFAULT "pending",
+        `status` ENUM ('pending', 'solved','rejected') NOT NULL DEFAULT "pending",
         PRIMARY KEY (`id`)
     );
 
