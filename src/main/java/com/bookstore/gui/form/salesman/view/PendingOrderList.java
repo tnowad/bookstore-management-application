@@ -13,6 +13,7 @@ import com.bookstore.gui.component.label.Label;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import com.bookstore.models.OrderModel;
+import com.bookstore.models.OrderModel.Status;
 
 public class PendingOrderList extends JPanel {
     OrderBUS orderBus = OrderBUS.getInstance();
@@ -162,17 +163,20 @@ public class PendingOrderList extends JPanel {
         model.addColumn("Paid");
         model.addColumn("Status");
         for (OrderModel orderModel : orderList) {
-            model.addRow(new Object[] {
-                    orderModel.getId(), orderModel.getCartId(), orderModel.getCustomerId(), orderModel.getEmployeeId(),
-                    orderModel.getTotal(), orderModel.getPaid(), orderModel.getStatus()
-            });
+            if (orderModel.getStatus() == Status.PENDING) {
+                model.addRow(new Object[] {
+                        orderModel.getId(), orderModel.getCartId(), orderModel.getCustomerId(),
+                        orderModel.getEmployeeId(),
+                        orderModel.getTotal(), orderModel.getPaid(), orderModel.getStatus()
+                });
+            }
             orderTableList.setModel(model);
         }
         scrollPaneChild.setViewportView(orderTableList);
 
         orderListPanel.add(scrollPaneChild, java.awt.BorderLayout.CENTER);
 
-        scrollPaneParrent.setViewportView(orderListPanel);
+        scrollPaneParrent.setViewportView(orderTableList);
 
         add(scrollPaneParrent, java.awt.BorderLayout.CENTER);
     }

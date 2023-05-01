@@ -3,6 +3,8 @@ package com.bookstore.gui.form.salesman.view;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
+import org.apache.commons.math3.geometry.partitioning.BSPTreeVisitor.Order;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,6 +23,7 @@ import com.bookstore.models.CartItemsModel;
 import com.bookstore.models.CartModel;
 import com.bookstore.models.OrderModel;
 import com.bookstore.models.UserModel;
+import com.bookstore.models.OrderModel.Status;
 
 public class OrderDetail extends JFrame {
     private Button acceptButton;
@@ -45,15 +48,49 @@ public class OrderDetail extends JFrame {
     private CartBUS cartBUS;
     private CartItemsBUS cartItemsBUS;
     private BookBUS bookBUS;
+    private UserBUS userBUS;
+    private UserModel userModel;
 
     public OrderDetail(int customerId) {
         this.customerId = customerId;
-        initComponents();
         updateData();
+        initComponents();
         listOrder();
+        handleEvent();
     }
 
+    private void handleEvent() {
+        acceptButton.addActionListener(acceptButtonActionListener);
+        rejectButton.addActionListener(rejectButtonActionListener);
+    }
+
+    private ActionListener acceptButtonActionListener = e -> {
+        // the message says do you want to click accept this order?
+        int answer = JOptionPane.showConfirmDialog(this, "Do you want to click accept this order?", "Confirm",
+                JOptionPane.YES_NO_OPTION);
+        if (answer == JOptionPane.YES_OPTION) {
+            orderModel.setStatus(Status.SOLVED);
+            orderBUS.updateModel(orderModel);
+            JOptionPane.showMessageDialog(this, "Order Accepted", "Success", JOptionPane.INFORMATION_MESSAGE);
+            dispose();
+        }
+    };
+
+    private ActionListener rejectButtonActionListener = e -> {
+        // The message says if you want to refuse this order?
+        int answer = JOptionPane.showConfirmDialog(this, "Do you want to click reject this order?", "Confirm",
+                JOptionPane.YES_NO_OPTION);
+        if (answer == JOptionPane.YES_OPTION) {
+            orderModel.setStatus(Status.REJECTED);
+            orderBUS.updateModel(orderModel);
+            JOptionPane.showMessageDialog(this, "Order Rejected", "Success", JOptionPane.INFORMATION_MESSAGE);
+            dispose();
+        }
+    };
+
     private void updateData() {
+        userBUS = UserBUS.getInstance();
+        userModel = userBUS.getModelById(this.customerId);
         orderBUS = OrderBUS.getInstance();
         ordersList = orderBUS.getAllModels();
         orderModel = ordersList.stream()
@@ -66,10 +103,18 @@ public class OrderDetail extends JFrame {
         cartItemList = cartItemsBUS.getAllModels();
         bookBUS = BookBUS.getInstance();
         bookList = bookBUS.getAllModels();
+
+        // int totalPrice = orderModel.getTotal();
+        // totalPriceTextField.setText(String.valueOf(totalPrice));
     }
 
     private void listOrder() {
-        DefaultTableModel model = new DefaultTableModel();
+        DefaultTableModel model = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
         model.addColumn("ISBN");
         model.addColumn("Name");
         model.addColumn("Price");
@@ -112,6 +157,9 @@ public class OrderDetail extends JFrame {
         totalPriceLabel = new Label("Total Price");
         nameCustomerLabel = new Label("Customer");
         totalPriceTextField = new JTextField();
+        int totalPrice = orderModel.getTotal();
+        totalPriceTextField.setText(String.valueOf(totalPrice));
+        totalPriceTextField.setEditable(false);
         acceptButton = new Button();
         rejectButton = new Button();
 
@@ -125,7 +173,7 @@ public class OrderDetail extends JFrame {
         titleLabel.setText("Order detail");
         groupHeaderPanel.add(titleLabel);
 
-        nameCustomerLabel.setText("Name : ");
+        nameCustomerLabel.setText("Name : " + userModel.getName());
         groupHeaderPanel.add(nameCustomerLabel);
 
         container.add(groupHeaderPanel, java.awt.BorderLayout.PAGE_START);
