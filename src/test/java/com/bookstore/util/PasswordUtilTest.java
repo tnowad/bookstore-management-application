@@ -12,7 +12,7 @@ public class PasswordUtilTest {
   @Test
   void testHashPassword() {
     String password = "MySecurePassword";
-    String hashedPassword = PasswordUtil.hashPassword(password);
+    String hashedPassword = PasswordUtils.hashPassword(password);
     assertNotNull(hashedPassword);
     assertNotEquals(password, hashedPassword);
   }
@@ -20,9 +20,10 @@ public class PasswordUtilTest {
   @Test
   void testCheckPassword() {
     String password = "MySecurePassword";
-    String hashedPassword = PasswordUtil.hashPassword(password);
-    assertTrue(PasswordUtil.checkPassword(password, hashedPassword));
-    assertFalse(PasswordUtil.checkPassword("IncorrectPassword", hashedPassword));
+    String hashedPassword = PasswordUtils.hashPassword(password);
+    assertTrue(PasswordUtils.checkPassword(password, hashedPassword));
+    assertFalse(
+      PasswordUtils.checkPassword("IncorrectPassword", hashedPassword)
+    );
   }
-
 }

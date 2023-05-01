@@ -2,7 +2,7 @@ package com.bookstore.util;
 
 import org.mindrot.jbcrypt.BCrypt;
 
-public class PasswordUtil {
+public class PasswordUtils {
 
   private static final int BCRYPT_WORKLOAD = 4;
 
