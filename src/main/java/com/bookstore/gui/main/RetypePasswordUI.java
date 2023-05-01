@@ -1,8 +1,8 @@
 package com.bookstore.gui.main;
 
 import com.bookstore.bus.UserBUS;
-import com.bookstore.gui.Theme.ThemeFont;
-import com.bookstore.gui.component.button.Button;
+import com.bookstore.gui.components.button.Button;
+import com.bookstore.gui.theme.ThemeFont;
 import com.bookstore.models.UserModel;
 import java.awt.BorderLayout;
 import java.awt.Color;

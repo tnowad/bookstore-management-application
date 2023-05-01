@@ -1,16 +1,13 @@
 package com.bookstore.models;
 
+import com.bookstore.enums.EmployeeType;
+
 public class EmployeeModel {
 
   private int userId;
   private int salary;
   private EmployeeType employeeType;
   private String contactInformation;
-
-  public enum EmployeeType {
-    EMPLOYEE_MANAGER,
-    EMPLOYEE_SALES,
-  }
 
   public EmployeeModel(
     int userId,

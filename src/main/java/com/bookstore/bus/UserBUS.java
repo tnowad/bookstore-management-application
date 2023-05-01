@@ -1,10 +1,10 @@
 package com.bookstore.bus;
 
 import com.bookstore.dao.UserDAO;
+import com.bookstore.enums.UserRole;
+import com.bookstore.enums.UserStatus;
 import com.bookstore.interfaces.IBUS;
 import com.bookstore.models.UserModel;
-import com.bookstore.models.UserModel.Role;
-import com.bookstore.models.UserModel.Status;
 import com.bookstore.util.PasswordUtils;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -40,10 +40,10 @@ public class UserBUS implements IBUS<UserModel> {
     if (!PasswordUtils.checkPassword(password, userModel.getPassword())) {
       throw new LoginException("Incorrect password");
     }
-    if (userModel.getStatus() == Status.INACTIVE) {
+    if (userModel.getStatus() == UserStatus.INACTIVE) {
       throw new LoginException("User is inactive");
     }
-    if (userModel.getStatus() == Status.BANNED) {
+    if (userModel.getStatus() == UserStatus.BANNED) {
       throw new LoginException("User is banned");
     }
     return userModel;
@@ -62,8 +62,8 @@ public class UserBUS implements IBUS<UserModel> {
     userModel.setName(name);
     userModel.setEmail(email);
     userModel.setPhone(phone);
-    userModel.setStatus(Status.ACTIVE);
-    userModel.setRole(Role.CUSTOMER);
+    userModel.setStatus(UserStatus.ACTIVE);
+    userModel.setRole(UserRole.CUSTOMER);
     userModel.setId(addModel(userModel));
     userModel = getModelById(userModel.getId());
     return userModel;
@@ -222,10 +222,10 @@ public class UserBUS implements IBUS<UserModel> {
     }
 
     userModel.setRole(
-      userModel.getRole() != null ? userModel.getRole() : Role.CUSTOMER
+      userModel.getRole() != null ? userModel.getRole() : UserRole.CUSTOMER
     );
     userModel.setStatus(
-      userModel.getStatus() != null ? userModel.getStatus() : Status.ACTIVE
+      userModel.getStatus() != null ? userModel.getStatus() : UserStatus.ACTIVE
     );
     try {
       int id = UserDAO.getInstance().insert(mapToEntity(userModel));
@@ -283,7 +283,7 @@ public class UserBUS implements IBUS<UserModel> {
     if (success == 1) {
       for (UserModel user : userList) {
         if (user.getUsername().equals(username)) {
-          Status roleEnum = Status.valueOf(status.toUpperCase());
+          UserStatus roleEnum = UserStatus.valueOf(status.toUpperCase());
           user.setStatus(roleEnum);
           return 1;
         }
@@ -292,7 +292,7 @@ public class UserBUS implements IBUS<UserModel> {
     return 0;
   }
 
-  public int updateRole(String username, Role role) {
+  public int updateRole(String username, UserRole role) {
     int success = UserDAO.getInstance().updateRole(username, role);
     if (success == 1) {
       for (UserModel user : userList) {

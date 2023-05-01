@@ -13,9 +13,9 @@ import javax.swing.table.DefaultTableModel;
 
 import com.bookstore.models.BookModel;
 import com.bookstore.bus.BookBUS;
-import com.bookstore.gui.Theme.ThemeFont;
-import com.bookstore.gui.component.button.Button;
-import com.bookstore.gui.component.label.Label;
+import com.bookstore.gui.theme.ThemeFont;
+import com.bookstore.gui.components.button.Button;
+import com.bookstore.gui.components.label.Label;
 
 public class BookList extends JPanel {
 

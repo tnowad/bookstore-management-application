@@ -1,9 +1,9 @@
 package com.bookstore.bus;
 
 import com.bookstore.dao.CartDAO;
+import com.bookstore.enums.CartStatus;
 import com.bookstore.interfaces.IBUS;
 import com.bookstore.models.CartModel;
-import com.bookstore.models.CartModel.Status;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -144,7 +144,7 @@ public class CartBUS implements IBUS<CartModel> {
       cartModel.getStatus() == null ||
       cartModel.getStatus().toString().isEmpty()
     ) {
-      cartModel.setStatus(Status.SHOPPING);
+      cartModel.setStatus(CartStatus.SHOPPING);
     }
     if (cartModel.getExpires() == null) {
       cartModel.setExpires(
@@ -183,7 +183,7 @@ public class CartBUS implements IBUS<CartModel> {
     if (success == 1) {
       for (CartModel cart : cartList) {
         if (cart.getUserId() == userId) {
-          Status roleEnum = Status.valueOf(status.toUpperCase());
+          CartStatus roleEnum = CartStatus.valueOf(status.toUpperCase());
           cart.setStatus(roleEnum);
           return 1;
         }

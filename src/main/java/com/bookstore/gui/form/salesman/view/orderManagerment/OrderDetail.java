@@ -12,14 +12,14 @@ import com.bookstore.bus.CartBUS;
 import com.bookstore.bus.CartItemsBUS;
 import com.bookstore.bus.OrderBUS;
 import com.bookstore.bus.UserBUS;
-import com.bookstore.gui.component.button.Button;
-import com.bookstore.gui.component.label.Label;
+import com.bookstore.enums.OrderStatus;
+import com.bookstore.gui.components.button.Button;
+import com.bookstore.gui.components.label.Label;
 import com.bookstore.models.BookModel;
 import com.bookstore.models.CartItemsModel;
 import com.bookstore.models.CartModel;
 import com.bookstore.models.OrderModel;
 import com.bookstore.models.UserModel;
-import com.bookstore.models.OrderModel.Status;
 
 public class OrderDetail extends JFrame {
     private Button acceptButton;
@@ -67,7 +67,7 @@ public class OrderDetail extends JFrame {
         int answer = JOptionPane.showConfirmDialog(this, "Do you want to click accept this order?", "Confirm",
                 JOptionPane.YES_NO_OPTION);
         if (answer == JOptionPane.YES_OPTION) {
-            orderModel.setStatus(Status.SOLVED);
+            orderModel.setStatus(OrderStatus.SOLVED);
             orderBUS.updateModel(orderModel);
             JOptionPane.showMessageDialog(this, "Order Accepted", "Success", JOptionPane.INFORMATION_MESSAGE);
             dispose();
@@ -79,7 +79,7 @@ public class OrderDetail extends JFrame {
         int answer = JOptionPane.showConfirmDialog(this, "Do you want to click reject this order?", "Confirm",
                 JOptionPane.YES_NO_OPTION);
         if (answer == JOptionPane.YES_OPTION) {
-            orderModel.setStatus(Status.REJECTED);
+            orderModel.setStatus(OrderStatus.REJECTED);
             orderBUS.updateModel(orderModel);
             JOptionPane.showMessageDialog(this, "Order Rejected", "Success", JOptionPane.INFORMATION_MESSAGE);
             dispose();

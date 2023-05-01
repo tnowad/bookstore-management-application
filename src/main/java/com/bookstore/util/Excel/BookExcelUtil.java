@@ -1,5 +1,8 @@
 package com.bookstore.util.Excel;
 
+import com.bookstore.bus.BookBUS;
+import com.bookstore.enums.BookStatus;
+import com.bookstore.models.BookModel;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -7,24 +10,24 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import com.bookstore.bus.BookBUS;
-import com.bookstore.models.BookModel;
-import com.bookstore.models.BookModel.Status;
-
 public class BookExcelUtil extends ExcelUtil {
 
   private static final String[] EXCEL_EXTENSIONS = { "xls", "xlsx", "xlsm" };
-  private static final Logger LOGGER = Logger.getLogger(BookExcelUtil.class.getName());
+  private static final Logger LOGGER = Logger.getLogger(
+    BookExcelUtil.class.getName()
+  );
 
   public static List<BookModel> readBooksFromExcel() throws IOException {
     // BookBUS bookBUS = BookBUS.getInstance();
     JFileChooser fileChooser = new JFileChooser();
-    FileNameExtensionFilter filter = new FileNameExtensionFilter("Excel File", EXCEL_EXTENSIONS);
+    FileNameExtensionFilter filter = new FileNameExtensionFilter(
+      "Excel File",
+      EXCEL_EXTENSIONS
+    );
     fileChooser.setFileFilter(filter);
     int option = fileChooser.showOpenDialog(null);
 
@@ -36,15 +39,24 @@ public class BookExcelUtil extends ExcelUtil {
         List<List<String>> data = ExcelUtil.readExcel(filePath, 0);
         List<BookModel> books = convertToBookModelList(data);
 
-        JOptionPane.showMessageDialog(null,
-            "Data has been read successfully from " + inputFile.getName() + ".");
+        JOptionPane.showMessageDialog(
+          null,
+          "Data has been read successfully from " + inputFile.getName() + "."
+        );
         return books;
       } catch (IOException e) {
-        LOGGER.log(Level.SEVERE, "Error occurred while reading data from file: " + inputFile.getName(), e);
+        LOGGER.log(
+          Level.SEVERE,
+          "Error occurred while reading data from file: " + inputFile.getName(),
+          e
+        );
         showErrorDialog(e.getMessage(), "File Input Error");
         throw e;
       } catch (IllegalArgumentException e) {
-        LOGGER.log(Level.SEVERE, "Error occurred while converting data to BookModel: " + e.getMessage());
+        LOGGER.log(
+          Level.SEVERE,
+          "Error occurred while converting data to BookModel: " + e.getMessage()
+        );
         showErrorDialog(e.getMessage(), "Data Conversion Error");
         throw e;
       }
@@ -55,10 +67,17 @@ public class BookExcelUtil extends ExcelUtil {
 
   private static void showErrorDialog(String message, String title) {
     LOGGER.log(Level.WARNING, "Error occurred: " + message);
-    JOptionPane.showMessageDialog(null, "Error: " + message, title, JOptionPane.ERROR_MESSAGE);
+    JOptionPane.showMessageDialog(
+      null,
+      "Error: " + message,
+      title,
+      JOptionPane.ERROR_MESSAGE
+    );
   }
 
-  private static List<BookModel> convertToBookModelList(List<List<String>> data) {
+  private static List<BookModel> convertToBookModelList(
+    List<List<String>> data
+  ) {
     List<BookModel> bookModels = new ArrayList<>();
     for (int i = 1; i < data.size(); i++) {
       List<String> row = data.get(i);
@@ -71,71 +90,98 @@ public class BookExcelUtil extends ExcelUtil {
       try {
         if (row.get(4).contains(".")) {
           price = (int) Float.parseFloat(row.get(4));
-        } else
-          price = Integer.parseInt(row.get(4));
+        } else price = Integer.parseInt(row.get(4));
 
         if (row.get(5).contains(".")) {
           quantity = (int) Float.parseFloat(row.get(5));
-        } else
-          quantity = (int) Float.parseFloat(row.get(5));
+        } else quantity = (int) Float.parseFloat(row.get(5));
       } catch (NumberFormatException e) {
-        throw new IllegalArgumentException("Invalid integer value in input data", e);
+        throw new IllegalArgumentException(
+          "Invalid integer value in input data",
+          e
+        );
       }
       String statusStr = row.get(6);
       String status;
       try {
         status = String.valueOf(statusStr.toUpperCase());
       } catch (IllegalArgumentException e) {
-        throw new IllegalArgumentException("Invalid status value in row: " + row);
+        throw new IllegalArgumentException(
+          "Invalid status value in row: " + row
+        );
       }
       int publisherId;
       int authorId;
       try {
         if (row.get(7).contains(".")) {
           publisherId = (int) Float.parseFloat(row.get(7));
-        } else
-          publisherId = Integer.parseInt(row.get(7));
+        } else publisherId = Integer.parseInt(row.get(7));
 
         if (row.get(8).contains(".")) {
           authorId = (int) Float.parseFloat(row.get(8));
-        } else
-          authorId = Integer.parseInt(row.get(8));
+        } else authorId = Integer.parseInt(row.get(8));
       } catch (NumberFormatException e) {
-        throw new IllegalArgumentException("Invalid integer value in input data", e);
+        throw new IllegalArgumentException(
+          "Invalid integer value in input data",
+          e
+        );
       }
-      BookModel model = new BookModel(isbn, title, description, image, price, quantity, Status.valueOf(status),
-          publisherId, authorId);
+      BookModel model = new BookModel(
+        isbn,
+        title,
+        description,
+        image,
+        price,
+        quantity,
+        BookStatus.valueOf(status),
+        publisherId,
+        authorId
+      );
       bookModels.add(model);
       BookBUS.getInstance().addModel(model);
     }
     return bookModels;
   }
 
-  public static void writeBooksToExcel(List<BookModel> books) throws IOException {
+  public static void writeBooksToExcel(List<BookModel> books)
+    throws IOException {
     List<List<String>> data = new ArrayList<>();
 
     // Create header row
-    List<String> headerValues = Arrays.asList("isbn", "title", "description", "image", "price", "quantity", "status",
-        "publisherId", "authorId");
+    List<String> headerValues = Arrays.asList(
+      "isbn",
+      "title",
+      "description",
+      "image",
+      "price",
+      "quantity",
+      "status",
+      "publisherId",
+      "authorId"
+    );
     data.add(headerValues);
 
     // Write data rows
     for (BookModel book : books) {
       List<String> values = Arrays.asList(
-          book.getIsbn(),
-          book.getTitle(),
-          book.getDescription(),
-          book.getImage(),
-          Integer.toString(book.getPrice()),
-          Integer.toString(book.getQuantity()),
-          book.getStatus().toString(),
-          Integer.toString(book.getPublisherId()),
-          Integer.toString(book.getAuthorId()));
+        book.getIsbn(),
+        book.getTitle(),
+        book.getDescription(),
+        book.getImage(),
+        Integer.toString(book.getPrice()),
+        Integer.toString(book.getQuantity()),
+        book.getStatus().toString(),
+        Integer.toString(book.getPublisherId()),
+        Integer.toString(book.getAuthorId())
+      );
       data.add(values);
     }
 
     JFileChooser fileChooser = new JFileChooser();
-    FileNameExtensionFilter filter = new FileNameExtensionFilter("Excel File", EXCEL_EXTENSIONS);
+    FileNameExtensionFilter filter = new FileNameExtensionFilter(
+      "Excel File",
+      EXCEL_EXTENSIONS
+    );
     fileChooser.setFileFilter(filter);
     int option = fileChooser.showSaveDialog(null);
 
@@ -144,8 +190,12 @@ public class BookExcelUtil extends ExcelUtil {
       String filePath = outputFile.getAbsolutePath();
 
       if (outputFile.exists()) {
-        int overwriteOption = JOptionPane.showConfirmDialog(null,
-            "The file already exists. Do you want to overwrite it?", "File Exists", JOptionPane.YES_NO_OPTION);
+        int overwriteOption = JOptionPane.showConfirmDialog(
+          null,
+          "The file already exists. Do you want to overwrite it?",
+          "File Exists",
+          JOptionPane.YES_NO_OPTION
+        );
         if (overwriteOption == JOptionPane.NO_OPTION) {
           return;
         }
@@ -153,15 +203,24 @@ public class BookExcelUtil extends ExcelUtil {
 
       try {
         writeExcel(data, filePath, "Books");
-        JOptionPane.showMessageDialog(null,
-            "Data has been written successfully to " + outputFile.getName() + ".");
+        JOptionPane.showMessageDialog(
+          null,
+          "Data has been written successfully to " + outputFile.getName() + "."
+        );
       } catch (IOException e) {
-        LOGGER.log(Level.SEVERE, "Error occurred while writing data to file: " + outputFile.getName(), e);
-        JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), "File Output Error",
-            JOptionPane.ERROR_MESSAGE);
+        LOGGER.log(
+          Level.SEVERE,
+          "Error occurred while writing data to file: " + outputFile.getName(),
+          e
+        );
+        JOptionPane.showMessageDialog(
+          null,
+          "Error: " + e.getMessage(),
+          "File Output Error",
+          JOptionPane.ERROR_MESSAGE
+        );
         throw e;
       }
     }
   }
-
 }

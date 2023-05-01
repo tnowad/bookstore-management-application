@@ -1,7 +1,9 @@
 package com.bookstore.dao;
 
+import com.bookstore.enums.EmployeeType;
 import com.bookstore.interfaces.IDAO;
 import com.bookstore.models.EmployeeModel;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -25,7 +27,7 @@ public class EmployeeDAO implements IDAO<EmployeeModel> {
     return new EmployeeModel(
       rs.getInt("user_id"),
       rs.getInt("salary"),
-      EmployeeModel.EmployeeType.valueOf(
+      EmployeeType.valueOf(
         rs.getString("employee_type").toUpperCase()
       ),
       rs.getString("contact_information")

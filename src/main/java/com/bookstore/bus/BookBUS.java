@@ -1,9 +1,9 @@
 package com.bookstore.bus;
 
 import com.bookstore.dao.BookDAO;
+import com.bookstore.enums.BookStatus;
 import com.bookstore.interfaces.IBUS;
 import com.bookstore.models.BookModel;
-import com.bookstore.models.BookModel.Status;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -181,7 +181,7 @@ public class BookBUS implements IBUS<BookModel> {
       bookModel.getStatus() == null ||
       bookModel.getStatus().toString().isEmpty()
     ) {
-      bookModel.setStatus(Status.AVAILABLE);
+      bookModel.setStatus(BookStatus.AVAILABLE);
     }
     if (bookModel.getPublisherId() <= 0) {
       throw new IllegalArgumentException(
@@ -230,7 +230,7 @@ public class BookBUS implements IBUS<BookModel> {
     if (success == 1) {
       for (BookModel book : bookList) {
         if (book.getIsbn().equals(isbn)) {
-          Status roleEnum = Status.valueOf(status.toUpperCase());
+          BookStatus roleEnum = BookStatus.valueOf(status.toUpperCase());
           book.setStatus(roleEnum);
           return 1;
         }

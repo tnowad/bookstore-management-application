@@ -1,9 +1,9 @@
 package com.bookstore.dao;
 
+import com.bookstore.enums.UserRole;
+import com.bookstore.enums.UserStatus;
 import com.bookstore.interfaces.IDAO;
 import com.bookstore.models.UserModel;
-import com.bookstore.models.UserModel.Role;
-import com.bookstore.models.UserModel.Status;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -28,13 +28,15 @@ public class UserDAO implements IDAO<UserModel> {
     int id = rs.getInt("id");
     String username = rs.getString("username");
     String password = rs.getString("password");
-    Status status = Status.valueOf(rs.getString("status").toUpperCase());
+    UserStatus status = UserStatus.valueOf(
+      rs.getString("status").toUpperCase()
+    );
     String name = rs.getString("name");
     String email = rs.getString("email");
     String phone = rs.getString("phone");
     LocalDateTime createdAt = rs.getTimestamp("created_at").toLocalDateTime();
     LocalDateTime updatedAt = rs.getTimestamp("updated_at").toLocalDateTime();
-    Role role = Role.valueOf(rs.getString("role").toUpperCase());
+    UserRole role = UserRole.valueOf(rs.getString("role").toUpperCase());
     return new UserModel(
       id,
       username,
@@ -115,7 +117,7 @@ public class UserDAO implements IDAO<UserModel> {
     }
   }
 
-  public int updateRole(String username, Role role) {
+  public int updateRole(String username, UserRole role) {
     String updateSql =
       "UPDATE users SET role = ?, updated_at = CURRENT_TIMESTAMP WHERE username = ?";
     Object[] args = { role, username };
@@ -130,7 +132,7 @@ public class UserDAO implements IDAO<UserModel> {
   @Override
   public int delete(int id) {
     String updateStatusSql = "UPDATE users SET status = ? WHERE id = ?";
-    Object[] args = { UserModel.Status.BANNED.toString().toUpperCase(), id };
+    Object[] args = { UserStatus.BANNED.toString().toUpperCase(), id };
     try {
       return DatabaseConnection.executeUpdate(updateStatusSql, args);
     } catch (SQLException e) {
