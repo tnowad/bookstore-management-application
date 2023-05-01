@@ -1,6 +1,7 @@
 package com.bookstore.gui.factories;
 
 import com.bookstore.dao.EmployeeDAO;
+import com.bookstore.gui.component.panel.MainPanel;
 import com.bookstore.models.EmployeeModel;
 import com.bookstore.models.MenuItemModel;
 import com.bookstore.models.MenuModel;
@@ -9,6 +10,7 @@ import com.bookstore.models.UserModel;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
+import javax.swing.JPanel;
 
 public class MenuFactory {
 
@@ -42,33 +44,35 @@ public class MenuFactory {
     return new MenuModel(
       new ArrayList<MenuItemModel>() {
         {
-          add(new MenuItemModel("Home", new ImageIcon(""), showHome, null));
+          add(
+            new MenuItemModel("Home", new ImageIcon(""), showHomeAdmin, null)
+          );
           add(
             new MenuItemModel(
               "Customer",
               new ImageIcon(""),
-              showHome,
+              showHomeAdmin,
               new ArrayList<SubMenuItemModel>() {
                 {
                   add(
                     new SubMenuItemModel(
                       "Add Customer",
                       new ImageIcon(""),
-                      showHome
+                      showHomeAdmin
                     )
                   );
                   add(
                     new SubMenuItemModel(
                       "View Customer",
                       new ImageIcon(""),
-                      showHome
+                      showHomeAdmin
                     )
                   );
                   add(
                     new SubMenuItemModel(
                       "Edit Customer",
                       new ImageIcon(""),
-                      showHome
+                      showHomeAdmin
                     )
                   );
                 }
@@ -92,7 +96,16 @@ public class MenuFactory {
     return new MenuModel(null);
   }
 
-  private static ActionListener showHome = e -> {
-    System.out.println("Show home");
+  private static ActionListener showHomeAdmin = e -> {
+    MainPanel
+      .getInstance()
+      .showForm(
+        new JPanel() {
+          {
+            add(new javax.swing.JLabel("Home Admin"));
+            add(new javax.swing.JLabel("Admin"));
+          }
+        }
+      );
   };
 }
