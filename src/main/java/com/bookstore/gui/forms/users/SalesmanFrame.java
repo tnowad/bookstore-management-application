@@ -3,7 +3,7 @@ package com.bookstore.gui.forms.users;
 import com.bookstore.bus.EmployeeBUS;
 import com.bookstore.bus.UserBUS;
 import com.bookstore.enums.EmployeeType;
-import com.bookstore.gui.components.button.Button;
+import com.bookstore.gui.components.buttons.Button;
 import com.bookstore.gui.forms.books.BookList;
 import com.bookstore.gui.forms.imports.ImportList;
 import com.bookstore.gui.forms.orders.OrderList;

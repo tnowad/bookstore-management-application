@@ -2,8 +2,8 @@ package com.bookstore.gui.forms.imports;
 
 import com.bookstore.bus.ImportBUS;
 import com.bookstore.bus.ProviderBUS;
-import com.bookstore.gui.components.button.Button;
-import com.bookstore.gui.components.label.Label;
+import com.bookstore.gui.components.buttons.Button;
+import com.bookstore.gui.components.labels.Label;
 import com.bookstore.models.ImportModel;
 import com.bookstore.models.ProviderModel;
 import java.awt.event.ActionEvent;

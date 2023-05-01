@@ -1,8 +1,8 @@
 package com.bookstore.gui.forms.books;
 
 import com.bookstore.bus.BookBUS;
-import com.bookstore.gui.components.button.Button;
-import com.bookstore.gui.components.label.Label;
+import com.bookstore.gui.components.buttons.Button;
+import com.bookstore.gui.components.labels.Label;
 import com.bookstore.gui.theme.ThemeFont;
 import com.bookstore.models.BookModel;
 import java.awt.event.ActionEvent;

@@ -2,7 +2,7 @@ package com.bookstore.gui.forms.accounts;
 
 import com.bookstore.bus.AddressBUS;
 import com.bookstore.bus.UserBUS;
-import com.bookstore.gui.components.button.Button;
+import com.bookstore.gui.components.buttons.Button;
 import com.bookstore.models.AddressModel;
 import com.bookstore.models.UserModel;
 import com.bookstore.services.Authentication;

@@ -2,7 +2,7 @@ package com.bookstore.gui.forms.imports;
 
 import com.bookstore.bus.ImportBUS;
 import com.bookstore.dao.ImportDAO;
-import com.bookstore.gui.components.table.Table;
+import com.bookstore.gui.components.tables.Table;
 import com.bookstore.models.ImportModel;
 import com.bookstore.models.ImportTableModel;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;

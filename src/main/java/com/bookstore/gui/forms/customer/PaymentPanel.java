@@ -1,6 +1,6 @@
 package com.bookstore.gui.forms.customer;
 
-import com.bookstore.gui.components.button.Button;
+import com.bookstore.gui.components.buttons.Button;
 import com.bookstore.gui.theme.ThemeFont;
 
 import java.awt.*;
