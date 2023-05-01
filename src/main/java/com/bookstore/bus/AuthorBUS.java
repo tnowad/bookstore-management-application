@@ -1,12 +1,11 @@
 package com.bookstore.bus;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import com.bookstore.dao.AuthorDAO;
 import com.bookstore.interfaces.IBUS;
 import com.bookstore.models.AuthorModel;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class AuthorBUS implements IBUS<AuthorModel> {
 
@@ -38,6 +37,7 @@ public class AuthorBUS implements IBUS<AuthorModel> {
     }
     return null;
   }
+
   public AuthorModel getModelByAuthorName(String name) {
     for (AuthorModel authorModel : authorList) {
       if (authorModel.getName().equals(name)) {
@@ -45,7 +45,9 @@ public class AuthorBUS implements IBUS<AuthorModel> {
       }
     }
 
-    AuthorModel authorModel = AuthorDAO.getInstance().getModelByAuthorName(name);
+    AuthorModel authorModel = AuthorDAO
+      .getInstance()
+      .getModelByAuthorName(name);
     if (authorModel != null) {
       authorList.add(authorModel);
     }
@@ -64,7 +66,11 @@ public class AuthorBUS implements IBUS<AuthorModel> {
     to.setDescription(from.getDescription());
   }
 
-  private boolean checkFilter(AuthorModel authorModel, String value, String[] columns) {
+  private boolean checkFilter(
+    AuthorModel authorModel,
+    String value,
+    String[] columns
+  ) {
     for (String column : columns) {
       switch (column.toLowerCase()) {
         case "id" -> {
@@ -73,12 +79,19 @@ public class AuthorBUS implements IBUS<AuthorModel> {
           }
         }
         case "name" -> {
-          if (authorModel.getName().toLowerCase().contains(value.toLowerCase())) {
+          if (
+            authorModel.getName().toLowerCase().contains(value.toLowerCase())
+          ) {
             return true;
           }
         }
         case "description" -> {
-          if (authorModel.getDescription().toLowerCase().contains(value.toLowerCase())) {
+          if (
+            authorModel
+              .getDescription()
+              .toLowerCase()
+              .contains(value.toLowerCase())
+          ) {
             return true;
           }
         }
@@ -93,9 +106,11 @@ public class AuthorBUS implements IBUS<AuthorModel> {
   }
 
   private boolean checkAllColumns(AuthorModel authorModel, String value) {
-    return authorModel.getId() == Integer.parseInt(value)
-        || authorModel.getName().toLowerCase().contains(value.toLowerCase())
-        || authorModel.getDescription().toLowerCase().contains(value.toLowerCase());
+    return (
+      authorModel.getId() == Integer.parseInt(value) ||
+      authorModel.getName().toLowerCase().contains(value.toLowerCase()) ||
+      authorModel.getDescription().toLowerCase().contains(value.toLowerCase())
+    );
   }
 
   @Override
@@ -103,8 +118,13 @@ public class AuthorBUS implements IBUS<AuthorModel> {
     if (authorModel.getName() == null || authorModel.getName().isEmpty()) {
       throw new IllegalArgumentException("Name cannot be null or empty!");
     }
-    if (authorModel.getDescription() == null || authorModel.getDescription().isEmpty()) {
-      throw new IllegalArgumentException("Description cannot be null or empty!");
+    if (
+      authorModel.getDescription() == null ||
+      authorModel.getDescription().isEmpty()
+    ) {
+      throw new IllegalArgumentException(
+        "Description cannot be null or empty!"
+      );
     }
 
     int id = AuthorDAO.getInstance().insert(mapToEntity(authorModel));
@@ -131,7 +151,9 @@ public class AuthorBUS implements IBUS<AuthorModel> {
   public int deleteModel(int id) {
     AuthorModel authorModel = getModelById(id);
     if (authorModel == null) {
-      throw new IllegalArgumentException("Author with ID " + id + " does not exist.");
+      throw new IllegalArgumentException(
+        "Author with ID " + id + " does not exist."
+      );
     }
     int deletedRows = AuthorDAO.getInstance().delete(id);
     if (deletedRows > 0) {

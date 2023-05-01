@@ -1,14 +1,14 @@
 package com.bookstore.bus;
 
+import com.bookstore.dao.ImportItemsDAO;
+import com.bookstore.interfaces.IBUS;
+import com.bookstore.models.ImportItemsModel;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.bookstore.dao.ImportItemsDAO;
-import com.bookstore.interfaces.IBUS;
-import com.bookstore.models.ImportItemsModel;
-
 public class ImportItemsBUS implements IBUS<ImportItemsModel> {
+
   private final List<ImportItemsModel> importItemsList = new ArrayList<>();
   private static ImportItemsBUS instance;
 
@@ -51,7 +51,11 @@ public class ImportItemsBUS implements IBUS<ImportItemsModel> {
     to.setQuantity(from.getQuantity());
   }
 
-  private boolean checkFilter(ImportItemsModel ImportItemsModel, String value, String[] columns) {
+  private boolean checkFilter(
+    ImportItemsModel ImportItemsModel,
+    String value,
+    String[] columns
+  ) {
     for (String column : columns) {
       switch (column.toLowerCase()) {
         case "import_id" -> {
@@ -84,11 +88,16 @@ public class ImportItemsBUS implements IBUS<ImportItemsModel> {
     return false;
   }
 
-  private boolean checkAllColumns(ImportItemsModel ImportItemsModel, String value) {
-    return ImportItemsModel.getImportId() == Integer.parseInt(value)
-        || ImportItemsModel.getBookIsbn().contains(value)
-        || ImportItemsModel.getPrice() == Double.parseDouble(value)
-        || ImportItemsModel.getQuantity() == Integer.parseInt(value);
+  private boolean checkAllColumns(
+    ImportItemsModel ImportItemsModel,
+    String value
+  ) {
+    return (
+      ImportItemsModel.getImportId() == Integer.parseInt(value) ||
+      ImportItemsModel.getBookIsbn().contains(value) ||
+      ImportItemsModel.getPrice() == Double.parseDouble(value) ||
+      ImportItemsModel.getQuantity() == Integer.parseInt(value)
+    );
   }
 
   @Override
@@ -122,7 +131,9 @@ public class ImportItemsBUS implements IBUS<ImportItemsModel> {
     int updatedRows = ImportItemsDAO.getInstance().update(ImportItemsModel);
     if (updatedRows > 0) {
       for (int i = 0; i < importItemsList.size(); i++) {
-        if (importItemsList.get(i).getImportId() == ImportItemsModel.getImportId()) {
+        if (
+          importItemsList.get(i).getImportId() == ImportItemsModel.getImportId()
+        ) {
           importItemsList.set(i, ImportItemsModel);
           break;
         }
@@ -135,7 +146,9 @@ public class ImportItemsBUS implements IBUS<ImportItemsModel> {
   public int deleteModel(int id) {
     ImportItemsModel ImportItemsModel = getModelById(id);
     if (ImportItemsModel == null) {
-      throw new IllegalArgumentException("import_items with ID " + id + " does not exist.");
+      throw new IllegalArgumentException(
+        "import_items with ID " + id + " does not exist."
+      );
     }
     int deletedRows = ImportItemsDAO.getInstance().delete(id);
     if (deletedRows > 0) {
@@ -147,7 +160,9 @@ public class ImportItemsBUS implements IBUS<ImportItemsModel> {
   @Override
   public List<ImportItemsModel> searchModel(String value, String[] columns) {
     List<ImportItemsModel> results = new ArrayList<>();
-    List<ImportItemsModel> entities = ImportItemsDAO.getInstance().search(value, columns);
+    List<ImportItemsModel> entities = ImportItemsDAO
+      .getInstance()
+      .search(value, columns);
     for (ImportItemsModel entity : entities) {
       ImportItemsModel model = mapToEntity(entity);
       if (checkFilter(model, value, columns)) {

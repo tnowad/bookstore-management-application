@@ -1,14 +1,14 @@
 package com.bookstore.bus;
 
+import com.bookstore.dao.CurrentUserDAO;
+import com.bookstore.interfaces.IBUS;
+import com.bookstore.models.CurrentUserModel;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.bookstore.dao.CurrentUserDAO;
-import com.bookstore.interfaces.IBUS;
-import com.bookstore.models.CurrentUserModel;
-
 public class CurrentUserBUS implements IBUS<CurrentUserModel> {
+
   private final List<CurrentUserModel> currentUserList = new ArrayList<>();
   private static CurrentUserBUS instance;
 
@@ -68,7 +68,9 @@ public class CurrentUserBUS implements IBUS<CurrentUserModel> {
 
   @Override
   public int updateModel(CurrentUserModel currentUserModel) {
-    int updatedRows = CurrentUserDAO.getInstance().update(mapToEntity(currentUserModel));
+    int updatedRows = CurrentUserDAO
+      .getInstance()
+      .update(mapToEntity(currentUserModel));
     if (updatedRows > 0) {
       currentUserList.set(0, currentUserModel);
     }
@@ -79,7 +81,9 @@ public class CurrentUserBUS implements IBUS<CurrentUserModel> {
   public int deleteModel(int id) {
     CurrentUserModel currentUserModel = getModelById(id);
     if (currentUserModel == null) {
-      throw new IllegalArgumentException("Current user with ID " + id + " does not exist.");
+      throw new IllegalArgumentException(
+        "Current user with ID " + id + " does not exist."
+      );
     }
     int deletedRows = CurrentUserDAO.getInstance().delete(id);
     if (deletedRows > 0) {
@@ -90,6 +94,8 @@ public class CurrentUserBUS implements IBUS<CurrentUserModel> {
 
   @Override
   public List<CurrentUserModel> searchModel(String value, String[] columns) {
-    throw new UnsupportedOperationException("Search method is not supported in CurrentUserBUS");
+    throw new UnsupportedOperationException(
+      "Search method is not supported in CurrentUserBUS"
+    );
   }
 }

@@ -1,13 +1,12 @@
 package com.bookstore.bus;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import com.bookstore.dao.EmployeeDAO;
 import com.bookstore.interfaces.IBUS;
 import com.bookstore.models.EmployeeModel;
 import com.bookstore.models.EmployeeModel.EmployeeType;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class EmployeeBUS implements IBUS<EmployeeModel> {
 
@@ -53,7 +52,11 @@ public class EmployeeBUS implements IBUS<EmployeeModel> {
     to.setContactInformation(from.getContactInformation());
   }
 
-  private boolean checkFilter(EmployeeModel employeeModel, String value, String[] columns) {
+  private boolean checkFilter(
+    EmployeeModel employeeModel,
+    String value,
+    String[] columns
+  ) {
     for (String column : columns) {
       switch (column.toLowerCase()) {
         case "user_id" -> {
@@ -67,12 +70,23 @@ public class EmployeeBUS implements IBUS<EmployeeModel> {
           }
         }
         case "employee_type" -> {
-          if (employeeModel.getEmployeeType().toString().toLowerCase().contains(value.toLowerCase())) {
+          if (
+            employeeModel
+              .getEmployeeType()
+              .toString()
+              .toLowerCase()
+              .contains(value.toLowerCase())
+          ) {
             return true;
           }
         }
         case "contact_information" -> {
-          if (employeeModel.getContactInformation().toLowerCase().contains(value.toLowerCase())) {
+          if (
+            employeeModel
+              .getContactInformation()
+              .toLowerCase()
+              .contains(value.toLowerCase())
+          ) {
             return true;
           }
         }
@@ -87,10 +101,19 @@ public class EmployeeBUS implements IBUS<EmployeeModel> {
   }
 
   private boolean checkAllColumns(EmployeeModel employeeModel, String value) {
-    return employeeModel.getUserId() == Integer.parseInt(value)
-        || employeeModel.getSalary() == Integer.parseInt(value)
-        || employeeModel.getEmployeeType().toString().toLowerCase().contains(value.toLowerCase())
-        || employeeModel.getContactInformation().toLowerCase().contains(value.toLowerCase());
+    return (
+      employeeModel.getUserId() == Integer.parseInt(value) ||
+      employeeModel.getSalary() == Integer.parseInt(value) ||
+      employeeModel
+        .getEmployeeType()
+        .toString()
+        .toLowerCase()
+        .contains(value.toLowerCase()) ||
+      employeeModel
+        .getContactInformation()
+        .toLowerCase()
+        .contains(value.toLowerCase())
+    );
   }
 
   @Override
@@ -101,11 +124,19 @@ public class EmployeeBUS implements IBUS<EmployeeModel> {
     if (employeeModel.getSalary() < 0) {
       throw new IllegalArgumentException("Salary cannot be negative!");
     }
-    if (employeeModel.getContactInformation() == null || employeeModel.getContactInformation().isEmpty()) {
-      throw new IllegalArgumentException("Contact information cannot be null or empty!");
+    if (
+      employeeModel.getContactInformation() == null ||
+      employeeModel.getContactInformation().isEmpty()
+    ) {
+      throw new IllegalArgumentException(
+        "Contact information cannot be null or empty!"
+      );
     }
     employeeModel.setEmployeeType(
-        employeeModel.getEmployeeType() != null ? employeeModel.getEmployeeType() : EmployeeType.EMPLOYEE_SALES);
+      employeeModel.getEmployeeType() != null
+        ? employeeModel.getEmployeeType()
+        : EmployeeType.EMPLOYEE_SALES
+    );
 
     int userId = EmployeeDAO.getInstance().insert(mapToEntity(employeeModel));
     employeeModel.setUserId(userId);
@@ -158,7 +189,9 @@ public class EmployeeBUS implements IBUS<EmployeeModel> {
   public int deleteModel(int id) {
     EmployeeModel employeeModel = getModelById(id);
     if (employeeModel == null) {
-      throw new IllegalArgumentException("Employee with ID " + id + " does not exist.");
+      throw new IllegalArgumentException(
+        "Employee with ID " + id + " does not exist."
+      );
     }
     int deletedRows = EmployeeDAO.getInstance().delete(id);
     if (deletedRows > 0) {
@@ -170,7 +203,9 @@ public class EmployeeBUS implements IBUS<EmployeeModel> {
   @Override
   public List<EmployeeModel> searchModel(String value, String[] columns) {
     List<EmployeeModel> results = new ArrayList<>();
-    List<EmployeeModel> entities = EmployeeDAO.getInstance().search(value, columns);
+    List<EmployeeModel> entities = EmployeeDAO
+      .getInstance()
+      .search(value, columns);
     for (EmployeeModel entity : entities) {
       EmployeeModel model = mapToEntity(entity);
       if (checkFilter(model, value, columns)) {

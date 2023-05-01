@@ -1,14 +1,13 @@
 package com.bookstore.bus;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import com.bookstore.dao.PaymentDAO;
 import com.bookstore.interfaces.IBUS;
 import com.bookstore.models.PaymentModel;
 import com.bookstore.models.PaymentModel.PaymentMethod;
 import com.bookstore.models.PaymentModel.PaymentStatus;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class PaymentBUS implements IBUS<PaymentModel> {
 
@@ -59,7 +58,11 @@ public class PaymentBUS implements IBUS<PaymentModel> {
     to.setUpdatedAt(from.getUpdatedAt());
   }
 
-  private boolean checkFilter(PaymentModel paymentModel, String value, String[] columns) {
+  private boolean checkFilter(
+    PaymentModel paymentModel,
+    String value,
+    String[] columns
+  ) {
     for (String column : columns) {
       switch (column.toLowerCase()) {
         case "id" -> {
@@ -103,12 +106,14 @@ public class PaymentBUS implements IBUS<PaymentModel> {
   }
 
   private boolean checkAllColumns(PaymentModel paymentModel, String value) {
-    return paymentModel.getId() == Integer.parseInt(value)
-        || paymentModel.getUserId() == Integer.parseInt(value)
-        || paymentModel.getAmount() == Integer.parseInt(value)
-        || paymentModel.getPaymentMethod().toString().equals(value)
-        || paymentModel.getPaymentMethodId() == Integer.parseInt(value)
-        || paymentModel.getStatus().toString().equals(value);
+    return (
+      paymentModel.getId() == Integer.parseInt(value) ||
+      paymentModel.getUserId() == Integer.parseInt(value) ||
+      paymentModel.getAmount() == Integer.parseInt(value) ||
+      paymentModel.getPaymentMethod().toString().equals(value) ||
+      paymentModel.getPaymentMethodId() == Integer.parseInt(value) ||
+      paymentModel.getStatus().toString().equals(value)
+    );
   }
 
   @Override
@@ -123,12 +128,21 @@ public class PaymentBUS implements IBUS<PaymentModel> {
       throw new IllegalArgumentException("Amount must be greater than 0!");
     }
     if (paymentModel.getPaymentMethodId() <= 0) {
-      throw new IllegalArgumentException("Payment method ID must be greater than 0!");
+      throw new IllegalArgumentException(
+        "Payment method ID must be greater than 0!"
+      );
     }
 
     paymentModel.setPaymentMethod(
-        paymentModel.getPaymentMethod() != null ? paymentModel.getPaymentMethod() : PaymentMethod.CASH);
-    paymentModel.setStatus(paymentModel.getStatus() != null ? paymentModel.getStatus() : PaymentStatus.PENDING);
+      paymentModel.getPaymentMethod() != null
+        ? paymentModel.getPaymentMethod()
+        : PaymentMethod.CASH
+    );
+    paymentModel.setStatus(
+      paymentModel.getStatus() != null
+        ? paymentModel.getStatus()
+        : PaymentStatus.PENDING
+    );
 
     int id = PaymentDAO.getInstance().insert(mapToEntity(paymentModel));
     paymentModel.setId(id);
@@ -169,7 +183,9 @@ public class PaymentBUS implements IBUS<PaymentModel> {
   public int deleteModel(int id) {
     PaymentModel paymentModel = getModelById(id);
     if (paymentModel == null) {
-      throw new IllegalArgumentException("Payment with ID " + id + " does not exist.");
+      throw new IllegalArgumentException(
+        "Payment with ID " + id + " does not exist."
+      );
     }
     int deletedRows = PaymentDAO.getInstance().delete(id);
     if (deletedRows > 0) {
@@ -181,7 +197,9 @@ public class PaymentBUS implements IBUS<PaymentModel> {
   @Override
   public List<PaymentModel> searchModel(String value, String[] columns) {
     List<PaymentModel> results = new ArrayList<>();
-    List<PaymentModel> entities = PaymentDAO.getInstance().search(value, columns);
+    List<PaymentModel> entities = PaymentDAO
+      .getInstance()
+      .search(value, columns);
     for (PaymentModel entity : entities) {
       PaymentModel model = mapToEntity(entity);
       if (checkFilter(model, value, columns)) {
