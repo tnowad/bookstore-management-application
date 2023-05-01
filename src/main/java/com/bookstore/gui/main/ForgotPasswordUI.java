@@ -1,8 +1,8 @@
 package com.bookstore.gui.main;
 
 import com.bookstore.bus.UserBUS;
-import com.bookstore.gui.components.button.Button;
-import com.bookstore.gui.components.input.GroupInput;
+import com.bookstore.gui.components.buttons.Button;
+import com.bookstore.gui.components.inputs.GroupInput;
 import com.bookstore.gui.theme.ThemeColor;
 import com.bookstore.gui.theme.ThemeFont;
 import com.bookstore.models.UserModel;

@@ -8,7 +8,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import com.bookstore.gui.components.button.Button;
+import com.bookstore.gui.components.buttons.Button;
 
 public class AccountPanel extends JPanel {
 

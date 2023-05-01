@@ -1,6 +1,6 @@
 package com.bookstore.gui.forms.manager;
 
-import com.bookstore.gui.components.button.Button;
+import com.bookstore.gui.components.buttons.Button;
 import com.bookstore.gui.forms.accounts.AccountPanel;
 import com.bookstore.gui.forms.books.BookList;
 import com.bookstore.gui.forms.imports.ImportList;
