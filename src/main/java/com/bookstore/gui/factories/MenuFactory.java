@@ -23,7 +23,18 @@ public class MenuFactory {
           EmployeeDAO.getInstance().getEmployeeById(user.getId())
         );
       default:
-        return new MenuModel(new ArrayList<MenuItemModel>());
+        throw new IllegalArgumentException("User role is not supported");
+    }
+  }
+
+  public static MenuModel getMenuEmployee(EmployeeModel employee) {
+    switch (employee.getEmployeeType()) {
+      case EMPLOYEE_MANAGER:
+        return getMenuEmployeeManager();
+      case EMPLOYEE_SALES:
+        return getMenuEmployeeSalesman();
+      default:
+        throw new IllegalArgumentException("Employee type is not supported");
     }
   }
 
@@ -73,7 +84,11 @@ public class MenuFactory {
     return new MenuModel(null);
   }
 
-  public static MenuModel getMenuEmployee(EmployeeModel employee) {
+  public static MenuModel getMenuEmployeeSalesman() {
+    return new MenuModel(null);
+  }
+
+  public static MenuModel getMenuEmployeeManager() {
     return new MenuModel(null);
   }
 
