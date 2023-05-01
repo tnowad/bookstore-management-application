@@ -2,6 +2,8 @@ package com.bookstore.gui.form.manager.view;
 
 import com.bookstore.gui.component.button.Button;
 import com.bookstore.gui.form.salesman.view.*;
+import com.bookstore.gui.form.salesman.view.customerManagerment.CustomerList;
+import com.bookstore.gui.form.salesman.view.orderManagerment.OrderList;
 import com.bookstore.gui.form.account.views.AccountPanel;
 import com.bookstore.gui.main.RegisterUI;
 import java.awt.BorderLayout;

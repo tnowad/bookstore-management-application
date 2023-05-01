@@ -1,4 +1,4 @@
-package com.bookstore.gui.form.salesman.view;
+package com.bookstore.gui.form.salesman.view.orderManagerment;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
