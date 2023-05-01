@@ -40,6 +40,12 @@ public class UserBUS implements IBUS<UserModel> {
     if (!PasswordUtil.checkPassword(password, userModel.getPassword())) {
       throw new LoginException("Incorrect password");
     }
+    if (userModel.getStatus() == Status.INACTIVE) {
+      throw new LoginException("User is inactive");
+    }
+    if (userModel.getStatus() == Status.BANNED) {
+      throw new LoginException("User is banned");
+    }
     return userModel;
   }
 
@@ -357,7 +363,7 @@ public class UserBUS implements IBUS<UserModel> {
             return true;
           }
         }
-        
+
         return false;
       })
       .findFirst();

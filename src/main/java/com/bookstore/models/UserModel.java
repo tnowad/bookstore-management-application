@@ -185,28 +185,18 @@ public class UserModel {
 
   @Override
   public String toString() {
-    return (
-      "UserModel [id=" +
-      id +
-      ", username=" +
-      username +
-      ", password=" +
-      password +
-      ", status=" +
-      status +
-      ", name=" +
-      name +
-      ", email=" +
-      email +
-      ", phone=" +
-      phone +
-      ", createdAt=" +
-      createdAt +
-      ", updatedAt=" +
-      updatedAt +
-      ", role=" +
-      role +
-      "]"
+    return String.format(
+      "id: %d\nusername: %s\npassword: %s\nstatus: %s\nname: %s\nemail: %s\nphone: %s\ncreatedAt: %s\nupdatedAt: %s\nrole: %s",
+      id,
+      username,
+      password,
+      status,
+      name,
+      email,
+      phone,
+      createdAt,
+      updatedAt,
+      role
     );
   }
 }

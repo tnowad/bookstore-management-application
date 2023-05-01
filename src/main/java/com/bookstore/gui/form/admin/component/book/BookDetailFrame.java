@@ -8,9 +8,7 @@ import com.bookstore.models.BookModel.Status;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.*;
-
 
 /**
  *
@@ -18,10 +16,28 @@ import javax.swing.*;
  */
 public class BookDetailFrame extends javax.swing.JFrame {
 
-
-  public BookDetailFrame(String isbn, String title, String description, String image, int price, int quantity,
-      Enum status, int publisher_id, int author_id) {
-    initComponents(isbn, title, description, image, price, quantity, status, publisher_id, author_id);
+  public BookDetailFrame(
+    String isbn,
+    String title,
+    String description,
+    String image,
+    int price,
+    int quantity,
+    Enum status,
+    int publisher_id,
+    int author_id
+  ) {
+    initComponents(
+      isbn,
+      title,
+      description,
+      image,
+      price,
+      quantity,
+      status,
+      publisher_id,
+      author_id
+    );
     setStatus(status);
     setImage(image);
     setTitle("Book");
@@ -31,10 +47,17 @@ public class BookDetailFrame extends javax.swing.JFrame {
   }
 
   @SuppressWarnings("unchecked")
-
-  private void initComponents(String isbn, String title, String description, String image, int price, int quantity,
-      Enum status, int publisher_id, int author_id) {
-
+  private void initComponents(
+    String isbn,
+    String title,
+    String description,
+    String image,
+    int price,
+    int quantity,
+    Enum status,
+    int publisher_id,
+    int author_id
+  ) {
     contendPanel = new javax.swing.JPanel();
     getImageBook = new javax.swing.JLabel();
     informationPanel = new javax.swing.JPanel();
@@ -61,18 +84,23 @@ public class BookDetailFrame extends javax.swing.JFrame {
     setDescription = new javax.swing.JTextArea();
 
     setPreferredSize(new java.awt.Dimension(900, 539));
-    getContentPane().setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 0));
+    getContentPane()
+      .setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 0));
 
     contendPanel.setPreferredSize(new java.awt.Dimension(858, 280));
     contendPanel.setLayout(new java.awt.BorderLayout());
 
-    getImageBook.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+    getImageBook.setBorder(
+      javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0))
+    );
     getImageBook.setEnabled(false);
     getImageBook.setPreferredSize(new java.awt.Dimension(200, 16));
     contendPanel.add(getImageBook, java.awt.BorderLayout.LINE_START);
 
     informationPanel.setPreferredSize(new java.awt.Dimension(655, 300));
-    informationPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+    informationPanel.setLayout(
+      new java.awt.FlowLayout(java.awt.FlowLayout.LEFT)
+    );
 
     setTitle.setEditable(false);
     setTitle.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -98,7 +126,11 @@ public class BookDetailFrame extends javax.swing.JFrame {
     informationPanel.add(statusText);
 
     setStatus.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-    setStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AVAILABLE", "UNAVAILABLE", "DELETED" }));
+    setStatus.setModel(
+      new javax.swing.DefaultComboBoxModel<>(
+        new String[] { "AVAILABLE", "UNAVAILABLE", "DELETED" }
+      )
+    );
     informationPanel.add(setStatus);
 
     isbnText.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -132,7 +164,9 @@ public class BookDetailFrame extends javax.swing.JFrame {
 
     setAuthorName.setEditable(false);
     setAuthorName.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-    setAuthorName.setText(AuthorBUS.getInstance().getModelById(author_id).getName());
+    setAuthorName.setText(
+      AuthorBUS.getInstance().getModelById(author_id).getName()
+    );
     setAuthorName.setPreferredSize(new java.awt.Dimension(290, 31));
     informationPanel.add(setAuthorName);
 
@@ -144,7 +178,9 @@ public class BookDetailFrame extends javax.swing.JFrame {
 
     setPublisherName.setEditable(false);
     setPublisherName.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-    setPublisherName.setText(PublisherBUS.getInstance().getModelById(publisher_id).getName());
+    setPublisherName.setText(
+      PublisherBUS.getInstance().getModelById(publisher_id).getName()
+    );
     setPublisherName.setPreferredSize(new java.awt.Dimension(290, 31));
     informationPanel.add(setPublisherName);
 
@@ -162,31 +198,51 @@ public class BookDetailFrame extends javax.swing.JFrame {
     descriptionContend.setLayout(new java.awt.BorderLayout());
 
     buttonPanel.setPreferredSize(new java.awt.Dimension(863, 50));
-    buttonPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 30, 5));
+    buttonPanel.setLayout(
+      new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 30, 5)
+    );
 
-    buttonBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/images/back.png"))); // NOI18N
+    buttonBack.setIcon(
+      new javax.swing.ImageIcon(
+        getClass().getResource("/resources/icons/back.png")
+      )
+    ); // NOI18N
     buttonBack.setPreferredSize(new java.awt.Dimension(80, 30));
-    buttonBack.addActionListener(new ActionListener() {
-
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(buttonBack);
-                frame.dispose();
+    buttonBack.addActionListener(
+      new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+          JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(buttonBack);
+          frame.dispose();
+        }
       }
-      
-    });
+    );
     buttonPanel.add(buttonBack);
 
-    buttonSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/images/save.png"))); // NOI18N
+    buttonSave.setIcon(
+      new javax.swing.ImageIcon(
+        getClass().getResource("/resources/icons/save.png")
+      )
+    ); // NOI18N
     buttonSave.setPreferredSize(new java.awt.Dimension(80, 30));
-    buttonSave.addActionListener(new ActionListener() {
-
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        actionSave(isbn, title, description, image, price, quantity, status, publisher_id, author_id);
+    buttonSave.addActionListener(
+      new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+          actionSave(
+            isbn,
+            title,
+            description,
+            image,
+            price,
+            quantity,
+            status,
+            publisher_id,
+            author_id
+          );
+        }
       }
-      
-    });
+    );
     buttonPanel.add(buttonSave);
 
     descriptionContend.add(buttonPanel, java.awt.BorderLayout.PAGE_END);
@@ -223,22 +279,40 @@ public class BookDetailFrame extends javax.swing.JFrame {
     setStatus.setSelectedIndex(index);
   }
 
-  public void actionSave(String isbn, String title, String description, String image, int price, int quantity, Enum status,
-      int publisher_id, int author_id) {
-
+  public void actionSave(
+    String isbn,
+    String title,
+    String description,
+    String image,
+    int price,
+    int quantity,
+    Enum status,
+    int publisher_id,
+    int author_id
+  ) {
     Object selectedStatusItem = setStatus.getSelectedItem();
     if (selectedStatusItem != null) {
       String statusString = selectedStatusItem.toString().toUpperCase();
       Status newStatus = Status.valueOf(statusString);
       int newPrice = Integer.valueOf(setPrice.getText());
       int newQuantity = Integer.valueOf(setAvailableQuantity.getText());
-      BookModel newBook = new BookModel(isbn, title, setDescription.getText(), image, newPrice, newQuantity, newStatus,
-          publisher_id, author_id);
+      BookModel newBook = new BookModel(
+        isbn,
+        title,
+        setDescription.getText(),
+        image,
+        newPrice,
+        newQuantity,
+        newStatus,
+        publisher_id,
+        author_id
+      );
       int confirm = JOptionPane.showConfirmDialog(
-          null,
-          "Do you want to continue?",
-          "Confirmation",
-          JOptionPane.YES_NO_OPTION);
+        null,
+        "Do you want to continue?",
+        "Confirmation",
+        JOptionPane.YES_NO_OPTION
+      );
       if (confirm == JOptionPane.YES_OPTION) {
         BookBUS.getInstance().updateModel(newBook);
       }
@@ -259,8 +333,10 @@ public class BookDetailFrame extends javax.swing.JFrame {
     int imageLoadStatus = icon.getImageLoadStatus();
     if (imageLoadStatus != 8) {
       getImageBook.setIcon(
-          new javax.swing.ImageIcon(
-              getClass().getResource("/resources/images_products/imagenull.png")));
+        new javax.swing.ImageIcon(
+          getClass().getResource("/resources/images/product-placeholder.png")
+        )
+      );
     }
   }
 

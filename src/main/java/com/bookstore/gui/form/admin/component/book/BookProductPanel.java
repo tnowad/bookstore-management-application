@@ -11,17 +11,43 @@ public class BookProductPanel extends javax.swing.JPanel {
 
   private JTextField isbnBook;
 
-  public BookProductPanel(String isbn, String title, String description, String image, int price, int quantity,
-      Enum status, int publisher_id, int author_id) {
-    initComponents(isbn, title, description, image, price, quantity, status, publisher_id, author_id);
+  public BookProductPanel(
+    String isbn,
+    String title,
+    String description,
+    String image,
+    int price,
+    int quantity,
+    Enum status,
+    int publisher_id,
+    int author_id
+  ) {
+    initComponents(
+      isbn,
+      title,
+      description,
+      image,
+      price,
+      quantity,
+      status,
+      publisher_id,
+      author_id
+    );
     setImage(image);
   }
 
   @SuppressWarnings("unchecked")
-
-  private void initComponents(String isbn, String title, String description, String image, int price, int quantity,
-      Enum status, int publisher_id, int author_id) {
-
+  private void initComponents(
+    String isbn,
+    String title,
+    String description,
+    String image,
+    int price,
+    int quantity,
+    Enum status,
+    int publisher_id,
+    int author_id
+  ) {
     checkBox = new javax.swing.JCheckBox();
     contendPanel = new javax.swing.JPanel();
     buttonDetail = new javax.swing.JButton();
@@ -34,7 +60,9 @@ public class BookProductPanel extends javax.swing.JPanel {
     add(isbnBook);
 
     setBackground(new java.awt.Color(255, 255, 255));
-    setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+    setBorder(
+      javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0))
+    );
     setMaximumSize(new java.awt.Dimension(199, 333));
     setMinimumSize(new java.awt.Dimension(199, 333));
     setPreferredSize(new java.awt.Dimension(199, 333));
@@ -47,14 +75,24 @@ public class BookProductPanel extends javax.swing.JPanel {
 
     buttonDetail.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
     buttonDetail.setText("Detail");
-    buttonDetail.addActionListener(new ActionListener() {
-
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        actionDetail(isbn, title, description, image, price, quantity, status, publisher_id, author_id);
+    buttonDetail.addActionListener(
+      new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+          actionDetail(
+            isbn,
+            title,
+            description,
+            image,
+            price,
+            quantity,
+            status,
+            publisher_id,
+            author_id
+          );
+        }
       }
-
-    });
+    );
     contendPanel.add(buttonDetail, java.awt.BorderLayout.PAGE_END);
 
     setImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -74,10 +112,28 @@ public class BookProductPanel extends javax.swing.JPanel {
     add(contendPanel, java.awt.BorderLayout.CENTER);
   }
 
-  public void actionDetail(String isbn, String title, String description, String image, int price, int quantity,
-      Enum status, int publisher_id, int author_id) {
-    BookDetailFrame bookDetailFrame = new BookDetailFrame(isbn, title, description, image, price, quantity, status,
-        publisher_id, author_id);
+  public void actionDetail(
+    String isbn,
+    String title,
+    String description,
+    String image,
+    int price,
+    int quantity,
+    Enum status,
+    int publisher_id,
+    int author_id
+  ) {
+    BookDetailFrame bookDetailFrame = new BookDetailFrame(
+      isbn,
+      title,
+      description,
+      image,
+      price,
+      quantity,
+      status,
+      publisher_id,
+      author_id
+    );
     bookDetailFrame.setVisible(true);
   }
 
@@ -87,8 +143,10 @@ public class BookProductPanel extends javax.swing.JPanel {
     int imageLoadStatus = icon.getImageLoadStatus();
     if (imageLoadStatus != 8) {
       setImage.setIcon(
-          new javax.swing.ImageIcon(
-              getClass().getResource("/resources/images_products/imagenull.png")));
+        new javax.swing.ImageIcon(
+          getClass().getResource("/resources/images/product-placeholder.png")
+        )
+      );
     }
   }
 

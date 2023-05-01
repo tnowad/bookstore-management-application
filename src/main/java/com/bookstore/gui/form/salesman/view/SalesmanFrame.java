@@ -1,7 +1,6 @@
 package com.bookstore.gui.form.salesman.view;
 
 import com.bookstore.gui.component.button.Button;
-import com.bookstore.gui.form.salesman.view.Account.AccountPanel;
 import com.bookstore.gui.main.RegisterUI;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import java.awt.Color;

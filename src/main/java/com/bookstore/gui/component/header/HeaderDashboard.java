@@ -1,12 +1,22 @@
 package com.bookstore.gui.component.header;
 
+import com.bookstore.gui.component.input.SearchText;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import javax.swing.BorderFactory;
+import javax.swing.GroupLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.LayoutStyle;
 
-import com.bookstore.gui.component.input.SearchText;
+public class HeaderDashboard extends JPanel {
 
-public class HeaderDashboard extends javax.swing.JPanel {
+  private JLabel labelSearch;
+  private JLabel labelMenu;
+  private SearchText searchText;
 
   public HeaderDashboard() {
     initComponents();
@@ -14,53 +24,84 @@ public class HeaderDashboard extends javax.swing.JPanel {
   }
 
   private void initComponents() {
-
-    jLabel1 = new javax.swing.JLabel();
-    searchText1 = new SearchText();
-    jLabel2 = new javax.swing.JLabel();
+    labelSearch = new JLabel();
+    searchText = new SearchText();
+    labelMenu = new JLabel();
 
     setBackground(new java.awt.Color(255, 255, 255));
 
-    jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/bookstore/gui/icon/search.png")));
+    labelSearch.setIcon(
+      new ImageIcon("src/main/java/resources/icons/search.png")
+    );
 
-    jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/bookstore/gui/icon/menu.png"))); // NOI18N
-    jLabel2.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+    labelMenu.setIcon(new ImageIcon("src/main/java/resources/icons/menu.png"));
+    labelMenu.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
-    javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+    GroupLayout layout = new GroupLayout(this);
     this.setLayout(layout);
     layout.setHorizontalGroup(
-        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(searchText1, javax.swing.GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
-                .addContainerGap()));
+      layout
+        .createParallelGroup(GroupLayout.Alignment.LEADING)
+        .addGroup(
+          layout
+            .createSequentialGroup()
+            .addContainerGap()
+            .addComponent(labelSearch)
+            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(
+              searchText,
+              GroupLayout.DEFAULT_SIZE,
+              606,
+              Short.MAX_VALUE
+            )
+            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(labelMenu)
+            .addContainerGap()
+        )
+    );
     layout.setVerticalGroup(
-        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
-                Short.MAX_VALUE)
-            .addComponent(searchText1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
-                Short.MAX_VALUE)
-            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE));
-  }// </editor-fold>//GEN-END:initComponents
-
-  @Override
-  protected void paintComponent(Graphics grphcs) {
-    Graphics2D g2 = (Graphics2D) grphcs;
-    g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-    g2.setColor(getBackground());
-    g2.fillRoundRect(0, 0, getWidth(), getHeight(), 15, 15);
-    g2.fillRect(0, 0, 25, getHeight());
-    g2.fillRect(getWidth() - 25, getHeight() - 25, getWidth(), getHeight());
-    super.paintComponent(grphcs);
+      layout
+        .createParallelGroup(GroupLayout.Alignment.LEADING)
+        .addComponent(
+          labelSearch,
+          GroupLayout.DEFAULT_SIZE,
+          GroupLayout.DEFAULT_SIZE,
+          Short.MAX_VALUE
+        )
+        .addComponent(
+          searchText,
+          GroupLayout.DEFAULT_SIZE,
+          GroupLayout.DEFAULT_SIZE,
+          Short.MAX_VALUE
+        )
+        .addComponent(labelMenu, GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+    );
   }
 
-  // Variables declaration - do not modify//GEN-BEGIN:variables
-  private javax.swing.JLabel jLabel1;
-  private javax.swing.JLabel jLabel2;
-  private SearchText searchText1;
-  // End of variables declaration//GEN-END:variables
+  @Override
+  protected void paintComponent(Graphics graphics) {
+    Graphics2D graphics2d = (Graphics2D) graphics;
+    graphics2d.setRenderingHint(
+      RenderingHints.KEY_ANTIALIASING,
+      RenderingHints.VALUE_ANTIALIAS_ON
+    );
+    graphics2d.setColor(getBackground());
+    graphics2d.fillRoundRect(0, 0, getWidth(), getHeight(), 15, 15);
+    graphics2d.fillRect(0, 0, 25, getHeight());
+    graphics2d.fillRect(
+      getWidth() - 25,
+      getHeight() - 25,
+      getWidth(),
+      getHeight()
+    );
+    super.paintComponent(graphics);
+  }
+
+  public static void main(String[] args) {
+    JFrame frame = new JFrame();
+    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    frame.getContentPane().add(new HeaderDashboard());
+    frame.pack();
+    frame.setVisible(true);
+  }
 }

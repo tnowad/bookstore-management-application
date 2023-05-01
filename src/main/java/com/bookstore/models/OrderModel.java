@@ -15,6 +15,7 @@ public class OrderModel {
 
   public enum Status {
     PENDING,
+    REJECTED,
     SOLVED;
   }
 

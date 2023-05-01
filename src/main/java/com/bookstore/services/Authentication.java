@@ -33,6 +33,14 @@ public class Authentication {
   }
 
   public static void setCurrentUser(UserModel currentUser) {
+    if (currentUser == null) {
+      throw new RuntimeException("User is null");
+    }
+
+    if (currentUser.getStatus() != UserModel.Status.ACTIVE) {
+      throw new RuntimeException("User is not active");
+    }
+
     Authentication.getInstance().currentUser = currentUser;
   }
 
