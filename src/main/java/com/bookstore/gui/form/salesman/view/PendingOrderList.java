@@ -32,7 +32,7 @@ public class PendingOrderList extends JPanel {
                 if (selectedRowIndex != -1) {
                     int customerId = Integer.parseInt(orderTableList.getValueAt(selectedRowIndex, 2).toString());
                     new Dialog(new OrderDetail(customerId));
-
+                    listOrder();
                 } else {
                     System.out.println("Don't know how to handle this order");
                 }
@@ -44,24 +44,24 @@ public class PendingOrderList extends JPanel {
 
         headerPanel = new JPanel();
         headerTopPanel = new JPanel();
-        customerNameLabel = new Label("");
-        customerNameTextField = new JTextField();
+        // customerNameLabel = new Label("");
+        // customerNameTextField = new JTextField();
         headerBottomPanel = new JPanel();
-        phoneNumberLabel = new Label("Customer name");
-        phoneNumberTextField = new JTextField();
-        emailLabel = new Label("Email");
-        emailTextField = new JTextField();
+        // phoneNumberLabel = new Label("Customer name");
+        // phoneNumberTextField = new JTextField();
+        // emailLabel = new Label("Email");
+        // emailTextField = new JTextField();
         scrollPaneParrent = new JScrollPane();
         orderListPanel = new JPanel();
-        scrollPaneChild = new JScrollPane();
+        // scrollPaneChild = new JScrollPane();
         orderTableList = new JTable();
         footerPanel = new JPanel();
         topFooterPanel = new JPanel();
-        totalCostLabel = new Label("Total cost");
-        totalCostMoneyTextfield = new JTextField();
+        // totalCostLabel = new Label("Total cost");
+        // totalCostMoneyTextfield = new JTextField();
         bottomFooterPanel = new JPanel();
-        accpetButton = new Button("Accpet");
-        rejectButton = new Button("Reject");
+        // accpetButton = new Button("Accpet");
+        // rejectButton = new Button("Reject");
 
         setMinimumSize(new java.awt.Dimension(1180, 620));
         setLayout(new java.awt.BorderLayout());
@@ -70,37 +70,29 @@ public class PendingOrderList extends JPanel {
 
         headerTopPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
-        headerTopPanel.add(customerNameLabel);
+        // headerTopPanel.add(customerNameLabel);
 
-        customerNameTextField.setFont(new java.awt.Font("Arial", 0, 14));
-        customerNameTextField.setPreferredSize(new java.awt.Dimension(500, 30));
-        customerNameTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                customerNameTextFieldActionPerformed(evt);
-            }
-        });
-        headerTopPanel.add(customerNameTextField);
+        // customerNameTextField.setFont(new java.awt.Font("Arial", 0, 14));
+        // customerNameTextField.setPreferredSize(new java.awt.Dimension(500, 30));
+  
+        // headerTopPanel.add(customerNameTextField);
 
         headerPanel.add(headerTopPanel);
 
         headerBottomPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
-        headerBottomPanel.add(phoneNumberLabel);
+        // headerBottomPanel.add(phoneNumberLabel);
 
-        phoneNumberTextField.setFont(new java.awt.Font("Arial", 0, 14));
-        phoneNumberTextField.setPreferredSize(new java.awt.Dimension(150, 30));
-        phoneNumberTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                phoneNumberTextFieldActionPerformed(evt);
-            }
-        });
-        headerBottomPanel.add(phoneNumberTextField);
+        // phoneNumberTextField.setFont(new java.awt.Font("Arial", 0, 14));
+        // phoneNumberTextField.setPreferredSize(new java.awt.Dimension(150, 30));
+   
+        // headerBottomPanel.add(phoneNumberTextField);
 
-        headerBottomPanel.add(emailLabel);
+        // headerBottomPanel.add(emailLabel);
 
-        emailTextField.setFont(new java.awt.Font("Arial", 0, 14));
-        emailTextField.setPreferredSize(new java.awt.Dimension(350, 30));
-        headerBottomPanel.add(emailTextField);
+        // emailTextField.setFont(new java.awt.Font("Arial", 0, 14));
+        // emailTextField.setPreferredSize(new java.awt.Dimension(350, 30));
+        // headerBottomPanel.add(emailTextField);
 
         headerPanel.add(headerBottomPanel);
 
@@ -118,34 +110,22 @@ public class PendingOrderList extends JPanel {
 
         topFooterPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
 
-        topFooterPanel.add(totalCostLabel);
+        // topFooterPanel.add(totalCostLabel);
 
-        totalCostMoneyTextfield.setFont(new java.awt.Font("Arial", 0, 14));
-        totalCostMoneyTextfield.setPreferredSize(new java.awt.Dimension(200, 30));
-        totalCostMoneyTextfield.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                totalCostMoneyTextfieldActionPerformed(evt);
-            }
-        });
-        topFooterPanel.add(totalCostMoneyTextfield);
+        // totalCostMoneyTextfield.setFont(new java.awt.Font("Arial", 0, 14));
+        // totalCostMoneyTextfield.setPreferredSize(new java.awt.Dimension(200, 30));
+    
+        // topFooterPanel.add(totalCostMoneyTextfield);
 
         footerPanel.add(topFooterPanel);
 
         bottomFooterPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
 
-        accpetButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                accpetButtonActionPerformed(evt);
-            }
-        });
-        bottomFooterPanel.add(accpetButton);
+      
+        // bottomFooterPanel.add(accpetButton);
 
-        rejectButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rejectButtonActionPerformed(evt);
-            }
-        });
-        bottomFooterPanel.add(rejectButton);
+    
+        // bottomFooterPanel.add(rejectButton);
 
         footerPanel.add(bottomFooterPanel);
 
@@ -172,9 +152,9 @@ public class PendingOrderList extends JPanel {
             }
             orderTableList.setModel(model);
         }
-        scrollPaneChild.setViewportView(orderTableList);
+        // scrollPaneChild.setViewportView(orderTableList);
 
-        orderListPanel.add(scrollPaneChild, java.awt.BorderLayout.CENTER);
+        // orderListPanel.add(scrollPaneChild, java.awt.BorderLayout.CENTER);
 
         scrollPaneParrent.setViewportView(orderTableList);
 
@@ -205,24 +185,24 @@ public class PendingOrderList extends JPanel {
         // TODO add your handling code here:
     }
 
-    private Button accpetButton;
+    // private Button accpetButton;
     private JPanel bottomFooterPanel;
-    private Label customerNameLabel;
-    private JTextField customerNameTextField;
-    private Label emailLabel;
-    private JTextField emailTextField;
+    // private Label customerNameLabel;
+    // private JTextField customerNameTextField;
+    // private Label emailLabel;
+    // private JTextField emailTextField;
     private JPanel footerPanel;
     private JPanel headerBottomPanel;
     private JPanel headerPanel;
     private JPanel headerTopPanel;
     private JPanel orderListPanel;
     private JTable orderTableList;
-    private Label phoneNumberLabel;
-    private JTextField phoneNumberTextField;
-    private Button rejectButton;
-    private JScrollPane scrollPaneChild;
+    // private Label phoneNumberLabel;
+    // private JTextField phoneNumberTextField;
+    // private Button rejectButton;
+    // private JScrollPane scrollPaneChild;
     private JScrollPane scrollPaneParrent;
     private JPanel topFooterPanel;
-    private Label totalCostLabel;
-    private JTextField totalCostMoneyTextfield;
+    // private Label totalCostLabel;
+    // private JTextField totalCostMoneyTextfield;
 }

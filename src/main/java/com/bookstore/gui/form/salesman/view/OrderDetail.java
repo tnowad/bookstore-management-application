@@ -3,10 +3,7 @@ package com.bookstore.gui.form.salesman.view;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-import org.apache.commons.math3.geometry.partitioning.BSPTreeVisitor.Order;
-
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
@@ -15,7 +12,6 @@ import com.bookstore.bus.CartBUS;
 import com.bookstore.bus.CartItemsBUS;
 import com.bookstore.bus.OrderBUS;
 import com.bookstore.bus.UserBUS;
-import com.bookstore.dao.CartDAO;
 import com.bookstore.gui.component.button.Button;
 import com.bookstore.gui.component.label.Label;
 import com.bookstore.models.BookModel;
@@ -37,6 +33,8 @@ public class OrderDetail extends JFrame {
     private JTextField totalPriceTextField;
     private JPanel groupHeaderPanel;
     private JLabel nameCustomerLabel;
+    private JLabel emailCustomerLabel;
+    private JLabel phoneCustomerLabel;
 
     private int customerId;
     private java.util.List<OrderModel> ordersList;
@@ -103,9 +101,6 @@ public class OrderDetail extends JFrame {
         cartItemList = cartItemsBUS.getAllModels();
         bookBUS = BookBUS.getInstance();
         bookList = bookBUS.getAllModels();
-
-        // int totalPrice = orderModel.getTotal();
-        // totalPriceTextField.setText(String.valueOf(totalPrice));
     }
 
     private void listOrder() {
@@ -143,6 +138,7 @@ public class OrderDetail extends JFrame {
         tableListScrollPane.setViewportView(productListTable);
 
         container.add(tableListScrollPane, BorderLayout.CENTER);
+        tableListScrollPane.setMaximumSize(new Dimension(500, 200));
 
     }
 
@@ -155,7 +151,9 @@ public class OrderDetail extends JFrame {
         groupHeaderPanel = new JPanel();
         groupBottomPanel = new JPanel();
         totalPriceLabel = new Label("Total Price");
-        nameCustomerLabel = new Label("Customer");
+        nameCustomerLabel = new Label("Name : " + userModel.getName());
+        emailCustomerLabel = new Label("Email : " + userModel.getEmail());
+        phoneCustomerLabel = new Label("Phone : " + userModel.getPhone());
         totalPriceTextField = new JTextField();
         int totalPrice = orderModel.getTotal();
         totalPriceTextField.setText(String.valueOf(totalPrice));
@@ -173,8 +171,12 @@ public class OrderDetail extends JFrame {
         titleLabel.setText("Order detail");
         groupHeaderPanel.add(titleLabel);
 
-        nameCustomerLabel.setText("Name : " + userModel.getName());
+        // groupHeader
+        groupHeaderPanel.setPreferredSize(new Dimension(500, 100));
         groupHeaderPanel.add(nameCustomerLabel);
+        groupHeaderPanel.add(emailCustomerLabel);
+        groupHeaderPanel.add(phoneCustomerLabel);
+        // groupHeaderPanel.add(addressCustomerLabel);
 
         container.add(groupHeaderPanel, java.awt.BorderLayout.PAGE_START);
 
@@ -182,11 +184,7 @@ public class OrderDetail extends JFrame {
         groupBottomPanel.add(totalPriceTextField);
 
         acceptButton.setText("Accept");
-        acceptButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                acceptButtonActionPerformed(evt);
-            }
-        });
+
         groupBottomPanel.add(acceptButton);
 
         rejectButton.setText("Reject");
@@ -197,40 +195,6 @@ public class OrderDetail extends JFrame {
         getContentPane().add(container);
 
         pack();
-    }
-
-    private void acceptButtonActionPerformed(ActionEvent evt) {
-        // TODO add your handling code here:
-    }
-
-    public static void main(String args[]) {
-
-        try {
-            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(OrderDetail.class.getName()).log(java.util.logging.Level.SEVERE, null,
-                    ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(OrderDetail.class.getName()).log(java.util.logging.Level.SEVERE, null,
-                    ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(OrderDetail.class.getName()).log(java.util.logging.Level.SEVERE, null,
-                    ex);
-        } catch (UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(OrderDetail.class.getName()).log(java.util.logging.Level.SEVERE, null,
-                    ex);
-        }
-
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new OrderDetail(1).setVisible(true);
-            }
-        });
     }
 
 }
