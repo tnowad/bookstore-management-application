@@ -117,22 +117,24 @@ public class OrderDetail extends JFrame {
         model.addColumn("Status");
         for (CartModel cartModel : cartList) {
             if (cartModel.getId() == orderModel.getCartId()) {
-                CartItemsModel cartItemsModel = cartItemList.stream()
-                        .filter(carttItemModel -> carttItemModel.getCartId() == cartModel.getId())
-                        .findFirst()
-                        .orElse(null);
-                BookModel bookModel = bookList.stream()
-                        .filter(book -> book.getIsbn().equals(cartItemsModel.getBookIsbn()))
-                        .findFirst()
-                        .orElse(null);
+                System.out.println(1);
+                for (CartItemsModel cartItemModel : cartItemList) {
+                    if (cartItemModel.getCartId() == cartModel.getId()) {
+                        BookModel bookModel = bookList.stream()
+                                .filter(book -> book.getIsbn().equals(cartItemModel.getBookIsbn()))
+                                .findFirst()
+                                .orElse(null);
 
-                model.addRow(
-                        new Object[] { cartItemsModel.getBookIsbn(), bookModel.getTitle(),
-                                bookModel.getPrice(),
-                                bookModel.getQuantity(),
-                                bookModel.getStatus()
-                        });
-                productListTable.setModel(model);
+                        model.addRow(
+                                new Object[] { cartItemModel.getBookIsbn(), bookModel.getTitle(),
+                                        bookModel.getPrice(),
+                                        bookModel.getQuantity(),
+                                        bookModel.getStatus()
+                                });
+                        productListTable.setModel(model);
+                    }
+                }
+
             }
         }
         tableListScrollPane.setViewportView(productListTable);

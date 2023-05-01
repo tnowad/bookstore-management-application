@@ -8,6 +8,7 @@ import com.bookstore.gui.form.salesman.view.customerManagerment.CustomerList;
 import com.bookstore.gui.form.salesman.view.employeeManagerment.EmployeeList;
 import com.bookstore.gui.form.salesman.view.importManagerment.ImportList;
 import com.bookstore.gui.form.salesman.view.orderManagerment.OrderList;
+import com.bookstore.gui.main.LoginUI;
 import com.bookstore.gui.main.RegisterUI;
 import com.bookstore.models.EmployeeModel;
 import com.bookstore.models.UserModel;
@@ -197,7 +198,7 @@ public class SalesmanFrame extends JFrame {
           JOptionPane.OK_OPTION);
       if (option == 0) {
         dispose();
-        RegisterUI loginFrame = new RegisterUI();
+        LoginUI loginFrame = new LoginUI();
         loginFrame.setVisible(true);
       }
     });
