@@ -82,14 +82,6 @@ public class ManagerFrame extends JFrame {
     salesmanListButton = new Button("Salesman List");
     jScrollPane1 = new JScrollPane();
 
-    bookListButton.addActionListener(
-      new ActionListener() {
-        public void actionPerformed(ActionEvent evt) {
-          customerListButtonActionPerformed(evt);
-        }
-      }
-    );
-
     grMenu1.add(bookListButton);
     grMenu1.add(customerListButton);
     grMenu1.add(salesmanListButton);
@@ -119,168 +111,148 @@ public class ManagerFrame extends JFrame {
 
   private void handleEvent() {
     grMenu.addComponentListener(
-      new ComponentListener() {
-        @Override
-        public void componentResized(ComponentEvent e) {
-          // TODO Auto-generated method stub
-          throw new UnsupportedOperationException(
-            "Unimplemented method 'componentResized'"
-          );
-        }
+        new ComponentListener() {
+          @Override
+          public void componentResized(ComponentEvent e) {
+            // TODO Auto-generated method stub
+            throw new UnsupportedOperationException(
+                "Unimplemented method 'componentResized'");
+          }
 
-        @Override
-        public void componentMoved(ComponentEvent e) {
-          // TODO Auto-generated method stub
-          throw new UnsupportedOperationException(
-            "Unimplemented method 'componentMoved'"
-          );
-        }
+          @Override
+          public void componentMoved(ComponentEvent e) {
+            // TODO Auto-generated method stub
+            throw new UnsupportedOperationException(
+                "Unimplemented method 'componentMoved'");
+          }
 
-        @Override
-        public void componentShown(ComponentEvent e) {
-          // TODO Auto-generated method stub
-          throw new UnsupportedOperationException(
-            "Unimplemented method 'componentShown'"
-          );
-        }
+          @Override
+          public void componentShown(ComponentEvent e) {
+            // TODO Auto-generated method stub
+            throw new UnsupportedOperationException(
+                "Unimplemented method 'componentShown'");
+          }
 
-        @Override
-        public void componentHidden(ComponentEvent e) {}
-      }
-    );
+          @Override
+          public void componentHidden(ComponentEvent e) {
+          }
+        });
 
     menuButton.addActionListener(
-      new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-          if (grMenu.isVisible() == false) grMenu.setVisible(
-            true
-          ); else grMenu.setVisible(false);
-        }
-      }
-    );
+        new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            if (grMenu.isVisible() == false)
+              grMenu.setVisible(
+                  true);
+            else
+              grMenu.setVisible(false);
+          }
+        });
     bookListButton.addActionListener(
-      new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-          grContent.removeAll();
-          grContent.add(new BookList());
-          grContent.revalidate();
-          grContent.repaint();
-        }
-      }
-    );
+        new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            grContent.removeAll();
+            grContent.add(new BookList());
+            grContent.revalidate();
+            grContent.repaint();
+          }
+        });
 
     customerListButton.addActionListener(
-      new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-          grContent.removeAll();
-          grContent.add(new CustomerList());
-          grContent.revalidate();
-          grContent.repaint();
-        }
-      }
-    );
+        new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            grContent.removeAll();
+            grContent.add(new CustomerList());
+            grContent.revalidate();
+            grContent.repaint();
+          }
+        });
 
     salesmanListButton.addActionListener(
-      new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-          //
-          //
-          //
-        }
-      }
-    );
+        new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            //
+            //
+            //
+          }
+        });
 
     pendingOrderButton.addActionListener(
-      new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-          grContent.removeAll();
-          grContent.add(new OrderList());
-          grContent.revalidate();
-          grContent.repaint();
-        }
-      }
-    );
+        new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            grContent.removeAll();
+            grContent.add(new OrderList());
+            grContent.revalidate();
+            grContent.repaint();
+          }
+        });
 
     importButton.addActionListener(
-      new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-          grContent.removeAll();
-          grContent.add(new ImportList());
-          grContent.revalidate();
-          grContent.repaint();
-        }
-      }
-    );
+        new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            grContent.removeAll();
+            grContent.add(new ImportList());
+            grContent.revalidate();
+            grContent.repaint();
+          }
+        });
 
     accountButton.addActionListener(
-      new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-          grContent.removeAll();
-          grContent.add(new AccountPanel());
-          grContent.revalidate();
-          grContent.repaint();
-        }
-      }
-    );
+        new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            grContent.removeAll();
+            grContent.add(new AccountPanel());
+            grContent.revalidate();
+            grContent.repaint();
+          }
+        });
 
     logoutButton.addActionListener(
-      new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-          int option = JOptionPane.showConfirmDialog(
-            null,
-            "Bạn chắc chắn muốn đăng xuất?",
-            "Đăng xuất",
-            JOptionPane.OK_OPTION
-          );
-          if (option == 0) {
-            dispose();
-            RegisterUI loginFrame = new RegisterUI();
-            loginFrame.setVisible(true);
+        new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            int option = JOptionPane.showConfirmDialog(
+                null,
+                "Bạn chắc chắn muốn đăng xuất?",
+                "Đăng xuất",
+                JOptionPane.OK_OPTION);
+            if (option == 0) {
+              dispose();
+              RegisterUI loginFrame = new RegisterUI();
+              loginFrame.setVisible(true);
+            }
           }
-        }
-      }
-    );
+        });
   }
 
   private void exitForm(WindowEvent evt) {
     System.exit(0);
   }
 
-  private void customerListButtonActionPerformed(ActionEvent evt) {}
-
-  private void jTextField1ActionPerformed(ActionEvent evt) {}
-
-  // private void showConfirm(String message) {
-  // JOptionPane.showConfirmDialog(rootPane, message, message, ALLBITS, ABORT)
-  // }
-
   public static void main(String args[]) {
     try {
       UIManager.setLookAndFeel(
-        "com.sun.java.swing.plaf.windows.WindowsLookAndFeel"
-      );
+          "com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
       UIManager.put("Panel.background", new Color(250, 250, 250));
     } catch (
-      ClassNotFoundException
-      | IllegalAccessException
-      | InstantiationException
-      | UnsupportedLookAndFeelException ignored
-    ) {}
+        ClassNotFoundException
+        | IllegalAccessException
+        | InstantiationException
+        | UnsupportedLookAndFeelException ignored) {
+    }
 
     java.awt.EventQueue.invokeLater(
-      new Runnable() {
-        public void run() {
-          new ManagerFrame();
-        }
-      }
-    );
+        new Runnable() {
+          public void run() {
+            new ManagerFrame();
+          }
+        });
   }
 }

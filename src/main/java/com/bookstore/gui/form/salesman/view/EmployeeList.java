@@ -6,18 +6,21 @@ import java.awt.event.*;
 import javax.swing.table.DefaultTableModel;
 import java.util.List;
 
+import com.bookstore.bus.EmployeeBUS;
 import com.bookstore.bus.UserBUS;
 import com.bookstore.gui.Theme.ThemeFont;
 import com.bookstore.gui.component.button.Button;
 import com.bookstore.gui.component.label.Label;
+import com.bookstore.models.EmployeeModel;
 import com.bookstore.models.UserModel;
+import com.bookstore.models.EmployeeModel.EmployeeType;
 import com.bookstore.models.UserModel.Role;
 
-public class CustomerList extends JPanel {
+public class EmployeeList extends JPanel {
     UserBUS userBus = UserBUS.getInstance();
-    List<UserModel> customersList = userBus.getAllModels();
+    List<UserModel> employeeList = userBus.getAllModels();
 
-    public CustomerList() {
+    public EmployeeList() {
         initComponents();
         listCustomer();
         search();
@@ -26,32 +29,32 @@ public class CustomerList extends JPanel {
     private void search() {
         searchButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String text = searchCustomerTxtFld.getText();
+                String text = searchCustomerTxtField.getText();
                 if (text == null || text.isBlank()) {
                     JOptionPane.showMessageDialog(null, "Search field cannot be empty. Please try again!");
                     showTable();
                 } else {
                     DefaultTableModel model = new DefaultTableModel();
-                    customerTableList.setModel(model);
+                    employeeTableList.setModel(model);
                     model.addColumn("Id");
                     model.addColumn("Name");
                     model.addColumn("Email");
                     model.addColumn("Phone");
                     model.addColumn("Status");
-                    for (UserModel customer : customersList) {
+                    for (UserModel customer : employeeList) {
                         if (customer.getName().toLowerCase().contains(text.toLowerCase())) {
                             model.addRow(new Object[] { customer.getId(),
                                     customer.getName(), customer.getEmail(),
                                     customer.getPhone(),
                                     customer.getStatus() });
-                            customerTableList.setModel(model);
+                            employeeTableList.setModel(model);
                         }
                     }
-                    if (customerTableList.getRowCount() == 0) {
-                        JOptionPane.showMessageDialog(null, "No customers found!");
+                    if (employeeTableList.getRowCount() == 0) {
+                        JOptionPane.showMessageDialog(null, "No employee found!");
                         showTable();
                     }
-                    System.out.println(customerTableList.getRowCount());
+                    System.out.println(employeeTableList.getRowCount());
                 }
             }
         });
@@ -68,12 +71,16 @@ public class CustomerList extends JPanel {
         model.addColumn("Email");
         model.addColumn("Phone");
         model.addColumn("Status");
-        for (UserModel customer : customersList) {
-            if (customer.getRole() == Role.CUSTOMER) {
-                model.addRow(new Object[] { customer.getId(), customer.getName(), customer.getEmail(),
-                        customer.getPhone(),
-                        customer.getStatus() });
-                customerTableList.setModel(model);
+        for (UserModel employee : employeeList) {
+            if (employee.getRole() == Role.EMPLOYEE) {
+                EmployeeBUS employeeBUS = EmployeeBUS.getInstance();
+                EmployeeModel employeeModel = employeeBUS.getModelById(employee.getId());
+                if (employeeModel.getEmployeeType() == EmployeeType.EMPLOYEE_SALES) {
+                    model.addRow(new Object[] { employee.getId(), employee.getName(), employee.getEmail(),
+                            employee.getPhone(),
+                            employee.getStatus() });
+                    employeeTableList.setModel(model);
+                }
             }
         }
     }
@@ -87,12 +94,12 @@ public class CustomerList extends JPanel {
         addCustomerButton = new Button("Add Customer");
         addCustomerButton.setPreferredSize(new Dimension(200, 40));
         groupBottomHeaderPanel = new JPanel();
-        searchCustomerTxtFld = new JTextField();
+        searchCustomerTxtField = new JTextField();
         searchButton = new Button("Search");
         jScrollPane1 = new JScrollPane();
         tableContainerPanel = new JPanel();
         jScrollPane2 = new JScrollPane();
-        customerTableList = new JTable();
+        employeeTableList = new JTable();
 
         setMinimumSize(new Dimension(1180, 620));
         setPreferredSize(new Dimension(1180, 620));
@@ -112,9 +119,9 @@ public class CustomerList extends JPanel {
 
         headerPanel.add(groupTopHeaderPanel);
 
-        searchCustomerTxtFld.setFont(new ThemeFont().getSmallFont());
-        searchCustomerTxtFld.setPreferredSize(new Dimension(450, 30));
-        groupBottomHeaderPanel.add(searchCustomerTxtFld);
+        searchCustomerTxtField.setFont(new ThemeFont().getSmallFont());
+        searchCustomerTxtField.setPreferredSize(new Dimension(450, 30));
+        groupBottomHeaderPanel.add(searchCustomerTxtField);
 
         searchButton.setMaximumSize(new Dimension(75, 30));
         searchButton.setMinimumSize(new Dimension(75, 30));
@@ -127,9 +134,9 @@ public class CustomerList extends JPanel {
 
         tableContainerPanel.setLayout(new BorderLayout());
 
-        customerTableList.getTableHeader().setReorderingAllowed(false);
+        employeeTableList.getTableHeader().setReorderingAllowed(false);
 
-        jScrollPane2.setViewportView(customerTableList);
+        jScrollPane2.setViewportView(employeeTableList);
 
         tableContainerPanel.add(jScrollPane2, BorderLayout.CENTER);
 
@@ -140,7 +147,7 @@ public class CustomerList extends JPanel {
 
     private Button searchButton;
     private Button addCustomerButton;
-    private JTable customerTableList;
+    private JTable employeeTableList;
     private Label customerListLabel;
     private JPanel addCustomerPanel;
 
@@ -150,5 +157,5 @@ public class CustomerList extends JPanel {
     private JPanel groupBottomHeaderPanel;
     private JScrollPane jScrollPane1;
     private JScrollPane jScrollPane2;
-    private JTextField searchCustomerTxtFld;
+    private JTextField searchCustomerTxtField;
 }
