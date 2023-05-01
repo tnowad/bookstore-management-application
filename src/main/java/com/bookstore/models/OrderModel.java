@@ -2,7 +2,10 @@ package com.bookstore.models;
 
 import java.time.LocalDateTime;
 
+import com.bookstore.enums.OrderStatus;
+
 public class OrderModel {
+
   private int id;
   private int cartId;
   private int customerId;
@@ -11,19 +14,21 @@ public class OrderModel {
   private int paid;
   private LocalDateTime createdAt;
   private LocalDateTime updatedAt;
-  private Status status;
+  private OrderStatus status;
 
-  public enum Status {
-    PENDING,
-    REJECTED,
-    SOLVED;
-  }
+  public OrderModel() {}
 
-  public OrderModel() {
-  }
-
-  public OrderModel(int id, int cartId, int customerId, int employeeId, int total, int paid, LocalDateTime createdAt,
-      LocalDateTime updatedAt, Status status) {
+  public OrderModel(
+    int id,
+    int cartId,
+    int customerId,
+    int employeeId,
+    int total,
+    int paid,
+    LocalDateTime createdAt,
+    LocalDateTime updatedAt,
+    OrderStatus status
+  ) {
     this.id = id;
     this.cartId = cartId;
     this.customerId = customerId;
@@ -99,11 +104,11 @@ public class OrderModel {
     this.updatedAt = updatedAt;
   }
 
-  public Status getStatus() {
+  public OrderStatus getStatus() {
     return this.status;
   }
 
-  public void setStatus(Status status) {
+  public void setStatus(OrderStatus status) {
     this.status = status;
   }
 
@@ -147,9 +152,8 @@ public class OrderModel {
     return this;
   }
 
-  public OrderModel status(Status status) {
+  public OrderModel status(OrderStatus status) {
     setStatus(status);
     return this;
   }
-
 }

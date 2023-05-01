@@ -1,9 +1,10 @@
 package com.bookstore.dao;
 
+import com.bookstore.enums.PaymentMethod;
+import com.bookstore.enums.PaymentStatus;
 import com.bookstore.interfaces.IDAO;
 import com.bookstore.models.PaymentModel;
-import com.bookstore.models.PaymentModel.PaymentMethod;
-import com.bookstore.models.PaymentModel.PaymentStatus;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

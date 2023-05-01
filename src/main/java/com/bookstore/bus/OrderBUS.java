@@ -1,9 +1,10 @@
 package com.bookstore.bus;
 
 import com.bookstore.dao.OrderDAO;
+import com.bookstore.enums.OrderStatus;
 import com.bookstore.interfaces.IBUS;
 import com.bookstore.models.OrderModel;
-import com.bookstore.models.OrderModel.Status;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -165,7 +166,9 @@ public class OrderBUS implements IBUS<OrderModel> {
       throw new IllegalArgumentException("Paid cannot be negative!");
     }
     orderModel.setStatus(
-      orderModel.getStatus() != null ? orderModel.getStatus() : Status.PENDING
+      orderModel.getStatus() != null
+        ? orderModel.getStatus()
+        : OrderStatus.PENDING
     );
 
     int id = OrderDAO.getInstance().insert(mapToEntity(orderModel));
@@ -208,7 +211,7 @@ public class OrderBUS implements IBUS<OrderModel> {
     if (success == 1) {
       for (OrderModel order : orderList) {
         if (order.getCartId() == cartId) {
-          Status roleEnum = Status.valueOf(status.toUpperCase());
+          OrderStatus roleEnum = OrderStatus.valueOf(status.toUpperCase());
           order.setStatus(roleEnum);
           return 1;
         }

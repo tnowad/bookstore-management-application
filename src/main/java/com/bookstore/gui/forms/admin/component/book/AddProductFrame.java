@@ -3,9 +3,9 @@ package com.bookstore.gui.forms.admin.component.book;
 import com.bookstore.bus.AuthorBUS;
 import com.bookstore.bus.BookBUS;
 import com.bookstore.bus.PublisherBUS;
+import com.bookstore.enums.BookStatus;
 import com.bookstore.models.AuthorModel;
 import com.bookstore.models.BookModel;
-import com.bookstore.models.BookModel.Status;
 import com.bookstore.models.PublisherModel;
 import java.awt.event.*;
 import java.io.File;
@@ -348,7 +348,6 @@ public class AddProductFrame extends javax.swing.JFrame {
       return false;
     }
   }
-  
 
   public void actionAdd() {
     final String EMPTY_FIELD_ERROR = " cannot be empty!";
@@ -484,7 +483,7 @@ public class AddProductFrame extends javax.swing.JFrame {
       }
     }
 
-    Status newStatus = Status.valueOf(
+    BookStatus newStatus = BookStatus.valueOf(
       setStatus.getSelectedItem().toString().toUpperCase()
     );
     BookModel book = new BookModel();

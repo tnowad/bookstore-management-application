@@ -7,8 +7,8 @@ package com.bookstore.gui.forms.admin.component.order;
 import com.bookstore.bus.BookBUS;
 import com.bookstore.bus.CartItemsBUS;
 import com.bookstore.bus.UserBUS;
+import com.bookstore.enums.OrderStatus;
 import com.bookstore.models.CartItemsModel;
-import com.bookstore.models.OrderModel.Status;
 import com.bookstore.util.PDF.PDFWriter;
 import com.itextpdf.text.DocumentException;
 import java.awt.GridLayout;
@@ -38,7 +38,7 @@ public class PopupOrderFrame extends javax.swing.JFrame {
     int total,
     LocalDateTime dateCreated,
     LocalDateTime dateUpdated,
-    Status status
+    OrderStatus status
   ) {
     initComponents(
       serial,
@@ -78,7 +78,7 @@ public class PopupOrderFrame extends javax.swing.JFrame {
     int total,
     LocalDateTime dateCreated,
     LocalDateTime dateUpdated,
-    Status status
+    OrderStatus status
   ) {
     jLabel1 = new javax.swing.JLabel();
     getNameCustomer = new javax.swing.JTextField();
@@ -857,7 +857,7 @@ public class PopupOrderFrame extends javax.swing.JFrame {
     getQuantityProduct.setText("" + listCartItems.size());
   }
 
-  public void setStatus(Status status) {
+  public void setStatus(OrderStatus status) {
     int index = -1;
     switch (status.toString()) {
       case "SOLVED" -> {

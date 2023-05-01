@@ -6,9 +6,7 @@ public class ProviderModel {
   private String name;
   private String description;
 
-  public ProviderModel() {
-
-  }
+  public ProviderModel() {}
 
   public ProviderModel(int id, String name, String description) {
     this.id = id;

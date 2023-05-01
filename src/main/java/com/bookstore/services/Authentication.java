@@ -1,8 +1,9 @@
 package com.bookstore.services;
 
 import com.bookstore.bus.UserBUS;
+import com.bookstore.enums.UserRole;
+import com.bookstore.enums.UserStatus;
 import com.bookstore.models.UserModel;
-import com.bookstore.models.UserModel.Role;
 
 public class Authentication {
 
@@ -37,7 +38,7 @@ public class Authentication {
       throw new RuntimeException("User is null");
     }
 
-    if (currentUser.getStatus() != UserModel.Status.ACTIVE) {
+    if (currentUser.getStatus() != UserStatus.ACTIVE) {
       throw new RuntimeException("User is not active");
     }
 
@@ -52,7 +53,7 @@ public class Authentication {
     return Authentication.getInstance().currentUser != null;
   }
 
-  public static boolean isRole(Role role) {
+  public static boolean isRole(UserRole role) {
     if (!Authentication.isLoggedIn()) {
       return false;
     }

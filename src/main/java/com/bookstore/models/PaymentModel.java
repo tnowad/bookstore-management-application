@@ -1,8 +1,11 @@
 package com.bookstore.models;
 
+import com.bookstore.enums.PaymentMethod;
+import com.bookstore.enums.PaymentStatus;
 import java.time.LocalDateTime;
 
 public class PaymentModel {
+
   private int id;
   private int orderId;
   private int userId;
@@ -13,22 +16,19 @@ public class PaymentModel {
   private LocalDateTime createdAt;
   private LocalDateTime updatedAt;
 
-  public enum PaymentMethod {
-    CASH,
-    CREDIT
-  }
+  public PaymentModel() {}
 
-  public enum PaymentStatus {
-    PENDING,
-    SUCCESS,
-    FAILED
-  }
-
-  public PaymentModel() {
-  }
-
-  public PaymentModel(int id, int orderId, int userId, int amount, PaymentMethod paymentMethod, int paymentMethodId,
-      PaymentStatus status, LocalDateTime createdAt, LocalDateTime updatedAt) {
+  public PaymentModel(
+    int id,
+    int orderId,
+    int userId,
+    int amount,
+    PaymentMethod paymentMethod,
+    int paymentMethodId,
+    PaymentStatus status,
+    LocalDateTime createdAt,
+    LocalDateTime updatedAt
+  ) {
     this.id = id;
     this.orderId = orderId;
     this.userId = userId;
@@ -156,5 +156,4 @@ public class PaymentModel {
     setUpdatedAt(updatedAt);
     return this;
   }
-
 }

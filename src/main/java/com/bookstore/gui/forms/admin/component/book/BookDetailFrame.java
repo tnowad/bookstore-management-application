@@ -3,8 +3,8 @@ package com.bookstore.gui.forms.admin.component.book;
 import com.bookstore.bus.AuthorBUS;
 import com.bookstore.bus.BookBUS;
 import com.bookstore.bus.PublisherBUS;
+import com.bookstore.enums.BookStatus;
 import com.bookstore.models.BookModel;
-import com.bookstore.models.BookModel.Status;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -293,7 +293,7 @@ public class BookDetailFrame extends javax.swing.JFrame {
     Object selectedStatusItem = setStatus.getSelectedItem();
     if (selectedStatusItem != null) {
       String statusString = selectedStatusItem.toString().toUpperCase();
-      Status newStatus = Status.valueOf(statusString);
+      BookStatus newStatus = BookStatus.valueOf(statusString);
       int newPrice = Integer.valueOf(setPrice.getText());
       int newQuantity = Integer.valueOf(setAvailableQuantity.getText());
       BookModel newBook = new BookModel(

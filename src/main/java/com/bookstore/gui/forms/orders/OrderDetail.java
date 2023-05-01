@@ -5,13 +5,13 @@ import com.bookstore.bus.CartBUS;
 import com.bookstore.bus.CartItemsBUS;
 import com.bookstore.bus.OrderBUS;
 import com.bookstore.bus.UserBUS;
+import com.bookstore.enums.OrderStatus;
 import com.bookstore.gui.components.button.Button;
 import com.bookstore.gui.components.label.Label;
 import com.bookstore.models.BookModel;
 import com.bookstore.models.CartItemsModel;
 import com.bookstore.models.CartModel;
 import com.bookstore.models.OrderModel;
-import com.bookstore.models.OrderModel.Status;
 import com.bookstore.models.UserModel;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -70,7 +70,7 @@ public class OrderDetail extends JFrame {
       JOptionPane.YES_NO_OPTION
     );
     if (answer == JOptionPane.YES_OPTION) {
-      orderModel.setStatus(Status.SOLVED);
+      orderModel.setStatus(OrderStatus.SOLVED);
       orderBUS.updateModel(orderModel);
       JOptionPane.showMessageDialog(
         this,
@@ -91,7 +91,7 @@ public class OrderDetail extends JFrame {
       JOptionPane.YES_NO_OPTION
     );
     if (answer == JOptionPane.YES_OPTION) {
-      orderModel.setStatus(Status.REJECTED);
+      orderModel.setStatus(OrderStatus.REJECTED);
       orderBUS.updateModel(orderModel);
       JOptionPane.showMessageDialog(
         this,

@@ -1,7 +1,9 @@
 package com.bookstore.dao;
 
+import com.bookstore.enums.OrderStatus;
 import com.bookstore.interfaces.IDAO;
 import com.bookstore.models.OrderModel;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -31,7 +33,7 @@ public class OrderDAO implements IDAO<OrderModel> {
       rs.getInt("paid"),
       rs.getTimestamp("created_at").toLocalDateTime(),
       rs.getTimestamp("updated_at").toLocalDateTime(),
-      OrderModel.Status.valueOf(rs.getString("status").toUpperCase())
+      OrderStatus.valueOf(rs.getString("status").toUpperCase())
     );
   }
 

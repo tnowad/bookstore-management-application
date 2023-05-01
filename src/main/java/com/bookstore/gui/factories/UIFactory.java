@@ -1,6 +1,7 @@
 package com.bookstore.gui.factories;
 
 import com.bookstore.dao.EmployeeDAO;
+import com.bookstore.enums.UserRole;
 import com.bookstore.gui.components.header.HeaderDashboard;
 import com.bookstore.gui.components.menu.DrawerMenu;
 import com.bookstore.gui.components.panel.MainPanel;
@@ -12,7 +13,6 @@ import com.bookstore.models.MenuItemModel;
 import com.bookstore.models.MenuModel;
 import com.bookstore.models.SubMenuItemModel;
 import com.bookstore.models.UserModel;
-import com.bookstore.models.UserModel.Role;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
@@ -27,7 +27,7 @@ public class UIFactory {
     }
 
     System.out.println(user);
-    if (user.getRole() == Role.EMPLOYEE) {
+    if (user.getRole() == UserRole.EMPLOYEE) {
       System.out.println(
         EmployeeDAO.getInstance().getEmployeeById(user.getId())
       );

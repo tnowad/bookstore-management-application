@@ -4,19 +4,17 @@
  */
 package com.bookstore.gui.forms.admin.component.user;
 
+import com.bookstore.bus.AddressBUS;
+import com.bookstore.bus.UserBUS;
+import com.bookstore.enums.UserRole;
+import com.bookstore.enums.UserStatus;
+import com.bookstore.models.AddressModel;
+import com.bookstore.models.UserModel;
 import java.awt.event.*;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.regex.Pattern;
-
 import javax.swing.*;
-
-import com.bookstore.bus.AddressBUS;
-import com.bookstore.bus.UserBUS;
-import com.bookstore.models.AddressModel;
-import com.bookstore.models.UserModel;
-import com.bookstore.models.UserModel.Role;
-import com.bookstore.models.UserModel.Status;
 
 /**
  *
@@ -44,7 +42,6 @@ public class CreateUserFrame extends javax.swing.JFrame {
   // <editor-fold defaultstate="collapsed" desc="Generated
   // Code">//GEN-BEGIN:initComponents
   private void initComponents() {
-
     titlePanel = new javax.swing.JLabel();
     nameText = new javax.swing.JLabel();
     setName = new javax.swing.JTextField();
@@ -72,7 +69,8 @@ public class CreateUserFrame extends javax.swing.JFrame {
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
     setMinimumSize(new java.awt.Dimension(600, 394));
     setPreferredSize(new java.awt.Dimension(590, 400));
-    getContentPane().setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 25, 15));
+    getContentPane()
+      .setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 25, 15));
 
     titlePanel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
     titlePanel.setForeground(new java.awt.Color(255, 51, 0));
@@ -151,47 +149,66 @@ public class CreateUserFrame extends javax.swing.JFrame {
     roleText.setPreferredSize(new java.awt.Dimension(170, 20));
     getContentPane().add(roleText);
 
-    setRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ADMIN", "CUSTOMER", "EMPLOYEE" }));
+    setRole.setModel(
+      new javax.swing.DefaultComboBoxModel<>(
+        new String[] { "ADMIN", "CUSTOMER", "EMPLOYEE" }
+      )
+    );
     getContentPane().add(setRole);
 
     statusText.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
     statusText.setText("Status");
     getContentPane().add(statusText);
 
-    setStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ACTIVE", "INACTIVE" }));
+    setStatus.setModel(
+      new javax.swing.DefaultComboBoxModel<>(
+        new String[] { "ACTIVE", "INACTIVE" }
+      )
+    );
     getContentPane().add(setStatus);
 
     buttonPanel.setPreferredSize(new java.awt.Dimension(530, 30));
-    buttonPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 30, 5));
+    buttonPanel.setLayout(
+      new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 30, 5)
+    );
 
-    buttonBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/back.png"))); // NOI18N
+    buttonBack.setIcon(
+      new javax.swing.ImageIcon(
+        getClass().getResource("/resources/icons/back.png")
+      )
+    ); // NOI18N
     buttonBack.setPreferredSize(new java.awt.Dimension(70, 23));
     buttonBack.addActionListener(
-        new ActionListener() {
-          @Override
-          public void actionPerformed(ActionEvent e) {
-            JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(buttonBack);
-            frame.dispose();
-          }
-        });
+      new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+          JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(buttonBack);
+          frame.dispose();
+        }
+      }
+    );
     buttonPanel.add(buttonBack);
 
-    buttonSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/save.png"))); // NOI18N
+    buttonSave.setIcon(
+      new javax.swing.ImageIcon(
+        getClass().getResource("/resources/icons/save.png")
+      )
+    ); // NOI18N
     buttonSave.setPreferredSize(new java.awt.Dimension(70, 23));
-    buttonSave.addActionListener(new ActionListener() {
-
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        actionSave();
+    buttonSave.addActionListener(
+      new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+          actionSave();
+        }
       }
-
-    });
+    );
     buttonPanel.add(buttonSave);
 
     getContentPane().add(buttonPanel);
 
     pack();
-  }// </editor-fold>//GEN-END:initComponents
+  } // </editor-fold>//GEN-END:initComponents
 
   /**
    * @param args the command line arguments
@@ -200,11 +217,12 @@ public class CreateUserFrame extends javax.swing.JFrame {
   private boolean isValidEmailAddress(String email) {
     // pattern to validate email
     Pattern pattern = Pattern.compile(
-        "^[a-zA-Z0-9_+&*-]+(?:\\." +
-            "[a-zA-Z0-9_+&*-]+)*@" +
-            "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
-            "A-Z]{2,7}$",
-        Pattern.CASE_INSENSITIVE);
+      "^[a-zA-Z0-9_+&*-]+(?:\\." +
+      "[a-zA-Z0-9_+&*-]+)*@" +
+      "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
+      "A-Z]{2,7}$",
+      Pattern.CASE_INSENSITIVE
+    );
     return pattern.matcher(email).matches();
   }
 
@@ -214,7 +232,6 @@ public class CreateUserFrame extends javax.swing.JFrame {
   }
 
   public void actionSave() {
-
     final String EMPTY_FIELD_ERROR = " cannot be empty!";
     final String INVALID_ERROR = " is not valid!";
     final String DUPLICATE_ERROR = " already exists!";
@@ -234,67 +251,127 @@ public class CreateUserFrame extends javax.swing.JFrame {
       return;
     }
 
-    if (setPhone.getText().trim().isEmpty() || !isValidPhoneNumber(setPhone.getText().trim())) {
+    if (
+      setPhone.getText().trim().isEmpty() ||
+      !isValidPhoneNumber(setPhone.getText().trim())
+    ) {
       JOptionPane.showMessageDialog(null, "Phone" + INVALID_ERROR);
       return;
     }
 
-    if (setEmail.getText().trim().isEmpty() || !isValidEmailAddress(setEmail.getText().trim())) {
+    if (
+      setEmail.getText().trim().isEmpty() ||
+      !isValidEmailAddress(setEmail.getText().trim())
+    ) {
       JOptionPane.showMessageDialog(null, "Email" + INVALID_ERROR);
       return;
     }
 
-    if (setStreet.getText().trim().isEmpty() || setCity.getText().trim().isEmpty()
-        || setState.getText().trim().isEmpty() || setZip.getText().trim().isEmpty()) {
+    if (
+      setStreet.getText().trim().isEmpty() ||
+      setCity.getText().trim().isEmpty() ||
+      setState.getText().trim().isEmpty() ||
+      setZip.getText().trim().isEmpty()
+    ) {
       JOptionPane.showMessageDialog(null, "Address" + EMPTY_FIELD_ERROR);
       return;
     }
 
-    if (setStreet.getText().trim().equals("street") || setCity.getText().trim().equals("city")
-        || setState.getText().trim().equals("state") || setZip.getText().trim().equals("zip")) {
+    if (
+      setStreet.getText().trim().equals("street") ||
+      setCity.getText().trim().equals("city") ||
+      setState.getText().trim().equals("state") ||
+      setZip.getText().trim().equals("zip")
+    ) {
       JOptionPane.showMessageDialog(null, "Address" + EMPTY_FIELD_ERROR);
       return;
     }
 
-    if (UserBUS.getInstance().checkForDuplicate(Arrays.asList(setUserName.getText()), new String[] { "username" })) {
+    if (
+      UserBUS
+        .getInstance()
+        .checkForDuplicate(
+          Arrays.asList(setUserName.getText()),
+          new String[] { "username" }
+        )
+    ) {
       JOptionPane.showMessageDialog(null, "User Name" + DUPLICATE_ERROR);
       return;
     }
 
-    if (UserBUS.getInstance().checkForDuplicate(Arrays.asList(setPhone.getText()), new String[] { "phone" })) {
+    if (
+      UserBUS
+        .getInstance()
+        .checkForDuplicate(
+          Arrays.asList(setPhone.getText()),
+          new String[] { "phone" }
+        )
+    ) {
       JOptionPane.showMessageDialog(null, "Phone" + DUPLICATE_ERROR);
       return;
     }
-    if (UserBUS.getInstance().checkForDuplicate(Arrays.asList(setEmail.getText()), new String[] { "email" })) {
+    if (
+      UserBUS
+        .getInstance()
+        .checkForDuplicate(
+          Arrays.asList(setEmail.getText()),
+          new String[] { "email" }
+        )
+    ) {
       JOptionPane.showMessageDialog(null, "Email" + DUPLICATE_ERROR);
       return;
     }
-    
-    
-    int confirm = JOptionPane.showConfirmDialog(null, "Do you want to create?", "Confirmation",
-    JOptionPane.YES_NO_OPTION);
+
+    int confirm = JOptionPane.showConfirmDialog(
+      null,
+      "Do you want to create?",
+      "Confirmation",
+      JOptionPane.YES_NO_OPTION
+    );
     if (confirm == JOptionPane.YES_OPTION) {
       Object selectedRoleItem = setRole.getSelectedItem();
-      Role role = Role.valueOf(selectedRoleItem.toString().toUpperCase());
-  
+      UserRole role = UserRole.valueOf(
+        selectedRoleItem.toString().toUpperCase()
+      );
+
       Object selectedStatusItem = setStatus.getSelectedItem();
-      Status status = Status.valueOf(selectedStatusItem.toString().toUpperCase());
-  
+      UserStatus status = UserStatus.valueOf(
+        selectedStatusItem.toString().toUpperCase()
+      );
+
       String password = new String(setPassword.getPassword());
-  
+
       LocalDateTime timeNow = LocalDateTime.now();
-  
-      UserModel newUser = new UserModel(0, setUserName.getText().trim(), password, status, setName.getText().trim(),
-          setEmail.getText().trim(),
-          setPhone.getText().trim(), timeNow, timeNow, role);
+
+      UserModel newUser = new UserModel(
+        0,
+        setUserName.getText().trim(),
+        password,
+        status,
+        setName.getText().trim(),
+        setEmail.getText().trim(),
+        setPhone.getText().trim(),
+        timeNow,
+        timeNow,
+        role
+      );
 
       UserBUS.getInstance().addModel(newUser);
 
-      int idUser = UserBUS.getInstance().getModelByUsername(setUserName.getText().trim()).getId();
+      int idUser = UserBUS
+        .getInstance()
+        .getModelByUsername(setUserName.getText().trim())
+        .getId();
 
-      AddressModel newAddress = new AddressModel(0, idUser, setStreet.getText().trim(), setCity.getText().trim(), setState.getText().trim(), setZip.getText().trim());
+      AddressModel newAddress = new AddressModel(
+        0,
+        idUser,
+        setStreet.getText().trim(),
+        setCity.getText().trim(),
+        setState.getText().trim(),
+        setZip.getText().trim()
+      );
       AddressBUS.getInstance().addModel(newAddress);
-      
     }
   }
 

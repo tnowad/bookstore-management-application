@@ -1,11 +1,12 @@
 package com.bookstore.gui.forms.orders;
 
 import com.bookstore.bus.OrderBUS;
+import com.bookstore.enums.OrderStatus;
 import com.bookstore.gui.components.button.Button;
 import com.bookstore.gui.components.dialog.Dialog;
 import com.bookstore.gui.components.label.Label;
 import com.bookstore.models.OrderModel;
-import com.bookstore.models.OrderModel.Status;
+
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -55,7 +56,7 @@ public class OrderList extends JPanel {
     model.addColumn("Paid");
     model.addColumn("Status");
     for (OrderModel orderModel : orderList) {
-      if (orderModel.getStatus() == Status.PENDING) {
+      if (orderModel.getStatus() == OrderStatus.PENDING) {
         model.addRow(
           new Object[] {
             orderModel.getId(),

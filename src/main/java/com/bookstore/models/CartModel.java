@@ -1,26 +1,27 @@
 package com.bookstore.models;
 
+import com.bookstore.enums.CartStatus;
 import java.time.LocalDateTime;
 
 public class CartModel {
+
   private int id;
   private int userId;
   private LocalDateTime createdAt;
-  private Status status;
+  private CartStatus status;
   private LocalDateTime expires;
   private int promotionId;
 
-  public enum Status {
-    SHOPPING,
-    PENDING,
-    REJECT,
-    ACCEPT;
-  }
+  public CartModel() {}
 
-  public CartModel() {
-  }
-
-  public CartModel(int id, int userId, LocalDateTime createdAt, Status status, LocalDateTime expires, int promotionId) {
+  public CartModel(
+    int id,
+    int userId,
+    LocalDateTime createdAt,
+    CartStatus status,
+    LocalDateTime expires,
+    int promotionId
+  ) {
     this.id = id;
     this.userId = userId;
     this.createdAt = createdAt;
@@ -53,11 +54,11 @@ public class CartModel {
     this.createdAt = createdAt;
   }
 
-  public Status getStatus() {
+  public CartStatus getStatus() {
     return this.status;
   }
 
-  public void setStatus(Status status) {
+  public void setStatus(CartStatus status) {
     this.status = status;
   }
 
@@ -92,7 +93,7 @@ public class CartModel {
     return this;
   }
 
-  public CartModel status(Status status) {
+  public CartModel status(CartStatus status) {
     setStatus(status);
     return this;
   }
@@ -106,5 +107,4 @@ public class CartModel {
     setPromotionId(promotionId);
     return this;
   }
-
 }

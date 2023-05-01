@@ -2,13 +2,13 @@ package com.bookstore.gui.forms.users;
 
 import com.bookstore.bus.EmployeeBUS;
 import com.bookstore.bus.UserBUS;
+import com.bookstore.enums.EmployeeType;
+import com.bookstore.enums.UserRole;
 import com.bookstore.gui.components.button.Button;
 import com.bookstore.gui.components.label.Label;
 import com.bookstore.gui.theme.ThemeFont;
 import com.bookstore.models.EmployeeModel;
-import com.bookstore.models.EmployeeModel.EmployeeType;
 import com.bookstore.models.UserModel;
-import com.bookstore.models.UserModel.Role;
 import java.awt.*;
 import java.util.List;
 import javax.swing.*;
@@ -77,7 +77,7 @@ public class EmployeeList extends JPanel {
     model.addColumn("Phone");
     model.addColumn("Status");
     for (UserModel employee : employeeList) {
-      if (employee.getRole() == Role.EMPLOYEE) {
+      if (employee.getRole() == UserRole.EMPLOYEE) {
         EmployeeBUS employeeBUS = EmployeeBUS.getInstance();
         EmployeeModel employeeModel = employeeBUS.getModelById(
           employee.getId()

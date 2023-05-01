@@ -1,27 +1,32 @@
 package com.bookstore.models;
 
+import com.bookstore.enums.BookStatus;
+
 public class BookModel {
+
   private String isbn;
   private String title;
   private String description;
   private String image;
   private int price;
   private int quantity;
-  private Status status;
+  private BookStatus status;
   private int publisherId;
   private int authorId;
 
-  public enum Status {
-    AVAILABLE,
-    UNAVAILABLE,
-    DELETED;
-  }
+  public BookModel() {}
 
-  public BookModel() {
-  }
-
-  public BookModel(String isbn, String title, String description, String image, int price, int quantity,
-      Status status, int publisherId, int authorId) {
+  public BookModel(
+    String isbn,
+    String title,
+    String description,
+    String image,
+    int price,
+    int quantity,
+    BookStatus status,
+    int publisherId,
+    int authorId
+  ) {
     this.isbn = isbn;
     this.title = title;
     this.description = description;
@@ -81,11 +86,11 @@ public class BookModel {
     this.quantity = quantity;
   }
 
-  public Status getStatus() {
+  public BookStatus getStatus() {
     return status;
   }
 
-  public void setStatus(Status status) {
+  public void setStatus(BookStatus status) {
     this.status = status;
   }
 

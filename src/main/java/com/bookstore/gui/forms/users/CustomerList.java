@@ -1,11 +1,11 @@
 package com.bookstore.gui.forms.users;
 
 import com.bookstore.bus.UserBUS;
+import com.bookstore.enums.UserRole;
 import com.bookstore.gui.components.button.Button;
 import com.bookstore.gui.components.label.Label;
 import com.bookstore.gui.theme.ThemeFont;
 import com.bookstore.models.UserModel;
-import com.bookstore.models.UserModel.Role;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.List;
@@ -75,7 +75,7 @@ public class CustomerList extends JPanel {
     model.addColumn("Phone");
     model.addColumn("Status");
     for (UserModel customer : customersList) {
-      if (customer.getRole() == Role.CUSTOMER) {
+      if (customer.getRole() == UserRole.CUSTOMER) {
         model.addRow(
           new Object[] {
             customer.getId(),
