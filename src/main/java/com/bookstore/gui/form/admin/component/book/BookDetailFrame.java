@@ -334,7 +334,7 @@ public class BookDetailFrame extends javax.swing.JFrame {
     if (imageLoadStatus != 8) {
       getImageBook.setIcon(
         new javax.swing.ImageIcon(
-          getClass().getResource("/resources/images_products/imagenull.png")
+          getClass().getResource("/resources/images/product-placeholder.png")
         )
       );
     }
