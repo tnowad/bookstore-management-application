@@ -262,7 +262,7 @@ public class UserListPanel extends javax.swing.JPanel {
 
           @Override
           public void actionPerformed(ActionEvent e) {
-            CreateUserForm createUserForm = new CreateUserForm();
+            CreateUserFrame createUserForm = new CreateUserFrame();
             createUserForm.setVisible(true);
           }
           

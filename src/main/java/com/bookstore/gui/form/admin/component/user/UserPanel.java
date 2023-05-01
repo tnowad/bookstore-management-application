@@ -29,7 +29,7 @@ public class UserPanel extends javax.swing.JPanel implements MouseListener {
     addMouseListener(new MouseAdapter() {
       @Override
       public void mouseClicked(MouseEvent e) {
-        PopupUser userFullForm = new PopupUser(idUser, userName, password, status, name, email, phone, role, dateCreate,
+        PopupUserFrame userFullForm = new PopupUserFrame(idUser, userName, password, status, name, email, phone, role, dateCreate,
             dateUpdate);
         userFullForm.setVisible(true);
       }
@@ -140,8 +140,8 @@ public class UserPanel extends javax.swing.JPanel implements MouseListener {
         setRole.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         setRole.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         setRole.setText(""+role);
-        setRole.setMinimumSize(new java.awt.Dimension(90, 26));
-        setRole.setPreferredSize(new java.awt.Dimension(90, 26));
+        setRole.setMinimumSize(new java.awt.Dimension(93, 26));
+        setRole.setPreferredSize(new java.awt.Dimension(93, 26));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 5;
         gridBagConstraints.gridy = 0;

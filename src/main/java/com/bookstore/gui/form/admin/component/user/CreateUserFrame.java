@@ -10,9 +10,9 @@ import com.bookstore.models.UserModel;
 import com.bookstore.models.UserModel.Role;
 import com.bookstore.models.UserModel.Status;
 
-public class CreateUserForm extends javax.swing.JFrame {
+public class CreateUserFrame extends javax.swing.JFrame {
 
-  public CreateUserForm() {
+  public CreateUserFrame() {
     initComponents();
     setLocationRelativeTo(null);
     setResizable(false);
