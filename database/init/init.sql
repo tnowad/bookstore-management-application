@@ -1,7 +1,7 @@
 -- Active: 1676799504168@@127.0.0.1@3306@bookstore
 DROP DATABASE IF EXISTS bookstore;
 
-CREATE DATABASE bookstore;
+CREATE DATABASE bookstore CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 USE bookstore;
 
@@ -10,7 +10,7 @@ CREATE TABLE
         `isbn` VARCHAR(20) NOT NULL,
         `title` NVARCHAR (255) NOT NULL,
         `description` NVARCHAR (255) NOT NULL,
-        `image` TEXT DEFAULT NULL,
+        `image` LONGTEXT DEFAULT NULL,
         `price` INT NOT NULL,
         `quantity` INT NOT NULL,
         `status` ENUM (
