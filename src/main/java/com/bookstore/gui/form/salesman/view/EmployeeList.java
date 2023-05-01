@@ -28,7 +28,7 @@ public class EmployeeList extends JPanel {
 
     private void search() {
         searchButton.addActionListener(e -> {
-            String text = searchCustomerTxtField.getText();
+            String text = searchEmployeeTxtField.getText();
             if (text == null || text.isBlank()) {
                 JOptionPane.showMessageDialog(null, "Search field cannot be empty. Please try again!");
                 showTable();
@@ -87,12 +87,12 @@ public class EmployeeList extends JPanel {
 
         headerPanel = new JPanel();
         groupTopHeaderPanel = new JPanel();
-        customerListLabel = new Label("Customer List");
-        addCustomerPanel = new JPanel();
-        addCustomerButton = new Button("Add Customer");
-        addCustomerButton.setPreferredSize(new Dimension(200, 40));
+        employeeListLabel = new Label("Customer List");
+        addEmployeePanel = new JPanel();
+        addEmployeeButton = new Button("Add Customer");
+        addEmployeeButton.setPreferredSize(new Dimension(200, 40));
         groupBottomHeaderPanel = new JPanel();
-        searchCustomerTxtField = new JTextField();
+        searchEmployeeTxtField = new JTextField();
         searchButton = new Button("Search");
         jScrollPane1 = new JScrollPane();
         tableContainerPanel = new JPanel();
@@ -107,19 +107,19 @@ public class EmployeeList extends JPanel {
 
         groupTopHeaderPanel.setLayout(new GridLayout(1, 2));
 
-        groupTopHeaderPanel.add(customerListLabel);
+        groupTopHeaderPanel.add(employeeListLabel);
 
-        addCustomerPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
+        addEmployeePanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
-        addCustomerPanel.add(addCustomerButton);
+        addEmployeePanel.add(addEmployeeButton);
 
-        groupTopHeaderPanel.add(addCustomerPanel);
+        groupTopHeaderPanel.add(addEmployeePanel);
 
         headerPanel.add(groupTopHeaderPanel);
 
-        searchCustomerTxtField.setFont(new ThemeFont().getSmallFont());
-        searchCustomerTxtField.setPreferredSize(new Dimension(450, 30));
-        groupBottomHeaderPanel.add(searchCustomerTxtField);
+        searchEmployeeTxtField.setFont(new ThemeFont().getSmallFont());
+        searchEmployeeTxtField.setPreferredSize(new Dimension(450, 30));
+        groupBottomHeaderPanel.add(searchEmployeeTxtField);
 
         searchButton.setMaximumSize(new Dimension(75, 30));
         searchButton.setMinimumSize(new Dimension(75, 30));
@@ -144,10 +144,10 @@ public class EmployeeList extends JPanel {
     }
 
     private Button searchButton;
-    private Button addCustomerButton;
+    private Button addEmployeeButton;
     private JTable employeeTableList;
-    private Label customerListLabel;
-    private JPanel addCustomerPanel;
+    private Label employeeListLabel;
+    private JPanel addEmployeePanel;
 
     private JPanel headerPanel;
     private JPanel tableContainerPanel;
@@ -155,5 +155,5 @@ public class EmployeeList extends JPanel {
     private JPanel groupBottomHeaderPanel;
     private JScrollPane jScrollPane1;
     private JScrollPane jScrollPane2;
-    private JTextField searchCustomerTxtField;
+    private JTextField searchEmployeeTxtField;
 }
