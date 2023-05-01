@@ -348,6 +348,7 @@ public class AddProductFrame extends javax.swing.JFrame {
       return false;
     }
   }
+  
 
   public void actionAdd() {
     final String EMPTY_FIELD_ERROR = " cannot be empty!";
