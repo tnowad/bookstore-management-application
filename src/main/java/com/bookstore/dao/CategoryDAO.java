@@ -1,5 +1,7 @@
 package com.bookstore.dao;
 
+import com.bookstore.interfaces.IDAO;
+import com.bookstore.models.CategoryModel;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -7,10 +9,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.bookstore.interfaces.IDAO;
-import com.bookstore.models.CategoryModel;
-
 public class CategoryDAO implements IDAO<CategoryModel> {
+
   private static CategoryDAO instance;
 
   public static CategoryDAO getInstance() {
@@ -20,16 +20,17 @@ public class CategoryDAO implements IDAO<CategoryModel> {
     return instance;
   }
 
-  private CategoryModel createCategoryModelFromResultSet(ResultSet rs) throws SQLException {
-    return new CategoryModel(
-        rs.getInt("id"),
-        rs.getString("name"));
+  private CategoryModel createCategoryModelFromResultSet(ResultSet rs)
+    throws SQLException {
+    return new CategoryModel(rs.getInt("id"), rs.getString("name"));
   }
 
   @Override
   public ArrayList<CategoryModel> readDatabase() {
     ArrayList<CategoryModel> categoryList = new ArrayList<>();
-    try (ResultSet rs = DatabaseConnection.executeQuery("SELECT * FROM categories")) {
+    try (
+      ResultSet rs = DatabaseConnection.executeQuery("SELECT * FROM categories")
+    ) {
       while (rs.next()) {
         CategoryModel categoryModel = createCategoryModelFromResultSet(rs);
         categoryList.add(categoryModel);
@@ -79,7 +80,9 @@ public class CategoryDAO implements IDAO<CategoryModel> {
   @Override
   public List<CategoryModel> search(String condition, String[] columnNames) {
     if (condition == null || condition.trim().isEmpty()) {
-      throw new IllegalArgumentException("Search condition cannot be empty or null");
+      throw new IllegalArgumentException(
+        "Search condition cannot be empty or null"
+      );
     }
 
     String query;
@@ -92,11 +95,18 @@ public class CategoryDAO implements IDAO<CategoryModel> {
       query = "SELECT * FROM categories WHERE " + column + " LIKE ?";
     } else {
       // Search specific columns in categories table
-      query = "SELECT id, name FROM categories WHERE CONCAT("
-          + String.join(", ", columnNames) + ") LIKE ?";
+      query =
+        "SELECT id, name FROM categories WHERE CONCAT(" +
+        String.join(", ", columnNames) +
+        ") LIKE ?";
     }
 
-    try (PreparedStatement pst = DatabaseConnection.getPreparedStatement(query, "%" + condition + "%")) {
+    try (
+      PreparedStatement pst = DatabaseConnection.getPreparedStatement(
+        query,
+        "%" + condition + "%"
+      )
+    ) {
       try (ResultSet rs = pst.executeQuery()) {
         List<CategoryModel> categoryList = new ArrayList<>();
         while (rs.next()) {
@@ -104,7 +114,9 @@ public class CategoryDAO implements IDAO<CategoryModel> {
           categoryList.add(categoryModel);
         }
         if (categoryList.isEmpty()) {
-          throw new SQLException("No records found for the given condition: " + condition);
+          throw new SQLException(
+            "No records found for the given condition: " + condition
+          );
         }
         return categoryList;
       }

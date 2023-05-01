@@ -1,5 +1,7 @@
 package com.bookstore.dao;
 
+import com.bookstore.interfaces.IDAO;
+import com.bookstore.models.ProviderModel;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -7,10 +9,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.bookstore.interfaces.IDAO;
-import com.bookstore.models.ProviderModel;
-
 public class ProviderDAO implements IDAO<ProviderModel> {
+
   private static ProviderDAO instance;
 
   public static ProviderDAO getInstance() {
@@ -20,17 +20,21 @@ public class ProviderDAO implements IDAO<ProviderModel> {
     return instance;
   }
 
-  private ProviderModel createProviderModelFromResultSet(ResultSet rs) throws SQLException {
+  private ProviderModel createProviderModelFromResultSet(ResultSet rs)
+    throws SQLException {
     return new ProviderModel(
-        rs.getInt("id"),
-        rs.getString("name"),
-        rs.getString("description"));
+      rs.getInt("id"),
+      rs.getString("name"),
+      rs.getString("description")
+    );
   }
 
   @Override
   public ArrayList<ProviderModel> readDatabase() {
     ArrayList<ProviderModel> providerList = new ArrayList<>();
-    try (ResultSet rs = DatabaseConnection.executeQuery("SELECT * FROM providers")) {
+    try (
+      ResultSet rs = DatabaseConnection.executeQuery("SELECT * FROM providers")
+    ) {
       while (rs.next()) {
         ProviderModel providerModel = createProviderModelFromResultSet(rs);
         providerList.add(providerModel);
@@ -43,7 +47,8 @@ public class ProviderDAO implements IDAO<ProviderModel> {
 
   @Override
   public int insert(ProviderModel provider) {
-    String insertSql = "INSERT INTO providers (name, description) VALUES (?, ?)";
+    String insertSql =
+      "INSERT INTO providers (name, description) VALUES (?, ?)";
     Object[] args = { provider.getName(), provider.getDescription() };
     try {
       return DatabaseConnection.executeUpdate(insertSql, args);
@@ -55,8 +60,13 @@ public class ProviderDAO implements IDAO<ProviderModel> {
 
   @Override
   public int update(ProviderModel provider) {
-    String updateSql = "UPDATE providers SET name = ?, description = ? WHERE id = ?";
-    Object[] args = { provider.getName(), provider.getDescription(), provider.getId() };
+    String updateSql =
+      "UPDATE providers SET name = ?, description = ? WHERE id = ?";
+    Object[] args = {
+      provider.getName(),
+      provider.getDescription(),
+      provider.getId(),
+    };
     try {
       return DatabaseConnection.executeUpdate(updateSql, args);
     } catch (SQLException e) {
@@ -80,24 +90,34 @@ public class ProviderDAO implements IDAO<ProviderModel> {
   @Override
   public List<ProviderModel> search(String condition, String[] columnNames) {
     if (condition == null || condition.trim().isEmpty()) {
-      throw new IllegalArgumentException("Search condition cannot be empty or null");
+      throw new IllegalArgumentException(
+        "Search condition cannot be empty or null"
+      );
     }
 
     String query;
     if (columnNames == null || columnNames.length == 0) {
       // Search all columns
-      query = "SELECT * FROM providers WHERE CONCAT(id, name, description) LIKE ?";
+      query =
+        "SELECT * FROM providers WHERE CONCAT(id, name, description) LIKE ?";
     } else if (columnNames.length == 1) {
       // Search specific column in providers table
       String column = columnNames[0];
       query = "SELECT * FROM providers WHERE " + column + " LIKE ?";
     } else {
       // Search specific columns in providers table
-      query = "SELECT id, name, description FROM providers WHERE CONCAT("
-          + String.join(", ", columnNames) + ") LIKE ?";
+      query =
+        "SELECT id, name, description FROM providers WHERE CONCAT(" +
+        String.join(", ", columnNames) +
+        ") LIKE ?";
     }
 
-    try (PreparedStatement pst = DatabaseConnection.getPreparedStatement(query, "%" + condition + "%")) {
+    try (
+      PreparedStatement pst = DatabaseConnection.getPreparedStatement(
+        query,
+        "%" + condition + "%"
+      )
+    ) {
       try (ResultSet rs = pst.executeQuery()) {
         List<ProviderModel> providerList = new ArrayList<>();
         while (rs.next()) {
@@ -105,7 +125,9 @@ public class ProviderDAO implements IDAO<ProviderModel> {
           providerList.add(providerModel);
         }
         if (providerList.isEmpty()) {
-          throw new SQLException("No records found for the given condition: " + condition);
+          throw new SQLException(
+            "No records found for the given condition: " + condition
+          );
         }
         return providerList;
       }
@@ -118,8 +140,13 @@ public class ProviderDAO implements IDAO<ProviderModel> {
   public ProviderModel getProviderById(int id) {
     String query = "SELECT * FROM providers WHERE id = ?";
     Object[] args = { id };
-    try (PreparedStatement pst = DatabaseConnection.getPreparedStatement(query, args);
-        ResultSet rs = pst.executeQuery()) {
+    try (
+      PreparedStatement pst = DatabaseConnection.getPreparedStatement(
+        query,
+        args
+      );
+      ResultSet rs = pst.executeQuery()
+    ) {
       if (rs.next()) {
         return createProviderModelFromResultSet(rs);
       }

@@ -8,16 +8,18 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class DatabaseConnection {
+
   private Connection connection = null;
-  private static ResourceBundle rb = ResourceBundle.getBundle("config.database");
+  private static ResourceBundle rb = ResourceBundle.getBundle(
+    "config.database"
+  );
   private static String driver = rb.getString("driver");
   private static String url = rb.getString("url");
   private static String user = rb.getString("user");
   private static String password = rb.getString("password");
   private static DatabaseConnection instance;
 
-  private DatabaseConnection() {
-  }
+  private DatabaseConnection() {}
 
   public static DatabaseConnection getInstance() {
     if (instance == null) {
@@ -39,9 +41,14 @@ public class DatabaseConnection {
     return null;
   }
 
-  public static PreparedStatement getPreparedStatement(String sql, Object... args) throws SQLException {
+  public static PreparedStatement getPreparedStatement(
+    String sql,
+    Object... args
+  ) throws SQLException {
     try {
-      PreparedStatement preparedStatement = getInstance().getConnection().prepareStatement(sql);
+      PreparedStatement preparedStatement = getInstance()
+        .getConnection()
+        .prepareStatement(sql);
       for (int i = 0; i < args.length; i++) {
         preparedStatement.setObject(i + 1, args[i]);
       }
@@ -59,7 +66,8 @@ public class DatabaseConnection {
    * @return ResultSet after executing query
    * @throws SQLException
    */
-  public static ResultSet executeQuery(String sql, Object... args) throws SQLException {
+  public static ResultSet executeQuery(String sql, Object... args)
+    throws SQLException {
     PreparedStatement preparedStatement = getPreparedStatement(sql, args);
     return preparedStatement.executeQuery();
   }
@@ -72,7 +80,8 @@ public class DatabaseConnection {
    * @return number of rows affected by the update
    * @throws SQLException
    */
-  public static int executeUpdate(String sql, Object... args) throws SQLException {
+  public static int executeUpdate(String sql, Object... args)
+    throws SQLException {
     PreparedStatement preparedStatement = getPreparedStatement(sql, args);
     return preparedStatement.executeUpdate();
   }
@@ -84,7 +93,9 @@ public class DatabaseConnection {
    */
   public static void closeConnection() {
     try {
-      if (getInstance().connection != null && !getInstance().connection.isClosed()) {
+      if (
+        getInstance().connection != null && !getInstance().connection.isClosed()
+      ) {
         getInstance().connection.close();
       }
     } catch (SQLException e) {
@@ -101,5 +112,4 @@ public class DatabaseConnection {
     }
     return false;
   }
-
 }

@@ -1,5 +1,7 @@
 package com.bookstore.dao;
 
+import com.bookstore.interfaces.IDAO;
+import com.bookstore.models.CartModel;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,10 +10,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.bookstore.interfaces.IDAO;
-import com.bookstore.models.CartModel;
-
 public class CartDAO implements IDAO<CartModel> {
+
   private static CartDAO instance;
 
   public static CartDAO getInstance() {
@@ -21,11 +21,14 @@ public class CartDAO implements IDAO<CartModel> {
     return instance;
   }
 
-  private CartModel createCartModelFromResultSet(ResultSet rs) throws SQLException {
+  private CartModel createCartModelFromResultSet(ResultSet rs)
+    throws SQLException {
     int id = rs.getInt("id");
     int userId = rs.getInt("user_id");
     LocalDateTime createdAt = rs.getTimestamp("created_at").toLocalDateTime();
-    CartModel.Status status = CartModel.Status.valueOf(rs.getString("status").toUpperCase());
+    CartModel.Status status = CartModel.Status.valueOf(
+      rs.getString("status").toUpperCase()
+    );
     LocalDateTime expires = null;
     if (rs.getTimestamp("expires") != null) {
       expires = rs.getTimestamp("expires").toLocalDateTime();
@@ -37,7 +40,9 @@ public class CartDAO implements IDAO<CartModel> {
   @Override
   public ArrayList<CartModel> readDatabase() {
     ArrayList<CartModel> cartList = new ArrayList<>();
-    try (ResultSet rs = DatabaseConnection.executeQuery("SELECT * FROM carts")) {
+    try (
+      ResultSet rs = DatabaseConnection.executeQuery("SELECT * FROM carts")
+    ) {
       while (rs.next()) {
         CartModel cartModel = createCartModelFromResultSet(rs);
         cartList.add(cartModel);
@@ -50,8 +55,14 @@ public class CartDAO implements IDAO<CartModel> {
 
   @Override
   public int insert(CartModel cart) {
-    String insertSql = "INSERT INTO carts (user_id, status, promotion_id, expires) VALUES (?, ?, ?, ?)";
-    Object[] args = { cart.getUserId(), cart.getStatus().name(), cart.getPromotionId(), cart.getExpires() };
+    String insertSql =
+      "INSERT INTO carts (user_id, status, promotion_id, expires) VALUES (?, ?, ?, ?)";
+    Object[] args = {
+      cart.getUserId(),
+      cart.getStatus().name(),
+      cart.getPromotionId(),
+      cart.getExpires(),
+    };
     try {
       return DatabaseConnection.executeUpdate(insertSql, args);
     } catch (SQLException e) {
@@ -62,9 +73,15 @@ public class CartDAO implements IDAO<CartModel> {
 
   @Override
   public int update(CartModel cart) {
-    String updateSql = "UPDATE carts SET user_id = ?, status = ?, expires = ?, promotion_id = ? WHERE id = ?";
-    Object[] args = { cart.getUserId(), cart.getStatus().name(), cart.getExpires(), cart.getPromotionId(),
-        cart.getId() };
+    String updateSql =
+      "UPDATE carts SET user_id = ?, status = ?, expires = ?, promotion_id = ? WHERE id = ?";
+    Object[] args = {
+      cart.getUserId(),
+      cart.getStatus().name(),
+      cart.getExpires(),
+      cart.getPromotionId(),
+      cart.getId(),
+    };
     try {
       return DatabaseConnection.executeUpdate(updateSql, args);
     } catch (SQLException e) {
@@ -99,24 +116,34 @@ public class CartDAO implements IDAO<CartModel> {
   @Override
   public List<CartModel> search(String condition, String[] columnNames) {
     if (condition == null || condition.trim().isEmpty()) {
-      throw new IllegalArgumentException("Search condition cannot be empty or null");
+      throw new IllegalArgumentException(
+        "Search condition cannot be empty or null"
+      );
     }
 
     String query;
     if (columnNames == null || columnNames.length == 0) {
       // Search all columns
-      query = "SELECT * FROM carts WHERE CONCAT(id, user_id, created_at, status, promotion_id, expires) LIKE ?";
+      query =
+        "SELECT * FROM carts WHERE CONCAT(id, user_id, created_at, status, promotion_id, expires) LIKE ?";
     } else if (columnNames.length == 1) {
       // Search specific column in carts table
       String column = columnNames[0];
       query = "SELECT * FROM carts WHERE " + column + " LIKE ?";
     } else {
       // Search specific columns in carts table
-      query = "SELECT id, user_id, created_at, status, promotion_id, expires FROM carts WHERE CONCAT("
-          + String.join(", ", columnNames) + ") LIKE ?";
+      query =
+        "SELECT id, user_id, created_at, status, promotion_id, expires FROM carts WHERE CONCAT(" +
+        String.join(", ", columnNames) +
+        ") LIKE ?";
     }
 
-    try (PreparedStatement pst = DatabaseConnection.getPreparedStatement(query, "%" + condition + "%")) {
+    try (
+      PreparedStatement pst = DatabaseConnection.getPreparedStatement(
+        query,
+        "%" + condition + "%"
+      )
+    ) {
       try (ResultSet rs = pst.executeQuery()) {
         List<CartModel> cartList = new ArrayList<>();
         while (rs.next()) {
@@ -124,7 +151,9 @@ public class CartDAO implements IDAO<CartModel> {
           cartList.add(cartModel);
         }
         if (cartList.isEmpty()) {
-          throw new SQLException("No records found for the given condition: " + condition);
+          throw new SQLException(
+            "No records found for the given condition: " + condition
+          );
         }
         return cartList;
       }

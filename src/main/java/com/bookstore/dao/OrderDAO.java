@@ -2,7 +2,6 @@ package com.bookstore.dao;
 
 import com.bookstore.interfaces.IDAO;
 import com.bookstore.models.OrderModel;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,6 +10,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class OrderDAO implements IDAO<OrderModel> {
+
   private static OrderDAO instance;
 
   public static OrderDAO getInstance() {
@@ -20,17 +20,19 @@ public class OrderDAO implements IDAO<OrderModel> {
     return instance;
   }
 
-  private OrderModel createOrderModelFromResultSet(ResultSet rs) throws SQLException {
+  private OrderModel createOrderModelFromResultSet(ResultSet rs)
+    throws SQLException {
     return new OrderModel(
-        rs.getInt("id"),
-        rs.getInt("cart_id"),
-        rs.getInt("customer_id"),
-        rs.getInt("employee_id"),
-        rs.getInt("total"),
-        rs.getInt("paid"),
-        rs.getTimestamp("created_at").toLocalDateTime(),
-        rs.getTimestamp("updated_at").toLocalDateTime(),
-        OrderModel.Status.valueOf(rs.getString("status").toUpperCase()));
+      rs.getInt("id"),
+      rs.getInt("cart_id"),
+      rs.getInt("customer_id"),
+      rs.getInt("employee_id"),
+      rs.getInt("total"),
+      rs.getInt("paid"),
+      rs.getTimestamp("created_at").toLocalDateTime(),
+      rs.getTimestamp("updated_at").toLocalDateTime(),
+      OrderModel.Status.valueOf(rs.getString("status").toUpperCase())
+    );
   }
 
   @Override
@@ -50,10 +52,17 @@ public class OrderDAO implements IDAO<OrderModel> {
 
   @Override
   public int insert(OrderModel order) {
-    String insertSql = "INSERT INTO orders (cart_id, customer_id, employee_id, total, paid, status)"
-        + "VALUES (?, ?, ?, ?, ?, ?)";
-    Object[] args = { order.getCartId(), order.getCustomerId(), order.getEmployeeId(), order.getTotal(),
-        order.getPaid(), order.getStatus().name() };
+    String insertSql =
+      "INSERT INTO orders (cart_id, customer_id, employee_id, total, paid, status)" +
+      "VALUES (?, ?, ?, ?, ?, ?)";
+    Object[] args = {
+      order.getCartId(),
+      order.getCustomerId(),
+      order.getEmployeeId(),
+      order.getTotal(),
+      order.getPaid(),
+      order.getStatus().name(),
+    };
     try {
       return DatabaseConnection.executeUpdate(insertSql, args);
     } catch (SQLException e) {
@@ -64,9 +73,17 @@ public class OrderDAO implements IDAO<OrderModel> {
 
   @Override
   public int update(OrderModel order) {
-    String updateSql = "UPDATE orders SET cart_id=?, customer_id=?, employee_id=?, total=?, paid=?, updated_at = CURRENT_TIMESTAMP, status=? WHERE id=?";
-    Object[] args = { order.getCartId(), order.getCustomerId(), order.getEmployeeId(), order.getTotal(),
-        order.getPaid(), order.getStatus().name(), order.getId() };
+    String updateSql =
+      "UPDATE orders SET cart_id=?, customer_id=?, employee_id=?, total=?, paid=?, updated_at = CURRENT_TIMESTAMP, status=? WHERE id=?";
+    Object[] args = {
+      order.getCartId(),
+      order.getCustomerId(),
+      order.getEmployeeId(),
+      order.getTotal(),
+      order.getPaid(),
+      order.getStatus().name(),
+      order.getId(),
+    };
     try {
       return DatabaseConnection.executeUpdate(updateSql, args);
     } catch (SQLException e) {
@@ -100,25 +117,34 @@ public class OrderDAO implements IDAO<OrderModel> {
 
   @Override
   public List<OrderModel> search(String condition, String[] columnNames) {
-
     if (condition == null || condition.trim().isEmpty()) {
-      throw new IllegalArgumentException("Search condition cannot be empty or null");
+      throw new IllegalArgumentException(
+        "Search condition cannot be empty or null"
+      );
     }
 
     String query;
     if (columnNames == null || columnNames.length == 0) {
       // Search all columns
-      query = "SELECT * FROM orders WHERE CONCAT(cart_id, customer_id, employee_id, total, paid, status, created_at, updated_at) LIKE ?";
+      query =
+        "SELECT * FROM orders WHERE CONCAT(cart_id, customer_id, employee_id, total, paid, status, created_at, updated_at) LIKE ?";
     } else if (columnNames.length == 1) {
       // Search specific column in orders table
       String column = columnNames[0];
       query = "SELECT * FROM orders WHERE " + column + " LIKE ?";
     } else {
       // Search specific columns in orders table
-      query = "SELECT cart_id, customer_id, employee_id, total, paid, status, created_at, updated_at FROM orders WHERE CONCAT("
-          + String.join(", ", columnNames) + ") LIKE ?";
+      query =
+        "SELECT cart_id, customer_id, employee_id, total, paid, status, created_at, updated_at FROM orders WHERE CONCAT(" +
+        String.join(", ", columnNames) +
+        ") LIKE ?";
     }
-    try (PreparedStatement pst = DatabaseConnection.getPreparedStatement(query, "%" + condition + "%")) {
+    try (
+      PreparedStatement pst = DatabaseConnection.getPreparedStatement(
+        query,
+        "%" + condition + "%"
+      )
+    ) {
       try (ResultSet rs = pst.executeQuery()) {
         List<OrderModel> orderList = new ArrayList<>();
         while (rs.next()) {
@@ -126,7 +152,9 @@ public class OrderDAO implements IDAO<OrderModel> {
           orderList.add(orderModel);
         }
         if (orderList.isEmpty()) {
-          throw new SQLException("No records found for the given condition: " + condition);
+          throw new SQLException(
+            "No records found for the given condition: " + condition
+          );
         }
         return orderList;
       }
@@ -135,5 +163,4 @@ public class OrderDAO implements IDAO<OrderModel> {
       return Collections.emptyList();
     }
   }
-
 }

@@ -1,5 +1,7 @@
 package com.bookstore.dao;
 
+import com.bookstore.interfaces.IDAO;
+import com.bookstore.models.EmployeeModel;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -7,10 +9,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.bookstore.interfaces.IDAO;
-import com.bookstore.models.EmployeeModel;
-
 public class EmployeeDAO implements IDAO<EmployeeModel> {
+
   private static EmployeeDAO instance;
 
   public static EmployeeDAO getInstance() {
@@ -20,18 +20,24 @@ public class EmployeeDAO implements IDAO<EmployeeModel> {
     return instance;
   }
 
-  private EmployeeModel createEmployeeModelFromResultSet(ResultSet rs) throws SQLException {
+  private EmployeeModel createEmployeeModelFromResultSet(ResultSet rs)
+    throws SQLException {
     return new EmployeeModel(
-        rs.getInt("user_id"),
-        rs.getInt("salary"),
-        EmployeeModel.EmployeeType.valueOf(rs.getString("employee_type").toUpperCase()),
-        rs.getString("contact_information"));
+      rs.getInt("user_id"),
+      rs.getInt("salary"),
+      EmployeeModel.EmployeeType.valueOf(
+        rs.getString("employee_type").toUpperCase()
+      ),
+      rs.getString("contact_information")
+    );
   }
 
   @Override
   public ArrayList<EmployeeModel> readDatabase() {
     ArrayList<EmployeeModel> employeeList = new ArrayList<>();
-    try (ResultSet rs = DatabaseConnection.executeQuery("SELECT * FROM employees")) {
+    try (
+      ResultSet rs = DatabaseConnection.executeQuery("SELECT * FROM employees")
+    ) {
       while (rs.next()) {
         EmployeeModel employeeModel = createEmployeeModelFromResultSet(rs);
         employeeList.add(employeeModel);
@@ -44,9 +50,14 @@ public class EmployeeDAO implements IDAO<EmployeeModel> {
 
   @Override
   public int insert(EmployeeModel employee) {
-    String insertSql = "INSERT INTO employees (user_id, salary, employee_type, contact_information) VALUES (?, ?, ?, ?)";
-    Object[] args = { employee.getUserId(), employee.getSalary(), employee.getEmployeeType().name(),
-        employee.getContactInformation() };
+    String insertSql =
+      "INSERT INTO employees (user_id, salary, employee_type, contact_information) VALUES (?, ?, ?, ?)";
+    Object[] args = {
+      employee.getUserId(),
+      employee.getSalary(),
+      employee.getEmployeeType().name(),
+      employee.getContactInformation(),
+    };
     try {
       return DatabaseConnection.executeUpdate(insertSql, args);
     } catch (SQLException e) {
@@ -57,10 +68,14 @@ public class EmployeeDAO implements IDAO<EmployeeModel> {
 
   @Override
   public int update(EmployeeModel employee) {
-    String updateSql = "UPDATE employees SET salary = ?, employee_type = ?, contact_information = ? WHERE user_id = ?";
-    Object[] args = { employee.getSalary(), employee.getEmployeeType().name(),
-        employee.getContactInformation(),
-        employee.getUserId() };
+    String updateSql =
+      "UPDATE employees SET salary = ?, employee_type = ?, contact_information = ? WHERE user_id = ?";
+    Object[] args = {
+      employee.getSalary(),
+      employee.getEmployeeType().name(),
+      employee.getContactInformation(),
+      employee.getUserId(),
+    };
     try {
       return DatabaseConnection.executeUpdate(updateSql, args);
     } catch (SQLException e) {
@@ -70,7 +85,8 @@ public class EmployeeDAO implements IDAO<EmployeeModel> {
   }
 
   public int updateStatus(int userId, String role) {
-    String updateSql = "UPDATE employees SET employee_type = ? WHERE user_id = ?";
+    String updateSql =
+      "UPDATE employees SET employee_type = ? WHERE user_id = ?";
     Object[] args = { userId, role };
     try {
       return DatabaseConnection.executeUpdate(updateSql, args);
@@ -105,26 +121,35 @@ public class EmployeeDAO implements IDAO<EmployeeModel> {
 
   @Override
   public List<EmployeeModel> search(String condition, String[] columnNames) {
-
     if (condition == null || condition.trim().isEmpty()) {
-      throw new IllegalArgumentException("Search condition cannot be empty or null");
+      throw new IllegalArgumentException(
+        "Search condition cannot be empty or null"
+      );
     }
 
     String query;
     if (columnNames == null || columnNames.length == 0) {
       // Search all columns
-      query = "SELECT * FROM employees WHERE CONCAT(user_id, salary, employee_type, contact_information) LIKE ?";
+      query =
+        "SELECT * FROM employees WHERE CONCAT(user_id, salary, employee_type, contact_information) LIKE ?";
     } else if (columnNames.length == 1) {
       // Search specific column in employees table
       String column = columnNames[0];
       query = "SELECT * FROM employees WHERE " + column + " LIKE ?";
     } else {
       // Search specific columns in employees table
-      query = "SELECT user_id, salary, employee_type, contact_information FROM employees WHERE CONCAT("
-          + String.join(", ", columnNames) + ") LIKE ?";
+      query =
+        "SELECT user_id, salary, employee_type, contact_information FROM employees WHERE CONCAT(" +
+        String.join(", ", columnNames) +
+        ") LIKE ?";
     }
 
-    try (PreparedStatement pst = DatabaseConnection.getPreparedStatement(query, "%" + condition + "%")) {
+    try (
+      PreparedStatement pst = DatabaseConnection.getPreparedStatement(
+        query,
+        "%" + condition + "%"
+      )
+    ) {
       try (ResultSet rs = pst.executeQuery()) {
         List<EmployeeModel> employeesList = new ArrayList<>();
         while (rs.next()) {
@@ -132,7 +157,9 @@ public class EmployeeDAO implements IDAO<EmployeeModel> {
           employeesList.add(employeeModel);
         }
         if (employeesList.isEmpty()) {
-          throw new SQLException("No records found for the given condition: " + condition);
+          throw new SQLException(
+            "No records found for the given condition: " + condition
+          );
         }
         return employeesList;
       }
@@ -145,7 +172,12 @@ public class EmployeeDAO implements IDAO<EmployeeModel> {
   public EmployeeModel getEmployeeById(int id) {
     String query = "SELECT * FROM employees WHERE user_id = ?";
     Object[] args = { id };
-    try (PreparedStatement pst = DatabaseConnection.getPreparedStatement(query, args)) {
+    try (
+      PreparedStatement pst = DatabaseConnection.getPreparedStatement(
+        query,
+        args
+      )
+    ) {
       try (ResultSet rs = pst.executeQuery()) {
         if (rs.next()) {
           return createEmployeeModelFromResultSet(rs);

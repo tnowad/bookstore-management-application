@@ -1,14 +1,14 @@
 package com.bookstore.dao;
 
+import com.bookstore.interfaces.IDAO;
 import com.bookstore.models.CurrentUserModel;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.bookstore.interfaces.IDAO;
-
 public class CurrentUserDAO implements IDAO<CurrentUserModel> {
+
   private static CurrentUserDAO instance;
 
   public static CurrentUserDAO getInstance() {
@@ -18,16 +18,23 @@ public class CurrentUserDAO implements IDAO<CurrentUserModel> {
     return instance;
   }
 
-  private CurrentUserModel createCurrentUserModelFromResultSet(ResultSet rs) throws SQLException {
+  private CurrentUserModel createCurrentUserModelFromResultSet(ResultSet rs)
+    throws SQLException {
     return new CurrentUserModel(rs.getInt("user_id"));
   }
 
   @Override
   public ArrayList<CurrentUserModel> readDatabase() {
     ArrayList<CurrentUserModel> currentUserList = new ArrayList<>();
-    try (ResultSet rs = DatabaseConnection.executeQuery("SELECT * FROM current_user_id")) {
+    try (
+      ResultSet rs = DatabaseConnection.executeQuery(
+        "SELECT * FROM current_user_id"
+      )
+    ) {
       while (rs.next()) {
-        CurrentUserModel currentUserModel = createCurrentUserModelFromResultSet(rs);
+        CurrentUserModel currentUserModel = createCurrentUserModelFromResultSet(
+          rs
+        );
         currentUserList.add(currentUserModel);
       }
     } catch (SQLException e) {
@@ -74,6 +81,8 @@ public class CurrentUserDAO implements IDAO<CurrentUserModel> {
 
   @Override
   public List<CurrentUserModel> search(String condition, String[] columnNames) {
-    throw new UnsupportedOperationException("Search method is not supported in CurrentUserDAO");
+    throw new UnsupportedOperationException(
+      "Search method is not supported in CurrentUserDAO"
+    );
   }
 }
