@@ -3,7 +3,6 @@ package com.bookstore.gui.factories;
 import com.bookstore.dao.EmployeeDAO;
 import com.bookstore.gui.components.dashboards.DashboardPanel;
 import com.bookstore.gui.components.panels.MainPanel;
-import com.bookstore.gui.forms.users.SalesmanFrame;
 import com.bookstore.models.EmployeeModel;
 import com.bookstore.models.MenuItemModel;
 import com.bookstore.models.MenuModel;
@@ -12,7 +11,6 @@ import com.bookstore.models.UserModel;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
-import javax.swing.JPanel;
 
 public class MenuFactory {
 
@@ -47,7 +45,12 @@ public class MenuFactory {
       new ArrayList<MenuItemModel>() {
         {
           add(
-            new MenuItemModel("Home", new ImageIcon(""), showHomeAdmin, null)
+            new MenuItemModel(
+              "Dashboard",
+              new ImageIcon(""),
+              showHomeAdmin,
+              null
+            )
           );
           add(
             new MenuItemModel(
@@ -87,15 +90,33 @@ public class MenuFactory {
   }
 
   public static MenuModel getCustomerMenu() {
-    return new MenuModel(null);
+    return new MenuModel(
+      new ArrayList<MenuItemModel>() {
+        {
+          add(new MenuItemModel("Home", new ImageIcon(""), null, null));
+        }
+      }
+    );
   }
 
   public static MenuModel getMenuEmployeeSalesman() {
-    return new MenuModel(null);
+    return new MenuModel(
+      new ArrayList<MenuItemModel>() {
+        {
+          add(new MenuItemModel("Home", new ImageIcon(""), null, null));
+        }
+      }
+    );
   }
 
   public static MenuModel getMenuEmployeeManager() {
-    return new MenuModel(null);
+    return new MenuModel(
+      new ArrayList<MenuItemModel>() {
+        {
+          add(new MenuItemModel("Home", new ImageIcon(""), null, null));
+        }
+      }
+    );
   }
 
   private static ActionListener showHomeAdmin = e -> {
