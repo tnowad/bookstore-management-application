@@ -4,7 +4,7 @@ import com.bookstore.dao.EmployeeDAO;
 import com.bookstore.gui.component.header.HeaderDashboard;
 import com.bookstore.gui.component.menu.DrawerMenu;
 import com.bookstore.gui.component.panel.MainPanel;
-import com.bookstore.gui.form.customer.views.CustomerFrame;
+import com.bookstore.gui.form.customer.CustomerFrame;
 import com.bookstore.gui.form.salesman.view.SalesmanFrame;
 import com.bookstore.gui.main.MainUI;
 import com.bookstore.models.EmployeeModel;

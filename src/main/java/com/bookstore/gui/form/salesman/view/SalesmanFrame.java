@@ -10,14 +10,14 @@ import com.bookstore.gui.form.salesman.view.importManagerment.ImportList;
 import com.bookstore.gui.form.salesman.view.orderManagerment.OrderList;
 import com.bookstore.gui.main.RegisterUI;
 import com.bookstore.models.EmployeeModel;
-import com.bookstore.models.UserModel;
 import com.bookstore.models.EmployeeModel.EmployeeType;
+import com.bookstore.models.UserModel;
 import com.bookstore.services.Authentication;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
+import java.awt.*;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.*;
 import javax.swing.*;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -146,7 +146,6 @@ public class SalesmanFrame extends JFrame {
   }
 
   private void handleEvent() {
-
     employeeListButton.addActionListener(e -> {
       contentPanel.removeAll();
       contentPanel.add(new EmployeeList());
@@ -184,17 +183,18 @@ public class SalesmanFrame extends JFrame {
 
     accountButton.addActionListener(e -> {
       contentPanel.removeAll();
-      contentPanel.add(new com.bookstore.gui.form.account.views.AccountPanel());
+      contentPanel.add(new com.bookstore.gui.form.account.AccountPanel());
       contentPanel.revalidate();
       contentPanel.repaint();
     });
 
     logoutButton.addActionListener(e -> {
       int option = JOptionPane.showConfirmDialog(
-          null,
-          "Bạn chắc chắn muốn đăng xuất?",
-          "Đăng xuất",
-          JOptionPane.OK_OPTION);
+        null,
+        "Bạn chắc chắn muốn đăng xuất?",
+        "Đăng xuất",
+        JOptionPane.OK_OPTION
+      );
       if (option == 0) {
         dispose();
         RegisterUI loginFrame = new RegisterUI();
@@ -206,20 +206,22 @@ public class SalesmanFrame extends JFrame {
   public static void main(String args[]) {
     try {
       UIManager.setLookAndFeel(
-          "com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+        "com.sun.java.swing.plaf.windows.WindowsLookAndFeel"
+      );
       UIManager.put("Panel.background", new Color(250, 250, 250));
     } catch (
-        ClassNotFoundException
-        | IllegalAccessException
-        | InstantiationException
-        | UnsupportedLookAndFeelException ignored) {
-    }
+      ClassNotFoundException
+      | IllegalAccessException
+      | InstantiationException
+      | UnsupportedLookAndFeelException ignored
+    ) {}
     FlatMacLightLaf.setup();
     EventQueue.invokeLater(
-        new Runnable() {
-          public void run() {
-            new SalesmanFrame();
-          }
-        });
+      new Runnable() {
+        public void run() {
+          new SalesmanFrame();
+        }
+      }
+    );
   }
 }

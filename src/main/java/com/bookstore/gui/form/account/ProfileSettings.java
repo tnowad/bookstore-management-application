@@ -1,4 +1,4 @@
-package com.bookstore.gui.form.account.views;
+package com.bookstore.gui.form.account;
 
 import com.bookstore.bus.AddressBUS;
 import com.bookstore.bus.UserBUS;
