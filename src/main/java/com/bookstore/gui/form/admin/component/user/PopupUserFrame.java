@@ -198,7 +198,7 @@ public class PopupUserFrame extends javax.swing.JFrame {
         buttonPanel.setPreferredSize(new java.awt.Dimension(570, 30));
         buttonPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 25, 5));
 
-        buttonBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/images/back.png"))); // NOI18N
+        buttonBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/back.png"))); // NOI18N
         buttonBack.setPreferredSize(new java.awt.Dimension(70, 23));
         buttonBack.addActionListener(new ActionListener(){
 
@@ -211,7 +211,7 @@ public class PopupUserFrame extends javax.swing.JFrame {
         });
         buttonPanel.add(buttonBack);
 
-        buttonSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/images/save.png"))); // NOI18N
+        buttonSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/save.png"))); // NOI18N
         buttonSave.setPreferredSize(new java.awt.Dimension(70, 23));
         buttonSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
