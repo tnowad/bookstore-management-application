@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.bookstore.gui.forms.admin.component.user;
+package com.bookstore.gui.components.user;
 
 import com.bookstore.bus.AddressBUS;
 import com.bookstore.bus.UserBUS;

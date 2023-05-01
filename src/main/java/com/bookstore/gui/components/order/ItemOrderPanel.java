@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package com.bookstore.gui.forms.admin.component.order;
+package com.bookstore.gui.components.order;
 
 import com.bookstore.bus.UserBUS;
 import com.bookstore.enums.OrderStatus;
@@ -275,13 +275,13 @@ public class ItemOrderPanel extends javax.swing.JPanel {
     );
   } // </editor-fold>//GEN-END:initComponents
 
-  private void setStatusActionPerformed(java.awt.event.ActionEvent evt) { //GEN-FIRST:event_setStatusActionPerformed
+  private void setStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_setStatusActionPerformed
     // TODO add your handling code here:
-  } //GEN-LAST:event_setStatusActionPerformed
+  }//GEN-LAST:event_setStatusActionPerformed
 
-  private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) { //GEN-FIRST:event_jCheckBox1ActionPerformed
+  private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
     // TODO add your handling code here:
-  } //GEN-LAST:event_jCheckBox1ActionPerformed
+  }//GEN-LAST:event_jCheckBox1ActionPerformed
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JCheckBox jCheckBox1;
