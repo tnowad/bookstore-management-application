@@ -68,10 +68,10 @@ public class MenuFactory {
       case CUSTOMER:
         return getCustomerMenu();
       case EMPLOYEE:
-        // return getMenuEmployee(
-        //   EmployeeDAO.getInstance().getEmployeeById(user.getId())
-        // );
-        new SalesmanFrame();
+        return getMenuEmployee(
+          EmployeeDAO.getInstance().getEmployeeById(user.getId())
+        );
+        // new SalesmanFrame();
       default:
         return new MenuModel(new ArrayList<MenuItemModel>());
     }

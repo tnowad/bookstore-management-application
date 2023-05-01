@@ -100,11 +100,6 @@ public class PendingOrderList extends JPanel {
 
         orderListPanel.setLayout(new java.awt.BorderLayout());
 
-        orderTableList.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                orderTableListMouseClicked(evt);
-            }
-        });
 
         footerPanel.setLayout(new java.awt.GridLayout(2, 1));
 
@@ -161,29 +156,6 @@ public class PendingOrderList extends JPanel {
         add(scrollPaneParrent, java.awt.BorderLayout.CENTER);
     }
 
-    private void customerNameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-    }
-
-    private void phoneNumberTextFieldActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-    }
-
-    private void totalCostMoneyTextfieldActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-    }
-
-    private void orderTableListMouseClicked(java.awt.event.MouseEvent evt) {
-        // TODO add your handling code here:
-    }
-
-    private void accpetButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-    }
-
-    private void rejectButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-    }
 
     // private Button accpetButton;
     private JPanel bottomFooterPanel;
