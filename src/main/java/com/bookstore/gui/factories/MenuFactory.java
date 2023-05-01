@@ -2,6 +2,7 @@ package com.bookstore.gui.factories;
 
 import com.bookstore.dao.EmployeeDAO;
 import com.bookstore.gui.component.panel.MainPanel;
+import com.bookstore.gui.form.admin.component.dashboard.DashboardPanel;
 import com.bookstore.models.EmployeeModel;
 import com.bookstore.models.MenuItemModel;
 import com.bookstore.models.MenuModel;
@@ -97,15 +98,6 @@ public class MenuFactory {
   }
 
   private static ActionListener showHomeAdmin = e -> {
-    MainPanel
-      .getInstance()
-      .showForm(
-        new JPanel() {
-          {
-            add(new javax.swing.JLabel("Home Admin"));
-            add(new javax.swing.JLabel("Admin"));
-          }
-        }
-      );
+    MainPanel.getInstance().showForm(DashboardPanel.getInstance());
   };
 }
