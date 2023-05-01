@@ -7,12 +7,24 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import com.bookstore.bus.OrderBUS;
+import com.bookstore.bus.UserBUS;
 import com.bookstore.gui.component.button.Button;
 import com.bookstore.gui.component.label.Label;
+import com.bookstore.models.OrderModel;
+import com.bookstore.models.UserModel;
 
 public class OrderDetail extends JFrame {
+private int customerId;
+  private OrderBUS orderBUS;
+  private java.util.List<OrderModel> ordersList;
+  private OrderModel orderModel;
+  private UserModel userModel;
+  private UserBUS
+   userBUS;
 
-    public OrderDetail() {
+    public OrderDetail(int customerId) {
+        this.customerId = customerId;
         initComponents();
     }
 
@@ -109,7 +121,7 @@ public class OrderDetail extends JFrame {
 
         EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new OrderDetail().setVisible(true);
+                new OrderDetail(1).setVisible(true);
             }
         });
     }
