@@ -71,7 +71,6 @@ public class MenuFactory {
         return getMenuEmployee(
           EmployeeDAO.getInstance().getEmployeeById(user.getId())
         );
-        // new SalesmanFrame();
       default:
         return new MenuModel(new ArrayList<MenuItemModel>());
     }
