@@ -2,11 +2,10 @@ package com.bookstore.gui.form.manager;
 
 import com.bookstore.gui.component.button.Button;
 import com.bookstore.gui.form.account.AccountPanel;
-import com.bookstore.gui.form.salesman.view.*;
-import com.bookstore.gui.form.salesman.view.bookManagerment.BookList;
-import com.bookstore.gui.form.salesman.view.customerManagerment.CustomerList;
-import com.bookstore.gui.form.salesman.view.importManagerment.ImportList;
-import com.bookstore.gui.form.salesman.view.orderManagerment.OrderList;
+import com.bookstore.gui.form.salesman.bookManagerment.BookList;
+import com.bookstore.gui.form.salesman.customerManagerment.CustomerList;
+import com.bookstore.gui.form.salesman.importManagerment.ImportList;
+import com.bookstore.gui.form.salesman.orderManagerment.OrderList;
 import com.bookstore.gui.main.RegisterUI;
 import java.awt.BorderLayout;
 import java.awt.Color;

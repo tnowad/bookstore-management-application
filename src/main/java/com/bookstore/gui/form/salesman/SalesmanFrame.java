@@ -1,13 +1,13 @@
-package com.bookstore.gui.form.salesman.view;
+package com.bookstore.gui.form.salesman;
 
 import com.bookstore.bus.EmployeeBUS;
 import com.bookstore.bus.UserBUS;
 import com.bookstore.gui.component.button.Button;
-import com.bookstore.gui.form.salesman.view.bookManagerment.BookList;
-import com.bookstore.gui.form.salesman.view.customerManagerment.CustomerList;
-import com.bookstore.gui.form.salesman.view.employeeManagerment.EmployeeList;
-import com.bookstore.gui.form.salesman.view.importManagerment.ImportList;
-import com.bookstore.gui.form.salesman.view.orderManagerment.OrderList;
+import com.bookstore.gui.form.salesman.bookManagerment.BookList;
+import com.bookstore.gui.form.salesman.customerManagerment.CustomerList;
+import com.bookstore.gui.form.salesman.employeeManagerment.EmployeeList;
+import com.bookstore.gui.form.salesman.importManagerment.ImportList;
+import com.bookstore.gui.form.salesman.orderManagerment.OrderList;
 import com.bookstore.gui.main.RegisterUI;
 import com.bookstore.models.EmployeeModel;
 import com.bookstore.models.EmployeeModel.EmployeeType;
