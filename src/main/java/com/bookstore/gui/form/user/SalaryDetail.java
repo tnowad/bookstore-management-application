@@ -1,4 +1,4 @@
-package com.bookstore.gui.form.salesman.salaryManagerment;
+package com.bookstore.gui.form.user;
 
 import javax.swing.JFrame;
 

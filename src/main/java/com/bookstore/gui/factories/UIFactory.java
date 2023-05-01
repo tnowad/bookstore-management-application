@@ -5,7 +5,7 @@ import com.bookstore.gui.component.header.HeaderDashboard;
 import com.bookstore.gui.component.menu.DrawerMenu;
 import com.bookstore.gui.component.panel.MainPanel;
 import com.bookstore.gui.form.customer.CustomerFrame;
-import com.bookstore.gui.form.salesman.SalesmanFrame;
+import com.bookstore.gui.form.user.SalesmanFrame;
 import com.bookstore.gui.main.MainUI;
 import com.bookstore.models.EmployeeModel;
 import com.bookstore.models.MenuItemModel;

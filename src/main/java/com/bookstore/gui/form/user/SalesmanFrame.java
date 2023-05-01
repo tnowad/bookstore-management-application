@@ -1,4 +1,4 @@
-package com.bookstore.gui.form.salesman;
+package com.bookstore.gui.form.user;
 
 import com.bookstore.bus.EmployeeBUS;
 import com.bookstore.bus.UserBUS;
@@ -6,8 +6,6 @@ import com.bookstore.gui.component.button.Button;
 import com.bookstore.gui.form.book.BookList;
 import com.bookstore.gui.form.imports.ImportList;
 import com.bookstore.gui.form.order.OrderList;
-import com.bookstore.gui.form.salesman.customerManagerment.CustomerList;
-import com.bookstore.gui.form.salesman.employeeManagerment.EmployeeList;
 import com.bookstore.gui.main.RegisterUI;
 import com.bookstore.models.EmployeeModel;
 import com.bookstore.models.EmployeeModel.EmployeeType;

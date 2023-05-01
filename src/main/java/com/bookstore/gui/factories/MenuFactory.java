@@ -3,7 +3,7 @@ package com.bookstore.gui.factories;
 import com.bookstore.dao.EmployeeDAO;
 import com.bookstore.gui.component.panel.MainPanel;
 import com.bookstore.gui.form.admin.component.dashboard.DashboardPanel;
-import com.bookstore.gui.form.salesman.SalesmanFrame;
+import com.bookstore.gui.form.user.SalesmanFrame;
 import com.bookstore.models.EmployeeModel;
 import com.bookstore.models.MenuItemModel;
 import com.bookstore.models.MenuModel;

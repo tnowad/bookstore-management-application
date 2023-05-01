@@ -5,7 +5,7 @@ import com.bookstore.gui.form.account.AccountPanel;
 import com.bookstore.gui.form.book.BookList;
 import com.bookstore.gui.form.imports.ImportList;
 import com.bookstore.gui.form.order.OrderList;
-import com.bookstore.gui.form.salesman.customerManagerment.CustomerList;
+import com.bookstore.gui.form.user.CustomerList;
 import com.bookstore.gui.main.RegisterUI;
 import java.awt.BorderLayout;
 import java.awt.Color;

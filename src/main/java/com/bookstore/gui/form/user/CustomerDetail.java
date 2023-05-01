@@ -1,4 +1,4 @@
-package com.bookstore.gui.form.salesman.customerManagerment;
+package com.bookstore.gui.form.user;
 
 import javax.swing.JFrame;
 
