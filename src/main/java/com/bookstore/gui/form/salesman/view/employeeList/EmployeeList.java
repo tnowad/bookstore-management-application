@@ -1,4 +1,4 @@
-package com.bookstore.gui.form.salesman.view;
+package com.bookstore.gui.form.salesman.view.employeeList;
 
 import javax.swing.*;
 import java.awt.*;
