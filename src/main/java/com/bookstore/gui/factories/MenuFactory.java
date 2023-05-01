@@ -1,7 +1,8 @@
 package com.bookstore.gui.factories;
 
 import com.bookstore.dao.EmployeeDAO;
-import com.bookstore.gui.form.salesman.view.SalesmanFrame;
+import com.bookstore.gui.component.panel.MainPanel;
+import com.bookstore.gui.form.admin.component.dashboard.DashboardPanel;
 import com.bookstore.models.EmployeeModel;
 import com.bookstore.models.MenuItemModel;
 import com.bookstore.models.MenuModel;
@@ -10,6 +11,7 @@ import com.bookstore.models.UserModel;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
+import javax.swing.JPanel;
 
 public class MenuFactory {
 
@@ -20,10 +22,10 @@ public class MenuFactory {
       case CUSTOMER:
         return getCustomerMenu();
       case EMPLOYEE:
-        // return getMenuEmployee(
-        //   EmployeeDAO.getInstance().getEmployeeById(user.getId())
-        // );
-        new SalesmanFrame();
+        return getMenuEmployee(
+          EmployeeDAO.getInstance().getEmployeeById(user.getId())
+        );
+        // new SalesmanFrame();
       default:
         throw new IllegalArgumentException("User role is not supported");
     }
@@ -44,33 +46,35 @@ public class MenuFactory {
     return new MenuModel(
       new ArrayList<MenuItemModel>() {
         {
-          add(new MenuItemModel("Home", new ImageIcon(""), showHome, null));
+          add(
+            new MenuItemModel("Home", new ImageIcon(""), showHomeAdmin, null)
+          );
           add(
             new MenuItemModel(
               "Customer",
               new ImageIcon(""),
-              showHome,
+              showHomeAdmin,
               new ArrayList<SubMenuItemModel>() {
                 {
                   add(
                     new SubMenuItemModel(
                       "Add Customer",
                       new ImageIcon(""),
-                      showHome
+                      showHomeAdmin
                     )
                   );
                   add(
                     new SubMenuItemModel(
                       "View Customer",
                       new ImageIcon(""),
-                      showHome
+                      showHomeAdmin
                     )
                   );
                   add(
                     new SubMenuItemModel(
                       "Edit Customer",
                       new ImageIcon(""),
-                      showHome
+                      showHomeAdmin
                     )
                   );
                 }
@@ -94,7 +98,7 @@ public class MenuFactory {
     return new MenuModel(null);
   }
 
-  private static ActionListener showHome = e -> {
-    System.out.println("Show home");
+  private static ActionListener showHomeAdmin = e -> {
+    MainPanel.getInstance().showForm(DashboardPanel.getInstance());
   };
 }

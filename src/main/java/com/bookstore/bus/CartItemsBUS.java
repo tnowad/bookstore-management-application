@@ -1,14 +1,14 @@
 package com.bookstore.bus;
 
+import com.bookstore.dao.CartItemsDAO;
+import com.bookstore.interfaces.IBUS;
+import com.bookstore.models.CartItemsModel;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.bookstore.dao.CartItemsDAO;
-import com.bookstore.interfaces.IBUS;
-import com.bookstore.models.CartItemsModel;
-
 public class CartItemsBUS implements IBUS<CartItemsModel> {
+
   private final List<CartItemsModel> cartItemsList = new ArrayList<>();
   private static CartItemsBUS instance;
 
@@ -52,7 +52,11 @@ public class CartItemsBUS implements IBUS<CartItemsModel> {
     to.setDiscount(from.getDiscount());
   }
 
-  private boolean checkFilter(CartItemsModel CartItemsModel, String value, String[] columns) {
+  private boolean checkFilter(
+    CartItemsModel CartItemsModel,
+    String value,
+    String[] columns
+  ) {
     for (String column : columns) {
       switch (column.toLowerCase()) {
         case "cart_id" -> {
@@ -91,11 +95,13 @@ public class CartItemsBUS implements IBUS<CartItemsModel> {
   }
 
   private boolean checkAllColumns(CartItemsModel CartItemsModel, String value) {
-    return CartItemsModel.getCartId() == Integer.parseInt(value)
-        || CartItemsModel.getBookIsbn().equals(value)
-        || CartItemsModel.getPrice() == Integer.parseInt(value)
-        || CartItemsModel.getQuantity() == Integer.parseInt(value)
-        || CartItemsModel.getDiscount() == Integer.parseInt(value);
+    return (
+      CartItemsModel.getCartId() == Integer.parseInt(value) ||
+      CartItemsModel.getBookIsbn().equals(value) ||
+      CartItemsModel.getPrice() == Integer.parseInt(value) ||
+      CartItemsModel.getQuantity() == Integer.parseInt(value) ||
+      CartItemsModel.getDiscount() == Integer.parseInt(value)
+    );
   }
 
   @Override
@@ -124,7 +130,9 @@ public class CartItemsBUS implements IBUS<CartItemsModel> {
   public int deleteModel(int id) {
     CartItemsModel CartItemsModel = getModelById(id);
     if (CartItemsModel == null) {
-      throw new IllegalArgumentException("cart_items with cart_id " + id + " does not exist.");
+      throw new IllegalArgumentException(
+        "cart_items with cart_id " + id + " does not exist."
+      );
     }
     int deletedRows = CartItemsDAO.getInstance().delete(id);
     if (deletedRows > 0) {
@@ -136,7 +144,9 @@ public class CartItemsBUS implements IBUS<CartItemsModel> {
   @Override
   public List<CartItemsModel> searchModel(String value, String[] columns) {
     List<CartItemsModel> results = new ArrayList<>();
-    List<CartItemsModel> entities = CartItemsDAO.getInstance().search(value, columns);
+    List<CartItemsModel> entities = CartItemsDAO
+      .getInstance()
+      .search(value, columns);
     for (CartItemsModel entity : entities) {
       CartItemsModel model = mapToEntity(entity);
       if (checkFilter(model, value, columns)) {

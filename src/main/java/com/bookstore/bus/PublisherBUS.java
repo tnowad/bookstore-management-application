@@ -1,12 +1,11 @@
 package com.bookstore.bus;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import com.bookstore.dao.PublisherDAO;
 import com.bookstore.interfaces.IBUS;
 import com.bookstore.models.PublisherModel;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class PublisherBUS implements IBUS<PublisherModel> {
 
@@ -38,6 +37,7 @@ public class PublisherBUS implements IBUS<PublisherModel> {
     }
     return null;
   }
+
   public PublisherModel getModelByPublisherName(String name) {
     for (PublisherModel publisherModel : publisherList) {
       if (publisherModel.getName().equals(name)) {
@@ -45,7 +45,9 @@ public class PublisherBUS implements IBUS<PublisherModel> {
       }
     }
 
-    PublisherModel publisherModel = PublisherDAO.getInstance().getUserByPublisherName(name);
+    PublisherModel publisherModel = PublisherDAO
+      .getInstance()
+      .getUserByPublisherName(name);
     if (publisherModel != null) {
       publisherList.add(publisherModel);
     }
@@ -64,7 +66,11 @@ public class PublisherBUS implements IBUS<PublisherModel> {
     to.setDescription(from.getDescription());
   }
 
-  private boolean checkFilter(PublisherModel publisherModel, String value, String[] columns) {
+  private boolean checkFilter(
+    PublisherModel publisherModel,
+    String value,
+    String[] columns
+  ) {
     for (String column : columns) {
       switch (column.toLowerCase()) {
         case "id" -> {
@@ -73,12 +79,19 @@ public class PublisherBUS implements IBUS<PublisherModel> {
           }
         }
         case "name" -> {
-          if (publisherModel.getName().toLowerCase().contains(value.toLowerCase())) {
+          if (
+            publisherModel.getName().toLowerCase().contains(value.toLowerCase())
+          ) {
             return true;
           }
         }
         case "description" -> {
-          if (publisherModel.getDescription().toLowerCase().contains(value.toLowerCase())) {
+          if (
+            publisherModel
+              .getDescription()
+              .toLowerCase()
+              .contains(value.toLowerCase())
+          ) {
             return true;
           }
         }
@@ -93,18 +106,30 @@ public class PublisherBUS implements IBUS<PublisherModel> {
   }
 
   private boolean checkAllColumns(PublisherModel publisherModel, String value) {
-    return publisherModel.getId() == Integer.parseInt(value)
-        || publisherModel.getName().toLowerCase().contains(value.toLowerCase())
-        || publisherModel.getDescription().toLowerCase().contains(value.toLowerCase());
+    return (
+      publisherModel.getId() == Integer.parseInt(value) ||
+      publisherModel.getName().toLowerCase().contains(value.toLowerCase()) ||
+      publisherModel
+        .getDescription()
+        .toLowerCase()
+        .contains(value.toLowerCase())
+    );
   }
 
   @Override
   public int addModel(PublisherModel publisherModel) {
-    if (publisherModel.getName() == null || publisherModel.getName().isEmpty()) {
+    if (
+      publisherModel.getName() == null || publisherModel.getName().isEmpty()
+    ) {
       throw new IllegalArgumentException("Name cannot be null or empty!");
     }
-    if (publisherModel.getDescription() == null || publisherModel.getDescription().isEmpty()) {
-      throw new IllegalArgumentException("Description cannot be null or empty!");
+    if (
+      publisherModel.getDescription() == null ||
+      publisherModel.getDescription().isEmpty()
+    ) {
+      throw new IllegalArgumentException(
+        "Description cannot be null or empty!"
+      );
     }
 
     int id = PublisherDAO.getInstance().insert(mapToEntity(publisherModel));
@@ -131,7 +156,9 @@ public class PublisherBUS implements IBUS<PublisherModel> {
   public int deleteModel(int id) {
     PublisherModel publisherModel = getModelById(id);
     if (publisherModel == null) {
-      throw new IllegalArgumentException("Publisher with ID " + id + " does not exist.");
+      throw new IllegalArgumentException(
+        "Publisher with ID " + id + " does not exist."
+      );
     }
     int deletedRows = PublisherDAO.getInstance().delete(id);
     if (deletedRows > 0) {
@@ -143,7 +170,9 @@ public class PublisherBUS implements IBUS<PublisherModel> {
   @Override
   public List<PublisherModel> searchModel(String value, String[] columns) {
     List<PublisherModel> results = new ArrayList<>();
-    List<PublisherModel> entities = PublisherDAO.getInstance().search(value, columns);
+    List<PublisherModel> entities = PublisherDAO
+      .getInstance()
+      .search(value, columns);
     for (PublisherModel entity : entities) {
       PublisherModel model = mapToEntity(entity);
       if (checkFilter(model, value, columns)) {

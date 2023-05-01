@@ -37,7 +37,8 @@ public class UIFactory {
 
     DrawerMenu drawerMenu = new DrawerMenu(menuModel);
 
-    MainPanel mainPanel = new MainPanel();
+    MainPanel mainPanel = MainPanel.getInstance();
+
     HeaderDashboard headerDashboard = new HeaderDashboard();
     MainUI mainUI = new MainUI(drawerMenu, mainPanel, headerDashboard);
 

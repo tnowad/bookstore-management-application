@@ -1,16 +1,15 @@
 package com.bookstore.bus;
 
+import com.bookstore.dao.CartDAO;
+import com.bookstore.interfaces.IBUS;
+import com.bookstore.models.CartModel;
+import com.bookstore.models.CartModel.Status;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import com.bookstore.dao.CartDAO;
-import com.bookstore.interfaces.IBUS;
-import com.bookstore.models.CartModel;
-import com.bookstore.models.CartModel.Status;
 
 public class CartBUS implements IBUS<CartModel> {
 
@@ -58,7 +57,11 @@ public class CartBUS implements IBUS<CartModel> {
     to.setPromotionId(from.getPromotionId());
   }
 
-  private boolean checkFilter(CartModel cartModel, String value, String[] columns) {
+  private boolean checkFilter(
+    CartModel cartModel,
+    String value,
+    String[] columns
+  ) {
     for (String column : columns) {
       switch (column.toLowerCase()) {
         case "id" -> {
@@ -72,7 +75,13 @@ public class CartBUS implements IBUS<CartModel> {
           }
         }
         case "created_at" -> {
-          if (cartModel.getCreatedAt().toString().toLowerCase().contains(value.toLowerCase())) {
+          if (
+            cartModel
+              .getCreatedAt()
+              .toString()
+              .toLowerCase()
+              .contains(value.toLowerCase())
+          ) {
             return true;
           }
         }
@@ -82,7 +91,13 @@ public class CartBUS implements IBUS<CartModel> {
           }
         }
         case "expires" -> {
-          if (cartModel.getExpires().toString().toLowerCase().contains(value.toLowerCase())) {
+          if (
+            cartModel
+              .getExpires()
+              .toString()
+              .toLowerCase()
+              .contains(value.toLowerCase())
+          ) {
             return true;
           }
         }
@@ -102,12 +117,22 @@ public class CartBUS implements IBUS<CartModel> {
   }
 
   private boolean checkAllColumns(CartModel cartModel, String value) {
-    return cartModel.getId() == Integer.parseInt(value)
-        || cartModel.getUserId() == Integer.parseInt(value)
-        || cartModel.getCreatedAt().toString().toLowerCase().contains(value.toLowerCase())
-        || cartModel.getStatus().toString().equalsIgnoreCase(value)
-        || cartModel.getExpires().toString().toLowerCase().contains(value.toLowerCase())
-        || cartModel.getPromotionId() == Integer.parseInt(value);
+    return (
+      cartModel.getId() == Integer.parseInt(value) ||
+      cartModel.getUserId() == Integer.parseInt(value) ||
+      cartModel
+        .getCreatedAt()
+        .toString()
+        .toLowerCase()
+        .contains(value.toLowerCase()) ||
+      cartModel.getStatus().toString().equalsIgnoreCase(value) ||
+      cartModel
+        .getExpires()
+        .toString()
+        .toLowerCase()
+        .contains(value.toLowerCase()) ||
+      cartModel.getPromotionId() == Integer.parseInt(value)
+    );
   }
 
   @Override
@@ -115,12 +140,20 @@ public class CartBUS implements IBUS<CartModel> {
     if (cartModel.getUserId() <= 0) {
       throw new IllegalArgumentException("User ID must be greater than 0!");
     }
-    if (cartModel.getStatus() == null || cartModel.getStatus().toString().isEmpty()) {
+    if (
+      cartModel.getStatus() == null ||
+      cartModel.getStatus().toString().isEmpty()
+    ) {
       cartModel.setStatus(Status.SHOPPING);
     }
     if (cartModel.getExpires() == null) {
-      cartModel.setExpires(LocalDateTime.ofInstant(Instant.ofEpochMilli(System.currentTimeMillis()), ZoneId.systemDefault()));
-  }
+      cartModel.setExpires(
+        LocalDateTime.ofInstant(
+          Instant.ofEpochMilli(System.currentTimeMillis()),
+          ZoneId.systemDefault()
+        )
+      );
+    }
     if (cartModel.getPromotionId() < 0) {
       throw new IllegalArgumentException("Promotion ID cannot be negative!");
     }
@@ -163,7 +196,9 @@ public class CartBUS implements IBUS<CartModel> {
   public int deleteModel(int id) {
     CartModel cartModel = getModelById(id);
     if (cartModel == null) {
-      throw new IllegalArgumentException("Cart with ID " + id + " does not exist.");
+      throw new IllegalArgumentException(
+        "Cart with ID " + id + " does not exist."
+      );
     }
     int deletedRows = CartDAO.getInstance().delete(id);
     if (deletedRows > 0) {

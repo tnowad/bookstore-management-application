@@ -1,5 +1,7 @@
 package com.bookstore.dao;
 
+import com.bookstore.interfaces.IDAO;
+import com.bookstore.models.BookModel;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -7,10 +9,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.bookstore.interfaces.IDAO;
-import com.bookstore.models.BookModel;
-
 public class BookDAO implements IDAO<BookModel> {
+
   private static BookDAO instance;
 
   public static BookDAO getInstance() {
@@ -20,23 +20,27 @@ public class BookDAO implements IDAO<BookModel> {
     return instance;
   }
 
-  private BookModel createBookModelFromResultSet(ResultSet rs) throws SQLException {
+  private BookModel createBookModelFromResultSet(ResultSet rs)
+    throws SQLException {
     return new BookModel(
-        rs.getString("isbn"),
-        rs.getString("title"),
-        rs.getString("description"),
-        rs.getString("image"),
-        rs.getInt("price"),
-        rs.getInt("quantity"),
-        BookModel.Status.valueOf(rs.getString("status").toUpperCase()),
-        rs.getInt("publisher_id"),
-        rs.getInt("author_id"));
+      rs.getString("isbn"),
+      rs.getString("title"),
+      rs.getString("description"),
+      rs.getString("image"),
+      rs.getInt("price"),
+      rs.getInt("quantity"),
+      BookModel.Status.valueOf(rs.getString("status").toUpperCase()),
+      rs.getInt("publisher_id"),
+      rs.getInt("author_id")
+    );
   }
 
   @Override
   public ArrayList<BookModel> readDatabase() {
     ArrayList<BookModel> bookList = new ArrayList<>();
-    try (ResultSet rs = DatabaseConnection.executeQuery("SELECT * FROM books")) {
+    try (
+      ResultSet rs = DatabaseConnection.executeQuery("SELECT * FROM books")
+    ) {
       while (rs.next()) {
         BookModel bookModel = createBookModelFromResultSet(rs);
         bookList.add(bookModel);
@@ -49,9 +53,19 @@ public class BookDAO implements IDAO<BookModel> {
 
   @Override
   public int insert(BookModel book) {
-    String insertSql = "INSERT INTO books (isbn, title, description, image, price, quantity, status, publisher_id, author_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    Object[] args = { book.getIsbn(), book.getTitle(), book.getDescription(), book.getImage(), book.getPrice(),
-        book.getQuantity(), book.getStatus().name(), book.getPublisherId(), book.getAuthorId() };
+    String insertSql =
+      "INSERT INTO books (isbn, title, description, image, price, quantity, status, publisher_id, author_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    Object[] args = {
+      book.getIsbn(),
+      book.getTitle(),
+      book.getDescription(),
+      book.getImage(),
+      book.getPrice(),
+      book.getQuantity(),
+      book.getStatus().name(),
+      book.getPublisherId(),
+      book.getAuthorId(),
+    };
     try {
       return DatabaseConnection.executeUpdate(insertSql, args);
     } catch (SQLException e) {
@@ -62,9 +76,19 @@ public class BookDAO implements IDAO<BookModel> {
 
   @Override
   public int update(BookModel book) {
-    String updateSql = "UPDATE books SET title = ?, description = ?, image = ?, price = ?, quantity = ?, status = ?, publisher_id = ?, author_id = ? WHERE isbn = ?";
-    Object[] args = { book.getTitle(), book.getDescription(), book.getImage(), book.getPrice(), book.getQuantity(),
-        book.getStatus().name(), book.getPublisherId(), book.getAuthorId(), book.getIsbn() };
+    String updateSql =
+      "UPDATE books SET title = ?, description = ?, image = ?, price = ?, quantity = ?, status = ?, publisher_id = ?, author_id = ? WHERE isbn = ?";
+    Object[] args = {
+      book.getTitle(),
+      book.getDescription(),
+      book.getImage(),
+      book.getPrice(),
+      book.getQuantity(),
+      book.getStatus().name(),
+      book.getPublisherId(),
+      book.getAuthorId(),
+      book.getIsbn(),
+    };
     try {
       return DatabaseConnection.executeUpdate(updateSql, args);
     } catch (SQLException e) {
@@ -121,23 +145,33 @@ public class BookDAO implements IDAO<BookModel> {
   @Override
   public List<BookModel> search(String condition, String[] columnNames) {
     if (condition == null || condition.trim().isEmpty()) {
-      throw new IllegalArgumentException("Search condition cannot be empty or null");
+      throw new IllegalArgumentException(
+        "Search condition cannot be empty or null"
+      );
     }
 
     String query;
     if (columnNames == null || columnNames.length == 0) {
       // Search all columns
-      query = "SELECT * FROM books WHERE CONCAT(isbn, title, description, image, price, quantity, status, publisher_id, author_id) LIKE ?";
+      query =
+        "SELECT * FROM books WHERE CONCAT(isbn, title, description, image, price, quantity, status, publisher_id, author_id) LIKE ?";
     } else if (columnNames.length == 1) {
       // Search specific column in books table
       String column = columnNames[0];
       query = "SELECT * FROM books WHERE " + column + " LIKE ?";
     } else {
       // Search specific columns in books table
-      query = "SELECT isbn, title, description, image, price, quantity, status, publisher_id, author_id FROM books WHERE CONCAT("
-          + String.join(", ", columnNames) + ") LIKE ?";
+      query =
+        "SELECT isbn, title, description, image, price, quantity, status, publisher_id, author_id FROM books WHERE CONCAT(" +
+        String.join(", ", columnNames) +
+        ") LIKE ?";
     }
-    try (PreparedStatement pst = DatabaseConnection.getPreparedStatement(query, "%" + condition + "%")) {
+    try (
+      PreparedStatement pst = DatabaseConnection.getPreparedStatement(
+        query,
+        "%" + condition + "%"
+      )
+    ) {
       try (ResultSet rs = pst.executeQuery()) {
         List<BookModel> bookList = new ArrayList<>();
         while (rs.next()) {
@@ -145,7 +179,9 @@ public class BookDAO implements IDAO<BookModel> {
           bookList.add(bookModel);
         }
         if (bookList.isEmpty()) {
-          throw new SQLException("No records found for the given condition: " + condition);
+          throw new SQLException(
+            "No records found for the given condition: " + condition
+          );
         }
         return bookList;
       }

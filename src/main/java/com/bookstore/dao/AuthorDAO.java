@@ -1,5 +1,7 @@
 package com.bookstore.dao;
 
+import com.bookstore.interfaces.IDAO;
+import com.bookstore.models.AuthorModel;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -7,10 +9,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.bookstore.interfaces.IDAO;
-import com.bookstore.models.AuthorModel;
-
 public class AuthorDAO implements IDAO<AuthorModel> {
+
   private static AuthorDAO instance;
 
   public static AuthorDAO getInstance() {
@@ -20,17 +20,21 @@ public class AuthorDAO implements IDAO<AuthorModel> {
     return instance;
   }
 
-  private AuthorModel createAuthorModelFromResultSet(ResultSet rs) throws SQLException {
+  private AuthorModel createAuthorModelFromResultSet(ResultSet rs)
+    throws SQLException {
     return new AuthorModel(
-        rs.getInt("id"),
-        rs.getString("name"),
-        rs.getString("description"));
+      rs.getInt("id"),
+      rs.getString("name"),
+      rs.getString("description")
+    );
   }
 
   @Override
   public ArrayList<AuthorModel> readDatabase() {
     ArrayList<AuthorModel> authorList = new ArrayList<>();
-    try (ResultSet rs = DatabaseConnection.executeQuery("SELECT * FROM authors")) {
+    try (
+      ResultSet rs = DatabaseConnection.executeQuery("SELECT * FROM authors")
+    ) {
       while (rs.next()) {
         AuthorModel authorModel = createAuthorModelFromResultSet(rs);
         authorList.add(authorModel);
@@ -55,8 +59,13 @@ public class AuthorDAO implements IDAO<AuthorModel> {
 
   @Override
   public int update(AuthorModel author) {
-    String updateSql = "UPDATE authors SET name = ?, description = ? WHERE id = ?";
-    Object[] args = { author.getName(), author.getDescription(), author.getId() };
+    String updateSql =
+      "UPDATE authors SET name = ?, description = ? WHERE id = ?";
+    Object[] args = {
+      author.getName(),
+      author.getDescription(),
+      author.getId(),
+    };
     try {
       return DatabaseConnection.executeUpdate(updateSql, args);
     } catch (SQLException e) {
@@ -80,24 +89,34 @@ public class AuthorDAO implements IDAO<AuthorModel> {
   @Override
   public List<AuthorModel> search(String condition, String[] columnNames) {
     if (condition == null || condition.trim().isEmpty()) {
-      throw new IllegalArgumentException("Search condition cannot be empty or null");
+      throw new IllegalArgumentException(
+        "Search condition cannot be empty or null"
+      );
     }
 
     String query;
     if (columnNames == null || columnNames.length == 0) {
       // Search all columns
-      query = "SELECT * FROM authors WHERE CONCAT(id, name, description) LIKE ?";
+      query =
+        "SELECT * FROM authors WHERE CONCAT(id, name, description) LIKE ?";
     } else if (columnNames.length == 1) {
       // Search specific column in authors table
       String column = columnNames[0];
       query = "SELECT * FROM authors WHERE " + column + " LIKE ?";
     } else {
       // Search specific columns in authors table
-      query = "SELECT id, name, description FROM authors WHERE CONCAT("
-          + String.join(", ", columnNames) + ") LIKE ?";
+      query =
+        "SELECT id, name, description FROM authors WHERE CONCAT(" +
+        String.join(", ", columnNames) +
+        ") LIKE ?";
     }
 
-    try (PreparedStatement pst = DatabaseConnection.getPreparedStatement(query, "%" + condition + "%")) {
+    try (
+      PreparedStatement pst = DatabaseConnection.getPreparedStatement(
+        query,
+        "%" + condition + "%"
+      )
+    ) {
       try (ResultSet rs = pst.executeQuery()) {
         List<AuthorModel> authorList = new ArrayList<>();
         while (rs.next()) {
@@ -105,7 +124,9 @@ public class AuthorDAO implements IDAO<AuthorModel> {
           authorList.add(authorModel);
         }
         if (authorList.isEmpty()) {
-          throw new SQLException("No records found for the given condition: " + condition);
+          throw new SQLException(
+            "No records found for the given condition: " + condition
+          );
         }
         return authorList;
       }
@@ -114,6 +135,7 @@ public class AuthorDAO implements IDAO<AuthorModel> {
       return Collections.emptyList();
     }
   }
+
   public AuthorModel getModelByAuthorName(String name) {
     String query = "SELECT * FROM authors WHERE name = ?";
     Object[] args = { name };

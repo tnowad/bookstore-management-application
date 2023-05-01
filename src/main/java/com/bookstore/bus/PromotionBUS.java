@@ -1,12 +1,11 @@
 package com.bookstore.bus;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import com.bookstore.dao.PromotionDAO;
 import com.bookstore.interfaces.IBUS;
 import com.bookstore.models.PromotionModel;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class PromotionBUS implements IBUS<PromotionModel> {
 
@@ -56,7 +55,11 @@ public class PromotionBUS implements IBUS<PromotionModel> {
     to.setDiscountAmount(from.getDiscountAmount());
   }
 
-  private boolean checkFilter(PromotionModel promotionModel, String value, String[] columns) {
+  private boolean checkFilter(
+    PromotionModel promotionModel,
+    String value,
+    String[] columns
+  ) {
     for (String column : columns) {
       switch (column.toLowerCase()) {
         case "id" -> {
@@ -65,7 +68,12 @@ public class PromotionBUS implements IBUS<PromotionModel> {
           }
         }
         case "description" -> {
-          if (promotionModel.getDescription().toLowerCase().contains(value.toLowerCase())) {
+          if (
+            promotionModel
+              .getDescription()
+              .toLowerCase()
+              .contains(value.toLowerCase())
+          ) {
             return true;
           }
         }
@@ -75,17 +83,34 @@ public class PromotionBUS implements IBUS<PromotionModel> {
           }
         }
         case "start_date" -> {
-          if (promotionModel.getStartDate().toString().toLowerCase().contains(value.toLowerCase())) {
+          if (
+            promotionModel
+              .getStartDate()
+              .toString()
+              .toLowerCase()
+              .contains(value.toLowerCase())
+          ) {
             return true;
           }
         }
         case "end_date" -> {
-          if (promotionModel.getEndDate().toString().toLowerCase().contains(value.toLowerCase())) {
+          if (
+            promotionModel
+              .getEndDate()
+              .toString()
+              .toLowerCase()
+              .contains(value.toLowerCase())
+          ) {
             return true;
           }
         }
         case "condition_apply" -> {
-          if (promotionModel.getConditionApply().toLowerCase().contains(value.toLowerCase())) {
+          if (
+            promotionModel
+              .getConditionApply()
+              .toLowerCase()
+              .contains(value.toLowerCase())
+          ) {
             return true;
           }
         }
@@ -110,20 +135,41 @@ public class PromotionBUS implements IBUS<PromotionModel> {
   }
 
   private boolean checkAllColumns(PromotionModel promotionModel, String value) {
-    return promotionModel.getId() == Integer.parseInt(value)
-        || promotionModel.getDescription().toLowerCase().contains(value.toLowerCase())
-        || promotionModel.getQuantity() == Integer.parseInt(value)
-        || promotionModel.getStartDate().toString().toLowerCase().contains(value.toLowerCase())
-        || promotionModel.getEndDate().toString().toLowerCase().contains(value.toLowerCase())
-        || promotionModel.getConditionApply().toLowerCase().contains(value.toLowerCase())
-        || promotionModel.getDiscountPercent() == Integer.parseInt(value)
-        || promotionModel.getDiscountAmount() == Integer.parseInt(value);
+    return (
+      promotionModel.getId() == Integer.parseInt(value) ||
+      promotionModel
+        .getDescription()
+        .toLowerCase()
+        .contains(value.toLowerCase()) ||
+      promotionModel.getQuantity() == Integer.parseInt(value) ||
+      promotionModel
+        .getStartDate()
+        .toString()
+        .toLowerCase()
+        .contains(value.toLowerCase()) ||
+      promotionModel
+        .getEndDate()
+        .toString()
+        .toLowerCase()
+        .contains(value.toLowerCase()) ||
+      promotionModel
+        .getConditionApply()
+        .toLowerCase()
+        .contains(value.toLowerCase()) ||
+      promotionModel.getDiscountPercent() == Integer.parseInt(value) ||
+      promotionModel.getDiscountAmount() == Integer.parseInt(value)
+    );
   }
 
   @Override
   public int addModel(PromotionModel promotionModel) {
-    if (promotionModel.getDescription() == null || promotionModel.getDescription().isEmpty()) {
-      throw new IllegalArgumentException("Description cannot be null or empty!");
+    if (
+      promotionModel.getDescription() == null ||
+      promotionModel.getDescription().isEmpty()
+    ) {
+      throw new IllegalArgumentException(
+        "Description cannot be null or empty!"
+      );
     }
     if (promotionModel.getQuantity() <= 0) {
       throw new IllegalArgumentException("Quantity must be greater than 0!");
@@ -134,8 +180,13 @@ public class PromotionBUS implements IBUS<PromotionModel> {
     if (promotionModel.getEndDate() == null) {
       throw new IllegalArgumentException("End date cannot be null!");
     }
-    if (promotionModel.getDiscountPercent() < 0 || promotionModel.getDiscountPercent() > 100) {
-      throw new IllegalArgumentException("Discount percent must be between 0 and 100!");
+    if (
+      promotionModel.getDiscountPercent() < 0 ||
+      promotionModel.getDiscountPercent() > 100
+    ) {
+      throw new IllegalArgumentException(
+        "Discount percent must be between 0 and 100!"
+      );
     }
     if (promotionModel.getDiscountAmount() < 0) {
       throw new IllegalArgumentException("Discount amount cannot be negative!");
@@ -178,7 +229,9 @@ public class PromotionBUS implements IBUS<PromotionModel> {
   public int deleteModel(int id) {
     PromotionModel promotionModel = getModelById(id);
     if (promotionModel == null) {
-      throw new IllegalArgumentException("Promotion with ID " + id + " does not exist.");
+      throw new IllegalArgumentException(
+        "Promotion with ID " + id + " does not exist."
+      );
     }
     int deletedRows = PromotionDAO.getInstance().delete(id);
     if (deletedRows > 0) {
@@ -190,7 +243,9 @@ public class PromotionBUS implements IBUS<PromotionModel> {
   @Override
   public List<PromotionModel> searchModel(String value, String[] columns) {
     List<PromotionModel> results = new ArrayList<>();
-    List<PromotionModel> entities = PromotionDAO.getInstance().search(value, columns);
+    List<PromotionModel> entities = PromotionDAO
+      .getInstance()
+      .search(value, columns);
     for (PromotionModel entity : entities) {
       PromotionModel model = mapToEntity(entity);
       if (checkFilter(model, value, columns)) {

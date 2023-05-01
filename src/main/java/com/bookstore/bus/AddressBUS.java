@@ -1,12 +1,11 @@
 package com.bookstore.bus;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import com.bookstore.dao.AddressDAO;
 import com.bookstore.interfaces.IBUS;
 import com.bookstore.models.AddressModel;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class AddressBUS implements IBUS<AddressModel> {
 
@@ -54,7 +53,11 @@ public class AddressBUS implements IBUS<AddressModel> {
     to.setZip(from.getZip());
   }
 
-  private boolean checkFilter(AddressModel addressModel, String value, String[] columns) {
+  private boolean checkFilter(
+    AddressModel addressModel,
+    String value,
+    String[] columns
+  ) {
     for (String column : columns) {
       switch (column.toLowerCase()) {
         case "id" -> {
@@ -68,22 +71,30 @@ public class AddressBUS implements IBUS<AddressModel> {
           }
         }
         case "street" -> {
-          if (addressModel.getStreet().toLowerCase().contains(value.toLowerCase())) {
+          if (
+            addressModel.getStreet().toLowerCase().contains(value.toLowerCase())
+          ) {
             return true;
           }
         }
         case "city" -> {
-          if (addressModel.getCity().toLowerCase().contains(value.toLowerCase())) {
+          if (
+            addressModel.getCity().toLowerCase().contains(value.toLowerCase())
+          ) {
             return true;
           }
         }
         case "state" -> {
-          if (addressModel.getState().toLowerCase().contains(value.toLowerCase())) {
+          if (
+            addressModel.getState().toLowerCase().contains(value.toLowerCase())
+          ) {
             return true;
           }
         }
         case "zip" -> {
-          if (addressModel.getZip().toLowerCase().contains(value.toLowerCase())) {
+          if (
+            addressModel.getZip().toLowerCase().contains(value.toLowerCase())
+          ) {
             return true;
           }
         }
@@ -98,17 +109,21 @@ public class AddressBUS implements IBUS<AddressModel> {
   }
 
   private boolean checkAllColumns(AddressModel addressModel, String value) {
-    return addressModel.getId() == Integer.parseInt(value)
-        || addressModel.getUserId() == Integer.parseInt(value)
-        || addressModel.getStreet().toLowerCase().contains(value.toLowerCase())
-        || addressModel.getCity().toLowerCase().contains(value.toLowerCase())
-        || addressModel.getState().toLowerCase().contains(value.toLowerCase())
-        || addressModel.getZip().toLowerCase().contains(value.toLowerCase());
+    return (
+      addressModel.getId() == Integer.parseInt(value) ||
+      addressModel.getUserId() == Integer.parseInt(value) ||
+      addressModel.getStreet().toLowerCase().contains(value.toLowerCase()) ||
+      addressModel.getCity().toLowerCase().contains(value.toLowerCase()) ||
+      addressModel.getState().toLowerCase().contains(value.toLowerCase()) ||
+      addressModel.getZip().toLowerCase().contains(value.toLowerCase())
+    );
   }
 
   @Override
   public int addModel(AddressModel addressModel) {
-    if (addressModel.getStreet() == null || addressModel.getStreet().isEmpty()) {
+    if (
+      addressModel.getStreet() == null || addressModel.getStreet().isEmpty()
+    ) {
       throw new IllegalArgumentException("Street cannot be null or empty!");
     }
     if (addressModel.getCity() == null || addressModel.getCity().isEmpty()) {
@@ -142,7 +157,9 @@ public class AddressBUS implements IBUS<AddressModel> {
   public int deleteModel(int id) {
     AddressModel addressModel = getModelById(id);
     if (addressModel == null) {
-      throw new IllegalArgumentException("Address with ID " + id + " does not exist.");
+      throw new IllegalArgumentException(
+        "Address with ID " + id + " does not exist."
+      );
     }
     int deletedRows = AddressDAO.getInstance().delete(id);
     if (deletedRows > 0) {
@@ -154,7 +171,9 @@ public class AddressBUS implements IBUS<AddressModel> {
   @Override
   public List<AddressModel> searchModel(String value, String[] columns) {
     List<AddressModel> results = new ArrayList<>();
-    List<AddressModel> entities = AddressDAO.getInstance().search(value, columns);
+    List<AddressModel> entities = AddressDAO
+      .getInstance()
+      .search(value, columns);
     for (AddressModel entity : entities) {
       AddressModel model = mapToEntity(entity);
       if (checkFilter(model, value, columns)) {

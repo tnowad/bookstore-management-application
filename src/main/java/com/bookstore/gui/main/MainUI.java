@@ -30,7 +30,6 @@ public class MainUI extends JFrame {
   private void initComponents() {
     layout = new java.awt.BorderLayout();
     setLayout(layout);
-
     add(drawerMenu, java.awt.BorderLayout.LINE_START);
     add(mainPanel, java.awt.BorderLayout.CENTER);
     add(headerDashboard, java.awt.BorderLayout.PAGE_START);
