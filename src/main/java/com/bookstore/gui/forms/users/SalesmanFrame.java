@@ -4,6 +4,7 @@ import com.bookstore.bus.EmployeeBUS;
 import com.bookstore.bus.UserBUS;
 import com.bookstore.enums.EmployeeType;
 import com.bookstore.gui.components.buttons.Button;
+import com.bookstore.gui.forms.accounts.AccountPanel;
 import com.bookstore.gui.forms.books.BookList;
 import com.bookstore.gui.forms.imports.ImportList;
 import com.bookstore.gui.forms.orders.OrderList;
@@ -181,7 +182,7 @@ public class SalesmanFrame extends JFrame {
 
     accountButton.addActionListener(e -> {
       contentPanel.removeAll();
-      contentPanel.add(new com.bookstore.gui.forms.accounts.AccountPanel());
+      contentPanel.add(AccountPanel.getInstance());
       contentPanel.revalidate();
       contentPanel.repaint();
     });

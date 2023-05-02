@@ -41,16 +41,24 @@ public class ProfileSettings extends JPanel {
   private JTextField usernameTextField;
   private JLabel zipLabel;
   private JTextField zipTextField;
+  private static ProfileSettings instance;
 
   UserBUS userBus = UserBUS.getInstance();
   AddressBUS addressBus = AddressBUS.getInstance();
   UserModel currentUser = Authentication.getCurrentUser();
   AddressModel addressModel = addressBus.getModelById(currentUser.getId());
 
-  public ProfileSettings() {
+  private ProfileSettings() {
     initComponents();
     updateInformation();
     handleEvent();
+  }
+
+  public static ProfileSettings getInstance() {
+    if (instance == null) {
+      instance = new ProfileSettings();
+    }
+    return instance;
   }
 
   private void initComponents() {
@@ -98,12 +106,11 @@ public class ProfileSettings extends JPanel {
     groupEditProfilePanel.add(nameLabel);
 
     nameTextField.addActionListener(
-      new ActionListener() {
-        public void actionPerformed(ActionEvent evt) {
-          nameTextFieldActionPerformed(evt);
-        }
-      }
-    );
+        new ActionListener() {
+          public void actionPerformed(ActionEvent evt) {
+            nameTextFieldActionPerformed(evt);
+          }
+        });
     groupEditProfilePanel.add(nameTextField);
 
     usernameLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -116,12 +123,11 @@ public class ProfileSettings extends JPanel {
     groupEditProfilePanel.add(emailLabel);
 
     emailTextField.addActionListener(
-      new ActionListener() {
-        public void actionPerformed(ActionEvent evt) {
-          emailTextFieldActionPerformed(evt);
-        }
-      }
-    );
+        new ActionListener() {
+          public void actionPerformed(ActionEvent evt) {
+            emailTextFieldActionPerformed(evt);
+          }
+        });
     groupEditProfilePanel.add(emailTextField);
 
     phoneLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -129,12 +135,11 @@ public class ProfileSettings extends JPanel {
     groupEditProfilePanel.add(phoneLabel);
 
     phoneTextField.addActionListener(
-      new ActionListener() {
-        public void actionPerformed(ActionEvent evt) {
-          phoneTextFieldActionPerformed(evt);
-        }
-      }
-    );
+        new ActionListener() {
+          public void actionPerformed(ActionEvent evt) {
+            phoneTextFieldActionPerformed(evt);
+          }
+        });
     groupEditProfilePanel.add(phoneTextField);
 
     groupEditPanel.add(groupEditProfilePanel, BorderLayout.CENTER);
@@ -159,12 +164,11 @@ public class ProfileSettings extends JPanel {
     groupEditAddressPanel.add(cityLabel);
 
     cityTextField.addActionListener(
-      new ActionListener() {
-        public void actionPerformed(ActionEvent evt) {
-          cityTextFieldActionPerformed(evt);
-        }
-      }
-    );
+        new ActionListener() {
+          public void actionPerformed(ActionEvent evt) {
+            cityTextFieldActionPerformed(evt);
+          }
+        });
     groupEditAddressPanel.add(cityTextField);
 
     stateLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -177,12 +181,11 @@ public class ProfileSettings extends JPanel {
     groupEditAddressPanel.add(zipLabel);
 
     zipTextField.addActionListener(
-      new ActionListener() {
-        public void actionPerformed(ActionEvent evt) {
-          zipTextFieldActionPerformed(evt);
-        }
-      }
-    );
+        new ActionListener() {
+          public void actionPerformed(ActionEvent evt) {
+            zipTextFieldActionPerformed(evt);
+          }
+        });
     groupEditAddressPanel.add(zipTextField);
 
     confirmLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -216,26 +219,22 @@ public class ProfileSettings extends JPanel {
 
   private void handleEvent() {
     updateButton.addActionListener(
-      new ActionListener() {
-        public void actionPerformed(ActionEvent evt) {
-          updateUserInformationButtonActionPerformed(evt);
-        }
-      }
-    );
+        new ActionListener() {
+          public void actionPerformed(ActionEvent evt) {
+            updateUserInformationButtonActionPerformed(evt);
+          }
+        });
     resetButton.addActionListener(
-      new ActionListener() {
-        public void actionPerformed(ActionEvent evt) {
-          resetUserInformationButtonActionPerformed(evt);
-        }
-      }
-    );
+        new ActionListener() {
+          public void actionPerformed(ActionEvent evt) {
+            resetUserInformationButtonActionPerformed(evt);
+          }
+        });
   }
 
   protected void updateUserInformationButtonActionPerformed(ActionEvent evt) {
     String confirmPassword = new String(confirmPasswordField.getPassword());
-    if (
-      PasswordUtils.checkPassword(confirmPassword, currentUser.getPassword())
-    ) {
+    if (PasswordUtils.checkPassword(confirmPassword, currentUser.getPassword())) {
       currentUser.setName(nameTextField.getText());
       currentUser.setUsername(usernameTextField.getText());
       currentUser.setEmail(emailTextField.getText());
@@ -266,13 +265,18 @@ public class ProfileSettings extends JPanel {
     zipTextField.setText("");
   }
 
-  private void nameTextFieldActionPerformed(ActionEvent evt) {}
+  private void nameTextFieldActionPerformed(ActionEvent evt) {
+  }
 
-  private void emailTextFieldActionPerformed(ActionEvent evt) {}
+  private void emailTextFieldActionPerformed(ActionEvent evt) {
+  }
 
-  private void phoneTextFieldActionPerformed(ActionEvent evt) {}
+  private void phoneTextFieldActionPerformed(ActionEvent evt) {
+  }
 
-  private void zipTextFieldActionPerformed(ActionEvent evt) {}
+  private void zipTextFieldActionPerformed(ActionEvent evt) {
+  }
 
-  private void cityTextFieldActionPerformed(ActionEvent evt) {}
+  private void cityTextFieldActionPerformed(ActionEvent evt) {
+  }
 }

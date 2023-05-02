@@ -15,10 +15,18 @@ public class AccountPanel extends JPanel {
   private JPanel contentSetting;
   private Button accountSettingButton;
   private Button profileSettingButton;
+  private static AccountPanel instance;
 
-  public AccountPanel() {
+  private AccountPanel() {
     initComponents();
     handleEvents();
+  }
+
+  public static AccountPanel getInstance() {
+    if (instance == null) {
+      instance = new AccountPanel();
+    }
+    return instance;
   }
 
   private void handleEvents() {
@@ -27,7 +35,7 @@ public class AccountPanel extends JPanel {
           @Override
           public void actionPerformed(ActionEvent e) {
             contentSetting.removeAll();
-            contentSetting.add(new ProfileSettings());
+            contentSetting.add(ProfileSettings.getInstance());
             contentSetting.revalidate();
             contentSetting.repaint();
           }
@@ -37,7 +45,7 @@ public class AccountPanel extends JPanel {
           @Override
           public void actionPerformed(ActionEvent e) {
             contentSetting.removeAll();
-            contentSetting.add(new AccountSettings());
+            contentSetting.add(AccountSettings.getInstance());
             contentSetting.revalidate();
             contentSetting.repaint();
           }
@@ -57,6 +65,6 @@ public class AccountPanel extends JPanel {
     add(contentSetting);
     titleButton.add(profileSettingButton);
     titleButton.add(accountSettingButton);
-    contentSetting.add(new ProfileSettings());
+    contentSetting.add(ProfileSettings.getInstance());
   }
 }
