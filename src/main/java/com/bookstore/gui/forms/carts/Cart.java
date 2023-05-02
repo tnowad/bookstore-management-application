@@ -24,6 +24,7 @@ public class Cart extends JPanel {
   private static Cart instance;
   private UserModel userModel;
   private CartBUS cartBUS;
+  private List<CartModel> cartList;
   private CartModel cartModel;
   private CartItemsBUS cartItemsBUS;
   private List<CartItemsModel> cartItemList;
@@ -49,13 +50,20 @@ public class Cart extends JPanel {
   private void updateData() {
     userModel = Authentication.getCurrentUser();
     cartBUS = CartBUS.getInstance();
-    cartModel = cartBUS.getModelById(userModel.getId());
+    cartList = cartBUS.getAllModels();
+    for (CartModel cartModel : cartList) {
+      if (cartModel.getUserId() == userModel.getId()) {
+        this.cartModel = cartModel;
+      }
+    }
     myCartList = new ArrayList<CartItemsModel>();
+    cartItemsBUS = CartItemsBUS.getInstance();
+    System.out.println(cartModel.getStatus());
     if (cartModel.getStatus() == CartStatus.PENDING) {
-      cartItemsBUS = CartItemsBUS.getInstance();
       cartItemList = cartItemsBUS.getAllModels();
       bookBUS = BookBUS.getInstance();
       bookList = bookBUS.getAllModels();
+      System.out.println(cartModel.getId());
       for (CartItemsModel cartItemsModel : cartItemList) {
         if (cartItemsModel.getCartId() == cartModel.getId()) {
           myCartList.add(cartItemsModel);
@@ -159,19 +167,13 @@ public class Cart extends JPanel {
     model.addColumn("Title");
     model.addColumn("Price");
     model.addColumn("Quantity");
-    for (BookModel book : bookList) {
-      model.addRow(
-          new Object[] {
-              book.getIsbn(),
-              book.getTitle(),
-              book.getDescription(),
-              book.getPrice(),
-              book.getQuantity(),
-              book.getStatus(),
-              book.getPublisherId(),
-              book.getAuthorId(),
-          });
-      listCartTable.setModel(model);
+    for (CartItemsModel cartItemsModel : myCartList) {
+      for (BookModel bookModel : bookList) {
+        if (cartItemsModel.getBookIsbn() == bookModel.getIsbn()) {
+          model.addRow(new Object[] { bookModel.getIsbn(), bookModel.getTitle(), bookModel.getPrice(),
+              cartItemsModel.getQuantity() });
+        }
+      }
     }
     listCartScrollPane.setViewportView(listCartTable);
     listCartPanel.add(listCartScrollPane, BorderLayout.CENTER);
