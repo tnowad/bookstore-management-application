@@ -1,17 +1,9 @@
 package com.bookstore.gui.components.books;
 
-import com.bookstore.util.image.ImageUtils;
-import java.awt.Image;
-import java.awt.Toolkit;
-import java.awt.datatransfer.StringSelection;
+import com.bookstore.enums.BookStatus;
 import java.awt.event.*;
-import java.io.IOException;
 import javax.swing.*;
 
-/**
- *
- * @author yanti
- */
 public class BookProductPanel extends javax.swing.JPanel {
 
   private JTextField isbnBook;
@@ -23,7 +15,7 @@ public class BookProductPanel extends javax.swing.JPanel {
     String image,
     int price,
     int quantity,
-    Enum status,
+    BookStatus status,
     int publisher_id,
     int author_id
   ) {
@@ -41,7 +33,6 @@ public class BookProductPanel extends javax.swing.JPanel {
     setImage(image);
   }
 
-  @SuppressWarnings("unchecked")
   private void initComponents(
     String isbn,
     String title,
@@ -49,7 +40,7 @@ public class BookProductPanel extends javax.swing.JPanel {
     String image,
     int price,
     int quantity,
-    Enum status,
+    BookStatus status,
     int publisher_id,
     int author_id
   ) {
@@ -124,7 +115,7 @@ public class BookProductPanel extends javax.swing.JPanel {
     String image,
     int price,
     int quantity,
-    Enum status,
+    BookStatus status,
     int publisher_id,
     int author_id
   ) {
@@ -143,12 +134,11 @@ public class BookProductPanel extends javax.swing.JPanel {
   }
 
   public void setImage(String image) {
-    Image imageBase = null;
-    try {
-      imageBase = ImageUtils.decodeFromBase64(image);
-    } catch (Exception ex) {
-      // ex.printStackTrace();
-    }
+    // Image imageBase = null;
+    // try {
+    //   imageBase = ImageUtils.decodeFromBase64(image);
+    // } catch (Exception ex) {
+    // }
     setImage.setIcon(new javax.swing.ImageIcon(image));
   }
 

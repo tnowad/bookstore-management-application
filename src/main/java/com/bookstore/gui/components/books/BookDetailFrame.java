@@ -10,10 +10,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
-/**
- *
- * @author yanti
- */
 public class BookDetailFrame extends javax.swing.JFrame {
 
   public BookDetailFrame(
@@ -23,7 +19,7 @@ public class BookDetailFrame extends javax.swing.JFrame {
     String image,
     int price,
     int quantity,
-    Enum status,
+    BookStatus status,
     int publisher_id,
     int author_id
   ) {
@@ -46,7 +42,6 @@ public class BookDetailFrame extends javax.swing.JFrame {
     this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
   }
 
-  @SuppressWarnings("unchecked")
   private void initComponents(
     String isbn,
     String title,
@@ -54,7 +49,7 @@ public class BookDetailFrame extends javax.swing.JFrame {
     String image,
     int price,
     int quantity,
-    Enum status,
+    BookStatus status,
     int publisher_id,
     int author_id
   ) {
@@ -263,7 +258,7 @@ public class BookDetailFrame extends javax.swing.JFrame {
     pack();
   }
 
-  public void setStatus(Enum status) {
+  public void setStatus(BookStatus status) {
     int index = -1;
     switch (status.toString()) {
       case "AVAILABLE" -> {
@@ -286,7 +281,7 @@ public class BookDetailFrame extends javax.swing.JFrame {
     String image,
     int price,
     int quantity,
-    Enum status,
+    BookStatus status,
     int publisher_id,
     int author_id
   ) {
@@ -340,11 +335,6 @@ public class BookDetailFrame extends javax.swing.JFrame {
     }
   }
 
-  /**
-   * @param args the command line arguments
-   */
-
-  // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JLabel authorText;
   private javax.swing.JButton buttonBack;
   private javax.swing.JPanel buttonPanel;
@@ -369,5 +359,4 @@ public class BookDetailFrame extends javax.swing.JFrame {
   private javax.swing.JComboBox<String> setStatus;
   private javax.swing.JTextField setTitle;
   private javax.swing.JLabel statusText;
-  // End of variables declaration//GEN-END:variables
 }
