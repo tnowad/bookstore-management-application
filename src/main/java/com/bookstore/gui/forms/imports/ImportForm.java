@@ -153,16 +153,4 @@ public class ImportForm extends JPanel {
       }
     }
   };
-
-  public static void main(String[] args) {
-    FlatMacLightLaf.setup();
-    JFrame frame = new JFrame();
-    frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-    frame.setPreferredSize(new Dimension(1200, 800));
-    frame.setTitle("Stock Form");
-    frame.setLocationRelativeTo(null);
-    frame.getContentPane().add(new ImportForm());
-    frame.pack();
-    frame.setVisible(true);
-  }
 }

@@ -176,8 +176,4 @@ public class RegisterFrame extends JFrame {
     }
   };
 
-  public static void main(String[] args) {
-    FlatMacLightLaf.setup();
-    RegisterFrame.getInstance().setVisible(true);
-  }
 }

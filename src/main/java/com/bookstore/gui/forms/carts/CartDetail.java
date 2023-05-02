@@ -124,11 +124,6 @@ public class CartDetail extends JFrame {
     pack();
   }
 
-  public static void main(String[] args) {
-    CartDetail cartDetail = CartDetail.getInstance(1, "123456789");
-    // cartDetail.setVisible(true);
-  }
-
   private JPanel bookImagePanel;
   private JLabel bookPriceLabel;
   private JTextField bookTitleTextField;
