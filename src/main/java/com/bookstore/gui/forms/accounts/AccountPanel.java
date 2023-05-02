@@ -5,7 +5,6 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.BoxLayout;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.bookstore.gui.components.buttons.Button;
@@ -24,27 +23,25 @@ public class AccountPanel extends JPanel {
 
   private void handleEvents() {
     profileSettingButton.addActionListener(
-      new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-          contentSetting.removeAll();
-          contentSetting.add(new ProfileSettings());
-          contentSetting.revalidate();
-          contentSetting.repaint();
-        }
-      }
-    );
+        new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            contentSetting.removeAll();
+            contentSetting.add(new ProfileSettings());
+            contentSetting.revalidate();
+            contentSetting.repaint();
+          }
+        });
     accountSettingButton.addActionListener(
-      new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-          contentSetting.removeAll();
-          contentSetting.add(new AccountSettings());
-          contentSetting.revalidate();
-          contentSetting.repaint();
-        }
-      }
-    );
+        new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            contentSetting.removeAll();
+            contentSetting.add(new AccountSettings());
+            contentSetting.revalidate();
+            contentSetting.repaint();
+          }
+        });
   }
 
   private void initComponents() {
