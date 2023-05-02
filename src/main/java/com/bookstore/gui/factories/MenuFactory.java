@@ -15,6 +15,8 @@ import com.bookstore.gui.forms.customer.Order;
 import com.bookstore.gui.forms.imports.ImportList;
 import com.bookstore.gui.forms.orders.OrderList;
 import com.bookstore.gui.forms.users.CustomerList;
+import com.bookstore.gui.forms.users.EmployeeList;
+import com.bookstore.gui.forms.users.SalaryList;
 import com.bookstore.gui.main.MainUI;
 import com.bookstore.models.EmployeeModel;
 import com.bookstore.models.MenuItemModel;
@@ -207,7 +209,6 @@ public class MenuFactory {
                     "Order management",
                     new ImageIcon(""),
                     showOrderList, null));
-            // my account
             add(new MenuItemModel("My account", new ImageIcon(""), null,
                 new ArrayList<SubMenuItemModel>() {
                   {
@@ -223,7 +224,27 @@ public class MenuFactory {
     return new MenuModel(
         new ArrayList<MenuItemModel>() {
           {
-            add(new MenuItemModel("Home", new ImageIcon(""), null, null));
+            add(new MenuItemModel("Employee managerment", new ImageIcon(""), showEmployeeList, null));
+            add(new MenuItemModel("Salary management", new ImageIcon(""), showSalaryList, null));
+            add(new MenuItemModel("Customer manager", new ImageIcon(""), showCustomerList, null));
+            add(new MenuItemModel("Book management", new ImageIcon(""), showBookList, null));
+            add(
+                new MenuItemModel(
+                    "Import management",
+                    new ImageIcon(""),
+                    showImportList, null));
+            add(
+                new MenuItemModel(
+                    "Order management",
+                    new ImageIcon(""),
+                    showOrderList, null));
+            add(new MenuItemModel("My account", new ImageIcon(""), null,
+                new ArrayList<SubMenuItemModel>() {
+                  {
+                    add(new SubMenuItemModel("My profile", new ImageIcon(""), showProfile));
+                    add(new SubMenuItemModel("My account", new ImageIcon(""), showAccount));
+                  }
+                }));
           }
         });
   }
@@ -233,9 +254,7 @@ public class MenuFactory {
     MainPanel.getInstance().showForm(DashboardPanel.getInstance());
   };
 
-  // manager
-
-  // employee
+  // employee and manager
   private static ActionListener showCustomerList = e -> {
     MainPanel.getInstance().showForm(CustomerList.getInstance());
   };
@@ -249,6 +268,14 @@ public class MenuFactory {
     MainPanel.getInstance().showForm(OrderList.getInstance());
   };
 
+  // manager
+  private static ActionListener showEmployeeList = e -> {
+    MainPanel.getInstance().showForm(EmployeeList.getInstance());
+  };
+
+  private static ActionListener showSalaryList = e -> {
+    MainPanel.getInstance().showForm(SalaryList.getInstance());
+  };
   // customer
   private static ActionListener showHomeCustomer = e -> {
     MainPanel.getInstance().showForm(HomeCustomer.getInstance());
@@ -267,6 +294,7 @@ public class MenuFactory {
   private static ActionListener showMyOrderCustomer = e -> {
     MainPanel.getInstance().showForm(Order.getInstance());
   };
+  // general
   private static ActionListener showProfile = e -> {
     MainPanel.getInstance().showForm(ProfileSettings.getInstance());
   };

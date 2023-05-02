@@ -1,6 +1,8 @@
 package com.bookstore.gui.forms.users;
 
-public class SalaryList {
+import javax.swing.JPanel;
+
+public class SalaryList extends JPanel {
     private static SalaryList instance;
 
     public static SalaryList getInstance() {
