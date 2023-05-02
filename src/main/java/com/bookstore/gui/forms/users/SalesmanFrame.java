@@ -188,15 +188,13 @@ public class SalesmanFrame extends JFrame {
 
     logoutButton.addActionListener(e -> {
       int option = JOptionPane.showConfirmDialog(
-        null,
-        "Bạn chắc chắn muốn đăng xuất?",
-        "Đăng xuất",
-        JOptionPane.OK_OPTION
-      );
+          null,
+          "Bạn chắc chắn muốn đăng xuất?",
+          "Đăng xuất",
+          JOptionPane.OK_OPTION);
       if (option == 0) {
         dispose();
-        LoginUI loginFrame = new LoginUI();
-        loginFrame.setVisible(true);
+        LoginUI.getInstance().setVisible(true);
       }
     });
   }
@@ -204,22 +202,20 @@ public class SalesmanFrame extends JFrame {
   public static void main(String args[]) {
     try {
       UIManager.setLookAndFeel(
-        "com.sun.java.swing.plaf.windows.WindowsLookAndFeel"
-      );
+          "com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
       UIManager.put("Panel.background", new Color(250, 250, 250));
     } catch (
-      ClassNotFoundException
-      | IllegalAccessException
-      | InstantiationException
-      | UnsupportedLookAndFeelException ignored
-    ) {}
+        ClassNotFoundException
+        | IllegalAccessException
+        | InstantiationException
+        | UnsupportedLookAndFeelException ignored) {
+    }
     FlatMacLightLaf.setup();
     EventQueue.invokeLater(
-      new Runnable() {
-        public void run() {
-          new SalesmanFrame();
-        }
-      }
-    );
+        new Runnable() {
+          public void run() {
+            new SalesmanFrame();
+          }
+        });
   }
 }
