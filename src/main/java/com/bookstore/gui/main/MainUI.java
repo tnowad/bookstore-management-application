@@ -1,6 +1,6 @@
 package com.bookstore.gui.main;
 
-import com.bookstore.gui.components.headers.HeaderDashboard;
+import com.bookstore.gui.components.headers.Header;
 import com.bookstore.gui.components.menus.DrawerMenu;
 import com.bookstore.gui.components.panels.MainPanel;
 import java.awt.BorderLayout;
@@ -22,7 +22,7 @@ public class MainUI extends JFrame {
   private DrawerMenu drawerMenu;
   private MainPanel mainPanel;
   private JPanel mainPanelWrapper;
-  private HeaderDashboard headerDashboard;
+  private Header headerDashboard;
   private JSplitPane splitPane;
 
   public static MainUI getInstance() {
@@ -31,7 +31,7 @@ public class MainUI extends JFrame {
         new MainUI(
           DrawerMenu.getInstance(),
           MainPanel.getInstance(),
-          HeaderDashboard.getInstance()
+          Header.getInstance()
         );
     }
     return instance;
@@ -40,7 +40,7 @@ public class MainUI extends JFrame {
   public MainUI(
     DrawerMenu drawerMenu,
     MainPanel mainPanel,
-    HeaderDashboard headerDashboard
+    Header headerDashboard
   ) {
     this.drawerMenu = drawerMenu;
     this.mainPanel = mainPanel;

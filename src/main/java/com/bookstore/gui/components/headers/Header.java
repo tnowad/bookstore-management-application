@@ -10,13 +10,13 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class HeaderDashboard extends JPanel {
+public class Header extends JPanel {
 
-  private static HeaderDashboard instance = null;
+  private static Header instance = null;
 
-  public static HeaderDashboard getInstance() {
+  public static Header getInstance() {
     if (instance == null) {
-      instance = new HeaderDashboard();
+      instance = new Header();
     }
     return instance;
   }
@@ -25,7 +25,7 @@ public class HeaderDashboard extends JPanel {
   private JButton buttonMenu;
   private SearchText searchText;
 
-  public HeaderDashboard() {
+  public Header() {
     initComponents();
     setOpaque(false);
   }

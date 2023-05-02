@@ -2,7 +2,7 @@ package com.bookstore.gui.factories;
 
 import com.bookstore.bus.EmployeeBUS;
 import com.bookstore.enums.UserRole;
-import com.bookstore.gui.components.headers.HeaderDashboard;
+import com.bookstore.gui.components.headers.Header;
 import com.bookstore.gui.components.menus.DrawerMenu;
 import com.bookstore.gui.components.panels.MainPanel;
 import com.bookstore.gui.main.MainUI;
@@ -19,8 +19,7 @@ public class UIFactory {
 
     System.out.println(user);
     if (user.getRole() == UserRole.EMPLOYEE) {
-      System.out.println(
-          EmployeeBUS.getInstance().getModelById(user.getId()));
+      System.out.println(EmployeeBUS.getInstance().getModelById(user.getId()));
     }
 
     MenuModel menuModel = MenuFactory.getMenu(user);
@@ -29,7 +28,7 @@ public class UIFactory {
 
     MainPanel mainPanel = MainPanel.getInstance();
 
-    HeaderDashboard headerDashboard = new HeaderDashboard();
+    Header headerDashboard = new Header();
     MainUI mainUI = new MainUI(drawerMenu, mainPanel, headerDashboard);
 
     mainUI.setVisible(true);
