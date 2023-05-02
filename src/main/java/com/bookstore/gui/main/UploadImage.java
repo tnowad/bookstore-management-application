@@ -6,14 +6,11 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionListener;
-import java.nio.file.Path;
-import java.util.Base64;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 public class UploadImage extends JFrame {
@@ -59,15 +56,14 @@ public class UploadImage extends JFrame {
 
         // move to clipboard
         Toolkit
-          .getDefaultToolkit()
-          .getSystemClipboard()
-          .setContents(new StringSelection(base64), null);
+            .getDefaultToolkit()
+            .getSystemClipboard()
+            .setContents(new StringSelection(base64), null);
 
         // show message
         JOptionPane.showMessageDialog(
-          null,
-          "Image has been copied to clipboard"
-        );
+            null,
+            "Image has been copied to clipboard");
       } catch (Exception ex) {
         ex.printStackTrace();
       }

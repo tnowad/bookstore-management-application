@@ -12,12 +12,10 @@ public class MainUI extends JFrame {
 
   public static MainUI getInstance() {
     if (instance == null) {
-      instance =
-        new MainUI(
+      instance = new MainUI(
           DrawerMenu.getInstance(),
           MainPanel.getInstance(),
-          HeaderDashboard.getInstance()
-        );
+          HeaderDashboard.getInstance());
     }
     return instance;
   }
@@ -29,10 +27,9 @@ public class MainUI extends JFrame {
   private HeaderDashboard headerDashboard;
 
   public MainUI(
-    DrawerMenu drawerMenu,
-    MainPanel mainPanel,
-    HeaderDashboard headerDashboard
-  ) {
+      DrawerMenu drawerMenu,
+      MainPanel mainPanel,
+      HeaderDashboard headerDashboard) {
     this.drawerMenu = drawerMenu;
     this.mainPanel = mainPanel;
     this.headerDashboard = headerDashboard;

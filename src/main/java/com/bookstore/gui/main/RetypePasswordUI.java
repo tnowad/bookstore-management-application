@@ -8,7 +8,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.util.Arrays;
@@ -97,8 +96,7 @@ public class RetypePasswordUI extends JFrame {
     groupLogo.setLayout(new BorderLayout());
 
     iconLabel.setIcon(
-      new ImageIcon(getClass().getResource("../../resources/book_logo.png"))
-    );
+        new ImageIcon(getClass().getResource("../../resources/book_logo.png")));
     groupLogo.setPreferredSize(new Dimension(400, 450));
 
     nameStoreLabel.setFont(new ThemeFont().getMediumFont());
@@ -132,12 +130,11 @@ public class RetypePasswordUI extends JFrame {
 
     passwordField.setPreferredSize(new Dimension(300, 50));
     Border borderpasswordField = BorderFactory.createMatteBorder(
-      0,
-      0,
-      1,
-      0,
-      Color.BLUE
-    );
+        0,
+        0,
+        1,
+        0,
+        Color.BLUE);
     passwordField.setBorder(borderpasswordField);
     groupEmail.add(passwordField);
 
@@ -153,12 +150,11 @@ public class RetypePasswordUI extends JFrame {
 
     confirmPasswordField.setPreferredSize(new Dimension(300, 50));
     Border borderPasswordField = BorderFactory.createMatteBorder(
-      0,
-      0,
-      1,
-      0,
-      Color.BLUE
-    );
+        0,
+        0,
+        1,
+        0,
+        Color.BLUE);
     confirmPasswordField.setBorder(borderPasswordField);
     groupPhone.add(confirmPasswordField);
 
@@ -215,9 +211,8 @@ public class RetypePasswordUI extends JFrame {
           int success = UserBUS.getInstance().updateModel(userModel);
           if (success == 1) {
             JOptionPane.showMessageDialog(
-              null,
-              "You've successfully reset your password. You can log in now."
-            );
+                null,
+                "You've successfully reset your password. You can log in now.");
             RegisterUI.getInstance().setVisible(true);
             setVisible(false);
           } else {
@@ -242,60 +237,56 @@ public class RetypePasswordUI extends JFrame {
     });
 
     addComponentListener(
-      new ComponentAdapter() {
-        @Override
-        public void componentResized(ComponentEvent e) {
-          int width = getContentPane().getWidth();
-          if (width < 1020) {
-            groupLogo.setPreferredSize(new Dimension(500, 200));
+        new ComponentAdapter() {
+          @Override
+          public void componentResized(ComponentEvent e) {
+            int width = getContentPane().getWidth();
+            if (width < 1020) {
+              groupLogo.setPreferredSize(new Dimension(500, 200));
 
-            nameStoreLabel.setFont(new ThemeFont().getSmallFont());
-            titleResetPassword.setFont(new ThemeFont().getMediumFont());
-            nameStoreLabel.setPreferredSize(new Dimension(100, 20));
-            iconLabel.setIcon(
-              new ImageIcon(
-                getClass()
-                  .getResource("../../resources/book_logo_responsive.png")
-              )
-            );
+              nameStoreLabel.setFont(new ThemeFont().getSmallFont());
+              titleResetPassword.setFont(new ThemeFont().getMediumFont());
+              nameStoreLabel.setPreferredSize(new Dimension(100, 20));
+              iconLabel.setIcon(
+                  new ImageIcon(
+                      getClass()
+                          .getResource("../../resources/book_logo_responsive.png")));
 
-            groupEmail.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
+              groupEmail.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
 
-            passwordLabel.setFont(new ThemeFont().getSmallFont());
-            passwordLabel.setPreferredSize(new Dimension(100, 50));
+              passwordLabel.setFont(new ThemeFont().getSmallFont());
+              passwordLabel.setPreferredSize(new Dimension(100, 50));
 
-            passwordField.setFont(new ThemeFont().getSmallFont());
-            passwordField.setPreferredSize(new Dimension(150, 50));
+              passwordField.setFont(new ThemeFont().getSmallFont());
+              passwordField.setPreferredSize(new Dimension(150, 50));
 
-            groupPhone.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
+              groupPhone.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
 
-            confirmPasswordLabel.setFont(new ThemeFont().getSmallFont());
-            confirmPasswordLabel.setPreferredSize(new Dimension(100, 50));
+              confirmPasswordLabel.setFont(new ThemeFont().getSmallFont());
+              confirmPasswordLabel.setPreferredSize(new Dimension(100, 50));
 
-            confirmPasswordField.setFont(new ThemeFont().getSmallFont());
-            confirmPasswordField.setPreferredSize(new Dimension(150, 50));
+              confirmPasswordField.setFont(new ThemeFont().getSmallFont());
+              confirmPasswordField.setPreferredSize(new Dimension(150, 50));
 
-            cancelButton.setPreferredSize(new Dimension(100, 35));
-            registerButton.setPreferredSize(new Dimension(100, 35));
-            updateButton.setPreferredSize(new Dimension(300, 35));
-          } else {
-            initGroupContent();
-            initGroupLogo();
+              cancelButton.setPreferredSize(new Dimension(100, 35));
+              registerButton.setPreferredSize(new Dimension(100, 35));
+              updateButton.setPreferredSize(new Dimension(300, 35));
+            } else {
+              initGroupContent();
+              initGroupLogo();
+            }
+            revalidate();
+            repaint();
           }
-          revalidate();
-          repaint();
-        }
-      }
-    );
+        });
   }
 
   private void showError(String message) {
     JOptionPane.showMessageDialog(
-      null,
-      message,
-      "Error",
-      JOptionPane.ERROR_MESSAGE
-    );
+        null,
+        message,
+        "Error",
+        JOptionPane.ERROR_MESSAGE);
   }
 
   public void setInformations(int userId, String email, String phone) {
