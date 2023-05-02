@@ -7,7 +7,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 import com.bookstore.gui.theme.ThemeColor;
-import com.bookstore.gui.theme.ThemeFont;
 
 public class IconLabel extends JLabel {
     public IconLabel(String path) {
@@ -16,15 +15,15 @@ public class IconLabel extends JLabel {
 
     private void initComponents(String path) {
 
-        setIcon(new ImageIcon(path));
-        setLabelSize(100, 50);
-        setForeground(new ThemeColor().getButtonForeground());
-        setBorder(null);
-        setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        this.setIcon(new ImageIcon(path));
+        this.setLabelSize(20, 20);
+        this.setForeground(new ThemeColor().getButtonForeground());
+        this.setBorder(null);
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }
 
     public void setLabelSize(int width, int height) {
-        setPreferredSize(new Dimension(width, height));
+        this.setPreferredSize(new Dimension(width, height));
     }
 
 }

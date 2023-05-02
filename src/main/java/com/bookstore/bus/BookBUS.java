@@ -307,4 +307,10 @@ public class BookBUS implements IBUS<BookModel> {
       .findFirst();
     return optionalBook.isPresent();
   }
+
+  @Override
+  public void refreshData() {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'refreshData'");
+  }
 }

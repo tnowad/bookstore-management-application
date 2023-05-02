@@ -172,4 +172,10 @@ public class ImportItemsBUS implements IBUS<ImportItemsModel> {
 
     return results;
   }
+
+  @Override
+  public void refreshData() {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'refreshData'");
+  }
 }

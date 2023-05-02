@@ -11,5 +11,4 @@ public class BookDetail extends JFrame {
         }
         return instance;
     }
-
 }

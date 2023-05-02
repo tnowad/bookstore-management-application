@@ -136,8 +136,6 @@ public class AccountSettings extends JPanel {
     currentPasswordField.setText("");
     confirmNewPasswordField.setText("");
     newPasswordField.setText("");
-    // resetButton.setEnabled(false);
-    // updateButton.setEnabled(false);
   };
 
   private ActionListener toggleCurrentPasswordActionListener = e -> {

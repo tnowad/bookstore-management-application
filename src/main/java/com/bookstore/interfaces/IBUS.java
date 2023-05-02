@@ -3,13 +3,14 @@ package com.bookstore.interfaces;
 import java.util.List;
 
 public interface IBUS<T> {
-
   /**
    * Returns a list of all models.
    *
    * @return a list of all models
    */
   List<T> getAllModels();
+
+  void refreshData();
 
   /**
    * Returns the model with the given id.

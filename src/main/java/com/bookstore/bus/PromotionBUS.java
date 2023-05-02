@@ -255,4 +255,10 @@ public class PromotionBUS implements IBUS<PromotionModel> {
 
     return results;
   }
+
+  @Override
+  public void refreshData() {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'refreshData'");
+  }
 }
