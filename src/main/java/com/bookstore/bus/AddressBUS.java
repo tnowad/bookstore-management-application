@@ -183,4 +183,10 @@ public class AddressBUS implements IBUS<AddressModel> {
 
     return results;
   }
+
+  @Override
+  public void refreshData() {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'refreshData'");
+  }
 }

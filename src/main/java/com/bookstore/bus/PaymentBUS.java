@@ -210,4 +210,10 @@ public class PaymentBUS implements IBUS<PaymentModel> {
 
     return results;
   }
+
+  @Override
+  public void refreshData() {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'refreshData'");
+  }
 }

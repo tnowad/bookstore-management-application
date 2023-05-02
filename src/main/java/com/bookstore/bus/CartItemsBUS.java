@@ -156,4 +156,10 @@ public class CartItemsBUS implements IBUS<CartItemsModel> {
 
     return results;
   }
+
+  @Override
+  public void refreshData() {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'refreshData'");
+  }
 }

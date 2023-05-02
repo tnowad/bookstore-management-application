@@ -7,6 +7,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 
 public class DrawerMenuItem extends JPanel {
 
@@ -16,7 +17,6 @@ public class DrawerMenuItem extends JPanel {
     this.menuItemModel = menuItemModel;
     initComponents();
     addFirstButton();
-    // addSubMenuItems();
   }
 
   private void addFirstButton() {
@@ -33,7 +33,6 @@ public class DrawerMenuItem extends JPanel {
     firstButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
     firstButton.setMinimumSize(new Dimension(Integer.MAX_VALUE, 40));
     firstButton.setPreferredSize(new Dimension(Integer.MAX_VALUE, 40));
-
     add(firstButton);
   }
 
@@ -48,7 +47,7 @@ public class DrawerMenuItem extends JPanel {
 
       for (SubMenuItemModel subMenuItemModel : menuItemModel.getSubMenuItems()) {
         MenuButton subMenuItemButton = new MenuButton(
-          "   " + subMenuItemModel.getTitle()
+          "         " + subMenuItemModel.getTitle()
         );
         subMenuItemButton.setIcon(subMenuItemModel.getIcon());
         subMenuItemButton.addActionListener(

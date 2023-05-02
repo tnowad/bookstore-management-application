@@ -216,4 +216,10 @@ public class EmployeeBUS implements IBUS<EmployeeModel> {
 
     return results;
   }
+
+  @Override
+  public void refreshData() {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'refreshData'");
+  }
 }
