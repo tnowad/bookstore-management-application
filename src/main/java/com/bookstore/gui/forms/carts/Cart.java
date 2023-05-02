@@ -19,8 +19,8 @@ import com.bookstore.models.CartModel;
 import com.bookstore.models.UserModel;
 import com.bookstore.services.Authentication;
 
-public class CartPanel extends JPanel {
-  private static CartPanel instance;
+public class Cart extends JPanel {
+  private static Cart instance;
   private UserModel userModel;
   private CartBUS cartBUS;
   private CartModel cartModel;
@@ -31,16 +31,16 @@ public class CartPanel extends JPanel {
   private List<BookModel> bookList;
   private List<BookModel> myBookList;
 
-  private CartPanel() {
+  private Cart() {
     updateData();
     initComponents();
     listOrder();
     listCart();
   }
 
-  public static CartPanel getInstance() {
+  public static Cart getInstance() {
     if (instance == null) {
-      instance = new CartPanel();
+      instance = new Cart();
     }
     return instance;
   }

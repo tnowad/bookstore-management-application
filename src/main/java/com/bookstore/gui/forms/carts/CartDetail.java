@@ -5,18 +5,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
-public class CartItemPanel extends JPanel {
+public class CartDetail extends JPanel {
 
-    private static CartItemPanel instance;
+    private static CartDetail instance;
 
 
-  private CartItemPanel() {
+  private CartDetail() {
     initComponents();
   }
 
-  public static CartItemPanel getInstance() {
+  public static CartDetail getInstance() {
     if (instance == null) {
-      instance = new CartItemPanel();
+      instance = new CartDetail();
     }
     return instance; 
   }

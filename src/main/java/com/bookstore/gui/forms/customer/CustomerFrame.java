@@ -1,7 +1,7 @@
 package com.bookstore.gui.forms.customer;
 
 import com.bookstore.gui.components.buttons.Button;
-import com.bookstore.gui.forms.carts.CartPanel;
+import com.bookstore.gui.forms.carts.Cart;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import java.awt.*;
 import javax.swing.*;
@@ -35,7 +35,7 @@ public class CustomerFrame extends JFrame {
 
     cartButton.addActionListener(e -> {
       contentPanel.removeAll();
-      contentPanel.add(CartPanel.getInstance());
+      contentPanel.add(Cart.getInstance());
       contentPanel.revalidate();
       contentPanel.repaint();
     });
