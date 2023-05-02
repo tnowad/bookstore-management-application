@@ -10,13 +10,13 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class Header extends JPanel {
+public class HeaderPanel extends JPanel {
 
-  private static Header instance = null;
+  private static HeaderPanel instance = null;
 
-  public static Header getInstance() {
+  public static HeaderPanel getInstance() {
     if (instance == null) {
-      instance = new Header();
+      instance = new HeaderPanel();
     }
     return instance;
   }
@@ -25,9 +25,11 @@ public class Header extends JPanel {
   private JButton toggleMenuButton;
   private SearchTextField searchTextField;
 
-  public Header() {
+  public HeaderPanel() {
     initComponents();
     setOpaque(false);
+
+    HeaderPanel.instance = this;
   }
 
   private void initComponents() {

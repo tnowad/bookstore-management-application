@@ -1,4 +1,4 @@
-package com.bookstore.gui.components.menus;
+package com.bookstore.gui.components.buttons;
 
 import java.awt.Color;
 import javax.swing.JButton;

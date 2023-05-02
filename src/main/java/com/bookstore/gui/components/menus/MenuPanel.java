@@ -68,4 +68,8 @@ public class MenuPanel extends JPanel {
     MenuItemPanel drawerMenuItem = new MenuItemPanel(menuItemModel);
     menuItemsPanel.add(drawerMenuItem);
   }
+
+  public static void updateInstance(MenuPanel menuPanel) {
+    MenuPanel.instance = menuPanel;
+  }
 }

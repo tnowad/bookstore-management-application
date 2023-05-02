@@ -2,9 +2,7 @@ package com.bookstore.gui.factories;
 
 import com.bookstore.bus.EmployeeBUS;
 import com.bookstore.enums.UserRole;
-import com.bookstore.gui.components.headers.Header;
 import com.bookstore.gui.components.menus.MenuPanel;
-import com.bookstore.gui.components.panels.MainPanel;
 import com.bookstore.gui.main.MainUI;
 import com.bookstore.models.MenuModel;
 import com.bookstore.models.UserModel;
@@ -24,13 +22,8 @@ public class UIFactory {
 
     MenuModel menuModel = MenuFactory.getMenu(user);
 
-    MenuPanel drawerMenu = new MenuPanel(menuModel);
-
-    MainPanel mainPanel = MainPanel.getInstance();
-
-    Header headerDashboard = new Header();
-    MainUI mainUI = new MainUI(drawerMenu, mainPanel, headerDashboard);
-
-    mainUI.setVisible(true);
+    MenuPanel.updateInstance(new MenuPanel(menuModel));
+    MainUI.destroyInstance();
+    MainUI.getInstance().setVisible(true);
   }
 }
