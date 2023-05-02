@@ -13,16 +13,24 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 public class ImportList extends JPanel {
+  private static ImportList instance;
 
   ImportBUS importBus = ImportBUS.getInstance();
   ProviderBUS providerBus = ProviderBUS.getInstance();
   List<ImportModel> importList = importBus.getAllModels();
   List<ProviderModel> providerList = providerBus.getAllModels();
 
-  public ImportList() {
+  private ImportList() {
     initComponents();
     listImport();
     searh();
+  }
+
+  public static ImportList getInstance() {
+    if (instance == null) {
+      instance = new ImportList();
+    }
+    return instance;
   }
 
   private void initComponents() {

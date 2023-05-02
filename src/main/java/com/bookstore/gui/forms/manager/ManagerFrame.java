@@ -200,7 +200,7 @@ public class ManagerFrame extends JFrame {
           @Override
           public void actionPerformed(ActionEvent e) {
             grContent.removeAll();
-            grContent.add(new ImportList());
+            grContent.add(ImportList.getInstance());
             grContent.revalidate();
             grContent.repaint();
           }
