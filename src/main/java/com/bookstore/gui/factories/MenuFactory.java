@@ -78,7 +78,7 @@ public class MenuFactory {
                                 "List Book",
                                 new ImageIcon(""),
                                 showBookListAdmin));
-                        
+
                       }
                     }));
           }
@@ -135,7 +135,6 @@ public class MenuFactory {
                                 "Checkout",
                                 new ImageIcon(""),
                                 showCheckoutCustomer));
-                        // my order
                         add(
                             new SubMenuItemModel(
                                 "My Order",
