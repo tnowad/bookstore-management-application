@@ -3,8 +3,10 @@ package com.bookstore.gui.main;
 import com.bookstore.gui.components.headers.HeaderDashboard;
 import com.bookstore.gui.components.menus.DrawerMenu;
 import com.bookstore.gui.components.panels.MainPanel;
+import java.awt.BorderLayout;
 import java.awt.LayoutManager;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 public class MainUI extends JFrame {
 
@@ -18,18 +20,21 @@ public class MainUI extends JFrame {
 
   public static MainUI getInstance() {
     if (instance == null) {
-      instance = new MainUI(
+      instance =
+        new MainUI(
           DrawerMenu.getInstance(),
           MainPanel.getInstance(),
-          HeaderDashboard.getInstance());
+          HeaderDashboard.getInstance()
+        );
     }
     return instance;
   }
 
   public MainUI(
-      DrawerMenu drawerMenu,
-      MainPanel mainPanel,
-      HeaderDashboard headerDashboard) {
+    DrawerMenu drawerMenu,
+    MainPanel mainPanel,
+    HeaderDashboard headerDashboard
+  ) {
     this.drawerMenu = drawerMenu;
     this.mainPanel = mainPanel;
     this.headerDashboard = headerDashboard;
@@ -39,10 +44,13 @@ public class MainUI extends JFrame {
   }
 
   private void initComponents() {
-    layout = new java.awt.BorderLayout();
+    layout = new BorderLayout();
     setLayout(layout);
-    add(drawerMenu, java.awt.BorderLayout.LINE_START);
-    add(mainPanel, java.awt.BorderLayout.CENTER);
-    add(headerDashboard, java.awt.BorderLayout.PAGE_START);
+    add(drawerMenu, BorderLayout.LINE_START);
+
+    JPanel mainPanelWrapper = new JPanel(new BorderLayout());
+    mainPanelWrapper.add(headerDashboard, BorderLayout.PAGE_START);
+    mainPanelWrapper.add(mainPanel, BorderLayout.CENTER);
+    add(mainPanelWrapper, BorderLayout.CENTER);
   }
 }
