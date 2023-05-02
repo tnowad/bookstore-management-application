@@ -44,6 +44,7 @@ public class DrawerMenuItem extends JPanel {
         new BoxLayout(subMenuItemsPanel, BoxLayout.Y_AXIS)
       );
       subMenuItemsPanel.setBackground(Color.decode("#3B70C1"));
+      subMenuItemsPanel.setOpaque(false);
 
       for (SubMenuItemModel subMenuItemModel : menuItemModel.getSubMenuItems()) {
         MenuButton subMenuItemButton = new MenuButton(

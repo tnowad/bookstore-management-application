@@ -10,7 +10,7 @@ public class LoadGuiRunnable implements Runnable {
   public void run() {
     LoginUI.getInstance().setVisible(true);
     try {
-      UIFactory.showForm(UserBUS.getInstance().login("customer1", "password"));
+      UIFactory.showForm(UserBUS.getInstance().login("customer1", "$password"));
     } catch (Exception e) {
       e.printStackTrace();
     }
