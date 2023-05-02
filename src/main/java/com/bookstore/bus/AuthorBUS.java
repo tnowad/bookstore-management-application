@@ -178,7 +178,7 @@ public class AuthorBUS implements IBUS<AuthorModel> {
 
   @Override
   public void refreshData() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'refreshData'");
+    authorList.clear();
+    authorList.addAll(AuthorDAO.getInstance().readDatabase());
   }
 }

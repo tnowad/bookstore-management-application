@@ -1,7 +1,6 @@
 package com.bookstore.gui.components.books;
 
 import com.bookstore.bus.BookBUS;
-import com.bookstore.gui.components.publisherAndAuthor.AddPublisherAndAuthor;
 import com.bookstore.models.BookModel;
 import com.bookstore.util.Excel.BookExcelUtil;
 /**
@@ -176,8 +175,9 @@ public class BrowseProductPanel extends JPanel {
   }
 
   public void actionAdd() {
-    AddPublisherAndAuthor addPublisherAndAuthor = new AddPublisherAndAuthor();
-    addPublisherAndAuthor.setVisible(true);
+    AddProductFrame addProductFrame = new AddProductFrame();
+    addProductFrame.setVisible(true);
+    
   }
 
   public void actionExport() {
