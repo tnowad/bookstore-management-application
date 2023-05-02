@@ -12,6 +12,8 @@ import com.bookstore.gui.forms.customer.Checkout;
 import com.bookstore.gui.forms.customer.Discovery;
 import com.bookstore.gui.forms.customer.HomeCustomer;
 import com.bookstore.gui.forms.customer.Order;
+import com.bookstore.gui.forms.general.AboutUs;
+import com.bookstore.gui.forms.general.ContactUs;
 import com.bookstore.gui.forms.imports.ImportList;
 import com.bookstore.gui.forms.orders.OrderList;
 import com.bookstore.gui.forms.users.CustomerList;
@@ -216,6 +218,9 @@ public class MenuFactory {
                     add(new SubMenuItemModel("My account", new ImageIcon(""), showAccount));
                   }
                 }));
+            add(new MenuItemModel("Contact us", new ImageIcon(""), showContact));
+            add(new MenuItemModel("About us", new ImageIcon(""), showAboutUs));
+            add(new MenuItemModel("Logout", new ImageIcon(""), new LogoutActionListener(), null));
           }
         });
   }
@@ -245,6 +250,9 @@ public class MenuFactory {
                     add(new SubMenuItemModel("My account", new ImageIcon(""), showAccount));
                   }
                 }));
+            add(new MenuItemModel("Contact us", new ImageIcon(""), showContact));
+            add(new MenuItemModel("About us", new ImageIcon(""), showAboutUs));
+            add(new MenuItemModel("Logout", new ImageIcon(""), new LogoutActionListener(), null));
           }
         });
   }
@@ -300,6 +308,12 @@ public class MenuFactory {
   };
   private static ActionListener showAccount = e -> {
     MainPanel.getInstance().showForm(AccountSettings.getInstance());
+  };
+  private static ActionListener showContact = e -> {
+    MainPanel.getInstance().showForm(ContactUs.getInstance());
+  };
+  private static ActionListener showAboutUs = e -> {
+    MainPanel.getInstance().showForm(AboutUs.getInstance());
   };
 
 }
