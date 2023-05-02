@@ -8,6 +8,8 @@ package com.bookstore.gui.components.menus;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JPanel;
 
 import com.bookstore.gui.components.books.BrowseProductPanel;
@@ -75,18 +77,50 @@ public class MenuAdmin extends javax.swing.JPanel {
         contendMenu.setLayout(new java.awt.GridLayout(15, 1, 10, 10));
 
         buttonDashboard.setText("Dashboard");
+        buttonDashboard.addActionListener(new ActionListener() {
+
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            actionMenu(e);
+          }
+          
+        });
         contendMenu.add(buttonDashboard);
 
         buttonRepository.setText("Repository");
         contendMenu.add(buttonRepository);
 
         buttonListBook.setText("List Book");
+        buttonListBook.addActionListener(new ActionListener() {
+
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            actionMenu(e);
+          }
+          
+        });
         contendMenu.add(buttonListBook);
 
         buttonListUser.setText("List User");
+        buttonListUser.addActionListener(new ActionListener() {
+
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            actionMenu(e);
+          }
+          
+        });
         contendMenu.add(buttonListUser);
 
         buttonListOrder.setText("List Order");
+        buttonListOrder.addActionListener(new ActionListener() {
+
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            actionMenu(e);
+          }
+          
+        });
         contendMenu.add(buttonListOrder);
 
         scrollPane.setViewportView(contendMenu);
@@ -95,6 +129,7 @@ public class MenuAdmin extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
   public void actionMenu(ActionEvent e) {
+    panel = new javax.swing.JPanel();
     panel.setLayout(new BorderLayout());
     switch (e.getActionCommand().toString()) {
         case "Dashboard":

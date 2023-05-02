@@ -215,7 +215,7 @@ public class PopupUserFrame extends javax.swing.JFrame {
 
     buttonBack.setIcon(
       new javax.swing.ImageIcon(
-        getClass().getResource("/resources/images/back.png")
+        getClass().getResource("/resources/icons/back.png")
       )
     ); // NOI18N
     buttonBack.setPreferredSize(new java.awt.Dimension(70, 23));
@@ -223,7 +223,7 @@ public class PopupUserFrame extends javax.swing.JFrame {
 
     buttonSave.setIcon(
       new javax.swing.ImageIcon(
-        getClass().getResource("/resources/images/save.png")
+        getClass().getResource("/resources/icons/save.png")
       )
     ); // NOI18N
     buttonSave.setPreferredSize(new java.awt.Dimension(70, 23));

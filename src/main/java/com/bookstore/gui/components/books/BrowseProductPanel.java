@@ -177,6 +177,7 @@ public class BrowseProductPanel extends JPanel {
   public void actionAdd() {
     AddProductFrame addProductFrame = new AddProductFrame();
     addProductFrame.setVisible(true);
+    
   }
 
   public void actionExport() {

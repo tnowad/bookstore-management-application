@@ -8,6 +8,9 @@ import com.bookstore.models.AuthorModel;
 import com.bookstore.models.BookModel;
 import com.bookstore.models.PublisherModel;
 import com.bookstore.util.image.ImageUtils;
+
+import java.awt.Toolkit;
+import java.awt.datatransfer.StringSelection;
 import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
@@ -105,7 +108,7 @@ public class AddProductFrame extends javax.swing.JFrame {
     publisherText.setPreferredSize(new java.awt.Dimension(160, 16));
     getContentPane().add(publisherText);
 
-    setPublisherId.setPreferredSize(new java.awt.Dimension(140, 22));
+    setPublisherId.setPreferredSize(new java.awt.Dimension(60, 22));
     setPublisherId.addFocusListener(
       new FocusListener() {
         @Override
@@ -119,7 +122,7 @@ public class AddProductFrame extends javax.swing.JFrame {
     );
     getContentPane().add(setPublisherId);
 
-    setPublisherName.setPreferredSize(new java.awt.Dimension(200, 22));
+    setPublisherName.setPreferredSize(new java.awt.Dimension(260, 22));
     setPublisherName.addFocusListener(
       new FocusListener() {
         @Override
@@ -138,7 +141,7 @@ public class AddProductFrame extends javax.swing.JFrame {
     authorText.setPreferredSize(new java.awt.Dimension(160, 16));
     getContentPane().add(authorText);
 
-    setAuthorId.setPreferredSize(new java.awt.Dimension(140, 22));
+    setAuthorId.setPreferredSize(new java.awt.Dimension(60, 22));
     setAuthorId.addFocusListener(
       new FocusListener() {
         @Override
@@ -152,7 +155,7 @@ public class AddProductFrame extends javax.swing.JFrame {
     );
     getContentPane().add(setAuthorId);
 
-    setAuthorName.setPreferredSize(new java.awt.Dimension(200, 22));
+    setAuthorName.setPreferredSize(new java.awt.Dimension(260, 22));
     setAuthorName.addFocusListener(
       new FocusListener() {
         @Override
@@ -269,18 +272,21 @@ public class AddProductFrame extends javax.swing.JFrame {
       String base64 = null;
       try {
         base64 = ImageUtils.toBase64(ImageUtils.loadImage(filePath));
+        Toolkit
+            .getDefaultToolkit()
+            .getSystemClipboard()
+            .setContents(new StringSelection(base64), null);
+        stringImage = base64;
       } catch (IOException e) {
         e.printStackTrace();
       }
-
       return base64;
-      
+
     }
     return null;
   }
 
-  // TODO: The function works but it doesn't update on GUI, need a fix, also need
-  // TODO: a proper Logic Error check.
+
   public void checkPublisherId() {
     if (
       PublisherBUS
@@ -365,7 +371,6 @@ public class AddProductFrame extends javax.swing.JFrame {
     final String EMPTY_FIELD_ERROR = " cannot be empty!";
     final String INVALID_PRICE_ERROR = "Price is not valid!";
     final String INVALID_QUANTITY_ERROR = "Quantity is not valid!";
-    final String INVALID_ID_ERROR = "Id is not valid!";
     final String DUPLICATE_ISBN_ERROR = "Isbn already exists!";
     final String DUPLICATE_TITLE_ERROR = "Title already exists!";
 
@@ -398,20 +403,6 @@ public class AddProductFrame extends javax.swing.JFrame {
       JOptionPane.showMessageDialog(null, INVALID_QUANTITY_ERROR);
       return;
     }
-
-    // try {
-    //     Integer.parseInt(setPublisherId.getText().trim());
-    // } catch (NumberFormatException e) {
-    //     JOptionPane.showMessageDialog(null, "Publisher " + INVALID_ID_ERROR);
-    //     return;
-    // }
-
-    // try {
-    //     Integer.parseInt(setAuthorId.getText().trim());
-    // } catch (NumberFormatException e) {
-    //     JOptionPane.showMessageDialog(null, "Author " + INVALID_ID_ERROR);
-    //     return;
-    // }
 
     if (setPublisherName.getText().trim().isEmpty()) {
       JOptionPane.showMessageDialog(null, "Publisher Name" + EMPTY_FIELD_ERROR);
@@ -458,14 +449,8 @@ public class AddProductFrame extends javax.swing.JFrame {
           "description ?"
         );
         PublisherBUS.getInstance().addModel(publisherModel);
-        setPublisherId.setText(
-          String.valueOf(
-            PublisherBUS
-              .getInstance()
-              .getModelByPublisherName(setPublisherName.getText().trim())
-              .getId()
-          )
-        );
+        PublisherBUS.getInstance().refreshData();
+        
       } else {
         return;
       }
@@ -482,14 +467,7 @@ public class AddProductFrame extends javax.swing.JFrame {
           "description ?"
         );
         AuthorBUS.getInstance().addModel(authorModel);
-        setAuthorId.setText(
-          String.valueOf(
-            AuthorBUS
-              .getInstance()
-              .getModelByAuthorName(setAuthorName.getText().trim())
-              .getId()
-          )
-        );
+        AuthorBUS.getInstance().refreshData();
       } else {
         return;
       }
@@ -502,7 +480,7 @@ public class AddProductFrame extends javax.swing.JFrame {
     book.setIsbn(setIsbn.getText());
     book.setTitle(setTitle.getText());
     book.setDescription(setDescription.getText());
-    book.setImage(setImageLink.getText());
+    book.setImage(stringImage);
     book.setPrice(Integer.parseInt(setPrice.getText().trim()));
     book.setQuantity(Integer.parseInt(setQuantity.getText().trim()));
     book.setStatus(newStatus);
@@ -527,6 +505,8 @@ public class AddProductFrame extends javax.swing.JFrame {
    */
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
+  private String stringImage;
+
   private javax.swing.JLabel authorText;
   private javax.swing.JButton buttonBack;
   private javax.swing.JPanel buttonPanel;
