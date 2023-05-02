@@ -6,7 +6,6 @@ import com.bookstore.gui.components.buttons.Button;
 import com.bookstore.gui.components.dialogs.Dialog;
 import com.bookstore.gui.components.labels.Label;
 import com.bookstore.models.OrderModel;
-
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -14,6 +13,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 public class OrderList extends JPanel {
+
   private static OrderList instance;
 
   OrderBUS orderBus = OrderBUS.getInstance();
@@ -34,21 +34,23 @@ public class OrderList extends JPanel {
 
   private void handleEvent() {
     orderTableList
-        .getSelectionModel()
-        .addListSelectionListener(
-            new ListSelectionListener() {
-              public void valueChanged(ListSelectionEvent event) {
-                int selectedRowIndex = orderTableList.getSelectedRow();
-                if (selectedRowIndex != -1) {
-                  int customerId = Integer.parseInt(
-                      orderTableList.getValueAt(selectedRowIndex, 2).toString());
-                  new Dialog(OrderDetail.getInstance(customerId));
-                  listOrder();
-                } else {
-                  System.out.println("Don't know how to handle this order");
-                }
-              }
-            });
+      .getSelectionModel()
+      .addListSelectionListener(
+        new ListSelectionListener() {
+          public void valueChanged(ListSelectionEvent event) {
+            int selectedRowIndex = orderTableList.getSelectedRow();
+            if (selectedRowIndex != -1) {
+              int customerId = Integer.parseInt(
+                orderTableList.getValueAt(selectedRowIndex, 2).toString()
+              );
+              new Dialog(OrderDetail.getInstance(customerId));
+              listOrder();
+            } else {
+              System.out.println("Don't know how to handle this order");
+            }
+          }
+        }
+      );
   }
 
   private void listOrder() {
@@ -64,15 +66,16 @@ public class OrderList extends JPanel {
     for (OrderModel orderModel : orderList) {
       if (orderModel.getStatus() == OrderStatus.PENDING) {
         model.addRow(
-            new Object[] {
-                orderModel.getId(),
-                orderModel.getCartId(),
-                orderModel.getCustomerId(),
-                orderModel.getEmployeeId(),
-                orderModel.getTotal(),
-                orderModel.getPaid(),
-                orderModel.getStatus(),
-            });
+          new Object[] {
+            orderModel.getId(),
+            orderModel.getCartId(),
+            orderModel.getCustomerId(),
+            orderModel.getEmployeeId(),
+            orderModel.getTotal(),
+            orderModel.getPaid(),
+            orderModel.getStatus(),
+          }
+        );
       }
       orderTableList.setModel(model);
     }
@@ -80,9 +83,9 @@ public class OrderList extends JPanel {
 
     // orderListPanel.add(scrollPaneChild, java.awt.BorderLayout.CENTER);
 
-    scrollPaneParrent.setViewportView(orderTableList);
+    scrollPaneParent.setViewportView(orderTableList);
 
-    add(scrollPaneParrent, java.awt.BorderLayout.CENTER);
+    add(scrollPaneParent, java.awt.BorderLayout.CENTER);
   }
 
   private void initComponents() {
@@ -90,9 +93,9 @@ public class OrderList extends JPanel {
     orderLabel = new Label("Order");
     searchTextField = new TextField();
     searchButton = new Button("Search");
-    scrollPaneParrent = new JScrollPane();
-    orderListPanel = new JPanel();
-    scrollPaneChild = new JScrollPane();
+    scrollPaneParent = new JScrollPane();
+    // orderListPanel = new JPanel();
+    // scrollPaneChild = new JScrollPane();
     orderTableList = new JTable();
 
     setMinimumSize(new Dimension(1180, 620));
@@ -111,22 +114,19 @@ public class OrderList extends JPanel {
 
     add(headerPanel, BorderLayout.PAGE_START);
     // orderListPanel.setLayout(new BorderLayout());
-
-    // scrollPaneChild.setViewportView(orderTableList);
-
     // orderListPanel.add(scrollPaneChild, BorderLayout.CENTER);
 
-    // scrollPaneParrent.setViewportView(orderListPanel);
+    // scrollPaneParent.setViewportView(orderListPanel);
 
-    // add(scrollPaneParrent, BorderLayout.CENTER);
+    // add(scrollPaneParent, BorderLayout.CENTER);
   }
 
   private JPanel headerPanel;
   private Label orderLabel;
-  private JPanel orderListPanel;
+  // private JPanel orderListPanel;
   private JTable orderTableList;
-  private JScrollPane scrollPaneChild;
-  private JScrollPane scrollPaneParrent;
+  // private JScrollPane scrollPaneChild;
+  private JScrollPane scrollPaneParent;
   private Button searchButton;
   private TextField searchTextField;
 }
