@@ -7,13 +7,12 @@ import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 
-public class DrawerMenuItem extends JPanel {
+public class MenuItemPanel extends JPanel {
 
   private MenuItemModel menuItemModel;
 
-  public DrawerMenuItem(MenuItemModel menuItemModel) {
+  public MenuItemPanel(MenuItemModel menuItemModel) {
     this.menuItemModel = menuItemModel;
     initComponents();
     addFirstButton();

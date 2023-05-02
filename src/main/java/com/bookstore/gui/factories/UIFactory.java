@@ -3,7 +3,7 @@ package com.bookstore.gui.factories;
 import com.bookstore.bus.EmployeeBUS;
 import com.bookstore.enums.UserRole;
 import com.bookstore.gui.components.headers.Header;
-import com.bookstore.gui.components.menus.DrawerMenu;
+import com.bookstore.gui.components.menus.MenuPanel;
 import com.bookstore.gui.components.panels.MainPanel;
 import com.bookstore.gui.main.MainUI;
 import com.bookstore.models.MenuModel;
@@ -24,7 +24,7 @@ public class UIFactory {
 
     MenuModel menuModel = MenuFactory.getMenu(user);
 
-    DrawerMenu drawerMenu = new DrawerMenu(menuModel);
+    MenuPanel drawerMenu = new MenuPanel(menuModel);
 
     MainPanel mainPanel = MainPanel.getInstance();
 
