@@ -10,37 +10,29 @@ import com.bookstore.enums.UserRole;
 import com.bookstore.enums.UserStatus;
 import com.bookstore.models.AddressModel;
 import com.bookstore.models.UserModel;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Timestamp;
 import java.time.*;
-import javax.lang.model.element.Name;
 import javax.swing.*;
 
-/**
- *
- * @author yanti
- */
 public class PopupUserFrame extends javax.swing.JFrame {
 
-  /**
-   * Creates new form UserFullForm
-   */
   public PopupUserFrame(
-    int idUser,
-    String userName,
-    String password,
-    UserStatus status,
-    String name,
-    String email,
-    String phone,
-    UserRole role,
-    LocalDateTime dateCreate,
-    LocalDateTime dateUpdate
-  ) {
-    initComponents();
+      int idUser,
+      String userName,
+      String password,
+      UserStatus status,
+      String name,
+      String email,
+      String phone,
+      UserRole role,
+      LocalDateTime dateCreate,
+      LocalDateTime dateUpdate) {
+    initComponents(idUser, userName, password, status, name, email, phone, role, dateCreate, dateUpdate);
     setStatus(status);
     setRole(role);
+    setAddress(idUser);
     setTitle("User");
     setLocationRelativeTo(null);
     setResizable(false);
@@ -54,8 +46,18 @@ public class PopupUserFrame extends javax.swing.JFrame {
    */
   @SuppressWarnings("unchecked")
   // <editor-fold defaultstate="collapsed" desc="Generated
-  // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-  private void initComponents() {
+  // <editor-fold defaultstate="collapsed" desc="Generated
+  // Code">//GEN-BEGIN:initComponents
+  private void initComponents(int idUser,
+      String userName,
+      String password,
+      UserStatus status,
+      String name,
+      String email,
+      String phone,
+      UserRole role,
+      LocalDateTime dateCreate,
+      LocalDateTime dateUpdate) {
     setName = new javax.swing.JTextField();
     idText = new javax.swing.JLabel();
     setId = new javax.swing.JTextField();
@@ -81,13 +83,13 @@ public class PopupUserFrame extends javax.swing.JFrame {
 
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
     setMinimumSize(new java.awt.Dimension(610, 26));
-    setSize(new java.awt.Dimension(0, 0));
+    setPreferredSize(new java.awt.Dimension(610, 410));
     getContentPane()
-      .setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 10));
+        .setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 10));
 
     setName.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
     setName.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-    setName.setText("name");
+    setName.setText(name);
     setName.setMaximumSize(new java.awt.Dimension(642, 26));
     setName.setMinimumSize(new java.awt.Dimension(642, 26));
     setName.setPreferredSize(new java.awt.Dimension(578, 26));
@@ -102,7 +104,7 @@ public class PopupUserFrame extends javax.swing.JFrame {
     setId.setEditable(false);
     setId.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
     setId.setForeground(new java.awt.Color(255, 51, 51));
-    setId.setText("id");
+    setId.setText("" + idUser);
     setId.setPreferredSize(new java.awt.Dimension(180, 31));
     getContentPane().add(setId);
 
@@ -115,7 +117,7 @@ public class PopupUserFrame extends javax.swing.JFrame {
     setUserName.setEditable(false);
     setUserName.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
     setUserName.setForeground(new java.awt.Color(51, 204, 255));
-    setUserName.setText("id");
+    setUserName.setText("" + userName);
     setUserName.setPreferredSize(new java.awt.Dimension(140, 31));
     getContentPane().add(setUserName);
 
@@ -127,7 +129,6 @@ public class PopupUserFrame extends javax.swing.JFrame {
 
     setAddress.setEditable(false);
     setAddress.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-    setAddress.setText("256 An duong vuong");
     setAddress.setPreferredSize(new java.awt.Dimension(280, 31));
     getContentPane().add(setAddress);
 
@@ -139,7 +140,7 @@ public class PopupUserFrame extends javax.swing.JFrame {
 
     setPhone.setEditable(false);
     setPhone.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-    setPhone.setText("phone");
+    setPhone.setText(phone);
     setPhone.setPreferredSize(new java.awt.Dimension(200, 31));
     getContentPane().add(setPhone);
 
@@ -151,8 +152,7 @@ public class PopupUserFrame extends javax.swing.JFrame {
 
     setEmail.setEditable(false);
     setEmail.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-    setEmail.setText("email");
-    setEmail.setToolTipText("");
+    setEmail.setText(email);
     setEmail.setPreferredSize(new java.awt.Dimension(200, 31));
     getContentPane().add(setEmail);
 
@@ -163,10 +163,8 @@ public class PopupUserFrame extends javax.swing.JFrame {
     getContentPane().add(statusText);
 
     setStatus.setModel(
-      new javax.swing.DefaultComboBoxModel<>(
-        new String[] { "INACTIVE", "ACTIVE" }
-      )
-    );
+        new javax.swing.DefaultComboBoxModel<>(
+            new String[] { "INACTIVE", "ACTIVE" }));
     setStatus.setPreferredSize(new java.awt.Dimension(90, 25));
     getContentPane().add(setStatus);
 
@@ -177,10 +175,8 @@ public class PopupUserFrame extends javax.swing.JFrame {
     getContentPane().add(roleText);
 
     setRole.setModel(
-      new javax.swing.DefaultComboBoxModel<>(
-        new String[] { "ADMIN", "CUSTOMER", "EMPLOYEE" }
-      )
-    );
+        new javax.swing.DefaultComboBoxModel<>(
+            new String[] { "ADMIN", "CUSTOMER", "EMPLOYEE" }));
     setRole.setPreferredSize(new java.awt.Dimension(95, 25));
     getContentPane().add(setRole);
 
@@ -192,7 +188,7 @@ public class PopupUserFrame extends javax.swing.JFrame {
 
     getDateCreated.setEditable(false);
     getDateCreated.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-    getDateCreated.setText("ok");
+    getDateCreated.setText("" + dateCreate);
     getDateCreated.setPreferredSize(new java.awt.Dimension(200, 31));
     getContentPane().add(getDateCreated);
 
@@ -204,40 +200,41 @@ public class PopupUserFrame extends javax.swing.JFrame {
 
     setDateUpdated.setEditable(false);
     setDateUpdated.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-    setDateUpdated.setText("ok");
+    setDateUpdated.setText("" + dateUpdate);
     setDateUpdated.setPreferredSize(new java.awt.Dimension(200, 31));
     getContentPane().add(setDateUpdated);
 
     buttonPanel.setPreferredSize(new java.awt.Dimension(570, 30));
     buttonPanel.setLayout(
-      new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 25, 5)
-    );
+        new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 25, 5));
 
     buttonBack.setIcon(
-      new javax.swing.ImageIcon(
-        getClass().getResource("/resources/icons/back.png")
-      )
-    ); // NOI18N
+        new javax.swing.ImageIcon(
+            getClass().getResource("/resources/icons/back.png"))); // NOI18N
     buttonBack.setPreferredSize(new java.awt.Dimension(70, 23));
+    buttonBack.addActionListener(actionBack);
     buttonPanel.add(buttonBack);
 
     buttonSave.setIcon(
-      new javax.swing.ImageIcon(
-        getClass().getResource("/resources/icons/save.png")
-      )
-    ); // NOI18N
+        new javax.swing.ImageIcon(
+            getClass().getResource("/resources/icons/save.png"))); // NOI18N
     buttonSave.setPreferredSize(new java.awt.Dimension(70, 23));
-    buttonSave.addActionListener(
-      new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {}
-      }
-    );
+    buttonSave.addActionListener(actionSave);
     buttonPanel.add(buttonSave);
 
     getContentPane().add(buttonPanel);
 
     pack();
-  } // </editor-fold>//GEN-END:initComponents
+  }
+
+  public void setAddress(int idUser) {
+    AddressModel addressModel = AddressBUS.getInstance().getModelById(idUser);
+    if (addressModel != null) {
+      setAddress.setText(addressModel.getStreet() + " " + addressModel.getCity());
+      return;
+    }
+    setAddress.setText("address is null");
+  }
 
   public void setStatus(UserStatus status) {
     int index = -1;
@@ -268,43 +265,8 @@ public class PopupUserFrame extends javax.swing.JFrame {
     setRole.setSelectedIndex(index);
   }
 
-  public void actionSave(
-    int idUser,
-    String userName,
-    String password,
-    LocalDateTime dateCreate
-  ) {
-    Object selectedStatusItem = setStatus.getSelectedItem();
-    Object selectedRoleItem = setRole.getSelectedItem();
-    if (selectedStatusItem != null && selectedRoleItem != null) {
-      String statusString = selectedStatusItem.toString().toUpperCase();
-      UserStatus newStatus = UserStatus.valueOf(statusString);
-      String roleString = selectedRoleItem.toString().toUpperCase();
-      UserRole newRole = UserRole.valueOf(roleString);
+  public void actionSave() {
 
-      LocalDateTime timeNow = LocalDateTime.now();
-      UserModel newUser = new UserModel(
-        idUser,
-        userName,
-        password,
-        newStatus,
-        setName.getText(),
-        setEmail.getText(),
-        setPhone.getText(),
-        dateCreate,
-        timeNow,
-        newRole
-      );
-      int confirm = JOptionPane.showConfirmDialog(
-        null,
-        "Do you want to continue?",
-        "Confirmation",
-        JOptionPane.YES_NO_OPTION
-      );
-      if (confirm == JOptionPane.YES_OPTION) {
-        UserBUS.getInstance().updateModel(newUser);
-      }
-    }
   }
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -330,5 +292,49 @@ public class PopupUserFrame extends javax.swing.JFrame {
   private javax.swing.JTextField setUserName;
   private javax.swing.JLabel statusText;
   private javax.swing.JLabel userNameText;
-  // End of variables declaration//GEN-END:variables
+  // End of variables declaration//GEN-END:variables\
+
+  public ActionListener actionBack = new ActionListener() {
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+      JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(buttonBack);
+            frame.dispose();
+    }
+  };
+  public ActionListener actionSave = new ActionListener() {
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+      Object selectedStatusItem = setStatus.getSelectedItem();
+      Object selectedRoleItem = setRole.getSelectedItem();
+      if (selectedStatusItem != null && selectedRoleItem != null) {
+        String statusString = selectedStatusItem.toString().toUpperCase();
+        UserStatus newStatus = UserStatus.valueOf(statusString);
+        String roleString = selectedRoleItem.toString().toUpperCase();
+        UserRole newRole = UserRole.valueOf(roleString);
+
+        LocalDateTime timeNow = LocalDateTime.now();
+        UserModel newUser = new UserModel(
+            Integer.valueOf(setId.getText().trim()),
+            setUserName.getText().trim(),
+            UserBUS.getInstance().getModelByUsername(setUserName.getText().trim()).getPassword(),
+            newStatus,
+            setName.getText(),
+            setEmail.getText(),
+            setPhone.getText(),
+            UserBUS.getInstance().getModelByUsername(setUserName.getText().trim()).getUpdatedAt(),
+            timeNow,
+            newRole);
+        int confirm = JOptionPane.showConfirmDialog(
+            null,
+            "Do you want to continue?",
+            "Confirmation",
+            JOptionPane.YES_NO_OPTION);
+        if (confirm == JOptionPane.YES_OPTION) {
+          UserBUS.getInstance().updateModel(newUser);
+        }
+      }
+    };
+  };
 }
