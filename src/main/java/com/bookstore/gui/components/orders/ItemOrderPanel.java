@@ -4,9 +4,7 @@
  */
 package com.bookstore.gui.components.orders;
 
-import com.bookstore.bus.UserBUS;
 import com.bookstore.enums.OrderStatus;
-import com.bookstore.models.UserModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
