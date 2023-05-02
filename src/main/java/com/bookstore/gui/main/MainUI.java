@@ -5,6 +5,8 @@ import com.bookstore.gui.components.menus.DrawerMenu;
 import com.bookstore.gui.components.panels.MainPanel;
 import java.awt.BorderLayout;
 import java.awt.LayoutManager;
+import java.util.Timer;
+import java.util.TimerTask;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -41,6 +43,9 @@ public class MainUI extends JFrame {
     initComponents();
     pack();
     setLocationRelativeTo(null);
+  }
+
+  public void toggleMenu() {
   }
 
   private void initComponents() {
