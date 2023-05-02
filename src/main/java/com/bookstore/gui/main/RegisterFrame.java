@@ -4,7 +4,6 @@ import com.bookstore.bus.UserBUS;
 import com.bookstore.gui.components.buttons.Button;
 import com.bookstore.models.UserModel;
 import com.bookstore.services.Authentication;
-import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
@@ -175,5 +174,4 @@ public class RegisterFrame extends JFrame {
       return;
     }
   };
-
 }
