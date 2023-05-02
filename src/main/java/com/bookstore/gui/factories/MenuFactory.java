@@ -95,7 +95,106 @@ public class MenuFactory {
     return new MenuModel(
       new ArrayList<MenuItemModel>() {
         {
-          add(new MenuItemModel("Home", new ImageIcon(""), null, null));
+          add(
+            new MenuItemModel(
+              "Home",
+              new ImageIcon(""),
+              null,
+              new ArrayList<SubMenuItemModel>() {
+                {
+                  add(
+                    new SubMenuItemModel(
+                      "Shop",
+                      new ImageIcon(""),
+                      showHomeAdmin
+                    )
+                  );
+                }
+              }
+            )
+          );
+
+          add(
+            new MenuItemModel(
+              "Cart",
+              new ImageIcon(""),
+              null,
+              new ArrayList<SubMenuItemModel>() {
+                {
+                  add(
+                    new SubMenuItemModel(
+                      "View Cart",
+                      new ImageIcon(""),
+                      showHomeAdmin
+                    )
+                  );
+                  add(
+                    new SubMenuItemModel(
+                      "Checkout",
+                      new ImageIcon(""),
+                      showHomeAdmin
+                    )
+                  );
+                }
+              }
+            )
+          );
+
+          add(
+            new MenuItemModel(
+              "Account",
+              new ImageIcon(""),
+              null,
+              new ArrayList<SubMenuItemModel>() {
+                {
+                  add(
+                    new SubMenuItemModel(
+                      "View Account",
+                      new ImageIcon(""),
+                      showHomeAdmin
+                    )
+                  );
+                  add(
+                    new SubMenuItemModel(
+                      "Edit Account",
+                      new ImageIcon(""),
+                      showHomeAdmin
+                    )
+                  );
+
+                  add(new SubMenuItemModel("Address", new ImageIcon(""), null));
+                  add(new SubMenuItemModel("Orders", new ImageIcon(""), null));
+                }
+              }
+            )
+          );
+
+          add(
+            new MenuItemModel(
+              "Other",
+              new ImageIcon(""),
+              null,
+              new ArrayList<SubMenuItemModel>() {
+                {
+                  add(new SubMenuItemModel("About", new ImageIcon(""), null));
+                  add(new SubMenuItemModel("Contact", new ImageIcon(""), null));
+                }
+              }
+            )
+          );
+
+          add(
+            new MenuItemModel(
+              "Logout",
+              new ImageIcon(""),
+              logout,
+              new ArrayList<SubMenuItemModel>() {
+                {
+                  add(new SubMenuItemModel("Logout", new ImageIcon(""), null));
+                }
+              }
+            )
+          );
         }
       }
     );
