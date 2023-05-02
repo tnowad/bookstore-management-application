@@ -7,20 +7,27 @@ import com.bookstore.gui.components.labels.Label;
 import com.bookstore.gui.theme.ThemeFont;
 import com.bookstore.models.UserModel;
 import java.awt.*;
-import java.awt.event.*;
 import java.util.List;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 public class CustomerList extends JPanel {
+  private static CustomerList instance;
 
   UserBUS userBus = UserBUS.getInstance();
   List<UserModel> customersList = userBus.getAllModels();
 
-  public CustomerList() {
+  private CustomerList() {
     initComponents();
     listCustomer();
     search();
+  }
+
+  public static CustomerList getInstance() {
+    if (instance == null) {
+      instance = new CustomerList();
+    }
+    return instance;
   }
 
   private void search() {
@@ -28,9 +35,8 @@ public class CustomerList extends JPanel {
       String text = searchCustomerTxtFld.getText();
       if (text == null || text.isBlank()) {
         JOptionPane.showMessageDialog(
-          null,
-          "Search field cannot be empty. Please try again!"
-        );
+            null,
+            "Search field cannot be empty. Please try again!");
         showTable();
       } else {
         DefaultTableModel model = new DefaultTableModel();
@@ -43,14 +49,13 @@ public class CustomerList extends JPanel {
         for (UserModel customer : customersList) {
           if (customer.getName().toLowerCase().contains(text.toLowerCase())) {
             model.addRow(
-              new Object[] {
-                customer.getId(),
-                customer.getName(),
-                customer.getEmail(),
-                customer.getPhone(),
-                customer.getStatus(),
-              }
-            );
+                new Object[] {
+                    customer.getId(),
+                    customer.getName(),
+                    customer.getEmail(),
+                    customer.getPhone(),
+                    customer.getStatus(),
+                });
             customerTableList.setModel(model);
           }
         }
@@ -77,14 +82,13 @@ public class CustomerList extends JPanel {
     for (UserModel customer : customersList) {
       if (customer.getRole() == UserRole.CUSTOMER) {
         model.addRow(
-          new Object[] {
-            customer.getId(),
-            customer.getName(),
-            customer.getEmail(),
-            customer.getPhone(),
-            customer.getStatus(),
-          }
-        );
+            new Object[] {
+                customer.getId(),
+                customer.getName(),
+                customer.getEmail(),
+                customer.getPhone(),
+                customer.getStatus(),
+            });
         customerTableList.setModel(model);
       }
     }

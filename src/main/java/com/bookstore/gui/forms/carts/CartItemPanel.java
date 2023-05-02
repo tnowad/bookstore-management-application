@@ -7,8 +7,18 @@ import javax.swing.*;
 
 public class CartItemPanel extends JPanel {
 
-  public CartItemPanel() {
+    private static CartItemPanel instance;
+
+
+  private CartItemPanel() {
     initComponents();
+  }
+
+  public static CartItemPanel getInstance() {
+    if (instance == null) {
+      instance = new CartItemPanel();
+    }
+    return instance; 
   }
 
   private void initComponents() {

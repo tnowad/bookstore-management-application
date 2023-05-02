@@ -26,12 +26,20 @@ public class AccountSettings extends JPanel {
   private ImageIcon hidePassword;
   private JToggleButton toggleNewPasswordButton;
   private JToggleButton toggleConfirmNewPasswordButton;
+  private static AccountSettings instance;
 
   UserBUS userBus = UserBUS.getInstance();
   UserModel currentUser = Authentication.getCurrentUser();
 
-  public AccountSettings() {
+  private AccountSettings() {
     initComponents();
+  }
+
+  public static AccountSettings getInstance() {
+    if (instance == null) {
+      instance = new AccountSettings();
+    }
+    return instance;
   }
 
   private void initComponents() {
@@ -44,10 +52,8 @@ public class AccountSettings extends JPanel {
     groupButton = new JPanel();
     updateButton = new Button("Update");
     resetButton = new Button("Reset");
-    showPassword =
-      new ImageIcon("src/main/java/resources/icons/show_password.png");
-    hidePassword =
-      new ImageIcon("src/main/java/resources/icons/hide_password.png");
+    showPassword = new ImageIcon("src/main/java/resources/icons/show_password.png");
+    hidePassword = new ImageIcon("src/main/java/resources/icons/hide_password.png");
     toggleCurrentPasswordButton = new JToggleButton(hidePassword);
     toggleNewPasswordButton = new JToggleButton(hidePassword);
     toggleConfirmNewPasswordButton = new JToggleButton(hidePassword);
@@ -55,12 +61,10 @@ public class AccountSettings extends JPanel {
     updateButton.addActionListener(updateButtonActionListener);
     resetButton.addActionListener(resetButtonActionListener);
     toggleCurrentPasswordButton.addActionListener(
-      toggleCurrentPasswordActionListener
-    );
+        toggleCurrentPasswordActionListener);
     toggleNewPasswordButton.addActionListener(toggleNewPasswordActionListener);
     toggleConfirmNewPasswordButton.addActionListener(
-      toggleConfirmNewPasswordActionListener
-    );
+        toggleConfirmNewPasswordActionListener);
 
     setMaximumSize(new Dimension(300, 200));
     setMinimumSize(new Dimension(300, 200));
@@ -79,9 +83,8 @@ public class AccountSettings extends JPanel {
     JPanel currentPasswordFieldPanel = new JPanel(new BorderLayout());
     currentPasswordFieldPanel.add(currentPasswordField, BorderLayout.CENTER);
     currentPasswordFieldPanel.add(
-      toggleCurrentPasswordButton,
-      BorderLayout.EAST
-    );
+        toggleCurrentPasswordButton,
+        BorderLayout.EAST);
     add(currentPasswordLabel);
     add(currentPasswordFieldPanel);
 
@@ -93,13 +96,11 @@ public class AccountSettings extends JPanel {
 
     JPanel confirmNewPasswordFieldPanel = new JPanel(new BorderLayout());
     confirmNewPasswordFieldPanel.add(
-      confirmNewPasswordField,
-      BorderLayout.CENTER
-    );
+        confirmNewPasswordField,
+        BorderLayout.CENTER);
     confirmNewPasswordFieldPanel.add(
-      toggleConfirmNewPasswordButton,
-      BorderLayout.EAST
-    );
+        toggleConfirmNewPasswordButton,
+        BorderLayout.EAST);
     add(confirmNewPasswordLabel);
     add(confirmNewPasswordFieldPanel);
     groupButton.add(updateButton);
@@ -114,8 +115,7 @@ public class AccountSettings extends JPanel {
     if (currentPassword.equals(currentUser.getPassword())) {
       String newPassword = new String(newPasswordField.getPassword());
       String confirmPassword = new String(
-        confirmNewPasswordField.getPassword()
-      );
+          confirmNewPasswordField.getPassword());
       if (newPassword.equals(confirmPassword)) {
         currentUser.setPassword(newPassword);
         userBus.updateModel(currentUser);
@@ -124,9 +124,8 @@ public class AccountSettings extends JPanel {
         updateButton.setEnabled(false);
       } else {
         JOptionPane.showMessageDialog(
-          null,
-          "New password and confirm password do not match"
-        );
+            null,
+            "New password and confirm password do not match");
       }
     } else {
       JOptionPane.showMessageDialog(null, "Current password does not match");

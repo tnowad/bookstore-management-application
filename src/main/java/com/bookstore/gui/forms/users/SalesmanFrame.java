@@ -4,6 +4,7 @@ import com.bookstore.bus.EmployeeBUS;
 import com.bookstore.bus.UserBUS;
 import com.bookstore.enums.EmployeeType;
 import com.bookstore.gui.components.buttons.Button;
+import com.bookstore.gui.forms.accounts.AccountPanel;
 import com.bookstore.gui.forms.books.BookList;
 import com.bookstore.gui.forms.imports.ImportList;
 import com.bookstore.gui.forms.orders.OrderList;
@@ -77,8 +78,6 @@ public class SalesmanFrame extends JFrame {
     logoutButton = new Button("Logout");
     contentPanel = new JPanel();
 
-    contentPanel.add(new CustomerList());
-
     headerPanel.setAlignmentX(1.0F);
     headerPanel.setCursor(new Cursor(Cursor.TEXT_CURSOR));
     headerPanel.setDoubleBuffered(false);
@@ -111,8 +110,10 @@ public class SalesmanFrame extends JFrame {
     if (employeeModel.getEmployeeType() == EmployeeType.EMPLOYEE_MANAGER) {
       menuTopPanel.setLayout(new GridLayout(5, 1, 0, 5));
       menuTopPanel.add(employeeListButton);
+      contentPanel.add(EmployeeList.getInstance());
     } else {
       menuTopPanel.setLayout(new GridLayout(4, 1, 0, 5));
+      contentPanel.add(CustomerList.getInstance());
     }
 
     menuTopPanel.add(customerListButton);
@@ -146,14 +147,14 @@ public class SalesmanFrame extends JFrame {
   private void handleEvent() {
     employeeListButton.addActionListener(e -> {
       contentPanel.removeAll();
-      contentPanel.add(new EmployeeList());
+      contentPanel.add(EmployeeList.getInstance());
       contentPanel.revalidate();
       contentPanel.repaint();
     });
 
     customerListButton.addActionListener(e -> {
       contentPanel.removeAll();
-      contentPanel.add(new CustomerList());
+      contentPanel.add(CustomerList.getInstance());
       contentPanel.revalidate();
       contentPanel.repaint();
     });
@@ -167,21 +168,21 @@ public class SalesmanFrame extends JFrame {
 
     bookListButton.addActionListener(e -> {
       contentPanel.removeAll();
-      contentPanel.add(new BookList());
+      contentPanel.add(BookList.getInstance());
       contentPanel.revalidate();
       contentPanel.repaint();
     });
 
     importListButton.addActionListener(e -> {
       contentPanel.removeAll();
-      contentPanel.add(new ImportList());
+      contentPanel.add(ImportList.getInstance());
       contentPanel.revalidate();
       contentPanel.repaint();
     });
 
     accountButton.addActionListener(e -> {
       contentPanel.removeAll();
-      contentPanel.add(new com.bookstore.gui.forms.accounts.AccountPanel());
+      contentPanel.add(AccountPanel.getInstance());
       contentPanel.revalidate();
       contentPanel.repaint();
     });

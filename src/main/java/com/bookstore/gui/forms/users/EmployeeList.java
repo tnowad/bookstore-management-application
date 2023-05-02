@@ -15,14 +15,22 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 public class EmployeeList extends JPanel {
+  private static EmployeeList instance;
 
   UserBUS userBus = UserBUS.getInstance();
   List<UserModel> employeeList = userBus.getAllModels();
 
-  public EmployeeList() {
+  private EmployeeList() {
     initComponents();
     listCustomer();
     search();
+  }
+
+  public static EmployeeList getInstance() {
+    if (instance == null) {
+      instance = new EmployeeList();
+    }
+    return instance;
   }
 
   private void search() {
@@ -30,9 +38,8 @@ public class EmployeeList extends JPanel {
       String text = searchEmployeeTxtField.getText();
       if (text == null || text.isBlank()) {
         JOptionPane.showMessageDialog(
-          null,
-          "Search field cannot be empty. Please try again!"
-        );
+            null,
+            "Search field cannot be empty. Please try again!");
         showTable();
       } else {
         DefaultTableModel model = new DefaultTableModel();
@@ -45,14 +52,13 @@ public class EmployeeList extends JPanel {
         for (UserModel customer : employeeList) {
           if (customer.getName().toLowerCase().contains(text.toLowerCase())) {
             model.addRow(
-              new Object[] {
-                customer.getId(),
-                customer.getName(),
-                customer.getEmail(),
-                customer.getPhone(),
-                customer.getStatus(),
-              }
-            );
+                new Object[] {
+                    customer.getId(),
+                    customer.getName(),
+                    customer.getEmail(),
+                    customer.getPhone(),
+                    customer.getStatus(),
+                });
             employeeTableList.setModel(model);
           }
         }
@@ -80,18 +86,16 @@ public class EmployeeList extends JPanel {
       if (employee.getRole() == UserRole.EMPLOYEE) {
         EmployeeBUS employeeBUS = EmployeeBUS.getInstance();
         EmployeeModel employeeModel = employeeBUS.getModelById(
-          employee.getId()
-        );
+            employee.getId());
         if (employeeModel.getEmployeeType() == EmployeeType.EMPLOYEE_SALES) {
           model.addRow(
-            new Object[] {
-              employee.getId(),
-              employee.getName(),
-              employee.getEmail(),
-              employee.getPhone(),
-              employee.getStatus(),
-            }
-          );
+              new Object[] {
+                  employee.getId(),
+                  employee.getName(),
+                  employee.getEmail(),
+                  employee.getPhone(),
+                  employee.getStatus(),
+              });
           employeeTableList.setModel(model);
         }
       }

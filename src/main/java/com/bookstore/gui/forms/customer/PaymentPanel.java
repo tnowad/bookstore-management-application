@@ -1,6 +1,5 @@
 package com.bookstore.gui.forms.customer;
 
-import com.bookstore.gui.components.buttons.Button;
 import com.bookstore.gui.theme.ThemeFont;
 
 import java.awt.*;
@@ -28,9 +27,17 @@ public class PaymentPanel extends JPanel {
   private JButton resetButton;
   private JButton updateButton;
   private JLabel updatePaymentHeaderLabel;
+  private static PaymentPanel instance;
 
-  public PaymentPanel() {
+  private PaymentPanel() {
     initComponents();
+  }
+
+  public static PaymentPanel getInstance() {
+    if (instance == null) {
+      instance = new PaymentPanel();
+    }
+    return instance;
   }
 
   private void initComponents() {
