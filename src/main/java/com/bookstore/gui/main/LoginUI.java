@@ -61,7 +61,7 @@ public class LoginUI extends JFrame {
     layout = new FlowLayout(FlowLayout.CENTER, 10, 10);
     setLayout(layout);
     LogoLabel = new JLabel();
-    LogoLabel.setIcon(new ImageIcon("src/main/java/resources/book_logo.png"));
+    LogoLabel.setIcon(new ImageIcon("src/main/java/resources/images/logo.png"));
 
     loginPanel = new JPanel();
 
