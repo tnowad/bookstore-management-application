@@ -1,6 +1,7 @@
 package com.bookstore.gui.components.headers;
 
 import com.bookstore.gui.components.inputs.SearchText;
+import com.bookstore.gui.events.general.ToggleMenuActionListener;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -8,6 +9,7 @@ import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -25,7 +27,7 @@ public class HeaderDashboard extends JPanel {
   }
 
   private JLabel labelSearch;
-  private JLabel labelMenu;
+  private JButton buttonMenu;
   private SearchText searchText;
 
   public HeaderDashboard() {
@@ -34,7 +36,7 @@ public class HeaderDashboard extends JPanel {
   }
 
   private void initComponents() {
-    labelMenu = new JLabel();
+    buttonMenu = new JButton();
     labelSearch = new JLabel();
     searchText = new SearchText();
 
@@ -44,8 +46,9 @@ public class HeaderDashboard extends JPanel {
       new ImageIcon("src/main/java/resources/icons/search.png")
     );
 
-    labelMenu.setIcon(new ImageIcon("src/main/java/resources/icons/menu.png"));
-    labelMenu.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+    buttonMenu.setIcon(new ImageIcon("src/main/java/resources/icons/menu.png"));
+    buttonMenu.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+    buttonMenu.addActionListener(new ToggleMenuActionListener());
     // Create layout for header with labelMenu, searchText, and labelSearch
     // search text is in the center of the header
     GroupLayout layout = new GroupLayout(this);
@@ -56,7 +59,7 @@ public class HeaderDashboard extends JPanel {
         .addGroup(
           layout
             .createSequentialGroup()
-            .addComponent(labelMenu)
+            .addComponent(buttonMenu)
             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
             .addComponent(
               searchText,
@@ -77,7 +80,7 @@ public class HeaderDashboard extends JPanel {
             .addGroup(
               layout
                 .createParallelGroup(GroupLayout.Alignment.LEADING)
-                .addComponent(labelMenu)
+                .addComponent(buttonMenu)
                 .addComponent(
                   searchText,
                   GroupLayout.PREFERRED_SIZE,
@@ -89,12 +92,12 @@ public class HeaderDashboard extends JPanel {
         )
     );
     searchText.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-    labelMenu.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+    buttonMenu.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
     labelSearch.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-    labelMenu.setOpaque(false);
+    buttonMenu.setOpaque(false);
     labelSearch.setOpaque(false);
     searchText.setOpaque(false);
-    labelMenu.setBackground(new java.awt.Color(255, 255, 255));
+    buttonMenu.setBackground(new java.awt.Color(255, 255, 255));
     labelSearch.setBackground(new java.awt.Color(255, 255, 255));
     searchText.setBackground(new java.awt.Color(255, 255, 255));
   }

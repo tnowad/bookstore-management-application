@@ -12,14 +12,15 @@ public class CartDetail extends JFrame {
   private CartDetail(int cartId, String bookIsbn) {
     this.cartId = cartId;
     this.bookIsbn = bookIsbn;
+    System.out.println(cartId);
+    System.out.println(bookIsbn);
     initComponents();
   }
 
   public static CartDetail getInstance(int cartId, String bookIsbn) {
     if (instance == null) {
-      instance = new CartDetail(cartId,bookIsbn);
-    } else {
-    }
+      instance = new CartDetail(cartId, bookIsbn);
+    } else {}
     return instance;
   }
 
@@ -39,6 +40,7 @@ public class CartDetail extends JFrame {
     descriptionScrollPane = new JScrollPane();
     descriptionPanel = new JPanel();
     descriptionTextArea = new JTextArea();
+    deleteProductButton = new JButton("Delete this cart");
 
     setFont(new Font("Arial", 0, 14));
     setMinimumSize(new Dimension(500, 100));
@@ -90,7 +92,9 @@ public class CartDetail extends JFrame {
 
     quantitySpinner.setFont(new Font("Arial", 0, 18));
     quantitySpinner.setPreferredSize(new Dimension(100, 30));
-    groupBottomPanel.add(quantitySpinner);
+    // groupBottomPanel.add(quantitySpinner);
+
+    groupBottomPanel.add(deleteProductButton);
 
     infoDetailPanel.add(groupBottomPanel, BorderLayout.PAGE_END);
 
@@ -120,7 +124,7 @@ public class CartDetail extends JFrame {
     pack();
   }
 
-  public static void main(String[] args){
+  public static void main(String[] args) {
     CartDetail cartDetail = CartDetail.getInstance(1, "123456789");
     // cartDetail.setVisible(true);
   }
@@ -140,4 +144,5 @@ public class CartDetail extends JFrame {
   private JPanel groupHeaderPanel;
   private JPanel infoDetailPanel;
   private JSpinner quantitySpinner;
+  private JButton deleteProductButton;
 }
