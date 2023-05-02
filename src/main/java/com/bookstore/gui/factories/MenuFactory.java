@@ -6,11 +6,15 @@ import com.bookstore.gui.components.panels.MainPanel;
 import com.bookstore.gui.events.general.LogoutActionListener;
 import com.bookstore.gui.forms.accounts.AccountSettings;
 import com.bookstore.gui.forms.accounts.ProfileSettings;
+import com.bookstore.gui.forms.books.BookList;
 import com.bookstore.gui.forms.carts.Cart;
 import com.bookstore.gui.forms.customer.Checkout;
 import com.bookstore.gui.forms.customer.Discovery;
 import com.bookstore.gui.forms.customer.HomeCustomer;
 import com.bookstore.gui.forms.customer.Order;
+import com.bookstore.gui.forms.imports.ImportList;
+import com.bookstore.gui.forms.orders.OrderList;
+import com.bookstore.gui.forms.users.CustomerList;
 import com.bookstore.gui.main.MainUI;
 import com.bookstore.models.EmployeeModel;
 import com.bookstore.models.MenuItemModel;
@@ -154,14 +158,14 @@ public class MenuFactory {
                       {
                         add(
                             new SubMenuItemModel(
-                                "Profile settings",
+                                "My profile",
                                 new ImageIcon(""),
-                                showProfileCustomer));
+                                showProfile));
                         add(
                             new SubMenuItemModel(
-                                "Account settings",
+                                "My account",
                                 new ImageIcon(""),
-                                showAccountCustomer));
+                                showAccount));
                       }
                     }));
 
@@ -191,7 +195,26 @@ public class MenuFactory {
     return new MenuModel(
         new ArrayList<MenuItemModel>() {
           {
-            add(new MenuItemModel("Home", new ImageIcon(""), null, null));
+            add(new MenuItemModel("Customer managerment", new ImageIcon(""), showCustomerList, null));
+            add(new MenuItemModel("Book management", new ImageIcon(""), showBookList, null));
+            add(
+                new MenuItemModel(
+                    "Import management",
+                    new ImageIcon(""),
+                    showImportList, null));
+            add(
+                new MenuItemModel(
+                    "Order management",
+                    new ImageIcon(""),
+                    showOrderList, null));
+            // my account
+            add(new MenuItemModel("My account", new ImageIcon(""), null,
+                new ArrayList<SubMenuItemModel>() {
+                  {
+                    add(new SubMenuItemModel("My profile", new ImageIcon(""), showProfile));
+                    add(new SubMenuItemModel("My account", new ImageIcon(""), showAccount));
+                  }
+                }));
           }
         });
   }
@@ -205,8 +228,25 @@ public class MenuFactory {
         });
   }
 
+  // admin
   private static ActionListener showHomeAdmin = e -> {
     MainPanel.getInstance().showForm(DashboardPanel.getInstance());
+  };
+
+  // manager
+
+  // employee
+  private static ActionListener showCustomerList = e -> {
+    MainPanel.getInstance().showForm(CustomerList.getInstance());
+  };
+  private static ActionListener showBookList = e -> {
+    MainPanel.getInstance().showForm(BookList.getInstance());
+  };
+  private static ActionListener showImportList = e -> {
+    MainPanel.getInstance().showForm(ImportList.getInstance());
+  };
+  private static ActionListener showOrderList = e -> {
+    MainPanel.getInstance().showForm(OrderList.getInstance());
   };
 
   // customer
@@ -227,10 +267,10 @@ public class MenuFactory {
   private static ActionListener showMyOrderCustomer = e -> {
     MainPanel.getInstance().showForm(Order.getInstance());
   };
-  private static ActionListener showProfileCustomer = e -> {
+  private static ActionListener showProfile = e -> {
     MainPanel.getInstance().showForm(ProfileSettings.getInstance());
   };
-  private static ActionListener showAccountCustomer = e -> {
+  private static ActionListener showAccount = e -> {
     MainPanel.getInstance().showForm(AccountSettings.getInstance());
   };
 
