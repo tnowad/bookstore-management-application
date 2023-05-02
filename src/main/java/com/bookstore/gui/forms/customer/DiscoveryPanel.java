@@ -8,8 +8,6 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import javax.swing.*;
 
-// import javax.swing.table.DefaultTableModel;
-
 public class DiscoveryPanel extends JPanel {
 
   public DiscoveryPanel() {
@@ -41,24 +39,16 @@ public class DiscoveryPanel extends JPanel {
 
     sortByConditionComboBox.setFont(new Font("Arial", 0, 14)); // NOI18N
     sortByConditionComboBox.setModel(
-      new DefaultComboBoxModel<>(
-        new String[] {
-          "Recommendation",
-          "Price: low -> high",
-          "Price: high -> low",
-        }
-      )
-    );
+        new DefaultComboBoxModel<>(
+            new String[] {
+                "Recommendation",
+                "Price: low -> high",
+                "Price: high -> low",
+            }));
     sortByConditionComboBox.setMaximumSize(new Dimension(150, 30));
     sortByConditionComboBox.setMinimumSize(new Dimension(150, 30));
     sortByConditionComboBox.setPreferredSize(new Dimension(150, 30));
-    sortByConditionComboBox.addActionListener(
-      new ActionListener() {
-        public void actionPerformed(ActionEvent evt) {
-          sortByConditionComboBoxActionPerformed(evt);
-        }
-      }
-    );
+
     headerPanel.add(sortByConditionComboBox);
 
     categoryLabel.setFont(new Font("Arial", 0, 14)); // NOI18N
@@ -67,18 +57,11 @@ public class DiscoveryPanel extends JPanel {
     headerPanel.add(categoryLabel);
 
     categoryListComboBox.setModel(
-      new DefaultComboBoxModel<>(new String[] { "All" })
-    );
+        new DefaultComboBoxModel<>(new String[] { "All" }));
     categoryListComboBox.setMaximumSize(new Dimension(100, 30));
     categoryListComboBox.setMinimumSize(new Dimension(100, 30));
     categoryListComboBox.setPreferredSize(new Dimension(120, 30));
-    categoryListComboBox.addActionListener(
-      new ActionListener() {
-        public void actionPerformed(ActionEvent evt) {
-          categoryListComboBoxActionPerformed(evt);
-        }
-      }
-    );
+
     headerPanel.add(categoryListComboBox);
 
     searchTextField.setFont(new Font("Segoe UI", 0, 14)); // NOI18N
@@ -86,24 +69,12 @@ public class DiscoveryPanel extends JPanel {
     searchTextField.setMaximumSize(new Dimension(300, 30));
     searchTextField.setMinimumSize(new Dimension(300, 30));
     searchTextField.setPreferredSize(new Dimension(300, 30));
-    searchTextField.addFocusListener(
-      (FocusListener) new FocusAdapter() {
-        public void focusGained(FocusEvent evt) {
-          searchTextFieldFocusGained(evt);
-        }
-      }
-    );
+
     headerPanel.add(searchTextField);
 
     cartButtonTextField.setText("Cart");
     cartButtonTextField.setPreferredSize(new Dimension(80, 30));
-    cartButtonTextField.addActionListener(
-      new ActionListener() {
-        public void actionPerformed(ActionEvent evt) {
-          cartButtonTextFieldActionPerformed(evt);
-        }
-      }
-    );
+
     headerPanel.add(cartButtonTextField);
 
     add(headerPanel, BorderLayout.PAGE_START);
@@ -113,14 +84,6 @@ public class DiscoveryPanel extends JPanel {
 
     add(bookListScrollPane, BorderLayout.CENTER);
   }
-
-  private void searchTextFieldFocusGained(FocusEvent evt) {}
-
-  private void cartButtonTextFieldActionPerformed(ActionEvent evt) {}
-
-  private void sortByConditionComboBoxActionPerformed(ActionEvent evt) {}
-
-  private void categoryListComboBoxActionPerformed(ActionEvent evt) {}
 
   private JPanel bookListPanel;
   private JScrollPane bookListScrollPane;
