@@ -42,7 +42,7 @@ public class OrderList extends JPanel {
                 if (selectedRowIndex != -1) {
                   int customerId = Integer.parseInt(
                       orderTableList.getValueAt(selectedRowIndex, 2).toString());
-                  new Dialog(new OrderDetail(customerId));
+                  new Dialog(OrderDetail.getInstance(customerId));
                   listOrder();
                 } else {
                   System.out.println("Don't know how to handle this order");

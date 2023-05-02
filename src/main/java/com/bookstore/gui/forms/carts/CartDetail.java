@@ -1,24 +1,26 @@
 package com.bookstore.gui.forms.carts;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.*;
 
-public class CartDetail extends JPanel {
+public class CartDetail extends JFrame {
 
-    private static CartDetail instance;
+  private static CartDetail instance;
+  private int cartId;
+  private String bookIsbn;
 
-
-  private CartDetail() {
+  private CartDetail(int cartId, String bookIsbn) {
+    this.cartId = cartId;
+    this.bookIsbn = bookIsbn;
     initComponents();
   }
 
-  public static CartDetail getInstance() {
+  public static CartDetail getInstance(int cartId, String bookIsbn) {
     if (instance == null) {
-      instance = new CartDetail();
+      instance = new CartDetail(cartId,bookIsbn);
+    } else {
     }
-    return instance; 
+    return instance;
   }
 
   private void initComponents() {
@@ -50,13 +52,6 @@ public class CartDetail extends JPanel {
 
     checkboxPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
 
-    chooseBookCheckBox.addActionListener(
-      new ActionListener() {
-        public void actionPerformed(ActionEvent evt) {
-          chooseBookCheckBoxActionPerformed(evt);
-        }
-      }
-    );
     checkboxPanel.add(chooseBookCheckBox);
 
     cententProductPanel.add(checkboxPanel, BorderLayout.PAGE_START);
@@ -72,26 +67,12 @@ public class CartDetail extends JPanel {
     bookTitleTextField.setFont(new Font("Arial", 0, 14));
     bookTitleTextField.setHorizontalAlignment(JTextField.LEFT);
     bookTitleTextField.setPreferredSize(new Dimension(300, 30));
-    bookTitleTextField.addActionListener(
-      new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent evt) {
-          bookTitleTextFieldActionPerformed(evt);
-        }
-      }
-    );
+
     groupHeaderPanel.add(bookTitleTextField);
 
     deleteButton.setFont(new Font("Arial", 0, 14));
     deleteButton.setPreferredSize(new Dimension(30, 30));
-    deleteButton.addActionListener(
-      new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent evt) {
-          deleteButtonActionPerformed(evt);
-        }
-      }
-    );
+
     groupHeaderPanel.add(deleteButton);
 
     contentCartPanel.add(groupHeaderPanel, BorderLayout.PAGE_START);
@@ -130,18 +111,18 @@ public class CartDetail extends JPanel {
     contentCartPanel.add(infoDetailPanel, BorderLayout.CENTER);
 
     add(contentCartPanel, BorderLayout.CENTER);
+
+    setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+    setTitle("Cart Detail");
+    setResizable(false);
+    setLocationRelativeTo(null);
+    setVisible(true);
+    pack();
   }
 
-  private void chooseBookCheckBoxActionPerformed(ActionEvent evt) {
-    // TODO add your handling code here:
-  }
-
-  private void bookTitleTextFieldActionPerformed(ActionEvent evt) {
-    // TODO add your handling code here:
-  }
-
-  private void deleteButtonActionPerformed(ActionEvent evt) {
-    // TODO add your handling code here:
+  public static void main(String[] args){
+    CartDetail cartDetail = CartDetail.getInstance(1, "123456789");
+    // cartDetail.setVisible(true);
   }
 
   private JPanel bookImagePanel;

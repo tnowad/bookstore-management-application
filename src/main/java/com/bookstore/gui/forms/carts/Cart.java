@@ -1,14 +1,5 @@
 package com.bookstore.gui.forms.carts;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-
 import com.bookstore.bus.BookBUS;
 import com.bookstore.bus.CartBUS;
 import com.bookstore.bus.CartItemsBUS;
@@ -18,8 +9,18 @@ import com.bookstore.models.CartItemsModel;
 import com.bookstore.models.CartModel;
 import com.bookstore.models.UserModel;
 import com.bookstore.services.Authentication;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
 
 public class Cart extends JPanel {
+
   private static Cart instance;
   private UserModel userModel;
   private CartBUS cartBUS;
@@ -36,6 +37,7 @@ public class Cart extends JPanel {
     initComponents();
     listOrder();
     listCart();
+    handleEvent();
   }
 
   public static Cart getInstance() {
@@ -103,12 +105,7 @@ public class Cart extends JPanel {
 
     totalPriceTextField.setEditable(false);
     totalPriceTextField.setPreferredSize(new Dimension(200, 30));
-    totalPriceTextField.addActionListener(
-        new ActionListener() {
-          public void actionPerformed(ActionEvent evt) {
-            totalPriceTextFieldActionPerformed(evt);
-          }
-        });
+
     groupTotalCostPanel.add(totalPriceTextField);
 
     groupBottomPanel.add(groupTotalCostPanel);
@@ -118,24 +115,14 @@ public class Cart extends JPanel {
     chooseAllCheckBox.setFont(new Font("Arial", 0, 14)); // NOI18N
     chooseAllCheckBox.setText("Choose all");
     chooseAllCheckBox.setPreferredSize(new Dimension(100, 30));
-    chooseAllCheckBox.addActionListener(
-        new ActionListener() {
-          public void actionPerformed(ActionEvent evt) {
-            chooseAllCheckBoxActionPerformed(evt);
-          }
-        });
+
     groupActionPanel.add(chooseAllCheckBox);
 
     deleteAllProductsButton.setFont(new Font("Arial", 0, 18)); // NOI18N
     deleteAllProductsButton.setText("Delete all products");
     deleteAllProductsButton.setMinimumSize(new Dimension(179, 30));
     deleteAllProductsButton.setPreferredSize(new Dimension(190, 30));
-    deleteAllProductsButton.addActionListener(
-        new ActionListener() {
-          public void actionPerformed(ActionEvent evt) {
-            deleteAllProductsButtonActionPerformed(evt);
-          }
-        });
+
     groupActionPanel.add(deleteAllProductsButton);
 
     proceedToCheckoutButton.setFont(new Font("Arial", 0, 18)); // NOI18N
@@ -143,12 +130,7 @@ public class Cart extends JPanel {
     proceedToCheckoutButton.setMaximumSize(new Dimension(200, 30));
     proceedToCheckoutButton.setMinimumSize(new Dimension(200, 30));
     proceedToCheckoutButton.setPreferredSize(new Dimension(200, 30));
-    proceedToCheckoutButton.addActionListener(
-        new ActionListener() {
-          public void actionPerformed(ActionEvent evt) {
-            proceedToCheckoutButtonActionPerformed(evt);
-          }
-        });
+
     groupActionPanel.add(proceedToCheckoutButton);
 
     groupBottomPanel.add(groupActionPanel);
@@ -156,8 +138,7 @@ public class Cart extends JPanel {
     add(groupBottomPanel, BorderLayout.SOUTH);
   }
 
-  private void listOrder() {
-  }
+  private void listOrder() {}
 
   private void listCart() {
     DefaultTableModel model = new DefaultTableModel();
@@ -168,10 +149,18 @@ public class Cart extends JPanel {
     model.addColumn("Action");
     for (CartItemsModel cartItemsModel : myCartList) {
       for (BookModel bookModel : bookList) {
-        if (cartItemsModel.getBookIsbn().equalsIgnoreCase(bookModel.getIsbn())) {
-          model.addRow(new Object[] { bookModel.getIsbn(), bookModel.getTitle(), bookModel.getPrice(),
-              cartItemsModel.getQuantity() });
-              listCartTable.setModel(model);
+        if (
+          cartItemsModel.getBookIsbn().equalsIgnoreCase(bookModel.getIsbn())
+        ) {
+          model.addRow(
+            new Object[] {
+              bookModel.getIsbn(),
+              bookModel.getTitle(),
+              bookModel.getPrice(),
+              cartItemsModel.getQuantity(),
+            }
+          );
+          listCartTable.setModel(model);
         }
       }
     }
@@ -179,16 +168,26 @@ public class Cart extends JPanel {
     listCartPanel.add(listCartScrollPane, BorderLayout.CENTER);
   }
 
-  private void totalPriceTextFieldActionPerformed(ActionEvent evt) {
-  }
-
-  private void deleteAllProductsButtonActionPerformed(ActionEvent evt) {
-  }
-
-  private void proceedToCheckoutButtonActionPerformed(ActionEvent evt) {
-  }
-
-  private void chooseAllCheckBoxActionPerformed(ActionEvent evt) {
+  private void handleEvent() {
+    listCartTable
+      .getSelectionModel()
+      .addListSelectionListener(
+        new ListSelectionListener() {
+          public void valueChanged(ListSelectionEvent event) {
+            int selectedRowIndex = listCartTable.getSelectedRow();
+            if (selectedRowIndex != -1) {
+              String bookIsbn = listCartTable
+                .getValueAt(selectedRowIndex, 0)
+                .toString();
+              new Dialog(CartDetail.getInstance(cartModel.getId(), bookIsbn));
+              
+              listOrder();
+            } else {
+              System.out.println("Don't know how to handle this order");
+            }
+          }
+        }
+      );
   }
 
   private JCheckBox chooseAllCheckBox;
