@@ -3,16 +3,16 @@ package com.bookstore.gui.forms.customer;
 import java.awt.*;
 import javax.swing.*;
 
-public class OrderListPanel extends JPanel {
-  private static OrderListPanel instance;
+public class Order extends JPanel {
+  private static Order instance;
 
-  private OrderListPanel() {
+  private Order() {
     initComponents();
   }
 
-  public static OrderListPanel getInstance() {
+  public static Order getInstance() {
     if (instance == null) {
-      instance = new OrderListPanel();
+      instance = new Order();
     }
     return instance;
   }

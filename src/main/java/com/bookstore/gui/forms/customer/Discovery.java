@@ -8,16 +8,16 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import javax.swing.*;
 
-public class DiscoveryPanel extends JPanel {
-  private static DiscoveryPanel instance;
+public class Discovery extends JPanel {
+  private static Discovery instance;
 
-  private DiscoveryPanel() {
+  private Discovery() {
     initComponents();
   }
 
-  public static DiscoveryPanel getInstance() {
+  public static Discovery getInstance() {
     if (instance == null) {
-      instance = new DiscoveryPanel();
+      instance = new Discovery();
     }
     return instance;
   }
