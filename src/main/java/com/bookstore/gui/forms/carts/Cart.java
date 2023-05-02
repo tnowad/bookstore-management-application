@@ -30,7 +30,6 @@ public class Cart extends JPanel {
   private List<CartItemsModel> myCartList;
   private BookBUS bookBUS;
   private List<BookModel> bookList;
-  private List<BookModel> myBookList;
 
   private Cart() {
     updateData();
@@ -162,17 +161,14 @@ public class Cart extends JPanel {
 
   private void listCart() {
     DefaultTableModel model = new DefaultTableModel();
-    // "ISBN", "Title", "Quantity", "Price", "Status"
     model.addColumn("ISBN");
     model.addColumn("Title");
     model.addColumn("Price");
     model.addColumn("Quantity");
+    model.addColumn("Action");
     for (CartItemsModel cartItemsModel : myCartList) {
-      System.out.println("My isbn of cart items: " + cartItemsModel.getBookIsbn());
       for (BookModel bookModel : bookList) {
-        System.out.println("My book isbn " + bookModel.getIsbn());
         if (cartItemsModel.getBookIsbn().equalsIgnoreCase(bookModel.getIsbn())) {
-          System.out.println(1);
           model.addRow(new Object[] { bookModel.getIsbn(), bookModel.getTitle(), bookModel.getPrice(),
               cartItemsModel.getQuantity() });
               listCartTable.setModel(model);
