@@ -23,8 +23,7 @@ public class MenuFactory {
         return getCustomerMenu();
       case EMPLOYEE:
         return getMenuEmployee(
-          EmployeeDAO.getInstance().getEmployeeById(user.getId())
-        );
+            EmployeeDAO.getInstance().getEmployeeById(user.getId()));
       default:
         throw new IllegalArgumentException("User role is not supported");
     }
@@ -43,81 +42,67 @@ public class MenuFactory {
 
   public static MenuModel getAdminMenu() {
     return new MenuModel(
-      new ArrayList<MenuItemModel>() {
-        {
-          add(
-            new MenuItemModel(
-              "Dashboard",
-              new ImageIcon(""),
-              showHomeAdmin,
-              null
-            )
-          );
-          add(
-            new MenuItemModel(
-              "Customer",
-              new ImageIcon(""),
-              showHomeAdmin,
-              new ArrayList<SubMenuItemModel>() {
-                {
-                  add(
-                    new SubMenuItemModel(
-                      "Add Customer",
-                      new ImageIcon(""),
-                      showHomeAdmin
-                    )
-                  );
-                  add(
-                    new SubMenuItemModel(
-                      "View Customer",
-                      new ImageIcon(""),
-                      showHomeAdmin
-                    )
-                  );
-                  add(
-                    new SubMenuItemModel(
-                      "Edit Customer",
-                      new ImageIcon(""),
-                      showHomeAdmin
-                    )
-                  );
-                }
-              }
-            )
-          );
-        }
-      }
-    );
+        new ArrayList<MenuItemModel>() {
+          {
+            add(
+                new MenuItemModel(
+                    "Dashboard",
+                    new ImageIcon(""),
+                    showHomeAdmin,
+                    null));
+            add(
+                new MenuItemModel(
+                    "Customer",
+                    new ImageIcon(""),
+                    showHomeAdmin,
+                    new ArrayList<SubMenuItemModel>() {
+                      {
+                        add(
+                            new SubMenuItemModel(
+                                "Add Customer",
+                                new ImageIcon(""),
+                                showHomeAdmin));
+                        add(
+                            new SubMenuItemModel(
+                                "View Customer",
+                                new ImageIcon(""),
+                                showHomeAdmin));
+                        add(
+                            new SubMenuItemModel(
+                                "Edit Customer",
+                                new ImageIcon(""),
+                                showHomeAdmin));
+                      }
+                    }));
+          }
+        });
   }
 
   public static MenuModel getCustomerMenu() {
     return new MenuModel(
-      new ArrayList<MenuItemModel>() {
-        {
-          add(new MenuItemModel("Home", new ImageIcon(""), null, null));
-        }
-      }
-    );
+        new ArrayList<MenuItemModel>() {
+          {
+            add(new MenuItemModel("Home", new ImageIcon(""), null, null));
+          }
+        });
   }
 
   public static MenuModel getMenuEmployeeSalesman() {
     return new MenuModel(
-      new ArrayList<MenuItemModel>() {
-        {
-          add(new MenuItemModel("Home", new ImageIcon(""), null, null));
-        }
-      }
-    );
+        new ArrayList<MenuItemModel>() {
+          {
+            add(new MenuItemModel("Home", new ImageIcon(""), null, null));
+          }
+        });
   }
 
   public static MenuModel getMenuEmployeeManager() {
     return new MenuModel(
-      new ArrayList<MenuItemModel>() {
-        {
-          add(new MenuItemModel("Home", new ImageIcon(""), null, null));
-        }
-      }
-    );
+        new ArrayList<MenuItemModel>() {
+          {
+            add(new MenuItemModel("Home", new ImageIcon(""), null, null));
+          }
+        });
   }
 
   private static ActionListener showHomeAdmin = e -> {

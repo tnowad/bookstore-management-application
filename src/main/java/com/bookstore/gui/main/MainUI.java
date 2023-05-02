@@ -26,7 +26,7 @@ public class MainUI extends JFrame {
     return instance;
   }
 
-  private MainUI(
+  public MainUI(
       DrawerMenu drawerMenu,
       MainPanel mainPanel,
       HeaderDashboard headerDashboard) {
