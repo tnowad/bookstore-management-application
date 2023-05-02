@@ -3,14 +3,39 @@ package com.bookstore.gui.forms.carts;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
+import com.bookstore.bus.BookBUS;
+import com.bookstore.bus.CartBUS;
+import com.bookstore.bus.CartItemsBUS;
+import com.bookstore.bus.UserBUS;
+import com.bookstore.enums.CartStatus;
+import com.bookstore.models.BookModel;
+import com.bookstore.models.CartItemsModel;
+import com.bookstore.models.CartModel;
+import com.bookstore.models.UserModel;
+import com.bookstore.services.Authentication;
+
 public class CartPanel extends JPanel {
   private static CartPanel instance;
+  private UserModel userModel;
+  private CartBUS cartBUS;
+  private CartModel cartModel;
+  private CartItemsBUS cartItemsBUS;
+  private List<CartItemsModel> cartItemList;
+  private List<CartItemsModel> myCartList;
+  private BookBUS bookBUS;
+  private List<BookModel> bookList;
+  private List<BookModel> myBookList;
 
   private CartPanel() {
+    updateData();
     initComponents();
+    listOrder();
+    listCart();
   }
 
   public static CartPanel getInstance() {
@@ -18,6 +43,23 @@ public class CartPanel extends JPanel {
       instance = new CartPanel();
     }
     return instance;
+  }
+
+  private void updateData() {
+    userModel = Authentication.getCurrentUser();
+    cartBUS = CartBUS.getInstance();
+    cartModel = cartBUS.getModelById(userModel.getId());
+    if (cartModel.getStatus() == CartStatus.PENDING) {
+      cartItemsBUS = CartItemsBUS.getInstance();
+      cartItemList = cartItemsBUS.getAllModels();
+      bookBUS = BookBUS.getInstance();
+      bookList = bookBUS.getAllModels();
+      for (CartItemsModel cartItemsModel : cartItemList) {
+        if (cartItemsModel.getCartId() == cartModel.getId()) {
+          myCartList.add(cartItemsModel);
+        }
+      }
+    }
   }
 
   private void initComponents() {
@@ -37,19 +79,7 @@ public class CartPanel extends JPanel {
 
     listCartPanel.setLayout(new BorderLayout());
 
-    listCartTable.setModel(
-        new DefaultTableModel(
-            new Object[][] {
-                { null, null, null, null },
-                { null, null, null, null },
-                { null, null, null, null },
-                { null, null, null, null },
-            },
-            new String[] { "Title 1", "Title 2", "Title 3", "Title 4" }));
     listCartTable.setPreferredSize(new Dimension(350, 80));
-    listCartScrollPane.setViewportView(listCartTable);
-
-    listCartPanel.add(listCartScrollPane, BorderLayout.CENTER);
 
     add(listCartPanel, BorderLayout.CENTER);
 
@@ -115,6 +145,34 @@ public class CartPanel extends JPanel {
     groupBottomPanel.add(groupActionPanel);
 
     add(groupBottomPanel, BorderLayout.SOUTH);
+  }
+
+  private void listOrder() {
+  }
+
+  private void listCart() {
+    DefaultTableModel model = new DefaultTableModel();
+    // "ISBN", "Title", "Quantity", "Price", "Status"
+    model.addColumn("ISBN");
+    model.addColumn("Title");
+    model.addColumn("Price");
+    model.addColumn("Quantity");
+    for (BookModel book : bookList) {
+      model.addRow(
+          new Object[] {
+              book.getIsbn(),
+              book.getTitle(),
+              book.getDescription(),
+              book.getPrice(),
+              book.getQuantity(),
+              book.getStatus(),
+              book.getPublisherId(),
+              book.getAuthorId(),
+          });
+      listCartTable.setModel(model);
+    }
+    listCartScrollPane.setViewportView(listCartTable);
+    listCartPanel.add(listCartScrollPane, BorderLayout.CENTER);
   }
 
   private void totalPriceTextFieldActionPerformed(ActionEvent evt) {
