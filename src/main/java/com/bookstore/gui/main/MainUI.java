@@ -10,6 +10,12 @@ public class MainUI extends JFrame {
 
   private static MainUI instance = null;
 
+  private LayoutManager layout;
+
+  private DrawerMenu drawerMenu;
+  private MainPanel mainPanel;
+  private HeaderDashboard headerDashboard;
+
   public static MainUI getInstance() {
     if (instance == null) {
       instance = new MainUI(
@@ -20,13 +26,7 @@ public class MainUI extends JFrame {
     return instance;
   }
 
-  private LayoutManager layout;
-
-  private DrawerMenu drawerMenu;
-  private MainPanel mainPanel;
-  private HeaderDashboard headerDashboard;
-
-  public MainUI(
+  private MainUI(
       DrawerMenu drawerMenu,
       MainPanel mainPanel,
       HeaderDashboard headerDashboard) {
