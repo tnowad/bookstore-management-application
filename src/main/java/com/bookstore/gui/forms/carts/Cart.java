@@ -3,6 +3,7 @@ package com.bookstore.gui.forms.carts;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.*;
@@ -49,6 +50,7 @@ public class Cart extends JPanel {
     userModel = Authentication.getCurrentUser();
     cartBUS = CartBUS.getInstance();
     cartModel = cartBUS.getModelById(userModel.getId());
+    myCartList = new ArrayList<CartItemsModel>();
     if (cartModel.getStatus() == CartStatus.PENDING) {
       cartItemsBUS = CartItemsBUS.getInstance();
       cartItemList = cartItemsBUS.getAllModels();
