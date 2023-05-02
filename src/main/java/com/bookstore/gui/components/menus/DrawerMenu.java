@@ -45,7 +45,7 @@ public class DrawerMenu extends JPanel {
     scrollPane = new JScrollPane();
     menuItemsPanel = new JPanel();
     menuItemsPanel.setBackground(Color.decode("#273853"));
-    menuItemsPanel.setOpaque(false);
+    // menuItemsPanel.setOpaque(false);
 
     menuItemsPanel.setLayout(new BoxLayout(menuItemsPanel, BoxLayout.Y_AXIS));
 
