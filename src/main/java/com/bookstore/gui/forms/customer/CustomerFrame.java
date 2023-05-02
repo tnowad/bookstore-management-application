@@ -1,7 +1,11 @@
 package com.bookstore.gui.forms.customer;
 
 import com.bookstore.gui.components.buttons.Button;
+import com.bookstore.gui.forms.accounts.AccountPanel;
 import com.bookstore.gui.forms.carts.Cart;
+import com.bookstore.gui.forms.general.AboutUs;
+import com.bookstore.gui.forms.general.ContactUs;
+import com.bookstore.gui.main.LoginUI;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import java.awt.*;
 import javax.swing.*;
@@ -41,20 +45,52 @@ public class CustomerFrame extends JFrame {
     });
 
     aboutUsButton.addActionListener(e -> {
+      contentPanel.removeAll();
+      contentPanel.add(AboutUs.getInstance());
+      contentPanel.revalidate();
+      contentPanel.repaint();
     });
     accountSettingButton.addActionListener(e -> {
+      contentPanel.removeAll();
+      contentPanel.add(AccountPanel.getInstance());
+      contentPanel.revalidate();
+      contentPanel.repaint();
     });
-    cartButton.addActionListener(e -> {
-    });
+
     contactSupportButton.addActionListener(e -> {
+      contentPanel.removeAll();
+      contentPanel.add(ContactUs.getInstance());
+      contentPanel.revalidate();
+      contentPanel.repaint();
     });
     discoverButton.addActionListener(e -> {
+      contentPanel.removeAll();
+      contentPanel.add(Discovery.getInstance());
+      contentPanel.revalidate();
+      contentPanel.repaint();
     });
     myOrderButton.addActionListener(e -> {
+      contentPanel.removeAll();
+      contentPanel.add(Order.getInstance());
+      contentPanel.revalidate();
+      contentPanel.repaint();
     });
     homeButton.addActionListener(e -> {
+      contentPanel.removeAll();
+      contentPanel.add(HomeCustomer.getInstance());
+      contentPanel.revalidate();
+      contentPanel.repaint();
     });
     logoutButton.addActionListener(e -> {
+      int option = JOptionPane.showConfirmDialog(
+          null,
+          "Bạn chắc chắn muốn đăng xuất?",
+          "Đăng xuất",
+          JOptionPane.OK_OPTION);
+      if (option == 0) {
+        dispose();
+        LoginUI.getInstance().setVisible(true);
+      }
     });
   }
 

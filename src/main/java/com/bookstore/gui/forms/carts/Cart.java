@@ -3,6 +3,7 @@ package com.bookstore.gui.forms.carts;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.*;
@@ -11,7 +12,6 @@ import javax.swing.table.DefaultTableModel;
 import com.bookstore.bus.BookBUS;
 import com.bookstore.bus.CartBUS;
 import com.bookstore.bus.CartItemsBUS;
-import com.bookstore.bus.UserBUS;
 import com.bookstore.enums.CartStatus;
 import com.bookstore.models.BookModel;
 import com.bookstore.models.CartItemsModel;
@@ -23,6 +23,7 @@ public class Cart extends JPanel {
   private static Cart instance;
   private UserModel userModel;
   private CartBUS cartBUS;
+  private List<CartModel> cartList;
   private CartModel cartModel;
   private CartItemsBUS cartItemsBUS;
   private List<CartItemsModel> cartItemList;
@@ -48,15 +49,24 @@ public class Cart extends JPanel {
   private void updateData() {
     userModel = Authentication.getCurrentUser();
     cartBUS = CartBUS.getInstance();
-    cartModel = cartBUS.getModelById(userModel.getId());
+    cartList = cartBUS.getAllModels();
+    for (CartModel cartModel : cartList) {
+      if (cartModel.getUserId() == userModel.getId()) {
+        this.cartModel = cartModel;
+      }
+    }
+    myCartList = new ArrayList<CartItemsModel>();
+    cartItemsBUS = CartItemsBUS.getInstance();
+    System.out.println(cartModel.getStatus());
     if (cartModel.getStatus() == CartStatus.PENDING) {
-      cartItemsBUS = CartItemsBUS.getInstance();
       cartItemList = cartItemsBUS.getAllModels();
       bookBUS = BookBUS.getInstance();
       bookList = bookBUS.getAllModels();
       for (CartItemsModel cartItemsModel : cartItemList) {
         if (cartItemsModel.getCartId() == cartModel.getId()) {
+          System.out.println(cartModel.getId());
           myCartList.add(cartItemsModel);
+          System.out.println(myCartList.size());
         }
       }
     }
@@ -157,19 +167,17 @@ public class Cart extends JPanel {
     model.addColumn("Title");
     model.addColumn("Price");
     model.addColumn("Quantity");
-    for (BookModel book : bookList) {
-      model.addRow(
-          new Object[] {
-              book.getIsbn(),
-              book.getTitle(),
-              book.getDescription(),
-              book.getPrice(),
-              book.getQuantity(),
-              book.getStatus(),
-              book.getPublisherId(),
-              book.getAuthorId(),
-          });
-      listCartTable.setModel(model);
+    for (CartItemsModel cartItemsModel : myCartList) {
+      System.out.println("My isbn of cart items: " + cartItemsModel.getBookIsbn());
+      for (BookModel bookModel : bookList) {
+        System.out.println("My book isbn " + bookModel.getIsbn());
+        if (cartItemsModel.getBookIsbn().equalsIgnoreCase(bookModel.getIsbn())) {
+          System.out.println(1);
+          model.addRow(new Object[] { bookModel.getIsbn(), bookModel.getTitle(), bookModel.getPrice(),
+              cartItemsModel.getQuantity() });
+              listCartTable.setModel(model);
+        }
+      }
     }
     listCartScrollPane.setViewportView(listCartTable);
     listCartPanel.add(listCartScrollPane, BorderLayout.CENTER);
