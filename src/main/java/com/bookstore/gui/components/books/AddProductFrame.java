@@ -4,9 +4,7 @@ import com.bookstore.bus.AuthorBUS;
 import com.bookstore.bus.BookBUS;
 import com.bookstore.bus.PublisherBUS;
 import com.bookstore.enums.BookStatus;
-import com.bookstore.models.AuthorModel;
 import com.bookstore.models.BookModel;
-import com.bookstore.models.PublisherModel;
 import java.awt.event.*;
 import java.io.File;
 import java.util.Arrays;
@@ -18,8 +16,9 @@ import javax.swing.*;
  */
 public class AddProductFrame extends javax.swing.JFrame {
 
-  public AddProductFrame() {
+  public AddProductFrame(String publisherName, String authorName) {
     initComponents();
+    addPublisherAndAuthorName(publisherName, authorName);
     setLocationRelativeTo(null);
     setResizable(false);
     this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -104,31 +103,9 @@ public class AddProductFrame extends javax.swing.JFrame {
     getContentPane().add(publisherText);
 
     setPublisherId.setPreferredSize(new java.awt.Dimension(140, 22));
-    setPublisherId.addFocusListener(
-      new FocusListener() {
-        @Override
-        public void focusGained(FocusEvent e) {}
-
-        @Override
-        public void focusLost(FocusEvent e) {
-          checkPublisherId();
-        }
-      }
-    );
     getContentPane().add(setPublisherId);
 
     setPublisherName.setPreferredSize(new java.awt.Dimension(200, 22));
-    setPublisherName.addFocusListener(
-      new FocusListener() {
-        @Override
-        public void focusGained(FocusEvent e) {}
-
-        @Override
-        public void focusLost(FocusEvent e) {
-          checkPublisherName();
-        }
-      }
-    );
     getContentPane().add(setPublisherName);
 
     authorText.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
@@ -137,31 +114,9 @@ public class AddProductFrame extends javax.swing.JFrame {
     getContentPane().add(authorText);
 
     setAuthorId.setPreferredSize(new java.awt.Dimension(140, 22));
-    setAuthorId.addFocusListener(
-      new FocusListener() {
-        @Override
-        public void focusGained(FocusEvent e) {}
-
-        @Override
-        public void focusLost(FocusEvent e) {
-          checkAuthorId();
-        }
-      }
-    );
     getContentPane().add(setAuthorId);
 
     setAuthorName.setPreferredSize(new java.awt.Dimension(200, 22));
-    setAuthorName.addFocusListener(
-      new FocusListener() {
-        @Override
-        public void focusGained(FocusEvent e) {}
-
-        @Override
-        public void focusLost(FocusEvent e) {
-          checkAuthorName();
-        }
-      }
-    );
     getContentPane().add(setAuthorName);
 
     imageText.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
@@ -267,93 +222,18 @@ public class AddProductFrame extends javax.swing.JFrame {
     return null;
   }
 
-  // TODO: The function works but it doesn't update on GUI, need a fix, also need
-  // TODO: a proper Logic Error check.
-  public void checkPublisherId() {
-    if (
-      PublisherBUS
-        .getInstance()
-        .getModelById(Integer.parseInt(setPublisherId.getText().trim())) !=
-      null
-    ) {
-      setPublisherName.setText(
-        PublisherBUS
-          .getInstance()
-          .getModelById(Integer.parseInt(setPublisherId.getText().trim()))
-          .getName()
-      );
-    } else {
-      setPublisherName.setText(null);
-    }
+  public void addPublisherAndAuthorName(String publisherName, String authorName){
+    setPublisherName.setText(publisherName);
+    setAuthorName.setText(authorName);
+    setPublisherId.setText(""+PublisherBUS.getInstance().getModelByPublisherName(publisherName).getId());
   }
 
-  public void checkAuthorId() {
-    if (
-      AuthorBUS
-        .getInstance()
-        .getModelById(Integer.parseInt(setAuthorId.getText().trim())) !=
-      null
-    ) {
-      setAuthorName.setText(
-        AuthorBUS
-          .getInstance()
-          .getModelById(Integer.parseInt(setAuthorId.getText().trim()))
-          .getName()
-      );
-    } else {
-      setAuthorName.setText(null);
-    }
-  }
 
-  public Boolean checkPublisherName() {
-    if (
-      PublisherBUS
-        .getInstance()
-        .getModelByPublisherName(setPublisherName.getText().trim()) !=
-      null
-    ) {
-      setPublisherId.setText(
-        String.valueOf(
-          PublisherBUS
-            .getInstance()
-            .getModelByPublisherName(setPublisherName.getText().trim())
-            .getId()
-        )
-      );
-      return true;
-    } else {
-      setPublisherId.setText(null);
-      return false;
-    }
-  }
-
-  public Boolean checkAuthorName() {
-    if (
-      AuthorBUS
-        .getInstance()
-        .getModelByAuthorName(setAuthorName.getText().trim()) !=
-      null
-    ) {
-      setAuthorId.setText(
-        String.valueOf(
-          AuthorBUS
-            .getInstance()
-            .getModelByAuthorName(setAuthorName.getText().trim())
-            .getId()
-        )
-      );
-      return true;
-    } else {
-      setAuthorId.setText(null);
-      return false;
-    }
-  }
 
   public void actionAdd() {
     final String EMPTY_FIELD_ERROR = " cannot be empty!";
     final String INVALID_PRICE_ERROR = "Price is not valid!";
     final String INVALID_QUANTITY_ERROR = "Quantity is not valid!";
-    final String INVALID_ID_ERROR = "Id is not valid!";
     final String DUPLICATE_ISBN_ERROR = "Isbn already exists!";
     final String DUPLICATE_TITLE_ERROR = "Title already exists!";
 
@@ -387,30 +267,6 @@ public class AddProductFrame extends javax.swing.JFrame {
       return;
     }
 
-    // try {
-    //     Integer.parseInt(setPublisherId.getText().trim());
-    // } catch (NumberFormatException e) {
-    //     JOptionPane.showMessageDialog(null, "Publisher " + INVALID_ID_ERROR);
-    //     return;
-    // }
-
-    // try {
-    //     Integer.parseInt(setAuthorId.getText().trim());
-    // } catch (NumberFormatException e) {
-    //     JOptionPane.showMessageDialog(null, "Author " + INVALID_ID_ERROR);
-    //     return;
-    // }
-
-    if (setPublisherName.getText().trim().isEmpty()) {
-      JOptionPane.showMessageDialog(null, "Publisher Name" + EMPTY_FIELD_ERROR);
-      return;
-    }
-
-    if (setAuthorName.getText().trim().isEmpty()) {
-      JOptionPane.showMessageDialog(null, "Author Name" + EMPTY_FIELD_ERROR);
-      return;
-    }
-
     if (
       BookBUS
         .getInstance()
@@ -434,54 +290,6 @@ public class AddProductFrame extends javax.swing.JFrame {
       return;
     }
 
-    if (!checkPublisherName()) {
-      int choice = JOptionPane.showConfirmDialog(
-        null,
-        "Do you want to add new publisher?"
-      );
-      if (choice == JOptionPane.YES_OPTION) {
-        PublisherModel publisherModel = new PublisherModel(
-          0,
-          setPublisherName.getText().trim(),
-          "description ?"
-        );
-        PublisherBUS.getInstance().addModel(publisherModel);
-        setPublisherId.setText(
-          String.valueOf(
-            PublisherBUS
-              .getInstance()
-              .getModelByPublisherName(setPublisherName.getText().trim())
-              .getId()
-          )
-        );
-      } else {
-        return;
-      }
-    }
-    if (!checkAuthorName()) {
-      int choice = JOptionPane.showConfirmDialog(
-        null,
-        "Do you want to add new author?"
-      );
-      if (choice == JOptionPane.YES_OPTION) {
-        AuthorModel authorModel = new AuthorModel(
-          0,
-          setAuthorName.getText().trim(),
-          "description ?"
-        );
-        AuthorBUS.getInstance().addModel(authorModel);
-        setAuthorId.setText(
-          String.valueOf(
-            AuthorBUS
-              .getInstance()
-              .getModelByAuthorName(setAuthorName.getText().trim())
-              .getId()
-          )
-        );
-      } else {
-        return;
-      }
-    }
 
     BookStatus newStatus = BookStatus.valueOf(
       setStatus.getSelectedItem().toString().toUpperCase()
