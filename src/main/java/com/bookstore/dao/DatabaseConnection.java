@@ -112,4 +112,30 @@ public class DatabaseConnection {
     }
     return false;
   }
+
+  public void beginTransaction() {
+    try {
+      getConnection().setAutoCommit(false);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public void endTransaction() {
+    try {
+      getConnection().commit();
+      getConnection().setAutoCommit(true);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public void rollbackTransaction() {
+    try {
+      getConnection().rollback();
+      getConnection().setAutoCommit(true);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
 }
