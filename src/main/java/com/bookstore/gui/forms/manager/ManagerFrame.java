@@ -102,7 +102,7 @@ public class ManagerFrame extends JFrame {
     grMenu.add(grMenu1, BorderLayout.NORTH);
     grMenu.add(grMenu2, BorderLayout.SOUTH);
 
-    grContent.add(new BookList());
+    grContent.add(BookList.getInstance());
     jScrollPane1.setViewportView(grContent);
     grContent.setPreferredSize(new Dimension(900, 0));
 
@@ -157,7 +157,7 @@ public class ManagerFrame extends JFrame {
           @Override
           public void actionPerformed(ActionEvent e) {
             grContent.removeAll();
-            grContent.add(new BookList());
+            grContent.add(BookList.getInstance());
             grContent.revalidate();
             grContent.repaint();
           }

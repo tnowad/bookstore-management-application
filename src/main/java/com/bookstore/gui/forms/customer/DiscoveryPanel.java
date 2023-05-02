@@ -9,9 +9,17 @@ import java.awt.event.FocusListener;
 import javax.swing.*;
 
 public class DiscoveryPanel extends JPanel {
+  private static DiscoveryPanel instance;
 
-  public DiscoveryPanel() {
+  private DiscoveryPanel() {
     initComponents();
+  }
+
+  public static DiscoveryPanel getInstance() {
+    if (instance == null) {
+      instance = new DiscoveryPanel();
+    }
+    return instance;
   }
 
   private void initComponents() {

@@ -168,7 +168,7 @@ public class SalesmanFrame extends JFrame {
 
     bookListButton.addActionListener(e -> {
       contentPanel.removeAll();
-      contentPanel.add(new BookList());
+      contentPanel.add(BookList.getInstance());
       contentPanel.revalidate();
       contentPanel.repaint();
     });

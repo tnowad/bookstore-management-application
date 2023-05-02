@@ -87,8 +87,7 @@ public class BookListSale extends JPanel {
 
     excelButtonPanel.setPreferredSize(new java.awt.Dimension(340, 30));
     excelButtonPanel.setLayout(
-      new java.awt.FlowLayout(java.awt.FlowLayout.TRAILING, 5, 0)
-    );
+        new java.awt.FlowLayout(java.awt.FlowLayout.TRAILING, 5, 0));
 
     importFromExcelButton.setPreferredSize(new java.awt.Dimension(160, 30));
 
@@ -126,49 +125,44 @@ public class BookListSale extends JPanel {
 
   private void search() {
     searchButton.addActionListener(
-      new ActionListener() {
-        public void actionPerformed(ActionEvent e) {
-          String text = searchTextField.getText();
-          if (text == null || text.isBlank()) {
-            JOptionPane.showMessageDialog(
-              null,
-              "Vui lòng nhập thông tin tìm kiếm !"
-            );
-            showTable();
-          } else {
-            DefaultTableModel model = new DefaultTableModel();
-            // "ISBN", "Title", "Quantity", "Price", "Status"
-            model.addColumn("ISBN");
-            model.addColumn("Title");
-            model.addColumn("Description");
-            model.addColumn("Price");
-            model.addColumn("Quantity");
-            model.addColumn("Status");
-            model.addColumn("Publisher");
-            model.addColumn("Author");
-            for (BookModel bookModel : bookList) {
-              if (
-                bookModel.getTitle().toLowerCase().contains(text.toLowerCase())
-              ) {
-                model.addRow(
-                  new Object[] {
-                    bookModel.getIsbn(),
-                    bookModel.getTitle(),
-                    bookModel.getDescription(),
-                    bookModel.getPrice(),
-                    bookModel.getQuantity(),
-                    bookModel.getStatus(),
-                    bookModel.getPublisherId(),
-                    bookModel.getAuthorId(),
-                  }
-                );
-                bookListTable.setModel(model);
+        new ActionListener() {
+          public void actionPerformed(ActionEvent e) {
+            String text = searchTextField.getText();
+            if (text == null || text.isBlank()) {
+              JOptionPane.showMessageDialog(
+                  null,
+                  "Vui lòng nhập thông tin tìm kiếm !");
+              showTable();
+            } else {
+              DefaultTableModel model = new DefaultTableModel();
+              // "ISBN", "Title", "Quantity", "Price", "Status"
+              model.addColumn("ISBN");
+              model.addColumn("Title");
+              model.addColumn("Description");
+              model.addColumn("Price");
+              model.addColumn("Quantity");
+              model.addColumn("Status");
+              model.addColumn("Publisher");
+              model.addColumn("Author");
+              for (BookModel bookModel : bookList) {
+                if (bookModel.getTitle().toLowerCase().contains(text.toLowerCase())) {
+                  model.addRow(
+                      new Object[] {
+                          bookModel.getIsbn(),
+                          bookModel.getTitle(),
+                          bookModel.getDescription(),
+                          bookModel.getPrice(),
+                          bookModel.getQuantity(),
+                          bookModel.getStatus(),
+                          bookModel.getPublisherId(),
+                          bookModel.getAuthorId(),
+                      });
+                  bookListTable.setModel(model);
+                }
               }
             }
           }
-        }
-      }
-    );
+        });
   }
 
   private void listBooks() {
@@ -188,17 +182,16 @@ public class BookListSale extends JPanel {
     model.addColumn("Author");
     for (BookModel book : bookList) {
       model.addRow(
-        new Object[] {
-          book.getIsbn(),
-          book.getTitle(),
-          book.getDescription(),
-          book.getPrice(),
-          book.getQuantity(),
-          book.getStatus(),
-          book.getPublisherId(),
-          book.getAuthorId(),
-        }
-      );
+          new Object[] {
+              book.getIsbn(),
+              book.getTitle(),
+              book.getDescription(),
+              book.getPrice(),
+              book.getQuantity(),
+              book.getStatus(),
+              book.getPublisherId(),
+              book.getAuthorId(),
+          });
       bookListTable.setModel(model);
     }
   }

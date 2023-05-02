@@ -7,9 +7,17 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 public class CartPanel extends JPanel {
+  private static CartPanel instance;
 
-  public CartPanel() {
+  private CartPanel() {
     initComponents();
+  }
+
+  public static CartPanel getInstance() {
+    if (instance == null) {
+      instance = new CartPanel();
+    }
+    return instance;
   }
 
   private void initComponents() {
@@ -30,16 +38,14 @@ public class CartPanel extends JPanel {
     listCartPanel.setLayout(new BorderLayout());
 
     listCartTable.setModel(
-      new DefaultTableModel(
-        new Object[][] {
-          { null, null, null, null },
-          { null, null, null, null },
-          { null, null, null, null },
-          { null, null, null, null },
-        },
-        new String[] { "Title 1", "Title 2", "Title 3", "Title 4" }
-      )
-    );
+        new DefaultTableModel(
+            new Object[][] {
+                { null, null, null, null },
+                { null, null, null, null },
+                { null, null, null, null },
+                { null, null, null, null },
+            },
+            new String[] { "Title 1", "Title 2", "Title 3", "Title 4" }));
     listCartTable.setPreferredSize(new Dimension(350, 80));
     listCartScrollPane.setViewportView(listCartTable);
 
@@ -59,12 +65,11 @@ public class CartPanel extends JPanel {
     totalPriceTextField.setEditable(false);
     totalPriceTextField.setPreferredSize(new Dimension(200, 30));
     totalPriceTextField.addActionListener(
-      new ActionListener() {
-        public void actionPerformed(ActionEvent evt) {
-          totalPriceTextFieldActionPerformed(evt);
-        }
-      }
-    );
+        new ActionListener() {
+          public void actionPerformed(ActionEvent evt) {
+            totalPriceTextFieldActionPerformed(evt);
+          }
+        });
     groupTotalCostPanel.add(totalPriceTextField);
 
     groupBottomPanel.add(groupTotalCostPanel);
@@ -75,12 +80,11 @@ public class CartPanel extends JPanel {
     chooseAllCheckBox.setText("Choose all");
     chooseAllCheckBox.setPreferredSize(new Dimension(100, 30));
     chooseAllCheckBox.addActionListener(
-      new ActionListener() {
-        public void actionPerformed(ActionEvent evt) {
-          chooseAllCheckBoxActionPerformed(evt);
-        }
-      }
-    );
+        new ActionListener() {
+          public void actionPerformed(ActionEvent evt) {
+            chooseAllCheckBoxActionPerformed(evt);
+          }
+        });
     groupActionPanel.add(chooseAllCheckBox);
 
     deleteAllProductsButton.setFont(new Font("Arial", 0, 18)); // NOI18N
@@ -88,12 +92,11 @@ public class CartPanel extends JPanel {
     deleteAllProductsButton.setMinimumSize(new Dimension(179, 30));
     deleteAllProductsButton.setPreferredSize(new Dimension(190, 30));
     deleteAllProductsButton.addActionListener(
-      new ActionListener() {
-        public void actionPerformed(ActionEvent evt) {
-          deleteAllProductsButtonActionPerformed(evt);
-        }
-      }
-    );
+        new ActionListener() {
+          public void actionPerformed(ActionEvent evt) {
+            deleteAllProductsButtonActionPerformed(evt);
+          }
+        });
     groupActionPanel.add(deleteAllProductsButton);
 
     proceedToCheckoutButton.setFont(new Font("Arial", 0, 18)); // NOI18N
@@ -102,12 +105,11 @@ public class CartPanel extends JPanel {
     proceedToCheckoutButton.setMinimumSize(new Dimension(200, 30));
     proceedToCheckoutButton.setPreferredSize(new Dimension(200, 30));
     proceedToCheckoutButton.addActionListener(
-      new ActionListener() {
-        public void actionPerformed(ActionEvent evt) {
-          proceedToCheckoutButtonActionPerformed(evt);
-        }
-      }
-    );
+        new ActionListener() {
+          public void actionPerformed(ActionEvent evt) {
+            proceedToCheckoutButtonActionPerformed(evt);
+          }
+        });
     groupActionPanel.add(proceedToCheckoutButton);
 
     groupBottomPanel.add(groupActionPanel);
@@ -115,13 +117,17 @@ public class CartPanel extends JPanel {
     add(groupBottomPanel, BorderLayout.SOUTH);
   }
 
-  private void totalPriceTextFieldActionPerformed(ActionEvent evt) {}
+  private void totalPriceTextFieldActionPerformed(ActionEvent evt) {
+  }
 
-  private void deleteAllProductsButtonActionPerformed(ActionEvent evt) {}
+  private void deleteAllProductsButtonActionPerformed(ActionEvent evt) {
+  }
 
-  private void proceedToCheckoutButtonActionPerformed(ActionEvent evt) {}
+  private void proceedToCheckoutButtonActionPerformed(ActionEvent evt) {
+  }
 
-  private void chooseAllCheckBoxActionPerformed(ActionEvent evt) {}
+  private void chooseAllCheckBoxActionPerformed(ActionEvent evt) {
+  }
 
   private JCheckBox chooseAllCheckBox;
   private JButton deleteAllProductsButton;

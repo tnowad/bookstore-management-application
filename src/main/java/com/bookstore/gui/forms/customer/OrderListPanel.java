@@ -4,9 +4,17 @@ import java.awt.*;
 import javax.swing.*;
 
 public class OrderListPanel extends JPanel {
+  private static OrderListPanel instance;
 
-  public OrderListPanel() {
+  private OrderListPanel() {
     initComponents();
+  }
+
+  public static OrderListPanel getInstance() {
+    if (instance == null) {
+      instance = new OrderListPanel();
+    }
+    return instance;
   }
 
   private void initComponents() {
