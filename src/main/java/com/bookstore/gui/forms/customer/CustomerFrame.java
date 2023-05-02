@@ -1,10 +1,9 @@
 package com.bookstore.gui.forms.customer;
 
 import com.bookstore.gui.components.buttons.Button;
+import com.bookstore.gui.forms.carts.Cart;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -29,6 +28,34 @@ public class CustomerFrame extends JFrame {
 
   public CustomerFrame() {
     initComponents();
+    handleEvent();
+  }
+
+  private void handleEvent() {
+
+    cartButton.addActionListener(e -> {
+      contentPanel.removeAll();
+      contentPanel.add(Cart.getInstance());
+      contentPanel.revalidate();
+      contentPanel.repaint();
+    });
+
+    aboutUsButton.addActionListener(e -> {
+    });
+    accountSettingButton.addActionListener(e -> {
+    });
+    cartButton.addActionListener(e -> {
+    });
+    contactSupportButton.addActionListener(e -> {
+    });
+    discoverButton.addActionListener(e -> {
+    });
+    myOrderButton.addActionListener(e -> {
+    });
+    homeButton.addActionListener(e -> {
+    });
+    logoutButton.addActionListener(e -> {
+    });
   }
 
   private void initComponents() {
@@ -73,10 +100,6 @@ public class CustomerFrame extends JFrame {
     statusLabel.setMaximumSize(new Dimension(500, 16));
     statusLabel.setPreferredSize(new Dimension(300, 16));
     headerPanel.add(statusLabel);
-
-    cartButton.addActionListener(e -> {
-
-    });
 
     headerPanel.add(cartButton);
 

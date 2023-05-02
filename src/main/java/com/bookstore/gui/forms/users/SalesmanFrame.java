@@ -161,7 +161,7 @@ public class SalesmanFrame extends JFrame {
 
     pendingOrderButton.addActionListener(e -> {
       contentPanel.removeAll();
-      contentPanel.add(new OrderList());
+      contentPanel.add(OrderList.getInstance());
       contentPanel.revalidate();
       contentPanel.repaint();
     });

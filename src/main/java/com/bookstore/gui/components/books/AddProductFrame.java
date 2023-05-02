@@ -8,7 +8,6 @@ import com.bookstore.models.AuthorModel;
 import com.bookstore.models.BookModel;
 import com.bookstore.models.PublisherModel;
 import com.bookstore.util.image.ImageUtils;
-import com.github.javafaker.Book;
 
 import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
@@ -259,7 +258,7 @@ public class AddProductFrame extends javax.swing.JFrame {
     getContentPane().add(buttonPanel);
 
     pack();
-  } // </editor-fold>                        
+  } // </editor-fold>
 
   public String actionAddLinkImage() {
     JFileChooser fileChooser = new JFileChooser();

@@ -14,35 +14,41 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 public class OrderList extends JPanel {
+  private static OrderList instance;
 
   OrderBUS orderBus = OrderBUS.getInstance();
   java.util.List<OrderModel> orderList = orderBus.getAllModels();
 
-  public OrderList() {
+  private OrderList() {
     initComponents();
     listOrder();
     handleEvent();
   }
 
+  public static OrderList getInstance() {
+    if (instance == null) {
+      instance = new OrderList();
+    }
+    return instance;
+  }
+
   private void handleEvent() {
     orderTableList
-      .getSelectionModel()
-      .addListSelectionListener(
-        new ListSelectionListener() {
-          public void valueChanged(ListSelectionEvent event) {
-            int selectedRowIndex = orderTableList.getSelectedRow();
-            if (selectedRowIndex != -1) {
-              int customerId = Integer.parseInt(
-                orderTableList.getValueAt(selectedRowIndex, 2).toString()
-              );
-              new Dialog(new OrderDetail(customerId));
-              listOrder();
-            } else {
-              System.out.println("Don't know how to handle this order");
-            }
-          }
-        }
-      );
+        .getSelectionModel()
+        .addListSelectionListener(
+            new ListSelectionListener() {
+              public void valueChanged(ListSelectionEvent event) {
+                int selectedRowIndex = orderTableList.getSelectedRow();
+                if (selectedRowIndex != -1) {
+                  int customerId = Integer.parseInt(
+                      orderTableList.getValueAt(selectedRowIndex, 2).toString());
+                  new Dialog(new OrderDetail(customerId));
+                  listOrder();
+                } else {
+                  System.out.println("Don't know how to handle this order");
+                }
+              }
+            });
   }
 
   private void listOrder() {
@@ -58,16 +64,15 @@ public class OrderList extends JPanel {
     for (OrderModel orderModel : orderList) {
       if (orderModel.getStatus() == OrderStatus.PENDING) {
         model.addRow(
-          new Object[] {
-            orderModel.getId(),
-            orderModel.getCartId(),
-            orderModel.getCustomerId(),
-            orderModel.getEmployeeId(),
-            orderModel.getTotal(),
-            orderModel.getPaid(),
-            orderModel.getStatus(),
-          }
-        );
+            new Object[] {
+                orderModel.getId(),
+                orderModel.getCartId(),
+                orderModel.getCustomerId(),
+                orderModel.getEmployeeId(),
+                orderModel.getTotal(),
+                orderModel.getPaid(),
+                orderModel.getStatus(),
+            });
       }
       orderTableList.setModel(model);
     }

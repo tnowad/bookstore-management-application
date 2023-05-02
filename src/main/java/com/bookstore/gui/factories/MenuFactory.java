@@ -3,7 +3,22 @@ package com.bookstore.gui.factories;
 import com.bookstore.dao.EmployeeDAO;
 import com.bookstore.gui.components.dashboards.DashboardPanel;
 import com.bookstore.gui.components.panels.MainPanel;
-import com.bookstore.gui.forms.users.SalesmanFrame;
+import com.bookstore.gui.events.general.LogoutActionListener;
+import com.bookstore.gui.forms.accounts.AccountSettings;
+import com.bookstore.gui.forms.accounts.ProfileSettings;
+import com.bookstore.gui.forms.books.BookList;
+import com.bookstore.gui.forms.carts.Cart;
+import com.bookstore.gui.forms.customer.Checkout;
+import com.bookstore.gui.forms.customer.Discovery;
+import com.bookstore.gui.forms.customer.HomeCustomer;
+import com.bookstore.gui.forms.customer.Order;
+import com.bookstore.gui.forms.general.AboutUs;
+import com.bookstore.gui.forms.general.ContactUs;
+import com.bookstore.gui.forms.imports.ImportList;
+import com.bookstore.gui.forms.orders.OrderList;
+import com.bookstore.gui.forms.users.CustomerList;
+import com.bookstore.gui.forms.users.EmployeeList;
+import com.bookstore.gui.forms.users.SalaryList;
 import com.bookstore.gui.main.MainUI;
 import com.bookstore.models.EmployeeModel;
 import com.bookstore.models.MenuItemModel;
@@ -24,8 +39,7 @@ public class MenuFactory {
         return getCustomerMenu();
       case EMPLOYEE:
         return getMenuEmployee(
-          EmployeeDAO.getInstance().getEmployeeById(user.getId())
-        );
+            EmployeeDAO.getInstance().getEmployeeById(user.getId()));
       default:
         throw new IllegalArgumentException("User role is not supported");
     }
@@ -44,187 +58,262 @@ public class MenuFactory {
 
   public static MenuModel getAdminMenu() {
     return new MenuModel(
-      new ArrayList<MenuItemModel>() {
-        {
-          add(
-            new MenuItemModel(
-              "Dashboard",
-              new ImageIcon(""),
-              showHomeAdmin,
-              null
-            )
-          );
-          add(
-            new MenuItemModel(
-              "Customer",
-              new ImageIcon(""),
-              showHomeAdmin,
-              new ArrayList<SubMenuItemModel>() {
-                {
-                  add(
-                    new SubMenuItemModel(
-                      "Add Customer",
-                      new ImageIcon(""),
-                      showHomeAdmin
-                    )
-                  );
-                  add(
-                    new SubMenuItemModel(
-                      "View Customer",
-                      new ImageIcon(""),
-                      showHomeAdmin
-                    )
-                  );
-                  add(
-                    new SubMenuItemModel(
-                      "Edit Customer",
-                      new ImageIcon(""),
-                      showHomeAdmin
-                    )
-                  );
-                }
-              }
-            )
-          );
-        }
-      }
-    );
+        new ArrayList<MenuItemModel>() {
+          {
+            add(
+                new MenuItemModel(
+                    "Dashboard",
+                    new ImageIcon(""),
+                    showHomeAdmin,
+                    null));
+            add(
+                new MenuItemModel(
+                    "Customer",
+                    new ImageIcon(""),
+                    showHomeAdmin,
+                    new ArrayList<SubMenuItemModel>() {
+                      {
+                        add(
+                            new SubMenuItemModel(
+                                "Add Customer",
+                                new ImageIcon(""),
+                                showHomeAdmin));
+                        add(
+                            new SubMenuItemModel(
+                                "View Customer",
+                                new ImageIcon(""),
+                                showHomeAdmin));
+                        add(
+                            new SubMenuItemModel(
+                                "Edit Customer",
+                                new ImageIcon(""),
+                                showHomeAdmin));
+                      }
+                    }));
+          }
+        });
   }
 
   public static MenuModel getCustomerMenu() {
     return new MenuModel(
-      new ArrayList<MenuItemModel>() {
-        {
-          add(
-            new MenuItemModel(
-              "Home",
-              new ImageIcon(""),
-              null,
-              new ArrayList<SubMenuItemModel>() {
-                {
-                  add(
-                    new SubMenuItemModel(
-                      "Shop",
-                      new ImageIcon(""),
-                      showHomeAdmin
-                    )
-                  );
-                }
-              }
-            )
-          );
+        new ArrayList<MenuItemModel>() {
+          {
+            add(
+                new MenuItemModel(
+                    "Home",
+                    new ImageIcon(""),
+                    null,
+                    new ArrayList<SubMenuItemModel>() {
+                      {
+                        add(
+                            new SubMenuItemModel(
+                                "Shop",
+                                new ImageIcon(""),
+                                showHomeCustomer));
+                      }
+                    }));
+            add(
+                new MenuItemModel(
+                    "Discovery",
+                    new ImageIcon(""),
+                    null,
+                    new ArrayList<SubMenuItemModel>() {
+                      {
+                        add(
+                            new SubMenuItemModel(
+                                "Discovery",
+                                new ImageIcon(""),
+                                showDiscoveryCustomer));
+                      }
+                    }));
 
-          add(
-            new MenuItemModel(
-              "Cart",
-              new ImageIcon(""),
-              null,
-              new ArrayList<SubMenuItemModel>() {
-                {
-                  add(
-                    new SubMenuItemModel(
-                      "View Cart",
-                      new ImageIcon(""),
-                      showHomeAdmin
-                    )
-                  );
-                  add(
-                    new SubMenuItemModel(
-                      "Checkout",
-                      new ImageIcon(""),
-                      showHomeAdmin
-                    )
-                  );
-                }
-              }
-            )
-          );
+            add(
+                new MenuItemModel(
+                    "Cart",
+                    new ImageIcon(""),
+                    null,
+                    new ArrayList<SubMenuItemModel>() {
+                      {
+                        add(
+                            new SubMenuItemModel(
+                                "View Cart",
+                                new ImageIcon(""),
+                                showCartCustomer));
+                        add(
+                            new SubMenuItemModel(
+                                "Checkout",
+                                new ImageIcon(""),
+                                showCheckoutCustomer));
+                        // my order
+                        add(
+                            new SubMenuItemModel(
+                                "My Order",
+                                new ImageIcon(""),
+                                showMyOrderCustomer));
+                      }
+                    }));
 
-          add(
-            new MenuItemModel(
-              "Account",
-              new ImageIcon(""),
-              null,
-              new ArrayList<SubMenuItemModel>() {
-                {
-                  add(
-                    new SubMenuItemModel(
-                      "View Account",
-                      new ImageIcon(""),
-                      showHomeAdmin
-                    )
-                  );
-                  add(
-                    new SubMenuItemModel(
-                      "Edit Account",
-                      new ImageIcon(""),
-                      showHomeAdmin
-                    )
-                  );
+            add(
+                new MenuItemModel(
+                    "Account",
+                    new ImageIcon(""),
+                    null,
+                    new ArrayList<SubMenuItemModel>() {
+                      {
+                        add(
+                            new SubMenuItemModel(
+                                "My profile",
+                                new ImageIcon(""),
+                                showProfile));
+                        add(
+                            new SubMenuItemModel(
+                                "My account",
+                                new ImageIcon(""),
+                                showAccount));
+                      }
+                    }));
 
-                  add(new SubMenuItemModel("Address", new ImageIcon(""), null));
-                  add(new SubMenuItemModel("Orders", new ImageIcon(""), null));
-                }
-              }
-            )
-          );
+            add(
+                new MenuItemModel(
+                    "Other",
+                    new ImageIcon(""),
+                    null,
+                    new ArrayList<SubMenuItemModel>() {
+                      {
+                        add(new SubMenuItemModel("About", new ImageIcon(""), null));
+                        add(new SubMenuItemModel("Contact", new ImageIcon(""), null));
+                      }
+                    }));
 
-          add(
-            new MenuItemModel(
-              "Other",
-              new ImageIcon(""),
-              null,
-              new ArrayList<SubMenuItemModel>() {
-                {
-                  add(new SubMenuItemModel("About", new ImageIcon(""), null));
-                  add(new SubMenuItemModel("Contact", new ImageIcon(""), null));
-                }
-              }
-            )
-          );
-
-          add(
-            new MenuItemModel(
-              "Logout",
-              new ImageIcon(""),
-              logout,
-              new ArrayList<SubMenuItemModel>() {
-                {
-                  add(new SubMenuItemModel("Logout", new ImageIcon(""), null));
-                }
-              }
-            )
-          );
-        }
-      }
-    );
+            add(
+                new MenuItemModel(
+                    "Logout",
+                    new ImageIcon(""),
+                    new LogoutActionListener(),
+                    null));
+          }
+        });
   }
 
   public static MenuModel getMenuEmployeeSalesman() {
     return new MenuModel(
-      new ArrayList<MenuItemModel>() {
-        {
-          add(new MenuItemModel("Home", new ImageIcon(""), null, null));
-        }
-      }
-    );
+        new ArrayList<MenuItemModel>() {
+          {
+            add(new MenuItemModel("Customer managerment", new ImageIcon(""), showCustomerList, null));
+            add(new MenuItemModel("Book management", new ImageIcon(""), showBookList, null));
+            add(
+                new MenuItemModel(
+                    "Import management",
+                    new ImageIcon(""),
+                    showImportList, null));
+            add(
+                new MenuItemModel(
+                    "Order management",
+                    new ImageIcon(""),
+                    showOrderList, null));
+            add(new MenuItemModel("My account", new ImageIcon(""), null,
+                new ArrayList<SubMenuItemModel>() {
+                  {
+                    add(new SubMenuItemModel("My profile", new ImageIcon(""), showProfile));
+                    add(new SubMenuItemModel("My account", new ImageIcon(""), showAccount));
+                  }
+                }));
+            add(new MenuItemModel("Contact us", new ImageIcon(""), showContact));
+            add(new MenuItemModel("About us", new ImageIcon(""), showAboutUs));
+            add(new MenuItemModel("Logout", new ImageIcon(""), new LogoutActionListener(), null));
+          }
+        });
   }
 
   public static MenuModel getMenuEmployeeManager() {
     return new MenuModel(
-      new ArrayList<MenuItemModel>() {
-        {
-          add(new MenuItemModel("Home", new ImageIcon(""), null, null));
-        }
-      }
-    );
+        new ArrayList<MenuItemModel>() {
+          {
+            add(new MenuItemModel("Employee managerment", new ImageIcon(""), showEmployeeList, null));
+            add(new MenuItemModel("Salary management", new ImageIcon(""), showSalaryList, null));
+            add(new MenuItemModel("Customer manager", new ImageIcon(""), showCustomerList, null));
+            add(new MenuItemModel("Book management", new ImageIcon(""), showBookList, null));
+            add(
+                new MenuItemModel(
+                    "Import management",
+                    new ImageIcon(""),
+                    showImportList, null));
+            add(
+                new MenuItemModel(
+                    "Order management",
+                    new ImageIcon(""),
+                    showOrderList, null));
+            add(new MenuItemModel("My account", new ImageIcon(""), null,
+                new ArrayList<SubMenuItemModel>() {
+                  {
+                    add(new SubMenuItemModel("My profile", new ImageIcon(""), showProfile));
+                    add(new SubMenuItemModel("My account", new ImageIcon(""), showAccount));
+                  }
+                }));
+            add(new MenuItemModel("Contact us", new ImageIcon(""), showContact));
+            add(new MenuItemModel("About us", new ImageIcon(""), showAboutUs));
+            add(new MenuItemModel("Logout", new ImageIcon(""), new LogoutActionListener(), null));
+          }
+        });
   }
 
+  // admin
   private static ActionListener showHomeAdmin = e -> {
     MainPanel.getInstance().showForm(DashboardPanel.getInstance());
   };
 
-  private static ActionListener logout = e -> {
-    MainUI.getInstance().dispose();
+  // employee and manager
+  private static ActionListener showCustomerList = e -> {
+    MainPanel.getInstance().showForm(CustomerList.getInstance());
   };
+  private static ActionListener showBookList = e -> {
+    MainPanel.getInstance().showForm(BookList.getInstance());
+  };
+  private static ActionListener showImportList = e -> {
+    MainPanel.getInstance().showForm(ImportList.getInstance());
+  };
+  private static ActionListener showOrderList = e -> {
+    MainPanel.getInstance().showForm(OrderList.getInstance());
+  };
+
+  // manager
+  private static ActionListener showEmployeeList = e -> {
+    MainPanel.getInstance().showForm(EmployeeList.getInstance());
+  };
+
+  private static ActionListener showSalaryList = e -> {
+    MainPanel.getInstance().showForm(SalaryList.getInstance());
+  };
+  // customer
+  private static ActionListener showHomeCustomer = e -> {
+    MainPanel.getInstance().showForm(HomeCustomer.getInstance());
+  };
+  private static ActionListener showDiscoveryCustomer = e -> {
+    MainPanel.getInstance().showForm(Discovery.getInstance());
+  };
+
+  private static ActionListener showCartCustomer = e -> {
+    MainPanel.getInstance().showForm(Cart.getInstance());
+  };
+
+  private static ActionListener showCheckoutCustomer = e -> {
+    MainPanel.getInstance().showForm(Checkout.getInstance());
+  };
+  private static ActionListener showMyOrderCustomer = e -> {
+    MainPanel.getInstance().showForm(Order.getInstance());
+  };
+  // general
+  private static ActionListener showProfile = e -> {
+    MainPanel.getInstance().showForm(ProfileSettings.getInstance());
+  };
+  private static ActionListener showAccount = e -> {
+    MainPanel.getInstance().showForm(AccountSettings.getInstance());
+  };
+  private static ActionListener showContact = e -> {
+    MainPanel.getInstance().showForm(ContactUs.getInstance());
+  };
+  private static ActionListener showAboutUs = e -> {
+    MainPanel.getInstance().showForm(AboutUs.getInstance());
+  };
+
 }
