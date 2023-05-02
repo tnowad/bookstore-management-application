@@ -5,7 +5,6 @@ import com.bookstore.enums.PaymentMethod;
 import com.bookstore.enums.PaymentStatus;
 import com.bookstore.interfaces.IBUS;
 import com.bookstore.models.PaymentModel;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -213,7 +212,8 @@ public class PaymentBUS implements IBUS<PaymentModel> {
 
   @Override
   public void refreshData() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'refreshData'");
+    throw new UnsupportedOperationException(
+      "Unimplemented method 'refreshData'"
+    );
   }
 }

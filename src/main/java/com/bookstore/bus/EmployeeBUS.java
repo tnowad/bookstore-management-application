@@ -4,7 +4,6 @@ import com.bookstore.dao.EmployeeDAO;
 import com.bookstore.enums.EmployeeType;
 import com.bookstore.interfaces.IBUS;
 import com.bookstore.models.EmployeeModel;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -219,7 +218,8 @@ public class EmployeeBUS implements IBUS<EmployeeModel> {
 
   @Override
   public void refreshData() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'refreshData'");
+    throw new UnsupportedOperationException(
+      "Unimplemented method 'refreshData'"
+    );
   }
 }

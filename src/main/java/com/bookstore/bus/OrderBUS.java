@@ -4,7 +4,6 @@ import com.bookstore.dao.OrderDAO;
 import com.bookstore.enums.OrderStatus;
 import com.bookstore.interfaces.IBUS;
 import com.bookstore.models.OrderModel;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -251,7 +250,8 @@ public class OrderBUS implements IBUS<OrderModel> {
 
   @Override
   public void refreshData() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'refreshData'");
+    throw new UnsupportedOperationException(
+      "Unimplemented method 'refreshData'"
+    );
   }
 }
