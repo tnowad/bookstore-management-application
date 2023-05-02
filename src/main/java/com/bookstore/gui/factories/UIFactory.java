@@ -3,7 +3,7 @@ package com.bookstore.gui.factories;
 import com.bookstore.bus.EmployeeBUS;
 import com.bookstore.enums.UserRole;
 import com.bookstore.gui.components.menus.MenuPanel;
-import com.bookstore.gui.main.MainUI;
+import com.bookstore.gui.main.MainFrame;
 import com.bookstore.models.MenuModel;
 import com.bookstore.models.UserModel;
 
@@ -23,7 +23,7 @@ public class UIFactory {
     MenuModel menuModel = MenuFactory.getMenu(user);
 
     MenuPanel.updateInstance(new MenuPanel(menuModel));
-    MainUI.destroyInstance();
-    MainUI.getInstance().setVisible(true);
+    MainFrame.destroyInstance();
+    MainFrame.getInstance().setVisible(true);
   }
 }

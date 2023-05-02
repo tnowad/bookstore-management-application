@@ -13,22 +13,22 @@ import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.Timer;
 
-public class MainUI extends JFrame {
+public class MainFrame extends JFrame {
 
-  private static MainUI instance = null;
+  private static MainFrame instance = null;
 
   private LayoutManager layout;
 
-  private MenuPanel drawerMenu;
+  private MenuPanel menuPanel;
   private MainPanel mainPanel;
   private JPanel mainPanelWrapper;
-  private HeaderPanel headerDashboard;
+  private HeaderPanel headerPanel;
   private JSplitPane splitPane;
 
-  public static MainUI getInstance() {
+  public static MainFrame getInstance() {
     if (instance == null) {
       instance =
-        new MainUI(
+        new MainFrame(
           MenuPanel.getInstance(),
           MainPanel.getInstance(),
           HeaderPanel.getInstance()
@@ -37,14 +37,14 @@ public class MainUI extends JFrame {
     return instance;
   }
 
-  public MainUI(
-    MenuPanel drawerMenu,
+  public MainFrame(
+    MenuPanel menuPanel,
     MainPanel mainPanel,
-    HeaderPanel headerDashboard
+    HeaderPanel headerPanel
   ) {
-    this.drawerMenu = drawerMenu;
+    this.menuPanel = menuPanel;
     this.mainPanel = mainPanel;
-    this.headerDashboard = headerDashboard;
+    this.headerPanel = headerPanel;
     initComponents();
     pack();
     setLocationRelativeTo(null);
@@ -52,8 +52,8 @@ public class MainUI extends JFrame {
 
   public void toggleMenu() {
     int dividerLocation = splitPane.getDividerLocation();
-    int minSize = drawerMenu.getMinimumSize().width;
-    int maxSize = drawerMenu.getMaximumSize().width;
+    int minSize = menuPanel.getMinimumSize().width;
+    int maxSize = menuPanel.getMaximumSize().width;
 
     int targetSize = (dividerLocation == minSize) ? maxSize : minSize;
     int currentSize = dividerLocation;
@@ -84,14 +84,14 @@ public class MainUI extends JFrame {
     layout = new BorderLayout();
     setLayout(layout);
 
-    drawerMenu.setMinimumSize(new Dimension(50, Integer.MAX_VALUE));
-    drawerMenu.setMaximumSize(new Dimension(250, Integer.MAX_VALUE));
+    menuPanel.setMinimumSize(new Dimension(50, Integer.MAX_VALUE));
+    menuPanel.setMaximumSize(new Dimension(250, Integer.MAX_VALUE));
     mainPanelWrapper = new JPanel(new BorderLayout());
-    mainPanelWrapper.add(headerDashboard, BorderLayout.PAGE_START);
+    mainPanelWrapper.add(headerPanel, BorderLayout.PAGE_START);
     mainPanelWrapper.add(mainPanel, BorderLayout.CENTER);
 
     splitPane =
-      new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, drawerMenu, mainPanelWrapper);
+      new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, menuPanel, mainPanelWrapper);
     splitPane.setResizeWeight(0);
     splitPane.setEnabled(false);
     splitPane.setOneTouchExpandable(false);
@@ -101,6 +101,6 @@ public class MainUI extends JFrame {
   }
 
   public static void destroyInstance() {
-    MainUI.instance = null;
+    MainFrame.instance = null;
   }
 }

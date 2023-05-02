@@ -1,7 +1,7 @@
 package com.bookstore.gui.components.headers;
 
 import com.bookstore.gui.components.inputs.SearchTextField;
-import com.bookstore.gui.main.MainUI;
+import com.bookstore.gui.main.MainFrame;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import javax.swing.BorderFactory;
@@ -48,7 +48,7 @@ public class HeaderPanel extends JPanel {
     );
     toggleMenuButton.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
     toggleMenuButton.addActionListener(e -> {
-      MainUI mainUI = (MainUI) getRootPane().getParent();
+      MainFrame mainUI = (MainFrame) getRootPane().getParent();
       mainUI.toggleMenu();
     });
     setLayout(new GridBagLayout());
