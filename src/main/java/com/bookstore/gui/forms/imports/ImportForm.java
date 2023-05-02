@@ -65,8 +65,7 @@ public class ImportForm extends JPanel {
 
     titleLabel = new JLabel("Stock Management");
     titleLabel.setIcon(
-      new ImageIcon("src/main/java/resources/icons/stock.png")
-    );
+        new ImageIcon("src/main/java/resources/icons/stock.png"));
     JPanel filterPanel = new JPanel();
     filterPanel.setLayout(new BorderLayout());
     searchImportTextField = new JTextField(20);
@@ -131,8 +130,8 @@ public class ImportForm extends JPanel {
       if (selectedRow != -1) {
         int importId = (int) table.getValueAt(selectedRow, 0);
         ImportModel importModel = ImportBUS
-          .getInstance()
-          .getModelById(importId);
+            .getInstance()
+            .getModelById(importId);
         System.out.println(importModel);
       }
     }

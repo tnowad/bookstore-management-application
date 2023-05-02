@@ -1,3 +1,4 @@
 package com.bookstore.gui.forms.users;
 
-public class SalaryList {}
+public class SalaryList {
+}

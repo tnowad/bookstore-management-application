@@ -67,13 +67,7 @@ public class CustomerFrame extends JFrame {
     welcomeLabel.setMaximumSize(new Dimension(380, 16));
     welcomeLabel.setMinimumSize(new Dimension(300, 16));
     welcomeLabel.setPreferredSize(new Dimension(300, 30));
-    welcomeLabel.addKeyListener(
-      new KeyAdapter() {
-        public void keyPressed(KeyEvent evt) {
-          welcomeLabelKeyPressed(evt);
-        }
-      }
-    );
+
     headerPanel.add(welcomeLabel);
 
     statusLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -83,12 +77,11 @@ public class CustomerFrame extends JFrame {
     headerPanel.add(statusLabel);
 
     cartButton.addActionListener(
-      new ActionListener() {
-        public void actionPerformed(ActionEvent evt) {
-          cartButtonActionPerformed(evt);
-        }
-      }
-    );
+        new ActionListener() {
+          public void actionPerformed(ActionEvent evt) {
+            cartButtonActionPerformed(evt);
+          }
+        });
     headerPanel.add(cartButton);
 
     getContentPane().add(headerPanel, BorderLayout.PAGE_START);
@@ -97,64 +90,23 @@ public class CustomerFrame extends JFrame {
     menuPanel.setLayout(new GridLayout(2, 1, 0, 250));
 
     menuTopPanel.setLayout(new GridLayout(3, 1, 0, 5));
-    homeButton.addActionListener(
-      new ActionListener() {
-        public void actionPerformed(ActionEvent evt) {
-          homeButtonActionPerformed(evt);
-        }
-      }
-    );
+
     menuTopPanel.add(homeButton);
 
     menuTopPanel.add(discoverButton);
 
-    myOrderButton.addActionListener(
-      new ActionListener() {
-        public void actionPerformed(ActionEvent evt) {
-          myOrderButtonActionPerformed(evt);
-        }
-      }
-    );
     menuTopPanel.add(myOrderButton);
 
     menuPanel.add(menuTopPanel);
 
     menuBottomPanel.setLayout(new GridLayout(4, 1, 0, 5));
 
-    accountSettingButton.addActionListener(
-      new ActionListener() {
-        public void actionPerformed(ActionEvent evt) {
-          accountSettingButtonActionPerformed(evt);
-        }
-      }
-    );
     menuBottomPanel.add(accountSettingButton);
 
-    contactSupportButton.addActionListener(
-      new ActionListener() {
-        public void actionPerformed(ActionEvent evt) {
-          contactSupportButtonActionPerformed(evt);
-        }
-      }
-    );
     menuBottomPanel.add(contactSupportButton);
 
-    aboutUsButton.addActionListener(
-      new ActionListener() {
-        public void actionPerformed(ActionEvent evt) {
-          aboutUsButtonActionPerformed(evt);
-        }
-      }
-    );
     menuBottomPanel.add(aboutUsButton);
 
-    logoutButton.addActionListener(
-      new ActionListener() {
-        public void actionPerformed(ActionEvent evt) {
-          logoutButtonActionPerformed(evt);
-        }
-      }
-    );
     menuBottomPanel.add(logoutButton);
 
     menuPanel.add(menuBottomPanel);
@@ -171,54 +123,24 @@ public class CustomerFrame extends JFrame {
     System.out.println(1);
   }
 
-  private void homeButtonActionPerformed(ActionEvent evt) {
-    // TODO add your handling code here:
-  }
-
-  private void myOrderButtonActionPerformed(ActionEvent evt) {
-    // TODO add your handling code here:
-  }
-
-  private void accountSettingButtonActionPerformed(ActionEvent evt) {
-    // TODO add your handling code here:
-  }
-
-  private void contactSupportButtonActionPerformed(ActionEvent evt) {
-    // TODO add your handling code here:
-  }
-
-  private void aboutUsButtonActionPerformed(ActionEvent evt) {
-    // TODO add your handling code here:
-  }
-
-  private void logoutButtonActionPerformed(ActionEvent evt) {
-    // TODO add your handling code here:
-  }
-
-  private void welcomeLabelKeyPressed(KeyEvent evt) {
-    // TODO add your handling code here:
-  }
-
   public static void main(String args[]) {
     try {
       UIManager.setLookAndFeel(
-        "com.sun.java.swing.plaf.windows.WindowsLookAndFeel"
-      );
+          "com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
       UIManager.put("Panel.background", new Color(250, 250, 250));
     } catch (
-      ClassNotFoundException
-      | IllegalAccessException
-      | InstantiationException
-      | UnsupportedLookAndFeelException ignored
-    ) {}
+        ClassNotFoundException
+        | IllegalAccessException
+        | InstantiationException
+        | UnsupportedLookAndFeelException ignored) {
+    }
     FlatMacLightLaf.setup();
 
     EventQueue.invokeLater(
-      new Runnable() {
-        public void run() {
-          new CustomerFrame().setVisible(true);
-        }
-      }
-    );
+        new Runnable() {
+          public void run() {
+            new CustomerFrame().setVisible(true);
+          }
+        });
   }
 }

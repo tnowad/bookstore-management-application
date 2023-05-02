@@ -2,7 +2,6 @@ package com.bookstore.gui.main;
 
 import com.bookstore.bus.UserBUS;
 import com.bookstore.gui.components.buttons.Button;
-import com.bookstore.gui.factories.UIFactory;
 import com.bookstore.models.UserModel;
 import com.bookstore.services.Authentication;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
@@ -12,7 +11,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.LayoutManager;
 import java.awt.event.ActionListener;
-import java.time.LocalDateTime;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -144,36 +142,32 @@ public class RegisterUI extends JFrame {
     String password = String.valueOf(passwordField.getPassword());
     String confirmPassword = String.valueOf(confirmPasswordField.getPassword());
     try {
-      if (
-        username.isEmpty() ||
-        name.isEmpty() ||
-        email.isEmpty() ||
-        phone.isEmpty() ||
-        password.isEmpty() ||
-        confirmPassword.isEmpty()
-      ) {
+      if (username.isEmpty() ||
+          name.isEmpty() ||
+          email.isEmpty() ||
+          phone.isEmpty() ||
+          password.isEmpty() ||
+          confirmPassword.isEmpty()) {
         throw new IllegalArgumentException("Please fill all fields");
       }
       if (!password.equals(confirmPassword)) {
         throw new IllegalArgumentException("Password not match");
       }
       UserModel user = UserBUS
-        .getInstance()
-        .register(username, password, name, email, phone);
+          .getInstance()
+          .register(username, password, name, email, phone);
       Authentication.setCurrentUser(user);
       JOptionPane.showMessageDialog(
-        null,
-        "Register successfully",
-        "Success",
-        JOptionPane.INFORMATION_MESSAGE
-      );
+          null,
+          "Register successfully",
+          "Success",
+          JOptionPane.INFORMATION_MESSAGE);
     } catch (Exception exception) {
       JOptionPane.showMessageDialog(
-        null,
-        exception.getMessage(),
-        "Error",
-        JOptionPane.ERROR_MESSAGE
-      );
+          null,
+          exception.getMessage(),
+          "Error",
+          JOptionPane.ERROR_MESSAGE);
       return;
     }
   };

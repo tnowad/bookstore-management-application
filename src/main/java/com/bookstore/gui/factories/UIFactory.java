@@ -1,22 +1,13 @@
 package com.bookstore.gui.factories;
 
-import com.bookstore.dao.EmployeeDAO;
+import com.bookstore.bus.EmployeeBUS;
 import com.bookstore.enums.UserRole;
 import com.bookstore.gui.components.headers.HeaderDashboard;
 import com.bookstore.gui.components.menus.DrawerMenu;
 import com.bookstore.gui.components.panels.MainPanel;
-import com.bookstore.gui.forms.customer.CustomerFrame;
-import com.bookstore.gui.forms.users.SalesmanFrame;
 import com.bookstore.gui.main.MainUI;
-import com.bookstore.models.EmployeeModel;
-import com.bookstore.models.MenuItemModel;
 import com.bookstore.models.MenuModel;
-import com.bookstore.models.SubMenuItemModel;
 import com.bookstore.models.UserModel;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 
 public class UIFactory {
 
@@ -29,8 +20,7 @@ public class UIFactory {
     System.out.println(user);
     if (user.getRole() == UserRole.EMPLOYEE) {
       System.out.println(
-        EmployeeDAO.getInstance().getEmployeeById(user.getId())
-      );
+          EmployeeBUS.getInstance().getModelById(user.getId()));
     }
 
     MenuModel menuModel = MenuFactory.getMenu(user);

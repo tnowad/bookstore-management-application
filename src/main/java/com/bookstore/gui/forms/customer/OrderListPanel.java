@@ -1,8 +1,6 @@
 package com.bookstore.gui.forms.customer;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.*;
 
 public class OrderListPanel extends JPanel {
@@ -34,13 +32,7 @@ public class OrderListPanel extends JPanel {
     deliveryStatusField.setEditable(false);
     deliveryStatusField.setFont(new Font("Arial", 0, 14)); // NOI18N
     deliveryStatusField.setText("Delivery Status:");
-    deliveryStatusField.addActionListener(
-      new ActionListener() {
-        public void actionPerformed(ActionEvent evt) {
-          deliveryStatusFieldActionPerformed(evt);
-        }
-      }
-    );
+
     deliveryStatusPanel.add(deliveryStatusField, "card2");
 
     add(deliveryStatusPanel, BorderLayout.PAGE_START);
@@ -48,38 +40,14 @@ public class OrderListPanel extends JPanel {
     buttonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 2));
 
     viewOrderDetailsButton.setText("View Order Details");
-    viewOrderDetailsButton.addActionListener(
-      new ActionListener() {
-        public void actionPerformed(ActionEvent evt) {
-          viewOrderDetailsButtonActionPerformed(evt);
-        }
-      }
-    );
+
     buttonPanel.add(viewOrderDetailsButton);
 
     getcheckoutReceiptButton.setText("Get Checkout Receipt");
-    getcheckoutReceiptButton.addActionListener(
-      new ActionListener() {
-        public void actionPerformed(ActionEvent evt) {
-          getcheckoutReceiptButtonActionPerformed(evt);
-        }
-      }
-    );
+
     buttonPanel.add(getcheckoutReceiptButton);
 
     add(buttonPanel, BorderLayout.PAGE_END);
-  }
-
-  private void viewOrderDetailsButtonActionPerformed(ActionEvent evt) {
-    // TODO add your handling code here:
-  }
-
-  private void deliveryStatusFieldActionPerformed(ActionEvent evt) {
-    // TODO add your handling code here:
-  }
-
-  private void getcheckoutReceiptButtonActionPerformed(ActionEvent evt) {
-    // TODO add your handling code here:
   }
 
   private JPanel buttonPanel;

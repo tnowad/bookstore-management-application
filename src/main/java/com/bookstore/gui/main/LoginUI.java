@@ -23,7 +23,7 @@ import javax.swing.WindowConstants;
 
 public class LoginUI extends JFrame {
 
-  private static RegisterUI instance;
+  private static LoginUI instance;
 
   private LayoutManager layout;
   private JPanel loginPanel;
@@ -40,7 +40,14 @@ public class LoginUI extends JFrame {
   private ImageIcon showPassword;
   private ImageIcon hidePassword;
 
-  public LoginUI() {
+  public static LoginUI getInstance() {
+    if (instance == null) {
+      instance = new LoginUI();
+    }
+    return instance;
+  }
+
+  private LoginUI() {
     initComponents();
     getRootPane().setDefaultButton(loginButton);
     setPreferredSize(new Dimension(700, 600));
@@ -48,13 +55,6 @@ public class LoginUI extends JFrame {
     setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     pack();
     setLocationRelativeTo(null);
-  }
-
-  public static RegisterUI getInstance() {
-    if (instance == null) {
-      instance = new RegisterUI();
-    }
-    return instance;
   }
 
   private void initComponents() {
@@ -76,10 +76,8 @@ public class LoginUI extends JFrame {
     registerButton = new Button("Register");
     forgotPasswordButton = new Button("Forgot Password");
     forgotPasswordButton.setPreferredSize(new Dimension(150, 30));
-    showPassword =
-      new ImageIcon("src/main/java/resources/icons/show_password.png");
-    hidePassword =
-      new ImageIcon("src/main/java/resources/icons/hide_password.png");
+    showPassword = new ImageIcon("src/main/java/resources/icons/show_password.png");
+    hidePassword = new ImageIcon("src/main/java/resources/icons/hide_password.png");
     toggleButton = new JToggleButton(hidePassword);
     loginButton.addActionListener(loginButtonActionListener);
     exitButton.addActionListener(exitButtonActionListener);

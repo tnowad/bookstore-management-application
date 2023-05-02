@@ -17,6 +17,15 @@ import javax.swing.JScrollPane;
 
 public class DrawerMenu extends JPanel {
 
+  private static DrawerMenu instance = null;
+
+  public static DrawerMenu getInstance() {
+    if (instance == null) {
+      instance = new DrawerMenu(new MenuModel(new ArrayList<MenuItemModel>()));
+    }
+    return instance;
+  }
+
   private MenuModel menuModel;
 
   private JScrollPane scrollPane;
