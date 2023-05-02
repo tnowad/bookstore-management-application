@@ -13,7 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.LayoutStyle;
 
-public class Card extends JPanel {
+public class CardPanel extends JPanel {
 
   private JLabel labelDescription;
   private JLabel labelIcon;
@@ -39,7 +39,7 @@ public class Card extends JPanel {
     this.colorBottom = color2;
   }
 
-  public Card() {
+  public CardPanel() {
     initComponents();
     setOpaque(false);
     colorTop = Color.BLACK;

@@ -41,7 +41,7 @@ public class TopProductPanel extends javax.swing.JPanel {
 
     setSerial.setText("01");
 
-    getNameBook.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+    getNameBook.setFont(new java.awt.Font("Segoe UI", 3, 12));
     getNameBook.setForeground(new java.awt.Color(153, 0, 153));
     getNameBook.setText("the last and the last the last ");
 

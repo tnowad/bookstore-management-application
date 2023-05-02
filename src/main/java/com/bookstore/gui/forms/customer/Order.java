@@ -4,6 +4,7 @@ import java.awt.*;
 import javax.swing.*;
 
 public class Order extends JPanel {
+
   private static Order instance;
 
   private Order() {
@@ -38,7 +39,7 @@ public class Order extends JPanel {
     deliveryStatusPanel.setLayout(new CardLayout());
 
     deliveryStatusField.setEditable(false);
-    deliveryStatusField.setFont(new Font("Arial", 0, 14)); // NOI18N
+    deliveryStatusField.setFont(new Font("Arial", 0, 14));
     deliveryStatusField.setText("Delivery Status:");
 
     deliveryStatusPanel.add(deliveryStatusField, "card2");

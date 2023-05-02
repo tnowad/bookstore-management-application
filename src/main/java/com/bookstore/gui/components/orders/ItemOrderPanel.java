@@ -72,25 +72,25 @@ public class ItemOrderPanel extends javax.swing.JPanel {
 
     setPreferredSize(new java.awt.Dimension(611, 53));
 
-    setSerial.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+    setSerial.setFont(new java.awt.Font("Segoe UI", 0, 14));
     setSerial.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     setSerial.setText("01");
     setSerial.setMaximumSize(new java.awt.Dimension(12, 18));
     setSerial.setMinimumSize(new java.awt.Dimension(12, 18));
-    setSerial.setName(""); // NOI18N
+    setSerial.setName("");
     setSerial.setPreferredSize(new java.awt.Dimension(12, 19));
 
-    setIdOrder.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+    setIdOrder.setFont(new java.awt.Font("Segoe UI", 0, 14));
     setIdOrder.setText("ok");
 
-    setNameCustomer.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+    setNameCustomer.setFont(new java.awt.Font("Segoe UI", 0, 14));
     setNameCustomer.setText("ok");
 
-    setIdEmployee.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+    setIdEmployee.setFont(new java.awt.Font("Segoe UI", 0, 14));
     setIdEmployee.setText("ok");
 
     setStatus.setEditable(false);
-    setStatus.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+    setStatus.setFont(new java.awt.Font("Segoe UI", 0, 14));
     setStatus.setHorizontalAlignment(javax.swing.JTextField.CENTER);
     setStatus.setText("BANNED");
     setStatus.addActionListener(

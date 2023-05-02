@@ -13,6 +13,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 public class ImportList extends JPanel {
+
   private static ImportList instance;
 
   ImportBUS importBus = ImportBUS.getInstance();
@@ -60,29 +61,32 @@ public class ImportList extends JPanel {
     addPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
 
     addReceiptButton.addActionListener(
-        new java.awt.event.ActionListener() {
-          public void actionPerformed(java.awt.event.ActionEvent evt) {
-            addReceiptButtonActionPerformed(evt);
-          }
-        });
+      new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+          addReceiptButtonActionPerformed(evt);
+        }
+      }
+    );
     addPanel.add(addReceiptButton);
 
     headerPanel.add(addPanel);
 
     groupSearchPanel.setPreferredSize(new java.awt.Dimension(1000, 30));
     groupSearchPanel.setLayout(
-        new BoxLayout(groupSearchPanel, BoxLayout.X_AXIS));
+      new BoxLayout(groupSearchPanel, BoxLayout.X_AXIS)
+    );
 
-    searchBarTextField.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+    searchBarTextField.setFont(new java.awt.Font("Arial", 0, 14));
     searchBarTextField.setPreferredSize(new java.awt.Dimension(450, 30));
     groupSearchPanel.add(searchBarTextField);
 
     searchButton.addActionListener(
-        new java.awt.event.ActionListener() {
-          public void actionPerformed(java.awt.event.ActionEvent evt) {
-            searchButtonActionPerformed(evt);
-          }
-        });
+      new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+          searchButtonActionPerformed(evt);
+        }
+      }
+    );
     groupSearchPanel.add(searchButton);
 
     headerPanel.add(groupSearchPanel);
@@ -91,19 +95,21 @@ public class ImportList extends JPanel {
     groupExcel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
 
     importFromExcelButton.addActionListener(
-        new java.awt.event.ActionListener() {
-          public void actionPerformed(java.awt.event.ActionEvent evt) {
-            importFromExcelButtonActionPerformed(evt);
-          }
-        });
+      new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+          importFromExcelButtonActionPerformed(evt);
+        }
+      }
+    );
     groupExcel.add(importFromExcelButton);
 
     exportToExcelButton.addActionListener(
-        new java.awt.event.ActionListener() {
-          public void actionPerformed(java.awt.event.ActionEvent evt) {
-            exportToExcelButtonActionPerformed(evt);
-          }
-        });
+      new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+          exportToExcelButtonActionPerformed(evt);
+        }
+      }
+    );
     groupExcel.add(exportToExcelButton);
 
     headerPanel.add(groupExcel);
@@ -114,11 +120,12 @@ public class ImportList extends JPanel {
 
     importTableList.getTableHeader().setReorderingAllowed(false);
     importTableList.addMouseListener(
-        new java.awt.event.MouseAdapter() {
-          public void mouseClicked(java.awt.event.MouseEvent evt) {
-            importTableListMouseClicked(evt);
-          }
-        });
+      new java.awt.event.MouseAdapter() {
+        public void mouseClicked(java.awt.event.MouseEvent evt) {
+          importTableListMouseClicked(evt);
+        }
+      }
+    );
     scrollPaneTableList.setViewportView(importTableList);
     if (importTableList.getColumnModel().getColumnCount() > 0) {
       importTableList.getColumnModel().getColumn(0).setResizable(false);
@@ -137,53 +144,59 @@ public class ImportList extends JPanel {
 
   private void searh() {
     searchButton.addActionListener(
-        new ActionListener() {
-          public void actionPerformed(ActionEvent e) {
-            String text = searchBarTextField.getText();
-            if (text == null || text.isBlank()) {
-              JOptionPane.showMessageDialog(
-                  null,
-                  "Search field cannot be empty. Please try again!");
-              showTable();
-            } else {
-              ProviderModel provider = new ProviderModel();
-              DefaultTableModel model = new DefaultTableModel();
-              System.out.println(text);
-              model.addColumn("Id");
-              model.addColumn("Provider");
-              model.addColumn("Employee ID");
-              model.addColumn("Price");
-              model.addColumn("Created at");
-              model.addColumn("Updated at");
-              for (ProviderModel providerModel : providerList) {
-                if (providerModel
-                    .getName()
-                    .toLowerCase()
-                    .contains(text.toLowerCase())) {
-                  provider = providerModel;
-                  System.out.println(providerModel.getName());
-                  break;
-                }
+      new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+          String text = searchBarTextField.getText();
+          if (text == null || text.isBlank()) {
+            JOptionPane.showMessageDialog(
+              null,
+              "Search field cannot be empty. Please try again!"
+            );
+            showTable();
+          } else {
+            ProviderModel provider = new ProviderModel();
+            DefaultTableModel model = new DefaultTableModel();
+            System.out.println(text);
+            model.addColumn("Id");
+            model.addColumn("Provider");
+            model.addColumn("Employee ID");
+            model.addColumn("Price");
+            model.addColumn("Created at");
+            model.addColumn("Updated at");
+            for (ProviderModel providerModel : providerList) {
+              if (
+                providerModel
+                  .getName()
+                  .toLowerCase()
+                  .contains(text.toLowerCase())
+              ) {
+                provider = providerModel;
+                System.out.println(providerModel.getName());
+                break;
               }
-              for (ImportModel imports : importList) {
-                if (provider.getId() == imports.getProviderId()) {
-                  System.out.println(
-                      provider.getId() + " and " + imports.getProviderId());
-                  model.addRow(
-                      new Object[] {
-                          imports.getId(),
-                          provider.getName(),
-                          imports.getEmployeeId(),
-                          imports.getTotalPrice(),
-                          imports.getCreatedAt(),
-                          imports.getUpdatedAt(),
-                      });
-                  importTableList.setModel(model);
-                }
+            }
+            for (ImportModel imports : importList) {
+              if (provider.getId() == imports.getProviderId()) {
+                System.out.println(
+                  provider.getId() + " and " + imports.getProviderId()
+                );
+                model.addRow(
+                  new Object[] {
+                    imports.getId(),
+                    provider.getName(),
+                    imports.getEmployeeId(),
+                    imports.getTotalPrice(),
+                    imports.getCreatedAt(),
+                    imports.getUpdatedAt(),
+                  }
+                );
+                importTableList.setModel(model);
               }
             }
           }
-        });
+        }
+      }
+    );
   }
 
   private void listImport() {
@@ -202,14 +215,15 @@ public class ImportList extends JPanel {
       for (ProviderModel providerModel : providerList) {
         if (providerModel.getId() == imports.getProviderId()) {
           model.addRow(
-              new Object[] {
-                  imports.getId(),
-                  providerModel.getName(),
-                  imports.getEmployeeId(),
-                  imports.getTotalPrice(),
-                  imports.getCreatedAt(),
-                  imports.getUpdatedAt(),
-              });
+            new Object[] {
+              imports.getId(),
+              providerModel.getName(),
+              imports.getEmployeeId(),
+              imports.getTotalPrice(),
+              imports.getCreatedAt(),
+              imports.getUpdatedAt(),
+            }
+          );
           importTableList.setModel(model);
           break;
         }
@@ -220,22 +234,20 @@ public class ImportList extends JPanel {
   }
 
   private void addReceiptButtonActionPerformed(
-      java.awt.event.ActionEvent evt) {
-  }
+    java.awt.event.ActionEvent evt
+  ) {}
 
   private void exportToExcelButtonActionPerformed(
-      java.awt.event.ActionEvent evt) {
-  }
+    java.awt.event.ActionEvent evt
+  ) {}
 
   private void importFromExcelButtonActionPerformed(
-      java.awt.event.ActionEvent evt) {
-  }
+    java.awt.event.ActionEvent evt
+  ) {}
 
-  private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {
-  }
+  private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {}
 
-  private void importTableListMouseClicked(java.awt.event.MouseEvent evt) {
-  }
+  private void importTableListMouseClicked(java.awt.event.MouseEvent evt) {}
 
   private JPanel addPanel;
   private Button addReceiptButton;

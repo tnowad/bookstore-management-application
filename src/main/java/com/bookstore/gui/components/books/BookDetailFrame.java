@@ -103,29 +103,29 @@ public class BookDetailFrame extends javax.swing.JFrame {
     );
 
     setTitle.setEditable(false);
-    setTitle.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+    setTitle.setFont(new java.awt.Font("Segoe UI", 1, 14));
     setTitle.setText(title);
     setTitle.setPreferredSize(new java.awt.Dimension(600, 26));
     informationPanel.add(setTitle);
 
-    priceText.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+    priceText.setFont(new java.awt.Font("Segoe UI", 0, 18));
     priceText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
     priceText.setText("Price:");
     priceText.setPreferredSize(new java.awt.Dimension(100, 25));
     informationPanel.add(priceText);
 
-    setPrice.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+    setPrice.setFont(new java.awt.Font("Segoe UI", 1, 18));
     setPrice.setForeground(new java.awt.Color(255, 51, 51));
     setPrice.setText("" + price);
     informationPanel.add(setPrice);
 
-    statusText.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+    statusText.setFont(new java.awt.Font("Segoe UI", 0, 18));
     statusText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
     statusText.setText("Status:");
     statusText.setPreferredSize(new java.awt.Dimension(290, 25));
     informationPanel.add(statusText);
 
-    setStatus.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+    setStatus.setFont(new java.awt.Font("Segoe UI", 1, 12));
     setStatus.setModel(
       new javax.swing.DefaultComboBoxModel<>(
         new String[] { "AVAILABLE", "UNAVAILABLE", "DELETED" }
@@ -133,51 +133,51 @@ public class BookDetailFrame extends javax.swing.JFrame {
     );
     informationPanel.add(setStatus);
 
-    isbnText.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+    isbnText.setFont(new java.awt.Font("Segoe UI", 0, 18));
     isbnText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
     isbnText.setText("ISBN");
     isbnText.setPreferredSize(new java.awt.Dimension(150, 25));
     informationPanel.add(isbnText);
 
     setIsbn.setEditable(false);
-    setIsbn.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+    setIsbn.setFont(new java.awt.Font("Segoe UI", 1, 18));
     setIsbn.setText("" + isbn);
     setIsbn.setPreferredSize(new java.awt.Dimension(290, 31));
     informationPanel.add(setIsbn);
 
-    quantityText.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+    quantityText.setFont(new java.awt.Font("Segoe UI", 0, 18));
     quantityText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
     quantityText.setText("Available Quantity");
     quantityText.setPreferredSize(new java.awt.Dimension(230, 25));
     informationPanel.add(quantityText);
 
-    setAvailableQuantity.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+    setAvailableQuantity.setFont(new java.awt.Font("Segoe UI", 1, 18));
     setAvailableQuantity.setText("" + quantity);
     setAvailableQuantity.setPreferredSize(new java.awt.Dimension(290, 31));
     informationPanel.add(setAvailableQuantity);
 
-    authorText.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+    authorText.setFont(new java.awt.Font("Segoe UI", 0, 18));
     authorText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
     authorText.setText("Author");
     authorText.setPreferredSize(new java.awt.Dimension(230, 25));
     informationPanel.add(authorText);
 
     setAuthorName.setEditable(false);
-    setAuthorName.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+    setAuthorName.setFont(new java.awt.Font("Segoe UI", 1, 18));
     setAuthorName.setText(
       AuthorBUS.getInstance().getModelById(author_id).getName()
     );
     setAuthorName.setPreferredSize(new java.awt.Dimension(290, 31));
     informationPanel.add(setAuthorName);
 
-    publisherText.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+    publisherText.setFont(new java.awt.Font("Segoe UI", 0, 18));
     publisherText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
     publisherText.setText("Publisher");
     publisherText.setPreferredSize(new java.awt.Dimension(230, 25));
     informationPanel.add(publisherText);
 
     setPublisherName.setEditable(false);
-    setPublisherName.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+    setPublisherName.setFont(new java.awt.Font("Segoe UI", 1, 18));
     setPublisherName.setText(
       PublisherBUS.getInstance().getModelById(publisher_id).getName()
     );
@@ -191,7 +191,7 @@ public class BookDetailFrame extends javax.swing.JFrame {
     descriptionPanel.setPreferredSize(new java.awt.Dimension(863, 220));
     descriptionPanel.setLayout(new java.awt.BorderLayout());
 
-    descriptionText.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+    descriptionText.setFont(new java.awt.Font("Segoe UI", 1, 24));
     descriptionText.setText("Description:");
     descriptionPanel.add(descriptionText, java.awt.BorderLayout.PAGE_START);
 
@@ -206,7 +206,7 @@ public class BookDetailFrame extends javax.swing.JFrame {
       new javax.swing.ImageIcon(
         getClass().getResource("/resources/icons/back.png")
       )
-    ); // NOI18N
+    );
     buttonBack.setPreferredSize(new java.awt.Dimension(80, 30));
     buttonBack.addActionListener(
       new ActionListener() {
@@ -223,7 +223,7 @@ public class BookDetailFrame extends javax.swing.JFrame {
       new javax.swing.ImageIcon(
         getClass().getResource("/resources/icons/save.png")
       )
-    ); // NOI18N
+    );
     buttonSave.setPreferredSize(new java.awt.Dimension(80, 30));
     buttonSave.addActionListener(
       new ActionListener() {
@@ -248,7 +248,7 @@ public class BookDetailFrame extends javax.swing.JFrame {
     descriptionContend.add(buttonPanel, java.awt.BorderLayout.PAGE_END);
 
     setDescription.setColumns(5);
-    setDescription.setFont(new java.awt.Font("Segoe UI", 3, 15)); // NOI18N
+    setDescription.setFont(new java.awt.Font("Segoe UI", 3, 15));
     setDescription.setLineWrap(true);
     setDescription.setRows(5);
     setDescription.setText(description);

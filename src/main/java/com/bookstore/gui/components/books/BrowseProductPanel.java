@@ -48,7 +48,7 @@ public class BrowseProductPanel extends JPanel {
     setPreferredSize(new java.awt.Dimension(702, 444));
     setLayout(new java.awt.BorderLayout());
 
-    title.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
+    title.setFont(new java.awt.Font("Segoe UI", 3, 18));
     title.setForeground(new java.awt.Color(255, 0, 51));
     title.setText("List Book");
     add(title, java.awt.BorderLayout.NORTH);
@@ -177,7 +177,6 @@ public class BrowseProductPanel extends JPanel {
   public void actionAdd() {
     AddProductFrame addProductFrame = new AddProductFrame();
     addProductFrame.setVisible(true);
-    
   }
 
   public void actionExport() {

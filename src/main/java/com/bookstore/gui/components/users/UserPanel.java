@@ -1,4 +1,3 @@
-
 package com.bookstore.gui.components.users;
 
 import com.bookstore.enums.UserRole;
@@ -15,49 +14,66 @@ public class UserPanel extends javax.swing.JPanel implements MouseListener {
    * Creates new form UserForm
    */
   public UserPanel(
-      int serial,
-      int idUser,
-      String userName,
-      String password,
-      UserStatus status,
-      String name,
-      String email,
-      String phone,
-      UserRole role,
-      LocalDateTime dateCreate,
-      LocalDateTime dateUpdate) {
-    initComponents(serial, idUser, userName, password, status, name, email, phone, role, dateCreate, dateUpdate);
+    int serial,
+    int idUser,
+    String userName,
+    String password,
+    UserStatus status,
+    String name,
+    String email,
+    String phone,
+    UserRole role,
+    LocalDateTime dateCreate,
+    LocalDateTime dateUpdate
+  ) {
+    initComponents(
+      serial,
+      idUser,
+      userName,
+      password,
+      status,
+      name,
+      email,
+      phone,
+      role,
+      dateCreate,
+      dateUpdate
+    );
     addMouseListener(
-        new MouseAdapter() {
-          @Override
-          public void mouseClicked(MouseEvent e) {
-            PopupUserFrame userFullForm = new PopupUserFrame(
-                idUser,
-                userName,
-                password,
-                status,
-                name,
-                email,
-                phone,
-                role,
-                dateCreate,
-                dateUpdate);
-            userFullForm.setVisible(true);
-          }
-        });
+      new MouseAdapter() {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+          PopupUserFrame userFullForm = new PopupUserFrame(
+            idUser,
+            userName,
+            password,
+            status,
+            name,
+            email,
+            phone,
+            role,
+            dateCreate,
+            dateUpdate
+          );
+          userFullForm.setVisible(true);
+        }
+      }
+    );
   }
 
-  private void initComponents(int serial,
-      int idUser,
-      String userName,
-      String password,
-      UserStatus status,
-      String name,
-      String email,
-      String phone,
-      UserRole role,
-      LocalDateTime dateCreate,
-      LocalDateTime dateUpdate) {
+  private void initComponents(
+    int serial,
+    int idUser,
+    String userName,
+    String password,
+    UserStatus status,
+    String name,
+    String email,
+    String phone,
+    UserRole role,
+    LocalDateTime dateCreate,
+    LocalDateTime dateUpdate
+  ) {
     java.awt.GridBagConstraints gridBagConstraints;
 
     checkBox = new javax.swing.JCheckBox();
@@ -83,7 +99,7 @@ public class UserPanel extends javax.swing.JPanel implements MouseListener {
     gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
     add(checkBox, gridBagConstraints);
 
-    setName.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+    setName.setFont(new java.awt.Font("Segoe UI", 0, 14));
     setName.setText(name);
     setName.setMaximumSize(new java.awt.Dimension(50, 20));
     setName.setMinimumSize(new java.awt.Dimension(50, 20));
@@ -98,7 +114,7 @@ public class UserPanel extends javax.swing.JPanel implements MouseListener {
     gridBagConstraints.insets = new java.awt.Insets(0, 18, 0, 0);
     add(setName, gridBagConstraints);
 
-    setPhone.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+    setPhone.setFont(new java.awt.Font("Segoe UI", 0, 14));
     setPhone.setText(phone);
     setPhone.setPreferredSize(new java.awt.Dimension(50, 20));
     gridBagConstraints = new java.awt.GridBagConstraints();
@@ -111,7 +127,7 @@ public class UserPanel extends javax.swing.JPanel implements MouseListener {
     gridBagConstraints.insets = new java.awt.Insets(0, 12, 0, 0);
     add(setPhone, gridBagConstraints);
 
-    setEmail.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+    setEmail.setFont(new java.awt.Font("Segoe UI", 0, 14));
     setEmail.setText(email);
     setEmail.setPreferredSize(new java.awt.Dimension(45, 20));
     gridBagConstraints = new java.awt.GridBagConstraints();
@@ -124,9 +140,9 @@ public class UserPanel extends javax.swing.JPanel implements MouseListener {
     gridBagConstraints.insets = new java.awt.Insets(0, 6, 0, 0);
     add(setEmail, gridBagConstraints);
 
-    setSerial.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+    setSerial.setFont(new java.awt.Font("Segoe UI", 0, 14));
     setSerial.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-    setSerial.setText(""+serial);
+    setSerial.setText("" + serial);
     setSerial.setMaximumSize(new java.awt.Dimension(12, 18));
     setSerial.setMinimumSize(new java.awt.Dimension(12, 18));
     setSerial.setPreferredSize(new java.awt.Dimension(12, 19));
@@ -141,9 +157,9 @@ public class UserPanel extends javax.swing.JPanel implements MouseListener {
     add(setSerial, gridBagConstraints);
 
     setRole.setEditable(false);
-    setRole.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+    setRole.setFont(new java.awt.Font("Segoe UI", 0, 14));
     setRole.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-    setRole.setText(""+role);
+    setRole.setText("" + role);
     setRole.setMinimumSize(new java.awt.Dimension(90, 26));
     setRole.setPreferredSize(new java.awt.Dimension(90, 26));
     gridBagConstraints = new java.awt.GridBagConstraints();
@@ -155,9 +171,9 @@ public class UserPanel extends javax.swing.JPanel implements MouseListener {
     add(setRole, gridBagConstraints);
 
     setStatus.setEditable(false);
-    setStatus.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+    setStatus.setFont(new java.awt.Font("Segoe UI", 0, 14));
     setStatus.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-    setStatus.setText(""+status);
+    setStatus.setText("" + status);
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 6;
     gridBagConstraints.gridy = 0;
@@ -179,22 +195,17 @@ public class UserPanel extends javax.swing.JPanel implements MouseListener {
 
   // End of variables declaration//GEN-END:variables
   @Override
-  public void mouseClicked(MouseEvent e) {
-  }
+  public void mouseClicked(MouseEvent e) {}
 
   @Override
-  public void mousePressed(MouseEvent e) {
-  }
+  public void mousePressed(MouseEvent e) {}
 
   @Override
-  public void mouseReleased(MouseEvent e) {
-  }
+  public void mouseReleased(MouseEvent e) {}
 
   @Override
-  public void mouseEntered(MouseEvent e) {
-  }
+  public void mouseEntered(MouseEvent e) {}
 
   @Override
-  public void mouseExited(MouseEvent e) {
-  }
+  public void mouseExited(MouseEvent e) {}
 }

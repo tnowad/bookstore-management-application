@@ -98,7 +98,7 @@ public class Cart extends JPanel {
 
     groupTotalCostPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
-    totalCostLabel.setFont(new Font("Arial", 0, 14)); // NOI18N
+    totalCostLabel.setFont(new Font("Arial", 0, 14));
     totalCostLabel.setText("Total cost:");
     totalCostLabel.setPreferredSize(new Dimension(75, 30));
     groupTotalCostPanel.add(totalCostLabel);
@@ -112,20 +112,20 @@ public class Cart extends JPanel {
 
     groupActionPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
-    chooseAllCheckBox.setFont(new Font("Arial", 0, 14)); // NOI18N
+    chooseAllCheckBox.setFont(new Font("Arial", 0, 14));
     chooseAllCheckBox.setText("Choose all");
     chooseAllCheckBox.setPreferredSize(new Dimension(100, 30));
 
     groupActionPanel.add(chooseAllCheckBox);
 
-    deleteAllProductsButton.setFont(new Font("Arial", 0, 18)); // NOI18N
+    deleteAllProductsButton.setFont(new Font("Arial", 0, 18));
     deleteAllProductsButton.setText("Delete all products");
     deleteAllProductsButton.setMinimumSize(new Dimension(179, 30));
     deleteAllProductsButton.setPreferredSize(new Dimension(190, 30));
 
     groupActionPanel.add(deleteAllProductsButton);
 
-    proceedToCheckoutButton.setFont(new Font("Arial", 0, 18)); // NOI18N
+    proceedToCheckoutButton.setFont(new Font("Arial", 0, 18));
     proceedToCheckoutButton.setText("Proceed to checkout");
     proceedToCheckoutButton.setMaximumSize(new Dimension(200, 30));
     proceedToCheckoutButton.setMinimumSize(new Dimension(200, 30));
@@ -180,7 +180,7 @@ public class Cart extends JPanel {
                 .getValueAt(selectedRowIndex, 0)
                 .toString();
               new Dialog(CartDetail.getInstance(cartModel.getId(), bookIsbn));
-              
+
               listOrder();
             } else {
               System.out.println("Don't know how to handle this order");

@@ -67,14 +67,14 @@ public class CreateUserFrame extends javax.swing.JFrame {
     getContentPane()
       .setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 25, 15));
 
-    titlePanel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+    titlePanel.setFont(new java.awt.Font("Segoe UI", 1, 18));
     titlePanel.setForeground(new java.awt.Color(255, 51, 0));
     titlePanel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     titlePanel.setText("New User");
     titlePanel.setPreferredSize(new java.awt.Dimension(530, 25));
     getContentPane().add(titlePanel);
 
-    nameText.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+    nameText.setFont(new java.awt.Font("Segoe UI", 1, 15));
     nameText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
     nameText.setText("Name");
     nameText.setPreferredSize(new java.awt.Dimension(180, 20));
@@ -83,7 +83,7 @@ public class CreateUserFrame extends javax.swing.JFrame {
     setName.setPreferredSize(new java.awt.Dimension(250, 22));
     getContentPane().add(setName);
 
-    usernameText.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+    usernameText.setFont(new java.awt.Font("Segoe UI", 1, 15));
     usernameText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
     usernameText.setText("UserName:");
     usernameText.setPreferredSize(new java.awt.Dimension(180, 20));
@@ -92,7 +92,7 @@ public class CreateUserFrame extends javax.swing.JFrame {
     setUserName.setPreferredSize(new java.awt.Dimension(240, 22));
     getContentPane().add(setUserName);
 
-    passwordText.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+    passwordText.setFont(new java.awt.Font("Segoe UI", 1, 15));
     passwordText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
     passwordText.setText("Password");
     passwordText.setPreferredSize(new java.awt.Dimension(180, 20));
@@ -101,7 +101,7 @@ public class CreateUserFrame extends javax.swing.JFrame {
     setPassword.setPreferredSize(new java.awt.Dimension(200, 22));
     getContentPane().add(setPassword);
 
-    phoneText.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+    phoneText.setFont(new java.awt.Font("Segoe UI", 1, 15));
     phoneText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
     phoneText.setText("Phone");
     phoneText.setPreferredSize(new java.awt.Dimension(180, 20));
@@ -110,7 +110,7 @@ public class CreateUserFrame extends javax.swing.JFrame {
     setPhone.setPreferredSize(new java.awt.Dimension(230, 22));
     getContentPane().add(setPhone);
 
-    emailText.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+    emailText.setFont(new java.awt.Font("Segoe UI", 1, 15));
     emailText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
     emailText.setText("Email");
     emailText.setPreferredSize(new java.awt.Dimension(180, 20));
@@ -119,7 +119,7 @@ public class CreateUserFrame extends javax.swing.JFrame {
     setEmail.setPreferredSize(new java.awt.Dimension(280, 22));
     getContentPane().add(setEmail);
 
-    roleText.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+    roleText.setFont(new java.awt.Font("Segoe UI", 1, 15));
     roleText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
     roleText.setText("Role");
     roleText.setPreferredSize(new java.awt.Dimension(170, 20));
@@ -132,7 +132,7 @@ public class CreateUserFrame extends javax.swing.JFrame {
     );
     getContentPane().add(setRole);
 
-    statusText.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+    statusText.setFont(new java.awt.Font("Segoe UI", 1, 15));
     statusText.setText("Status");
     getContentPane().add(statusText);
 
@@ -152,7 +152,7 @@ public class CreateUserFrame extends javax.swing.JFrame {
       new javax.swing.ImageIcon(
         getClass().getResource("/resources/icons/back.png")
       )
-    ); // NOI18N
+    );
     buttonBack.setPreferredSize(new java.awt.Dimension(70, 23));
     buttonBack.addActionListener(
       new ActionListener() {
@@ -169,7 +169,7 @@ public class CreateUserFrame extends javax.swing.JFrame {
       new javax.swing.ImageIcon(
         getClass().getResource("/resources/icons/save.png")
       )
-    ); // NOI18N
+    );
     buttonSave.setPreferredSize(new java.awt.Dimension(70, 23));
     buttonSave.addActionListener(
       new ActionListener() {
@@ -243,7 +243,6 @@ public class CreateUserFrame extends javax.swing.JFrame {
       return;
     }
 
-
     if (
       UserBUS
         .getInstance()
@@ -268,7 +267,14 @@ public class CreateUserFrame extends javax.swing.JFrame {
       return;
     }
 
-    if (UserBUS.getInstance().checkForDuplicate(Arrays.asList(setEmail.getText()), new String[] { "email" })) {
+    if (
+      UserBUS
+        .getInstance()
+        .checkForDuplicate(
+          Arrays.asList(setEmail.getText()),
+          new String[] { "email" }
+        )
+    ) {
       JOptionPane.showMessageDialog(null, "Email" + DUPLICATE_ERROR);
       return;
     }
@@ -312,7 +318,6 @@ public class CreateUserFrame extends javax.swing.JFrame {
       JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(buttonSave);
       frame.revalidate();
       frame.repaint();
-
     }
   }
 

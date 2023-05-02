@@ -10,7 +10,6 @@ import com.bookstore.enums.UserRole;
 import com.bookstore.enums.UserStatus;
 import com.bookstore.models.AddressModel;
 import com.bookstore.models.UserModel;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.*;
@@ -19,17 +18,29 @@ import javax.swing.*;
 public class PopupUserFrame extends javax.swing.JFrame {
 
   public PopupUserFrame(
-      int idUser,
-      String userName,
-      String password,
-      UserStatus status,
-      String name,
-      String email,
-      String phone,
-      UserRole role,
-      LocalDateTime dateCreate,
-      LocalDateTime dateUpdate) {
-    initComponents(idUser, userName, password, status, name, email, phone, role, dateCreate, dateUpdate);
+    int idUser,
+    String userName,
+    String password,
+    UserStatus status,
+    String name,
+    String email,
+    String phone,
+    UserRole role,
+    LocalDateTime dateCreate,
+    LocalDateTime dateUpdate
+  ) {
+    initComponents(
+      idUser,
+      userName,
+      password,
+      status,
+      name,
+      email,
+      phone,
+      role,
+      dateCreate,
+      dateUpdate
+    );
     setStatus(status);
     setRole(role);
     setAddress(idUser);
@@ -48,16 +59,18 @@ public class PopupUserFrame extends javax.swing.JFrame {
   // <editor-fold defaultstate="collapsed" desc="Generated
   // <editor-fold defaultstate="collapsed" desc="Generated
   // Code">//GEN-BEGIN:initComponents
-  private void initComponents(int idUser,
-      String userName,
-      String password,
-      UserStatus status,
-      String name,
-      String email,
-      String phone,
-      UserRole role,
-      LocalDateTime dateCreate,
-      LocalDateTime dateUpdate) {
+  private void initComponents(
+    int idUser,
+    String userName,
+    String password,
+    UserStatus status,
+    String name,
+    String email,
+    String phone,
+    UserRole role,
+    LocalDateTime dateCreate,
+    LocalDateTime dateUpdate
+  ) {
     setName = new javax.swing.JTextField();
     idText = new javax.swing.JLabel();
     setId = new javax.swing.JTextField();
@@ -85,9 +98,9 @@ public class PopupUserFrame extends javax.swing.JFrame {
     setMinimumSize(new java.awt.Dimension(610, 26));
     setPreferredSize(new java.awt.Dimension(610, 410));
     getContentPane()
-        .setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 10));
+      .setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 10));
 
-    setName.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+    setName.setFont(new java.awt.Font("Segoe UI", 1, 14));
     setName.setHorizontalAlignment(javax.swing.JTextField.CENTER);
     setName.setText(name);
     setName.setMaximumSize(new java.awt.Dimension(642, 26));
@@ -95,129 +108,138 @@ public class PopupUserFrame extends javax.swing.JFrame {
     setName.setPreferredSize(new java.awt.Dimension(578, 26));
     getContentPane().add(setName);
 
-    idText.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+    idText.setFont(new java.awt.Font("Segoe UI", 0, 18));
     idText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     idText.setText("ID");
     idText.setPreferredSize(new java.awt.Dimension(86, 25));
     getContentPane().add(idText);
 
     setId.setEditable(false);
-    setId.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+    setId.setFont(new java.awt.Font("Segoe UI", 1, 18));
     setId.setForeground(new java.awt.Color(255, 51, 51));
     setId.setText("" + idUser);
     setId.setPreferredSize(new java.awt.Dimension(180, 31));
     getContentPane().add(setId);
 
-    userNameText.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+    userNameText.setFont(new java.awt.Font("Segoe UI", 0, 18));
     userNameText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     userNameText.setText("UserName");
     userNameText.setPreferredSize(new java.awt.Dimension(125, 25));
     getContentPane().add(userNameText);
 
     setUserName.setEditable(false);
-    setUserName.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+    setUserName.setFont(new java.awt.Font("Segoe UI", 1, 18));
     setUserName.setForeground(new java.awt.Color(51, 204, 255));
     setUserName.setText("" + userName);
     setUserName.setPreferredSize(new java.awt.Dimension(140, 31));
     getContentPane().add(setUserName);
 
-    addressText.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+    addressText.setFont(new java.awt.Font("Segoe UI", 0, 18));
     addressText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
     addressText.setText("Address");
     addressText.setPreferredSize(new java.awt.Dimension(200, 25));
     getContentPane().add(addressText);
 
     setAddress.setEditable(false);
-    setAddress.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+    setAddress.setFont(new java.awt.Font("Segoe UI", 1, 16));
     setAddress.setPreferredSize(new java.awt.Dimension(280, 31));
     getContentPane().add(setAddress);
 
-    phoneText.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+    phoneText.setFont(new java.awt.Font("Segoe UI", 0, 18));
     phoneText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
     phoneText.setText("Phone");
     phoneText.setPreferredSize(new java.awt.Dimension(200, 25));
     getContentPane().add(phoneText);
 
     setPhone.setEditable(false);
-    setPhone.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+    setPhone.setFont(new java.awt.Font("Segoe UI", 1, 16));
     setPhone.setText(phone);
     setPhone.setPreferredSize(new java.awt.Dimension(200, 31));
     getContentPane().add(setPhone);
 
-    emailText.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+    emailText.setFont(new java.awt.Font("Segoe UI", 0, 18));
     emailText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
     emailText.setText("Email");
     emailText.setPreferredSize(new java.awt.Dimension(200, 25));
     getContentPane().add(emailText);
 
     setEmail.setEditable(false);
-    setEmail.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+    setEmail.setFont(new java.awt.Font("Segoe UI", 1, 16));
     setEmail.setText(email);
     setEmail.setPreferredSize(new java.awt.Dimension(200, 31));
     getContentPane().add(setEmail);
 
-    statusText.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+    statusText.setFont(new java.awt.Font("Segoe UI", 0, 18));
     statusText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
     statusText.setText("Status");
     statusText.setPreferredSize(new java.awt.Dimension(190, 25));
     getContentPane().add(statusText);
 
     setStatus.setModel(
-        new javax.swing.DefaultComboBoxModel<>(
-            new String[] { "INACTIVE", "ACTIVE" }));
+      new javax.swing.DefaultComboBoxModel<>(
+        new String[] { "INACTIVE", "ACTIVE" }
+      )
+    );
     setStatus.setPreferredSize(new java.awt.Dimension(90, 25));
     getContentPane().add(setStatus);
 
-    roleText.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+    roleText.setFont(new java.awt.Font("Segoe UI", 0, 18));
     roleText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
     roleText.setText("Role");
     roleText.setPreferredSize(new java.awt.Dimension(100, 25));
     getContentPane().add(roleText);
 
     setRole.setModel(
-        new javax.swing.DefaultComboBoxModel<>(
-            new String[] { "ADMIN", "CUSTOMER", "EMPLOYEE" }));
+      new javax.swing.DefaultComboBoxModel<>(
+        new String[] { "ADMIN", "CUSTOMER", "EMPLOYEE" }
+      )
+    );
     setRole.setPreferredSize(new java.awt.Dimension(95, 25));
     getContentPane().add(setRole);
 
-    dateCreatedText.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+    dateCreatedText.setFont(new java.awt.Font("Segoe UI", 0, 18));
     dateCreatedText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
     dateCreatedText.setText("Date Created");
     dateCreatedText.setPreferredSize(new java.awt.Dimension(350, 25));
     getContentPane().add(dateCreatedText);
 
     getDateCreated.setEditable(false);
-    getDateCreated.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+    getDateCreated.setFont(new java.awt.Font("Segoe UI", 1, 18));
     getDateCreated.setText("" + dateCreate);
     getDateCreated.setPreferredSize(new java.awt.Dimension(200, 31));
     getContentPane().add(getDateCreated);
 
-    dateUpdatedText.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+    dateUpdatedText.setFont(new java.awt.Font("Segoe UI", 0, 18));
     dateUpdatedText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
     dateUpdatedText.setText("Date Updated");
     dateUpdatedText.setPreferredSize(new java.awt.Dimension(350, 25));
     getContentPane().add(dateUpdatedText);
 
     setDateUpdated.setEditable(false);
-    setDateUpdated.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+    setDateUpdated.setFont(new java.awt.Font("Segoe UI", 1, 18));
     setDateUpdated.setText("" + dateUpdate);
     setDateUpdated.setPreferredSize(new java.awt.Dimension(200, 31));
     getContentPane().add(setDateUpdated);
 
     buttonPanel.setPreferredSize(new java.awt.Dimension(570, 30));
     buttonPanel.setLayout(
-        new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 25, 5));
+      new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 25, 5)
+    );
 
     buttonBack.setIcon(
-        new javax.swing.ImageIcon(
-            getClass().getResource("/resources/icons/back.png"))); // NOI18N
+      new javax.swing.ImageIcon(
+        getClass().getResource("/resources/icons/back.png")
+      )
+    );
     buttonBack.setPreferredSize(new java.awt.Dimension(70, 23));
     buttonBack.addActionListener(actionBack);
     buttonPanel.add(buttonBack);
 
     buttonSave.setIcon(
-        new javax.swing.ImageIcon(
-            getClass().getResource("/resources/icons/save.png"))); // NOI18N
+      new javax.swing.ImageIcon(
+        getClass().getResource("/resources/icons/save.png")
+      )
+    );
     buttonSave.setPreferredSize(new java.awt.Dimension(70, 23));
     buttonSave.addActionListener(actionSave);
     buttonPanel.add(buttonSave);
@@ -230,7 +252,9 @@ public class PopupUserFrame extends javax.swing.JFrame {
   public void setAddress(int idUser) {
     AddressModel addressModel = AddressBUS.getInstance().getModelById(idUser);
     if (addressModel != null) {
-      setAddress.setText(addressModel.getStreet() + " " + addressModel.getCity());
+      setAddress.setText(
+        addressModel.getStreet() + " " + addressModel.getCity()
+      );
       return;
     }
     setAddress.setText("address is null");
@@ -265,9 +289,7 @@ public class PopupUserFrame extends javax.swing.JFrame {
     setRole.setSelectedIndex(index);
   }
 
-  public void actionSave() {
-
-  }
+  public void actionSave() {}
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JLabel addressText;
@@ -295,15 +317,13 @@ public class PopupUserFrame extends javax.swing.JFrame {
   // End of variables declaration//GEN-END:variables\
 
   public ActionListener actionBack = new ActionListener() {
-
     @Override
     public void actionPerformed(ActionEvent e) {
       JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(buttonBack);
-            frame.dispose();
+      frame.dispose();
     }
   };
   public ActionListener actionSave = new ActionListener() {
-
     @Override
     public void actionPerformed(ActionEvent e) {
       Object selectedStatusItem = setStatus.getSelectedItem();
@@ -316,25 +336,33 @@ public class PopupUserFrame extends javax.swing.JFrame {
 
         LocalDateTime timeNow = LocalDateTime.now();
         UserModel newUser = new UserModel(
-            Integer.valueOf(setId.getText().trim()),
-            setUserName.getText().trim(),
-            UserBUS.getInstance().getModelByUsername(setUserName.getText().trim()).getPassword(),
-            newStatus,
-            setName.getText(),
-            setEmail.getText(),
-            setPhone.getText(),
-            UserBUS.getInstance().getModelByUsername(setUserName.getText().trim()).getUpdatedAt(),
-            timeNow,
-            newRole);
+          Integer.valueOf(setId.getText().trim()),
+          setUserName.getText().trim(),
+          UserBUS
+            .getInstance()
+            .getModelByUsername(setUserName.getText().trim())
+            .getPassword(),
+          newStatus,
+          setName.getText(),
+          setEmail.getText(),
+          setPhone.getText(),
+          UserBUS
+            .getInstance()
+            .getModelByUsername(setUserName.getText().trim())
+            .getUpdatedAt(),
+          timeNow,
+          newRole
+        );
         int confirm = JOptionPane.showConfirmDialog(
-            null,
-            "Do you want to continue?",
-            "Confirmation",
-            JOptionPane.YES_NO_OPTION);
+          null,
+          "Do you want to continue?",
+          "Confirmation",
+          JOptionPane.YES_NO_OPTION
+        );
         if (confirm == JOptionPane.YES_OPTION) {
           UserBUS.getInstance().updateModel(newUser);
         }
       }
-    };
+    }
   };
 }

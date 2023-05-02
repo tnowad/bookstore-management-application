@@ -1,4 +1,3 @@
-
 package com.bookstore.gui.components.users;
 
 import com.bookstore.bus.UserBUS;
@@ -74,7 +73,7 @@ public class UserListPanel extends javax.swing.JPanel {
 
     setLayout(new java.awt.BorderLayout());
 
-    titlePanel.setFont(font); // NOI18N
+    titlePanel.setFont(font);
     titlePanel.setText("User List");
     add(titlePanel, java.awt.BorderLayout.NORTH);
 
@@ -87,21 +86,23 @@ public class UserListPanel extends javax.swing.JPanel {
     employeeCart.setLayout(new java.awt.BorderLayout());
 
     iconEmployee.setIcon(
-        new javax.swing.ImageIcon(
-            getClass().getResource("/resources/icons/employeeCart.png"))); // NOI18N
+      new javax.swing.ImageIcon(
+        getClass().getResource("/resources/icons/employeeCart.png")
+      )
+    );
     employeeCart.add(iconEmployee, java.awt.BorderLayout.WEST);
 
-    textEmployee.setFont(font); // NOI18N
+    textEmployee.setFont(font);
     textEmployee.setForeground(new java.awt.Color(255, 51, 51));
     textEmployee.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     textEmployee.setText("EMPLOYEE");
     employeeCart.add(textEmployee, java.awt.BorderLayout.PAGE_START);
 
-    newEmployee.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+    newEmployee.setFont(new java.awt.Font("Segoe UI", 3, 12));
     newEmployee.setText("New User: 100");
     employeeCart.add(newEmployee, java.awt.BorderLayout.PAGE_END);
 
-    quantityEmployee.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+    quantityEmployee.setFont(new java.awt.Font("Segoe UI", 0, 16));
     quantityEmployee.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     quantityEmployee.setText("10000");
     employeeCart.add(quantityEmployee, java.awt.BorderLayout.CENTER);
@@ -114,21 +115,23 @@ public class UserListPanel extends javax.swing.JPanel {
     adminCart.setLayout(new java.awt.BorderLayout());
 
     iconAdmin.setIcon(
-        new javax.swing.ImageIcon(
-            getClass().getResource("/resources/icons/adminCart.png"))); // NOI18N
+      new javax.swing.ImageIcon(
+        getClass().getResource("/resources/icons/adminCart.png")
+      )
+    );
     adminCart.add(iconAdmin, java.awt.BorderLayout.WEST);
 
-    textAdmin.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+    textAdmin.setFont(new java.awt.Font("Segoe UI", 1, 14));
     textAdmin.setForeground(new java.awt.Color(255, 51, 51));
     textAdmin.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     textAdmin.setText("ADMIN");
     adminCart.add(textAdmin, java.awt.BorderLayout.PAGE_START);
 
-    newAdmin.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+    newAdmin.setFont(new java.awt.Font("Segoe UI", 3, 12));
     newAdmin.setText("New User: 100");
     adminCart.add(newAdmin, java.awt.BorderLayout.PAGE_END);
 
-    quantityAdmin.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+    quantityAdmin.setFont(new java.awt.Font("Segoe UI", 0, 16));
     quantityAdmin.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     quantityAdmin.setText("10000");
     adminCart.add(quantityAdmin, java.awt.BorderLayout.CENTER);
@@ -141,21 +144,23 @@ public class UserListPanel extends javax.swing.JPanel {
     customerCart.setLayout(new java.awt.BorderLayout());
 
     iconCustomer.setIcon(
-        new javax.swing.ImageIcon(
-            getClass().getResource("/resources/icons/customerCart.png"))); // NOI18N
+      new javax.swing.ImageIcon(
+        getClass().getResource("/resources/icons/customerCart.png")
+      )
+    );
     customerCart.add(iconCustomer, java.awt.BorderLayout.WEST);
 
-    textCustomer.setFont(font); // NOI18N
+    textCustomer.setFont(font);
     textCustomer.setForeground(new java.awt.Color(255, 51, 51));
     textCustomer.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     textCustomer.setText("CUSTOMER");
     customerCart.add(textCustomer, java.awt.BorderLayout.PAGE_START);
 
-    newCustomer.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+    newCustomer.setFont(new java.awt.Font("Segoe UI", 3, 12));
     newCustomer.setText("New User: 100");
     customerCart.add(newCustomer, java.awt.BorderLayout.PAGE_END);
 
-    quantityCustomer.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+    quantityCustomer.setFont(new java.awt.Font("Segoe UI", 0, 16));
     quantityCustomer.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     quantityCustomer.setText("10000");
     customerCart.add(quantityCustomer, java.awt.BorderLayout.CENTER);
@@ -222,15 +227,16 @@ public class UserListPanel extends javax.swing.JPanel {
     headerTable.setBorder(javax.swing.BorderFactory.createEtchedBorder());
     headerTable.setPreferredSize(new java.awt.Dimension(670, 40));
     java.awt.GridBagLayout headerTableLayout = new java.awt.GridBagLayout();
-    headerTableLayout.columnWeights = new double[] { 1.0, 2.0, 3.0, 4.0, 5.0, 6.0 };
+    headerTableLayout.columnWeights =
+      new double[] { 1.0, 2.0, 3.0, 4.0, 5.0, 6.0 };
     headerTable.setLayout(headerTableLayout);
 
-    serialText.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+    serialText.setFont(new java.awt.Font("Segoe UI", 0, 14));
     serialText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     serialText.setText("Serial");
     serialText.setMaximumSize(new java.awt.Dimension(16, 18));
     serialText.setMinimumSize(new java.awt.Dimension(16, 18));
-    serialText.setName(""); // NOI18N
+    serialText.setName("");
     serialText.setPreferredSize(new java.awt.Dimension(16, 19));
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 1;
@@ -242,7 +248,7 @@ public class UserListPanel extends javax.swing.JPanel {
     gridBagConstraints.insets = new java.awt.Insets(0, 6, 0, 0);
     headerTable.add(serialText, gridBagConstraints);
 
-    nameText.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+    nameText.setFont(new java.awt.Font("Segoe UI", 0, 14));
     nameText.setText("Name");
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 2;
@@ -254,7 +260,7 @@ public class UserListPanel extends javax.swing.JPanel {
     gridBagConstraints.insets = new java.awt.Insets(0, 18, 0, 0);
     headerTable.add(nameText, gridBagConstraints);
 
-    phoneText.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+    phoneText.setFont(new java.awt.Font("Segoe UI", 0, 14));
     phoneText.setText("Phone");
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 3;
@@ -266,7 +272,7 @@ public class UserListPanel extends javax.swing.JPanel {
     gridBagConstraints.insets = new java.awt.Insets(0, 12, 0, 0);
     headerTable.add(phoneText, gridBagConstraints);
 
-    emailText.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+    emailText.setFont(new java.awt.Font("Segoe UI", 0, 14));
     emailText.setText("Email");
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 4;
@@ -279,7 +285,7 @@ public class UserListPanel extends javax.swing.JPanel {
     headerTable.add(emailText, gridBagConstraints);
 
     roleText.setEditable(false);
-    roleText.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+    roleText.setFont(new java.awt.Font("Segoe UI", 0, 14));
     roleText.setHorizontalAlignment(javax.swing.JTextField.LEFT);
     roleText.setText("ROLE");
     roleText.setBorder(null);
@@ -293,7 +299,7 @@ public class UserListPanel extends javax.swing.JPanel {
     headerTable.add(roleText, gridBagConstraints);
 
     statusText.setEditable(false);
-    statusText.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+    statusText.setFont(new java.awt.Font("Segoe UI", 0, 14));
     statusText.setHorizontalAlignment(javax.swing.JTextField.LEFT);
     statusText.setText("STATUS");
     statusText.setBorder(null);
@@ -373,17 +379,18 @@ public class UserListPanel extends javax.swing.JPanel {
     for (UserModel user : userList) {
       if (!user.getStatus().toString().equals("BANNED")) {
         UserPanel userForm = new UserPanel(
-            serial,
-            user.getId(),
-            user.getUsername(),
-            user.getPassword(),
-            user.getStatus(),
-            user.getName(),
-            user.getEmail(),
-            user.getPhone(),
-            user.getRole(),
-            user.getCreatedAt(),
-            user.getUpdatedAt());
+          serial,
+          user.getId(),
+          user.getUsername(),
+          user.getPassword(),
+          user.getStatus(),
+          user.getName(),
+          user.getEmail(),
+          user.getPhone(),
+          user.getRole(),
+          user.getCreatedAt(),
+          user.getUpdatedAt()
+        );
         table.add(userForm);
         serial++;
       }
@@ -400,17 +407,18 @@ public class UserListPanel extends javax.swing.JPanel {
     for (UserModel user : list) {
       if (!user.getStatus().toString().equals("BANNED")) {
         UserPanel userForm = new UserPanel(
-            1,
-            user.getId(),
-            user.getUsername(),
-            user.getPassword(),
-            user.getStatus(),
-            user.getName(),
-            user.getEmail(),
-            user.getPhone(),
-            user.getRole(),
-            user.getCreatedAt(),
-            user.getUpdatedAt());
+          1,
+          user.getId(),
+          user.getUsername(),
+          user.getPassword(),
+          user.getStatus(),
+          user.getName(),
+          user.getEmail(),
+          user.getPhone(),
+          user.getRole(),
+          user.getCreatedAt(),
+          user.getUpdatedAt()
+        );
         table.add(userForm);
       }
     }
@@ -466,22 +474,22 @@ public class UserListPanel extends javax.swing.JPanel {
   // End of variables declaration//GEN-END:variables
 
   public ActionListener actionCreate = new ActionListener() {
-
     @Override
     public void actionPerformed(ActionEvent e) {
       CreateUserFrame createUserFrame = new CreateUserFrame();
       createUserFrame.setVisible(true);
-
-    };
+    }
   };
   public ActionListener actionDelete = new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
-
       for (Component component : table.getComponents()) {
         JPanel subPanel = (JPanel) component;
         for (Component subComponent : subPanel.getComponents()) {
-          if (subComponent instanceof JCheckBox && ((JCheckBox) subComponent).isSelected()) {
+          if (
+            subComponent instanceof JCheckBox &&
+            ((JCheckBox) subComponent).isSelected()
+          ) {
             Component[] components = subPanel.getComponents();
             boolean foundTextField = false;
             for (Component c : components) {
@@ -491,7 +499,10 @@ public class UserListPanel extends javax.swing.JPanel {
                 int id = Integer.parseInt(((JTextField) c).getText());
                 int deletedRows = UserBUS.getInstance().deleteModel(id);
                 if (deletedRows == 1) {
-                  JOptionPane.showMessageDialog(null, " Account lock successful !");
+                  JOptionPane.showMessageDialog(
+                    null,
+                    " Account lock successful !"
+                  );
                 }
               }
             }
@@ -504,15 +515,13 @@ public class UserListPanel extends javax.swing.JPanel {
   };
 
   public ActionListener findAllUser = new ActionListener() {
-
     @Override
     public void actionPerformed(ActionEvent e) {
       addTable();
-    };
+    }
   };
 
   public ActionListener findAdmin = new ActionListener() {
-
     @Override
     public void actionPerformed(ActionEvent e) {
       table.removeAll();
@@ -520,20 +529,23 @@ public class UserListPanel extends javax.swing.JPanel {
       int serial = 0;
       List<UserModel> userList = UserBUS.getInstance().getAllModels();
       for (UserModel user : userList) {
-        if (user.getRole().toString().equals("ADMIN") &&
-            !user.getStatus().toString().equals("BANNED")) {
+        if (
+          user.getRole().toString().equals("ADMIN") &&
+          !user.getStatus().toString().equals("BANNED")
+        ) {
           UserPanel userForm = new UserPanel(
-              serial,
-              user.getId(),
-              user.getUsername(),
-              user.getPassword(),
-              user.getStatus(),
-              user.getName(),
-              user.getEmail(),
-              user.getPhone(),
-              user.getRole(),
-              user.getCreatedAt(),
-              user.getUpdatedAt());
+            serial,
+            user.getId(),
+            user.getUsername(),
+            user.getPassword(),
+            user.getStatus(),
+            user.getName(),
+            user.getEmail(),
+            user.getPhone(),
+            user.getRole(),
+            user.getCreatedAt(),
+            user.getUpdatedAt()
+          );
           table.add(userForm);
           serial++;
         }
@@ -541,10 +553,8 @@ public class UserListPanel extends javax.swing.JPanel {
       table.revalidate();
       table.repaint();
     }
-
   };
   public ActionListener findEmployee = new ActionListener() {
-
     @Override
     public void actionPerformed(ActionEvent e) {
       table.removeAll();
@@ -552,20 +562,23 @@ public class UserListPanel extends javax.swing.JPanel {
       int serial = 0;
       List<UserModel> userList = UserBUS.getInstance().getAllModels();
       for (UserModel user : userList) {
-        if (user.getRole().toString().equals("EMPLOYEE") &&
-            !user.getStatus().toString().equals("BANNED")) {
+        if (
+          user.getRole().toString().equals("EMPLOYEE") &&
+          !user.getStatus().toString().equals("BANNED")
+        ) {
           UserPanel userForm = new UserPanel(
-              serial,
-              user.getId(),
-              user.getUsername(),
-              user.getPassword(),
-              user.getStatus(),
-              user.getName(),
-              user.getEmail(),
-              user.getPhone(),
-              user.getRole(),
-              user.getCreatedAt(),
-              user.getUpdatedAt());
+            serial,
+            user.getId(),
+            user.getUsername(),
+            user.getPassword(),
+            user.getStatus(),
+            user.getName(),
+            user.getEmail(),
+            user.getPhone(),
+            user.getRole(),
+            user.getCreatedAt(),
+            user.getUpdatedAt()
+          );
           table.add(userForm);
           serial++;
         }
@@ -573,10 +586,8 @@ public class UserListPanel extends javax.swing.JPanel {
       table.revalidate();
       table.repaint();
     }
-
   };
   public ActionListener findCustomer = new ActionListener() {
-
     @Override
     public void actionPerformed(ActionEvent e) {
       table.removeAll();
@@ -584,20 +595,23 @@ public class UserListPanel extends javax.swing.JPanel {
       int serial = 0;
       List<UserModel> userList = UserBUS.getInstance().getAllModels();
       for (UserModel user : userList) {
-        if (user.getRole().toString().equals("CUSTOMER") &&
-            !user.getStatus().toString().equals("BANNED")) {
+        if (
+          user.getRole().toString().equals("CUSTOMER") &&
+          !user.getStatus().toString().equals("BANNED")
+        ) {
           UserPanel userForm = new UserPanel(
-              serial,
-              user.getId(),
-              user.getUsername(),
-              user.getPassword(),
-              user.getStatus(),
-              user.getName(),
-              user.getEmail(),
-              user.getPhone(),
-              user.getRole(),
-              user.getCreatedAt(),
-              user.getUpdatedAt());
+            serial,
+            user.getId(),
+            user.getUsername(),
+            user.getPassword(),
+            user.getStatus(),
+            user.getName(),
+            user.getEmail(),
+            user.getPhone(),
+            user.getRole(),
+            user.getCreatedAt(),
+            user.getUpdatedAt()
+          );
           table.add(userForm);
           serial++;
         }
@@ -605,7 +619,5 @@ public class UserListPanel extends javax.swing.JPanel {
       table.revalidate();
       table.repaint();
     }
-
   };
-
 }

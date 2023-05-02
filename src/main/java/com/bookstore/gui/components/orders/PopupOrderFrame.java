@@ -93,14 +93,14 @@ public class PopupOrderFrame extends javax.swing.JFrame {
 
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-    jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+    jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14));
     jLabel1.setForeground(new java.awt.Color(255, 0, 0));
     jLabel1.setText("Employee Name");
 
     getNameCustomer.setEditable(false);
     getNameCustomer.setText("ok");
 
-    jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+    jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14));
     jLabel2.setForeground(new java.awt.Color(255, 0, 0));
     jLabel2.setText("Customer Name");
 
@@ -113,18 +113,18 @@ public class PopupOrderFrame extends javax.swing.JFrame {
     getIdEmployee.setEditable(false);
     getIdEmployee.setText("ok");
 
-    jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+    jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14));
     jLabel3.setForeground(new java.awt.Color(255, 0, 0));
     jLabel3.setText("Total");
 
     getTotal.setEditable(false);
     getTotal.setText("ok");
 
-    jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+    jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14));
     jLabel4.setForeground(new java.awt.Color(255, 0, 255));
     jLabel4.setText("Date Created");
 
-    jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+    jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14));
     jLabel5.setForeground(new java.awt.Color(255, 0, 255));
     jLabel5.setText("Date Updated");
 
@@ -134,14 +134,14 @@ public class PopupOrderFrame extends javax.swing.JFrame {
     getDateUpdated.setEditable(false);
     getDateUpdated.setText("ok");
 
-    jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+    jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14));
     jLabel6.setForeground(new java.awt.Color(255, 0, 0));
     jLabel6.setText("Product Quantity");
 
     getQuantityProduct.setEditable(false);
     getQuantityProduct.setText("ok");
 
-    jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+    jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14));
     jLabel7.setForeground(new java.awt.Color(255, 0, 0));
     jLabel7.setText("Status");
 
@@ -166,28 +166,28 @@ public class PopupOrderFrame extends javax.swing.JFrame {
 
     jScrollPane1.setViewportView(table);
 
-    getSerial1.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+    getSerial1.setFont(new java.awt.Font("Segoe UI", 3, 14));
     getSerial1.setText("Serial");
 
-    getIsbn1.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+    getIsbn1.setFont(new java.awt.Font("Segoe UI", 3, 14));
     getIsbn1.setText("Title");
 
-    getTitle1.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+    getTitle1.setFont(new java.awt.Font("Segoe UI", 3, 14));
     getTitle1.setText("Book Isbn");
 
-    getQuantity.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+    getQuantity.setFont(new java.awt.Font("Segoe UI", 3, 14));
     getQuantity.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     getQuantity.setText("Quantity");
 
-    getPrice2.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+    getPrice2.setFont(new java.awt.Font("Segoe UI", 3, 14));
     getPrice2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     getPrice2.setText("Price");
 
-    getTotal1.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+    getTotal1.setFont(new java.awt.Font("Segoe UI", 3, 14));
     getTotal1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     getTotal1.setText("Total");
 
-    jLabel8.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+    jLabel8.setFont(new java.awt.Font("Segoe UI", 3, 14));
     jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     jLabel8.setText("Status");
 
@@ -332,13 +332,13 @@ public class PopupOrderFrame extends javax.swing.JFrame {
       new javax.swing.ImageIcon(
         getClass().getResource("/resources/icons/back.png")
       )
-    ); // NOI18N
+    );
 
     buttonSave.setIcon(
       new javax.swing.ImageIcon(
         getClass().getResource("/resources/icons/save.png")
       )
-    ); // NOI18N
+    );
 
     ButtonExportPDF.setText("Export PDF");
     ButtonExportPDF.setToolTipText("");

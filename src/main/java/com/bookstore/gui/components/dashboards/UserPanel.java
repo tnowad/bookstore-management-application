@@ -56,7 +56,7 @@ public class UserPanel extends javax.swing.JPanel {
 
     getSerial.setText("01");
 
-    getNameUser.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+    getNameUser.setFont(new java.awt.Font("Segoe UI", 3, 12));
     getNameUser.setText("huynh trieu den");
 
     getPhone.setText("0941045139");

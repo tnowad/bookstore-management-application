@@ -43,7 +43,7 @@ public class BookOrderPanel extends javax.swing.JPanel {
 
     getSerial1.setText("01");
 
-    getIsbn.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+    getIsbn.setFont(new java.awt.Font("Segoe UI", 3, 12));
     getIsbn.setText("huynh trieu den");
 
     getTitle.setText("0941045139");
