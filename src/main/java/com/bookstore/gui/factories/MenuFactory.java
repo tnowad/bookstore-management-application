@@ -188,11 +188,7 @@ public class MenuFactory {
               "Logout",
               new ImageIcon(""),
               new LogoutActionListener(),
-              new ArrayList<SubMenuItemModel>() {
-                {
-                  add(new SubMenuItemModel("Logout", new ImageIcon(""), null));
-                }
-              }
+              null
             )
           );
         }
