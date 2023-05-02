@@ -47,7 +47,6 @@ public class MainUI extends JFrame {
     layout = new BorderLayout();
     setLayout(layout);
     add(drawerMenu, BorderLayout.LINE_START);
-
     JPanel mainPanelWrapper = new JPanel(new BorderLayout());
     mainPanelWrapper.add(headerDashboard, BorderLayout.PAGE_START);
     mainPanelWrapper.add(mainPanel, BorderLayout.CENTER);

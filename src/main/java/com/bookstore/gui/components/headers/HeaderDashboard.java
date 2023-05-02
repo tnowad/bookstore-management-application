@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -33,9 +34,9 @@ public class HeaderDashboard extends JPanel {
   }
 
   private void initComponents() {
+    labelMenu = new JLabel();
     labelSearch = new JLabel();
     searchText = new SearchText();
-    labelMenu = new JLabel();
 
     setBackground(new java.awt.Color(255, 255, 255));
 
@@ -45,46 +46,57 @@ public class HeaderDashboard extends JPanel {
 
     labelMenu.setIcon(new ImageIcon("src/main/java/resources/icons/menu.png"));
     labelMenu.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-
+    // Create layout for header with labelMenu, searchText, and labelSearch
+    // search text is in the center of the header
     GroupLayout layout = new GroupLayout(this);
-    this.setLayout(layout);
+    setLayout(layout);
     layout.setHorizontalGroup(
       layout
         .createParallelGroup(GroupLayout.Alignment.LEADING)
         .addGroup(
           layout
             .createSequentialGroup()
-            .addContainerGap()
-            .addComponent(labelSearch)
+            .addComponent(labelMenu)
             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
             .addComponent(
               searchText,
               GroupLayout.DEFAULT_SIZE,
-              606,
+              300,
               Short.MAX_VALUE
             )
             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(labelMenu)
-            .addContainerGap()
+            .addComponent(labelSearch)
         )
     );
     layout.setVerticalGroup(
       layout
         .createParallelGroup(GroupLayout.Alignment.LEADING)
-        .addComponent(
-          labelSearch,
-          GroupLayout.DEFAULT_SIZE,
-          GroupLayout.DEFAULT_SIZE,
-          Short.MAX_VALUE
+        .addGroup(
+          layout
+            .createSequentialGroup()
+            .addGroup(
+              layout
+                .createParallelGroup(GroupLayout.Alignment.LEADING)
+                .addComponent(labelMenu)
+                .addComponent(
+                  searchText,
+                  GroupLayout.PREFERRED_SIZE,
+                  GroupLayout.DEFAULT_SIZE,
+                  GroupLayout.PREFERRED_SIZE
+                )
+                .addComponent(labelSearch)
+            )
         )
-        .addComponent(
-          searchText,
-          GroupLayout.DEFAULT_SIZE,
-          GroupLayout.DEFAULT_SIZE,
-          Short.MAX_VALUE
-        )
-        .addComponent(labelMenu, GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
     );
+    searchText.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+    labelMenu.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+    labelSearch.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+    labelMenu.setOpaque(false);
+    labelSearch.setOpaque(false);
+    searchText.setOpaque(false);
+    labelMenu.setBackground(new java.awt.Color(255, 255, 255));
+    labelSearch.setBackground(new java.awt.Color(255, 255, 255));
+    searchText.setBackground(new java.awt.Color(255, 255, 255));
   }
 
   @Override
