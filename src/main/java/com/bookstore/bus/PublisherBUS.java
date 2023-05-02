@@ -182,4 +182,10 @@ public class PublisherBUS implements IBUS<PublisherModel> {
 
     return results;
   }
+
+  @Override
+  public void refreshData() {
+    publisherList.clear();
+    publisherList.addAll(PublisherDAO.getInstance().readDatabase());
+  }
 }
