@@ -1,7 +1,7 @@
 package com.bookstore.gui.components.headers;
 
 import com.bookstore.gui.components.inputs.SearchText;
-import com.bookstore.gui.events.general.ToggleMenuActionListener;
+import com.bookstore.gui.main.MainUI;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -48,7 +48,12 @@ public class HeaderDashboard extends JPanel {
 
     buttonMenu.setIcon(new ImageIcon("src/main/java/resources/icons/menu.png"));
     buttonMenu.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-    buttonMenu.addActionListener(new ToggleMenuActionListener());
+    buttonMenu.addActionListener(e -> {
+      // get parent frame of this panel
+      MainUI mainUI = (MainUI) getRootPane().getParent();
+      // toggle menu
+      mainUI.toggleMenu();
+    });
     // Create layout for header with labelMenu, searchText, and labelSearch
     // search text is in the center of the header
     GroupLayout layout = new GroupLayout(this);
