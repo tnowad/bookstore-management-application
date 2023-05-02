@@ -64,7 +64,7 @@ public class MenuFactory {
           add(
             new MenuItemModel(
               "Dashboard",
-              new ImageIcon(""),
+              new ImageIcon("src/main/java/resources/icons/menu.png"),
               showHomeAdmin,
               null
             )
