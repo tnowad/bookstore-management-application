@@ -21,9 +21,9 @@ import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 import javax.swing.WindowConstants;
 
-public class LoginUI extends JFrame {
+public class LoginFrame extends JFrame {
 
-  private static LoginUI instance;
+  private static LoginFrame instance;
 
   private LayoutManager layout;
   private JPanel loginPanel;
@@ -40,14 +40,14 @@ public class LoginUI extends JFrame {
   private ImageIcon showPassword;
   private ImageIcon hidePassword;
 
-  public static LoginUI getInstance() {
+  public static LoginFrame getInstance() {
     if (instance == null) {
-      instance = new LoginUI();
+      instance = new LoginFrame();
     }
     return instance;
   }
 
-  private LoginUI() {
+  private LoginFrame() {
     initComponents();
     getRootPane().setDefaultButton(loginButton);
     setPreferredSize(new Dimension(700, 600));
@@ -76,8 +76,10 @@ public class LoginUI extends JFrame {
     registerButton = new Button("Register");
     forgotPasswordButton = new Button("Forgot Password");
     forgotPasswordButton.setPreferredSize(new Dimension(150, 30));
-    showPassword = new ImageIcon("src/main/java/resources/icons/show_password.png");
-    hidePassword = new ImageIcon("src/main/java/resources/icons/hide_password.png");
+    showPassword =
+      new ImageIcon("src/main/java/resources/icons/show_password.png");
+    hidePassword =
+      new ImageIcon("src/main/java/resources/icons/hide_password.png");
     toggleButton = new JToggleButton(hidePassword);
     loginButton.addActionListener(loginButtonActionListener);
     exitButton.addActionListener(exitButtonActionListener);
@@ -159,12 +161,12 @@ public class LoginUI extends JFrame {
   };
 
   private ActionListener registerButtonActionListener = e -> {
-    RegisterUI.getInstance().setVisible(true);
+    RegisterFrame.getInstance().setVisible(true);
     dispose();
   };
 
   private ActionListener forgotPasswordButtonActionListener = e -> {
-    ForgotPasswordUI.getInstance().setVisible(true);
+    ForgotPasswordFrame.getInstance().setVisible(true);
     dispose();
   };
 }

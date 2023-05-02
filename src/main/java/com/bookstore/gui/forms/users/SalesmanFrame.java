@@ -8,7 +8,7 @@ import com.bookstore.gui.forms.accounts.AccountPanel;
 import com.bookstore.gui.forms.books.BookList;
 import com.bookstore.gui.forms.imports.ImportList;
 import com.bookstore.gui.forms.orders.OrderList;
-import com.bookstore.gui.main.LoginUI;
+import com.bookstore.gui.main.LoginFrame;
 import com.bookstore.models.EmployeeModel;
 import com.bookstore.models.UserModel;
 import com.bookstore.services.Authentication;
@@ -189,13 +189,14 @@ public class SalesmanFrame extends JFrame {
 
     logoutButton.addActionListener(e -> {
       int option = JOptionPane.showConfirmDialog(
-          null,
-          "Bạn chắc chắn muốn đăng xuất?",
-          "Đăng xuất",
-          JOptionPane.OK_OPTION);
+        null,
+        "Bạn chắc chắn muốn đăng xuất?",
+        "Đăng xuất",
+        JOptionPane.OK_OPTION
+      );
       if (option == 0) {
         dispose();
-        LoginUI.getInstance().setVisible(true);
+        LoginFrame.getInstance().setVisible(true);
       }
     });
   }
@@ -203,20 +204,22 @@ public class SalesmanFrame extends JFrame {
   public static void main(String args[]) {
     try {
       UIManager.setLookAndFeel(
-          "com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+        "com.sun.java.swing.plaf.windows.WindowsLookAndFeel"
+      );
       UIManager.put("Panel.background", new Color(250, 250, 250));
     } catch (
-        ClassNotFoundException
-        | IllegalAccessException
-        | InstantiationException
-        | UnsupportedLookAndFeelException ignored) {
-    }
+      ClassNotFoundException
+      | IllegalAccessException
+      | InstantiationException
+      | UnsupportedLookAndFeelException ignored
+    ) {}
     FlatMacLightLaf.setup();
     EventQueue.invokeLater(
-        new Runnable() {
-          public void run() {
-            new SalesmanFrame();
-          }
-        });
+      new Runnable() {
+        public void run() {
+          new SalesmanFrame();
+        }
+      }
+    );
   }
 }

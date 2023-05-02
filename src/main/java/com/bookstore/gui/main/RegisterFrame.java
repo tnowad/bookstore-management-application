@@ -20,9 +20,9 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
-public class RegisterUI extends JFrame {
+public class RegisterFrame extends JFrame {
 
-  private static RegisterUI instance;
+  private static RegisterFrame instance;
 
   private LayoutManager layout;
   private JPanel registerPanel;
@@ -46,7 +46,7 @@ public class RegisterUI extends JFrame {
   private JPasswordField passwordField;
   private JPasswordField confirmPasswordField;
 
-  public RegisterUI() {
+  public RegisterFrame() {
     initComponents();
     setPreferredSize(new Dimension(700, 800));
     setMinimumSize(new Dimension(700, 800));
@@ -55,9 +55,9 @@ public class RegisterUI extends JFrame {
     setLocationRelativeTo(null);
   }
 
-  public static RegisterUI getInstance() {
+  public static RegisterFrame getInstance() {
     if (instance == null) {
-      instance = new RegisterUI();
+      instance = new RegisterFrame();
     }
     return instance;
   }
@@ -142,38 +142,42 @@ public class RegisterUI extends JFrame {
     String password = String.valueOf(passwordField.getPassword());
     String confirmPassword = String.valueOf(confirmPasswordField.getPassword());
     try {
-      if (username.isEmpty() ||
-          name.isEmpty() ||
-          email.isEmpty() ||
-          phone.isEmpty() ||
-          password.isEmpty() ||
-          confirmPassword.isEmpty()) {
+      if (
+        username.isEmpty() ||
+        name.isEmpty() ||
+        email.isEmpty() ||
+        phone.isEmpty() ||
+        password.isEmpty() ||
+        confirmPassword.isEmpty()
+      ) {
         throw new IllegalArgumentException("Please fill all fields");
       }
       if (!password.equals(confirmPassword)) {
         throw new IllegalArgumentException("Password not match");
       }
       UserModel user = UserBUS
-          .getInstance()
-          .register(username, password, name, email, phone);
+        .getInstance()
+        .register(username, password, name, email, phone);
       Authentication.setCurrentUser(user);
       JOptionPane.showMessageDialog(
-          null,
-          "Register successfully",
-          "Success",
-          JOptionPane.INFORMATION_MESSAGE);
+        null,
+        "Register successfully",
+        "Success",
+        JOptionPane.INFORMATION_MESSAGE
+      );
     } catch (Exception exception) {
       JOptionPane.showMessageDialog(
-          null,
-          exception.getMessage(),
-          "Error",
-          JOptionPane.ERROR_MESSAGE);
+        null,
+        exception.getMessage(),
+        "Error",
+        JOptionPane.ERROR_MESSAGE
+      );
       return;
     }
   };
 
   public static void main(String[] args) {
     FlatMacLightLaf.setup();
-    RegisterUI.getInstance().setVisible(true);
+    RegisterFrame.getInstance().setVisible(true);
   }
 }

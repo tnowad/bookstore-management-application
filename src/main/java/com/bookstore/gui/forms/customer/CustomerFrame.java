@@ -5,7 +5,7 @@ import com.bookstore.gui.forms.accounts.AccountPanel;
 import com.bookstore.gui.forms.carts.Cart;
 import com.bookstore.gui.forms.general.AboutUs;
 import com.bookstore.gui.forms.general.ContactUs;
-import com.bookstore.gui.main.LoginUI;
+import com.bookstore.gui.main.LoginFrame;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import java.awt.*;
 import javax.swing.*;
@@ -36,7 +36,6 @@ public class CustomerFrame extends JFrame {
   }
 
   private void handleEvent() {
-
     cartButton.addActionListener(e -> {
       contentPanel.removeAll();
       contentPanel.add(Cart.getInstance());
@@ -83,13 +82,14 @@ public class CustomerFrame extends JFrame {
     });
     logoutButton.addActionListener(e -> {
       int option = JOptionPane.showConfirmDialog(
-          null,
-          "Bạn chắc chắn muốn đăng xuất?",
-          "Đăng xuất",
-          JOptionPane.OK_OPTION);
+        null,
+        "Bạn chắc chắn muốn đăng xuất?",
+        "Đăng xuất",
+        JOptionPane.OK_OPTION
+      );
       if (option == 0) {
         dispose();
-        LoginUI.getInstance().setVisible(true);
+        LoginFrame.getInstance().setVisible(true);
       }
     });
   }
@@ -177,21 +177,23 @@ public class CustomerFrame extends JFrame {
   public static void main(String args[]) {
     try {
       UIManager.setLookAndFeel(
-          "com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+        "com.sun.java.swing.plaf.windows.WindowsLookAndFeel"
+      );
       UIManager.put("Panel.background", new Color(250, 250, 250));
     } catch (
-        ClassNotFoundException
-        | IllegalAccessException
-        | InstantiationException
-        | UnsupportedLookAndFeelException ignored) {
-    }
+      ClassNotFoundException
+      | IllegalAccessException
+      | InstantiationException
+      | UnsupportedLookAndFeelException ignored
+    ) {}
     FlatMacLightLaf.setup();
 
     EventQueue.invokeLater(
-        new Runnable() {
-          public void run() {
-            new CustomerFrame().setVisible(true);
-          }
-        });
+      new Runnable() {
+        public void run() {
+          new CustomerFrame().setVisible(true);
+        }
+      }
+    );
   }
 }

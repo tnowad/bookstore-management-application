@@ -21,9 +21,9 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
-public class ForgotPasswordUI extends JFrame {
+public class ForgotPasswordFrame extends JFrame {
 
-  private static ForgotPasswordUI instance;
+  private static ForgotPasswordFrame instance;
   private JPanel groupAccount;
   private JPanel groupContent;
   private JPanel groupLogo;
@@ -38,15 +38,15 @@ public class ForgotPasswordUI extends JFrame {
   private JLabel iconLabel;
   private JLabel nameStoreLabel;
 
-  private ForgotPasswordUI() {
+  private ForgotPasswordFrame() {
     initComponent();
     handleEvent();
     initFrame();
   }
 
-  public static ForgotPasswordUI getInstance() {
+  public static ForgotPasswordFrame getInstance() {
     if (instance == null) {
-      instance = new ForgotPasswordUI();
+      instance = new ForgotPasswordFrame();
     }
     return instance;
   }
@@ -158,7 +158,6 @@ public class ForgotPasswordUI extends JFrame {
         if (optionalUser.isPresent()) {
           UserModel userModel = optionalUser.get();
           int userId = userModel.getId();
-          RetypePasswordUI.getInstance().setInformations(userId, email, phone);
 
           int option = JOptionPane.showOptionDialog(
             null,
@@ -172,7 +171,7 @@ public class ForgotPasswordUI extends JFrame {
           );
 
           if (option == 0) {
-            ForgotPasswordUI.getInstance().setVisible(true);
+            ForgotPasswordFrame.getInstance().setVisible(true);
             setVisible(false);
           }
         } else {
@@ -182,12 +181,12 @@ public class ForgotPasswordUI extends JFrame {
     });
 
     cancelButton.addActionListener(e -> {
-      RegisterUI.getInstance().setVisible(true);
+      RegisterFrame.getInstance().setVisible(true);
       setVisible(false);
     });
 
     registerButton.addActionListener(e -> {
-      RegisterUI.getInstance().setVisible(true);
+      RegisterFrame.getInstance().setVisible(true);
       setVisible(false);
     });
 
@@ -258,6 +257,6 @@ public class ForgotPasswordUI extends JFrame {
   }
 
   public static void main(String[] args) {
-    new ForgotPasswordUI();
+    new ForgotPasswordFrame();
   }
 }
