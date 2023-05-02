@@ -5,8 +5,6 @@ import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import javax.swing.*;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -76,12 +74,10 @@ public class CustomerFrame extends JFrame {
     statusLabel.setPreferredSize(new Dimension(300, 16));
     headerPanel.add(statusLabel);
 
-    cartButton.addActionListener(
-        new ActionListener() {
-          public void actionPerformed(ActionEvent evt) {
-            cartButtonActionPerformed(evt);
-          }
-        });
+    cartButton.addActionListener(e -> {
+
+    });
+
     headerPanel.add(cartButton);
 
     getContentPane().add(headerPanel, BorderLayout.PAGE_START);
@@ -117,10 +113,6 @@ public class CustomerFrame extends JFrame {
     getContentPane().add(contentPanel, BorderLayout.CENTER);
 
     pack();
-  }
-
-  private void cartButtonActionPerformed(ActionEvent evt) {
-    System.out.println(1);
   }
 
   public static void main(String args[]) {

@@ -23,7 +23,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 public class SalesmanFrame extends JFrame {
 
-  private Button cartButton;
+  // private Button cartButton;
   private Button customerListButton;
   private Button bookListButton;
   private Button pendingOrderButton;
@@ -63,7 +63,7 @@ public class SalesmanFrame extends JFrame {
     headerPanel = new JPanel();
     welcomeLabel = new JLabel();
     statusLabel = new JLabel();
-    cartButton = new Button("Cart");
+    // cartButton = new Button("Cart");
     menuPanel = new JPanel();
     menuTopPanel = new JPanel();
     employeeListButton = new Button("Employee List");
@@ -100,7 +100,7 @@ public class SalesmanFrame extends JFrame {
     statusLabel.setPreferredSize(new Dimension(300, 16));
     headerPanel.add(statusLabel);
 
-    headerPanel.add(cartButton);
+    // headerPanel.add(cartButton);
 
     getContentPane().add(headerPanel, BorderLayout.PAGE_START);
 
