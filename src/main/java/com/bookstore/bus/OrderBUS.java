@@ -248,4 +248,10 @@ public class OrderBUS implements IBUS<OrderModel> {
 
     return results;
   }
+
+  @Override
+  public void refreshData() {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'refreshData'");
+  }
 }

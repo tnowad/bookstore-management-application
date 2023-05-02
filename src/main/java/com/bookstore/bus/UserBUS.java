@@ -369,4 +369,12 @@ public class UserBUS implements IBUS<UserModel> {
       .findFirst();
     return optionalUser.isPresent();
   }
+
+  @Override
+  public void refreshData() {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException(
+      "Unimplemented method 'refreshData'"
+    );
+  }
 }
