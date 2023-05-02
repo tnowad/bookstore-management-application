@@ -22,8 +22,8 @@ public class MenuFactory {
       case CUSTOMER:
         return getCustomerMenu();
       case EMPLOYEE:
-        return getMenuEmployee(
-            EmployeeDAO.getInstance().getEmployeeById(user.getId()));
+        // return getMenuEmployee(
+        //     EmployeeDAO.getInstance().getEmployeeById(user.getId()));
       default:
         throw new IllegalArgumentException("User role is not supported");
     }
