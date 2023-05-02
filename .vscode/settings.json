@@ -20,6 +20,7 @@
     "PAGEVIEW",
     "PHONELINK",
     "PRINTSHOP",
+    "sansserif",
     "Segoe",
     "STREETVIEW",
     "SVIDEO",
@@ -32,4 +33,5 @@
   ],
   "cSpell.language": "en,en-GB,en-US,lorem",
   "java.debug.settings.onBuildFailureProceed": true,
+  "java.configuration.updateBuildConfiguration": "automatic",
 }

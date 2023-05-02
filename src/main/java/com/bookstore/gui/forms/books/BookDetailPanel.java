@@ -221,43 +221,29 @@ public class BookDetailPanel extends javax.swing.JPanel {
 
   private void bookTitleTextFieldActionPerformed(
     java.awt.event.ActionEvent evt
-  ) {
-    // TODO add your handling code here:
-  }
+  ) {}
 
   private void bookPriceTextFieldActionPerformed(
     java.awt.event.ActionEvent evt
-  ) {
-    // TODO add your handling code here:
-  }
+  ) {}
 
   private void bookStatusTextFieldActionPerformed(
     java.awt.event.ActionEvent evt
-  ) {
-    // TODO add your handling code here:
-  }
+  ) {}
 
   private void bookIsbnTextFieldActionPerformed(
     java.awt.event.ActionEvent evt
-  ) {
-    // TODO add your handling code here:
-  }
+  ) {}
 
   private void bookAuthorTextFieldActionPerformed(
     java.awt.event.ActionEvent evt
-  ) {
-    // TODO add your handling code here:
-  }
+  ) {}
 
-  private void addToCartButtonActionPerformed(java.awt.event.ActionEvent evt) {
-    // TODO add your handling code here:
-  }
+  private void addToCartButtonActionPerformed(java.awt.event.ActionEvent evt) {}
 
   private void quantitySpinnerPropertyChange(
     java.beans.PropertyChangeEvent evt
-  ) {
-    // TODO add your handling code here:
-  }
+  ) {}
 
   // Variables declaration - do not modify
   private javax.swing.JButton addToCartButton;

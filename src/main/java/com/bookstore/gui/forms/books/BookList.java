@@ -80,11 +80,12 @@ public class BookList extends JPanel {
     jPanel5.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
 
     addBookButton.addActionListener(
-        new java.awt.event.ActionListener() {
-          public void actionPerformed(java.awt.event.ActionEvent evt) {
-            addBookButtonActionPerformed(evt);
-          }
-        });
+      new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+          addBookButtonActionPerformed(evt);
+        }
+      }
+    );
     jPanel5.add(addBookButton);
 
     jPanel3.add(jPanel5);
@@ -98,33 +99,37 @@ public class BookList extends JPanel {
     jPanel4.add(searchTextField);
 
     searchButton.addActionListener(
-        new java.awt.event.ActionListener() {
-          public void actionPerformed(java.awt.event.ActionEvent evt) {
-            searchButtonActionPerformed(evt);
-          }
-        });
+      new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+          searchButtonActionPerformed(evt);
+        }
+      }
+    );
     jPanel4.add(searchButton);
 
     excelButtonPanel.setPreferredSize(new java.awt.Dimension(640, 30));
     excelButtonPanel.setLayout(
-        new java.awt.FlowLayout(java.awt.FlowLayout.TRAILING, 5, 0));
+      new java.awt.FlowLayout(java.awt.FlowLayout.TRAILING, 5, 0)
+    );
 
     importFromExcelButton.setPreferredSize(new java.awt.Dimension(160, 30));
     importFromExcelButton.addActionListener(
-        new java.awt.event.ActionListener() {
-          public void actionPerformed(java.awt.event.ActionEvent evt) {
-            importFromExcelButtonActionPerformed(evt);
-          }
-        });
+      new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+          importFromExcelButtonActionPerformed(evt);
+        }
+      }
+    );
     excelButtonPanel.add(importFromExcelButton);
 
     exportToExcelButton.setPreferredSize(new java.awt.Dimension(150, 30));
     exportToExcelButton.addActionListener(
-        new java.awt.event.ActionListener() {
-          public void actionPerformed(java.awt.event.ActionEvent evt) {
-            exportToExcelButtonActionPerformed(evt);
-          }
-        });
+      new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+          exportToExcelButtonActionPerformed(evt);
+        }
+      }
+    );
     excelButtonPanel.add(exportToExcelButton);
 
     jPanel4.add(excelButtonPanel);
@@ -138,11 +143,12 @@ public class BookList extends JPanel {
     bookListTable.setFont(new ThemeFont().getSmallFont());
 
     bookListTable.addMouseListener(
-        new java.awt.event.MouseAdapter() {
-          public void mouseClicked(java.awt.event.MouseEvent evt) {
-            bookListTableMouseClicked(evt);
-          }
-        });
+      new java.awt.event.MouseAdapter() {
+        public void mouseClicked(java.awt.event.MouseEvent evt) {
+          bookListTableMouseClicked(evt);
+        }
+      }
+    );
     jscrollPane.setViewportView(bookListTable);
     if (bookListTable.getColumnModel().getColumnCount() > 0) {
       bookListTable.getColumnModel().getColumn(0).setResizable(false);
@@ -161,44 +167,49 @@ public class BookList extends JPanel {
 
   private void search() {
     searchButton.addActionListener(
-        new ActionListener() {
-          public void actionPerformed(ActionEvent e) {
-            String text = searchTextField.getText();
-            if (text == null || text.isBlank()) {
-              JOptionPane.showMessageDialog(
-                  null,
-                  "Vui lòng nhập thông tin tìm kiếm !");
-              showTable();
-            } else {
-              DefaultTableModel model = new DefaultTableModel();
-              // "ISBN", "Title", "Quantity", "Price", "Status"
-              model.addColumn("ISBN");
-              model.addColumn("Title");
-              model.addColumn("Description");
-              model.addColumn("Price");
-              model.addColumn("Quantity");
-              model.addColumn("Status");
-              model.addColumn("Publisher");
-              model.addColumn("Author");
-              for (BookModel bookModel : bookList) {
-                if (bookModel.getTitle().toLowerCase().contains(text.toLowerCase())) {
-                  model.addRow(
-                      new Object[] {
-                          bookModel.getIsbn(),
-                          bookModel.getTitle(),
-                          bookModel.getDescription(),
-                          bookModel.getPrice(),
-                          bookModel.getQuantity(),
-                          bookModel.getStatus(),
-                          bookModel.getPublisherId(),
-                          bookModel.getAuthorId(),
-                      });
-                  bookListTable.setModel(model);
-                }
+      new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+          String text = searchTextField.getText();
+          if (text == null || text.isBlank()) {
+            JOptionPane.showMessageDialog(
+              null,
+              "Vui lòng nhập thông tin tìm kiếm !"
+            );
+            showTable();
+          } else {
+            DefaultTableModel model = new DefaultTableModel();
+            // "ISBN", "Title", "Quantity", "Price", "Status"
+            model.addColumn("ISBN");
+            model.addColumn("Title");
+            model.addColumn("Description");
+            model.addColumn("Price");
+            model.addColumn("Quantity");
+            model.addColumn("Status");
+            model.addColumn("Publisher");
+            model.addColumn("Author");
+            for (BookModel bookModel : bookList) {
+              if (
+                bookModel.getTitle().toLowerCase().contains(text.toLowerCase())
+              ) {
+                model.addRow(
+                  new Object[] {
+                    bookModel.getIsbn(),
+                    bookModel.getTitle(),
+                    bookModel.getDescription(),
+                    bookModel.getPrice(),
+                    bookModel.getQuantity(),
+                    bookModel.getStatus(),
+                    bookModel.getPublisherId(),
+                    bookModel.getAuthorId(),
+                  }
+                );
+                bookListTable.setModel(model);
               }
             }
           }
-        });
+        }
+      }
+    );
   }
 
   private void listBooks() {
@@ -218,39 +229,32 @@ public class BookList extends JPanel {
     model.addColumn("Author");
     for (BookModel book : bookList) {
       model.addRow(
-          new Object[] {
-              book.getIsbn(),
-              book.getTitle(),
-              book.getDescription(),
-              book.getPrice(),
-              book.getQuantity(),
-              book.getStatus(),
-              book.getPublisherId(),
-              book.getAuthorId(),
-          });
+        new Object[] {
+          book.getIsbn(),
+          book.getTitle(),
+          book.getDescription(),
+          book.getPrice(),
+          book.getQuantity(),
+          book.getStatus(),
+          book.getPublisherId(),
+          book.getAuthorId(),
+        }
+      );
       bookListTable.setModel(model);
     }
   }
 
-  private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {
-    // TODO add your handling code here:
-  }
+  private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {}
 
   private void importFromExcelButtonActionPerformed(
-      java.awt.event.ActionEvent evt) {
-    // TODO add your handling code here:
-  }
+    java.awt.event.ActionEvent evt
+  ) {}
 
   private void exportToExcelButtonActionPerformed(
-      java.awt.event.ActionEvent evt) {
-    // TODO add your handling code here:
-  }
+    java.awt.event.ActionEvent evt
+  ) {}
 
-  private void addBookButtonActionPerformed(java.awt.event.ActionEvent evt) {
-    // TODO add your handling code here:
-  }
+  private void addBookButtonActionPerformed(java.awt.event.ActionEvent evt) {}
 
-  private void bookListTableMouseClicked(java.awt.event.MouseEvent evt) {
-    // TODO add your handling code here:
-  }
+  private void bookListTableMouseClicked(java.awt.event.MouseEvent evt) {}
 }
