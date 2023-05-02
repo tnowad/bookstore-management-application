@@ -500,7 +500,6 @@ public class AddProductFrame extends javax.swing.JFrame {
         .getModelByPublisherName(setPublisherName.getText().trim())
         .getId()
     );
-    System.out.println(setPublisherName.getText().trim());
     book.setAuthorId(
       AuthorBUS
         .getInstance()
