@@ -12,7 +12,6 @@ import javax.swing.table.DefaultTableModel;
 import com.bookstore.bus.BookBUS;
 import com.bookstore.bus.CartBUS;
 import com.bookstore.bus.CartItemsBUS;
-import com.bookstore.bus.UserBUS;
 import com.bookstore.enums.CartStatus;
 import com.bookstore.models.BookModel;
 import com.bookstore.models.CartItemsModel;
@@ -63,10 +62,11 @@ public class Cart extends JPanel {
       cartItemList = cartItemsBUS.getAllModels();
       bookBUS = BookBUS.getInstance();
       bookList = bookBUS.getAllModels();
-      System.out.println(cartModel.getId());
       for (CartItemsModel cartItemsModel : cartItemList) {
         if (cartItemsModel.getCartId() == cartModel.getId()) {
+          System.out.println(cartModel.getId());
           myCartList.add(cartItemsModel);
+          System.out.println(myCartList.size());
         }
       }
     }
@@ -168,10 +168,14 @@ public class Cart extends JPanel {
     model.addColumn("Price");
     model.addColumn("Quantity");
     for (CartItemsModel cartItemsModel : myCartList) {
+      System.out.println("My isbn of cart items: " + cartItemsModel.getBookIsbn());
       for (BookModel bookModel : bookList) {
-        if (cartItemsModel.getBookIsbn() == bookModel.getIsbn()) {
+        System.out.println("My book isbn " + bookModel.getIsbn());
+        if (cartItemsModel.getBookIsbn().equalsIgnoreCase(bookModel.getIsbn())) {
+          System.out.println(1);
           model.addRow(new Object[] { bookModel.getIsbn(), bookModel.getTitle(), bookModel.getPrice(),
               cartItemsModel.getQuantity() });
+              listCartTable.setModel(model);
         }
       }
     }
