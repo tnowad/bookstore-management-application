@@ -10,6 +10,9 @@ public interface IBUS<T> {
    */
   List<T> getAllModels();
 
+  /**
+   * Refreshes the data in the model list.
+   */
   void refreshData();
 
   /**

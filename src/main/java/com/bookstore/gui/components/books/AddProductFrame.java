@@ -7,8 +7,10 @@ import com.bookstore.enums.BookStatus;
 import com.bookstore.models.AuthorModel;
 import com.bookstore.models.BookModel;
 import com.bookstore.models.PublisherModel;
+import com.bookstore.util.image.ImageUtils;
 import java.awt.event.*;
 import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import javax.swing.*;
 
@@ -253,7 +255,7 @@ public class AddProductFrame extends javax.swing.JFrame {
     getContentPane().add(buttonPanel);
 
     pack();
-  } // </editor-fold>                        
+  } // </editor-fold>
 
   public String actionAddLinkImage() {
     JFileChooser fileChooser = new JFileChooser();
@@ -262,7 +264,17 @@ public class AddProductFrame extends javax.swing.JFrame {
       File selectedFile = fileChooser.getSelectedFile();
       String filePath = selectedFile.getAbsolutePath();
       setImageLink.setText(filePath);
-      return filePath;
+
+      // get image from file path
+      String base64 = null;
+      try {
+        base64 = ImageUtils.toBase64(ImageUtils.loadImage(filePath));
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+
+      return base64;
+      
     }
     return null;
   }
