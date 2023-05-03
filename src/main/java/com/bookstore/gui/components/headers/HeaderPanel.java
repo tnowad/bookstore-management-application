@@ -63,13 +63,11 @@ public class HeaderPanel extends JPanel {
     gridBagConstraints.fill = GridBagConstraints.NONE;
     gridBagConstraints.anchor = GridBagConstraints.WEST;
     add(toggleMenuButton, gridBagConstraints);
-    gridBagConstraints = new GridBagConstraints();
     gridBagConstraints.gridx = 1;
     gridBagConstraints.weightx = 1;
     gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
     gridBagConstraints.anchor = GridBagConstraints.CENTER;
     add(searchTextField, gridBagConstraints);
-    gridBagConstraints = new GridBagConstraints();
     gridBagConstraints.gridx = 2;
     gridBagConstraints.weightx = 0;
     gridBagConstraints.fill = GridBagConstraints.NONE;
