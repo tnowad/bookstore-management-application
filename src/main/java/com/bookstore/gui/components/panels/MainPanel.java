@@ -1,8 +1,10 @@
 package com.bookstore.gui.components.panels;
 
+import com.bookstore.gui.components.dialogs.Dialog;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import javax.swing.GroupLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -65,10 +67,28 @@ public class MainPanel extends JPanel {
   }
 
   public void search(String text) {
-    // if current form is instance of Searchable interface then call search method
-    Component currentForm = getComponent(0);
-    if (currentForm instanceof ISearchable) {
+    Component currentForm = null;
+    try {
+      currentForm = getComponent(0);
+    } catch (ArrayIndexOutOfBoundsException e) {
+      JOptionPane.showMessageDialog(
+        null,
+        "No form is currently displayed",
+        "Error",
+        JOptionPane.ERROR_MESSAGE
+      );
+      return;
+    }
+    System.out.println(text);
+    if (currentForm != null && currentForm instanceof ISearchable) {
       ((ISearchable) currentForm).search(text);
+    } else {
+      JOptionPane.showMessageDialog(
+        null,
+        "The current form does not support searching",
+        "Error",
+        JOptionPane.ERROR_MESSAGE
+      );
     }
     refreshFrame();
   }
