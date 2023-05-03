@@ -517,8 +517,8 @@ INSERT INTO `shipping` (`id`, `order_id`, `shipping_method`, `address_id`, `stat
 
 INSERT INTO `users` (`id`, `username`, `password`, `status`, `name`, `email`, `phone`, `created_at`, `updated_at`, `role`) VALUES
 (1, 'admin', '$2a$04$Lc/9YtFRye3r4iHzQ5.LAuRdrpCqcCFUAVh7XKH.cC.l9922J2UGS', 'active', 'Nguyen Van A', 'admin@example.com', '0987654321', '2023-04-20 02:55:50', '2023-04-20 02:55:50', 'admin'),
-(2, 'employee1', '$2a$04$Lc/9YtFRye3r4iHzQ5.LAuRdrpCqcCFUAVh7XKH.cC.l9922J2UGS', 'active', 'Nguyen Thi B', 'employee1@example.com', '0912345678', '2023-04-20 02:55:50', '2023-04-20 02:55:50', 'employee'),
-(3, 'employee2', '$2a$04$Lc/9YtFRye3r4iHzQ5.LAuRdrpCqcCFUAVh7XKH.cC.l9922J2UGS', 'active', 'Tran Van C', 'employee2@example.com', '0923456789', '2023-04-20 02:55:50', '2023-04-20 02:55:50', 'employee'),
+(2, 'employee_manager', '$2a$04$Lc/9YtFRye3r4iHzQ5.LAuRdrpCqcCFUAVh7XKH.cC.l9922J2UGS', 'active', 'Employee Manager', 'employee_manager@example.com', '0912345678', '2023-04-20 02:55:50', '2023-04-20 02:55:50', 'employee'),
+(3, 'employee_sales', '$2a$04$Lc/9YtFRye3r4iHzQ5.LAuRdrpCqcCFUAVh7XKH.cC.l9922J2UGS', 'active', 'Employee Sales', 'employee_sales@example.com', '0923456789', '2023-04-20 02:55:50', '2023-04-20 02:55:50', 'employee'),
 (4, 'employee3', '$2a$04$Lc/9YtFRye3r4iHzQ5.LAuRdrpCqcCFUAVh7XKH.cC.l9922J2UGS', 'active', 'Le Thi D', 'employee3@example.com', '0934567890', '2023-04-20 02:55:50', '2023-04-20 02:55:50', 'employee'),
 (5, 'employee4', '$2a$04$Lc/9YtFRye3r4iHzQ5.LAuRdrpCqcCFUAVh7XKH.cC.l9922J2UGS', 'active', 'Pham Van E', 'employee4@example.com', '0945678901', '2023-04-20 02:55:50', '2023-04-20 02:55:50', 'employee'),
 (6, 'employee5', '$2a$04$Lc/9YtFRye3r4iHzQ5.LAuRdrpCqcCFUAVh7XKH.cC.l9922J2UGS', 'active', 'Do Thi F', 'employee5@example.com', '0956789012', '2023-04-20 02:55:50', '2023-04-20 02:55:50', 'employee'),
