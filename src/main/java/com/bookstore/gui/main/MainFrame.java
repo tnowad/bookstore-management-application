@@ -4,6 +4,7 @@ import com.bookstore.gui.components.headers.HeaderPanel;
 import com.bookstore.gui.components.menus.MenuPanel;
 import com.bookstore.gui.components.panels.MainPanel;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
@@ -89,6 +90,7 @@ public class MainFrame extends JFrame {
     menuPanel.setMinimumSize(new Dimension(50, Integer.MAX_VALUE));
     menuPanel.setMaximumSize(new Dimension(250, Integer.MAX_VALUE));
     mainPanelWrapper = new JPanel(new BorderLayout());
+    mainPanelWrapper.setBackground(Color.WHITE);
     mainPanelWrapper.add(headerPanel, BorderLayout.PAGE_START);
     mainPanelWrapper.add(mainPanel, BorderLayout.CENTER);
 

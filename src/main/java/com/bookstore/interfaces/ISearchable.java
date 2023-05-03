@@ -1,4 +1,4 @@
-package com.bookstore.gui.components.panels;
+package com.bookstore.interfaces;
 
 public interface ISearchable {
   void search(String keyword);
