@@ -70,7 +70,7 @@ public class CartItemsDAO implements IDAO<CartItemsModel> {
   @Override
   public int update(CartItemsModel cartItem) {
     String updateSql =
-      "UPDATE cart_items SET cart_id = ?, book_isbn = ?, price = ?, quantity = ?, discount = ? WHERE id = ?";
+      "UPDATE cart_items SET book_isbn = ?, price = ?, quantity = ?, discount = ? WHERE cart_id = ?";
     Object[] args = {
       cartItem.getCartId(),
       cartItem.getBookIsbn(),
