@@ -136,7 +136,7 @@ public class MenuFactory {
           add(
             new MenuItemModel(
               "Cart",
-              new ImageIcon(""),
+              null,
               null,
               new ArrayList<SubMenuItemModel>() {
                 {

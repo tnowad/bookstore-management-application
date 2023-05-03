@@ -1,42 +1,63 @@
 package com.bookstore.models;
 
+import java.awt.Image;
 import java.awt.event.ActionListener;
-
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 
 public class SubMenuItemModel {
-    private String title;
-    private Icon icon;
-    private ActionListener actionListener;
 
-    public SubMenuItemModel(String title, Icon icon, ActionListener actionListener) {
-        this.title = title;
-        this.icon = icon;
-        this.actionListener = actionListener;
+  private String title;
+  private Icon icon;
+  private ActionListener actionListener;
+
+  public SubMenuItemModel(
+    String title,
+    Icon icon,
+    ActionListener actionListener
+  ) {
+    this.title = title;
+    this.icon = icon;
+    this.actionListener = actionListener;
+  }
+
+  public String getTitle() {
+    return title;
+  }
+
+  public void setTitle(String title) {
+    this.title = title;
+  }
+
+  public Icon getIcon() {
+    if (icon == null) {
+      icon = new ImageIcon("");
     }
+    Image iconImage = ((ImageIcon) icon).getImage();
+    return new ImageIcon(
+      iconImage.getScaledInstance(24, 24, java.awt.Image.SCALE_SMOOTH)
+    ) {
+      @Override
+      public int getIconHeight() {
+        return 24;
+      }
 
-    public String getTitle() {
-        return title;
-    }
+      @Override
+      public int getIconWidth() {
+        return 24;
+      }
+    };
+  }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+  public void setIcon(Icon icon) {
+    this.icon = icon;
+  }
 
-    public Icon getIcon() {
-        return icon;
-    }
+  public ActionListener getActionListener() {
+    return actionListener;
+  }
 
-    public void setIcon(Icon icon) {
-        this.icon = icon;
-    }
-
-    public ActionListener getActionListener() {
-        return actionListener;
-    }
-
-    public void setActionListener(ActionListener actionListener) {
-        this.actionListener = actionListener;
-    }
-
+  public void setActionListener(ActionListener actionListener) {
+    this.actionListener = actionListener;
+  }
 }
