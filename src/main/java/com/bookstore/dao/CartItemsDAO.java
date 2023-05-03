@@ -86,10 +86,10 @@ public class CartItemsDAO implements IDAO<CartItemsModel> {
     }
   }
 
-  @Override
-  public int delete(int id) {
-    String deleteSql = "DELETE FROM cart_items WHERE cart_id = ?";
-    Object[] args = { id };
+  public int delete(int id, String isbn) {
+    String deleteSql =
+      "DELETE FROM cart_items WHERE cart_id = ? and book_isbn = ?";
+    Object[] args = { id, isbn };
     try {
       return DatabaseConnection.executeUpdate(deleteSql, args);
     } catch (SQLException e) {
@@ -146,5 +146,10 @@ public class CartItemsDAO implements IDAO<CartItemsModel> {
       e.printStackTrace();
       return Collections.emptyList();
     }
+  }
+
+  @Override
+  public int delete(int id) throws SQLException {
+    throw new UnsupportedOperationException("Unimplemented method 'delete'");
   }
 }

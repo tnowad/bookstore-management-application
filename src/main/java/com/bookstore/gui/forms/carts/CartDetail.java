@@ -48,15 +48,43 @@ public class CartDetail extends JFrame {
   }
 
   private void handleEvent() {
-    // chooseBookCheckBox.addItemListener(
-    //     e -> {
-    //       if (e.getStateChange() == ItemEvent.SELECTED) {
-    //         bookImagePanel.setVisible(true);
-    //       } else {
-    //         bookImagePanel.setVisible(false);
-    //       }
-    //     }
-    // );
+    deleteProductButton.addActionListener(e -> {
+      if (cartItemsModel == null) {
+        JOptionPane.showMessageDialog(
+          this,
+          "This book is not in the cart",
+          "Error",
+          JOptionPane.ERROR_MESSAGE
+        );
+      } else {
+        if ((int) quantitySpinner.getValue() <= 0) {
+          JOptionPane.showMessageDialog(
+            this,
+            "Quantity must be greater than 0",
+            "Error",
+            JOptionPane.ERROR_MESSAGE
+          );
+        } else {
+          cartItemsModel.setQuantity((int) quantitySpinner.getValue());
+          System.out.println(cartItemsModel.getQuantity());
+          CartItemsBUS
+            .getInstance()
+            .deleteModel(
+              cartItemsModel.getCartId(),
+              cartItemsModel.getBookIsbn()
+            );
+          JOptionPane.showMessageDialog(
+            this,
+            "Quantity updated",
+            "Success",
+            JOptionPane.INFORMATION_MESSAGE
+          );
+          updateData();
+          dispose();
+        }
+      }
+    });
+
     acceptButton.addActionListener(e -> {
       if (cartItemsModel == null) {
         JOptionPane.showMessageDialog(
@@ -92,7 +120,7 @@ public class CartDetail extends JFrame {
   private void initComponents() {
     cententProductPanel = new JPanel();
     checkboxPanel = new JPanel();
-    chooseBookCheckBox = new JCheckBox();
+    deleteProductButton = new Button("Delete");
     bookImagePanel = new JPanel();
     contentCartPanel = new JPanel();
     groupHeaderPanel = new JPanel();
@@ -118,7 +146,7 @@ public class CartDetail extends JFrame {
 
     checkboxPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
 
-    checkboxPanel.add(chooseBookCheckBox);
+    checkboxPanel.add(deleteProductButton);
 
     cententProductPanel.add(checkboxPanel, BorderLayout.PAGE_START);
 
@@ -168,6 +196,7 @@ public class CartDetail extends JFrame {
     descriptionTextArea.setMaximumSize(new Dimension(232, 160));
     descriptionTextArea.setMinimumSize(new Dimension(232, 160));
     descriptionTextArea.setPreferredSize(new Dimension(232, 160));
+    descriptionTextArea.setEditable(false);
     descriptionPanel.add(descriptionTextArea);
 
     descriptionScrollPane.setViewportView(descriptionPanel);
@@ -189,7 +218,7 @@ public class CartDetail extends JFrame {
   private JTextField bookTitleTextField;
   private JPanel cententProductPanel;
   private JPanel checkboxPanel;
-  private JCheckBox chooseBookCheckBox;
+  private Button deleteProductButton;
   private JPanel contentCartPanel;
   private Button acceptButton;
   private JPanel descriptionPanel;

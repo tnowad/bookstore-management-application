@@ -59,16 +59,13 @@ public class Cart extends JPanel {
     }
     myCartList = new ArrayList<CartItemsModel>();
     cartItemsBUS = CartItemsBUS.getInstance();
-    System.out.println(cartModel.getStatus());
     if (cartModel.getStatus() == CartStatus.PENDING) {
       cartItemList = cartItemsBUS.getAllModels();
       bookBUS = BookBUS.getInstance();
       bookList = bookBUS.getAllModels();
       for (CartItemsModel cartItemsModel : cartItemList) {
         if (cartItemsModel.getCartId() == cartModel.getId()) {
-          System.out.println(cartModel.getId());
           myCartList.add(cartItemsModel);
-          System.out.println(myCartList.size());
         }
       }
     }
@@ -142,6 +139,8 @@ public class Cart extends JPanel {
   private void listOrder() {}
 
   private void listCart() {
+    CartItemsBUS.getInstance().refreshData();
+    updateData();
     DefaultTableModel model = new DefaultTableModel();
     model.addColumn("ISBN");
     model.addColumn("Title");
@@ -153,6 +152,7 @@ public class Cart extends JPanel {
         if (
           cartItemsModel.getBookIsbn().equalsIgnoreCase(bookModel.getIsbn())
         ) {
+          System.out.println(cartItemsModel.getCartId());
           model.addRow(
             new Object[] {
               bookModel.getIsbn(),
@@ -161,10 +161,10 @@ public class Cart extends JPanel {
               cartItemsModel.getQuantity(),
             }
           );
-          listCartTable.setModel(model);
         }
       }
     }
+    listCartTable.setModel(model);
     listCartScrollPane.setViewportView(listCartTable);
     listCartPanel.add(listCartScrollPane, BorderLayout.CENTER);
   }
@@ -181,10 +181,9 @@ public class Cart extends JPanel {
                 .getValueAt(selectedRowIndex, 0)
                 .toString();
               new Dialog(new CartDetail(cartModel.getId(), bookIsbn));
-
-              listOrder();
+              listCart();
             } else {
-              System.out.println("Don't know how to handle this order");
+              System.out.println("Don't know how to handle this cart");
             }
           }
         }

@@ -28,10 +28,12 @@ public class CartItemsBUS implements IBUS<CartItemsModel> {
     return Collections.unmodifiableList(cartItemsList);
   }
 
-  @Override
-  public CartItemsModel getModelById(int id) {
+  public CartItemsModel getModelByIdAndIsbn(int id, String isbn) {
     for (CartItemsModel cartItemsModel : cartItemsList) {
-      if (cartItemsModel.getCartId() == id) {
+      if (
+        cartItemsModel.getCartId() == id &&
+        cartItemsModel.getBookIsbn().equals(isbn)
+      ) {
         return cartItemsModel;
       }
     }
@@ -129,15 +131,14 @@ public class CartItemsBUS implements IBUS<CartItemsModel> {
     return updatedRows;
   }
 
-  @Override
-  public int deleteModel(int id) {
-    CartItemsModel CartItemsModel = getModelById(id);
+  public int deleteModel(int id, String isbn) {
+    CartItemsModel CartItemsModel = getModelByIdAndIsbn(id, isbn);
     if (CartItemsModel == null) {
       throw new IllegalArgumentException(
         "cart_items with cart_id " + id + " does not exist."
       );
     }
-    int deletedRows = CartItemsDAO.getInstance().delete(id);
+    int deletedRows = CartItemsDAO.getInstance().delete(id,isbn);
     if (deletedRows > 0) {
       cartItemsList.remove(CartItemsModel);
     }
@@ -162,8 +163,22 @@ public class CartItemsBUS implements IBUS<CartItemsModel> {
 
   @Override
   public void refreshData() {
+    cartItemsList.clear();
+    cartItemsList.addAll(CartItemsDAO.getInstance().readDatabase());
+  }
+
+  @Override
+  public int deleteModel(int id) {
     throw new UnsupportedOperationException(
-      "Unimplemented method 'refreshData'"
+      "Unimplemented method 'deleteModel'"
+    );
+  }
+
+  @Override
+  public CartItemsModel getModelById(int id) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException(
+      "Unimplemented method 'getModelById'"
     );
   }
 }
