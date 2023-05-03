@@ -79,7 +79,6 @@ public class MainPanel extends JPanel {
       );
       return;
     }
-    System.out.println(text);
     if (currentForm != null && currentForm instanceof ISearchable) {
       ((ISearchable) currentForm).search(text);
     } else {
