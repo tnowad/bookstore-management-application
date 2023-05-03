@@ -117,7 +117,10 @@ public class CartItemsBUS implements IBUS<CartItemsModel> {
     int updatedRows = CartItemsDAO.getInstance().update(model);
     if (updatedRows > 0) {
       for (int i = 0; i < cartItemsList.size(); i++) {
-        if (cartItemsList.get(i).getCartId() == model.getCartId()) {
+        if (
+          cartItemsList.get(i).getCartId() == model.getCartId() &&
+          cartItemsList.get(i).getBookIsbn().equals(model.getBookIsbn())
+        ) {
           cartItemsList.set(i, model);
           break;
         }

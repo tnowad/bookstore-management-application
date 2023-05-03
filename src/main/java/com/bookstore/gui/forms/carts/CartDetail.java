@@ -2,6 +2,7 @@ package com.bookstore.gui.forms.carts;
 
 import com.bookstore.bus.BookBUS;
 import com.bookstore.bus.CartItemsBUS;
+import com.bookstore.gui.components.buttons.Button;
 import com.bookstore.models.BookModel;
 import com.bookstore.models.CartItemsModel;
 import java.awt.*;
@@ -20,8 +21,8 @@ public class CartDetail extends JFrame {
     this.bookIsbn = bookIsbn;
     System.out.println(cartId);
     System.out.println(bookIsbn);
-    updateData();
     initComponents();
+    updateData();
     handleEvent();
   }
 
@@ -37,6 +38,13 @@ public class CartDetail extends JFrame {
         break;
       }
     }
+
+    if (cartItemsModel != null) {
+      bookTitleTextField.setText(bookModel.getTitle());
+      bookPriceLabel.setText(String.valueOf(bookModel.getPrice()));
+      quantitySpinner.setValue(cartItemsModel.getQuantity());
+      descriptionTextArea.setText(bookModel.getDescription());
+    }
   }
 
   private void handleEvent() {
@@ -49,8 +57,36 @@ public class CartDetail extends JFrame {
     //       }
     //     }
     // );
-      System.out.println(bookModel.getDescription());
-    System.out.println(cartItemsModel.getBookIsbn());
+    acceptButton.addActionListener(e -> {
+      if (cartItemsModel == null) {
+        JOptionPane.showMessageDialog(
+          this,
+          "This book is not in the cart",
+          "Error",
+          JOptionPane.ERROR_MESSAGE
+        );
+      } else {
+        if ((int) quantitySpinner.getValue() <= 0) {
+          JOptionPane.showMessageDialog(
+            this,
+            "Quantity must be greater than 0",
+            "Error",
+            JOptionPane.ERROR_MESSAGE
+          );
+        } else {
+          cartItemsModel.setQuantity((int) quantitySpinner.getValue());
+          System.out.println(cartItemsModel.getQuantity());
+          CartItemsBUS.getInstance().updateModel(cartItemsModel);
+          JOptionPane.showMessageDialog(
+            this,
+            "Quantity updated",
+            "Success",
+            JOptionPane.INFORMATION_MESSAGE
+          );
+          updateData();
+        }
+      }
+    });
   }
 
   private void initComponents() {
@@ -61,7 +97,7 @@ public class CartDetail extends JFrame {
     contentCartPanel = new JPanel();
     groupHeaderPanel = new JPanel();
     bookTitleTextField = new JTextField();
-    deleteButton = new com.bookstore.gui.components.buttons.Button("Accept");
+    acceptButton = new Button("Accept");
     infoDetailPanel = new JPanel();
     groupBottomPanel = new JPanel();
     bookPriceLabel = new JLabel();
@@ -101,7 +137,7 @@ public class CartDetail extends JFrame {
 
     groupHeaderPanel.add(bookTitleTextField);
 
-    groupHeaderPanel.add(deleteButton);
+    groupHeaderPanel.add(acceptButton);
 
     contentCartPanel.add(groupHeaderPanel, BorderLayout.PAGE_START);
 
@@ -155,7 +191,7 @@ public class CartDetail extends JFrame {
   private JPanel checkboxPanel;
   private JCheckBox chooseBookCheckBox;
   private JPanel contentCartPanel;
-  private com.bookstore.gui.components.buttons.Button deleteButton;
+  private Button acceptButton;
   private JPanel descriptionPanel;
   private JScrollPane descriptionScrollPane;
   private JTextArea descriptionTextArea;
