@@ -3,9 +3,9 @@ package com.bookstore.gui.components.headers;
 import com.bookstore.gui.components.inputs.SearchTextField;
 import com.bookstore.gui.components.panels.MainPanel;
 import com.bookstore.gui.main.MainFrame;
-import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -36,26 +36,23 @@ public class HeaderPanel extends JPanel {
 
   private void initComponents() {
     toggleMenuButton = new JButton();
-    searchLabel = new JLabel();
-    searchTextField = new SearchTextField();
-
-    searchTextField.addActionListener(e -> {
-      MainPanel.getInstance().search(searchTextField.getText());
-    });
-
-    searchLabel.setIcon(
-      new ImageIcon("src/main/java/resources/icons/search.png")
-    );
-
+    toggleMenuButton.addActionListener(toggleMenuActionListener);
     toggleMenuButton.setIcon(
       new ImageIcon("src/main/java/resources/icons/menu.png")
     );
     toggleMenuButton.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-    toggleMenuButton.addActionListener(e -> {
-      MainFrame mainUI = (MainFrame) getRootPane().getParent();
-      mainUI.toggleMenu();
-    });
+
+    searchTextField = new SearchTextField();
+    searchTextField.addActionListener(searchActionListener);
+
+    searchLabel = new JLabel();
+    searchLabel.setIcon(
+      new ImageIcon("src/main/java/resources/icons/search.png")
+    );
+    searchLabel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+
     setLayout(new GridBagLayout());
+
     GridBagConstraints gridBagConstraints = new GridBagConstraints();
     gridBagConstraints.fill = GridBagConstraints.NONE;
     gridBagConstraints.anchor = GridBagConstraints.WEST;
@@ -72,8 +69,12 @@ public class HeaderPanel extends JPanel {
     add(searchLabel, gridBagConstraints);
   }
 
-  public SearchTextField getSearchTextField() {
-    // event when enter key is pressed
-    return searchTextField;
-  }
+  private ActionListener toggleMenuActionListener = e -> {
+    MainFrame mainUI = (MainFrame) getRootPane().getParent();
+    mainUI.toggleMenu();
+  };
+
+  private ActionListener searchActionListener = e -> {
+    MainPanel.getInstance().search(searchTextField.getText());
+  };
 }
