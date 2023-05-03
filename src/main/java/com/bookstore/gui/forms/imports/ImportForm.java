@@ -1,28 +1,22 @@
 package com.bookstore.gui.forms.imports;
 
 import com.bookstore.bus.ImportBUS;
-import com.bookstore.dao.ImportDAO;
 import com.bookstore.gui.components.tables.Table;
 import com.bookstore.models.ImportModel;
 import com.bookstore.models.ImportTableModel;
-import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.LayoutManager;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
 
 public class ImportForm extends JPanel {
@@ -41,7 +35,6 @@ public class ImportForm extends JPanel {
   private JButton refreshImportButton;
   private JButton filterImportButton;
   private JButton exportExcelButton;
-  private JButton importExcelButton;
 
   public ImportForm() {
     initComponents();
@@ -80,7 +73,7 @@ public class ImportForm extends JPanel {
     deleteImportButton = new JButton("Delete");
     refreshImportButton = new JButton("Refresh");
     exportExcelButton = new JButton("Export Excel");
-    importExcelButton = new JButton("Import Excel");
+    new JButton("Import Excel");
 
     gridBagConstraints.gridx = 0;
     gridBagConstraints.gridy = 0;
@@ -114,43 +107,4 @@ public class ImportForm extends JPanel {
     add(topPanel, BorderLayout.NORTH);
     add(scrollPane, BorderLayout.CENTER);
   }
-
-  private ActionListener addImportActionListener = new ActionListener() {
-    @Override
-    public void actionPerformed(ActionEvent e) {
-      System.out.println("Add import");
-    }
-  };
-
-  private ActionListener editImportActionListener = new ActionListener() {
-    @Override
-    public void actionPerformed(ActionEvent e) {
-      // show import model are selected
-      System.out.println("Edit import");
-      int selectedRow = table.getSelectedRow();
-      if (selectedRow != -1) {
-        int importId = (int) table.getValueAt(selectedRow, 0);
-        ImportModel importModel = ImportBUS
-          .getInstance()
-          .getModelById(importId);
-        System.out.println(importModel);
-      }
-    }
-  };
-
-  private ActionListener deleteImportActionListener = new ActionListener() {
-    @Override
-    public void actionPerformed(ActionEvent e) {
-      // show import model are selected
-      System.out.println("Delete import");
-      int selectedRow = table.getSelectedRow();
-      if (selectedRow != -1) {
-        int importId = (int) table.getValueAt(selectedRow, 0);
-        ImportDAO.getInstance().delete(importId);
-        DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
-        // tableModel.removeRow(selectedRow);
-        System.out.println(importId);
-      }
-    }
-  };
 }

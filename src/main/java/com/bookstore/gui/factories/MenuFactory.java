@@ -225,7 +225,7 @@ public class MenuFactory {
         {
           add(
             new MenuItemModel(
-              "Customer managerment",
+              "Customer management",
               new ImageIcon(""),
               showCustomerList,
               null
@@ -301,7 +301,7 @@ public class MenuFactory {
         {
           add(
             new MenuItemModel(
-              "Employee managerment",
+              "Employee management",
               new ImageIcon(""),
               showEmployeeList,
               null

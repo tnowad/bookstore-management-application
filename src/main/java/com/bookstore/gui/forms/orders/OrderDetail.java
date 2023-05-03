@@ -47,7 +47,6 @@ public class OrderDetail extends JFrame {
   private BookBUS bookBUS;
   private UserBUS userBUS;
   private UserModel userModel;
-  private static OrderDetail instance;
 
   public OrderDetail(int customerId) {
     this.customerId = customerId;

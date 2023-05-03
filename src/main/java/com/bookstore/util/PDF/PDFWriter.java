@@ -139,7 +139,7 @@ public class PDFWriter {
     }
   }
 
-  // TODO: THE FUNCTION WORKS AS INTENTED TO BE BUT IT NEEDS A PROPER CHECK
+  // TODO: THE FUNCTION WORKS AS INTENDED TO BE BUT IT NEEDS A PROPER CHECK
   public void exportImportsToPDF(int importId, String url) {
     ImportModel importData = ImportBUS.getInstance().getModelById(importId);
     List<ImportItemsModel> importItemsList = ImportItemsBUS.getInstance().getAllModels();
