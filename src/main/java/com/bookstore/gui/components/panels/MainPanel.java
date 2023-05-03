@@ -63,4 +63,13 @@ public class MainPanel extends JPanel {
     repaint();
     revalidate();
   }
+
+  public void search(String text) {
+    // if current form is instance of Searchable interface then call search method
+    Component currentForm = getComponent(0);
+    if (currentForm instanceof ISearchable) {
+      ((ISearchable) currentForm).search(text);
+    }
+    refreshFrame();
+  }
 }

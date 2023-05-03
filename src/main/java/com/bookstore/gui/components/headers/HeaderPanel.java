@@ -1,7 +1,9 @@
 package com.bookstore.gui.components.headers;
 
 import com.bookstore.gui.components.inputs.SearchTextField;
+import com.bookstore.gui.components.panels.MainPanel;
 import com.bookstore.gui.main.MainFrame;
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import javax.swing.BorderFactory;
@@ -28,6 +30,7 @@ public class HeaderPanel extends JPanel {
   public HeaderPanel() {
     initComponents();
     setOpaque(false);
+    setBackground(Color.WHITE);
 
     HeaderPanel.instance = this;
   }
@@ -36,6 +39,10 @@ public class HeaderPanel extends JPanel {
     toggleMenuButton = new JButton();
     searchLabel = new JLabel();
     searchTextField = new SearchTextField();
+
+    searchTextField.addActionListener(e -> {
+      MainPanel.getInstance().search(searchTextField.getText());
+    });
 
     setBackground(new java.awt.Color(255, 255, 255));
 
@@ -68,5 +75,10 @@ public class HeaderPanel extends JPanel {
     gridBagConstraints.fill = GridBagConstraints.NONE;
     gridBagConstraints.anchor = GridBagConstraints.EAST;
     add(searchLabel, gridBagConstraints);
+  }
+
+  public SearchTextField getSearchTextField() {
+    // event when enter key is pressed
+    return searchTextField;
   }
 }
