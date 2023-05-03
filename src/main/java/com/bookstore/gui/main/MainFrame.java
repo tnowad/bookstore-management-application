@@ -45,6 +45,8 @@ public class MainFrame extends JFrame {
     this.menuPanel = menuPanel;
     this.mainPanel = mainPanel;
     this.headerPanel = headerPanel;
+    setMinimumSize(new Dimension(800, 600));
+
     initComponents();
     pack();
     setLocationRelativeTo(null);
