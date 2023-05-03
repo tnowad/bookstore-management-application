@@ -32,7 +32,7 @@ public class UserBUS implements IBUS<UserModel> {
   }
 
   public UserModel login(String username, String password)
-    throws LoginException {
+      throws LoginException {
     UserModel userModel = UserDAO.getInstance().getUserByUsername(username);
     if (userModel == null) {
       throw new LoginException("User not found");
@@ -50,12 +50,11 @@ public class UserBUS implements IBUS<UserModel> {
   }
 
   public UserModel register(
-    String username,
-    String password,
-    String name,
-    String email,
-    String phone
-  ) {
+      String username,
+      String password,
+      String name,
+      String email,
+      String phone) {
     UserModel userModel = new UserModel();
     userModel.setUsername(username);
     userModel.setPassword(PasswordUtils.hashPassword(password));
@@ -123,10 +122,9 @@ public class UserBUS implements IBUS<UserModel> {
   }
 
   private boolean checkFilter(
-    UserModel userModel,
-    String value,
-    String[] columns
-  ) {
+      UserModel userModel,
+      String value,
+      String[] columns) {
     value.toLowerCase();
     for (String column : columns) {
       switch (column.toLowerCase()) {
@@ -176,42 +174,34 @@ public class UserBUS implements IBUS<UserModel> {
   }
 
   private boolean checkAllColumns(UserModel userModel, String value) {
-    return (
-      userModel.getId() == Integer.parseInt(value) ||
-      userModel.getUsername().equalsIgnoreCase(value) ||
-      userModel.getStatus().toString().equalsIgnoreCase(value) ||
-      userModel.getName().equalsIgnoreCase(value) ||
-      userModel.getEmail().equalsIgnoreCase(value) ||
-      userModel.getPhone().equals(value) ||
-      userModel.getRole().toString().equalsIgnoreCase(value)
-    );
+    return (userModel.getId() == Integer.parseInt(value) ||
+        userModel.getUsername().equalsIgnoreCase(value) ||
+        userModel.getStatus().toString().equalsIgnoreCase(value) ||
+        userModel.getName().equalsIgnoreCase(value) ||
+        userModel.getEmail().equalsIgnoreCase(value) ||
+        userModel.getPhone().equals(value) ||
+        userModel.getRole().toString().equalsIgnoreCase(value));
   }
 
   @Override
   public int addModel(UserModel userModel) {
     System.out.println(userModel);
-    if (
-      userModel.getUsername() == null ||
-      userModel.getUsername().isEmpty() ||
-      userModel.getName() == null ||
-      userModel.getName().isEmpty() ||
-      userModel.getPassword() == null ||
-      userModel.getPassword().isEmpty()
-    ) {
+    if (userModel.getUsername() == null ||
+        userModel.getUsername().isEmpty() ||
+        userModel.getName() == null ||
+        userModel.getName().isEmpty() ||
+        userModel.getPassword() == null ||
+        userModel.getPassword().isEmpty()) {
       throw new IllegalArgumentException(
-        "Username, name and password cannot be empty. Please check the input and try again."
-      );
+          "Username, name and password cannot be empty. Please check the input and try again.");
     }
 
-    boolean hasPhone =
-      userModel.getPhone() != null && !userModel.getPhone().isEmpty();
-    boolean hasEmail =
-      userModel.getEmail() != null && !userModel.getEmail().isEmpty();
+    boolean hasPhone = userModel.getPhone() != null && !userModel.getPhone().isEmpty();
+    boolean hasEmail = userModel.getEmail() != null && !userModel.getEmail().isEmpty();
 
     if (!hasPhone && !hasEmail) {
       throw new IllegalArgumentException(
-        "At least one of 'phone' or 'email' is required."
-      );
+          "At least one of 'phone' or 'email' is required.");
     }
     if (hasEmail && !isValidEmailAddress(userModel.getEmail())) {
       throw new IllegalArgumentException("Invalid email address.");
@@ -222,11 +212,9 @@ public class UserBUS implements IBUS<UserModel> {
     }
 
     userModel.setRole(
-      userModel.getRole() != null ? userModel.getRole() : UserRole.CUSTOMER
-    );
+        userModel.getRole() != null ? userModel.getRole() : UserRole.CUSTOMER);
     userModel.setStatus(
-      userModel.getStatus() != null ? userModel.getStatus() : UserStatus.ACTIVE
-    );
+        userModel.getStatus() != null ? userModel.getStatus() : UserStatus.ACTIVE);
     try {
       int id = UserDAO.getInstance().insert(mapToEntity(userModel));
       userModel.setId(id);
@@ -234,20 +222,18 @@ public class UserBUS implements IBUS<UserModel> {
       return id;
     } catch (SQLException e) {
       throw new IllegalArgumentException(
-        "Username already exists. Please try again."
-      );
+          "Username already exists. Please try again.");
     }
   }
 
-  private boolean isValidEmailAddress(String email) {
+  public boolean isValidEmailAddress(String email) {
     // pattern to validate email
     Pattern pattern = Pattern.compile(
-      "^[a-zA-Z0-9_+&*-]+(?:\\." +
-      "[a-zA-Z0-9_+&*-]+)*@" +
-      "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
-      "A-Z]{2,7}$",
-      Pattern.CASE_INSENSITIVE
-    );
+        "^[a-zA-Z0-9_+&*-]+(?:\\." +
+            "[a-zA-Z0-9_+&*-]+)*@" +
+            "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
+            "A-Z]{2,7}$",
+        Pattern.CASE_INSENSITIVE);
     // check if email is valid
     if (email == null) {
       return false;
@@ -256,10 +242,11 @@ public class UserBUS implements IBUS<UserModel> {
     return pattern.matcher(email).matches();
   }
 
-  private boolean isValidPhoneNumber(String number) {
+  public boolean isValidPhoneNumber(String number) {
     Pattern pattern = Pattern.compile("^\\d{10}$");
 
-    if (number == null) return false;
+    if (number == null)
+      return false;
 
     return pattern.matcher(number).matches();
   }
@@ -310,8 +297,7 @@ public class UserBUS implements IBUS<UserModel> {
     UserModel userModel = getModelById(id);
     if (userModel == null) {
       throw new IllegalArgumentException(
-        "User with ID " + id + " does not exist."
-      );
+          "User with ID " + id + " does not exist.");
     }
     int deletedRows = UserDAO.getInstance().delete(id);
     if (deletedRows > 0) {
@@ -337,43 +323,36 @@ public class UserBUS implements IBUS<UserModel> {
 
   public boolean checkForDuplicate(List<String> values, String[] columns) {
     Optional<UserModel> optionalUser = UserBUS
-      .getInstance()
-      .getAllModels()
-      .stream()
-      .filter(user -> {
-        for (String value : values) {
-          if (
-            Arrays.asList(columns).contains("email") &&
-            !value.isEmpty() &&
-            user.getEmail().equals(value)
-          ) {
-            return true;
+        .getInstance()
+        .getAllModels()
+        .stream()
+        .filter(user -> {
+          for (String value : values) {
+            if (Arrays.asList(columns).contains("email") &&
+                !value.isEmpty() &&
+                user.getEmail().equals(value)) {
+              return true;
+            }
+            if (Arrays.asList(columns).contains("phone") &&
+                !value.isEmpty() &&
+                user.getPhone().equals(value)) {
+              return true;
+            }
+            if (Arrays.asList(columns).contains("username") &&
+                user.getUsername().equals(value)) {
+              return true;
+            }
           }
-          if (
-            Arrays.asList(columns).contains("phone") &&
-            !value.isEmpty() &&
-            user.getPhone().equals(value)
-          ) {
-            return true;
-          }
-          if (
-            Arrays.asList(columns).contains("username") &&
-            user.getUsername().equals(value)
-          ) {
-            return true;
-          }
-        }
 
-        return false;
-      })
-      .findFirst();
+          return false;
+        })
+        .findFirst();
     return optionalUser.isPresent();
   }
 
   @Override
   public void refreshData() {
     throw new UnsupportedOperationException(
-      "Unimplemented method 'refreshData'"
-    );
+        "Unimplemented method 'refreshData'");
   }
 }
