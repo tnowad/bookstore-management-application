@@ -30,7 +30,6 @@ public class HeaderPanel extends JPanel {
   public HeaderPanel() {
     initComponents();
     setOpaque(false);
-    setBackground(Color.WHITE);
 
     HeaderPanel.instance = this;
   }
@@ -43,8 +42,6 @@ public class HeaderPanel extends JPanel {
     searchTextField.addActionListener(e -> {
       MainPanel.getInstance().search(searchTextField.getText());
     });
-
-    setBackground(new java.awt.Color(255, 255, 255));
 
     searchLabel.setIcon(
       new ImageIcon("src/main/java/resources/icons/search.png")
