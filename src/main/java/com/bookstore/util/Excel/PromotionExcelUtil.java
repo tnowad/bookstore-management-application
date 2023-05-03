@@ -1,5 +1,7 @@
 package com.bookstore.util.Excel;
 
+import com.bookstore.bus.PromotionBUS;
+import com.bookstore.models.PromotionModel;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -9,21 +11,24 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import com.bookstore.bus.PromotionBUS;
-import com.bookstore.models.PromotionModel;
 
 public class PromotionExcelUtil extends ExcelUtil {
 
   private static final String[] EXCEL_EXTENSIONS = { "xls", "xlsx", "xlsm" };
-  private static final Logger LOGGER = Logger.getLogger(PromotionExcelUtil.class.getName());
+  private static final Logger LOGGER = Logger.getLogger(
+    PromotionExcelUtil.class.getName()
+  );
 
-  public static List<PromotionModel> readPromotionsFromExcel() throws IOException {
+  public static List<PromotionModel> readPromotionsFromExcel()
+    throws IOException {
     JFileChooser fileChooser = new JFileChooser();
-    FileNameExtensionFilter filter = new FileNameExtensionFilter("Excel File", EXCEL_EXTENSIONS);
+    FileNameExtensionFilter filter = new FileNameExtensionFilter(
+      "Excel File",
+      EXCEL_EXTENSIONS
+    );
     fileChooser.setFileFilter(filter);
     int option = fileChooser.showOpenDialog(null);
 
@@ -35,15 +40,25 @@ public class PromotionExcelUtil extends ExcelUtil {
         List<List<String>> data = ExcelUtil.readExcel(filePath, 0);
         List<PromotionModel> promotions = convertToPromotionModelList(data);
 
-        JOptionPane.showMessageDialog(null,
-            "Data has been read successfully from " + inputFile.getName() + ".");
+        JOptionPane.showMessageDialog(
+          null,
+          "Data has been read successfully from " + inputFile.getName() + "."
+        );
         return promotions;
       } catch (IOException e) {
-        LOGGER.log(Level.SEVERE, "Error occurred while reading data from file: " + inputFile.getName(), e);
+        LOGGER.log(
+          Level.SEVERE,
+          "Error occurred while reading data from file: " + inputFile.getName(),
+          e
+        );
         showErrorDialog(e.getMessage(), "File Input Error");
         throw e;
       } catch (IllegalArgumentException e) {
-        LOGGER.log(Level.SEVERE, "Error occurred while converting data to PromotionModel: " + e.getMessage());
+        LOGGER.log(
+          Level.SEVERE,
+          "Error occurred while converting data to PromotionModel: " +
+          e.getMessage()
+        );
         showErrorDialog(e.getMessage(), "Data Conversion Error");
         throw e;
       }
@@ -54,18 +69,28 @@ public class PromotionExcelUtil extends ExcelUtil {
 
   private static void showErrorDialog(String message, String title) {
     LOGGER.log(Level.WARNING, "Error occurred: " + message);
-    JOptionPane.showMessageDialog(null, "Error: " + message, title, JOptionPane.ERROR_MESSAGE);
+    JOptionPane.showMessageDialog(
+      null,
+      "Error: " + message,
+      title,
+      JOptionPane.ERROR_MESSAGE
+    );
   }
 
-  // TODO: Need to fix date format.
-  private static List<PromotionModel> convertToPromotionModelList(List<List<String>> data) {
+  private static List<PromotionModel> convertToPromotionModelList(
+    List<List<String>> data
+  ) {
     List<PromotionModel> promotionModels = new ArrayList<>();
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(
+      "MM-dd-yyyy HH:mm:ss"
+    );
 
     for (int i = 1; i < data.size(); i++) {
       List<String> row = data.get(i);
       if (row.size() < 6) {
-        throw new IllegalArgumentException("Invalid input data at line: " + row);
+        throw new IllegalArgumentException(
+          "Invalid input data at line: " + row
+        );
       }
       int id;
       int quantity;
@@ -111,52 +136,81 @@ public class PromotionExcelUtil extends ExcelUtil {
           startDate = LocalDate.parse(row.get(3), formatter);
           startAtDate = startDate.atStartOfDay().toLocalDate();
         } catch (Exception e) {
-          throw new IllegalArgumentException("Invalid value in input data for startDate at line: " + row, e);
+          throw new IllegalArgumentException(
+            "Invalid value in input data for startDate at line: " + row,
+            e
+          );
         }
 
         try {
           endDate = LocalDate.parse(row.get(4), formatter);
           endAtDate = endDate.atStartOfDay().toLocalDate();
         } catch (Exception e) {
-          throw new IllegalArgumentException("Invalid value in input data for endDate at line: " + row, e);
+          throw new IllegalArgumentException(
+            "Invalid value in input data for endDate at line: " + row,
+            e
+          );
         }
-
       } catch (NumberFormatException e) {
-        throw new IllegalArgumentException("Invalid integer value in input data", e);
+        throw new IllegalArgumentException(
+          "Invalid integer value in input data",
+          e
+        );
       }
 
-      PromotionModel model = new PromotionModel(id, description, quantity, startAtDate, endAtDate, conditionApply,
-          discountPercent, discountAmount);
+      PromotionModel model = new PromotionModel(
+        id,
+        description,
+        quantity,
+        startAtDate,
+        endAtDate,
+        conditionApply,
+        discountPercent,
+        discountAmount
+      );
       promotionModels.add(model);
       PromotionBUS.getInstance().addModel(model);
     }
     return promotionModels;
   }
 
-  public static void writePromotionsToExcel(List<PromotionModel> promotions) throws IOException {
+  public static void writePromotionsToExcel(List<PromotionModel> promotions)
+    throws IOException {
     List<List<String>> data = new ArrayList<>();
 
     // Create header row
-    List<String> headerValues = Arrays.asList("id", "description", "quantity", "start_date", "end_date",
-        "condition_apply", "discount_percent", "discount_amount");
+    List<String> headerValues = Arrays.asList(
+      "id",
+      "description",
+      "quantity",
+      "start_date",
+      "end_date",
+      "condition_apply",
+      "discount_percent",
+      "discount_amount"
+    );
     data.add(headerValues);
 
     // Write data rows
     for (PromotionModel promotion : promotions) {
       List<String> values = Arrays.asList(
-          Integer.toString(promotion.getId()),
-          promotion.getDescription(),
-          Integer.toString(promotion.getQuantity()),
-          promotion.getStartDate().toString(),
-          promotion.getEndDate().toString(),
-          promotion.getConditionApply(),
-          Integer.toString(promotion.getDiscountPercent()),
-          Integer.toString(promotion.getDiscountAmount()));
+        Integer.toString(promotion.getId()),
+        promotion.getDescription(),
+        Integer.toString(promotion.getQuantity()),
+        promotion.getStartDate().toString(),
+        promotion.getEndDate().toString(),
+        promotion.getConditionApply(),
+        Integer.toString(promotion.getDiscountPercent()),
+        Integer.toString(promotion.getDiscountAmount())
+      );
       data.add(values);
     }
 
     JFileChooser fileChooser = new JFileChooser();
-    FileNameExtensionFilter filter = new FileNameExtensionFilter("Excel File", EXCEL_EXTENSIONS);
+    FileNameExtensionFilter filter = new FileNameExtensionFilter(
+      "Excel File",
+      EXCEL_EXTENSIONS
+    );
     fileChooser.setFileFilter(filter);
     int option = fileChooser.showSaveDialog(null);
 
@@ -165,8 +219,12 @@ public class PromotionExcelUtil extends ExcelUtil {
       String filePath = outputFile.getAbsolutePath();
 
       if (outputFile.exists()) {
-        int overwriteOption = JOptionPane.showConfirmDialog(null,
-            "The file already exists. Do you want to overwrite it?", "File Exists", JOptionPane.YES_NO_OPTION);
+        int overwriteOption = JOptionPane.showConfirmDialog(
+          null,
+          "The file already exists. Do you want to overwrite it?",
+          "File Exists",
+          JOptionPane.YES_NO_OPTION
+        );
         if (overwriteOption == JOptionPane.NO_OPTION) {
           return;
         }
@@ -174,15 +232,24 @@ public class PromotionExcelUtil extends ExcelUtil {
 
       try {
         writeExcel(data, filePath, "Promotions");
-        JOptionPane.showMessageDialog(null,
-            "Data has been written successfully to " + outputFile.getName() + ".");
+        JOptionPane.showMessageDialog(
+          null,
+          "Data has been written successfully to " + outputFile.getName() + "."
+        );
       } catch (IOException e) {
-        LOGGER.log(Level.SEVERE, "Error occurred while writing data to file: " + outputFile.getName(), e);
-        JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), "File Output Error",
-            JOptionPane.ERROR_MESSAGE);
+        LOGGER.log(
+          Level.SEVERE,
+          "Error occurred while writing data to file: " + outputFile.getName(),
+          e
+        );
+        JOptionPane.showMessageDialog(
+          null,
+          "Error: " + e.getMessage(),
+          "File Output Error",
+          JOptionPane.ERROR_MESSAGE
+        );
         throw e;
       }
     }
   }
-
 }

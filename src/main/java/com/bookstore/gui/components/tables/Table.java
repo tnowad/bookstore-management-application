@@ -1,10 +1,8 @@
 package com.bookstore.gui.components.tables;
 
-import com.bookstore.enums.StatusType;
 import java.awt.Color;
 import java.awt.Component;
 import javax.swing.JTable;
-import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 

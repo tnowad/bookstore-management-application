@@ -4,11 +4,8 @@ import com.bookstore.enums.UserRole;
 import com.bookstore.enums.UserStatus;
 import java.awt.event.*;
 import java.time.LocalDateTime;
-import javax.swing.JTextField;
 
 public class UserPanel extends javax.swing.JPanel implements MouseListener {
-
-  private JTextField IdUser;
 
   /**
    * Creates new form UserForm
