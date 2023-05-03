@@ -49,7 +49,7 @@ public class OrderDetail extends JFrame {
   private UserModel userModel;
   private static OrderDetail instance;
 
-  private OrderDetail(int customerId) {
+  public OrderDetail(int customerId) {
     this.customerId = customerId;
     updateData();
     initComponents();
@@ -57,12 +57,7 @@ public class OrderDetail extends JFrame {
     handleEvent();
   }
 
-  public static OrderDetail getInstance(int customerId) {
-    if (instance == null) {
-      instance = new OrderDetail(customerId);
-    }
-    return instance;
-  }
+  
 
   private void handleEvent() {
     acceptButton.addActionListener(acceptButtonActionListener);

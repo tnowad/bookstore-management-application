@@ -1,27 +1,56 @@
 package com.bookstore.gui.forms.carts;
 
+import com.bookstore.bus.BookBUS;
+import com.bookstore.bus.CartItemsBUS;
+import com.bookstore.models.BookModel;
+import com.bookstore.models.CartItemsModel;
 import java.awt.*;
 import javax.swing.*;
 
 public class CartDetail extends JFrame {
 
-  private static CartDetail instance;
   private int cartId;
   private String bookIsbn;
+  private BookModel bookModel;
+  private java.util.List<CartItemsModel> cartItemList;
+  private CartItemsModel cartItemsModel;
 
-  private CartDetail(int cartId, String bookIsbn) {
+  public CartDetail(int cartId, String bookIsbn) {
     this.cartId = cartId;
     this.bookIsbn = bookIsbn;
     System.out.println(cartId);
     System.out.println(bookIsbn);
+    updateData();
     initComponents();
+    handleEvent();
   }
 
-  public static CartDetail getInstance(int cartId, String bookIsbn) {
-    if (instance == null) {
-      instance = new CartDetail(cartId, bookIsbn);
-    } else {}
-    return instance;
+  private void updateData() {
+    bookModel = BookBUS.getInstance().getBookByIsbn(bookIsbn);
+    cartItemList = CartItemsBUS.getInstance().getAllModels();
+    for (CartItemsModel cartItemModel : cartItemList) {
+      if (
+        cartItemModel.getCartId() == cartId &&
+        cartItemModel.getBookIsbn().equals(bookIsbn)
+      ) {
+        cartItemsModel = cartItemModel;
+        break;
+      }
+    }
+  }
+
+  private void handleEvent() {
+    // chooseBookCheckBox.addItemListener(
+    //     e -> {
+    //       if (e.getStateChange() == ItemEvent.SELECTED) {
+    //         bookImagePanel.setVisible(true);
+    //       } else {
+    //         bookImagePanel.setVisible(false);
+    //       }
+    //     }
+    // );
+      System.out.println(bookModel.getDescription());
+    System.out.println(cartItemsModel.getBookIsbn());
   }
 
   private void initComponents() {
@@ -32,7 +61,7 @@ public class CartDetail extends JFrame {
     contentCartPanel = new JPanel();
     groupHeaderPanel = new JPanel();
     bookTitleTextField = new JTextField();
-    deleteButton = new JButton();
+    deleteButton = new com.bookstore.gui.components.buttons.Button("Accept");
     infoDetailPanel = new JPanel();
     groupBottomPanel = new JPanel();
     bookPriceLabel = new JLabel();
@@ -40,7 +69,6 @@ public class CartDetail extends JFrame {
     descriptionScrollPane = new JScrollPane();
     descriptionPanel = new JPanel();
     descriptionTextArea = new JTextArea();
-    deleteProductButton = new JButton("Delete this cart");
 
     setFont(new Font("Arial", 0, 14));
     setMinimumSize(new Dimension(500, 100));
@@ -68,12 +96,10 @@ public class CartDetail extends JFrame {
     bookTitleTextField.setEditable(false);
     bookTitleTextField.setFont(new Font("Arial", 0, 14));
     bookTitleTextField.setHorizontalAlignment(JTextField.LEFT);
-    bookTitleTextField.setPreferredSize(new Dimension(300, 30));
+    bookTitleTextField.setPreferredSize(new Dimension(250, 30));
+    bookTitleTextField.setEditable(false);
 
     groupHeaderPanel.add(bookTitleTextField);
-
-    deleteButton.setFont(new Font("Arial", 0, 14));
-    deleteButton.setPreferredSize(new Dimension(30, 30));
 
     groupHeaderPanel.add(deleteButton);
 
@@ -92,9 +118,9 @@ public class CartDetail extends JFrame {
 
     quantitySpinner.setFont(new Font("Arial", 0, 18));
     quantitySpinner.setPreferredSize(new Dimension(100, 30));
-    // groupBottomPanel.add(quantitySpinner);
+    groupBottomPanel.add(quantitySpinner);
 
-    groupBottomPanel.add(deleteProductButton);
+    // groupBottomPanel.add(deleteProductButton);
 
     infoDetailPanel.add(groupBottomPanel, BorderLayout.PAGE_END);
 
@@ -116,11 +142,9 @@ public class CartDetail extends JFrame {
 
     add(contentCartPanel, BorderLayout.CENTER);
 
-    setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-    setTitle("Cart Detail");
-    setResizable(false);
-    setLocationRelativeTo(null);
-    setVisible(true);
+    // setTitle("Cart Detail");
+    // setLocationRelativeTo(null);
+    // setVisible(true);
     pack();
   }
 
@@ -131,7 +155,7 @@ public class CartDetail extends JFrame {
   private JPanel checkboxPanel;
   private JCheckBox chooseBookCheckBox;
   private JPanel contentCartPanel;
-  private JButton deleteButton;
+  private com.bookstore.gui.components.buttons.Button deleteButton;
   private JPanel descriptionPanel;
   private JScrollPane descriptionScrollPane;
   private JTextArea descriptionTextArea;
@@ -139,5 +163,4 @@ public class CartDetail extends JFrame {
   private JPanel groupHeaderPanel;
   private JPanel infoDetailPanel;
   private JSpinner quantitySpinner;
-  private JButton deleteProductButton;
 }

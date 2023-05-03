@@ -4,6 +4,7 @@ import com.bookstore.bus.BookBUS;
 import com.bookstore.bus.CartBUS;
 import com.bookstore.bus.CartItemsBUS;
 import com.bookstore.enums.CartStatus;
+import com.bookstore.gui.components.dialogs.Dialog;
 import com.bookstore.models.BookModel;
 import com.bookstore.models.CartItemsModel;
 import com.bookstore.models.CartModel;
@@ -179,7 +180,7 @@ public class Cart extends JPanel {
               String bookIsbn = listCartTable
                 .getValueAt(selectedRowIndex, 0)
                 .toString();
-              new Dialog(CartDetail.getInstance(cartModel.getId(), bookIsbn));
+              new Dialog(new CartDetail(cartModel.getId(), bookIsbn));
 
               listOrder();
             } else {

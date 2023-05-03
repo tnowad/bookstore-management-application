@@ -43,7 +43,7 @@ public class OrderList extends JPanel {
               int customerId = Integer.parseInt(
                 orderTableList.getValueAt(selectedRowIndex, 2).toString()
               );
-              new Dialog(OrderDetail.getInstance(customerId));
+              new Dialog(new OrderDetail(customerId));
               listOrder();
             } else {
               System.out.println("Don't know how to handle this order");
