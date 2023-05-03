@@ -209,7 +209,7 @@ public class MenuFactory {
           add(
             new MenuItemModel(
               "Logout",
-              new ImageIcon(""),
+              new ImageIcon("src/main/java/resources/icons/logout.png"),
               new LogoutActionListener(),
               null
             )
