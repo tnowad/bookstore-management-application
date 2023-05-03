@@ -20,7 +20,7 @@ public class MenuItemPanel extends JPanel {
   }
 
   private void addFirstButton() {
-    MenuButton firstButton = new MenuButton(menuItemModel.getTitle());
+    MenuButton firstButton = new MenuButton("  " + menuItemModel.getTitle());
     firstButton.setIcon(menuItemModel.getIcon());
     firstButton.setForeground(Color.decode("#FFFFFF"));
     firstButton.setFont(firstButton.getFont().deriveFont(1));
@@ -48,7 +48,7 @@ public class MenuItemPanel extends JPanel {
 
       for (SubMenuItemModel subMenuItemModel : menuItemModel.getSubMenuItems()) {
         MenuButton subMenuItemButton = new MenuButton(
-          "         " + subMenuItemModel.getTitle()
+          "           " + subMenuItemModel.getTitle()
         );
         subMenuItemButton.setIcon(subMenuItemModel.getIcon());
         subMenuItemButton.addActionListener(

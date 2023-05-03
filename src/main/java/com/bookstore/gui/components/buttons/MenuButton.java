@@ -9,7 +9,7 @@ public class MenuButton extends JButton {
   public MenuButton(String text) {
     super(text);
     init();
-    setBorder(new EmptyBorder(1, 50, 1, 1));
+    setBorder(new EmptyBorder(1, 15, 1, 1));
   }
 
   private void init() {
