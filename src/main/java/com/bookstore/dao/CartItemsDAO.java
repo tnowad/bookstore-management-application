@@ -149,7 +149,14 @@ public class CartItemsDAO implements IDAO<CartItemsModel> {
   }
 
   @Override
-  public int delete(int id) throws SQLException {
-    throw new UnsupportedOperationException("Unimplemented method 'delete'");
+  public int delete(int id) {
+    String deleteSql = "DELETE FROM cart_items WHERE cart_id =?";
+    Object[] args = { id };
+    try {
+      return DatabaseConnection.executeUpdate(deleteSql, args);
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return -1;
+    }
   }
 }

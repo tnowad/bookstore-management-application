@@ -186,6 +186,58 @@ public class Cart extends JPanel {
           }
         }
       );
+
+    proceedToCheckoutButton.addActionListener(e -> {
+      if (myCartList.isEmpty()) {
+        JOptionPane.showMessageDialog(
+          null,
+          "You have no items in your cart",
+          "Warning",
+          JOptionPane.WARNING_MESSAGE
+        );
+      } else {
+        cartBUS.updateStatus(cartModel.getId(), "SHOPPING");
+        JOptionPane.showMessageDialog(
+          null,
+          "Your cart is shopping",
+          "Success",
+          JOptionPane.PLAIN_MESSAGE
+        );
+      }
+    });
+
+    deleteAllProductsButton.addActionListener(e -> {
+      if (myCartList.isEmpty()) {
+        JOptionPane.showMessageDialog(
+          null,
+          "You have no items in your cart",
+          "Warning",
+          JOptionPane.WARNING_MESSAGE
+        );
+      } else {
+        cartItemsBUS.deleteModel(cartModel.getId());
+        JOptionPane.showMessageDialog(
+          null,
+          "Your cart is empty",
+          "Delete successfully",
+          JOptionPane.YES_NO_OPTION
+        );
+      }
+    });
+    // chooseAllCheckBox.addActionListener(e -> {
+    //   if (myCartList.isEmpty()) {
+    //     JOptionPane.showMessageDialog(
+    //       null,
+    //       "You have no items in your cart",
+    //       "Warning",
+    //       JOptionPane.WARNING_MESSAGE
+    //     );
+    //   } else {
+    //     for (CartItemsModel cartItemsModel : myCartList) {
+    //       cartItemsModel.setSelected(true);
+    //     }
+    //   }
+    // });
   }
 
   private JCheckBox chooseAllCheckBox;

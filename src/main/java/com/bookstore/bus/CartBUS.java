@@ -178,11 +178,11 @@ public class CartBUS implements IBUS<CartModel> {
     return updatedRows;
   }
 
-  public int updateStatus(int userId, String status) {
-    int success = CartDAO.getInstance().updateStatus(userId, status);
+  public int updateStatus(int cartId, String status) {
+    int success = CartDAO.getInstance().updateStatus(cartId, status);
     if (success == 1) {
       for (CartModel cart : cartList) {
-        if (cart.getUserId() == userId) {
+        if (cart.getId() == cartId) {
           CartStatus roleEnum = CartStatus.valueOf(status.toUpperCase());
           cart.setStatus(roleEnum);
           return 1;

@@ -138,7 +138,7 @@ public class CartItemsBUS implements IBUS<CartItemsModel> {
         "cart_items with cart_id " + id + " does not exist."
       );
     }
-    int deletedRows = CartItemsDAO.getInstance().delete(id,isbn);
+    int deletedRows = CartItemsDAO.getInstance().delete(id, isbn);
     if (deletedRows > 0) {
       cartItemsList.remove(CartItemsModel);
     }
@@ -169,9 +169,18 @@ public class CartItemsBUS implements IBUS<CartItemsModel> {
 
   @Override
   public int deleteModel(int id) {
-    throw new UnsupportedOperationException(
-      "Unimplemented method 'deleteModel'"
-    );
+    //  delete all cart items if have id
+    CartItemsModel CartItemsModel = getModelById(id);
+    if (CartItemsModel == null) {
+      throw new IllegalArgumentException(
+        "cart_items with cart_id " + id + " does not exist."
+      );
+    }
+    int deletedRows = CartItemsDAO.getInstance().delete(id);
+    if (deletedRows > 0) {
+      cartItemsList.remove(CartItemsModel);
+    }
+    return deletedRows;
   }
 
   @Override

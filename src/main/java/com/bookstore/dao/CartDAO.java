@@ -91,9 +91,9 @@ public class CartDAO implements IDAO<CartModel> {
     }
   }
 
-  public int updateStatus(int userId, String status) {
-    String updateSql = "UPDATE carts SET status = ? WHERE userId = ?";
-    Object[] args = { status, userId };
+  public int updateStatus(int cartId, String status) {
+    String updateSql = "UPDATE carts SET status = ? WHERE id = ?";
+    Object[] args = { status, cartId };
     try {
       return DatabaseConnection.executeUpdate(updateSql, args);
     } catch (SQLException e) {
