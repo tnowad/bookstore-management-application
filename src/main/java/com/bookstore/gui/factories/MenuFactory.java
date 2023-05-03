@@ -99,8 +99,8 @@ public class MenuFactory {
           add(
             new MenuItemModel(
               "Home",
-              new ImageIcon(""),
-              null,
+              new ImageIcon("src/main/java/resources/icons/shop.png"),
+              showHomeCustomer,
               new ArrayList<SubMenuItemModel>() {
                 {
                   add(
@@ -417,6 +417,7 @@ public class MenuFactory {
   private static ActionListener showSalaryList = e -> {
     MainPanel.getInstance().showForm(SalaryList.getInstance());
   };
+
   // customer
   private static ActionListener showHomeCustomer = e -> {
     MainPanel.getInstance().showForm(HomeCustomer.getInstance());
