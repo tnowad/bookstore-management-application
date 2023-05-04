@@ -581,7 +581,7 @@ public class MenuFactory {
 
   // admin
   private static ActionListener showHomeAdmin = e -> {
-    MainPanel.getInstance().showForm(DashboardPanel.getInstance());
+    MainPanel.getInstance().showForm(new DashboardPanel());
   };
   private static ActionListener showBookListAdmin = e -> {
     MainPanel.getInstance().showForm(BrowseProductPanel.getInstance());

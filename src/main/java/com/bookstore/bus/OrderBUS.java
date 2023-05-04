@@ -254,4 +254,8 @@ public class OrderBUS implements IBUS<OrderModel> {
       "Unimplemented method 'refreshData'"
     );
   }
+
+  public int calculateTotalRevenue() {
+    return 0;
+  }
 }

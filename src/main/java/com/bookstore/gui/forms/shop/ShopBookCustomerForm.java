@@ -2,9 +2,12 @@ package com.bookstore.gui.forms.shop;
 
 import com.bookstore.gui.components.tables.Table;
 import com.bookstore.interfaces.ISearchable;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 
 public class ShopBookCustomerForm extends JPanel implements ISearchable {
+
+  private JButton filterButton;
 
   private Table bookTable;
 
@@ -19,4 +22,5 @@ public class ShopBookCustomerForm extends JPanel implements ISearchable {
 
   @Override
   public void search(String keyword) {}
+
 }
