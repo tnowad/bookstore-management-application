@@ -29,9 +29,9 @@ public class AddressBUS implements IBUS<AddressModel> {
   }
 
   @Override
-  public AddressModel getModelById(int id) {
+  public AddressModel getModelById(int userId) {
     for (AddressModel addressModel : addressList) {
-      if (addressModel.getId() == id) {
+      if (addressModel.getUserId() == userId) {
         return addressModel;
       }
     }
@@ -144,7 +144,7 @@ public class AddressBUS implements IBUS<AddressModel> {
     int updatedRows = AddressDAO.getInstance().update(addressModel);
     if (updatedRows > 0) {
       for (int i = 0; i < addressList.size(); i++) {
-        if (addressList.get(i).getId() == addressModel.getId()) {
+        if (addressList.get(i).getUserId() == addressModel.getUserId()) {
           addressList.set(i, addressModel);
           break;
         }
@@ -154,14 +154,14 @@ public class AddressBUS implements IBUS<AddressModel> {
   }
 
   @Override
-  public int deleteModel(int id) {
-    AddressModel addressModel = getModelById(id);
+  public int deleteModel(int userId) {
+    AddressModel addressModel = getModelById(userId);
     if (addressModel == null) {
       throw new IllegalArgumentException(
-        "Address with ID " + id + " does not exist."
+        "Address with ID " + userId + " does not exist."
       );
     }
-    int deletedRows = AddressDAO.getInstance().delete(id);
+    int deletedRows = AddressDAO.getInstance().delete(userId);
     if (deletedRows > 0) {
       addressList.remove(addressModel);
     }

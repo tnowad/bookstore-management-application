@@ -70,14 +70,13 @@ public class AddressDAO implements IDAO<AddressModel> {
   @Override
   public int update(AddressModel address) {
     String updateSql =
-      "UPDATE addresses SET user_id = ?, street = ?, city = ?, state = ?, zip = ? WHERE id = ?";
+      "UPDATE addresses SET street = ?, city = ?, state = ?, zip = ? WHERE user_id = ?";
     Object[] args = {
-      address.getUserId(),
       address.getStreet(),
       address.getCity(),
       address.getState(),
       address.getZip(),
-      address.getId(),
+      address.getUserId()
     };
     try {
       return DatabaseConnection.executeUpdate(updateSql, args);
@@ -88,9 +87,9 @@ public class AddressDAO implements IDAO<AddressModel> {
   }
 
   @Override
-  public int delete(int id) {
-    String deleteSql = "DELETE FROM addresses WHERE id = ?";
-    Object[] args = { id };
+  public int delete(int user_id) {
+    String deleteSql = "DELETE FROM addresses WHERE user_id = ?";
+    Object[] args = { user_id };
     try {
       return DatabaseConnection.executeUpdate(deleteSql, args);
     } catch (SQLException e) {

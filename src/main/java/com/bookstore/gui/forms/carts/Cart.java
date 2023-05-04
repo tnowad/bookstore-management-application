@@ -5,6 +5,7 @@ import com.bookstore.bus.CartBUS;
 import com.bookstore.bus.CartItemsBUS;
 import com.bookstore.enums.CartStatus;
 import com.bookstore.gui.components.dialogs.Dialog;
+import com.bookstore.gui.forms.customer.CheckoutUI;
 import com.bookstore.models.BookModel;
 import com.bookstore.models.CartItemsModel;
 import com.bookstore.models.CartModel;
@@ -196,7 +197,8 @@ public class Cart extends JPanel {
           JOptionPane.WARNING_MESSAGE
         );
       } else {
-        cartBUS.updateStatus(cartModel.getId(), "SHOPPING");
+        // cartBUS.updateStatus(cartModel.getId(), "SHOPPING");
+        new Dialog(new CheckoutUI(cartModel.getId()));
         JOptionPane.showMessageDialog(
           null,
           "Your cart is shopping",
