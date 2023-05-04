@@ -77,4 +77,8 @@ public class MenuPanel extends JPanel {
       ((MenuItemPanel) menuItemsPanel.getComponent(i)).closeSubMenuItems();
     }
   }
+
+  public static void destroyInstance() {
+    instance = null;
+  }
 }

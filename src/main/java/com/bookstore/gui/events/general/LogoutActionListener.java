@@ -1,6 +1,5 @@
 package com.bookstore.gui.events.general;
 
-import com.bookstore.gui.components.panels.MainPanel;
 import com.bookstore.gui.main.LoginFrame;
 import com.bookstore.gui.main.MainFrame;
 import com.bookstore.services.Authentication;
@@ -19,12 +18,9 @@ public class LogoutActionListener implements ActionListener {
       JOptionPane.YES_NO_OPTION
     );
     if (option == JOptionPane.YES_OPTION) {
-      MainFrame.getInstance().dispose();
-      
-      MainPanel.destroyInstance();
-      MainFrame.destroyInstance();
-
       Authentication.logout();
+
+      MainFrame.getInstance().dispose();
       MainFrame.getInstance().setVisible(false);
       LoginFrame.getInstance().setVisible(true);
     }
