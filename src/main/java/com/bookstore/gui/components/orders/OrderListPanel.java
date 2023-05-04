@@ -66,14 +66,13 @@ public class OrderListPanel extends javax.swing.JPanel {
   }
 
   private void initComponents() {
-    java.awt.GridBagConstraints gridBagConstraints;
 
     titlePanel = new javax.swing.JLabel();
     contend = new javax.swing.JPanel();
     buttonPanel = new javax.swing.JPanel();
     jPanel3 = new javax.swing.JPanel();
     ButtonExport = new javax.swing.JButton();
-    ButtonInport = new javax.swing.JButton();
+    ButtonImport = new javax.swing.JButton();
     ButtonCreate = new javax.swing.JButton();
     ButtonDelete = new javax.swing.JButton();
     tableContend = new javax.swing.JPanel();
@@ -98,8 +97,8 @@ public class OrderListPanel extends javax.swing.JPanel {
     ButtonExport.setToolTipText("");
     jPanel3.add(ButtonExport);
 
-    ButtonInport.setText("Nhập File");
-    jPanel3.add(ButtonInport);
+    ButtonImport.setText("Nhập File");
+    jPanel3.add(ButtonImport);
 
     ButtonCreate.setText("Create");
     jPanel3.add(ButtonCreate);
@@ -113,7 +112,6 @@ public class OrderListPanel extends javax.swing.JPanel {
 
     tableContend.setLayout(new java.awt.BorderLayout());
 
-    scrollPane.setViewportView(table);
 
     tableContend.add(scrollPane, java.awt.BorderLayout.CENTER);
 
@@ -147,6 +145,7 @@ public class OrderListPanel extends javax.swing.JPanel {
       }
       table.setModel(model);
     }
+    scrollPane.setViewportView(table);
   }
 
   public void receiveValue(String value) {
@@ -179,7 +178,7 @@ public class OrderListPanel extends javax.swing.JPanel {
   private javax.swing.JButton ButtonCreate;
   private javax.swing.JButton ButtonDelete;
   private javax.swing.JButton ButtonExport;
-  private javax.swing.JButton ButtonInport;
+  private javax.swing.JButton ButtonImport;
   private javax.swing.JPanel buttonPanel;
   private javax.swing.JPanel contend;
   private javax.swing.JPanel jPanel3;

@@ -1,10 +1,14 @@
 package com.bookstore.gui.factories;
 
 import com.bookstore.dao.EmployeeDAO;
+import com.bookstore.gui.components.authors.AuthorListPanel;
 import com.bookstore.gui.components.books.BrowseProductPanel;
 import com.bookstore.gui.components.dashboards.DashboardPanel;
 import com.bookstore.gui.components.orders.OrderListPanel;
 import com.bookstore.gui.components.panels.MainPanel;
+import com.bookstore.gui.components.providers.ProviderListPanel;
+import com.bookstore.gui.components.publishers.PublisherListPanel;
+import com.bookstore.gui.components.salary.SalaryListPanel;
 import com.bookstore.gui.components.users.UserListPanel;
 import com.bookstore.gui.events.general.ExitActionListener;
 import com.bookstore.gui.events.general.LogoutActionListener;
@@ -138,6 +142,46 @@ public class MenuFactory {
               "User management",
               new ImageIcon("src/main/java/resources/icons/user.png"),
               showUserListAdmin,
+              null
+            )
+          );
+          add(
+            new MenuItemModel(
+              "Contact management",
+              new ImageIcon("src/main/java/resources/icons/user.png"),
+              null,
+              new ArrayList<SubMenuItemModel>() {
+                {
+                  add(
+                    new SubMenuItemModel(
+                      "Publisher management",
+                      new ImageIcon(""),
+                      showPublisherListAdmin
+                    )
+                  );
+                  add(
+                    new SubMenuItemModel(
+                      "Author management",
+                      new ImageIcon(""),
+                      showAuthorListAdmin
+                    )
+                  );
+                  add(
+                    new SubMenuItemModel(
+                      "Provider management",
+                      new ImageIcon(""),
+                      showProviderListAdmin
+                    )
+                  );
+                }
+              }
+            )
+          );
+          add(
+            new MenuItemModel(
+              "Salary management",
+              new ImageIcon("src/main/java/resources/icons/user.png"),
+              showSalaryListAdmin,
               null
             )
           );
@@ -591,6 +635,18 @@ public class MenuFactory {
   };
   private static ActionListener showOrderListAdmin = e -> {
     MainPanel.getInstance().showForm(OrderListPanel.getInstance());
+  };
+  private static ActionListener showPublisherListAdmin = e -> {
+    MainPanel.getInstance().showForm(PublisherListPanel.getInstance());
+  };
+  private static ActionListener showAuthorListAdmin = e -> {
+    MainPanel.getInstance().showForm(AuthorListPanel.getInstance());
+  };
+  private static ActionListener showProviderListAdmin = e -> {
+    MainPanel.getInstance().showForm(ProviderListPanel.getInstance());
+  };
+  private static ActionListener showSalaryListAdmin = e -> {
+    MainPanel.getInstance().showForm(SalaryListPanel.getInstance());
   };
 
   // employee and manager
