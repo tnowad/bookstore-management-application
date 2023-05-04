@@ -29,6 +29,18 @@ public class CheckoutUI extends JFrame {
     this.cartId = cartId;
     initComponents();
     updateData();
+    handleEvent();
+  }
+
+  private void handleEvent() {
+    jRadioButton2.addActionListener(e -> {
+      groupContentPanel.add(groupCreditCardPanel);
+    });
+    jRadioButton1.addActionListener(e -> {
+      groupContentPanel.remove(groupCreditCardPanel);
+      groupButtonPanel.revalidate();
+      groupButtonPanel.repaint();
+    });
   }
 
   private void updateData() {
@@ -129,26 +141,30 @@ public class CheckoutUI extends JFrame {
 
     groupPaymentMethodPanel.add(paymentMethodLabel);
 
+    ButtonGroup groupPaymentMethodRadio = new ButtonGroup();
+
     jRadioButton1.setText("Cash");
     groupPaymentMethodPanel.add(jRadioButton1);
 
     jRadioButton2.setText("Credit");
     groupPaymentMethodPanel.add(jRadioButton2);
 
+    groupPaymentMethodRadio.add(jRadioButton1);
+    groupPaymentMethodRadio.add(jRadioButton2);
+
     groupPaymentMethodPanel.add(shippingMethodLabel);
 
-    JPanel panel = new JPanel();
-    ButtonGroup group = new ButtonGroup();
+    ButtonGroup groupShippingMethodRadio = new ButtonGroup();
 
     // JRadioButton button1 = new JRadioButton("Option 1");
     // JRadioButton button2 = new JRadioButton("Option 2");
     // JRadioButton button3 = new JRadioButton("Option 3");
     // JRadioButton button4 = new JRadioButton("Option 4");
 
-    group.add(internationalShippingRadioButton);
-    group.add(standardShippingRadioButton);
-    group.add(expressShippingRadioButton);
-    group.add(nextDayShippingRadioButton);
+    groupShippingMethodRadio.add(internationalShippingRadioButton);
+    groupShippingMethodRadio.add(standardShippingRadioButton);
+    groupShippingMethodRadio.add(expressShippingRadioButton);
+    groupShippingMethodRadio.add(nextDayShippingRadioButton);
 
     groupPaymentMethodPanel.add(internationalShippingRadioButton);
     groupPaymentMethodPanel.add(standardShippingRadioButton);
