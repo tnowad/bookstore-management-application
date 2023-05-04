@@ -39,17 +39,12 @@ public class MenuPanel extends JPanel {
   private void initComponents() {
     scrollPane = new JScrollPane();
     menuItemsPanel = new JPanel();
-
-    // color of the background of the menu
-    menuItemsPanel.setBackground(Color.decode("#007aff"));
-
+    menuItemsPanel.setBackground(Color.decode("#4E80D9"));
     menuItemsPanel.setLayout(new BoxLayout(menuItemsPanel, BoxLayout.Y_AXIS));
-
     scrollPane.setBorder(null);
     scrollPane.setHorizontalScrollBarPolicy(
       JScrollPane.HORIZONTAL_SCROLLBAR_NEVER
     );
-
     scrollPane.setViewport(null);
     scrollPane.getVerticalScrollBar().setUnitIncrement(16);
     scrollPane.setViewportView(menuItemsPanel);
@@ -68,10 +63,7 @@ public class MenuPanel extends JPanel {
 
   public void addMenuItem(MenuItemModel menuItemModel) {
     MenuItemPanel menuItemPanel = new MenuItemPanel(menuItemModel);
-
-    // color of background of the menu
-    menuItemPanel.setBackground(Color.decode("#4a90d9"));
-
+    menuItemPanel.setBackground(Color.decode("#4E80D9"));
     menuItemsPanel.add(menuItemPanel);
   }
 
