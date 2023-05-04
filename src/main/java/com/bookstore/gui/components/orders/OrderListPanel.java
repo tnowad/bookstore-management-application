@@ -41,325 +41,185 @@ public class OrderListPanel extends javax.swing.JPanel {
    */
 
   // <editor-fold defaultstate="collapsed" desc="Generated
-  // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-  private void initComponents() {
-    jLabel1 = new javax.swing.JLabel();
-    jPanel1 = new javax.swing.JPanel();
-    jPanel2 = new javax.swing.JPanel();
-    jPanel3 = new javax.swing.JPanel();
-    ButtonExport = new javax.swing.JButton();
-    ButtonInport = new javax.swing.JButton();
-    ButtonCreate = new javax.swing.JButton();
-    ButtonDelete = new javax.swing.JButton();
-    jPanel4 = new javax.swing.JPanel();
-    jPanel5 = new javax.swing.JPanel();
-    setSerial = new javax.swing.JLabel();
-    setIdOrder = new javax.swing.JLabel();
-    setNameCustomer = new javax.swing.JLabel();
-    setIdEmployee = new javax.swing.JLabel();
-    setTotal = new javax.swing.JLabel();
-    jLabel2 = new javax.swing.JLabel();
-    jScrollPane2 = new javax.swing.JScrollPane();
-    table = new javax.swing.JPanel();
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
-    setPreferredSize(new java.awt.Dimension(702, 444));
+        titlePanel = new javax.swing.JLabel();
+        contend = new javax.swing.JPanel();
+        buttonPanel = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        ButtonExport = new javax.swing.JButton();
+        ButtonInport = new javax.swing.JButton();
+        ButtonCreate = new javax.swing.JButton();
+        ButtonDelete = new javax.swing.JButton();
+        tableContend = new javax.swing.JPanel();
+        scrollPane = new javax.swing.JScrollPane();
+        table = new javax.swing.JPanel();
+        headerTable = new javax.swing.JPanel();
+        serialText = new javax.swing.JLabel();
+        idText = new javax.swing.JLabel();
+        customerText = new javax.swing.JLabel();
+        employeeText = new javax.swing.JLabel();
+        totalText = new javax.swing.JLabel();
+        statusText = new javax.swing.JLabel();
 
-    jLabel1.setFont(new java.awt.Font("Segoe UI", 3, 18));
-    jLabel1.setForeground(new java.awt.Color(255, 0, 51));
-    jLabel1.setText("List Order");
+        setPreferredSize(new java.awt.Dimension(702, 444));
+        setLayout(new java.awt.BorderLayout());
 
-    jPanel1.setLayout(new java.awt.BorderLayout());
+        titlePanel.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
+        titlePanel.setForeground(new java.awt.Color(255, 0, 51));
+        titlePanel.setText("List Order");
+        add(titlePanel, java.awt.BorderLayout.NORTH);
 
-    jPanel2.setLayout(new java.awt.BorderLayout());
+        contend.setLayout(new java.awt.BorderLayout());
 
-    ButtonExport.setText("Xuất File");
-    ButtonExport.setToolTipText("");
+        buttonPanel.setLayout(new java.awt.BorderLayout());
 
-    ButtonInport.setText("Nhập File");
+        ButtonExport.setText("Xuất File");
+        ButtonExport.setToolTipText("");
 
-    ButtonCreate.setText("Create");
+        ButtonInport.setText("Nhập File");
 
-    ButtonDelete.setText("Delete");
+        ButtonCreate.setText("Create");
 
-    javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(
-      jPanel3
-    );
-    jPanel3.setLayout(jPanel3Layout);
-    jPanel3Layout.setHorizontalGroup(
-      jPanel3Layout
-        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(
-          jPanel3Layout
-            .createSequentialGroup()
-            .addComponent(ButtonExport)
-            .addGap(18, 18, 18)
-            .addComponent(ButtonInport)
-            .addGap(18, 18, 18)
-            .addComponent(ButtonCreate)
-            .addGap(18, 18, 18)
-            .addComponent(ButtonDelete)
-            .addGap(0, 39, Short.MAX_VALUE)
-        )
-    );
-    jPanel3Layout.setVerticalGroup(
-      jPanel3Layout
-        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(
-          jPanel3Layout
-            .createSequentialGroup()
-            .addContainerGap()
-            .addGroup(
-              jPanel3Layout
-                .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(
-                  ButtonCreate,
-                  javax.swing.GroupLayout.DEFAULT_SIZE,
-                  31,
-                  Short.MAX_VALUE
-                )
-                .addComponent(
-                  ButtonExport,
-                  javax.swing.GroupLayout.DEFAULT_SIZE,
-                  javax.swing.GroupLayout.DEFAULT_SIZE,
-                  Short.MAX_VALUE
-                )
-                .addComponent(
-                  ButtonInport,
-                  javax.swing.GroupLayout.DEFAULT_SIZE,
-                  javax.swing.GroupLayout.DEFAULT_SIZE,
-                  Short.MAX_VALUE
-                )
-                .addComponent(
-                  ButtonDelete,
-                  javax.swing.GroupLayout.DEFAULT_SIZE,
-                  javax.swing.GroupLayout.DEFAULT_SIZE,
-                  Short.MAX_VALUE
-                )
-            )
-            .addContainerGap()
-        )
-    );
+        ButtonDelete.setText("Delete");
 
-    jPanel2.add(jPanel3, java.awt.BorderLayout.LINE_END);
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(ButtonExport)
+                .addGap(18, 18, 18)
+                .addComponent(ButtonInport)
+                .addGap(18, 18, 18)
+                .addComponent(ButtonCreate)
+                .addGap(18, 18, 18)
+                .addComponent(ButtonDelete)
+                .addGap(0, 39, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ButtonCreate, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
+                    .addComponent(ButtonExport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ButtonInport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ButtonDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
 
-    jPanel1.add(jPanel2, java.awt.BorderLayout.PAGE_START);
+        buttonPanel.add(jPanel3, java.awt.BorderLayout.LINE_END);
 
-    jPanel4.setLayout(new java.awt.BorderLayout());
+        contend.add(buttonPanel, java.awt.BorderLayout.PAGE_START);
 
-    setSerial.setFont(new java.awt.Font("Segoe UI", 0, 14));
-    setSerial.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-    setSerial.setText("Serial");
-    setSerial.setMaximumSize(new java.awt.Dimension(12, 18));
-    setSerial.setMinimumSize(new java.awt.Dimension(12, 18));
-    setSerial.setName("");
-    setSerial.setPreferredSize(new java.awt.Dimension(12, 19));
+        tableContend.setLayout(new java.awt.BorderLayout());
 
-    setIdOrder.setFont(new java.awt.Font("Segoe UI", 0, 14));
-    setIdOrder.setText("Id Order");
+        javax.swing.GroupLayout tableLayout = new javax.swing.GroupLayout(table);
+        table.setLayout(tableLayout);
+        tableLayout.setHorizontalGroup(
+            tableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 700, Short.MAX_VALUE)
+        );
+        tableLayout.setVerticalGroup(
+            tableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 374, Short.MAX_VALUE)
+        );
 
-    setNameCustomer.setFont(new java.awt.Font("Segoe UI", 0, 14));
-    setNameCustomer.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-    setNameCustomer.setText("Name Customer");
+        scrollPane.setViewportView(table);
 
-    setIdEmployee.setFont(new java.awt.Font("Segoe UI", 0, 14));
-    setIdEmployee.setText("Id Employee");
+        tableContend.add(scrollPane, java.awt.BorderLayout.CENTER);
 
-    setTotal.setText("Total");
+        headerTable.setPreferredSize(new java.awt.Dimension(611, 53));
+        java.awt.GridBagLayout jPanel1Layout = new java.awt.GridBagLayout();
+        jPanel1Layout.columnWeights = new double[] {1.0, 2.0, 3.0, 4.0, 5.0, 6.0};
+        headerTable.setLayout(jPanel1Layout);
 
-    jLabel2.setText("Status");
+        serialText.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        serialText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        serialText.setText("Serial");
+        serialText.setMaximumSize(new java.awt.Dimension(12, 18));
+        serialText.setMinimumSize(new java.awt.Dimension(17, 18));
+        serialText.setName(""); // NOI18N
+        serialText.setPreferredSize(new java.awt.Dimension(20, 19));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = 3;
+        gridBagConstraints.ipadx = 18;
+        gridBagConstraints.ipady = 35;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 6, 0, 0);
+        headerTable.add(serialText, gridBagConstraints);
 
-    javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(
-      jPanel5
-    );
-    jPanel5.setLayout(jPanel5Layout);
-    jPanel5Layout.setHorizontalGroup(
-      jPanel5Layout
-        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(
-          jPanel5Layout
-            .createSequentialGroup()
-            .addContainerGap(35, Short.MAX_VALUE)
-            .addComponent(
-              setSerial,
-              javax.swing.GroupLayout.PREFERRED_SIZE,
-              39,
-              javax.swing.GroupLayout.PREFERRED_SIZE
-            )
-            .addPreferredGap(
-              javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-              29,
-              Short.MAX_VALUE
-            )
-            .addComponent(
-              setIdOrder,
-              javax.swing.GroupLayout.PREFERRED_SIZE,
-              58,
-              javax.swing.GroupLayout.PREFERRED_SIZE
-            )
-            .addGap(18, 28, Short.MAX_VALUE)
-            .addComponent(
-              setNameCustomer,
-              javax.swing.GroupLayout.PREFERRED_SIZE,
-              152,
-              javax.swing.GroupLayout.PREFERRED_SIZE
-            )
-            .addPreferredGap(
-              javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-              22,
-              Short.MAX_VALUE
-            )
-            .addComponent(
-              setIdEmployee,
-              javax.swing.GroupLayout.PREFERRED_SIZE,
-              124,
-              javax.swing.GroupLayout.PREFERRED_SIZE
-            )
-            .addPreferredGap(
-              javax.swing.LayoutStyle.ComponentPlacement.UNRELATED,
-              javax.swing.GroupLayout.DEFAULT_SIZE,
-              Short.MAX_VALUE
-            )
-            .addComponent(
-              setTotal,
-              javax.swing.GroupLayout.PREFERRED_SIZE,
-              68,
-              javax.swing.GroupLayout.PREFERRED_SIZE
-            )
-            .addPreferredGap(
-              javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-              40,
-              Short.MAX_VALUE
-            )
-            .addComponent(
-              jLabel2,
-              javax.swing.GroupLayout.PREFERRED_SIZE,
-              48,
-              javax.swing.GroupLayout.PREFERRED_SIZE
-            )
-            .addContainerGap(41, Short.MAX_VALUE)
-        )
-    );
-    jPanel5Layout.setVerticalGroup(
-      jPanel5Layout
-        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addComponent(
-          setSerial,
-          javax.swing.GroupLayout.DEFAULT_SIZE,
-          javax.swing.GroupLayout.DEFAULT_SIZE,
-          Short.MAX_VALUE
-        )
-        .addComponent(
-          setIdOrder,
-          javax.swing.GroupLayout.DEFAULT_SIZE,
-          53,
-          Short.MAX_VALUE
-        )
-        .addComponent(
-          setNameCustomer,
-          javax.swing.GroupLayout.DEFAULT_SIZE,
-          javax.swing.GroupLayout.DEFAULT_SIZE,
-          Short.MAX_VALUE
-        )
-        .addComponent(
-          setIdEmployee,
-          javax.swing.GroupLayout.DEFAULT_SIZE,
-          javax.swing.GroupLayout.DEFAULT_SIZE,
-          Short.MAX_VALUE
-        )
-        .addComponent(
-          setTotal,
-          javax.swing.GroupLayout.DEFAULT_SIZE,
-          javax.swing.GroupLayout.DEFAULT_SIZE,
-          Short.MAX_VALUE
-        )
-        .addComponent(
-          jLabel2,
-          javax.swing.GroupLayout.Alignment.TRAILING,
-          javax.swing.GroupLayout.DEFAULT_SIZE,
-          javax.swing.GroupLayout.DEFAULT_SIZE,
-          Short.MAX_VALUE
-        )
-    );
+        idText.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        idText.setText("ID");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = 3;
+        gridBagConstraints.ipadx = 41;
+        gridBagConstraints.ipady = 33;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 29, 0, 0);
+        headerTable.add(idText, gridBagConstraints);
 
-    jPanel4.add(jPanel5, java.awt.BorderLayout.PAGE_START);
+        customerText.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        customerText.setText("Customer");
+        customerText.setMinimumSize(new java.awt.Dimension(15, 20));
+        customerText.setPreferredSize(new java.awt.Dimension(65, 20));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = 3;
+        gridBagConstraints.ipadx = 105;
+        gridBagConstraints.ipady = 33;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 27, 0, 0);
+        headerTable.add(customerText, gridBagConstraints);
 
-    javax.swing.GroupLayout tableLayout = new javax.swing.GroupLayout(table);
-    table.setLayout(tableLayout);
-    tableLayout.setHorizontalGroup(
-      tableLayout
-        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGap(0, 694, Short.MAX_VALUE)
-    );
-    tableLayout.setVerticalGroup(
-      tableLayout
-        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGap(0, 305, Short.MAX_VALUE)
-    );
+        employeeText.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        employeeText.setText("Employee");
+        employeeText.setMinimumSize(new java.awt.Dimension(15, 20));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = 3;
+        gridBagConstraints.ipadx = 90;
+        gridBagConstraints.ipady = 33;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 32, 0, 0);
+        headerTable.add(employeeText, gridBagConstraints);
 
-    jScrollPane2.setViewportView(table);
+        totalText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        totalText.setText("Total");
+        totalText.setMinimumSize(new java.awt.Dimension(13, 16));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 5;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = 3;
+        gridBagConstraints.ipadx = 67;
+        gridBagConstraints.ipady = 37;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 18, 0, 0);
+        headerTable.add(totalText, gridBagConstraints);
 
-    jPanel4.add(jScrollPane2, java.awt.BorderLayout.CENTER);
+        statusText.setText("Status");
+        statusText.setMinimumSize(new java.awt.Dimension(69, 16));
+        statusText.setPreferredSize(new java.awt.Dimension(69, 16));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.ipadx = 25;
+        gridBagConstraints.ipady = 35;
+        headerTable.add(statusText, gridBagConstraints);
 
-    jPanel1.add(jPanel4, java.awt.BorderLayout.CENTER);
+        tableContend.add(headerTable, java.awt.BorderLayout.PAGE_START);
 
-    javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-    this.setLayout(layout);
-    layout.setHorizontalGroup(
-      layout
-        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(
-          layout
-            .createSequentialGroup()
-            .addContainerGap()
-            .addGroup(
-              layout
-                .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(
-                  jPanel1,
-                  javax.swing.GroupLayout.DEFAULT_SIZE,
-                  javax.swing.GroupLayout.DEFAULT_SIZE,
-                  Short.MAX_VALUE
-                )
-                .addGroup(
-                  layout
-                    .createSequentialGroup()
-                    .addComponent(
-                      jLabel1,
-                      javax.swing.GroupLayout.PREFERRED_SIZE,
-                      89,
-                      javax.swing.GroupLayout.PREFERRED_SIZE
-                    )
-                    .addContainerGap(
-                      javax.swing.GroupLayout.DEFAULT_SIZE,
-                      Short.MAX_VALUE
-                    )
-                )
-            )
-        )
-    );
-    layout.setVerticalGroup(
-      layout
-        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(
-          layout
-            .createSequentialGroup()
-            .addContainerGap()
-            .addComponent(
-              jLabel1,
-              javax.swing.GroupLayout.PREFERRED_SIZE,
-              29,
-              javax.swing.GroupLayout.PREFERRED_SIZE
-            )
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(
-              jPanel1,
-              javax.swing.GroupLayout.DEFAULT_SIZE,
-              javax.swing.GroupLayout.DEFAULT_SIZE,
-              Short.MAX_VALUE
-            )
-        )
-    );
-  } // </editor-fold>//GEN-END:initComponents
+        contend.add(tableContend, java.awt.BorderLayout.CENTER);
+
+        add(contend, java.awt.BorderLayout.CENTER);
+    }// </editor-fold>//GEN-END:initComponents
 
   public void addTable() {
     int Serial = 0;
@@ -420,24 +280,24 @@ public class OrderListPanel extends javax.swing.JPanel {
     table.repaint();
   }
 
-  // Variables declaration - do not modify//GEN-BEGIN:variables
-  private javax.swing.JButton ButtonCreate;
-  private javax.swing.JButton ButtonDelete;
-  private javax.swing.JButton ButtonExport;
-  private javax.swing.JButton ButtonInport;
-  private javax.swing.JLabel jLabel1;
-  private javax.swing.JLabel jLabel2;
-  private javax.swing.JPanel jPanel1;
-  private javax.swing.JPanel jPanel2;
-  private javax.swing.JPanel jPanel3;
-  private javax.swing.JPanel jPanel4;
-  private javax.swing.JPanel jPanel5;
-  private javax.swing.JScrollPane jScrollPane2;
-  private javax.swing.JLabel setIdEmployee;
-  private javax.swing.JLabel setIdOrder;
-  private javax.swing.JLabel setNameCustomer;
-  private javax.swing.JLabel setSerial;
-  private javax.swing.JLabel setTotal;
-  private javax.swing.JPanel table;
-  // End of variables declaration//GEN-END:variables
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton ButtonCreate;
+    private javax.swing.JButton ButtonDelete;
+    private javax.swing.JButton ButtonExport;
+    private javax.swing.JButton ButtonInport;
+    private javax.swing.JPanel buttonPanel;
+    private javax.swing.JPanel contend;
+    private javax.swing.JLabel customerText;
+    private javax.swing.JLabel employeeText;
+    private javax.swing.JPanel headerTable;
+    private javax.swing.JLabel idText;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane scrollPane;
+    private javax.swing.JLabel serialText;
+    private javax.swing.JLabel statusText;
+    private javax.swing.JPanel table;
+    private javax.swing.JPanel tableContend;
+    private javax.swing.JLabel titlePanel;
+    private javax.swing.JLabel totalText;
+    // End of variables declaration//GEN-END:variables
 }

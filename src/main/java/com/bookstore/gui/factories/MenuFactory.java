@@ -3,7 +3,9 @@ package com.bookstore.gui.factories;
 import com.bookstore.dao.EmployeeDAO;
 import com.bookstore.gui.components.books.BrowseProductPanel;
 import com.bookstore.gui.components.dashboards.DashboardPanel;
+import com.bookstore.gui.components.orders.OrderListPanel;
 import com.bookstore.gui.components.panels.MainPanel;
+import com.bookstore.gui.components.users.UserListPanel;
 import com.bookstore.gui.events.general.LogoutActionListener;
 import com.bookstore.gui.forms.accounts.AccountSettings;
 import com.bookstore.gui.forms.accounts.ProfileSettings;
@@ -81,6 +83,20 @@ public class MenuFactory {
                       "List Book",
                       new ImageIcon(""),
                       showBookListAdmin
+                    )
+                  );
+                  add(
+                    new SubMenuItemModel(
+                      "List User",
+                      new ImageIcon(""),
+                      showUserListAdmin
+                    )
+                  );
+                  add(
+                    new SubMenuItemModel(
+                      "List Order",
+                      new ImageIcon(""),
+                      showOrderListAdmin
                     )
                   );
                 }
@@ -393,6 +409,12 @@ public class MenuFactory {
   };
   private static ActionListener showBookListAdmin = e -> {
     MainPanel.getInstance().showForm(BrowseProductPanel.getInstance());
+  };
+  private static ActionListener showUserListAdmin = e -> {
+    MainPanel.getInstance().showForm(UserListPanel.getInstance());
+  };
+  private static ActionListener showOrderListAdmin = e -> {
+    MainPanel.getInstance().showForm(OrderListPanel.getInstance());
   };
 
   // employee and manager
