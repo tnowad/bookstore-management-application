@@ -7,13 +7,14 @@ import com.bookstore.models.BookModel;
 import com.bookstore.models.CartItemsModel;
 import java.awt.*;
 import javax.swing.*;
+import java.util.List;
 
 public class CartDetail extends JFrame {
 
   private int cartId;
   private String bookIsbn;
   private BookModel bookModel;
-  private java.util.List<CartItemsModel> cartItemList;
+  private List<CartItemsModel> cartItemList;
   private CartItemsModel cartItemsModel;
 
   public CartDetail(int cartId, String bookIsbn) {
