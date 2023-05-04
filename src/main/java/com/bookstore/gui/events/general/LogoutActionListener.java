@@ -19,6 +19,8 @@ public class LogoutActionListener implements ActionListener {
       JOptionPane.YES_NO_OPTION
     );
     if (option == JOptionPane.YES_OPTION) {
+      MainFrame.getInstance().dispose();
+      
       MainPanel.destroyInstance();
       MainFrame.destroyInstance();
 
