@@ -71,4 +71,8 @@ public class MainPanel extends JPanel {
 
     refreshFrame();
   }
+
+  public static void destroyInstance() {
+    instance = null;
+  }
 }

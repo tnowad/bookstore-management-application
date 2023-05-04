@@ -19,18 +19,18 @@ public class CheckoutUI extends javax.swing.JFrame {
     addressLabel = new javax.swing.JLabel();
     addressTextField = new javax.swing.JTextField();
     phoneLabel = new javax.swing.JLabel();
-    phonextField = new javax.swing.JTextField();
+    phoneTextField = new javax.swing.JTextField();
     groupContentPanel = new javax.swing.JPanel();
-    groupPaymentMedthodPanel = new javax.swing.JPanel();
-    paymentMedthodLabel = new javax.swing.JLabel();
+    groupPaymentMethodPanel = new javax.swing.JPanel();
+    paymentMethodLabel = new javax.swing.JLabel();
     jRadioButton1 = new javax.swing.JRadioButton();
     jRadioButton2 = new javax.swing.JRadioButton();
-    shippigMethodLabel = new javax.swing.JLabel();
+    shippingMethodLabel = new javax.swing.JLabel();
     internationalShippingRadioButton = new javax.swing.JRadioButton();
     standardShippingRadioButton = new javax.swing.JRadioButton();
     expressShippingRadioButton = new javax.swing.JRadioButton();
     nextDayShippingRadioButton = new javax.swing.JRadioButton();
-    groupInforCreditCardPanel = new javax.swing.JPanel();
+    groupCreditCardPanel = new javax.swing.JPanel();
     cardNumberLabel = new javax.swing.JLabel();
     cardNumberTextField = new javax.swing.JTextField();
     expirationDateLabel = new javax.swing.JLabel();
@@ -69,7 +69,7 @@ public class CheckoutUI extends javax.swing.JFrame {
     phoneLabel.setText("jLabel4");
     groupHeaderPanel.add(phoneLabel);
 
-    groupHeaderPanel.add(phonextField);
+    groupHeaderPanel.add(phoneTextField);
 
     getContentPane().add(groupHeaderPanel, java.awt.BorderLayout.PAGE_START);
 
@@ -81,69 +81,69 @@ public class CheckoutUI extends javax.swing.JFrame {
       )
     );
 
-    groupPaymentMedthodPanel.setLayout(
+    groupPaymentMethodPanel.setLayout(
       new javax.swing.BoxLayout(
-        groupPaymentMedthodPanel,
+        groupPaymentMethodPanel,
         javax.swing.BoxLayout.Y_AXIS
       )
     );
 
-    paymentMedthodLabel.setText("Payment Method");
-    groupPaymentMedthodPanel.add(paymentMedthodLabel);
+    paymentMethodLabel.setText("Payment Method");
+    groupPaymentMethodPanel.add(paymentMethodLabel);
 
     jRadioButton1.setText("Cash");
-    groupPaymentMedthodPanel.add(jRadioButton1);
+    groupPaymentMethodPanel.add(jRadioButton1);
 
     jRadioButton2.setText("Credit");
-    groupPaymentMedthodPanel.add(jRadioButton2);
+    groupPaymentMethodPanel.add(jRadioButton2);
 
-    shippigMethodLabel.setText("Shipping Method");
-    groupPaymentMedthodPanel.add(shippigMethodLabel);
+    shippingMethodLabel.setText("Shipping Method");
+    groupPaymentMethodPanel.add(shippingMethodLabel);
 
     internationalShippingRadioButton.setText("International Shipping  ");
 
-    groupPaymentMedthodPanel.add(internationalShippingRadioButton);
+    groupPaymentMethodPanel.add(internationalShippingRadioButton);
 
     standardShippingRadioButton.setText("Standard Shipping");
-    groupPaymentMedthodPanel.add(standardShippingRadioButton);
+    groupPaymentMethodPanel.add(standardShippingRadioButton);
 
     expressShippingRadioButton.setText("Express Shipping");
-    groupPaymentMedthodPanel.add(expressShippingRadioButton);
+    groupPaymentMethodPanel.add(expressShippingRadioButton);
 
     nextDayShippingRadioButton.setText(" Next Day Shipping");
-    groupPaymentMedthodPanel.add(nextDayShippingRadioButton);
+    groupPaymentMethodPanel.add(nextDayShippingRadioButton);
 
-    groupContentPanel.add(groupPaymentMedthodPanel);
+    groupContentPanel.add(groupPaymentMethodPanel);
 
-    groupInforCreditCardPanel.setMaximumSize(new java.awt.Dimension(500, 200));
-    groupInforCreditCardPanel.setLayout(
+    groupCreditCardPanel.setMaximumSize(new java.awt.Dimension(500, 200));
+    groupCreditCardPanel.setLayout(
       new javax.swing.BoxLayout(
-        groupInforCreditCardPanel,
+        groupCreditCardPanel,
         javax.swing.BoxLayout.Y_AXIS
       )
     );
 
     cardNumberLabel.setText("jLabel6");
-    groupInforCreditCardPanel.add(cardNumberLabel);
+    groupCreditCardPanel.add(cardNumberLabel);
 
     cardNumberTextField.setText("jTextField7");
     cardNumberTextField.setPreferredSize(new java.awt.Dimension(73, 10));
 
-    groupInforCreditCardPanel.add(cardNumberTextField);
+    groupCreditCardPanel.add(cardNumberTextField);
 
     expirationDateLabel.setText("jLabel7");
-    groupInforCreditCardPanel.add(expirationDateLabel);
+    groupCreditCardPanel.add(expirationDateLabel);
 
     expirationDateTextField.setText("jTextField8");
     expirationDateTextField.setPreferredSize(new java.awt.Dimension(73, 10));
-    groupInforCreditCardPanel.add(expirationDateTextField);
+    groupCreditCardPanel.add(expirationDateTextField);
 
     cvvLabel.setText("jLabel8");
-    groupInforCreditCardPanel.add(cvvLabel);
+    groupCreditCardPanel.add(cvvLabel);
 
     cvvTextField.setText("jTextField9");
     cvvTextField.setPreferredSize(new java.awt.Dimension(73, 10));
-    groupInforCreditCardPanel.add(cvvTextField);
+    groupCreditCardPanel.add(cvvTextField);
 
     // groupContentPanel.add(groupInforCreditCardPanel);
 
@@ -230,11 +230,11 @@ public class CheckoutUI extends javax.swing.JFrame {
   private javax.swing.JPanel groupButtonPanel;
   private javax.swing.JPanel groupContentPanel;
   private javax.swing.JPanel groupHeaderPanel;
-  private javax.swing.JPanel groupInforCreditCardPanel;
-  private javax.swing.JPanel groupPaymentMedthodPanel;
+  private javax.swing.JPanel groupCreditCardPanel;
+  private javax.swing.JPanel groupPaymentMethodPanel;
   private javax.swing.JPanel groupTableProductPanel;
   private javax.swing.JRadioButton internationalShippingRadioButton;
-  private javax.swing.JLabel paymentMedthodLabel;
+  private javax.swing.JLabel paymentMethodLabel;
   private javax.swing.JRadioButton jRadioButton1;
   private javax.swing.JRadioButton jRadioButton2;
   private javax.swing.JScrollPane jScrollPane1;
@@ -244,7 +244,7 @@ public class CheckoutUI extends javax.swing.JFrame {
   private javax.swing.JTextField nameTextField;
   private javax.swing.JRadioButton nextDayShippingRadioButton;
   private javax.swing.JLabel phoneLabel;
-  private javax.swing.JTextField phonextField;
-  private javax.swing.JLabel shippigMethodLabel;
+  private javax.swing.JTextField phoneTextField;
+  private javax.swing.JLabel shippingMethodLabel;
   private javax.swing.JRadioButton standardShippingRadioButton;
 }
