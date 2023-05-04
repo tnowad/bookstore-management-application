@@ -47,7 +47,7 @@ public class SalaryListPanel extends javax.swing.JPanel {
     setPreferredSize(new java.awt.Dimension(720, 444));
     setLayout(new java.awt.BorderLayout());
 
-    title.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+    title.setFont(new java.awt.Font("Segoe UI", 1, 18));
     title.setText("List Salary");
     add(title, java.awt.BorderLayout.PAGE_START);
 
@@ -59,29 +59,29 @@ public class SalaryListPanel extends javax.swing.JPanel {
 
     panel.setLayout(new java.awt.GridLayout(1, 2));
 
-    serialText.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+    serialText.setFont(new java.awt.Font("Segoe UI", 0, 16));
     serialText.setText("Serial");
     panel.add(serialText);
 
-    idText.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+    idText.setFont(new java.awt.Font("Segoe UI", 0, 16));
     idText.setText("Id");
     panel.add(idText);
 
     headerTable.add(panel);
 
-    nameText.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+    nameText.setFont(new java.awt.Font("Segoe UI", 0, 16));
     nameText.setText("Name");
     headerTable.add(nameText);
 
-    salaryText.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+    salaryText.setFont(new java.awt.Font("Segoe UI", 0, 16));
     salaryText.setText("Salary");
     headerTable.add(salaryText);
 
-    typeText.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+    typeText.setFont(new java.awt.Font("Segoe UI", 0, 16));
     typeText.setText("Type");
     headerTable.add(typeText);
 
-    contactText.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+    contactText.setFont(new java.awt.Font("Segoe UI", 0, 16));
     contactText.setText("Contact");
     headerTable.add(contactText);
 

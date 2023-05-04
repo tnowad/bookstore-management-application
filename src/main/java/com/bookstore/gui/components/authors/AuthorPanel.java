@@ -7,6 +7,13 @@ import javax.swing.JPanel;
 
 public class AuthorPanel extends javax.swing.JPanel {
 
+  private JCheckBox checkBox;
+  private JPanel panel;
+  private JLabel setDescription;
+  private JLabel setId;
+  private JLabel setName;
+  private JLabel setSerial;
+
   public AuthorPanel(int serial, AuthorModel author) {
     initComponents(serial, author);
   }
@@ -40,11 +47,4 @@ public class AuthorPanel extends javax.swing.JPanel {
     setDescription.setPreferredSize(new java.awt.Dimension(300, 16));
     add(setDescription);
   }
-
-  private JCheckBox checkBox;
-  private JPanel panel;
-  private JLabel setDescription;
-  private JLabel setId;
-  private JLabel setName;
-  private JLabel setSerial;
 }

@@ -239,7 +239,6 @@ public class PopupUserFrame extends javax.swing.JFrame {
 
   public void actionSave() {}
 
-  // Variables declaration - do not modify//GEN-BEGIN:variables
   private JLabel addressText;
   private JButton buttonBack;
   private JPanel buttonPanel;
@@ -262,7 +261,6 @@ public class PopupUserFrame extends javax.swing.JFrame {
   private JTextField setUserName;
   private JLabel statusText;
   private JLabel userNameText;
-  // End of variables declaration//GEN-END:variables\
 
   public ActionListener actionBack = new ActionListener() {
     @Override

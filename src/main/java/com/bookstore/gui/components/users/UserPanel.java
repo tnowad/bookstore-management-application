@@ -76,7 +76,6 @@ public class UserPanel extends javax.swing.JPanel implements MouseListener {
   private JPanel panelItemHeader_1;
   private JPanel panelItemHeader_2;
 
-  // End of variables declaration//GEN-END:variables
   @Override
   public void mouseClicked(MouseEvent e) {}
 

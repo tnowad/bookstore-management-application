@@ -159,7 +159,6 @@ public class CreateUserFrame extends javax.swing.JFrame {
     return pattern.matcher(number).matches();
   }
 
-  // Variables declaration - do not modify//GEN-BEGIN:variables
   private JButton buttonBack;
   private JPanel buttonPanel;
   private JButton buttonSave;
@@ -178,7 +177,6 @@ public class CreateUserFrame extends javax.swing.JFrame {
   private JLabel statusText;
   private JLabel titlePanel;
   private JLabel usernameText;
-  // End of variables declaration//GEN-END:variables
 
   public ActionListener actionBack = new ActionListener() {
     @Override

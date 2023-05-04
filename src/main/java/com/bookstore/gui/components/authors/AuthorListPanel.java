@@ -11,6 +11,23 @@ import javax.swing.JScrollPane;
 public class AuthorListPanel extends javax.swing.JPanel {
 
   private static AuthorListPanel instance;
+
+  private JButton buttonAdd;
+  private JButton buttonDelete;
+  private JPanel buttonsPanel;
+  private JPanel contend;
+  private JPanel contendTable;
+  private JLabel descriptionText;
+  private JPanel headerTable;
+  private JLabel idText;
+  private JLabel label;
+  private JLabel nameText;
+  private JPanel panel;
+  private JScrollPane scrollPane;
+  private JLabel serialText;
+  private JPanel table;
+  private JLabel title;
+
   AuthorBUS authorBUS = AuthorBUS.getInstance();
   List<AuthorModel> listAuthor = authorBUS.getAllModels();
 
@@ -46,7 +63,7 @@ public class AuthorListPanel extends javax.swing.JPanel {
     setPreferredSize(new java.awt.Dimension(720, 444));
     setLayout(new java.awt.BorderLayout());
 
-    title.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+    title.setFont(new java.awt.Font("Segoe UI", 1, 18));
     title.setText("List Author");
     add(title, java.awt.BorderLayout.PAGE_START);
 
@@ -74,21 +91,21 @@ public class AuthorListPanel extends javax.swing.JPanel {
     panel.setLayout(new java.awt.GridLayout(1, 3));
     panel.add(label);
 
-    serialText.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+    serialText.setFont(new java.awt.Font("Segoe UI", 0, 16));
     serialText.setText("Serial");
     panel.add(serialText);
 
-    idText.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+    idText.setFont(new java.awt.Font("Segoe UI", 0, 16));
     idText.setText("Id");
     panel.add(idText);
 
     headerTable.add(panel);
 
-    nameText.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+    nameText.setFont(new java.awt.Font("Segoe UI", 0, 16));
     nameText.setText("Name");
     headerTable.add(nameText);
 
-    descriptionText.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+    descriptionText.setFont(new java.awt.Font("Segoe UI", 0, 16));
     descriptionText.setText("Description");
     headerTable.add(descriptionText);
 
@@ -115,20 +132,4 @@ public class AuthorListPanel extends javax.swing.JPanel {
     contendTable.revalidate();
     contendTable.repaint();
   }
-
-  private JButton buttonAdd;
-  private JButton buttonDelete;
-  private JPanel buttonsPanel;
-  private JPanel contend;
-  private JPanel contendTable;
-  private JLabel descriptionText;
-  private JPanel headerTable;
-  private JLabel idText;
-  private JLabel label;
-  private JLabel nameText;
-  private JPanel panel;
-  private JScrollPane scrollPane;
-  private JLabel serialText;
-  private JPanel table;
-  private JLabel title;
 }

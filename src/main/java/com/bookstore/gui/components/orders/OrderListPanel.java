@@ -77,7 +77,7 @@ public class OrderListPanel extends javax.swing.JPanel {
     setPreferredSize(new java.awt.Dimension(702, 444));
     setLayout(new java.awt.BorderLayout());
 
-    titlePanel.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
+    titlePanel.setFont(new java.awt.Font("Segoe UI", 3, 18));
     titlePanel.setForeground(new java.awt.Color(255, 0, 51));
     titlePanel.setText("List Order");
     add(titlePanel, java.awt.BorderLayout.NORTH);
@@ -112,7 +112,7 @@ public class OrderListPanel extends javax.swing.JPanel {
     contend.add(tableContend, java.awt.BorderLayout.CENTER);
 
     add(contend, java.awt.BorderLayout.CENTER);
-  } // </editor-fold>//GEN-END:initComponents
+  }
 
   public void addTable() {
     DefaultTableModel model = new DefaultTableModel();
@@ -168,7 +168,6 @@ public class OrderListPanel extends javax.swing.JPanel {
     table.repaint();
   }
 
-  // Variables declaration - do not modify//GEN-BEGIN:variables
   private JButton ButtonCreate;
   private JButton ButtonDelete;
   private JButton ButtonExport;
@@ -180,5 +179,4 @@ public class OrderListPanel extends javax.swing.JPanel {
   private JTable table;
   private JPanel tableContend;
   private JLabel titlePanel;
-  // End of variables declaration//GEN-END:variables
 }

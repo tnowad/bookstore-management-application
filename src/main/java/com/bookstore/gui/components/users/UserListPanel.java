@@ -160,32 +160,32 @@ public class UserListPanel extends javax.swing.JPanel {
 
     panelItemHeader_1.add(label);
 
-    serialText.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+    serialText.setFont(new java.awt.Font("Segoe UI", 0, 16));
     serialText.setText("Serial");
 
     panelItemHeader_1.add(serialText);
 
     headerTable.add(panelItemHeader_1);
 
-    nameText.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+    nameText.setFont(new java.awt.Font("Segoe UI", 0, 16));
     nameText.setText("Name");
     headerTable.add(nameText);
 
-    phoneText.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+    phoneText.setFont(new java.awt.Font("Segoe UI", 0, 16));
     phoneText.setText("Phone");
     headerTable.add(phoneText);
 
-    emailText.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+    emailText.setFont(new java.awt.Font("Segoe UI", 0, 16));
     emailText.setText("Email");
     headerTable.add(emailText);
 
     panelItemHeader_2.setLayout(new java.awt.GridLayout(1, 2));
 
-    roleText.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+    roleText.setFont(new java.awt.Font("Segoe UI", 0, 16));
     roleText.setText("Role");
     panelItemHeader_2.add(roleText);
 
-    statusText.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+    statusText.setFont(new java.awt.Font("Segoe UI", 0, 16));
     statusText.setText("Status");
     panelItemHeader_2.add(statusText);
 
@@ -202,7 +202,7 @@ public class UserListPanel extends javax.swing.JPanel {
     contend.add(contendTable, java.awt.BorderLayout.CENTER);
 
     add(contend, java.awt.BorderLayout.CENTER);
-  } // </editor-fold>//GEN-END:initComponents
+  }
 
   public void actionCard() {
     QuantityAdmin = 0;
@@ -273,7 +273,6 @@ public class UserListPanel extends javax.swing.JPanel {
     table.repaint();
   }
 
-  // Variables declaration - do not modify//GEN-BEGIN:variables
   private JPanel buttonAction;
   private JButton buttonBanned;
   private JButton buttonCreate;
@@ -305,7 +304,6 @@ public class UserListPanel extends javax.swing.JPanel {
   private int QuantityCustomer = 0;
   private int QuantityUser = 0;
   private int QuantityEmployee = 0;
-  // End of variables declaration//GEN-END:variables
 
   public ActionListener actionCreate = new ActionListener() {
     @Override
