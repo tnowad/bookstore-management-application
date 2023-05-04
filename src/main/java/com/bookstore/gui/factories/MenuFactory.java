@@ -4,6 +4,7 @@ import com.bookstore.dao.EmployeeDAO;
 import com.bookstore.gui.components.books.BrowseProductPanel;
 import com.bookstore.gui.components.dashboards.DashboardPanel;
 import com.bookstore.gui.components.panels.MainPanel;
+import com.bookstore.gui.events.general.ExitActionListener;
 import com.bookstore.gui.events.general.LogoutActionListener;
 import com.bookstore.gui.forms.accounts.AccountSettings;
 import com.bookstore.gui.forms.accounts.ProfileSettings;
@@ -69,22 +70,144 @@ public class MenuFactory {
               null
             )
           );
+
           add(
             new MenuItemModel(
-              "Repository",
-              new ImageIcon(""),
-              showHomeAdmin,
+              "Report",
+              new ImageIcon("src/main/java/resources/icons/report.png"),
+              null,
               new ArrayList<SubMenuItemModel>() {
                 {
                   add(
                     new SubMenuItemModel(
-                      "List Book",
+                      "Sales report",
                       new ImageIcon(""),
-                      showBookListAdmin
+                      null
+                    )
+                  );
+                  add(
+                    new SubMenuItemModel(
+                      "Import report",
+                      new ImageIcon(""),
+                      null
+                    )
+                  );
+                  add(
+                    new SubMenuItemModel(
+                      "Export report",
+                      new ImageIcon(""),
+                      null
                     )
                   );
                 }
               }
+            )
+          );
+
+          add(
+            new MenuItemModel(
+              "Customer management",
+              new ImageIcon(""),
+              showCustomerList,
+              null
+            )
+          );
+
+          add(
+            new MenuItemModel(
+              "Book management",
+              new ImageIcon(""),
+              showBookList,
+              null
+            )
+          );
+
+          add(
+            new MenuItemModel(
+              "Import management",
+              new ImageIcon(""),
+              showImportList,
+              null
+            )
+          );
+
+          add(
+            new MenuItemModel(
+              "Order management",
+              new ImageIcon(""),
+              showOrderList,
+              null
+            )
+          );
+
+          add(
+            new MenuItemModel(
+              "Employee management",
+              new ImageIcon(""),
+              showEmployeeList,
+              null
+            )
+          );
+
+          add(
+            new MenuItemModel(
+              "Salary management",
+              new ImageIcon(""),
+              showSalaryList,
+              null
+            )
+          );
+
+          add(
+            new MenuItemModel(
+              "Account",
+              new ImageIcon(""),
+              null,
+              new ArrayList<SubMenuItemModel>() {
+                {
+                  add(
+                    new SubMenuItemModel(
+                      "My profile",
+                      new ImageIcon(""),
+                      showProfile
+                    )
+                  );
+                  add(
+                    new SubMenuItemModel(
+                      "My account",
+                      new ImageIcon(""),
+                      showAccount
+                    )
+                  );
+                }
+              }
+            )
+          );
+
+          add(
+            new MenuItemModel(
+              "About us",
+              new ImageIcon("src/main/java/resources/icons/about-us.png"),
+              null,
+              null
+            )
+          );
+
+          add(
+            new MenuItemModel(
+              "Logout",
+              new ImageIcon("src/main/java/resources/icons/logout.png"),
+              new LogoutActionListener(),
+              null
+            )
+          );
+
+          add(
+            new MenuItemModel(
+              "Exit",
+              new ImageIcon("src/main/java/resources/icons/exit.png"),
+              new ExitActionListener(),
+              null
             )
           );
         }
