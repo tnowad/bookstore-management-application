@@ -10,8 +10,11 @@ import com.bookstore.models.CartItemsModel;
 import com.bookstore.models.CartModel;
 import com.bookstore.models.UserModel;
 import com.bookstore.services.Authentication;
-import java.awt.Dimension;
+import com.bookstore.util.image.ImageUtils;
+import java.awt.FlowLayout;
+import java.awt.Image;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 public class Book extends javax.swing.JPanel {
@@ -30,6 +33,7 @@ public class Book extends javax.swing.JPanel {
     this.bookModel = bookModel;
     initComponents();
     updateData();
+    setImage(bookModel.getImage());
     handleEvent();
   }
 
@@ -86,6 +90,17 @@ public class Book extends javax.swing.JPanel {
     });
   }
 
+  public void setImage(String image) {
+    try {
+      Image imageBase = ImageUtils.decodeFromBase64(image);
+      setImage.setIcon(new javax.swing.ImageIcon(imageBase));
+    } catch (Exception ex) {
+      setImage.setIcon(
+        new ImageIcon("src/main/java/resources/images/product-placeholder.png")
+      );
+    }
+  }
+
   private void initComponents() {
     bookTitleLabel = new javax.swing.JLabel();
     bookImagePanel = new javax.swing.JPanel();
@@ -93,6 +108,7 @@ public class Book extends javax.swing.JPanel {
     bookDetailButton = new javax.swing.JButton();
     addToCartButton = new javax.swing.JButton();
     bookPriceLabel = new Label("");
+    setImage = new Label("");
 
     setLayout(new java.awt.BorderLayout());
 
@@ -102,23 +118,23 @@ public class Book extends javax.swing.JPanel {
     add(bookTitleLabel, java.awt.BorderLayout.PAGE_START);
     bookTitleLabel.getAccessibleContext().setAccessibleDescription("");
 
-    // bookImagePanel.add(bookModel.getImage(), java.awt.BorderLayout.CENTER);
+    bookImagePanel.setLayout(new FlowLayout());
+    bookImagePanel.add(setImage);
 
     add(bookImagePanel, java.awt.BorderLayout.CENTER);
 
     groupButtonPanel.setLayout(
-      new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0)
+      new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 2, 0)
     );
-    
+
     bookPriceLabel.setText("" + bookModel.getPrice() + " $");
     groupButtonPanel.add(bookPriceLabel);
-    
+
     bookDetailButton.setText("Book detail");
     groupButtonPanel.add(bookDetailButton);
 
     addToCartButton.setText("Add to cart");
     groupButtonPanel.add(addToCartButton);
-
 
     add(groupButtonPanel, java.awt.BorderLayout.SOUTH);
   }
@@ -129,4 +145,5 @@ public class Book extends javax.swing.JPanel {
   private javax.swing.JLabel bookTitleLabel;
   private javax.swing.JPanel groupButtonPanel;
   private Label bookPriceLabel;
+  private Label setImage;
 }
