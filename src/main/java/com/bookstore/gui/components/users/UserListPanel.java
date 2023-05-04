@@ -1,6 +1,7 @@
 package com.bookstore.gui.components.users;
 
 import com.bookstore.bus.UserBUS;
+import com.bookstore.gui.components.carts.CartUserAdmin;
 import com.bookstore.models.UserModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -12,11 +13,16 @@ import javax.swing.*;
 public class UserListPanel extends javax.swing.JPanel {
 
   private static UserListPanel instance;
-  private Font font = new java.awt.Font("Segoe UI", 3, 14);
+  private int QuantityAdminNew = 0;
+  private int QuantityCustomerNew = 0;
+  private int QuantityEmployeeNew = 0;
+  CartUserAdmin cartUserAdmin;
+
+  UserBUS userBUS = UserBUS.getInstance();
 
   private UserListPanel() {
-    initComponents();
     actionCard();
+    initComponents();
     addTable();
   }
 
@@ -28,26 +34,10 @@ public class UserListPanel extends javax.swing.JPanel {
   }
 
   private void initComponents() {
-    java.awt.GridBagConstraints gridBagConstraints;
 
     titlePanel = new javax.swing.JLabel();
     contend = new javax.swing.JPanel();
     cartPanel = new javax.swing.JPanel();
-    employeeCart = new javax.swing.JPanel();
-    iconEmployee = new javax.swing.JLabel();
-    textEmployee = new javax.swing.JLabel();
-    newEmployee = new javax.swing.JLabel();
-    quantityEmployee = new javax.swing.JLabel();
-    adminCart = new javax.swing.JPanel();
-    iconAdmin = new javax.swing.JLabel();
-    textAdmin = new javax.swing.JLabel();
-    newAdmin = new javax.swing.JLabel();
-    quantityAdmin = new javax.swing.JLabel();
-    customerCart = new javax.swing.JPanel();
-    iconCustomer = new javax.swing.JLabel();
-    textCustomer = new javax.swing.JLabel();
-    newCustomer = new javax.swing.JLabel();
-    quantityCustomer = new javax.swing.JLabel();
     contendTable = new javax.swing.JPanel();
     buttonPanel = new javax.swing.JPanel();
     buttonFilter = new javax.swing.JPanel();
@@ -64,14 +54,18 @@ public class UserListPanel extends javax.swing.JPanel {
     nameText = new javax.swing.JLabel();
     phoneText = new javax.swing.JLabel();
     emailText = new javax.swing.JLabel();
-    roleText = new javax.swing.JTextField();
-    statusText = new javax.swing.JTextField();
+    roleText = new javax.swing.JLabel();
+    statusText = new javax.swing.JLabel();
     scrollPane = new javax.swing.JScrollPane();
+    panelItemHeader_1 = new javax.swing.JPanel();
+    panelItemHeader_2 = new javax.swing.JPanel();
+
     table = new javax.swing.JPanel();
+    label = new javax.swing.JLabel();
 
     setLayout(new java.awt.BorderLayout());
 
-    titlePanel.setFont(font);
+    titlePanel.setFont(new java.awt.Font("Segoe UI", 3, 14));
     titlePanel.setText("User List");
     add(titlePanel, java.awt.BorderLayout.NORTH);
 
@@ -79,91 +73,17 @@ public class UserListPanel extends javax.swing.JPanel {
 
     cartPanel.setLayout(new java.awt.GridLayout(1, 0, 50, 0));
 
-    employeeCart.setBackground(new java.awt.Color(255, 204, 255));
-    employeeCart.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-    employeeCart.setLayout(new java.awt.BorderLayout());
+    cartUserAdmin = new CartUserAdmin("/resources/icons/employeeCart.png", "EMPLOYEE", QuantityEmployee, QuantityEmployeeNew);
 
-    iconEmployee.setIcon(
-      new javax.swing.ImageIcon(
-        getClass().getResource("/resources/icons/employeeCart.png")
-      )
-    );
-    employeeCart.add(iconEmployee, java.awt.BorderLayout.WEST);
+    cartPanel.add(cartUserAdmin);
 
-    textEmployee.setFont(font);
-    textEmployee.setForeground(new java.awt.Color(255, 51, 51));
-    textEmployee.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-    textEmployee.setText("EMPLOYEE");
-    employeeCart.add(textEmployee, java.awt.BorderLayout.PAGE_START);
+    cartUserAdmin = new CartUserAdmin("/resources/icons/adminCart.png", "ADMIN", QuantityAdmin, QuantityAdminNew);
 
-    newEmployee.setFont(new java.awt.Font("Segoe UI", 3, 12));
-    newEmployee.setText("New User: 100");
-    employeeCart.add(newEmployee, java.awt.BorderLayout.PAGE_END);
+    cartPanel.add(cartUserAdmin);
 
-    quantityEmployee.setFont(new java.awt.Font("Segoe UI", 0, 16));
-    quantityEmployee.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-    quantityEmployee.setText("10000");
-    employeeCart.add(quantityEmployee, java.awt.BorderLayout.CENTER);
+    cartUserAdmin = new CartUserAdmin("/resources/icons/customerCart.png", "CUSTOMER", QuantityCustomer, QuantityCustomerNew);
 
-    cartPanel.add(employeeCart);
-
-    adminCart.setBackground(new java.awt.Color(220, 207, 189));
-    adminCart.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-    adminCart.setPreferredSize(new java.awt.Dimension(145, 100));
-    adminCart.setLayout(new java.awt.BorderLayout());
-
-    iconAdmin.setIcon(
-      new javax.swing.ImageIcon(
-        getClass().getResource("/resources/icons/adminCart.png")
-      )
-    );
-    adminCart.add(iconAdmin, java.awt.BorderLayout.WEST);
-
-    textAdmin.setFont(new java.awt.Font("Segoe UI", 1, 14));
-    textAdmin.setForeground(new java.awt.Color(255, 51, 51));
-    textAdmin.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-    textAdmin.setText("ADMIN");
-    adminCart.add(textAdmin, java.awt.BorderLayout.PAGE_START);
-
-    newAdmin.setFont(new java.awt.Font("Segoe UI", 3, 12));
-    newAdmin.setText("New User: 100");
-    adminCart.add(newAdmin, java.awt.BorderLayout.PAGE_END);
-
-    quantityAdmin.setFont(new java.awt.Font("Segoe UI", 0, 16));
-    quantityAdmin.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-    quantityAdmin.setText("10000");
-    adminCart.add(quantityAdmin, java.awt.BorderLayout.CENTER);
-
-    cartPanel.add(adminCart);
-
-    customerCart.setBackground(new java.awt.Color(242, 149, 158));
-    customerCart.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-    customerCart.setPreferredSize(new java.awt.Dimension(145, 100));
-    customerCart.setLayout(new java.awt.BorderLayout());
-
-    iconCustomer.setIcon(
-      new javax.swing.ImageIcon(
-        getClass().getResource("/resources/icons/customerCart.png")
-      )
-    );
-    customerCart.add(iconCustomer, java.awt.BorderLayout.WEST);
-
-    textCustomer.setFont(font);
-    textCustomer.setForeground(new java.awt.Color(255, 51, 51));
-    textCustomer.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-    textCustomer.setText("CUSTOMER");
-    customerCart.add(textCustomer, java.awt.BorderLayout.PAGE_START);
-
-    newCustomer.setFont(new java.awt.Font("Segoe UI", 3, 12));
-    newCustomer.setText("New User: 100");
-    customerCart.add(newCustomer, java.awt.BorderLayout.PAGE_END);
-
-    quantityCustomer.setFont(new java.awt.Font("Segoe UI", 0, 16));
-    quantityCustomer.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-    quantityCustomer.setText("10000");
-    customerCart.add(quantityCustomer, java.awt.BorderLayout.CENTER);
-
-    cartPanel.add(customerCart);
+    cartPanel.add(cartUserAdmin);
 
     contend.add(cartPanel, java.awt.BorderLayout.PAGE_START);
 
@@ -216,96 +136,45 @@ public class UserListPanel extends javax.swing.JPanel {
     tablePanel.setLayout(new java.awt.BorderLayout());
 
     headerTable.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-    headerTable.setPreferredSize(new java.awt.Dimension(670, 40));
-    java.awt.GridBagLayout headerTableLayout = new java.awt.GridBagLayout();
-    headerTableLayout.columnWeights =
-      new double[] { 1.0, 2.0, 3.0, 4.0, 5.0, 6.0 };
-    headerTable.setLayout(headerTableLayout);
 
-    serialText.setFont(new java.awt.Font("Segoe UI", 0, 14));
-    serialText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+    headerTable.setLayout(new java.awt.GridLayout());
+
+    panelItemHeader_1.setLayout(new java.awt.GridLayout(1,2));
+
+    panelItemHeader_1.add(label);
+
+    serialText.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
     serialText.setText("Serial");
-    serialText.setMaximumSize(new java.awt.Dimension(16, 18));
-    serialText.setMinimumSize(new java.awt.Dimension(16, 18));
-    serialText.setName("");
-    serialText.setPreferredSize(new java.awt.Dimension(16, 19));
-    gridBagConstraints = new java.awt.GridBagConstraints();
-    gridBagConstraints.gridx = 1;
-    gridBagConstraints.gridy = 0;
-    gridBagConstraints.gridheight = 2;
-    gridBagConstraints.ipadx = 18;
-    gridBagConstraints.ipady = 35;
-    gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-    gridBagConstraints.insets = new java.awt.Insets(0, 6, 0, 0);
-    headerTable.add(serialText, gridBagConstraints);
 
-    nameText.setFont(new java.awt.Font("Segoe UI", 0, 14));
+    panelItemHeader_1.add(serialText);
+
+    headerTable.add(panelItemHeader_1);
+
+    nameText.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
     nameText.setText("Name");
-    gridBagConstraints = new java.awt.GridBagConstraints();
-    gridBagConstraints.gridx = 2;
-    gridBagConstraints.gridy = 0;
-    gridBagConstraints.gridheight = 2;
-    gridBagConstraints.ipadx = 99;
-    gridBagConstraints.ipady = 33;
-    gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-    gridBagConstraints.insets = new java.awt.Insets(0, 18, 0, 0);
-    headerTable.add(nameText, gridBagConstraints);
+    headerTable.add(nameText);
 
-    phoneText.setFont(new java.awt.Font("Segoe UI", 0, 14));
+    phoneText.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
     phoneText.setText("Phone");
-    gridBagConstraints = new java.awt.GridBagConstraints();
-    gridBagConstraints.gridx = 3;
-    gridBagConstraints.gridy = 0;
-    gridBagConstraints.gridheight = 2;
-    gridBagConstraints.ipadx = 70;
-    gridBagConstraints.ipady = 33;
-    gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-    gridBagConstraints.insets = new java.awt.Insets(0, 12, 0, 0);
-    headerTable.add(phoneText, gridBagConstraints);
+    headerTable.add(phoneText);
 
-    emailText.setFont(new java.awt.Font("Segoe UI", 0, 14));
+    emailText.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
     emailText.setText("Email");
-    gridBagConstraints = new java.awt.GridBagConstraints();
-    gridBagConstraints.gridx = 4;
-    gridBagConstraints.gridy = 0;
-    gridBagConstraints.gridheight = 2;
-    gridBagConstraints.ipadx = 120;
-    gridBagConstraints.ipady = 33;
-    gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-    gridBagConstraints.insets = new java.awt.Insets(0, 6, 0, 0);
-    headerTable.add(emailText, gridBagConstraints);
+    headerTable.add(emailText);
 
-    roleText.setEditable(false);
-    roleText.setFont(new java.awt.Font("Segoe UI", 0, 14));
-    roleText.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-    roleText.setText("ROLE");
-    roleText.setBorder(null);
+    panelItemHeader_2.setLayout(new java.awt.GridLayout(1,2));
 
-    gridBagConstraints = new java.awt.GridBagConstraints();
-    gridBagConstraints.gridx = 5;
-    gridBagConstraints.gridy = 0;
-    gridBagConstraints.ipady = 20;
-    gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-    gridBagConstraints.insets = new java.awt.Insets(6, 6, 0, 0);
-    headerTable.add(roleText, gridBagConstraints);
+    
+    roleText.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+    roleText.setText("Role");
+    panelItemHeader_2.add(roleText);
 
-    statusText.setEditable(false);
-    statusText.setFont(new java.awt.Font("Segoe UI", 0, 14));
-    statusText.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-    statusText.setText("STATUS");
-    statusText.setBorder(null);
-    statusText.setMinimumSize(new java.awt.Dimension(50, 26));
-    statusText.setPreferredSize(new java.awt.Dimension(50, 26));
+    statusText.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+    statusText.setText("Status");
+    panelItemHeader_2.add(statusText);
 
-    gridBagConstraints = new java.awt.GridBagConstraints();
-    gridBagConstraints.gridx = 6;
-    gridBagConstraints.gridy = 0;
-    gridBagConstraints.ipadx = 28;
-    gridBagConstraints.ipady = 15;
-    gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-    gridBagConstraints.insets = new java.awt.Insets(6, 18, 0, 6);
-    headerTable.add(statusText, gridBagConstraints);
-
+    headerTable.add(panelItemHeader_2);
+    
     tablePanel.add(headerTable, java.awt.BorderLayout.PAGE_START);
 
     scrollPane.setViewportView(table);
@@ -320,68 +189,51 @@ public class UserListPanel extends javax.swing.JPanel {
   } // </editor-fold>//GEN-END:initComponents
 
   public void actionCard() {
-    int QuantityAdminNew = 0;
-    int QuantityCustomerNew = 0;
-    int QuantityEmployeeNew = 0;
     QuantityAdmin = 0;
     QuantityCustomer = 0;
     QuantityEmployee = 0;
     QuantityUser = 0;
-    List<UserModel> userList = UserBUS.getInstance().getAllModels();
+    List<UserModel> userList = userBUS.getAllModels();
     for (UserModel user : userList) {
       LocalDateTime getTime = user.getCreatedAt();
       LocalDateTime timeNow = LocalDateTime.now();
       Duration duration = Duration.between(getTime, timeNow);
       long daysDiff = duration.toMillis();
+
       if (!user.getStatus().toString().equals("BANNED")) {
         QuantityUser = QuantityUser + 1;
+
         if (user.getRole().toString().equals("ADMIN")) {
           QuantityAdmin = QuantityAdmin + 1;
+
           if (daysDiff <= 7) {
             QuantityAdminNew = QuantityAdminNew + 1;
           }
         } else if (user.getRole().toString().equals("EMPLOYEE")) {
           QuantityEmployee = QuantityEmployee + 1;
+
           if (daysDiff <= 7) {
             QuantityEmployeeNew = QuantityEmployeeNew + 1;
           }
         } else {
           QuantityCustomer = QuantityCustomer + 1;
+
           if (daysDiff <= 7) {
             QuantityCustomerNew = QuantityCustomerNew + 1;
           }
         }
       }
     }
-    newAdmin.setText("New User: " + QuantityAdminNew);
-    newCustomer.setText("New User: " + QuantityCustomerNew);
-    newEmployee.setText("New User: " + QuantityEmployeeNew);
-
-    quantityAdmin.setText("" + QuantityAdmin);
-    quantityCustomer.setText("" + QuantityCustomer);
-    quantityEmployee.setText("" + QuantityEmployee);
   }
 
   public void addTable() {
     table.removeAll();
-    table.setLayout(new GridLayout(0, 1));
+    table.setLayout(new GridLayout(0, 1,0,20));
     List<UserModel> userList = UserBUS.getInstance().getAllModels();
     int serial = 0;
     for (UserModel user : userList) {
       if (!user.getStatus().toString().equals("BANNED")) {
-        UserPanel userForm = new UserPanel(
-          serial,
-          user.getId(),
-          user.getUsername(),
-          user.getPassword(),
-          user.getStatus(),
-          user.getName(),
-          user.getEmail(),
-          user.getPhone(),
-          user.getRole(),
-          user.getCreatedAt(),
-          user.getUpdatedAt()
-        );
+        UserPanel userForm = new UserPanel(serial,user);
         table.add(userForm);
         serial++;
       }
@@ -397,19 +249,7 @@ public class UserListPanel extends javax.swing.JPanel {
     table.setLayout(new GridLayout(0, 1, 10, 10));
     for (UserModel user : list) {
       if (!user.getStatus().toString().equals("BANNED")) {
-        UserPanel userForm = new UserPanel(
-          1,
-          user.getId(),
-          user.getUsername(),
-          user.getPassword(),
-          user.getStatus(),
-          user.getName(),
-          user.getEmail(),
-          user.getPhone(),
-          user.getRole(),
-          user.getCreatedAt(),
-          user.getUpdatedAt()
-        );
+        UserPanel userForm = new UserPanel(1,user);
         table.add(userForm);
       }
     }
@@ -418,7 +258,6 @@ public class UserListPanel extends javax.swing.JPanel {
   }
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
-  private javax.swing.JPanel adminCart;
   private javax.swing.JPanel buttonAction;
   private javax.swing.JButton buttonBanned;
   private javax.swing.JButton buttonCreate;
@@ -427,39 +266,29 @@ public class UserListPanel extends javax.swing.JPanel {
   private javax.swing.JPanel cartPanel;
   private javax.swing.JPanel contend;
   private javax.swing.JPanel contendTable;
-  private javax.swing.JPanel customerCart;
   private javax.swing.JLabel emailText;
-  private javax.swing.JPanel employeeCart;
   private javax.swing.JButton filterAdmin;
   private javax.swing.JButton filterAll;
   private javax.swing.JButton filterCustomer;
   private javax.swing.JButton filterEmployee;
   private javax.swing.JPanel headerTable;
-  private javax.swing.JLabel iconAdmin;
-  private javax.swing.JLabel iconCustomer;
-  private javax.swing.JLabel iconEmployee;
   private javax.swing.JLabel nameText;
-  private javax.swing.JLabel newAdmin;
-  private javax.swing.JLabel newCustomer;
-  private javax.swing.JLabel newEmployee;
   private javax.swing.JLabel phoneText;
-  private javax.swing.JLabel quantityAdmin;
-  private javax.swing.JLabel quantityCustomer;
-  private javax.swing.JLabel quantityEmployee;
-  private javax.swing.JTextField roleText;
+  private javax.swing.JLabel roleText;
   private javax.swing.JScrollPane scrollPane;
   private javax.swing.JLabel serialText;
-  private javax.swing.JTextField statusText;
+  private javax.swing.JLabel statusText;
   private javax.swing.JPanel table;
   private javax.swing.JPanel tablePanel;
-  private javax.swing.JLabel textAdmin;
-  private javax.swing.JLabel textCustomer;
-  private javax.swing.JLabel textEmployee;
   private javax.swing.JLabel titlePanel;
-  private int QuantityAdmin;
-  private int QuantityCustomer;
-  private int QuantityUser;
-  private int QuantityEmployee;
+  private javax.swing.JPanel panelItemHeader_1;
+  private javax.swing.JPanel panelItemHeader_2;
+  private javax.swing.JLabel label;
+
+  private int QuantityAdmin = 0;
+  private int QuantityCustomer = 0;
+  private int QuantityUser = 0;
+  private int QuantityEmployee = 0;
   // End of variables declaration//GEN-END:variables
 
   public ActionListener actionCreate = new ActionListener() {
@@ -522,19 +351,7 @@ public class UserListPanel extends javax.swing.JPanel {
           user.getRole().toString().equals("ADMIN") &&
           !user.getStatus().toString().equals("BANNED")
         ) {
-          UserPanel userForm = new UserPanel(
-            serial,
-            user.getId(),
-            user.getUsername(),
-            user.getPassword(),
-            user.getStatus(),
-            user.getName(),
-            user.getEmail(),
-            user.getPhone(),
-            user.getRole(),
-            user.getCreatedAt(),
-            user.getUpdatedAt()
-          );
+          UserPanel userForm = new UserPanel(serial,user);
           table.add(userForm);
           serial++;
         }
@@ -555,19 +372,7 @@ public class UserListPanel extends javax.swing.JPanel {
           user.getRole().toString().equals("EMPLOYEE") &&
           !user.getStatus().toString().equals("BANNED")
         ) {
-          UserPanel userForm = new UserPanel(
-            serial,
-            user.getId(),
-            user.getUsername(),
-            user.getPassword(),
-            user.getStatus(),
-            user.getName(),
-            user.getEmail(),
-            user.getPhone(),
-            user.getRole(),
-            user.getCreatedAt(),
-            user.getUpdatedAt()
-          );
+          UserPanel userForm = new UserPanel(serial,user);
           table.add(userForm);
           serial++;
         }
@@ -588,19 +393,7 @@ public class UserListPanel extends javax.swing.JPanel {
           user.getRole().toString().equals("CUSTOMER") &&
           !user.getStatus().toString().equals("BANNED")
         ) {
-          UserPanel userForm = new UserPanel(
-            serial,
-            user.getId(),
-            user.getUsername(),
-            user.getPassword(),
-            user.getStatus(),
-            user.getName(),
-            user.getEmail(),
-            user.getPhone(),
-            user.getRole(),
-            user.getCreatedAt(),
-            user.getUpdatedAt()
-          );
+          UserPanel userForm = new UserPanel(serial,user);
           table.add(userForm);
           serial++;
         }

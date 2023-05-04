@@ -13,51 +13,18 @@ import javax.swing.*;
 
 public class PopupUserFrame extends javax.swing.JFrame {
 
-  public PopupUserFrame(
-    int idUser,
-    String userName,
-    String password,
-    UserStatus status,
-    String name,
-    String email,
-    String phone,
-    UserRole role,
-    LocalDateTime dateCreate,
-    LocalDateTime dateUpdate
-  ) {
-    initComponents(
-      idUser,
-      userName,
-      password,
-      status,
-      name,
-      email,
-      phone,
-      role,
-      dateCreate,
-      dateUpdate
-    );
-    setStatus(status);
-    setRole(role);
-    setAddress(idUser);
+  public PopupUserFrame(UserModel user) {
+    initComponents(user);
+    setStatus(user.getStatus());
+    setRole(user.getRole());
+    setAddress(user.getId());
     setTitle("User");
     setLocationRelativeTo(null);
     setResizable(false);
     this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
   }
 
-  private void initComponents(
-    int idUser,
-    String userName,
-    String password,
-    UserStatus status,
-    String name,
-    String email,
-    String phone,
-    UserRole role,
-    LocalDateTime dateCreate,
-    LocalDateTime dateUpdate
-  ) {
+  private void initComponents(UserModel user) {
     setName = new javax.swing.JTextField();
     idText = new javax.swing.JLabel();
     setId = new javax.swing.JTextField();
@@ -89,7 +56,7 @@ public class PopupUserFrame extends javax.swing.JFrame {
 
     setName.setFont(new java.awt.Font("Segoe UI", 1, 14));
     setName.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-    setName.setText(name);
+    setName.setText(user.getName());
     setName.setMaximumSize(new java.awt.Dimension(642, 26));
     setName.setMinimumSize(new java.awt.Dimension(642, 26));
     setName.setPreferredSize(new java.awt.Dimension(578, 26));
@@ -104,7 +71,7 @@ public class PopupUserFrame extends javax.swing.JFrame {
     setId.setEditable(false);
     setId.setFont(new java.awt.Font("Segoe UI", 1, 18));
     setId.setForeground(new java.awt.Color(255, 51, 51));
-    setId.setText("" + idUser);
+    setId.setText("" + user.getId());
     setId.setPreferredSize(new java.awt.Dimension(180, 31));
     getContentPane().add(setId);
 
@@ -117,7 +84,7 @@ public class PopupUserFrame extends javax.swing.JFrame {
     setUserName.setEditable(false);
     setUserName.setFont(new java.awt.Font("Segoe UI", 1, 18));
     setUserName.setForeground(new java.awt.Color(51, 204, 255));
-    setUserName.setText("" + userName);
+    setUserName.setText("" + user.getUsername());
     setUserName.setPreferredSize(new java.awt.Dimension(140, 31));
     getContentPane().add(setUserName);
 
@@ -140,7 +107,7 @@ public class PopupUserFrame extends javax.swing.JFrame {
 
     setPhone.setEditable(false);
     setPhone.setFont(new java.awt.Font("Segoe UI", 1, 16));
-    setPhone.setText(phone);
+    setPhone.setText(""+user.getPhone());
     setPhone.setPreferredSize(new java.awt.Dimension(200, 31));
     getContentPane().add(setPhone);
 
@@ -152,7 +119,7 @@ public class PopupUserFrame extends javax.swing.JFrame {
 
     setEmail.setEditable(false);
     setEmail.setFont(new java.awt.Font("Segoe UI", 1, 16));
-    setEmail.setText(email);
+    setEmail.setText(user.getEmail());
     setEmail.setPreferredSize(new java.awt.Dimension(200, 31));
     getContentPane().add(setEmail);
 
@@ -192,7 +159,7 @@ public class PopupUserFrame extends javax.swing.JFrame {
 
     getDateCreated.setEditable(false);
     getDateCreated.setFont(new java.awt.Font("Segoe UI", 1, 18));
-    getDateCreated.setText("" + dateCreate);
+    getDateCreated.setText("" + user.getCreatedAt());
     getDateCreated.setPreferredSize(new java.awt.Dimension(200, 31));
     getContentPane().add(getDateCreated);
 
@@ -204,7 +171,7 @@ public class PopupUserFrame extends javax.swing.JFrame {
 
     setDateUpdated.setEditable(false);
     setDateUpdated.setFont(new java.awt.Font("Segoe UI", 1, 18));
-    setDateUpdated.setText("" + dateUpdate);
+    setDateUpdated.setText("" + user.getUpdatedAt());
     setDateUpdated.setPreferredSize(new java.awt.Dimension(200, 31));
     getContentPane().add(setDateUpdated);
 
