@@ -3,9 +3,8 @@ package com.bookstore.gui.factories;
 import com.bookstore.dao.EmployeeDAO;
 import com.bookstore.gui.components.books.BrowseProductPanel;
 import com.bookstore.gui.components.dashboards.DashboardPanel;
-import com.bookstore.gui.components.orders.OrderListPanel;
 import com.bookstore.gui.components.panels.MainPanel;
-import com.bookstore.gui.components.users.UserListPanel;
+import com.bookstore.gui.events.general.ExitActionListener;
 import com.bookstore.gui.events.general.LogoutActionListener;
 import com.bookstore.gui.forms.accounts.AccountSettings;
 import com.bookstore.gui.forms.accounts.ProfileSettings;
@@ -71,77 +70,33 @@ public class MenuFactory {
               null
             )
           );
-          add(
-            new MenuItemModel(
-              "Repository",
-              new ImageIcon(""),
-              showHomeAdmin,
-              new ArrayList<SubMenuItemModel>() {
-                {
-                  add(
-                    new SubMenuItemModel(
-                      "List Book",
-                      new ImageIcon(""),
-                      showBookListAdmin
-                    )
-                  );
-                  add(
-                    new SubMenuItemModel(
-                      "List User",
-                      new ImageIcon(""),
-                      showUserListAdmin
-                    )
-                  );
-                  add(
-                    new SubMenuItemModel(
-                      "List Order",
-                      new ImageIcon(""),
-                      showOrderListAdmin
-                    )
-                  );
-                }
-              }
-            )
-          );
-        }
-      }
-    );
-  }
 
-  public static MenuModel getCustomerMenu() {
-    return new MenuModel(
-      new ArrayList<MenuItemModel>() {
-        {
           add(
             new MenuItemModel(
-              "Home",
-              new ImageIcon("src/main/java/resources/icons/shop.png"),
-              showHomeCustomer,
-              new ArrayList<SubMenuItemModel>() {
-                {
-                  add(
-                    new SubMenuItemModel(
-                      "Shop",
-                      new ImageIcon(""),
-                      showHomeCustomer
-                    )
-                  );
-                }
-              }
-            )
-          );
-          add(
-            new MenuItemModel(
-              "Discovery",
-              new ImageIcon(""),
+              "Report",
+              new ImageIcon("src/main/java/resources/icons/report.png"),
               null,
               new ArrayList<SubMenuItemModel>() {
                 {
                   add(
                     new SubMenuItemModel(
-                      "Discovery",
+                      "Sales report",
                       new ImageIcon(""),
-                      showDiscoveryCustomer
+                      null
+                    )
+                  );
+                  add(
+                    new SubMenuItemModel(
+                      "Import report",
+                      new ImageIcon(""),
+                      null
+                    )
+                  );
+                  add(
+                    new SubMenuItemModel(
+                      "Export report",
+                      new ImageIcon(""),
+                      null
                     )
                   );
                 }
@@ -151,41 +106,53 @@ public class MenuFactory {
 
           add(
             new MenuItemModel(
-              "Cart",
-              null,
-              null,
-              new ArrayList<SubMenuItemModel>() {
-                {
-                  add(
-                    new SubMenuItemModel(
-                      "View Cart",
-                      new ImageIcon(""),
-                      showCartCustomer
-                    )
-                  );
-                  add(
-                    new SubMenuItemModel(
-                      "Checkout",
-                      new ImageIcon(""),
-                      showCheckoutCustomer
-                    )
-                  );
-                  add(
-                    new SubMenuItemModel(
-                      "My Order",
-                      new ImageIcon(""),
-                      showMyOrderCustomer
-                    )
-                  );
-                }
-              }
+              "Customer management",
+              new ImageIcon("src/main/java/resources/icons/user.png"),
+              showCustomerList,
+              null
             )
           );
 
           add(
             new MenuItemModel(
-              "Account",
-              new ImageIcon(""),
+              "Book management",
+              new ImageIcon("src/main/java/resources/icons/book.png"),
+              showBookList,
+              null
+            )
+          );
+
+          add(
+            new MenuItemModel(
+              "Import management",
+              new ImageIcon("src/main/java/resources/icons/import.png"),
+              showImportList,
+              null
+            )
+          );
+
+          add(
+            new MenuItemModel(
+              "Order management",
+              new ImageIcon("src/main/java/resources/icons/cart.png"),
+              showOrderList,
+              null
+            )
+          );
+
+          add(
+            new MenuItemModel(
+              "Employee management",
+              new ImageIcon("src/main/java/resources/icons/user.png"),
+              showEmployeeList,
+              null
+            )
+          );
+
+          add(
+            new MenuItemModel(
+              "My account",
+              new ImageIcon("src/main/java/resources/icons/profile.jpg"),
               null,
               new ArrayList<SubMenuItemModel>() {
                 {
@@ -210,13 +177,25 @@ public class MenuFactory {
 
           add(
             new MenuItemModel(
-              "Other",
-              new ImageIcon(""),
+              "Others",
+              new ImageIcon("src/main/java/resources/icons/others.png"),
               null,
               new ArrayList<SubMenuItemModel>() {
                 {
-                  add(new SubMenuItemModel("About", new ImageIcon(""), null));
-                  add(new SubMenuItemModel("Contact", new ImageIcon(""), null));
+                  add(
+                    new SubMenuItemModel(
+                      "Contact us",
+                      new ImageIcon(""),
+                      showContact
+                    )
+                  );
+                  add(
+                    new SubMenuItemModel(
+                      "About us",
+                      new ImageIcon(""),
+                      showAboutUs
+                    )
+                  );
                 }
               }
             )
@@ -227,6 +206,126 @@ public class MenuFactory {
               "Logout",
               new ImageIcon("src/main/java/resources/icons/logout.png"),
               new LogoutActionListener(),
+              null
+            )
+          );
+
+          add(
+            new MenuItemModel(
+              "Exit",
+              new ImageIcon("src/main/java/resources/icons/exit.png"),
+              new ExitActionListener(),
+              null
+            )
+          );
+        }
+      }
+    );
+  }
+
+  public static MenuModel getCustomerMenu() {
+    return new MenuModel(
+      new ArrayList<MenuItemModel>() {
+        {
+          add(
+            new MenuItemModel(
+              "Shop",
+              new ImageIcon("src/main/java/resources/icons/shop.png"),
+              showHomeCustomer,
+              null
+            )
+          );
+
+          add(
+            new MenuItemModel(
+              "Cart",
+              new ImageIcon("src/main/java/resources/icons/cart.png"),
+              null,
+              new ArrayList<SubMenuItemModel>() {
+                {
+                  add(
+                    new SubMenuItemModel(
+                      "View Cart",
+                      new ImageIcon(""),
+                      showCartCustomer
+                    )
+                  );
+                  add(
+                    new SubMenuItemModel(
+                      "Order History",
+                      new ImageIcon(""),
+                      showMyOrderCustomer
+                    )
+                  );
+                }
+              }
+            )
+          );
+
+          add(
+            new MenuItemModel(
+              "My account",
+              new ImageIcon("src/main/java/resources/icons/profile.jpg"),
+              null,
+              new ArrayList<SubMenuItemModel>() {
+                {
+                  add(
+                    new SubMenuItemModel(
+                      "My profile",
+                      new ImageIcon(""),
+                      showProfile
+                    )
+                  );
+                  add(
+                    new SubMenuItemModel(
+                      "My account",
+                      new ImageIcon(""),
+                      showAccount
+                    )
+                  );
+                }
+              }
+            )
+          );
+
+          add(
+            new MenuItemModel(
+              "Others",
+              new ImageIcon("src/main/java/resources/icons/others.png"),
+              null,
+              new ArrayList<SubMenuItemModel>() {
+                {
+                  add(
+                    new SubMenuItemModel(
+                      "Contact us",
+                      new ImageIcon(""),
+                      showContact
+                    )
+                  );
+                  add(
+                    new SubMenuItemModel(
+                      "About us",
+                      new ImageIcon(""),
+                      showAboutUs
+                    )
+                  );
+                }
+              }
+            )
+          );
+          add(
+            new MenuItemModel(
+              "Logout",
+              new ImageIcon("src/main/java/resources/icons/logout.png"),
+              new LogoutActionListener(),
+              null
+            )
+          );
+          add(
+            new MenuItemModel(
+              "Exit",
+              new ImageIcon("src/main/java/resources/icons/exit.png"),
+              new ExitActionListener(),
               null
             )
           );
@@ -241,28 +340,48 @@ public class MenuFactory {
         {
           add(
             new MenuItemModel(
+              "Shop",
+              new ImageIcon("src/main/java/resources/icons/shop.png"),
+              null,
+              null
+            )
+          );
+
+          add(
+            new MenuItemModel(
+              "Cart",
+              new ImageIcon("src/main/java/resources/icons/cart.png"),
+              null,
+              new ArrayList<SubMenuItemModel>() {
+                {
+                  add(
+                    new SubMenuItemModel(
+                      "View Cart",
+                      new ImageIcon(""),
+                      showCartCustomer
+                    )
+                  );
+                  add(
+                    new SubMenuItemModel(
+                      "Order History",
+                      new ImageIcon(""),
+                      showMyOrderCustomer
+                    )
+                  );
+                }
+              }
+            )
+          );
+
+          add(
+            new MenuItemModel(
               "Customer management",
               new ImageIcon(""),
               showCustomerList,
               null
             )
           );
-          add(
-            new MenuItemModel(
-              "Book management",
-              new ImageIcon(""),
-              showBookList,
-              null
-            )
-          );
-          add(
-            new MenuItemModel(
-              "Import management",
-              new ImageIcon(""),
-              showImportList,
-              null
-            )
-          );
+
           add(
             new MenuItemModel(
               "Order management",
@@ -271,10 +390,11 @@ public class MenuFactory {
               null
             )
           );
+
           add(
             new MenuItemModel(
               "My account",
-              new ImageIcon(""),
+              new ImageIcon("src/main/java/resources/icons/profile.jpg"),
               null,
               new ArrayList<SubMenuItemModel>() {
                 {
@@ -296,13 +416,44 @@ public class MenuFactory {
               }
             )
           );
-          add(new MenuItemModel("Contact us", new ImageIcon(""), showContact));
-          add(new MenuItemModel("About us", new ImageIcon(""), showAboutUs));
+          add(
+            new MenuItemModel(
+              "Others",
+              new ImageIcon("src/main/java/resources/icons/others.png"),
+              null,
+              new ArrayList<SubMenuItemModel>() {
+                {
+                  add(
+                    new SubMenuItemModel(
+                      "Contact us",
+                      new ImageIcon(""),
+                      showContact
+                    )
+                  );
+                  add(
+                    new SubMenuItemModel(
+                      "About us",
+                      new ImageIcon(""),
+                      showAboutUs
+                    )
+                  );
+                }
+              }
+            )
+          );
           add(
             new MenuItemModel(
               "Logout",
-              new ImageIcon(""),
+              new ImageIcon("src/main/java/resources/icons/logout.png"),
               new LogoutActionListener(),
+              null
+            )
+          );
+          add(
+            new MenuItemModel(
+              "Exit",
+              new ImageIcon("src/main/java/resources/icons/exit.png"),
+              new ExitActionListener(),
               null
             )
           );
@@ -363,10 +514,11 @@ public class MenuFactory {
               null
             )
           );
+
           add(
             new MenuItemModel(
               "My account",
-              new ImageIcon(""),
+              new ImageIcon("src/main/java/resources/icons/profile.jpg"),
               null,
               new ArrayList<SubMenuItemModel>() {
                 {
@@ -388,13 +540,44 @@ public class MenuFactory {
               }
             )
           );
-          add(new MenuItemModel("Contact us", new ImageIcon(""), showContact));
-          add(new MenuItemModel("About us", new ImageIcon(""), showAboutUs));
+          add(
+            new MenuItemModel(
+              "Others",
+              new ImageIcon("src/main/java/resources/icons/others.png"),
+              null,
+              new ArrayList<SubMenuItemModel>() {
+                {
+                  add(
+                    new SubMenuItemModel(
+                      "Contact us",
+                      new ImageIcon(""),
+                      showContact
+                    )
+                  );
+                  add(
+                    new SubMenuItemModel(
+                      "About us",
+                      new ImageIcon(""),
+                      showAboutUs
+                    )
+                  );
+                }
+              }
+            )
+          );
           add(
             new MenuItemModel(
               "Logout",
-              new ImageIcon(""),
+              new ImageIcon("src/main/java/resources/icons/logout.png"),
               new LogoutActionListener(),
+              null
+            )
+          );
+          add(
+            new MenuItemModel(
+              "Exit",
+              new ImageIcon("src/main/java/resources/icons/exit.png"),
+              new ExitActionListener(),
               null
             )
           );
@@ -409,12 +592,6 @@ public class MenuFactory {
   };
   private static ActionListener showBookListAdmin = e -> {
     MainPanel.getInstance().showForm(BrowseProductPanel.getInstance());
-  };
-  private static ActionListener showUserListAdmin = e -> {
-    MainPanel.getInstance().showForm(UserListPanel.getInstance());
-  };
-  private static ActionListener showOrderListAdmin = e -> {
-    MainPanel.getInstance().showForm(OrderListPanel.getInstance());
   };
 
   // employee and manager

@@ -58,6 +58,7 @@ public class AddProductFrame extends JFrame {
   private JLabel statusText;
   private JLabel titleFrame;
   private JLabel titleText;
+  private String base64;
 
   public AddProductFrame() {
     initComponents();
@@ -144,31 +145,11 @@ public class AddProductFrame extends JFrame {
     getContentPane().add(publisherText);
 
     setPublisherId.setPreferredSize(new java.awt.Dimension(60, 22));
-    setPublisherId.addFocusListener(
-      new FocusListener() {
-        @Override
-        public void focusGained(FocusEvent e) {}
-
-        @Override
-        public void focusLost(FocusEvent e) {
-          checkPublisherId();
-        }
-      }
-    );
+    setPublisherId.addFocusListener(actionCheckPublisherId);
     getContentPane().add(setPublisherId);
 
     setPublisherName.setPreferredSize(new java.awt.Dimension(260, 22));
-    setPublisherName.addFocusListener(
-      new FocusListener() {
-        @Override
-        public void focusGained(FocusEvent e) {}
-
-        @Override
-        public void focusLost(FocusEvent e) {
-          checkPublisherName();
-        }
-      }
-    );
+    setPublisherName.addFocusListener(actionCheckPublisherName);
     getContentPane().add(setPublisherName);
 
     authorText.setFont(new java.awt.Font("Segoe UI", 1, 13));
@@ -177,31 +158,11 @@ public class AddProductFrame extends JFrame {
     getContentPane().add(authorText);
 
     setAuthorId.setPreferredSize(new java.awt.Dimension(60, 22));
-    setAuthorId.addFocusListener(
-      new FocusListener() {
-        @Override
-        public void focusGained(FocusEvent e) {}
-
-        @Override
-        public void focusLost(FocusEvent e) {
-          checkAuthorId();
-        }
-      }
-    );
+    setAuthorId.addFocusListener(actionCheckAuthorId);
     getContentPane().add(setAuthorId);
 
     setAuthorName.setPreferredSize(new java.awt.Dimension(260, 22));
-    setAuthorName.addFocusListener(
-      new FocusListener() {
-        @Override
-        public void focusGained(FocusEvent e) {}
-
-        @Override
-        public void focusLost(FocusEvent e) {
-          checkAuthorName();
-        }
-      }
-    );
+    setAuthorName.addFocusListener(actionCheckAuthorName);
     getContentPane().add(setAuthorName);
 
     imageText.setFont(new java.awt.Font("Segoe UI", 1, 13));
@@ -213,18 +174,10 @@ public class AddProductFrame extends JFrame {
     getContentPane().add(setImageLink);
 
     chooseLink.setIcon(
-      new ImageIcon(getClass().getResource("/resources/icons/categories.png"))
-    );
+        new ImageIcon(getClass().getResource("/resources/icons/categories.png")));
     chooseLink.setActionCommand("+");
     chooseLink.setPreferredSize(new java.awt.Dimension(50, 23));
-    chooseLink.addActionListener(
-      new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-          actionAddLinkImage();
-        }
-      }
-    );
+    chooseLink.addActionListener(actionAddLinkImage);
     getContentPane().add(chooseLink);
 
     statusText.setFont(new java.awt.Font("Segoe UI", 1, 13));
@@ -234,10 +187,8 @@ public class AddProductFrame extends JFrame {
     getContentPane().add(statusText);
 
     setStatus.setModel(
-      new DefaultComboBoxModel<>(
-        new String[] { "available", "unavailable", "deleted" }
-      )
-    );
+        new DefaultComboBoxModel<>(
+            new String[] { "available", "unavailable", "deleted" }));
     getContentPane().add(setStatus);
 
     scrollPane.setPreferredSize(new java.awt.Dimension(550, 100));
@@ -252,36 +203,18 @@ public class AddProductFrame extends JFrame {
 
     buttonPanel.setPreferredSize(new java.awt.Dimension(300, 50));
     buttonPanel.setLayout(
-      new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 50, 20)
-    );
+        new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 50, 20));
 
     buttonBack.setIcon(
-      new ImageIcon(getClass().getResource("/resources/icons/back.png"))
-    );
+        new ImageIcon(getClass().getResource("/resources/icons/back.png")));
     buttonBack.setPreferredSize(new java.awt.Dimension(72, 23));
-    buttonBack.addActionListener(
-      new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-          JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(buttonBack);
-          frame.dispose();
-        }
-      }
-    );
+    buttonBack.addActionListener(actionBack);
     buttonPanel.add(buttonBack);
 
     buttonSave.setIcon(
-      new ImageIcon(getClass().getResource("/resources/icons/save.png"))
-    );
+        new ImageIcon(getClass().getResource("/resources/icons/save.png")));
     buttonSave.setPreferredSize(new java.awt.Dimension(72, 23));
-    buttonSave.addActionListener(
-      new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-          actionAdd();
-        }
-      }
-    );
+    buttonSave.addActionListener(actionSave);
     buttonPanel.add(buttonSave);
 
     getContentPane().add(buttonPanel);
@@ -289,82 +222,16 @@ public class AddProductFrame extends JFrame {
     pack();
   }
 
-  public String actionAddLinkImage() {
-    JFileChooser fileChooser = new JFileChooser();
-    int returnValue = fileChooser.showOpenDialog(null);
-    if (returnValue == JFileChooser.APPROVE_OPTION) {
-      File selectedFile = fileChooser.getSelectedFile();
-      String filePath = selectedFile.getAbsolutePath();
-      setImageLink.setText(filePath);
-
-      // get image from file path
-      String base64 = null;
-      try {
-        base64 = ImageUtils.toBase64(ImageUtils.loadImage(filePath));
-        Toolkit
-          .getDefaultToolkit()
-          .getSystemClipboard()
-          .setContents(new StringSelection(base64), null);
-        stringImage = base64;
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-      return base64;
-    }
-    return null;
-  }
-
-  public void checkPublisherId() {
-    if (
-      PublisherBUS
-        .getInstance()
-        .getModelById(Integer.parseInt(setPublisherId.getText().trim())) !=
-      null
-    ) {
-      setPublisherName.setText(
-        PublisherBUS
-          .getInstance()
-          .getModelById(Integer.parseInt(setPublisherId.getText().trim()))
-          .getName()
-      );
-    } else {
-      setPublisherName.setText(null);
-    }
-  }
-
-  public void checkAuthorId() {
-    if (
-      AuthorBUS
-        .getInstance()
-        .getModelById(Integer.parseInt(setAuthorId.getText().trim())) !=
-      null
-    ) {
-      setAuthorName.setText(
-        AuthorBUS
-          .getInstance()
-          .getModelById(Integer.parseInt(setAuthorId.getText().trim()))
-          .getName()
-      );
-    } else {
-      setAuthorName.setText(null);
-    }
-  }
-
   public Boolean checkPublisherName() {
-    if (
-      PublisherBUS
+    if (PublisherBUS
         .getInstance()
-        .getModelByPublisherName(setPublisherName.getText().trim()) !=
-      null
-    ) {
+        .getModelByPublisherName(setPublisherName.getText().trim()) != null) {
       setPublisherId.setText(
-        String.valueOf(
-          PublisherBUS
-            .getInstance()
-            .getModelByPublisherName(setPublisherName.getText().trim())
-            .getId()
-        )
-      );
+          String.valueOf(
+              PublisherBUS
+                  .getInstance()
+                  .getModelByPublisherName(setPublisherName.getText().trim())
+                  .getId()));
       return true;
     } else {
       setPublisherId.setText(null);
@@ -373,20 +240,15 @@ public class AddProductFrame extends JFrame {
   }
 
   public Boolean checkAuthorName() {
-    if (
-      AuthorBUS
+    if (AuthorBUS
         .getInstance()
-        .getModelByAuthorName(setAuthorName.getText().trim()) !=
-      null
-    ) {
+        .getModelByAuthorName(setAuthorName.getText().trim()) != null) {
       setAuthorId.setText(
-        String.valueOf(
-          AuthorBUS
-            .getInstance()
-            .getModelByAuthorName(setAuthorName.getText().trim())
-            .getId()
-        )
-      );
+          String.valueOf(
+              AuthorBUS
+                  .getInstance()
+                  .getModelByAuthorName(setAuthorName.getText().trim())
+                  .getId()));
       return true;
     } else {
       setAuthorId.setText(null);
@@ -394,135 +256,240 @@ public class AddProductFrame extends JFrame {
     }
   }
 
-  public void actionAdd() {
-    final String EMPTY_FIELD_ERROR = " cannot be empty!";
-    final String INVALID_PRICE_ERROR = "Price is not valid!";
-    final String INVALID_QUANTITY_ERROR = "Quantity is not valid!";
-    final String DUPLICATE_ISBN_ERROR = "Isbn already exists!";
-    final String DUPLICATE_TITLE_ERROR = "Title already exists!";
+  public FocusListener actionCheckPublisherId = new FocusListener() {
 
-    if (setIsbn.getText().trim().isEmpty()) {
-      JOptionPane.showMessageDialog(null, "Isbn" + EMPTY_FIELD_ERROR);
-      return;
+    @Override
+    public void focusGained(FocusEvent e) {
+
     }
 
-    if (setTitle.getText().trim().isEmpty()) {
-      JOptionPane.showMessageDialog(null, "Title" + EMPTY_FIELD_ERROR);
-      return;
-    }
-
-    try {
-      int price = Integer.parseInt(setPrice.getText().trim());
-      if (price <= 0) {
-        throw new NumberFormatException();
-      }
-    } catch (NumberFormatException e) {
-      JOptionPane.showMessageDialog(null, INVALID_PRICE_ERROR);
-      return;
-    }
-
-    try {
-      int quantity = Integer.parseInt(setQuantity.getText().trim());
-      if (quantity <= 0) {
-        throw new NumberFormatException();
-      }
-    } catch (NumberFormatException e) {
-      JOptionPane.showMessageDialog(null, INVALID_QUANTITY_ERROR);
-      return;
-    }
-
-    if (setPublisherName.getText().trim().isEmpty()) {
-      JOptionPane.showMessageDialog(null, "Publisher Name" + EMPTY_FIELD_ERROR);
-      return;
-    }
-
-    if (setAuthorName.getText().trim().isEmpty()) {
-      JOptionPane.showMessageDialog(null, "Author Name" + EMPTY_FIELD_ERROR);
-      return;
-    }
-
-    if (
-      BookBUS
-        .getInstance()
-        .checkForDuplicate(
-          Arrays.asList(setIsbn.getText()),
-          new String[] { "isbn" }
-        )
-    ) {
-      JOptionPane.showMessageDialog(null, DUPLICATE_ISBN_ERROR);
-      return;
-    }
-    if (
-      BookBUS
-        .getInstance()
-        .checkForDuplicate(
-          Arrays.asList(setTitle.getText()),
-          new String[] { "title" }
-        )
-    ) {
-      JOptionPane.showMessageDialog(null, DUPLICATE_TITLE_ERROR);
-      return;
-    }
-
-    if (!checkPublisherName()) {
-      int choice = JOptionPane.showConfirmDialog(
-        null,
-        "Do you want to add new publisher?"
-      );
-      if (choice == JOptionPane.YES_OPTION) {
-        PublisherModel publisherModel = new PublisherModel(
-          0,
-          setPublisherName.getText().trim(),
-          "description ?"
-        );
-        PublisherBUS.getInstance().addModel(publisherModel);
-        PublisherBUS.getInstance().refreshData();
+    @Override
+    public void focusLost(FocusEvent e) {
+      if (PublisherBUS
+          .getInstance()
+          .getModelById(Integer.parseInt(setPublisherId.getText().trim())) != null) {
+        setPublisherName.setText(
+            PublisherBUS
+                .getInstance()
+                .getModelById(Integer.parseInt(setPublisherId.getText().trim()))
+                .getName());
       } else {
+        setPublisherName.setText(null);
+      }
+    }
+
+  };
+
+  public FocusListener actionCheckPublisherName = new FocusListener() {
+
+    @Override
+    public void focusGained(FocusEvent e) {
+
+    }
+
+    @Override
+    public void focusLost(FocusEvent e) {
+      checkPublisherName();
+    }
+
+  };
+
+  public FocusListener actionCheckAuthorId = new FocusListener() {
+
+    @Override
+    public void focusGained(FocusEvent e) {
+
+    }
+
+    @Override
+    public void focusLost(FocusEvent e) {
+      if (AuthorBUS
+          .getInstance()
+          .getModelById(Integer.parseInt(setAuthorId.getText().trim())) != null) {
+        setAuthorName.setText(
+            AuthorBUS
+                .getInstance()
+                .getModelById(Integer.parseInt(setAuthorId.getText().trim()))
+                .getName());
+      } else {
+        setAuthorName.setText(null);
+      }
+    }
+
+  };
+
+  public FocusListener actionCheckAuthorName = new FocusListener() {
+
+    @Override
+    public void focusGained(FocusEvent e) {
+
+    }
+
+    @Override
+    public void focusLost(FocusEvent e) {
+      checkAuthorName();
+    }
+
+  };
+
+  public ActionListener actionAddLinkImage = new ActionListener() {
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+      JFileChooser fileChooser = new JFileChooser();
+      int returnValue = fileChooser.showOpenDialog(null);
+      if (returnValue == JFileChooser.APPROVE_OPTION) {
+        File selectedFile = fileChooser.getSelectedFile();
+        String filePath = selectedFile.getAbsolutePath();
+        setImageLink.setText(filePath);
+
+        // get image from file path
+        base64 = null;
+        try {
+          base64 = ImageUtils.toBase64(ImageUtils.loadImage(filePath));
+          Toolkit
+              .getDefaultToolkit()
+              .getSystemClipboard()
+              .setContents(new StringSelection(base64), null);
+          stringImage = base64;
+        } catch (IOException ex) {
+          ex.printStackTrace();
+        }
+      }
+    }
+
+  };
+  public ActionListener actionBack = new ActionListener() {
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+      JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(buttonBack);
+      frame.dispose();
+    }
+
+  };
+
+  public ActionListener actionSave = new ActionListener() {
+
+    @Override
+    public void actionPerformed(ActionEvent evt) {
+      final String EMPTY_FIELD_ERROR = " cannot be empty!";
+      final String INVALID_PRICE_ERROR = "Price is not valid!";
+      final String INVALID_QUANTITY_ERROR = "Quantity is not valid!";
+      final String DUPLICATE_ISBN_ERROR = "Isbn already exists!";
+      final String DUPLICATE_TITLE_ERROR = "Title already exists!";
+
+      if (setIsbn.getText().trim().isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Isbn" + EMPTY_FIELD_ERROR);
         return;
       }
-    }
-    if (!checkAuthorName()) {
-      int choice = JOptionPane.showConfirmDialog(
-        null,
-        "Do you want to add new author?"
-      );
-      if (choice == JOptionPane.YES_OPTION) {
-        AuthorModel authorModel = new AuthorModel(
-          0,
-          setAuthorName.getText().trim(),
-          "description ?"
-        );
-        AuthorBUS.getInstance().addModel(authorModel);
-        AuthorBUS.getInstance().refreshData();
-      } else {
+
+      if (setTitle.getText().trim().isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Title" + EMPTY_FIELD_ERROR);
         return;
       }
+
+      try {
+        int price = Integer.parseInt(setPrice.getText().trim());
+        if (price <= 0) {
+          throw new NumberFormatException();
+        }
+      } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(null, INVALID_PRICE_ERROR);
+        return;
+      }
+
+      try {
+        int quantity = Integer.parseInt(setQuantity.getText().trim());
+        if (quantity <= 0) {
+          throw new NumberFormatException();
+        }
+      } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(null, INVALID_QUANTITY_ERROR);
+        return;
+      }
+
+      if (setPublisherName.getText().trim().isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Publisher Name" + EMPTY_FIELD_ERROR);
+        return;
+      }
+
+      if (setAuthorName.getText().trim().isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Author Name" + EMPTY_FIELD_ERROR);
+        return;
+      }
+
+      if (BookBUS
+          .getInstance()
+          .checkForDuplicate(
+              Arrays.asList(setIsbn.getText()),
+              new String[] { "isbn" })) {
+        JOptionPane.showMessageDialog(null, DUPLICATE_ISBN_ERROR);
+        return;
+      }
+      if (BookBUS
+          .getInstance()
+          .checkForDuplicate(
+              Arrays.asList(setTitle.getText()),
+              new String[] { "title" })) {
+        JOptionPane.showMessageDialog(null, DUPLICATE_TITLE_ERROR);
+        return;
+      }
+
+      if (!checkPublisherName()) {
+        int choice = JOptionPane.showConfirmDialog(
+            null,
+            "Do you want to add new publisher?");
+        if (choice == JOptionPane.YES_OPTION) {
+          PublisherModel publisherModel = new PublisherModel(
+              0,
+              setPublisherName.getText().trim(),
+              "description ?");
+          PublisherBUS.getInstance().addModel(publisherModel);
+          PublisherBUS.getInstance().refreshData();
+        } else {
+          return;
+        }
+      }
+      if (!checkAuthorName()) {
+        int choice = JOptionPane.showConfirmDialog(
+            null,
+            "Do you want to add new author?");
+        if (choice == JOptionPane.YES_OPTION) {
+          AuthorModel authorModel = new AuthorModel(
+              0,
+              setAuthorName.getText().trim(),
+              "description ?");
+          AuthorBUS.getInstance().addModel(authorModel);
+          AuthorBUS.getInstance().refreshData();
+        } else {
+          return;
+        }
+      }
+
+      BookStatus newStatus = BookStatus.valueOf(
+          setStatus.getSelectedItem().toString().toUpperCase());
+      BookModel book = new BookModel();
+      book.setIsbn(setIsbn.getText());
+      book.setTitle(setTitle.getText());
+      book.setDescription(setDescription.getText());
+      book.setImage(stringImage);
+      book.setPrice(Integer.parseInt(setPrice.getText().trim()));
+      book.setQuantity(Integer.parseInt(setQuantity.getText().trim()));
+      book.setStatus(newStatus);
+      book.setPublisherId(
+          PublisherBUS
+              .getInstance()
+              .getModelByPublisherName(setPublisherName.getText().trim())
+              .getId());
+      book.setAuthorId(
+          AuthorBUS
+              .getInstance()
+              .getModelByAuthorName(setAuthorName.getText().trim())
+              .getId());
+      BookBUS.getInstance().addModel(book);
+      JOptionPane.showMessageDialog(null, "Completed!");
     }
 
-    BookStatus newStatus = BookStatus.valueOf(
-      setStatus.getSelectedItem().toString().toUpperCase()
-    );
-    BookModel book = new BookModel();
-    book.setIsbn(setIsbn.getText());
-    book.setTitle(setTitle.getText());
-    book.setDescription(setDescription.getText());
-    book.setImage(stringImage);
-    book.setPrice(Integer.parseInt(setPrice.getText().trim()));
-    book.setQuantity(Integer.parseInt(setQuantity.getText().trim()));
-    book.setStatus(newStatus);
-    book.setPublisherId(
-      PublisherBUS
-        .getInstance()
-        .getModelByPublisherName(setPublisherName.getText().trim())
-        .getId()
-    );
-    book.setAuthorId(
-      AuthorBUS
-        .getInstance()
-        .getModelByAuthorName(setAuthorName.getText().trim())
-        .getId()
-    );
-    BookBUS.getInstance().addModel(book);
-    JOptionPane.showMessageDialog(null, "Completed!");
-  }
+  };
 }

@@ -1,49 +1,29 @@
 package com.bookstore.gui.components.books;
 
-import com.bookstore.enums.BookStatus;
+import com.bookstore.models.BookModel;
+
 import java.awt.event.*;
 import javax.swing.*;
 
 public class BookProductPanel extends javax.swing.JPanel {
 
   private JTextField isbnBook;
+  private BookModel bookModel;
+  private javax.swing.JButton buttonDetail;
+  private javax.swing.JCheckBox checkBox;
+  private javax.swing.JPanel contendPanel;
+  private javax.swing.JLabel setImage;
+  private javax.swing.JTextField setTitle;
+  private javax.swing.JPanel titlePanel;
 
-  public BookProductPanel(
-    String isbn,
-    String title,
-    String description,
-    String image,
-    int price,
-    int quantity,
-    BookStatus status,
-    int publisher_id,
-    int author_id
-  ) {
+  public BookProductPanel(BookModel book) {
+    this.bookModel = book;
     initComponents(
-      isbn,
-      title,
-      description,
-      image,
-      price,
-      quantity,
-      status,
-      publisher_id,
-      author_id
-    );
-    setImage(image);
+        book);
+    setImage(book.getImage());
   }
 
-  private void initComponents(
-    String isbn,
-    String title,
-    String description,
-    String image,
-    int price,
-    int quantity,
-    BookStatus status,
-    int publisher_id,
-    int author_id
-  ) {
+  private void initComponents(BookModel book) {
     checkBox = new javax.swing.JCheckBox();
     contendPanel = new javax.swing.JPanel();
     buttonDetail = new javax.swing.JButton();
@@ -52,13 +32,12 @@ public class BookProductPanel extends javax.swing.JPanel {
     setTitle = new javax.swing.JTextField();
 
     isbnBook = new javax.swing.JTextField();
-    isbnBook.setText("" + isbn);
+    isbnBook.setText("" + book.getIsbn());
     add(isbnBook);
 
     setBackground(new java.awt.Color(255, 255, 255));
     setBorder(
-      javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0))
-    );
+        javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
     setMaximumSize(new java.awt.Dimension(199, 333));
     setMinimumSize(new java.awt.Dimension(199, 333));
     setPreferredSize(new java.awt.Dimension(199, 333));
@@ -71,24 +50,7 @@ public class BookProductPanel extends javax.swing.JPanel {
 
     buttonDetail.setFont(new java.awt.Font("Segoe UI", 1, 14));
     buttonDetail.setText("Detail");
-    buttonDetail.addActionListener(
-      new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-          actionDetail(
-            isbn,
-            title,
-            description,
-            image,
-            price,
-            quantity,
-            status,
-            publisher_id,
-            author_id
-          );
-        }
-      }
-    );
+    buttonDetail.addActionListener(actionDetail);
     contendPanel.add(buttonDetail, java.awt.BorderLayout.PAGE_END);
 
     setImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -99,7 +61,7 @@ public class BookProductPanel extends javax.swing.JPanel {
     titlePanel.setMinimumSize(new java.awt.Dimension(30, 30));
 
     setTitle.setFont(new java.awt.Font("Segoe UI", 1, 14));
-    setTitle.setText(title);
+    setTitle.setText(book.getTitle());
     setTitle.setPreferredSize(new java.awt.Dimension(220, 22));
     titlePanel.add(setTitle);
 
@@ -108,44 +70,27 @@ public class BookProductPanel extends javax.swing.JPanel {
     add(contendPanel, java.awt.BorderLayout.CENTER);
   }
 
-  public void actionDetail(
-    String isbn,
-    String title,
-    String description,
-    String image,
-    int price,
-    int quantity,
-    BookStatus status,
-    int publisher_id,
-    int author_id
-  ) {
-    BookDetailFrame bookDetailFrame = new BookDetailFrame(
-      isbn,
-      title,
-      description,
-      image,
-      price,
-      quantity,
-      status,
-      publisher_id,
-      author_id
-    );
-    bookDetailFrame.setVisible(true);
+  public void actionDetail(BookModel book) {
+
   }
 
   public void setImage(String image) {
     // Image imageBase = null;
     // try {
-    //   imageBase = ImageUtils.decodeFromBase64(image);
+    // imageBase = ImageUtils.decodeFromBase64(image);
     // } catch (Exception ex) {
     // }
     setImage.setIcon(new javax.swing.ImageIcon(image));
   }
 
-  private javax.swing.JButton buttonDetail;
-  private javax.swing.JCheckBox checkBox;
-  private javax.swing.JPanel contendPanel;
-  private javax.swing.JLabel setImage;
-  private javax.swing.JTextField setTitle;
-  private javax.swing.JPanel titlePanel;
+  public ActionListener actionDetail = new ActionListener() {
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+      BookDetailFrame bookDetailFrame = new BookDetailFrame(bookModel);
+      bookDetailFrame.setVisible(true);
+    }
+
+  };
+
 }

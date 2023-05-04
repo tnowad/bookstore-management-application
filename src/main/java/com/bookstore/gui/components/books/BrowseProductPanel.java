@@ -60,47 +60,19 @@ public class BrowseProductPanel extends JPanel {
     panelButton.setLayout(new java.awt.GridLayout(1, 0, 10, 10));
 
     buttonExport.setText("Export");
-    buttonExport.addActionListener(
-      new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-          actionExport();
-        }
-      }
-    );
+    buttonExport.addActionListener(actionExport);
     panelButton.add(buttonExport);
 
     buttonImport.setText("Import");
-    buttonImport.addActionListener(
-      new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-          actionImport();
-        }
-      }
-    );
+    buttonImport.addActionListener(actionImport);
     panelButton.add(buttonImport);
 
     buttonCreate.setText("Add");
-    buttonCreate.addActionListener(
-      new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-          actionAdd();
-        }
-      }
-    );
+    buttonCreate.addActionListener(actionAdd);
     panelButton.add(buttonCreate);
 
     buttonDelete.setText("Delete");
-    buttonDelete.addActionListener(
-      new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-          actionDelete();
-        }
-      }
-    );
+    buttonDelete.addActionListener(actionBanned);
     panelButton.add(buttonDelete);
 
     panel.add(panelButton, java.awt.BorderLayout.LINE_END);
@@ -118,86 +90,9 @@ public class BrowseProductPanel extends JPanel {
     table.setLayout(new GridLayout(0, 3, 10, 10));
     for (BookModel book : listBook) {
       if (!book.getStatus().toString().equals("DELETED")) {
-        BookProductPanel bookProductPanel = new BookProductPanel(
-          book.getIsbn(),
-          book.getTitle(),
-          book.getDescription(),
-          book.getImage(),
-          book.getPrice(),
-          book.getQuantity(),
-          book.getStatus(),
-          book.getPublisherId(),
-          book.getAuthorId()
-        );
+        BookProductPanel bookProductPanel = new BookProductPanel(book);
         table.add(bookProductPanel);
       }
-    }
-  }
-
-  public void actionDelete() {
-    int choice = JOptionPane.showConfirmDialog(
-      null,
-      "Do you want to banned products?",
-      "Confirmation",
-      JOptionPane.YES_NO_OPTION
-    );
-    if (choice == JOptionPane.YES_OPTION) {
-      for (Component component : table.getComponents()) {
-        JPanel subPanel = (JPanel) component;
-        for (Component subComponent : subPanel.getComponents()) {
-          if (
-            subComponent instanceof JCheckBox &&
-            ((JCheckBox) subComponent).isSelected()
-          ) {
-            Component[] components = subPanel.getComponents();
-            for (Component c : components) {
-              if (c instanceof JTextField) {
-                String id = ((JTextField) c).getText();
-                System.out.println(id);
-                String status = "DELETED";
-                int updateStatusRows = BookBUS
-                  .getInstance()
-                  .updateStatus(id, status);
-                if (updateStatusRows == 1) {
-                  JOptionPane.showMessageDialog(
-                    null,
-                    "You've successfully locked an products!"
-                  );
-                  table.revalidate();
-                  table.repaint();
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-  public void actionAdd() {
-    AddProductFrame addProductFrame = new AddProductFrame();
-    addProductFrame.setVisible(true);
-  }
-
-  public void actionExport() {
-    List<BookModel> listBooks = BookBUS.getInstance().getAllModels();
-    try {
-      BookExcelUtil.writeBooksToExcel(listBooks);
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-  }
-
-  public void actionImport() {
-    try {
-      List<BookModel> listBooks = BookExcelUtil.readBooksFromExcel();
-      for (BookModel book : listBooks) {
-        if (book.getStatus().toString().equals("deleted")) {
-          listBooks.remove(book);
-        }
-      }
-    } catch (IOException e) {
-      e.printStackTrace();
     }
   }
 
@@ -208,27 +103,12 @@ public class BrowseProductPanel extends JPanel {
     table.setLayout(new GridLayout(0, 3, 10, 10));
     for (BookModel book : list) {
       if (!book.getStatus().toString().equals("DELETED")) {
-        BookProductPanel bookProductPanel = new BookProductPanel(
-          book.getIsbn(),
-          book.getTitle(),
-          book.getDescription(),
-          book.getImage(),
-          book.getPrice(),
-          book.getQuantity(),
-          book.getStatus(),
-          book.getPublisherId(),
-          book.getAuthorId()
-        );
+        BookProductPanel bookProductPanel = new BookProductPanel(book);
         table.add(bookProductPanel);
       }
     }
     table.revalidate();
     table.repaint();
-  }
-
-  public void actionResize() {
-    double width = contendPanel.getPreferredSize().getWidth();
-    System.out.println(width);
   }
 
   private javax.swing.JButton buttonCreate;
@@ -241,4 +121,86 @@ public class BrowseProductPanel extends JPanel {
   private javax.swing.JScrollPane scrollPane;
   private javax.swing.JPanel table;
   private javax.swing.JLabel title;
+
+  public ActionListener actionAdd = new ActionListener() {
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+      AddProductFrame addProductFrame = new AddProductFrame();
+      addProductFrame.setVisible(true);
+    }
+
+  };
+  public ActionListener actionBanned = new ActionListener() {
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+      int choice = JOptionPane.showConfirmDialog(
+          null,
+          "Do you want to banned products?",
+          "Confirmation",
+          JOptionPane.YES_NO_OPTION);
+      if (choice == JOptionPane.YES_OPTION) {
+        for (Component component : table.getComponents()) {
+          JPanel subPanel = (JPanel) component;
+          for (Component subComponent : subPanel.getComponents()) {
+            if (subComponent instanceof JCheckBox &&
+                ((JCheckBox) subComponent).isSelected()) {
+              Component[] components = subPanel.getComponents();
+              for (Component c : components) {
+                if (c instanceof JTextField) {
+                  String id = ((JTextField) c).getText();
+                  System.out.println(id);
+                  String status = "DELETED";
+                  int updateStatusRows = BookBUS
+                      .getInstance()
+                      .updateStatus(id, status);
+                  if (updateStatusRows == 1) {
+                    JOptionPane.showMessageDialog(
+                        null,
+                        "You've successfully locked an products!");
+                    table.revalidate();
+                    table.repaint();
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+  };
+
+  public ActionListener actionImport = new ActionListener() {
+
+    @Override
+    public void actionPerformed(ActionEvent evt) {
+      try {
+        List<BookModel> listBooks = BookExcelUtil.readBooksFromExcel();
+        for (BookModel book : listBooks) {
+          if (book.getStatus().toString().equals("deleted")) {
+            listBooks.remove(book);
+          }
+        }
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+
+  };
+
+  public ActionListener actionExport = new ActionListener() {
+
+    @Override
+    public void actionPerformed(ActionEvent evt) {
+      List<BookModel> listBooks = BookBUS.getInstance().getAllModels();
+      try {
+        BookExcelUtil.writeBooksToExcel(listBooks);
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+
+  };
 }
