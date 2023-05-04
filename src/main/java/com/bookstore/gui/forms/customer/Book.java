@@ -9,14 +9,18 @@ import com.bookstore.models.CartItemsModel;
 import com.bookstore.models.CartModel;
 import com.bookstore.models.UserModel;
 import com.bookstore.services.Authentication;
-import java.awt.Frame;
 import java.util.List;
+
+import javax.swing.JOptionPane;
 
 public class Book extends javax.swing.JPanel {
 
   private UserModel userModel = Authentication.getCurrentUser();
   private List<CartModel> cartList = CartBUS.getInstance().getAllModels();
   private CartModel myCartModel;
+  private List<CartItemsModel> cartItemList = CartItemsBUS
+    .getInstance()
+    .getAllModels();
   private CartItemsBUS cartItemsBUS = CartItemsBUS.getInstance();
   private CartItemsModel cartItemsModel;
 
@@ -32,9 +36,13 @@ public class Book extends javax.swing.JPanel {
     bookDetailButton.addActionListener(e -> {
       new Dialog(new BookDetail(bookModel));
     });
+
     addToCartButton.addActionListener(e -> {
       for (CartModel cartModel : cartList) {
-        if (cartModel.getStatus().equals(CartStatus.PENDING)) {
+        if (
+          cartModel.getStatus().equals(CartStatus.PENDING) &&
+          cartModel.getUserId() == userModel.getId()
+        ) {
           myCartModel = new CartModel();
           myCartModel = cartModel;
           break;
@@ -47,13 +55,20 @@ public class Book extends javax.swing.JPanel {
         myCartModel.setStatus(CartStatus.PENDING);
         CartBUS.getInstance().addModel(myCartModel);
       }
-      cartItemsModel = new CartItemsModel();
-      cartItemsModel.setBookIsbn(bookModel.getIsbn());
-      cartItemsModel.setCartId(myCartModel.getId());
-      cartItemsModel.setDiscount(ABORT);
-      cartItemsModel.setPrice(bookModel.getPrice());
-      cartItemsModel.setQuantity(1);
-      CartItemsBUS.getInstance().addModel(cartItemsModel);
+      for (CartItemsModel cartItemModel : cartItemList) {
+        if (cartItemModel.getBookIsbn().equals(bookModel.getIsbn())) {
+          // note for user book is exists
+          JOptionPane.showMessageDialog(null, "This book is already in your cart!");
+        } else {
+          cartItemsModel = new CartItemsModel();
+          cartItemsModel.setBookIsbn(bookModel.getIsbn());
+          cartItemsModel.setCartId(myCartModel.getId());
+          cartItemsModel.setDiscount(ABORT);
+          cartItemsModel.setPrice(bookModel.getPrice());
+          cartItemsModel.setQuantity(1);
+          CartItemsBUS.getInstance().addModel(cartItemsModel);
+        }
+      }
     });
   }
 
