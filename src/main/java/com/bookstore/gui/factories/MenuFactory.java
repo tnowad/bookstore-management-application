@@ -174,6 +174,7 @@ public class MenuFactory {
               }
             )
           );
+
           add(
             new MenuItemModel(
               "Others",
@@ -199,6 +200,7 @@ public class MenuFactory {
               }
             )
           );
+
           add(
             new MenuItemModel(
               "Logout",
@@ -207,6 +209,7 @@ public class MenuFactory {
               null
             )
           );
+
           add(
             new MenuItemModel(
               "Exit",
@@ -226,38 +229,10 @@ public class MenuFactory {
         {
           add(
             new MenuItemModel(
-              "Home",
+              "Shop",
               new ImageIcon("src/main/java/resources/icons/shop.png"),
               showHomeCustomer,
-              new ArrayList<SubMenuItemModel>() {
-                {
-                  add(
-                    new SubMenuItemModel(
-                      "Shop",
-                      new ImageIcon(""),
-                      showHomeCustomer
-                    )
-                  );
-                }
-              }
-            )
-          );
-          add(
-            new MenuItemModel(
-              "Discovery",
-              new ImageIcon(""),
-              null,
-              new ArrayList<SubMenuItemModel>() {
-                {
-                  add(
-                    new SubMenuItemModel(
-                      "Discovery",
-                      new ImageIcon(""),
-                      showDiscoveryCustomer
-                    )
-                  );
-                }
-              }
+              null
             )
           );
 
@@ -277,14 +252,7 @@ public class MenuFactory {
                   );
                   add(
                     new SubMenuItemModel(
-                      "Checkout",
-                      new ImageIcon(""),
-                      showCheckoutCustomer
-                    )
-                  );
-                  add(
-                    new SubMenuItemModel(
-                      "My Order",
+                      "Order History",
                       new ImageIcon(""),
                       showMyOrderCustomer
                     )
@@ -319,6 +287,7 @@ public class MenuFactory {
               }
             )
           );
+
           add(
             new MenuItemModel(
               "Others",
@@ -371,28 +340,48 @@ public class MenuFactory {
         {
           add(
             new MenuItemModel(
+              "Shop",
+              new ImageIcon("src/main/java/resources/icons/shop.png"),
+              null,
+              null
+            )
+          );
+
+          add(
+            new MenuItemModel(
+              "Cart",
+              new ImageIcon("src/main/java/resources/icons/cart.png"),
+              null,
+              new ArrayList<SubMenuItemModel>() {
+                {
+                  add(
+                    new SubMenuItemModel(
+                      "View Cart",
+                      new ImageIcon(""),
+                      showCartCustomer
+                    )
+                  );
+                  add(
+                    new SubMenuItemModel(
+                      "Order History",
+                      new ImageIcon(""),
+                      showMyOrderCustomer
+                    )
+                  );
+                }
+              }
+            )
+          );
+
+          add(
+            new MenuItemModel(
               "Customer management",
               new ImageIcon(""),
               showCustomerList,
               null
             )
           );
-          add(
-            new MenuItemModel(
-              "Book management",
-              new ImageIcon(""),
-              showBookList,
-              null
-            )
-          );
-          add(
-            new MenuItemModel(
-              "Import management",
-              new ImageIcon(""),
-              showImportList,
-              null
-            )
-          );
+
           add(
             new MenuItemModel(
               "Order management",
