@@ -4,11 +4,13 @@ import com.bookstore.bus.CartBUS;
 import com.bookstore.bus.CartItemsBUS;
 import com.bookstore.enums.CartStatus;
 import com.bookstore.gui.components.dialogs.Dialog;
+import com.bookstore.gui.components.labels.Label;
 import com.bookstore.models.BookModel;
 import com.bookstore.models.CartItemsModel;
 import com.bookstore.models.CartModel;
 import com.bookstore.models.UserModel;
 import com.bookstore.services.Authentication;
+import java.awt.Dimension;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -90,6 +92,7 @@ public class Book extends javax.swing.JPanel {
     groupButtonPanel = new javax.swing.JPanel();
     bookDetailButton = new javax.swing.JButton();
     addToCartButton = new javax.swing.JButton();
+    bookPriceLabel = new Label("");
 
     setLayout(new java.awt.BorderLayout());
 
@@ -99,32 +102,23 @@ public class Book extends javax.swing.JPanel {
     add(bookTitleLabel, java.awt.BorderLayout.PAGE_START);
     bookTitleLabel.getAccessibleContext().setAccessibleDescription("");
 
-    javax.swing.GroupLayout bookImagePanelLayout = new javax.swing.GroupLayout(
-      bookImagePanel
-    );
-    bookImagePanel.setLayout(bookImagePanelLayout);
-    bookImagePanelLayout.setHorizontalGroup(
-      bookImagePanelLayout
-        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGap(0, 220, Short.MAX_VALUE)
-    );
-    bookImagePanelLayout.setVerticalGroup(
-      bookImagePanelLayout
-        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGap(0, 207, Short.MAX_VALUE)
-    );
+    // bookImagePanel.add(bookModel.getImage(), java.awt.BorderLayout.CENTER);
 
     add(bookImagePanel, java.awt.BorderLayout.CENTER);
 
     groupButtonPanel.setLayout(
-      new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 0)
+      new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0)
     );
-
+    
+    bookPriceLabel.setText("" + bookModel.getPrice() + " $");
+    groupButtonPanel.add(bookPriceLabel);
+    
     bookDetailButton.setText("Book detail");
     groupButtonPanel.add(bookDetailButton);
 
     addToCartButton.setText("Add to cart");
     groupButtonPanel.add(addToCartButton);
+
 
     add(groupButtonPanel, java.awt.BorderLayout.SOUTH);
   }
@@ -134,4 +128,5 @@ public class Book extends javax.swing.JPanel {
   private javax.swing.JPanel bookImagePanel;
   private javax.swing.JLabel bookTitleLabel;
   private javax.swing.JPanel groupButtonPanel;
+  private Label bookPriceLabel;
 }
