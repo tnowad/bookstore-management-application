@@ -56,8 +56,6 @@ public class UserListPanel extends javax.swing.JPanel {
     filterEmployee = new javax.swing.JButton();
     filterCustomer = new javax.swing.JButton();
     buttonAction = new javax.swing.JPanel();
-    buttonExport = new javax.swing.JButton();
-    buttonImport = new javax.swing.JButton();
     buttonCreate = new javax.swing.JButton();
     buttonBanned = new javax.swing.JButton();
     tablePanel = new javax.swing.JPanel();
@@ -202,13 +200,6 @@ public class UserListPanel extends javax.swing.JPanel {
     buttonPanel.add(buttonFilter, java.awt.BorderLayout.WEST);
 
     buttonAction.setLayout(new java.awt.GridLayout(1, 0, 0, 5));
-
-    buttonExport.setText("Xuất File");
-    buttonExport.setPreferredSize(new java.awt.Dimension(70, 23));
-    buttonAction.add(buttonExport);
-
-    buttonImport.setText("Nhập File");
-    buttonAction.add(buttonImport);
 
     buttonCreate.setText("Create");
     buttonCreate.addActionListener(actionCreate);
@@ -431,9 +422,7 @@ public class UserListPanel extends javax.swing.JPanel {
   private javax.swing.JPanel buttonAction;
   private javax.swing.JButton buttonBanned;
   private javax.swing.JButton buttonCreate;
-  private javax.swing.JButton buttonExport;
   private javax.swing.JPanel buttonFilter;
-  private javax.swing.JButton buttonImport;
   private javax.swing.JPanel buttonPanel;
   private javax.swing.JPanel cartPanel;
   private javax.swing.JPanel contend;
