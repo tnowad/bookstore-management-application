@@ -2,6 +2,7 @@ package com.bookstore.gui.components.panels;
 
 import com.bookstore.interfaces.ISearchable;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import javax.swing.GroupLayout;
 import javax.swing.JOptionPane;
@@ -36,6 +37,7 @@ public class MainPanel extends JPanel {
     setLayout(layout);
     setBorder(new EmptyBorder(5, 5, 5, 5));
     setLayout(new BorderLayout());
+    setBackground(Color.WHITE);
   }
 
   private void refreshFrame() {

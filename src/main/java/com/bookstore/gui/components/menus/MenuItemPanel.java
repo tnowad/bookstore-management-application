@@ -40,11 +40,12 @@ public class MenuItemPanel extends JPanel {
   private void addSubMenuItems() {
     if (menuItemModel.getSubMenuItems() != null) {
       JPanel subMenuItemsPanel = new JPanel();
+      // color of sub menu items
+      subMenuItemsPanel.setBackground(Color.decode("#007aff"));
 
       subMenuItemsPanel.setLayout(
         new BoxLayout(subMenuItemsPanel, BoxLayout.Y_AXIS)
       );
-      subMenuItemsPanel.setBackground(Color.decode("#3B70C1"));
 
       for (SubMenuItemModel subMenuItemModel : menuItemModel.getSubMenuItems()) {
         MenuButton subMenuItemButton = new MenuButton(

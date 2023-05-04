@@ -87,11 +87,11 @@ public class MainFrame extends JFrame {
   private void initComponents() {
     layout = new BorderLayout();
     setLayout(layout);
-    setBackground(Color.BLUE);
+
     menuPanel.setMinimumSize(new Dimension(50, Integer.MAX_VALUE));
     menuPanel.setMaximumSize(new Dimension(250, Integer.MAX_VALUE));
+
     mainPanelWrapper = new JPanel(new BorderLayout());
-    mainPanelWrapper.setBackground(Color.WHITE);
     mainPanelWrapper.add(headerPanel, BorderLayout.PAGE_START);
     mainPanelWrapper.add(mainPanel, BorderLayout.CENTER);
 
