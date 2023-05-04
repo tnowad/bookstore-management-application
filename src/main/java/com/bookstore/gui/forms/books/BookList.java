@@ -29,7 +29,7 @@ public class BookList extends JPanel {
   private JPanel jPanel5;
   private JPanel jPanel6;
   private JScrollPane jScrollPane1;
-  private JScrollPane jscrollPane;
+  private JScrollPane jScrollPane;
   private Button searchButton;
   private JTextField searchTextField;
   private static BookList instance;
@@ -64,7 +64,7 @@ public class BookList extends JPanel {
     exportToExcelButton = new Button("Export to Excel file");
     jScrollPane1 = new JScrollPane();
     jPanel6 = new JPanel();
-    jscrollPane = new JScrollPane();
+    jScrollPane = new JScrollPane();
     bookListTable = new JTable();
 
     setPreferredSize(new java.awt.Dimension(1180, 620));
@@ -149,7 +149,7 @@ public class BookList extends JPanel {
         }
       }
     );
-    jscrollPane.setViewportView(bookListTable);
+    jScrollPane.setViewportView(bookListTable);
     if (bookListTable.getColumnModel().getColumnCount() > 0) {
       bookListTable.getColumnModel().getColumn(0).setResizable(false);
       bookListTable.getColumnModel().getColumn(1).setResizable(false);
@@ -158,7 +158,7 @@ public class BookList extends JPanel {
       bookListTable.getColumnModel().getColumn(4).setResizable(false);
     }
 
-    jPanel6.add(jscrollPane, java.awt.BorderLayout.CENTER);
+    jPanel6.add(jScrollPane, java.awt.BorderLayout.CENTER);
 
     jScrollPane1.setViewportView(jPanel6);
 
