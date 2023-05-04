@@ -17,14 +17,12 @@ public class Discovery extends JPanel {
     handleEvent();
   }
 
-  private void handleEvent() {
-    
-  }
+  private void handleEvent() {}
 
   private void updateData() {
     bookList = BookBUS.getInstance().getAllModels();
     for (BookModel bookModel : bookList) {
-      bookListPanel.add(new Book(bookModel.getTitle()));
+      bookListPanel.add(new Book(bookModel));
     }
   }
 
@@ -103,8 +101,12 @@ public class Discovery extends JPanel {
 
     add(headerPanel, BorderLayout.PAGE_START);
 
-    bookListPanel.setLayout(new GridLayout(3, 5));
+    bookListPanel.setLayout(new GridLayout(0, 3));
     bookListScrollPane.setViewportView(bookListPanel);
+    bookListScrollPane.setHorizontalScrollBarPolicy(
+      JScrollPane.HORIZONTAL_SCROLLBAR_NEVER
+    );
+    bookListScrollPane.getVerticalScrollBar().setUnitIncrement(50);
 
     add(bookListScrollPane, BorderLayout.CENTER);
   }

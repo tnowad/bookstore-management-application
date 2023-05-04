@@ -1,18 +1,22 @@
 package com.bookstore.gui.forms.customer;
 
+import com.bookstore.gui.components.dialogs.Dialog;
+import com.bookstore.models.BookModel;
+import java.awt.Frame;
+
 public class Book extends javax.swing.JPanel {
 
-  private String name;
+  private BookModel bookModel;
 
-  public Book(String name) {
-    this.name = name;
+  public Book(BookModel bookModel) {
+    this.bookModel = bookModel;
     initComponents();
     handleEvent();
   }
 
   private void handleEvent() {
     bookDetailButton.addActionListener(e -> {
-      
+      new Frame().add(new BookDetail(bookModel));
     });
   }
 
@@ -27,7 +31,7 @@ public class Book extends javax.swing.JPanel {
 
     bookTitleLabel.setFont(new java.awt.Font("Segoe UI", 0, 14));
     bookTitleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-    bookTitleLabel.setText(name);
+    bookTitleLabel.setText(bookModel.getTitle());
     add(bookTitleLabel, java.awt.BorderLayout.PAGE_START);
     bookTitleLabel.getAccessibleContext().setAccessibleDescription("");
 
