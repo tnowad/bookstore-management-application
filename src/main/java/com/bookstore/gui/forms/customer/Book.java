@@ -12,7 +12,7 @@ public class Book extends javax.swing.JPanel {
 
   private void handleEvent() {
     bookDetailButton.addActionListener(e -> {
-        
+      
     });
   }
 
