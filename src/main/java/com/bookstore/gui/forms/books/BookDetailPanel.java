@@ -1,5 +1,12 @@
 package com.bookstore.gui.forms.books;
 
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSpinner;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+
 public class BookDetailPanel extends javax.swing.JPanel {
 
   public BookDetailPanel() {
@@ -7,30 +14,30 @@ public class BookDetailPanel extends javax.swing.JPanel {
   }
 
   private void initComponents() {
-    bookTitleHeaderPanel = new javax.swing.JPanel();
-    bookTitleTextField = new javax.swing.JTextField();
-    bookDescriptionPanel = new javax.swing.JPanel();
-    descriptionTextArea = new javax.swing.JTextArea();
-    descriptionLabel = new javax.swing.JLabel();
-    bookDetailsPanel = new javax.swing.JPanel();
-    bookImagePanel = new javax.swing.JPanel();
-    bookInformationPanel = new javax.swing.JPanel();
-    priceAndStatusField = new javax.swing.JPanel();
-    priceLabel = new javax.swing.JLabel();
-    bookPriceTextField = new javax.swing.JTextField();
-    statusLabel = new javax.swing.JLabel();
-    bookStatusTextField = new javax.swing.JTextField();
-    isbnAndAuthorAndQuantityPanel = new javax.swing.JPanel();
-    isbnLabel = new javax.swing.JLabel();
-    bookIsbnTextField = new javax.swing.JTextField();
-    authorLabel = new javax.swing.JLabel();
-    bookAuthorTextField = new javax.swing.JTextField();
-    bookAvailableQuantity = new javax.swing.JLabel();
-    bookQuantityTextField = new javax.swing.JTextField();
-    buttonPanel = new javax.swing.JPanel();
-    quantitySpinner = new javax.swing.JSpinner();
-    addToCartButton = new javax.swing.JButton();
-    buyNowButton = new javax.swing.JButton();
+    bookTitleHeaderPanel = new JPanel();
+    bookTitleTextField = new JTextField();
+    bookDescriptionPanel = new JPanel();
+    descriptionTextArea = new JTextArea();
+    descriptionLabel = new JLabel();
+    bookDetailsPanel = new JPanel();
+    bookImagePanel = new JPanel();
+    bookInformationPanel = new JPanel();
+    priceAndStatusField = new JPanel();
+    priceLabel = new JLabel();
+    bookPriceTextField = new JTextField();
+    statusLabel = new JLabel();
+    bookStatusTextField = new JTextField();
+    isbnAndAuthorAndQuantityPanel = new JPanel();
+    isbnLabel = new JLabel();
+    bookIsbnTextField = new JTextField();
+    authorLabel = new JLabel();
+    bookAuthorTextField = new JTextField();
+    bookAvailableQuantity = new JLabel();
+    bookQuantityTextField = new JTextField();
+    buttonPanel = new JPanel();
+    quantitySpinner = new JSpinner();
+    addToCartButton = new JButton();
+    buyNowButton = new JButton();
 
     setMaximumSize(new java.awt.Dimension(750, 530));
     setMinimumSize(new java.awt.Dimension(750, 530));
@@ -246,28 +253,28 @@ public class BookDetailPanel extends javax.swing.JPanel {
   ) {}
 
   // Variables declaration - do not modify
-  private javax.swing.JButton addToCartButton;
-  private javax.swing.JLabel authorLabel;
-  private javax.swing.JTextField bookAuthorTextField;
-  private javax.swing.JLabel bookAvailableQuantity;
-  private javax.swing.JPanel bookDescriptionPanel;
-  private javax.swing.JPanel bookDetailsPanel;
-  private javax.swing.JPanel bookImagePanel;
-  private javax.swing.JPanel bookInformationPanel;
-  private javax.swing.JTextField bookIsbnTextField;
-  private javax.swing.JTextField bookPriceTextField;
-  private javax.swing.JTextField bookQuantityTextField;
-  private javax.swing.JTextField bookStatusTextField;
-  private javax.swing.JPanel bookTitleHeaderPanel;
-  private javax.swing.JTextField bookTitleTextField;
-  private javax.swing.JPanel buttonPanel;
-  private javax.swing.JButton buyNowButton;
-  private javax.swing.JLabel descriptionLabel;
-  private javax.swing.JTextArea descriptionTextArea;
-  private javax.swing.JPanel isbnAndAuthorAndQuantityPanel;
-  private javax.swing.JLabel isbnLabel;
-  private javax.swing.JPanel priceAndStatusField;
-  private javax.swing.JLabel priceLabel;
-  private javax.swing.JSpinner quantitySpinner;
-  private javax.swing.JLabel statusLabel;
+  private JButton addToCartButton;
+  private JLabel authorLabel;
+  private JTextField bookAuthorTextField;
+  private JLabel bookAvailableQuantity;
+  private JPanel bookDescriptionPanel;
+  private JPanel bookDetailsPanel;
+  private JPanel bookImagePanel;
+  private JPanel bookInformationPanel;
+  private JTextField bookIsbnTextField;
+  private JTextField bookPriceTextField;
+  private JTextField bookQuantityTextField;
+  private JTextField bookStatusTextField;
+  private JPanel bookTitleHeaderPanel;
+  private JTextField bookTitleTextField;
+  private JPanel buttonPanel;
+  private JButton buyNowButton;
+  private JLabel descriptionLabel;
+  private JTextArea descriptionTextArea;
+  private JPanel isbnAndAuthorAndQuantityPanel;
+  private JLabel isbnLabel;
+  private JPanel priceAndStatusField;
+  private JLabel priceLabel;
+  private JSpinner quantitySpinner;
+  private JLabel statusLabel;
 }

@@ -10,12 +10,12 @@ public class BookProductPanel extends javax.swing.JPanel {
 
   private JTextField isbnBook;
   private BookModel bookModel;
-  private javax.swing.JButton buttonDetail;
-  private javax.swing.JCheckBox checkBox;
-  private javax.swing.JPanel contendPanel;
-  private javax.swing.JLabel setImage;
-  private javax.swing.JTextField setTitle;
-  private javax.swing.JPanel titlePanel;
+  private JButton buttonDetail;
+  private JCheckBox checkBox;
+  private JPanel contendPanel;
+  private JLabel setImage;
+  private JTextField setTitle;
+  private JPanel titlePanel;
 
   public BookProductPanel(BookModel book) {
     this.bookModel = book;
@@ -24,14 +24,14 @@ public class BookProductPanel extends javax.swing.JPanel {
   }
 
   private void initComponents(BookModel book) {
-    checkBox = new javax.swing.JCheckBox();
-    contendPanel = new javax.swing.JPanel();
-    buttonDetail = new javax.swing.JButton();
-    setImage = new javax.swing.JLabel();
-    titlePanel = new javax.swing.JPanel();
-    setTitle = new javax.swing.JTextField();
+    checkBox = new JCheckBox();
+    contendPanel = new JPanel();
+    buttonDetail = new JButton();
+    setImage = new JLabel();
+    titlePanel = new JPanel();
+    setTitle = new JTextField();
 
-    isbnBook = new javax.swing.JTextField();
+    isbnBook = new JTextField();
     isbnBook.setText("" + book.getIsbn());
     add(isbnBook);
 
@@ -76,7 +76,7 @@ public class BookProductPanel extends javax.swing.JPanel {
   public void setImage(String image) {
     try {
       Image imageBase = ImageUtils.decodeFromBase64(image);
-      setImage.setIcon(new javax.swing.ImageIcon(imageBase));
+      setImage.setIcon(new ImageIcon(imageBase));
     } catch (Exception ex) {
       setImage.setIcon(
         new ImageIcon("src/main/java/resources/images/product-placeholder.png")

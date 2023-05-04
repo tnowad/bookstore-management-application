@@ -56,8 +56,6 @@ public class OrderDetail extends JFrame {
     handleEvent();
   }
 
-  
-
   private void handleEvent() {
     acceptButton.addActionListener(acceptButtonActionListener);
     rejectButton.addActionListener(rejectButtonActionListener);
@@ -191,7 +189,7 @@ public class OrderDetail extends JFrame {
 
     container.setLayout(new BorderLayout());
     groupHeaderPanel.setLayout(
-      new javax.swing.BoxLayout(groupHeaderPanel, javax.swing.BoxLayout.Y_AXIS)
+      new BoxLayout(groupHeaderPanel, javax.swing.BoxLayout.Y_AXIS)
     );
 
     titleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);

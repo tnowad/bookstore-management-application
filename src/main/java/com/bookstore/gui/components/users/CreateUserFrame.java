@@ -20,24 +20,24 @@ public class CreateUserFrame extends javax.swing.JFrame {
   }
 
   private void initComponents() {
-    titlePanel = new javax.swing.JLabel();
-    nameText = new javax.swing.JLabel();
-    setName = new javax.swing.JTextField();
-    usernameText = new javax.swing.JLabel();
-    setUserName = new javax.swing.JTextField();
-    passwordText = new javax.swing.JLabel();
-    setPassword = new javax.swing.JPasswordField();
-    phoneText = new javax.swing.JLabel();
-    setPhone = new javax.swing.JTextField();
-    emailText = new javax.swing.JLabel();
-    setEmail = new javax.swing.JTextField();
-    setRole = new javax.swing.JComboBox<>();
-    statusText = new javax.swing.JLabel();
-    roleText = new javax.swing.JLabel();
-    setStatus = new javax.swing.JComboBox<>();
-    buttonPanel = new javax.swing.JPanel();
-    buttonBack = new javax.swing.JButton();
-    buttonSave = new javax.swing.JButton();
+    titlePanel = new JLabel();
+    nameText = new JLabel();
+    setName = new JTextField();
+    usernameText = new JLabel();
+    setUserName = new JTextField();
+    passwordText = new JLabel();
+    setPassword = new JPasswordField();
+    phoneText = new JLabel();
+    setPhone = new JTextField();
+    emailText = new JLabel();
+    setEmail = new JTextField();
+    setRole = new JComboBox<>();
+    statusText = new JLabel();
+    roleText = new JLabel();
+    setStatus = new JComboBox<>();
+    buttonPanel = new JPanel();
+    buttonBack = new JButton();
+    buttonSave = new JButton();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
     setMinimumSize(new java.awt.Dimension(590, 394));
@@ -104,7 +104,7 @@ public class CreateUserFrame extends javax.swing.JFrame {
     getContentPane().add(roleText);
 
     setRole.setModel(
-      new javax.swing.DefaultComboBoxModel<>(
+      new DefaultComboBoxModel<>(
         new String[] { "ADMIN", "CUSTOMER", "EMPLOYEE" }
       )
     );
@@ -115,9 +115,7 @@ public class CreateUserFrame extends javax.swing.JFrame {
     getContentPane().add(statusText);
 
     setStatus.setModel(
-      new javax.swing.DefaultComboBoxModel<>(
-        new String[] { "ACTIVE", "INACTIVE" }
-      )
+      new DefaultComboBoxModel<>(new String[] { "ACTIVE", "INACTIVE" })
     );
     getContentPane().add(setStatus);
 
@@ -127,18 +125,14 @@ public class CreateUserFrame extends javax.swing.JFrame {
     );
 
     buttonBack.setIcon(
-      new javax.swing.ImageIcon(
-        getClass().getResource("/resources/icons/back.png")
-      )
+      new ImageIcon(getClass().getResource("/resources/icons/back.png"))
     );
     buttonBack.setPreferredSize(new java.awt.Dimension(70, 23));
     buttonBack.addActionListener(actionBack);
     buttonPanel.add(buttonBack);
 
     buttonSave.setIcon(
-      new javax.swing.ImageIcon(
-        getClass().getResource("/resources/icons/save.png")
-      )
+      new ImageIcon(getClass().getResource("/resources/icons/save.png"))
     );
     buttonSave.setPreferredSize(new java.awt.Dimension(70, 23));
     buttonPanel.add(buttonSave);
@@ -166,24 +160,24 @@ public class CreateUserFrame extends javax.swing.JFrame {
   }
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
-  private javax.swing.JButton buttonBack;
-  private javax.swing.JPanel buttonPanel;
-  private javax.swing.JButton buttonSave;
-  private javax.swing.JLabel emailText;
-  private javax.swing.JLabel nameText;
-  private javax.swing.JLabel passwordText;
-  private javax.swing.JLabel phoneText;
-  private javax.swing.JLabel roleText;
-  private javax.swing.JTextField setEmail;
-  private javax.swing.JTextField setName;
-  private javax.swing.JPasswordField setPassword;
-  private javax.swing.JTextField setPhone;
-  private javax.swing.JComboBox<String> setRole;
-  private javax.swing.JComboBox<String> setStatus;
-  private javax.swing.JTextField setUserName;
-  private javax.swing.JLabel statusText;
-  private javax.swing.JLabel titlePanel;
-  private javax.swing.JLabel usernameText;
+  private JButton buttonBack;
+  private JPanel buttonPanel;
+  private JButton buttonSave;
+  private JLabel emailText;
+  private JLabel nameText;
+  private JLabel passwordText;
+  private JLabel phoneText;
+  private JLabel roleText;
+  private JTextField setEmail;
+  private JTextField setName;
+  private JPasswordField setPassword;
+  private JTextField setPhone;
+  private JComboBox<String> setRole;
+  private JComboBox<String> setStatus;
+  private JTextField setUserName;
+  private JLabel statusText;
+  private JLabel titlePanel;
+  private JLabel usernameText;
   // End of variables declaration//GEN-END:variables
 
   public ActionListener actionBack = new ActionListener() {

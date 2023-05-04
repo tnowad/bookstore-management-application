@@ -25,28 +25,28 @@ public class PopupUserFrame extends javax.swing.JFrame {
   }
 
   private void initComponents(UserModel user) {
-    setName = new javax.swing.JTextField();
-    idText = new javax.swing.JLabel();
-    setId = new javax.swing.JTextField();
-    userNameText = new javax.swing.JLabel();
-    setUserName = new javax.swing.JTextField();
-    addressText = new javax.swing.JLabel();
-    setAddress = new javax.swing.JTextField();
-    phoneText = new javax.swing.JLabel();
-    setPhone = new javax.swing.JTextField();
-    emailText = new javax.swing.JLabel();
-    setEmail = new javax.swing.JTextField();
-    statusText = new javax.swing.JLabel();
-    setStatus = new javax.swing.JComboBox<>();
-    roleText = new javax.swing.JLabel();
-    setRole = new javax.swing.JComboBox<>();
-    dateCreatedText = new javax.swing.JLabel();
-    getDateCreated = new javax.swing.JTextField();
-    dateUpdatedText = new javax.swing.JLabel();
-    setDateUpdated = new javax.swing.JTextField();
-    buttonPanel = new javax.swing.JPanel();
-    buttonBack = new javax.swing.JButton();
-    buttonSave = new javax.swing.JButton();
+    setName = new JTextField();
+    idText = new JLabel();
+    setId = new JTextField();
+    userNameText = new JLabel();
+    setUserName = new JTextField();
+    addressText = new JLabel();
+    setAddress = new JTextField();
+    phoneText = new JLabel();
+    setPhone = new JTextField();
+    emailText = new JLabel();
+    setEmail = new JTextField();
+    statusText = new JLabel();
+    setStatus = new JComboBox<>();
+    roleText = new JLabel();
+    setRole = new JComboBox<>();
+    dateCreatedText = new JLabel();
+    getDateCreated = new JTextField();
+    dateUpdatedText = new JLabel();
+    setDateUpdated = new JTextField();
+    buttonPanel = new JPanel();
+    buttonBack = new JButton();
+    buttonSave = new JButton();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
     setMinimumSize(new java.awt.Dimension(610, 26));
@@ -107,7 +107,7 @@ public class PopupUserFrame extends javax.swing.JFrame {
 
     setPhone.setEditable(false);
     setPhone.setFont(new java.awt.Font("Segoe UI", 1, 16));
-    setPhone.setText(""+user.getPhone());
+    setPhone.setText("" + user.getPhone());
     setPhone.setPreferredSize(new java.awt.Dimension(200, 31));
     getContentPane().add(setPhone);
 
@@ -130,9 +130,7 @@ public class PopupUserFrame extends javax.swing.JFrame {
     getContentPane().add(statusText);
 
     setStatus.setModel(
-      new javax.swing.DefaultComboBoxModel<>(
-        new String[] { "INACTIVE", "ACTIVE" }
-      )
+      new DefaultComboBoxModel<>(new String[] { "INACTIVE", "ACTIVE" })
     );
     setStatus.setPreferredSize(new java.awt.Dimension(90, 25));
     getContentPane().add(setStatus);
@@ -144,7 +142,7 @@ public class PopupUserFrame extends javax.swing.JFrame {
     getContentPane().add(roleText);
 
     setRole.setModel(
-      new javax.swing.DefaultComboBoxModel<>(
+      new DefaultComboBoxModel<>(
         new String[] { "ADMIN", "CUSTOMER", "EMPLOYEE" }
       )
     );
@@ -181,18 +179,14 @@ public class PopupUserFrame extends javax.swing.JFrame {
     );
 
     buttonBack.setIcon(
-      new javax.swing.ImageIcon(
-        getClass().getResource("/resources/icons/back.png")
-      )
+      new ImageIcon(getClass().getResource("/resources/icons/back.png"))
     );
     buttonBack.setPreferredSize(new java.awt.Dimension(70, 23));
     buttonBack.addActionListener(actionBack);
     buttonPanel.add(buttonBack);
 
     buttonSave.setIcon(
-      new javax.swing.ImageIcon(
-        getClass().getResource("/resources/icons/save.png")
-      )
+      new ImageIcon(getClass().getResource("/resources/icons/save.png"))
     );
     buttonSave.setPreferredSize(new java.awt.Dimension(70, 23));
     buttonSave.addActionListener(actionSave);
@@ -246,28 +240,28 @@ public class PopupUserFrame extends javax.swing.JFrame {
   public void actionSave() {}
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
-  private javax.swing.JLabel addressText;
-  private javax.swing.JButton buttonBack;
-  private javax.swing.JPanel buttonPanel;
-  private javax.swing.JButton buttonSave;
-  private javax.swing.JLabel dateCreatedText;
-  private javax.swing.JLabel dateUpdatedText;
-  private javax.swing.JLabel emailText;
-  private javax.swing.JTextField getDateCreated;
-  private javax.swing.JLabel idText;
-  private javax.swing.JLabel phoneText;
-  private javax.swing.JLabel roleText;
-  private javax.swing.JTextField setAddress;
-  private javax.swing.JTextField setDateUpdated;
-  private javax.swing.JTextField setEmail;
-  private javax.swing.JTextField setId;
-  private javax.swing.JTextField setName;
-  private javax.swing.JTextField setPhone;
-  private javax.swing.JComboBox<String> setRole;
-  private javax.swing.JComboBox<String> setStatus;
-  private javax.swing.JTextField setUserName;
-  private javax.swing.JLabel statusText;
-  private javax.swing.JLabel userNameText;
+  private JLabel addressText;
+  private JButton buttonBack;
+  private JPanel buttonPanel;
+  private JButton buttonSave;
+  private JLabel dateCreatedText;
+  private JLabel dateUpdatedText;
+  private JLabel emailText;
+  private JTextField getDateCreated;
+  private JLabel idText;
+  private JLabel phoneText;
+  private JLabel roleText;
+  private JTextField setAddress;
+  private JTextField setDateUpdated;
+  private JTextField setEmail;
+  private JTextField setId;
+  private JTextField setName;
+  private JTextField setPhone;
+  private JComboBox<String> setRole;
+  private JComboBox<String> setStatus;
+  private JTextField setUserName;
+  private JLabel statusText;
+  private JLabel userNameText;
   // End of variables declaration//GEN-END:variables\
 
   public ActionListener actionBack = new ActionListener() {

@@ -3,6 +3,10 @@ package com.bookstore.gui.components.providers;
 import com.bookstore.bus.ProviderBUS;
 import com.bookstore.models.ProviderModel;
 import java.util.List;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 public class ProviderListPanel extends javax.swing.JPanel {
 
@@ -23,21 +27,21 @@ public class ProviderListPanel extends javax.swing.JPanel {
   }
 
   private void initComponents() {
-    title = new javax.swing.JLabel();
-    contend = new javax.swing.JPanel();
-    buttonsPanel = new javax.swing.JPanel();
-    buttonAdd = new javax.swing.JButton();
-    buttonDelete = new javax.swing.JButton();
-    table = new javax.swing.JPanel();
-    headerTable = new javax.swing.JPanel();
-    panel = new javax.swing.JPanel();
-    label = new javax.swing.JLabel();
-    serialText = new javax.swing.JLabel();
-    idText = new javax.swing.JLabel();
-    nameText = new javax.swing.JLabel();
-    descriptionText = new javax.swing.JLabel();
-    scrollPane = new javax.swing.JScrollPane();
-    contendTable = new javax.swing.JPanel();
+    title = new JLabel();
+    contend = new JPanel();
+    buttonsPanel = new JPanel();
+    buttonAdd = new JButton();
+    buttonDelete = new JButton();
+    table = new JPanel();
+    headerTable = new JPanel();
+    panel = new JPanel();
+    label = new JLabel();
+    serialText = new JLabel();
+    idText = new JLabel();
+    nameText = new JLabel();
+    descriptionText = new JLabel();
+    scrollPane = new JScrollPane();
+    contendTable = new JPanel();
 
     setPreferredSize(new java.awt.Dimension(720, 444));
     setLayout(new java.awt.BorderLayout());
@@ -101,30 +105,30 @@ public class ProviderListPanel extends javax.swing.JPanel {
 
   public void addTable() {
     contendTable.removeAll();
-    contendTable.setLayout(new java.awt.GridLayout(0, 1,0,15));
+    contendTable.setLayout(new java.awt.GridLayout(0, 1, 0, 15));
     int serial = 0;
     for (ProviderModel provider : listProvider) {
       ProviderPanel providerPanel = new ProviderPanel(serial, provider);
       contendTable.add(providerPanel);
-      serial = serial+1;
+      serial = serial + 1;
     }
     contendTable.revalidate();
     contendTable.repaint();
   }
 
-  private javax.swing.JButton buttonAdd;
-  private javax.swing.JButton buttonDelete;
-  private javax.swing.JPanel buttonsPanel;
-  private javax.swing.JPanel contend;
-  private javax.swing.JPanel contendTable;
-  private javax.swing.JLabel descriptionText;
-  private javax.swing.JPanel headerTable;
-  private javax.swing.JLabel idText;
-  private javax.swing.JLabel label;
-  private javax.swing.JLabel nameText;
-  private javax.swing.JPanel panel;
-  private javax.swing.JScrollPane scrollPane;
-  private javax.swing.JLabel serialText;
-  private javax.swing.JPanel table;
-  private javax.swing.JLabel title;
+  private JButton buttonAdd;
+  private JButton buttonDelete;
+  private JPanel buttonsPanel;
+  private JPanel contend;
+  private JPanel contendTable;
+  private JLabel descriptionText;
+  private JPanel headerTable;
+  private JLabel idText;
+  private JLabel label;
+  private JLabel nameText;
+  private JPanel panel;
+  private JScrollPane scrollPane;
+  private JLabel serialText;
+  private JPanel table;
+  private JLabel title;
 }

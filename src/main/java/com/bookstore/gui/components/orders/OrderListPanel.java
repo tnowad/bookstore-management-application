@@ -1,28 +1,24 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package com.bookstore.gui.components.orders;
 
 import com.bookstore.bus.OrderBUS;
 import com.bookstore.bus.UserBUS;
 import com.bookstore.enums.OrderStatus;
+import com.bookstore.gui.components.dialogs.Dialog;
 import com.bookstore.gui.forms.orders.OrderDetail;
 import com.bookstore.models.OrderModel;
 import com.bookstore.models.UserModel;
-
-import java.awt.Dialog;
 import java.awt.GridLayout;
 import java.util.List;
-
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
-/**
- *
- * @author yanti
- */
 public class OrderListPanel extends javax.swing.JPanel {
 
   private static OrderListPanel instance;
@@ -66,18 +62,17 @@ public class OrderListPanel extends javax.swing.JPanel {
   }
 
   private void initComponents() {
-
-    titlePanel = new javax.swing.JLabel();
-    contend = new javax.swing.JPanel();
-    buttonPanel = new javax.swing.JPanel();
-    jPanel3 = new javax.swing.JPanel();
-    ButtonExport = new javax.swing.JButton();
-    ButtonImport = new javax.swing.JButton();
-    ButtonCreate = new javax.swing.JButton();
-    ButtonDelete = new javax.swing.JButton();
-    tableContend = new javax.swing.JPanel();
-    scrollPane = new javax.swing.JScrollPane();
-    table = new javax.swing.JTable();
+    titlePanel = new JLabel();
+    contend = new JPanel();
+    buttonPanel = new JPanel();
+    jPanel3 = new JPanel();
+    ButtonExport = new JButton();
+    ButtonImport = new JButton();
+    ButtonCreate = new JButton();
+    ButtonDelete = new JButton();
+    tableContend = new JPanel();
+    scrollPane = new JScrollPane();
+    table = new JTable();
 
     setPreferredSize(new java.awt.Dimension(702, 444));
     setLayout(new java.awt.BorderLayout());
@@ -111,7 +106,6 @@ public class OrderListPanel extends javax.swing.JPanel {
     contend.add(buttonPanel, java.awt.BorderLayout.PAGE_START);
 
     tableContend.setLayout(new java.awt.BorderLayout());
-
 
     tableContend.add(scrollPane, java.awt.BorderLayout.CENTER);
 
@@ -175,16 +169,16 @@ public class OrderListPanel extends javax.swing.JPanel {
   }
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
-  private javax.swing.JButton ButtonCreate;
-  private javax.swing.JButton ButtonDelete;
-  private javax.swing.JButton ButtonExport;
-  private javax.swing.JButton ButtonImport;
-  private javax.swing.JPanel buttonPanel;
-  private javax.swing.JPanel contend;
-  private javax.swing.JPanel jPanel3;
-  private javax.swing.JScrollPane scrollPane;
-  private javax.swing.JTable table;
-  private javax.swing.JPanel tableContend;
-  private javax.swing.JLabel titlePanel;
+  private JButton ButtonCreate;
+  private JButton ButtonDelete;
+  private JButton ButtonExport;
+  private JButton ButtonImport;
+  private JPanel buttonPanel;
+  private JPanel contend;
+  private JPanel jPanel3;
+  private JScrollPane scrollPane;
+  private JTable table;
+  private JPanel tableContend;
+  private JLabel titlePanel;
   // End of variables declaration//GEN-END:variables
 }

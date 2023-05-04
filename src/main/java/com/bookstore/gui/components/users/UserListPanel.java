@@ -34,34 +34,33 @@ public class UserListPanel extends javax.swing.JPanel {
   }
 
   private void initComponents() {
+    titlePanel = new JLabel();
+    contend = new JPanel();
+    cartPanel = new JPanel();
+    contendTable = new JPanel();
+    buttonPanel = new JPanel();
+    buttonFilter = new JPanel();
+    filterAll = new JButton();
+    filterAdmin = new JButton();
+    filterEmployee = new JButton();
+    filterCustomer = new JButton();
+    buttonAction = new JPanel();
+    buttonCreate = new JButton();
+    buttonBanned = new JButton();
+    tablePanel = new JPanel();
+    headerTable = new JPanel();
+    serialText = new JLabel();
+    nameText = new JLabel();
+    phoneText = new JLabel();
+    emailText = new JLabel();
+    roleText = new JLabel();
+    statusText = new JLabel();
+    scrollPane = new JScrollPane();
+    panelItemHeader_1 = new JPanel();
+    panelItemHeader_2 = new JPanel();
 
-    titlePanel = new javax.swing.JLabel();
-    contend = new javax.swing.JPanel();
-    cartPanel = new javax.swing.JPanel();
-    contendTable = new javax.swing.JPanel();
-    buttonPanel = new javax.swing.JPanel();
-    buttonFilter = new javax.swing.JPanel();
-    filterAll = new javax.swing.JButton();
-    filterAdmin = new javax.swing.JButton();
-    filterEmployee = new javax.swing.JButton();
-    filterCustomer = new javax.swing.JButton();
-    buttonAction = new javax.swing.JPanel();
-    buttonCreate = new javax.swing.JButton();
-    buttonBanned = new javax.swing.JButton();
-    tablePanel = new javax.swing.JPanel();
-    headerTable = new javax.swing.JPanel();
-    serialText = new javax.swing.JLabel();
-    nameText = new javax.swing.JLabel();
-    phoneText = new javax.swing.JLabel();
-    emailText = new javax.swing.JLabel();
-    roleText = new javax.swing.JLabel();
-    statusText = new javax.swing.JLabel();
-    scrollPane = new javax.swing.JScrollPane();
-    panelItemHeader_1 = new javax.swing.JPanel();
-    panelItemHeader_2 = new javax.swing.JPanel();
-
-    table = new javax.swing.JPanel();
-    label = new javax.swing.JLabel();
+    table = new JPanel();
+    label = new JLabel();
 
     setLayout(new java.awt.BorderLayout());
 
@@ -73,15 +72,33 @@ public class UserListPanel extends javax.swing.JPanel {
 
     cartPanel.setLayout(new java.awt.GridLayout(1, 0, 50, 0));
 
-    cartUserAdmin = new CartUserAdmin("/resources/icons/employeeCart.png", "EMPLOYEE", QuantityEmployee, QuantityEmployeeNew);
+    cartUserAdmin =
+      new CartUserAdmin(
+        "/resources/icons/employeeCart.png",
+        "EMPLOYEE",
+        QuantityEmployee,
+        QuantityEmployeeNew
+      );
 
     cartPanel.add(cartUserAdmin);
 
-    cartUserAdmin = new CartUserAdmin("/resources/icons/adminCart.png", "ADMIN", QuantityAdmin, QuantityAdminNew);
+    cartUserAdmin =
+      new CartUserAdmin(
+        "/resources/icons/adminCart.png",
+        "ADMIN",
+        QuantityAdmin,
+        QuantityAdminNew
+      );
 
     cartPanel.add(cartUserAdmin);
 
-    cartUserAdmin = new CartUserAdmin("/resources/icons/customerCart.png", "CUSTOMER", QuantityCustomer, QuantityCustomerNew);
+    cartUserAdmin =
+      new CartUserAdmin(
+        "/resources/icons/customerCart.png",
+        "CUSTOMER",
+        QuantityCustomer,
+        QuantityCustomerNew
+      );
 
     cartPanel.add(cartUserAdmin);
 
@@ -139,7 +156,7 @@ public class UserListPanel extends javax.swing.JPanel {
 
     headerTable.setLayout(new java.awt.GridLayout());
 
-    panelItemHeader_1.setLayout(new java.awt.GridLayout(1,2));
+    panelItemHeader_1.setLayout(new java.awt.GridLayout(1, 2));
 
     panelItemHeader_1.add(label);
 
@@ -162,9 +179,8 @@ public class UserListPanel extends javax.swing.JPanel {
     emailText.setText("Email");
     headerTable.add(emailText);
 
-    panelItemHeader_2.setLayout(new java.awt.GridLayout(1,2));
+    panelItemHeader_2.setLayout(new java.awt.GridLayout(1, 2));
 
-    
     roleText.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
     roleText.setText("Role");
     panelItemHeader_2.add(roleText);
@@ -174,7 +190,7 @@ public class UserListPanel extends javax.swing.JPanel {
     panelItemHeader_2.add(statusText);
 
     headerTable.add(panelItemHeader_2);
-    
+
     tablePanel.add(headerTable, java.awt.BorderLayout.PAGE_START);
 
     scrollPane.setViewportView(table);
@@ -228,12 +244,12 @@ public class UserListPanel extends javax.swing.JPanel {
 
   public void addTable() {
     table.removeAll();
-    table.setLayout(new GridLayout(0, 1,0,20));
+    table.setLayout(new GridLayout(0, 1, 0, 20));
     List<UserModel> userList = UserBUS.getInstance().getAllModels();
     int serial = 0;
     for (UserModel user : userList) {
       if (!user.getStatus().toString().equals("BANNED")) {
-        UserPanel userForm = new UserPanel(serial,user);
+        UserPanel userForm = new UserPanel(serial, user);
         table.add(userForm);
         serial++;
       }
@@ -249,7 +265,7 @@ public class UserListPanel extends javax.swing.JPanel {
     table.setLayout(new GridLayout(0, 1, 10, 10));
     for (UserModel user : list) {
       if (!user.getStatus().toString().equals("BANNED")) {
-        UserPanel userForm = new UserPanel(1,user);
+        UserPanel userForm = new UserPanel(1, user);
         table.add(userForm);
       }
     }
@@ -258,32 +274,32 @@ public class UserListPanel extends javax.swing.JPanel {
   }
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
-  private javax.swing.JPanel buttonAction;
-  private javax.swing.JButton buttonBanned;
-  private javax.swing.JButton buttonCreate;
-  private javax.swing.JPanel buttonFilter;
-  private javax.swing.JPanel buttonPanel;
-  private javax.swing.JPanel cartPanel;
-  private javax.swing.JPanel contend;
-  private javax.swing.JPanel contendTable;
-  private javax.swing.JLabel emailText;
-  private javax.swing.JButton filterAdmin;
-  private javax.swing.JButton filterAll;
-  private javax.swing.JButton filterCustomer;
-  private javax.swing.JButton filterEmployee;
-  private javax.swing.JPanel headerTable;
-  private javax.swing.JLabel nameText;
-  private javax.swing.JLabel phoneText;
-  private javax.swing.JLabel roleText;
-  private javax.swing.JScrollPane scrollPane;
-  private javax.swing.JLabel serialText;
-  private javax.swing.JLabel statusText;
-  private javax.swing.JPanel table;
-  private javax.swing.JPanel tablePanel;
-  private javax.swing.JLabel titlePanel;
-  private javax.swing.JPanel panelItemHeader_1;
-  private javax.swing.JPanel panelItemHeader_2;
-  private javax.swing.JLabel label;
+  private JPanel buttonAction;
+  private JButton buttonBanned;
+  private JButton buttonCreate;
+  private JPanel buttonFilter;
+  private JPanel buttonPanel;
+  private JPanel cartPanel;
+  private JPanel contend;
+  private JPanel contendTable;
+  private JLabel emailText;
+  private JButton filterAdmin;
+  private JButton filterAll;
+  private JButton filterCustomer;
+  private JButton filterEmployee;
+  private JPanel headerTable;
+  private JLabel nameText;
+  private JLabel phoneText;
+  private JLabel roleText;
+  private JScrollPane scrollPane;
+  private JLabel serialText;
+  private JLabel statusText;
+  private JPanel table;
+  private JPanel tablePanel;
+  private JLabel titlePanel;
+  private JPanel panelItemHeader_1;
+  private JPanel panelItemHeader_2;
+  private JLabel label;
 
   private int QuantityAdmin = 0;
   private int QuantityCustomer = 0;
@@ -351,7 +367,7 @@ public class UserListPanel extends javax.swing.JPanel {
           user.getRole().toString().equals("ADMIN") &&
           !user.getStatus().toString().equals("BANNED")
         ) {
-          UserPanel userForm = new UserPanel(serial,user);
+          UserPanel userForm = new UserPanel(serial, user);
           table.add(userForm);
           serial++;
         }
@@ -372,7 +388,7 @@ public class UserListPanel extends javax.swing.JPanel {
           user.getRole().toString().equals("EMPLOYEE") &&
           !user.getStatus().toString().equals("BANNED")
         ) {
-          UserPanel userForm = new UserPanel(serial,user);
+          UserPanel userForm = new UserPanel(serial, user);
           table.add(userForm);
           serial++;
         }
@@ -393,7 +409,7 @@ public class UserListPanel extends javax.swing.JPanel {
           user.getRole().toString().equals("CUSTOMER") &&
           !user.getStatus().toString().equals("BANNED")
         ) {
-          UserPanel userForm = new UserPanel(serial,user);
+          UserPanel userForm = new UserPanel(serial, user);
           table.add(userForm);
           serial++;
         }

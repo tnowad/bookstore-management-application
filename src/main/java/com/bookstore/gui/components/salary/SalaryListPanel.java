@@ -3,6 +3,10 @@ package com.bookstore.gui.components.salary;
 import com.bookstore.bus.EmployeeBUS;
 import com.bookstore.models.EmployeeModel;
 import java.util.List;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 
 public class SalaryListPanel extends javax.swing.JPanel {
 
@@ -23,22 +27,22 @@ public class SalaryListPanel extends javax.swing.JPanel {
   }
 
   private void initComponents() {
-    title = new javax.swing.JLabel();
-    contend = new javax.swing.JPanel();
-    sumSalaryPanel = new javax.swing.JPanel();
-    totalText = new javax.swing.JLabel();
-    setSumSalary = new javax.swing.JTextField();
-    table = new javax.swing.JPanel();
-    headerTable = new javax.swing.JPanel();
-    panel = new javax.swing.JPanel();
-    serialText = new javax.swing.JLabel();
-    idText = new javax.swing.JLabel();
-    nameText = new javax.swing.JLabel();
-    salaryText = new javax.swing.JLabel();
-    typeText = new javax.swing.JLabel();
-    contactText = new javax.swing.JLabel();
-    scrollPane = new javax.swing.JScrollPane();
-    contendTable = new javax.swing.JPanel();
+    title = new JLabel();
+    contend = new JPanel();
+    sumSalaryPanel = new JPanel();
+    totalText = new JLabel();
+    setSumSalary = new JTextField();
+    table = new JPanel();
+    headerTable = new JPanel();
+    panel = new JPanel();
+    serialText = new JLabel();
+    idText = new JLabel();
+    nameText = new JLabel();
+    salaryText = new JLabel();
+    typeText = new JLabel();
+    contactText = new JLabel();
+    scrollPane = new JScrollPane();
+    contendTable = new JPanel();
 
     setPreferredSize(new java.awt.Dimension(720, 444));
     setLayout(new java.awt.BorderLayout());
@@ -104,37 +108,36 @@ public class SalaryListPanel extends javax.swing.JPanel {
 
     contend.add(sumSalaryPanel, java.awt.BorderLayout.SOUTH);
 
-
     add(contend, java.awt.BorderLayout.CENTER);
   }
 
   public void addTable() {
     contendTable.removeAll();
-    contendTable.setLayout(new java.awt.GridLayout(0, 1,0,15));
+    contendTable.setLayout(new java.awt.GridLayout(0, 1, 0, 15));
     int serial = 0;
     for (EmployeeModel employee : listEmployee) {
       SalaryPanel salaryPanel = new SalaryPanel(serial, employee);
       contendTable.add(salaryPanel);
-      serial = serial+1;
+      serial = serial + 1;
     }
     contendTable.revalidate();
     contendTable.repaint();
   }
 
-  private javax.swing.JLabel totalText;
-  private javax.swing.JTextField setSumSalary;
-  private javax.swing.JPanel sumSalaryPanel;
-  private javax.swing.JPanel contend;
-  private javax.swing.JPanel contendTable;
-  private javax.swing.JLabel contactText;
-  private javax.swing.JPanel headerTable;
-  private javax.swing.JLabel idText;
-  private javax.swing.JLabel nameText;
-  private javax.swing.JLabel salaryText;
-  private javax.swing.JLabel typeText;
-  private javax.swing.JPanel panel;
-  private javax.swing.JScrollPane scrollPane;
-  private javax.swing.JLabel serialText;
-  private javax.swing.JPanel table;
-  private javax.swing.JLabel title;
+  private JLabel totalText;
+  private JTextField setSumSalary;
+  private JPanel sumSalaryPanel;
+  private JPanel contend;
+  private JPanel contendTable;
+  private JLabel contactText;
+  private JPanel headerTable;
+  private JLabel idText;
+  private JLabel nameText;
+  private JLabel salaryText;
+  private JLabel typeText;
+  private JPanel panel;
+  private JScrollPane scrollPane;
+  private JLabel serialText;
+  private JPanel table;
+  private JLabel title;
 }

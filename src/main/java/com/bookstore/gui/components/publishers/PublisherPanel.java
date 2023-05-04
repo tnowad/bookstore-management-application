@@ -1,52 +1,50 @@
-
 package com.bookstore.gui.components.publishers;
 
 import com.bookstore.models.PublisherModel;
-
+import javax.swing.JCheckBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 public class PublisherPanel extends javax.swing.JPanel {
 
-    public PublisherPanel(int serial,PublisherModel publisher) {
-        initComponents(serial,publisher);
-    }
+  public PublisherPanel(int serial, PublisherModel publisher) {
+    initComponents(serial, publisher);
+  }
 
-    
-    private void initComponents(int serial,PublisherModel publisher) {
+  private void initComponents(int serial, PublisherModel publisher) {
+    panel = new JPanel();
+    checkBox = new JCheckBox();
+    setSerial = new JLabel();
+    setId = new JLabel();
+    setName = new JLabel();
+    setDescription = new JLabel();
 
-        panel = new javax.swing.JPanel();
-        checkBox = new javax.swing.JCheckBox();
-        setSerial = new javax.swing.JLabel();
-        setId = new javax.swing.JLabel();
-        setName = new javax.swing.JLabel();
-        setDescription = new javax.swing.JLabel();
+    setLayout(new java.awt.GridLayout(1, 3));
 
-        setLayout(new java.awt.GridLayout(1, 3));
+    panel.setLayout(new java.awt.GridLayout(1, 3));
+    panel.add(checkBox);
 
-        panel.setLayout(new java.awt.GridLayout(1, 3));
-        panel.add(checkBox);
+    setSerial.setText("" + serial);
+    panel.add(setSerial);
 
-        setSerial.setText(""+serial);
-        panel.add(setSerial);
+    setId.setText("" + publisher.getId());
+    panel.add(setId);
 
-        setId.setText(""+publisher.getId());
-        panel.add(setId);
+    add(panel);
 
-        add(panel);
+    setName.setText(publisher.getName());
+    setName.setPreferredSize(new java.awt.Dimension(100, 16));
+    add(setName);
 
-        setName.setText(publisher.getName());
-        setName.setPreferredSize(new java.awt.Dimension(100, 16));
-        add(setName);
+    setDescription.setText(publisher.getDescription());
+    setDescription.setPreferredSize(new java.awt.Dimension(300, 16));
+    add(setDescription);
+  }
 
-        setDescription.setText(publisher.getDescription());
-        setDescription.setPreferredSize(new java.awt.Dimension(300, 16));
-        add(setDescription);
-    }
-
-
-    private javax.swing.JCheckBox checkBox;
-    private javax.swing.JPanel panel;
-    private javax.swing.JLabel setDescription;
-    private javax.swing.JLabel setId;
-    private javax.swing.JLabel setName;
-    private javax.swing.JLabel setSerial;
+  private JCheckBox checkBox;
+  private JPanel panel;
+  private JLabel setDescription;
+  private JLabel setId;
+  private JLabel setName;
+  private JLabel setSerial;
 }

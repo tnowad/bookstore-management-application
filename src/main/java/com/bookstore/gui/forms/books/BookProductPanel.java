@@ -1,5 +1,10 @@
 package com.bookstore.gui.forms.books;
 
+import javax.swing.GroupLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
 public class BookProductPanel extends javax.swing.JPanel {
 
   public BookProductPanel() {
@@ -7,9 +12,9 @@ public class BookProductPanel extends javax.swing.JPanel {
   }
 
   private void initComponents() {
-    bookTitleLabel = new javax.swing.JLabel();
-    bookImagePanel = new javax.swing.JPanel();
-    bookDetailButton = new javax.swing.JButton();
+    bookTitleLabel = new JLabel();
+    bookImagePanel = new JPanel();
+    bookDetailButton = new JButton();
 
     setLayout(new java.awt.BorderLayout());
 
@@ -19,7 +24,7 @@ public class BookProductPanel extends javax.swing.JPanel {
     add(bookTitleLabel, java.awt.BorderLayout.PAGE_START);
     bookTitleLabel.getAccessibleContext().setAccessibleDescription("");
 
-    javax.swing.GroupLayout bookImagePanelLayout = new javax.swing.GroupLayout(
+    javax.swing.GroupLayout bookImagePanelLayout = new GroupLayout(
       bookImagePanel
     );
     bookImagePanel.setLayout(bookImagePanelLayout);
@@ -40,7 +45,7 @@ public class BookProductPanel extends javax.swing.JPanel {
     add(bookDetailButton, java.awt.BorderLayout.PAGE_END);
   }
 
-  private javax.swing.JButton bookDetailButton;
-  private javax.swing.JPanel bookImagePanel;
-  private javax.swing.JLabel bookTitleLabel;
+  private JButton bookDetailButton;
+  private JPanel bookImagePanel;
+  private JLabel bookTitleLabel;
 }

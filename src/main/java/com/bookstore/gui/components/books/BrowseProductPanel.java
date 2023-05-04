@@ -34,16 +34,16 @@ public class BrowseProductPanel extends JPanel {
   }
 
   private void initComponents() {
-    title = new javax.swing.JLabel();
-    contendPanel = new javax.swing.JPanel();
-    panel = new javax.swing.JPanel();
-    panelButton = new javax.swing.JPanel();
-    buttonExport = new javax.swing.JButton();
-    buttonImport = new javax.swing.JButton();
-    buttonCreate = new javax.swing.JButton();
-    buttonDelete = new javax.swing.JButton();
-    scrollPane = new javax.swing.JScrollPane();
-    table = new javax.swing.JPanel();
+    title = new JLabel();
+    contendPanel = new JPanel();
+    panel = new JPanel();
+    panelButton = new JPanel();
+    buttonExport = new JButton();
+    buttonImport = new JButton();
+    buttonCreate = new JButton();
+    buttonDelete = new JButton();
+    scrollPane = new JScrollPane();
+    table = new JPanel();
 
     setPreferredSize(new java.awt.Dimension(702, 444));
     setLayout(new java.awt.BorderLayout());
@@ -111,41 +111,41 @@ public class BrowseProductPanel extends JPanel {
     table.repaint();
   }
 
-  private javax.swing.JButton buttonCreate;
-  private javax.swing.JButton buttonDelete;
-  private javax.swing.JButton buttonExport;
-  private javax.swing.JButton buttonImport;
-  private javax.swing.JPanel contendPanel;
-  private javax.swing.JPanel panel;
-  private javax.swing.JPanel panelButton;
-  private javax.swing.JScrollPane scrollPane;
-  private javax.swing.JPanel table;
-  private javax.swing.JLabel title;
+  private JButton buttonCreate;
+  private JButton buttonDelete;
+  private JButton buttonExport;
+  private JButton buttonImport;
+  private JPanel contendPanel;
+  private JPanel panel;
+  private JPanel panelButton;
+  private JScrollPane scrollPane;
+  private JPanel table;
+  private JLabel title;
 
   public ActionListener actionAdd = new ActionListener() {
-
     @Override
     public void actionPerformed(ActionEvent e) {
       AddProductFrame addProductFrame = new AddProductFrame();
       addProductFrame.setVisible(true);
     }
-
   };
   public ActionListener actionBanned = new ActionListener() {
-
     @Override
     public void actionPerformed(ActionEvent e) {
       int choice = JOptionPane.showConfirmDialog(
-          null,
-          "Do you want to banned products?",
-          "Confirmation",
-          JOptionPane.YES_NO_OPTION);
+        null,
+        "Do you want to banned products?",
+        "Confirmation",
+        JOptionPane.YES_NO_OPTION
+      );
       if (choice == JOptionPane.YES_OPTION) {
         for (Component component : table.getComponents()) {
           JPanel subPanel = (JPanel) component;
           for (Component subComponent : subPanel.getComponents()) {
-            if (subComponent instanceof JCheckBox &&
-                ((JCheckBox) subComponent).isSelected()) {
+            if (
+              subComponent instanceof JCheckBox &&
+              ((JCheckBox) subComponent).isSelected()
+            ) {
               Component[] components = subPanel.getComponents();
               for (Component c : components) {
                 if (c instanceof JTextField) {
@@ -153,12 +153,13 @@ public class BrowseProductPanel extends JPanel {
                   System.out.println(id);
                   String status = "DELETED";
                   int updateStatusRows = BookBUS
-                      .getInstance()
-                      .updateStatus(id, status);
+                    .getInstance()
+                    .updateStatus(id, status);
                   if (updateStatusRows == 1) {
                     JOptionPane.showMessageDialog(
-                        null,
-                        "You've successfully locked an products!");
+                      null,
+                      "You've successfully locked an products!"
+                    );
                     table.revalidate();
                     table.repaint();
                   }
@@ -169,11 +170,9 @@ public class BrowseProductPanel extends JPanel {
         }
       }
     }
-
   };
 
   public ActionListener actionImport = new ActionListener() {
-
     @Override
     public void actionPerformed(ActionEvent evt) {
       try {
@@ -187,11 +186,9 @@ public class BrowseProductPanel extends JPanel {
         e.printStackTrace();
       }
     }
-
   };
 
   public ActionListener actionExport = new ActionListener() {
-
     @Override
     public void actionPerformed(ActionEvent evt) {
       List<BookModel> listBooks = BookBUS.getInstance().getAllModels();
@@ -201,6 +198,5 @@ public class BrowseProductPanel extends JPanel {
         e.printStackTrace();
       }
     }
-
   };
 }
