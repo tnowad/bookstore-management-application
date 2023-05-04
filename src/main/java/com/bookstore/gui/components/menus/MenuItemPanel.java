@@ -44,7 +44,6 @@ public class MenuItemPanel extends JPanel {
       subMenuItemsPanel.setLayout(
         new BoxLayout(subMenuItemsPanel, BoxLayout.Y_AXIS)
       );
-      subMenuItemsPanel.setBackground(Color.decode("#3B70C1"));
 
       for (SubMenuItemModel subMenuItemModel : menuItemModel.getSubMenuItems()) {
         MenuButton subMenuItemButton = new MenuButton(

@@ -3,7 +3,6 @@ package com.bookstore.gui.components.menus;
 import com.bookstore.models.MenuItemModel;
 import com.bookstore.models.MenuModel;
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import javax.swing.BoxLayout;
@@ -39,7 +38,6 @@ public class MenuPanel extends JPanel {
   private void initComponents() {
     scrollPane = new JScrollPane();
     menuItemsPanel = new JPanel();
-    menuItemsPanel.setBackground(Color.decode("#273853"));
 
     menuItemsPanel.setLayout(new BoxLayout(menuItemsPanel, BoxLayout.Y_AXIS));
 

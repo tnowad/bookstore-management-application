@@ -3,6 +3,7 @@ package com.bookstore.gui.components.headers;
 import com.bookstore.gui.components.inputs.SearchTextField;
 import com.bookstore.gui.components.panels.MainPanel;
 import com.bookstore.gui.main.MainFrame;
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionListener;
@@ -29,12 +30,12 @@ public class HeaderPanel extends JPanel {
 
   public HeaderPanel() {
     initComponents();
-    setOpaque(false);
 
     HeaderPanel.instance = this;
   }
 
   private void initComponents() {
+    setBackground(Color.WHITE);
     toggleMenuButton = new JButton();
     toggleMenuButton.addActionListener(toggleMenuActionListener);
     toggleMenuButton.setIcon(
