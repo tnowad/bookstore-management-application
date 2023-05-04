@@ -1,14 +1,31 @@
 package com.bookstore.gui.forms.customer;
 
+import com.bookstore.bus.BookBUS;
+import com.bookstore.models.BookModel;
 import java.awt.*;
+import java.util.List;
 import javax.swing.*;
 
 public class Discovery extends JPanel {
 
   private static Discovery instance;
+  private List<BookModel> bookList;
 
   private Discovery() {
     initComponents();
+    updateData();
+    handleEvent();
+  }
+
+  private void handleEvent() {
+    
+  }
+
+  private void updateData() {
+    bookList = BookBUS.getInstance().getAllModels();
+    for (BookModel bookModel : bookList) {
+      bookListPanel.add(new Book(bookModel.getTitle()));
+    }
   }
 
   public static Discovery getInstance() {
