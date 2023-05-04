@@ -76,40 +76,20 @@ public class OrderListPanel extends javax.swing.JPanel {
 
         buttonPanel.setLayout(new java.awt.BorderLayout());
 
+        jPanel3.setLayout(new java.awt.GridLayout(1, 0, 5, 0));
+
         ButtonExport.setText("Xuất File");
         ButtonExport.setToolTipText("");
+        jPanel3.add(ButtonExport);
 
         ButtonInport.setText("Nhập File");
+        jPanel3.add(ButtonInport);
 
         ButtonCreate.setText("Create");
+        jPanel3.add(ButtonCreate);
 
         ButtonDelete.setText("Delete");
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(ButtonExport)
-                .addGap(18, 18, 18)
-                .addComponent(ButtonInport)
-                .addGap(18, 18, 18)
-                .addComponent(ButtonCreate)
-                .addGap(18, 18, 18)
-                .addComponent(ButtonDelete)
-                .addGap(0, 39, Short.MAX_VALUE))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ButtonCreate, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
-                    .addComponent(ButtonExport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(ButtonInport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(ButtonDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
+        jPanel3.add(ButtonDelete);
 
         buttonPanel.add(jPanel3, java.awt.BorderLayout.LINE_END);
 
@@ -121,7 +101,7 @@ public class OrderListPanel extends javax.swing.JPanel {
         table.setLayout(tableLayout);
         tableLayout.setHorizontalGroup(
             tableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 700, Short.MAX_VALUE)
+            .addGap(0, 759, Short.MAX_VALUE)
         );
         tableLayout.setVerticalGroup(
             tableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -228,16 +208,7 @@ public class OrderListPanel extends javax.swing.JPanel {
     for (OrderModel order : listOrder) {
       if (!order.getStatus().toString().equals("BANNED")) {
         ItemOrderPanel orderForm = new ItemOrderPanel(
-          Serial,
-          order.getId(),
-          order.getCartId(),
-          order.getCustomerId(),
-          order.getEmployeeId(),
-          order.getTotal(),
-          order.getCreatedAt(),
-          order.getUpdatedAt(),
-          order.getStatus()
-        );
+          Serial, order);
         table.add(orderForm);
         Serial = Serial + 1;
       }
@@ -261,16 +232,7 @@ public class OrderListPanel extends javax.swing.JPanel {
       for (OrderModel order : listOrder) {
         if (!order.getStatus().toString().equals("BANNED")) {
           ItemOrderPanel orderForm = new ItemOrderPanel(
-            1,
-            order.getId(),
-            order.getCartId(),
-            order.getCustomerId(),
-            order.getEmployeeId(),
-            order.getTotal(),
-            order.getCreatedAt(),
-            order.getUpdatedAt(),
-            order.getStatus()
-          );
+            Serial,order);
           table.add(orderForm);
           Serial = Serial + 1;
         }

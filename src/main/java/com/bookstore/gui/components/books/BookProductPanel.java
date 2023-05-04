@@ -1,7 +1,8 @@
 package com.bookstore.gui.components.books;
 
 import com.bookstore.models.BookModel;
-
+import com.bookstore.util.image.ImageUtils;
+import java.awt.Image;
 import java.awt.event.*;
 import javax.swing.*;
 
@@ -18,8 +19,7 @@ public class BookProductPanel extends javax.swing.JPanel {
 
   public BookProductPanel(BookModel book) {
     this.bookModel = book;
-    initComponents(
-        book);
+    initComponents(book);
     setImage(book.getImage());
   }
 
@@ -37,7 +37,8 @@ public class BookProductPanel extends javax.swing.JPanel {
 
     setBackground(new java.awt.Color(255, 255, 255));
     setBorder(
-        javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+      javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0))
+    );
     setMaximumSize(new java.awt.Dimension(199, 333));
     setMinimumSize(new java.awt.Dimension(199, 333));
     setPreferredSize(new java.awt.Dimension(199, 333));
@@ -70,27 +71,24 @@ public class BookProductPanel extends javax.swing.JPanel {
     add(contendPanel, java.awt.BorderLayout.CENTER);
   }
 
-  public void actionDetail(BookModel book) {
-
-  }
+  public void actionDetail(BookModel book) {}
 
   public void setImage(String image) {
-    // Image imageBase = null;
-    // try {
-    // imageBase = ImageUtils.decodeFromBase64(image);
-    // } catch (Exception ex) {
-    // }
-    setImage.setIcon(new javax.swing.ImageIcon(image));
+    try {
+      Image imageBase = ImageUtils.decodeFromBase64(image);
+      setImage.setIcon(new javax.swing.ImageIcon(imageBase));
+    } catch (Exception ex) {
+      setImage.setIcon(
+        new ImageIcon("src/main/java/resources/images/product-placeholder.png")
+      );
+    }
   }
 
   public ActionListener actionDetail = new ActionListener() {
-
     @Override
     public void actionPerformed(ActionEvent e) {
       BookDetailFrame bookDetailFrame = new BookDetailFrame(bookModel);
       bookDetailFrame.setVisible(true);
     }
-
   };
-
 }
