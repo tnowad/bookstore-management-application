@@ -34,7 +34,6 @@ public class MainPanel extends JPanel {
   private void initializeComponents() {
     GroupLayout layout = new GroupLayout(this);
     setLayout(layout);
-    setOpaque(false);
     setBorder(new EmptyBorder(5, 5, 5, 5));
     setLayout(new BorderLayout());
   }
