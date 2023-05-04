@@ -1,9 +1,11 @@
 package com.bookstore.gui.forms.customer;
 
 import com.bookstore.bus.CartBUS;
+import com.bookstore.bus.CartItemsBUS;
 import com.bookstore.enums.CartStatus;
 import com.bookstore.gui.components.dialogs.Dialog;
 import com.bookstore.models.BookModel;
+import com.bookstore.models.CartItemsModel;
 import com.bookstore.models.CartModel;
 import com.bookstore.models.UserModel;
 import com.bookstore.services.Authentication;
@@ -15,6 +17,8 @@ public class Book extends javax.swing.JPanel {
   private UserModel userModel = Authentication.getCurrentUser();
   private List<CartModel> cartList = CartBUS.getInstance().getAllModels();
   private CartModel myCartModel;
+  private CartItemsBUS cartItemsBUS = CartItemsBUS.getInstance();
+  private CartItemsModel cartItemsModel;
 
   private BookModel bookModel;
 
@@ -38,8 +42,18 @@ public class Book extends javax.swing.JPanel {
       }
       if (myCartModel == null) {
         myCartModel = new CartModel();
+        myCartModel.setUserId(userModel.getId());
+        myCartModel.setPromotionId(1);
+        myCartModel.setStatus(CartStatus.PENDING);
+        CartBUS.getInstance().addModel(myCartModel);
       }
-      
+      cartItemsModel = new CartItemsModel();
+      cartItemsModel.setBookIsbn(bookModel.getIsbn());
+      cartItemsModel.setCartId(myCartModel.getId());
+      cartItemsModel.setDiscount(ABORT);
+      cartItemsModel.setPrice(bookModel.getPrice());
+      cartItemsModel.setQuantity(1);
+      CartItemsBUS.getInstance().addModel(cartItemsModel);
     });
   }
 
