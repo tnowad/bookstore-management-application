@@ -53,6 +53,7 @@ public class MenuPanel extends JPanel {
     scrollPane.setViewportView(menuItemsPanel);
     setLayout(new BorderLayout());
     add(scrollPane, BorderLayout.CENTER);
+    menuItemsPanel.setOpaque(false);
     setPreferredSize(new Dimension(400, 400));
   }
 

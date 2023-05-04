@@ -13,6 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.Timer;
+import java.awt.Color;
 
 public class MainFrame extends JFrame {
 
@@ -86,7 +87,7 @@ public class MainFrame extends JFrame {
   private void initComponents() {
     layout = new BorderLayout();
     setLayout(layout);
-
+    setBackground(Color.BLUE);
     menuPanel.setMinimumSize(new Dimension(50, Integer.MAX_VALUE));
     menuPanel.setMaximumSize(new Dimension(250, Integer.MAX_VALUE));
     mainPanelWrapper = new JPanel(new BorderLayout());

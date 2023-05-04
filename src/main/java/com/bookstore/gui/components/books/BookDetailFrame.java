@@ -12,7 +12,35 @@ import javax.swing.*;
 
 public class BookDetailFrame extends javax.swing.JFrame {
 
+  private javax.swing.JLabel authorText;
+  private javax.swing.JButton buttonBack;
+  private javax.swing.JPanel buttonPanel;
+  private javax.swing.JButton buttonSave;
+  private javax.swing.JPanel contendPanel;
+  private javax.swing.JPanel descriptionContend;
+  private javax.swing.JPanel descriptionPanel;
+  private javax.swing.JLabel descriptionText;
+  private javax.swing.JLabel getImageBook;
+  private javax.swing.JPanel informationPanel;
+  private javax.swing.JLabel isbnText;
+  private javax.swing.JLabel priceText;
+  private javax.swing.JLabel publisherText;
+  private javax.swing.JLabel quantityText;
+  private javax.swing.JScrollPane scrollPane;
+  private javax.swing.JTextField setAuthorName;
+  private javax.swing.JTextField setAvailableQuantity;
+  private javax.swing.JTextArea setDescription;
+  private javax.swing.JTextField setIsbn;
+  private javax.swing.JTextField setPrice;
+  private javax.swing.JTextField setPublisherName;
+  private javax.swing.JComboBox<String> setStatus;
+  private javax.swing.JTextField setTitle;
+  private javax.swing.JLabel statusText;
+
+  private BookModel bookModel;
+
   public BookDetailFrame(BookModel book) {
+
     initComponents(book);
     setStatus(book.getStatus());
     setImage(book.getImage());
@@ -20,6 +48,7 @@ public class BookDetailFrame extends javax.swing.JFrame {
     setLocationRelativeTo(null);
     setResizable(false);
     this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+    this.bookModel = book;
   }
 
   private void initComponents(BookModel book) {
@@ -164,27 +193,14 @@ public class BookDetailFrame extends javax.swing.JFrame {
         new javax.swing.ImageIcon(
             getClass().getResource("/resources/icons/back.png")));
     buttonBack.setPreferredSize(new java.awt.Dimension(80, 30));
-    buttonBack.addActionListener(
-        new ActionListener() {
-          @Override
-          public void actionPerformed(ActionEvent e) {
-            JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(buttonBack);
-            frame.dispose();
-          }
-        });
+    buttonBack.addActionListener(actionBack);
     buttonPanel.add(buttonBack);
 
     buttonSave.setIcon(
         new javax.swing.ImageIcon(
             getClass().getResource("/resources/icons/save.png")));
     buttonSave.setPreferredSize(new java.awt.Dimension(80, 30));
-    buttonSave.addActionListener(
-        new ActionListener() {
-          @Override
-          public void actionPerformed(ActionEvent e) {
-            actionSave(book);
-          }
-        });
+    buttonSave.addActionListener(actionSave);
     buttonPanel.add(buttonSave);
 
     descriptionContend.add(buttonPanel, java.awt.BorderLayout.PAGE_END);
@@ -221,43 +237,6 @@ public class BookDetailFrame extends javax.swing.JFrame {
     setStatus.setSelectedIndex(index);
   }
 
-  public void actionSave(BookModel book) {
-    Object selectedStatusItem = setStatus.getSelectedItem();
-    if (selectedStatusItem != null) {
-      String statusString = selectedStatusItem.toString().toUpperCase();
-      BookStatus newStatus = BookStatus.valueOf(statusString);
-      int newPrice = Integer.valueOf(setPrice.getText());
-      int newQuantity = Integer.valueOf(setAvailableQuantity.getText());
-      String newDescription = setDescription.getText();
-      BookModel newBook = new BookModel();
-      newBook.setIsbn(book.getIsbn());
-      newBook.setTitle(book.getTitle());
-      newBook.setDescription(newDescription);
-      newBook.setImage(book.getImage());
-      newBook.setPrice(newPrice);
-      newBook.setQuantity(newQuantity);
-      newBook.setStatus(newStatus);
-      newBook.setAuthorId(book.getAuthorId());
-      newBook.setPublisherId(book.getPublisherId());
-      int confirm = JOptionPane.showConfirmDialog(
-          null,
-          "Do you want to continue?",
-          "Confirmation",
-          JOptionPane.YES_NO_OPTION);
-      if (confirm == JOptionPane.YES_OPTION) {
-        BookBUS.getInstance().updateModel(newBook);
-      }
-    }
-    for (Frame window : JFrame.getFrames()) {
-      if (window instanceof JFrame) {
-        JFrame frame = (JFrame) window;
-        frame.setVisible(false);
-        frame.dispose();
-        frame.setVisible(true);
-      }
-    }
-  }
-
   public void setImage(String image) {
     getImageBook.setIcon(new javax.swing.ImageIcon(image));
     ImageIcon icon = (ImageIcon) getImageBook.getIcon();
@@ -269,28 +248,56 @@ public class BookDetailFrame extends javax.swing.JFrame {
     }
   }
 
-  private javax.swing.JLabel authorText;
-  private javax.swing.JButton buttonBack;
-  private javax.swing.JPanel buttonPanel;
-  private javax.swing.JButton buttonSave;
-  private javax.swing.JPanel contendPanel;
-  private javax.swing.JPanel descriptionContend;
-  private javax.swing.JPanel descriptionPanel;
-  private javax.swing.JLabel descriptionText;
-  private javax.swing.JLabel getImageBook;
-  private javax.swing.JPanel informationPanel;
-  private javax.swing.JLabel isbnText;
-  private javax.swing.JLabel priceText;
-  private javax.swing.JLabel publisherText;
-  private javax.swing.JLabel quantityText;
-  private javax.swing.JScrollPane scrollPane;
-  private javax.swing.JTextField setAuthorName;
-  private javax.swing.JTextField setAvailableQuantity;
-  private javax.swing.JTextArea setDescription;
-  private javax.swing.JTextField setIsbn;
-  private javax.swing.JTextField setPrice;
-  private javax.swing.JTextField setPublisherName;
-  private javax.swing.JComboBox<String> setStatus;
-  private javax.swing.JTextField setTitle;
-  private javax.swing.JLabel statusText;
+  public ActionListener actionSave = new ActionListener() {
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+      Object selectedStatusItem = setStatus.getSelectedItem();
+      if (selectedStatusItem != null) {
+        String statusString = selectedStatusItem.toString().toUpperCase();
+        BookStatus newStatus = BookStatus.valueOf(statusString);
+        int newPrice = Integer.valueOf(setPrice.getText());
+        int newQuantity = Integer.valueOf(setAvailableQuantity.getText());
+        String newDescription = setDescription.getText();
+        BookModel newBook = new BookModel();
+        newBook.setIsbn(bookModel.getIsbn());
+        newBook.setTitle(bookModel.getTitle());
+        newBook.setDescription(newDescription);
+        newBook.setImage(bookModel.getImage());
+        newBook.setPrice(newPrice);
+        newBook.setQuantity(newQuantity);
+        newBook.setStatus(newStatus);
+        newBook.setAuthorId(bookModel.getAuthorId());
+        newBook.setPublisherId(bookModel.getPublisherId());
+        int confirm = JOptionPane.showConfirmDialog(
+            null,
+            "Do you want to continue?",
+            "Confirmation",
+            JOptionPane.YES_NO_OPTION);
+        if (confirm == JOptionPane.YES_OPTION) {
+          BookBUS.getInstance().updateModel(newBook);
+        }
+      }
+      for (Frame window : JFrame.getFrames()) {
+        if (window instanceof JFrame) {
+          JFrame frame = (JFrame) window;
+          frame.setVisible(false);
+          frame.dispose();
+          frame.setVisible(true);
+        }
+      }
+    }
+
+  };
+
+  public ActionListener actionBack = new ActionListener() {
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+      JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(buttonBack);
+      frame.dispose();
+    }
+
+  };
+
 }
