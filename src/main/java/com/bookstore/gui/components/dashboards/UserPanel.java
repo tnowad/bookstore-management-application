@@ -2,6 +2,9 @@ package com.bookstore.gui.components.dashboards;
 
 import com.bookstore.enums.UserRole;
 import com.bookstore.enums.UserStatus;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
 import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
 import javax.swing.JLabel;
@@ -38,12 +41,12 @@ public class UserPanel extends JPanel {
     getStatus = new JLabel();
     getRole = new JTextField();
 
-    setBackground(new java.awt.Color(255, 255, 255));
-    setPreferredSize(new java.awt.Dimension(445, 42));
+    setBackground(new Color(255, 255, 255));
+    setPreferredSize(new Dimension(445, 42));
 
     getSerial.setText("01");
 
-    getNameUser.setFont(new java.awt.Font("Segoe UI", 3, 12));
+    getNameUser.setFont(new Font("Segoe UI", 3, 12));
     getNameUser.setText("huynh trieu den");
 
     getPhone.setText("0941045139");
@@ -55,12 +58,10 @@ public class UserPanel extends JPanel {
     getStatus.setText("BANNED");
 
     getRole.setEditable(false);
-    getRole.setBackground(new java.awt.Color(204, 204, 255));
+    getRole.setBackground(new Color(204, 204, 255));
     getRole.setHorizontalAlignment(JTextField.CENTER);
     getRole.setText("ADMIN");
-    getRole.setBorder(
-      BorderFactory.createLineBorder(new java.awt.Color(204, 204, 0))
-    );
+    getRole.setBorder(BorderFactory.createLineBorder(new Color(204, 204, 0)));
 
     GroupLayout layout = new GroupLayout(this);
     this.setLayout(layout);

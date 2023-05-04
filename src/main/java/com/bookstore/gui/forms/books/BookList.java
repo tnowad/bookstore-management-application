@@ -5,8 +5,15 @@ import com.bookstore.gui.components.buttons.Button;
 import com.bookstore.gui.components.labels.Label;
 import com.bookstore.gui.theme.ThemeFont;
 import com.bookstore.models.BookModel;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
 import javax.swing.*;
 import javax.swing.JPanel;
@@ -28,6 +35,7 @@ public class BookList extends JPanel {
   private JPanel jPanel4;
   private JPanel jPanel5;
   private JPanel jPanel6;
+
   private JScrollPane jScrollPane1;
   private JScrollPane jScrollPane;
   private Button searchButton;
@@ -67,21 +75,21 @@ public class BookList extends JPanel {
     jScrollPane = new JScrollPane();
     bookListTable = new JTable();
 
-    setPreferredSize(new java.awt.Dimension(1180, 620));
-    setLayout(new java.awt.BorderLayout());
+    setPreferredSize(new Dimension(1180, 620));
+    setLayout(new BorderLayout());
 
-    jPanel1.setLayout(new java.awt.GridLayout(2, 1));
+    jPanel1.setLayout(new GridLayout(2, 1));
 
-    jPanel3.setLayout(new java.awt.GridLayout(1, 2, 0, 10));
+    jPanel3.setLayout(new GridLayout(1, 2, 0, 10));
 
     bookListLabel.setHorizontalAlignment(SwingConstants.LEFT);
     jPanel3.add(bookListLabel);
 
-    jPanel5.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
+    jPanel5.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
     addBookButton.addActionListener(
-      new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
+      new ActionListener() {
+        public void actionPerformed(ActionEvent evt) {
           addBookButtonActionPerformed(evt);
         }
       }
@@ -92,40 +100,38 @@ public class BookList extends JPanel {
 
     jPanel1.add(jPanel3);
 
-    jPanel4.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+    jPanel4.setLayout(new FlowLayout(FlowLayout.LEFT));
 
-    searchTextField.setFont(new java.awt.Font("Arial", 0, 14));
-    searchTextField.setPreferredSize(new java.awt.Dimension(450, 30));
+    searchTextField.setFont(new Font("Arial", 0, 14));
+    searchTextField.setPreferredSize(new Dimension(450, 30));
     jPanel4.add(searchTextField);
 
     searchButton.addActionListener(
-      new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
+      new ActionListener() {
+        public void actionPerformed(ActionEvent evt) {
           searchButtonActionPerformed(evt);
         }
       }
     );
     jPanel4.add(searchButton);
 
-    excelButtonPanel.setPreferredSize(new java.awt.Dimension(640, 30));
-    excelButtonPanel.setLayout(
-      new java.awt.FlowLayout(java.awt.FlowLayout.TRAILING, 5, 0)
-    );
+    excelButtonPanel.setPreferredSize(new Dimension(640, 30));
+    excelButtonPanel.setLayout(new FlowLayout(FlowLayout.TRAILING, 5, 0));
 
-    importFromExcelButton.setPreferredSize(new java.awt.Dimension(160, 30));
+    importFromExcelButton.setPreferredSize(new Dimension(160, 30));
     importFromExcelButton.addActionListener(
-      new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
+      new ActionListener() {
+        public void actionPerformed(ActionEvent evt) {
           importFromExcelButtonActionPerformed(evt);
         }
       }
     );
     excelButtonPanel.add(importFromExcelButton);
 
-    exportToExcelButton.setPreferredSize(new java.awt.Dimension(150, 30));
+    exportToExcelButton.setPreferredSize(new Dimension(150, 30));
     exportToExcelButton.addActionListener(
-      new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
+      new ActionListener() {
+        public void actionPerformed(ActionEvent evt) {
           exportToExcelButtonActionPerformed(evt);
         }
       }
@@ -138,13 +144,13 @@ public class BookList extends JPanel {
 
     add(jPanel1, java.awt.BorderLayout.PAGE_START);
 
-    jPanel6.setLayout(new java.awt.BorderLayout());
+    jPanel6.setLayout(new BorderLayout());
 
     bookListTable.setFont(new ThemeFont().getSmallFont());
 
     bookListTable.addMouseListener(
-      new java.awt.event.MouseAdapter() {
-        public void mouseClicked(java.awt.event.MouseEvent evt) {
+      new MouseAdapter() {
+        public void mouseClicked(MouseEvent evt) {
           bookListTableMouseClicked(evt);
         }
       }
@@ -244,7 +250,7 @@ public class BookList extends JPanel {
     }
   }
 
-  private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {}
+  private void searchButtonActionPerformed(ActionEvent evt) {}
 
   private void importFromExcelButtonActionPerformed(
     java.awt.event.ActionEvent evt
@@ -254,7 +260,7 @@ public class BookList extends JPanel {
     java.awt.event.ActionEvent evt
   ) {}
 
-  private void addBookButtonActionPerformed(java.awt.event.ActionEvent evt) {}
+  private void addBookButtonActionPerformed(ActionEvent evt) {}
 
-  private void bookListTableMouseClicked(java.awt.event.MouseEvent evt) {}
+  private void bookListTableMouseClicked(MouseEvent evt) {}
 }

@@ -7,6 +7,10 @@ import com.bookstore.gui.components.dialogs.Dialog;
 import com.bookstore.gui.forms.orders.OrderDetail;
 import com.bookstore.models.OrderModel;
 import com.bookstore.models.UserModel;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.List;
 import javax.swing.JButton;
@@ -17,7 +21,6 @@ import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
 public class OrderListPanel extends javax.swing.JPanel {
 
@@ -74,19 +77,19 @@ public class OrderListPanel extends javax.swing.JPanel {
     scrollPane = new JScrollPane();
     table = new JTable();
 
-    setPreferredSize(new java.awt.Dimension(702, 444));
-    setLayout(new java.awt.BorderLayout());
+    setPreferredSize(new Dimension(702, 444));
+    setLayout(new BorderLayout());
 
-    titlePanel.setFont(new java.awt.Font("Segoe UI", 3, 18));
-    titlePanel.setForeground(new java.awt.Color(255, 0, 51));
+    titlePanel.setFont(new Font("Segoe UI", 3, 18));
+    titlePanel.setForeground(new Color(255, 0, 51));
     titlePanel.setText("List Order");
     add(titlePanel, java.awt.BorderLayout.NORTH);
 
-    contend.setLayout(new java.awt.BorderLayout());
+    contend.setLayout(new BorderLayout());
 
-    buttonPanel.setLayout(new java.awt.BorderLayout());
+    buttonPanel.setLayout(new BorderLayout());
 
-    jPanel3.setLayout(new java.awt.GridLayout(1, 0, 5, 0));
+    jPanel3.setLayout(new GridLayout(1, 0, 5, 0));
 
     ButtonExport.setText("Xuất File");
     ButtonExport.setToolTipText("");
@@ -105,7 +108,7 @@ public class OrderListPanel extends javax.swing.JPanel {
 
     contend.add(buttonPanel, java.awt.BorderLayout.PAGE_START);
 
-    tableContend.setLayout(new java.awt.BorderLayout());
+    tableContend.setLayout(new BorderLayout());
 
     tableContend.add(scrollPane, java.awt.BorderLayout.CENTER);
 

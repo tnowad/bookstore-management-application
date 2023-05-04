@@ -1,5 +1,12 @@
 package com.bookstore.gui.forms.books;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -39,19 +46,19 @@ public class BookDetailPanel extends javax.swing.JPanel {
     addToCartButton = new JButton();
     buyNowButton = new JButton();
 
-    setMaximumSize(new java.awt.Dimension(750, 530));
-    setMinimumSize(new java.awt.Dimension(750, 530));
-    setPreferredSize(new java.awt.Dimension(800, 530));
-    setLayout(new java.awt.BorderLayout());
+    setMaximumSize(new Dimension(750, 530));
+    setMinimumSize(new Dimension(750, 530));
+    setPreferredSize(new Dimension(800, 530));
+    setLayout(new BorderLayout());
 
     bookTitleTextField.setEditable(false);
-    bookTitleTextField.setFont(new java.awt.Font("Arial", 0, 14));
-    bookTitleTextField.setMaximumSize(new java.awt.Dimension(830, 30));
-    bookTitleTextField.setMinimumSize(new java.awt.Dimension(830, 30));
-    bookTitleTextField.setPreferredSize(new java.awt.Dimension(830, 30));
+    bookTitleTextField.setFont(new Font("Arial", 0, 14));
+    bookTitleTextField.setMaximumSize(new Dimension(830, 30));
+    bookTitleTextField.setMinimumSize(new Dimension(830, 30));
+    bookTitleTextField.setPreferredSize(new Dimension(830, 30));
     bookTitleTextField.addActionListener(
-      new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
+      new ActionListener() {
+        public void actionPerformed(ActionEvent evt) {
           bookTitleTextFieldActionPerformed(evt);
         }
       }
@@ -60,67 +67,65 @@ public class BookDetailPanel extends javax.swing.JPanel {
 
     add(bookTitleHeaderPanel, java.awt.BorderLayout.PAGE_START);
 
-    bookDescriptionPanel.setPreferredSize(new java.awt.Dimension(830, 200));
-    bookDescriptionPanel.setLayout(new java.awt.BorderLayout());
+    bookDescriptionPanel.setPreferredSize(new Dimension(830, 200));
+    bookDescriptionPanel.setLayout(new BorderLayout());
 
     descriptionTextArea.setEditable(false);
     descriptionTextArea.setColumns(20);
     descriptionTextArea.setRows(5);
-    descriptionTextArea.setMaximumSize(new java.awt.Dimension(232, 160));
-    descriptionTextArea.setMinimumSize(new java.awt.Dimension(232, 160));
-    descriptionTextArea.setPreferredSize(new java.awt.Dimension(232, 160));
+    descriptionTextArea.setMaximumSize(new Dimension(232, 160));
+    descriptionTextArea.setMinimumSize(new Dimension(232, 160));
+    descriptionTextArea.setPreferredSize(new Dimension(232, 160));
     bookDescriptionPanel.add(
       descriptionTextArea,
       java.awt.BorderLayout.PAGE_END
     );
 
-    descriptionLabel.setFont(new java.awt.Font("Arial", 1, 18));
+    descriptionLabel.setFont(new Font("Arial", 1, 18));
     descriptionLabel.setText("Desciption:");
     bookDescriptionPanel.add(descriptionLabel, java.awt.BorderLayout.CENTER);
 
     add(bookDescriptionPanel, java.awt.BorderLayout.PAGE_END);
 
-    bookDetailsPanel.setLayout(new java.awt.BorderLayout());
+    bookDetailsPanel.setLayout(new BorderLayout());
 
-    bookImagePanel.setPreferredSize(new java.awt.Dimension(300, 290));
-    bookImagePanel.setLayout(new java.awt.BorderLayout());
+    bookImagePanel.setPreferredSize(new Dimension(300, 290));
+    bookImagePanel.setLayout(new BorderLayout());
     bookDetailsPanel.add(bookImagePanel, java.awt.BorderLayout.LINE_START);
 
-    bookInformationPanel.setLayout(new java.awt.BorderLayout());
+    bookInformationPanel.setLayout(new BorderLayout());
 
-    priceAndStatusField.setLayout(
-      new java.awt.FlowLayout(java.awt.FlowLayout.LEFT)
-    );
+    priceAndStatusField.setLayout(new FlowLayout(FlowLayout.LEFT));
 
-    priceLabel.setFont(new java.awt.Font("Arial", 0, 14));
+    priceLabel.setFont(new Font("Arial", 0, 14));
     priceLabel.setText("Price:");
     priceLabel.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
-    priceLabel.setPreferredSize(new java.awt.Dimension(50, 30));
+    priceLabel.setPreferredSize(new Dimension(50, 30));
     priceAndStatusField.add(priceLabel);
 
     bookPriceTextField.setEditable(false);
-    bookPriceTextField.setFont(new java.awt.Font("Arial", 0, 14));
-    bookPriceTextField.setPreferredSize(new java.awt.Dimension(150, 30));
+    bookPriceTextField.setFont(new Font("Arial", 0, 14));
+    bookPriceTextField.setPreferredSize(new Dimension(150, 30));
     bookPriceTextField.addActionListener(
-      new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
+      new ActionListener() {
+        public void actionPerformed(ActionEvent evt) {
           bookPriceTextFieldActionPerformed(evt);
         }
       }
     );
     priceAndStatusField.add(bookPriceTextField);
 
-    statusLabel.setFont(new java.awt.Font("Arial", 0, 14));
+    statusLabel.setFont(new Font("Arial", 0, 14));
     statusLabel.setText("Status:");
-    statusLabel.setPreferredSize(new java.awt.Dimension(50, 30));
+    statusLabel.setPreferredSize(new Dimension(50, 30));
     priceAndStatusField.add(statusLabel);
 
     bookStatusTextField.setEditable(false);
-    bookStatusTextField.setFont(new java.awt.Font("Arial", 0, 14));
-    bookStatusTextField.setPreferredSize(new java.awt.Dimension(150, 30));
+    bookStatusTextField.setFont(new Font("Arial", 0, 14));
+    bookStatusTextField.setPreferredSize(new Dimension(150, 30));
     bookStatusTextField.addActionListener(
-      new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
+      new ActionListener() {
+        public void actionPerformed(ActionEvent evt) {
           bookStatusTextFieldActionPerformed(evt);
         }
       }
@@ -132,45 +137,43 @@ public class BookDetailPanel extends javax.swing.JPanel {
       java.awt.BorderLayout.PAGE_START
     );
 
-    isbnAndAuthorAndQuantityPanel.setLayout(
-      new java.awt.GridLayout(3, 2, 5, 5)
-    );
+    isbnAndAuthorAndQuantityPanel.setLayout(new GridLayout(3, 2, 5, 5));
 
-    isbnLabel.setFont(new java.awt.Font("Arial", 0, 14));
+    isbnLabel.setFont(new Font("Arial", 0, 14));
     isbnLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     isbnLabel.setText("ISBN:");
     isbnAndAuthorAndQuantityPanel.add(isbnLabel);
 
     bookIsbnTextField.setEditable(false);
-    bookIsbnTextField.setFont(new java.awt.Font("Arial", 0, 14));
-    bookIsbnTextField.setPreferredSize(new java.awt.Dimension(200, 23));
+    bookIsbnTextField.setFont(new Font("Arial", 0, 14));
+    bookIsbnTextField.setPreferredSize(new Dimension(200, 23));
     bookIsbnTextField.addActionListener(
-      new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
+      new ActionListener() {
+        public void actionPerformed(ActionEvent evt) {
           bookIsbnTextFieldActionPerformed(evt);
         }
       }
     );
     isbnAndAuthorAndQuantityPanel.add(bookIsbnTextField);
 
-    authorLabel.setFont(new java.awt.Font("Arial", 0, 14));
+    authorLabel.setFont(new Font("Arial", 0, 14));
     authorLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     authorLabel.setText("Author:");
     isbnAndAuthorAndQuantityPanel.add(authorLabel);
 
     bookAuthorTextField.setEditable(false);
-    bookAuthorTextField.setFont(new java.awt.Font("Arial", 0, 14));
-    bookAuthorTextField.setPreferredSize(new java.awt.Dimension(100, 23));
+    bookAuthorTextField.setFont(new Font("Arial", 0, 14));
+    bookAuthorTextField.setPreferredSize(new Dimension(100, 23));
     bookAuthorTextField.addActionListener(
-      new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
+      new ActionListener() {
+        public void actionPerformed(ActionEvent evt) {
           bookAuthorTextFieldActionPerformed(evt);
         }
       }
     );
     isbnAndAuthorAndQuantityPanel.add(bookAuthorTextField);
 
-    bookAvailableQuantity.setFont(new java.awt.Font("Arial", 0, 14));
+    bookAvailableQuantity.setFont(new Font("Arial", 0, 14));
     bookAvailableQuantity.setHorizontalAlignment(
       javax.swing.SwingConstants.CENTER
     );
@@ -178,12 +181,12 @@ public class BookDetailPanel extends javax.swing.JPanel {
     bookAvailableQuantity.setHorizontalTextPosition(
       javax.swing.SwingConstants.CENTER
     );
-    bookAvailableQuantity.setPreferredSize(new java.awt.Dimension(100, 30));
+    bookAvailableQuantity.setPreferredSize(new Dimension(100, 30));
     isbnAndAuthorAndQuantityPanel.add(bookAvailableQuantity);
 
     bookQuantityTextField.setEditable(false);
-    bookQuantityTextField.setFont(new java.awt.Font("Arial", 0, 14));
-    bookQuantityTextField.setPreferredSize(new java.awt.Dimension(100, 23));
+    bookQuantityTextField.setFont(new Font("Arial", 0, 14));
+    bookQuantityTextField.setPreferredSize(new Dimension(100, 23));
     isbnAndAuthorAndQuantityPanel.add(bookQuantityTextField);
 
     bookInformationPanel.add(
@@ -191,8 +194,8 @@ public class BookDetailPanel extends javax.swing.JPanel {
       java.awt.BorderLayout.CENTER
     );
 
-    quantitySpinner.setFont(new java.awt.Font("Arial", 0, 14));
-    quantitySpinner.setPreferredSize(new java.awt.Dimension(70, 30));
+    quantitySpinner.setFont(new Font("Arial", 0, 14));
+    quantitySpinner.setPreferredSize(new Dimension(70, 30));
     quantitySpinner.addPropertyChangeListener(
       new java.beans.PropertyChangeListener() {
         public void propertyChange(java.beans.PropertyChangeEvent evt) {
@@ -202,21 +205,21 @@ public class BookDetailPanel extends javax.swing.JPanel {
     );
     buttonPanel.add(quantitySpinner);
 
-    addToCartButton.setFont(new java.awt.Font("Arial", 0, 14));
+    addToCartButton.setFont(new Font("Arial", 0, 14));
     addToCartButton.setText("Add to cart");
-    addToCartButton.setPreferredSize(new java.awt.Dimension(100, 30));
+    addToCartButton.setPreferredSize(new Dimension(100, 30));
     addToCartButton.addActionListener(
-      new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
+      new ActionListener() {
+        public void actionPerformed(ActionEvent evt) {
           addToCartButtonActionPerformed(evt);
         }
       }
     );
     buttonPanel.add(addToCartButton);
 
-    buyNowButton.setFont(new java.awt.Font("Arial", 0, 14));
+    buyNowButton.setFont(new Font("Arial", 0, 14));
     buyNowButton.setText("Buy now");
-    buyNowButton.setPreferredSize(new java.awt.Dimension(90, 30));
+    buyNowButton.setPreferredSize(new Dimension(90, 30));
     buttonPanel.add(buyNowButton);
 
     bookInformationPanel.add(buttonPanel, java.awt.BorderLayout.PAGE_END);
@@ -246,7 +249,7 @@ public class BookDetailPanel extends javax.swing.JPanel {
     java.awt.event.ActionEvent evt
   ) {}
 
-  private void addToCartButtonActionPerformed(java.awt.event.ActionEvent evt) {}
+  private void addToCartButtonActionPerformed(ActionEvent evt) {}
 
   private void quantitySpinnerPropertyChange(
     java.beans.PropertyChangeEvent evt

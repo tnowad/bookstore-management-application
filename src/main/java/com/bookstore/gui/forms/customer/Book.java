@@ -11,7 +11,9 @@ import com.bookstore.models.CartModel;
 import com.bookstore.models.UserModel;
 import com.bookstore.services.Authentication;
 import com.bookstore.util.image.ImageUtils;
+import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.Image;
 import java.util.List;
 import javax.swing.ImageIcon;
@@ -113,9 +115,9 @@ public class Book extends javax.swing.JPanel {
     bookPriceLabel = new Label("");
     setImage = new Label("");
 
-    setLayout(new java.awt.BorderLayout());
+    setLayout(new BorderLayout());
 
-    bookTitleLabel.setFont(new java.awt.Font("Segoe UI", 0, 14));
+    bookTitleLabel.setFont(new Font("Segoe UI", 0, 14));
     bookTitleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     bookTitleLabel.setText(bookModel.getTitle());
     add(bookTitleLabel, java.awt.BorderLayout.PAGE_START);
@@ -126,9 +128,7 @@ public class Book extends javax.swing.JPanel {
 
     add(bookImagePanel, java.awt.BorderLayout.CENTER);
 
-    groupButtonPanel.setLayout(
-      new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 2, 0)
-    );
+    groupButtonPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 2, 0));
 
     bookPriceLabel.setText("" + bookModel.getPrice() + " $");
     groupButtonPanel.add(bookPriceLabel);

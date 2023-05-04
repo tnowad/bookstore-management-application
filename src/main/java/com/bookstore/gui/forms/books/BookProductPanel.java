@@ -1,5 +1,7 @@
 package com.bookstore.gui.forms.books;
 
+import java.awt.BorderLayout;
+import java.awt.Font;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -16,9 +18,9 @@ public class BookProductPanel extends javax.swing.JPanel {
     bookImagePanel = new JPanel();
     bookDetailButton = new JButton();
 
-    setLayout(new java.awt.BorderLayout());
+    setLayout(new BorderLayout());
 
-    bookTitleLabel.setFont(new java.awt.Font("Segoe UI", 0, 14));
+    bookTitleLabel.setFont(new Font("Segoe UI", 0, 14));
     bookTitleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     bookTitleLabel.setText("Name book");
     add(bookTitleLabel, java.awt.BorderLayout.PAGE_START);

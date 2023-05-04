@@ -5,6 +5,11 @@ import com.bookstore.gui.components.buttons.Button;
 import com.bookstore.gui.components.labels.Label;
 import com.bookstore.gui.theme.ThemeFont;
 import com.bookstore.models.BookModel;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -59,17 +64,17 @@ public class BookListSale extends JPanel {
     jscrollPane = new JScrollPane();
     bookListTable = new JTable();
 
-    setPreferredSize(new java.awt.Dimension(1180, 620));
-    setLayout(new java.awt.BorderLayout());
+    setPreferredSize(new Dimension(1180, 620));
+    setLayout(new BorderLayout());
 
-    jPanel1.setLayout(new java.awt.GridLayout(2, 1));
+    jPanel1.setLayout(new GridLayout(2, 1));
 
-    jPanel3.setLayout(new java.awt.GridLayout(1, 2, 0, 10));
+    jPanel3.setLayout(new GridLayout(1, 2, 0, 10));
 
     bookListLabel.setHorizontalAlignment(SwingConstants.LEFT);
     jPanel3.add(bookListLabel);
 
-    jPanel5.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
+    jPanel5.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
     jPanel5.add(addBookButton);
 
@@ -77,23 +82,22 @@ public class BookListSale extends JPanel {
 
     jPanel1.add(jPanel3);
 
-    jPanel4.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+    jPanel4.setLayout(new FlowLayout(FlowLayout.LEFT));
 
-    searchTextField.setFont(new java.awt.Font("Arial", 0, 14));
-    searchTextField.setPreferredSize(new java.awt.Dimension(450, 30));
+    searchTextField.setFont(new Font("Arial", 0, 14));
+    searchTextField.setPreferredSize(new Dimension(450, 30));
     jPanel4.add(searchTextField);
 
     jPanel4.add(searchButton);
 
-    excelButtonPanel.setPreferredSize(new java.awt.Dimension(340, 30));
-    excelButtonPanel.setLayout(
-        new java.awt.FlowLayout(java.awt.FlowLayout.TRAILING, 5, 0));
+    excelButtonPanel.setPreferredSize(new Dimension(340, 30));
+    excelButtonPanel.setLayout(new FlowLayout(FlowLayout.TRAILING, 5, 0));
 
-    importFromExcelButton.setPreferredSize(new java.awt.Dimension(160, 30));
+    importFromExcelButton.setPreferredSize(new Dimension(160, 30));
 
     excelButtonPanel.add(importFromExcelButton);
 
-    exportToExcelButton.setPreferredSize(new java.awt.Dimension(150, 30));
+    exportToExcelButton.setPreferredSize(new Dimension(150, 30));
 
     excelButtonPanel.add(exportToExcelButton);
 
@@ -103,7 +107,7 @@ public class BookListSale extends JPanel {
 
     add(jPanel1, java.awt.BorderLayout.PAGE_START);
 
-    jPanel6.setLayout(new java.awt.BorderLayout());
+    jPanel6.setLayout(new BorderLayout());
 
     bookListTable.setFont(new ThemeFont().getSmallFont());
 
@@ -125,44 +129,49 @@ public class BookListSale extends JPanel {
 
   private void search() {
     searchButton.addActionListener(
-        new ActionListener() {
-          public void actionPerformed(ActionEvent e) {
-            String text = searchTextField.getText();
-            if (text == null || text.isBlank()) {
-              JOptionPane.showMessageDialog(
-                  null,
-                  "Vui lòng nhập thông tin tìm kiếm !");
-              showTable();
-            } else {
-              DefaultTableModel model = new DefaultTableModel();
-              // "ISBN", "Title", "Quantity", "Price", "Status"
-              model.addColumn("ISBN");
-              model.addColumn("Title");
-              model.addColumn("Description");
-              model.addColumn("Price");
-              model.addColumn("Quantity");
-              model.addColumn("Status");
-              model.addColumn("Publisher");
-              model.addColumn("Author");
-              for (BookModel bookModel : bookList) {
-                if (bookModel.getTitle().toLowerCase().contains(text.toLowerCase())) {
-                  model.addRow(
-                      new Object[] {
-                          bookModel.getIsbn(),
-                          bookModel.getTitle(),
-                          bookModel.getDescription(),
-                          bookModel.getPrice(),
-                          bookModel.getQuantity(),
-                          bookModel.getStatus(),
-                          bookModel.getPublisherId(),
-                          bookModel.getAuthorId(),
-                      });
-                  bookListTable.setModel(model);
-                }
+      new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+          String text = searchTextField.getText();
+          if (text == null || text.isBlank()) {
+            JOptionPane.showMessageDialog(
+              null,
+              "Vui lòng nhập thông tin tìm kiếm !"
+            );
+            showTable();
+          } else {
+            DefaultTableModel model = new DefaultTableModel();
+            // "ISBN", "Title", "Quantity", "Price", "Status"
+            model.addColumn("ISBN");
+            model.addColumn("Title");
+            model.addColumn("Description");
+            model.addColumn("Price");
+            model.addColumn("Quantity");
+            model.addColumn("Status");
+            model.addColumn("Publisher");
+            model.addColumn("Author");
+            for (BookModel bookModel : bookList) {
+              if (
+                bookModel.getTitle().toLowerCase().contains(text.toLowerCase())
+              ) {
+                model.addRow(
+                  new Object[] {
+                    bookModel.getIsbn(),
+                    bookModel.getTitle(),
+                    bookModel.getDescription(),
+                    bookModel.getPrice(),
+                    bookModel.getQuantity(),
+                    bookModel.getStatus(),
+                    bookModel.getPublisherId(),
+                    bookModel.getAuthorId(),
+                  }
+                );
+                bookListTable.setModel(model);
               }
             }
           }
-        });
+        }
+      }
+    );
   }
 
   private void listBooks() {
@@ -182,16 +191,17 @@ public class BookListSale extends JPanel {
     model.addColumn("Author");
     for (BookModel book : bookList) {
       model.addRow(
-          new Object[] {
-              book.getIsbn(),
-              book.getTitle(),
-              book.getDescription(),
-              book.getPrice(),
-              book.getQuantity(),
-              book.getStatus(),
-              book.getPublisherId(),
-              book.getAuthorId(),
-          });
+        new Object[] {
+          book.getIsbn(),
+          book.getTitle(),
+          book.getDescription(),
+          book.getPrice(),
+          book.getQuantity(),
+          book.getStatus(),
+          book.getPublisherId(),
+          book.getAuthorId(),
+        }
+      );
       bookListTable.setModel(model);
     }
   }

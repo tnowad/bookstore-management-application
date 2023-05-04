@@ -2,6 +2,8 @@ package com.bookstore.gui.components.salary;
 
 import com.bookstore.bus.UserBUS;
 import com.bookstore.models.EmployeeModel;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -20,9 +22,9 @@ public class SalaryPanel extends javax.swing.JPanel {
     setType = new JLabel();
     setDescription = new JLabel();
 
-    setLayout(new java.awt.GridLayout(1, 4));
+    setLayout(new GridLayout(1, 4));
 
-    panel.setLayout(new java.awt.GridLayout(1, 2));
+    panel.setLayout(new GridLayout(1, 2));
 
     setSerial.setText("" + serial);
     panel.add(setSerial);
@@ -35,19 +37,19 @@ public class SalaryPanel extends javax.swing.JPanel {
     setName.setText(
       UserBUS.getInstance().getModelById(employee.getUserId()).getName()
     );
-    setName.setPreferredSize(new java.awt.Dimension(50, 16));
+    setName.setPreferredSize(new Dimension(50, 16));
     add(setName);
 
     setSalary.setText("" + employee.getSalary());
-    setSalary.setPreferredSize(new java.awt.Dimension(50, 16));
+    setSalary.setPreferredSize(new Dimension(50, 16));
     add(setSalary);
 
     setType.setText("" + employee.getEmployeeType());
-    setType.setPreferredSize(new java.awt.Dimension(50, 16));
+    setType.setPreferredSize(new Dimension(50, 16));
     add(setType);
 
     setDescription.setText(employee.getContactInformation());
-    setDescription.setPreferredSize(new java.awt.Dimension(50, 16));
+    setDescription.setPreferredSize(new Dimension(50, 16));
     add(setDescription);
   }
 

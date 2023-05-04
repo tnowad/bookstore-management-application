@@ -2,6 +2,10 @@ package com.bookstore.gui.components.books;
 
 import com.bookstore.models.BookModel;
 import com.bookstore.util.image.ImageUtils;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.*;
 import javax.swing.*;
@@ -35,35 +39,33 @@ public class BookProductPanel extends javax.swing.JPanel {
     isbnBook.setText("" + book.getIsbn());
     add(isbnBook);
 
-    setBackground(new java.awt.Color(255, 255, 255));
-    setBorder(
-      javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0))
-    );
-    setMaximumSize(new java.awt.Dimension(199, 333));
-    setMinimumSize(new java.awt.Dimension(199, 333));
-    setPreferredSize(new java.awt.Dimension(199, 333));
-    setLayout(new java.awt.BorderLayout());
+    setBackground(new Color(255, 255, 255));
+    setBorder(javax.swing.BorderFactory.createLineBorder(new Color(0, 0, 0)));
+    setMaximumSize(new Dimension(199, 333));
+    setMinimumSize(new Dimension(199, 333));
+    setPreferredSize(new Dimension(199, 333));
+    setLayout(new BorderLayout());
 
-    checkBox.setPreferredSize(new java.awt.Dimension(50, 19));
+    checkBox.setPreferredSize(new Dimension(50, 19));
     add(checkBox, java.awt.BorderLayout.PAGE_END);
 
-    contendPanel.setLayout(new java.awt.BorderLayout());
+    contendPanel.setLayout(new BorderLayout());
 
-    buttonDetail.setFont(new java.awt.Font("Segoe UI", 1, 14));
+    buttonDetail.setFont(new Font("Segoe UI", 1, 14));
     buttonDetail.setText("Detail");
     buttonDetail.addActionListener(actionDetail);
     contendPanel.add(buttonDetail, java.awt.BorderLayout.PAGE_END);
 
     setImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     setImage.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-    setImage.setPreferredSize(new java.awt.Dimension(399, 260));
+    setImage.setPreferredSize(new Dimension(399, 260));
     contendPanel.add(setImage, java.awt.BorderLayout.CENTER);
 
-    titlePanel.setMinimumSize(new java.awt.Dimension(30, 30));
+    titlePanel.setMinimumSize(new Dimension(30, 30));
 
-    setTitle.setFont(new java.awt.Font("Segoe UI", 1, 14));
+    setTitle.setFont(new Font("Segoe UI", 1, 14));
     setTitle.setText(book.getTitle());
-    setTitle.setPreferredSize(new java.awt.Dimension(220, 22));
+    setTitle.setPreferredSize(new Dimension(220, 22));
     titlePanel.add(setTitle);
 
     contendPanel.add(titlePanel, java.awt.BorderLayout.PAGE_START);

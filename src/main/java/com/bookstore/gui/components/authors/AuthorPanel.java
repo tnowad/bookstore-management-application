@@ -1,6 +1,8 @@
 package com.bookstore.gui.components.authors;
 
 import com.bookstore.models.AuthorModel;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -26,9 +28,9 @@ public class AuthorPanel extends javax.swing.JPanel {
     setName = new JLabel();
     setDescription = new JLabel();
 
-    setLayout(new java.awt.GridLayout(1, 3));
+    setLayout(new GridLayout(1, 3));
 
-    panel.setLayout(new java.awt.GridLayout(1, 3));
+    panel.setLayout(new GridLayout(1, 3));
     panel.add(checkBox);
 
     setSerial.setText("" + serial);
@@ -40,11 +42,11 @@ public class AuthorPanel extends javax.swing.JPanel {
     add(panel);
 
     setName.setText(author.getName());
-    setName.setPreferredSize(new java.awt.Dimension(100, 16));
+    setName.setPreferredSize(new Dimension(100, 16));
     add(setName);
 
     setDescription.setText(author.getDescription());
-    setDescription.setPreferredSize(new java.awt.Dimension(300, 16));
+    setDescription.setPreferredSize(new Dimension(300, 16));
     add(setDescription);
   }
 }

@@ -6,8 +6,15 @@ import com.bookstore.gui.components.buttons.Button;
 import com.bookstore.gui.components.labels.Label;
 import com.bookstore.models.ImportModel;
 import com.bookstore.models.ProviderModel;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -50,19 +57,19 @@ public class ImportList extends JPanel {
     scrollPaneTableList = new JScrollPane();
     importTableList = new JTable();
 
-    setMinimumSize(new java.awt.Dimension(1180, 620));
-    setPreferredSize(new java.awt.Dimension(1180, 620));
-    setLayout(new java.awt.BorderLayout());
+    setMinimumSize(new Dimension(1180, 620));
+    setPreferredSize(new Dimension(1180, 620));
+    setLayout(new BorderLayout());
 
-    headerPanel.setLayout(new java.awt.GridLayout(2, 2));
+    headerPanel.setLayout(new GridLayout(2, 2));
 
     headerPanel.add(importLabel);
 
-    addPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
+    addPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
     addReceiptButton.addActionListener(
-      new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
+      new ActionListener() {
+        public void actionPerformed(ActionEvent evt) {
           addReceiptButtonActionPerformed(evt);
         }
       }
@@ -71,18 +78,18 @@ public class ImportList extends JPanel {
 
     headerPanel.add(addPanel);
 
-    groupSearchPanel.setPreferredSize(new java.awt.Dimension(1000, 30));
+    groupSearchPanel.setPreferredSize(new Dimension(1000, 30));
     groupSearchPanel.setLayout(
       new BoxLayout(groupSearchPanel, BoxLayout.X_AXIS)
     );
 
-    searchBarTextField.setFont(new java.awt.Font("Arial", 0, 14));
-    searchBarTextField.setPreferredSize(new java.awt.Dimension(450, 30));
+    searchBarTextField.setFont(new Font("Arial", 0, 14));
+    searchBarTextField.setPreferredSize(new Dimension(450, 30));
     groupSearchPanel.add(searchBarTextField);
 
     searchButton.addActionListener(
-      new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
+      new ActionListener() {
+        public void actionPerformed(ActionEvent evt) {
           searchButtonActionPerformed(evt);
         }
       }
@@ -91,12 +98,12 @@ public class ImportList extends JPanel {
 
     headerPanel.add(groupSearchPanel);
 
-    groupExcel.setPreferredSize(new java.awt.Dimension(590, 30));
-    groupExcel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
+    groupExcel.setPreferredSize(new Dimension(590, 30));
+    groupExcel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
     importFromExcelButton.addActionListener(
-      new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
+      new ActionListener() {
+        public void actionPerformed(ActionEvent evt) {
           importFromExcelButtonActionPerformed(evt);
         }
       }
@@ -104,8 +111,8 @@ public class ImportList extends JPanel {
     groupExcel.add(importFromExcelButton);
 
     exportToExcelButton.addActionListener(
-      new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
+      new ActionListener() {
+        public void actionPerformed(ActionEvent evt) {
           exportToExcelButtonActionPerformed(evt);
         }
       }
@@ -116,12 +123,12 @@ public class ImportList extends JPanel {
 
     add(headerPanel, java.awt.BorderLayout.PAGE_START);
 
-    groupListImport.setLayout(new java.awt.BorderLayout());
+    groupListImport.setLayout(new BorderLayout());
 
     importTableList.getTableHeader().setReorderingAllowed(false);
     importTableList.addMouseListener(
-      new java.awt.event.MouseAdapter() {
-        public void mouseClicked(java.awt.event.MouseEvent evt) {
+      new MouseAdapter() {
+        public void mouseClicked(MouseEvent evt) {
           importTableListMouseClicked(evt);
         }
       }
@@ -245,9 +252,9 @@ public class ImportList extends JPanel {
     java.awt.event.ActionEvent evt
   ) {}
 
-  private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {}
+  private void searchButtonActionPerformed(ActionEvent evt) {}
 
-  private void importTableListMouseClicked(java.awt.event.MouseEvent evt) {}
+  private void importTableListMouseClicked(MouseEvent evt) {}
 
   private JPanel addPanel;
   private Button addReceiptButton;

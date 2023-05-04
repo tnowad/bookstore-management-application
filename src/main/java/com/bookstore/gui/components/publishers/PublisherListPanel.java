@@ -2,6 +2,11 @@ package com.bookstore.gui.components.publishers;
 
 import com.bookstore.bus.PublisherBUS;
 import com.bookstore.models.PublisherModel;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridLayout;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -43,52 +48,50 @@ public class PublisherListPanel extends javax.swing.JPanel {
     scrollPane = new JScrollPane();
     contendTable = new JPanel();
 
-    setPreferredSize(new java.awt.Dimension(720, 444));
-    setLayout(new java.awt.BorderLayout());
+    setPreferredSize(new Dimension(720, 444));
+    setLayout(new BorderLayout());
 
-    title.setFont(new java.awt.Font("Segoe UI", 1, 18));
+    title.setFont(new Font("Segoe UI", 1, 18));
     title.setText("List Publisher");
     add(title, java.awt.BorderLayout.PAGE_START);
 
-    contend.setLayout(new java.awt.BorderLayout());
+    contend.setLayout(new BorderLayout());
 
-    buttonsPanel.setPreferredSize(new java.awt.Dimension(720, 50));
-    buttonsPanel.setLayout(
-      new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 10, 10)
-    );
+    buttonsPanel.setPreferredSize(new Dimension(720, 50));
+    buttonsPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 10, 10));
 
     buttonAdd.setText("Add");
-    buttonAdd.setPreferredSize(new java.awt.Dimension(75, 30));
+    buttonAdd.setPreferredSize(new Dimension(75, 30));
     buttonsPanel.add(buttonAdd);
 
     buttonDelete.setText("Delete");
-    buttonDelete.setPreferredSize(new java.awt.Dimension(75, 30));
+    buttonDelete.setPreferredSize(new Dimension(75, 30));
     buttonsPanel.add(buttonDelete);
 
     contend.add(buttonsPanel, java.awt.BorderLayout.PAGE_START);
 
-    table.setLayout(new java.awt.BorderLayout());
+    table.setLayout(new BorderLayout());
 
-    headerTable.setLayout(new java.awt.GridLayout(1, 3));
+    headerTable.setLayout(new GridLayout(1, 3));
 
-    panel.setLayout(new java.awt.GridLayout(1, 3));
+    panel.setLayout(new GridLayout(1, 3));
     panel.add(label);
 
-    serialText.setFont(new java.awt.Font("Segoe UI", 0, 16));
+    serialText.setFont(new Font("Segoe UI", 0, 16));
     serialText.setText("Serial");
     panel.add(serialText);
 
-    idText.setFont(new java.awt.Font("Segoe UI", 0, 16));
+    idText.setFont(new Font("Segoe UI", 0, 16));
     idText.setText("Id");
     panel.add(idText);
 
     headerTable.add(panel);
 
-    nameText.setFont(new java.awt.Font("Segoe UI", 0, 16));
+    nameText.setFont(new Font("Segoe UI", 0, 16));
     nameText.setText("Name");
     headerTable.add(nameText);
 
-    descriptionText.setFont(new java.awt.Font("Segoe UI", 0, 16));
+    descriptionText.setFont(new Font("Segoe UI", 0, 16));
     descriptionText.setText("Description");
     headerTable.add(descriptionText);
 
@@ -105,7 +108,7 @@ public class PublisherListPanel extends javax.swing.JPanel {
 
   public void addTable() {
     contendTable.removeAll();
-    contendTable.setLayout(new java.awt.GridLayout(0, 1, 0, 15));
+    contendTable.setLayout(new GridLayout(0, 1, 0, 15));
     int serial = 0;
     for (PublisherModel publisher : listPublisher) {
       PublisherPanel publisherPanel = new PublisherPanel(serial, publisher);

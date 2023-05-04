@@ -1,6 +1,7 @@
 package com.bookstore.gui.components.users;
 
 import com.bookstore.models.UserModel;
+import java.awt.GridLayout;
 import java.awt.event.*;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
@@ -8,9 +9,6 @@ import javax.swing.JPanel;
 
 public class UserPanel extends javax.swing.JPanel implements MouseListener {
 
-  /**
-   * Creates new form UserForm
-   */
   public UserPanel(int serial, UserModel user) {
     initComponents(serial, user);
     addMouseListener(
@@ -35,9 +33,9 @@ public class UserPanel extends javax.swing.JPanel implements MouseListener {
     panelItemHeader_1 = new JPanel();
     panelItemHeader_2 = new JPanel();
 
-    setLayout(new java.awt.GridLayout());
+    setLayout(new GridLayout());
 
-    panelItemHeader_1.setLayout(new java.awt.GridLayout(1, 2));
+    panelItemHeader_1.setLayout(new GridLayout(1, 2));
 
     panelItemHeader_1.add(checkBox);
 
@@ -55,7 +53,7 @@ public class UserPanel extends javax.swing.JPanel implements MouseListener {
     setEmail.setText(user.getEmail());
     add(setEmail);
 
-    panelItemHeader_2.setLayout(new java.awt.GridLayout(1, 2));
+    panelItemHeader_2.setLayout(new GridLayout(1, 2));
 
     setRole.setText("" + user.getRole());
     panelItemHeader_2.add(setRole);

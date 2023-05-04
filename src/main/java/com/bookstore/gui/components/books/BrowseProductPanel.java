@@ -45,19 +45,19 @@ public class BrowseProductPanel extends JPanel {
     scrollPane = new JScrollPane();
     table = new JPanel();
 
-    setPreferredSize(new java.awt.Dimension(702, 444));
-    setLayout(new java.awt.BorderLayout());
+    setPreferredSize(new Dimension(702, 444));
+    setLayout(new BorderLayout());
 
-    title.setFont(new java.awt.Font("Segoe UI", 3, 18));
-    title.setForeground(new java.awt.Color(255, 0, 51));
+    title.setFont(new Font("Segoe UI", 3, 18));
+    title.setForeground(new Color(255, 0, 51));
     title.setText("List Book");
     add(title, java.awt.BorderLayout.NORTH);
 
-    contendPanel.setLayout(new java.awt.BorderLayout());
+    contendPanel.setLayout(new BorderLayout());
 
-    panel.setLayout(new java.awt.BorderLayout(5, 5));
+    panel.setLayout(new BorderLayout(5, 5));
 
-    panelButton.setLayout(new java.awt.GridLayout(1, 0, 10, 10));
+    panelButton.setLayout(new GridLayout(1, 0, 10, 10));
 
     buttonExport.setText("Export");
     buttonExport.addActionListener(actionExport);

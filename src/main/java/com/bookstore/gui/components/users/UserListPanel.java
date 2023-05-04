@@ -62,15 +62,15 @@ public class UserListPanel extends javax.swing.JPanel {
     table = new JPanel();
     label = new JLabel();
 
-    setLayout(new java.awt.BorderLayout());
+    setLayout(new BorderLayout());
 
-    titlePanel.setFont(new java.awt.Font("Segoe UI", 3, 14));
+    titlePanel.setFont(new Font("Segoe UI", 3, 14));
     titlePanel.setText("User List");
     add(titlePanel, java.awt.BorderLayout.NORTH);
 
-    contend.setLayout(new java.awt.BorderLayout(0, 5));
+    contend.setLayout(new BorderLayout(0, 5));
 
-    cartPanel.setLayout(new java.awt.GridLayout(1, 0, 50, 0));
+    cartPanel.setLayout(new GridLayout(1, 0, 50, 0));
 
     cartUserAdmin =
       new CartUserAdmin(
@@ -104,14 +104,14 @@ public class UserListPanel extends javax.swing.JPanel {
 
     contend.add(cartPanel, java.awt.BorderLayout.PAGE_START);
 
-    contendTable.setLayout(new java.awt.BorderLayout());
+    contendTable.setLayout(new BorderLayout());
 
-    buttonPanel.setBackground(new java.awt.Color(255, 255, 255));
-    buttonPanel.setPreferredSize(new java.awt.Dimension(688, 40));
-    buttonPanel.setLayout(new java.awt.BorderLayout());
+    buttonPanel.setBackground(new Color(255, 255, 255));
+    buttonPanel.setPreferredSize(new Dimension(688, 40));
+    buttonPanel.setLayout(new BorderLayout());
 
-    buttonFilter.setBackground(new java.awt.Color(255, 255, 255));
-    buttonFilter.setLayout(new java.awt.GridLayout(1, 0, 10, 10));
+    buttonFilter.setBackground(new Color(255, 255, 255));
+    buttonFilter.setLayout(new GridLayout(1, 0, 10, 10));
 
     filterAll.setText("All");
     filterAll.setBorder(null);
@@ -136,7 +136,7 @@ public class UserListPanel extends javax.swing.JPanel {
 
     buttonPanel.add(buttonFilter, java.awt.BorderLayout.WEST);
 
-    buttonAction.setLayout(new java.awt.GridLayout(1, 0, 0, 5));
+    buttonAction.setLayout(new GridLayout(1, 0, 0, 5));
 
     buttonCreate.setText("Create");
     buttonCreate.addActionListener(actionCreate);
@@ -150,42 +150,42 @@ public class UserListPanel extends javax.swing.JPanel {
 
     contendTable.add(buttonPanel, java.awt.BorderLayout.PAGE_START);
 
-    tablePanel.setLayout(new java.awt.BorderLayout());
+    tablePanel.setLayout(new BorderLayout());
 
     headerTable.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-    headerTable.setLayout(new java.awt.GridLayout());
+    headerTable.setLayout(new GridLayout());
 
-    panelItemHeader_1.setLayout(new java.awt.GridLayout(1, 2));
+    panelItemHeader_1.setLayout(new GridLayout(1, 2));
 
     panelItemHeader_1.add(label);
 
-    serialText.setFont(new java.awt.Font("Segoe UI", 0, 16));
+    serialText.setFont(new Font("Segoe UI", 0, 16));
     serialText.setText("Serial");
 
     panelItemHeader_1.add(serialText);
 
     headerTable.add(panelItemHeader_1);
 
-    nameText.setFont(new java.awt.Font("Segoe UI", 0, 16));
+    nameText.setFont(new Font("Segoe UI", 0, 16));
     nameText.setText("Name");
     headerTable.add(nameText);
 
-    phoneText.setFont(new java.awt.Font("Segoe UI", 0, 16));
+    phoneText.setFont(new Font("Segoe UI", 0, 16));
     phoneText.setText("Phone");
     headerTable.add(phoneText);
 
-    emailText.setFont(new java.awt.Font("Segoe UI", 0, 16));
+    emailText.setFont(new Font("Segoe UI", 0, 16));
     emailText.setText("Email");
     headerTable.add(emailText);
 
-    panelItemHeader_2.setLayout(new java.awt.GridLayout(1, 2));
+    panelItemHeader_2.setLayout(new GridLayout(1, 2));
 
-    roleText.setFont(new java.awt.Font("Segoe UI", 0, 16));
+    roleText.setFont(new Font("Segoe UI", 0, 16));
     roleText.setText("Role");
     panelItemHeader_2.add(roleText);
 
-    statusText.setFont(new java.awt.Font("Segoe UI", 0, 16));
+    statusText.setFont(new Font("Segoe UI", 0, 16));
     statusText.setText("Status");
     panelItemHeader_2.add(statusText);
 

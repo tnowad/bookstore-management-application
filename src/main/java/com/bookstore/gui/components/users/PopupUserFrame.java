@@ -6,6 +6,10 @@ import com.bookstore.enums.UserRole;
 import com.bookstore.enums.UserStatus;
 import com.bookstore.models.AddressModel;
 import com.bookstore.models.UserModel;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.*;
@@ -49,96 +53,95 @@ public class PopupUserFrame extends javax.swing.JFrame {
     buttonSave = new JButton();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-    setMinimumSize(new java.awt.Dimension(610, 26));
-    setPreferredSize(new java.awt.Dimension(610, 410));
-    getContentPane()
-      .setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 10));
+    setMinimumSize(new Dimension(610, 26));
+    setPreferredSize(new Dimension(610, 410));
+    getContentPane().setLayout(new FlowLayout(FlowLayout.LEFT, 5, 10));
 
-    setName.setFont(new java.awt.Font("Segoe UI", 1, 14));
+    setName.setFont(new Font("Segoe UI", 1, 14));
     setName.setHorizontalAlignment(javax.swing.JTextField.CENTER);
     setName.setText(user.getName());
-    setName.setMaximumSize(new java.awt.Dimension(642, 26));
-    setName.setMinimumSize(new java.awt.Dimension(642, 26));
-    setName.setPreferredSize(new java.awt.Dimension(578, 26));
+    setName.setMaximumSize(new Dimension(642, 26));
+    setName.setMinimumSize(new Dimension(642, 26));
+    setName.setPreferredSize(new Dimension(578, 26));
     getContentPane().add(setName);
 
-    idText.setFont(new java.awt.Font("Segoe UI", 0, 18));
+    idText.setFont(new Font("Segoe UI", 0, 18));
     idText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     idText.setText("ID");
-    idText.setPreferredSize(new java.awt.Dimension(86, 25));
+    idText.setPreferredSize(new Dimension(86, 25));
     getContentPane().add(idText);
 
     setId.setEditable(false);
-    setId.setFont(new java.awt.Font("Segoe UI", 1, 18));
-    setId.setForeground(new java.awt.Color(255, 51, 51));
+    setId.setFont(new Font("Segoe UI", 1, 18));
+    setId.setForeground(new Color(255, 51, 51));
     setId.setText("" + user.getId());
-    setId.setPreferredSize(new java.awt.Dimension(180, 31));
+    setId.setPreferredSize(new Dimension(180, 31));
     getContentPane().add(setId);
 
-    userNameText.setFont(new java.awt.Font("Segoe UI", 0, 18));
+    userNameText.setFont(new Font("Segoe UI", 0, 18));
     userNameText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     userNameText.setText("UserName");
-    userNameText.setPreferredSize(new java.awt.Dimension(125, 25));
+    userNameText.setPreferredSize(new Dimension(125, 25));
     getContentPane().add(userNameText);
 
     setUserName.setEditable(false);
-    setUserName.setFont(new java.awt.Font("Segoe UI", 1, 18));
-    setUserName.setForeground(new java.awt.Color(51, 204, 255));
+    setUserName.setFont(new Font("Segoe UI", 1, 18));
+    setUserName.setForeground(new Color(51, 204, 255));
     setUserName.setText("" + user.getUsername());
-    setUserName.setPreferredSize(new java.awt.Dimension(140, 31));
+    setUserName.setPreferredSize(new Dimension(140, 31));
     getContentPane().add(setUserName);
 
-    addressText.setFont(new java.awt.Font("Segoe UI", 0, 18));
+    addressText.setFont(new Font("Segoe UI", 0, 18));
     addressText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
     addressText.setText("Address");
-    addressText.setPreferredSize(new java.awt.Dimension(200, 25));
+    addressText.setPreferredSize(new Dimension(200, 25));
     getContentPane().add(addressText);
 
     setAddress.setEditable(false);
-    setAddress.setFont(new java.awt.Font("Segoe UI", 1, 16));
-    setAddress.setPreferredSize(new java.awt.Dimension(280, 31));
+    setAddress.setFont(new Font("Segoe UI", 1, 16));
+    setAddress.setPreferredSize(new Dimension(280, 31));
     getContentPane().add(setAddress);
 
-    phoneText.setFont(new java.awt.Font("Segoe UI", 0, 18));
+    phoneText.setFont(new Font("Segoe UI", 0, 18));
     phoneText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
     phoneText.setText("Phone");
-    phoneText.setPreferredSize(new java.awt.Dimension(200, 25));
+    phoneText.setPreferredSize(new Dimension(200, 25));
     getContentPane().add(phoneText);
 
     setPhone.setEditable(false);
-    setPhone.setFont(new java.awt.Font("Segoe UI", 1, 16));
+    setPhone.setFont(new Font("Segoe UI", 1, 16));
     setPhone.setText("" + user.getPhone());
-    setPhone.setPreferredSize(new java.awt.Dimension(200, 31));
+    setPhone.setPreferredSize(new Dimension(200, 31));
     getContentPane().add(setPhone);
 
-    emailText.setFont(new java.awt.Font("Segoe UI", 0, 18));
+    emailText.setFont(new Font("Segoe UI", 0, 18));
     emailText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
     emailText.setText("Email");
-    emailText.setPreferredSize(new java.awt.Dimension(200, 25));
+    emailText.setPreferredSize(new Dimension(200, 25));
     getContentPane().add(emailText);
 
     setEmail.setEditable(false);
-    setEmail.setFont(new java.awt.Font("Segoe UI", 1, 16));
+    setEmail.setFont(new Font("Segoe UI", 1, 16));
     setEmail.setText(user.getEmail());
-    setEmail.setPreferredSize(new java.awt.Dimension(200, 31));
+    setEmail.setPreferredSize(new Dimension(200, 31));
     getContentPane().add(setEmail);
 
-    statusText.setFont(new java.awt.Font("Segoe UI", 0, 18));
+    statusText.setFont(new Font("Segoe UI", 0, 18));
     statusText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
     statusText.setText("Status");
-    statusText.setPreferredSize(new java.awt.Dimension(190, 25));
+    statusText.setPreferredSize(new Dimension(190, 25));
     getContentPane().add(statusText);
 
     setStatus.setModel(
       new DefaultComboBoxModel<>(new String[] { "INACTIVE", "ACTIVE" })
     );
-    setStatus.setPreferredSize(new java.awt.Dimension(90, 25));
+    setStatus.setPreferredSize(new Dimension(90, 25));
     getContentPane().add(setStatus);
 
-    roleText.setFont(new java.awt.Font("Segoe UI", 0, 18));
+    roleText.setFont(new Font("Segoe UI", 0, 18));
     roleText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
     roleText.setText("Role");
-    roleText.setPreferredSize(new java.awt.Dimension(100, 25));
+    roleText.setPreferredSize(new Dimension(100, 25));
     getContentPane().add(roleText);
 
     setRole.setModel(
@@ -146,49 +149,47 @@ public class PopupUserFrame extends javax.swing.JFrame {
         new String[] { "ADMIN", "CUSTOMER", "EMPLOYEE" }
       )
     );
-    setRole.setPreferredSize(new java.awt.Dimension(95, 25));
+    setRole.setPreferredSize(new Dimension(95, 25));
     getContentPane().add(setRole);
 
-    dateCreatedText.setFont(new java.awt.Font("Segoe UI", 0, 18));
+    dateCreatedText.setFont(new Font("Segoe UI", 0, 18));
     dateCreatedText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
     dateCreatedText.setText("Date Created");
-    dateCreatedText.setPreferredSize(new java.awt.Dimension(350, 25));
+    dateCreatedText.setPreferredSize(new Dimension(350, 25));
     getContentPane().add(dateCreatedText);
 
     getDateCreated.setEditable(false);
-    getDateCreated.setFont(new java.awt.Font("Segoe UI", 1, 18));
+    getDateCreated.setFont(new Font("Segoe UI", 1, 18));
     getDateCreated.setText("" + user.getCreatedAt());
-    getDateCreated.setPreferredSize(new java.awt.Dimension(200, 31));
+    getDateCreated.setPreferredSize(new Dimension(200, 31));
     getContentPane().add(getDateCreated);
 
-    dateUpdatedText.setFont(new java.awt.Font("Segoe UI", 0, 18));
+    dateUpdatedText.setFont(new Font("Segoe UI", 0, 18));
     dateUpdatedText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
     dateUpdatedText.setText("Date Updated");
-    dateUpdatedText.setPreferredSize(new java.awt.Dimension(350, 25));
+    dateUpdatedText.setPreferredSize(new Dimension(350, 25));
     getContentPane().add(dateUpdatedText);
 
     setDateUpdated.setEditable(false);
-    setDateUpdated.setFont(new java.awt.Font("Segoe UI", 1, 18));
+    setDateUpdated.setFont(new Font("Segoe UI", 1, 18));
     setDateUpdated.setText("" + user.getUpdatedAt());
-    setDateUpdated.setPreferredSize(new java.awt.Dimension(200, 31));
+    setDateUpdated.setPreferredSize(new Dimension(200, 31));
     getContentPane().add(setDateUpdated);
 
-    buttonPanel.setPreferredSize(new java.awt.Dimension(570, 30));
-    buttonPanel.setLayout(
-      new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 25, 5)
-    );
+    buttonPanel.setPreferredSize(new Dimension(570, 30));
+    buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 25, 5));
 
     buttonBack.setIcon(
       new ImageIcon(getClass().getResource("/resources/icons/back.png"))
     );
-    buttonBack.setPreferredSize(new java.awt.Dimension(70, 23));
+    buttonBack.setPreferredSize(new Dimension(70, 23));
     buttonBack.addActionListener(actionBack);
     buttonPanel.add(buttonBack);
 
     buttonSave.setIcon(
       new ImageIcon(getClass().getResource("/resources/icons/save.png"))
     );
-    buttonSave.setPreferredSize(new java.awt.Dimension(70, 23));
+    buttonSave.setPreferredSize(new Dimension(70, 23));
     buttonSave.addActionListener(actionSave);
     buttonPanel.add(buttonSave);
 

@@ -1,5 +1,8 @@
 package com.bookstore.gui.components.carts;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -32,24 +35,24 @@ public class CartUserAdmin extends JPanel {
     newUser = new JLabel();
     quantity = new JLabel();
 
-    setBackground(new java.awt.Color(255, 204, 255));
+    setBackground(new Color(255, 204, 255));
     setBorder(javax.swing.BorderFactory.createEtchedBorder());
-    setLayout(new java.awt.BorderLayout());
+    setLayout(new BorderLayout());
 
     icon.setIcon(new ImageIcon(getClass().getResource(linkIcon)));
     add(icon, java.awt.BorderLayout.WEST);
 
-    text.setFont(new java.awt.Font("Segoe UI", 3, 14));
-    text.setForeground(new java.awt.Color(255, 51, 51));
+    text.setFont(new Font("Segoe UI", 3, 14));
+    text.setForeground(new Color(255, 51, 51));
     text.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     text.setText(title);
     add(text, java.awt.BorderLayout.PAGE_START);
 
-    newUser.setFont(new java.awt.Font("Segoe UI", 3, 12));
+    newUser.setFont(new Font("Segoe UI", 3, 12));
     newUser.setText("New User: " + valueNewUser);
     add(newUser, java.awt.BorderLayout.PAGE_END);
 
-    quantity.setFont(new java.awt.Font("Segoe UI", 0, 16));
+    quantity.setFont(new Font("Segoe UI", 0, 16));
     quantity.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     quantity.setText("" + quantityUser);
     add(quantity, java.awt.BorderLayout.CENTER);
