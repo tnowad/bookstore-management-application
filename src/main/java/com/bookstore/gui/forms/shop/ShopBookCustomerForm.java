@@ -4,11 +4,11 @@ import com.bookstore.gui.components.tables.Table;
 import com.bookstore.interfaces.ISearchable;
 import javax.swing.JPanel;
 
-public class ShopBookForm extends JPanel implements ISearchable {
+public class ShopBookCustomerForm extends JPanel implements ISearchable {
 
   private Table bookTable;
 
-  public ShopBookForm() {
+  public ShopBookCustomerForm() {
     initComponents();
   }
 
