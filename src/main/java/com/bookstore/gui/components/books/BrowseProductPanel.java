@@ -61,46 +61,42 @@ public class BrowseProductPanel extends JPanel {
 
     buttonExport.setText("Export");
     buttonExport.addActionListener(
-      new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-          actionExport();
-        }
-      }
-    );
+        new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            actionExport();
+          }
+        });
     panelButton.add(buttonExport);
 
     buttonImport.setText("Import");
     buttonImport.addActionListener(
-      new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-          actionImport();
-        }
-      }
-    );
+        new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            actionImport();
+          }
+        });
     panelButton.add(buttonImport);
 
     buttonCreate.setText("Add");
     buttonCreate.addActionListener(
-      new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-          actionAdd();
-        }
-      }
-    );
+        new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            actionAdd();
+          }
+        });
     panelButton.add(buttonCreate);
 
     buttonDelete.setText("Delete");
     buttonDelete.addActionListener(
-      new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-          actionDelete();
-        }
-      }
-    );
+        new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            actionDelete();
+          }
+        });
     panelButton.add(buttonDelete);
 
     panel.add(panelButton, java.awt.BorderLayout.LINE_END);
@@ -118,17 +114,7 @@ public class BrowseProductPanel extends JPanel {
     table.setLayout(new GridLayout(0, 3, 10, 10));
     for (BookModel book : listBook) {
       if (!book.getStatus().toString().equals("DELETED")) {
-        BookProductPanel bookProductPanel = new BookProductPanel(
-          book.getIsbn(),
-          book.getTitle(),
-          book.getDescription(),
-          book.getImage(),
-          book.getPrice(),
-          book.getQuantity(),
-          book.getStatus(),
-          book.getPublisherId(),
-          book.getAuthorId()
-        );
+        BookProductPanel bookProductPanel = new BookProductPanel(book);
         table.add(bookProductPanel);
       }
     }
@@ -136,19 +122,16 @@ public class BrowseProductPanel extends JPanel {
 
   public void actionDelete() {
     int choice = JOptionPane.showConfirmDialog(
-      null,
-      "Do you want to banned products?",
-      "Confirmation",
-      JOptionPane.YES_NO_OPTION
-    );
+        null,
+        "Do you want to banned products?",
+        "Confirmation",
+        JOptionPane.YES_NO_OPTION);
     if (choice == JOptionPane.YES_OPTION) {
       for (Component component : table.getComponents()) {
         JPanel subPanel = (JPanel) component;
         for (Component subComponent : subPanel.getComponents()) {
-          if (
-            subComponent instanceof JCheckBox &&
-            ((JCheckBox) subComponent).isSelected()
-          ) {
+          if (subComponent instanceof JCheckBox &&
+              ((JCheckBox) subComponent).isSelected()) {
             Component[] components = subPanel.getComponents();
             for (Component c : components) {
               if (c instanceof JTextField) {
@@ -156,13 +139,12 @@ public class BrowseProductPanel extends JPanel {
                 System.out.println(id);
                 String status = "DELETED";
                 int updateStatusRows = BookBUS
-                  .getInstance()
-                  .updateStatus(id, status);
+                    .getInstance()
+                    .updateStatus(id, status);
                 if (updateStatusRows == 1) {
                   JOptionPane.showMessageDialog(
-                    null,
-                    "You've successfully locked an products!"
-                  );
+                      null,
+                      "You've successfully locked an products!");
                   table.revalidate();
                   table.repaint();
                 }
@@ -208,17 +190,7 @@ public class BrowseProductPanel extends JPanel {
     table.setLayout(new GridLayout(0, 3, 10, 10));
     for (BookModel book : list) {
       if (!book.getStatus().toString().equals("DELETED")) {
-        BookProductPanel bookProductPanel = new BookProductPanel(
-          book.getIsbn(),
-          book.getTitle(),
-          book.getDescription(),
-          book.getImage(),
-          book.getPrice(),
-          book.getQuantity(),
-          book.getStatus(),
-          book.getPublisherId(),
-          book.getAuthorId()
-        );
+        BookProductPanel bookProductPanel = new BookProductPanel(book);
         table.add(bookProductPanel);
       }
     }
