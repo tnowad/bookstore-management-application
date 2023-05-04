@@ -54,6 +54,7 @@ public class MainFrame extends JFrame {
   }
 
   public void toggleMenu() {
+    menuPanel.closeAllSubMenuItems();
     int dividerLocation = splitPane.getDividerLocation();
     int minSize = menuPanel.getMinimumSize().width;
     int maxSize = menuPanel.getMaximumSize().width;

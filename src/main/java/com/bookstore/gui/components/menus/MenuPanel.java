@@ -72,4 +72,11 @@ public class MenuPanel extends JPanel {
   public static void updateInstance(MenuPanel menuPanel) {
     MenuPanel.instance = menuPanel;
   }
+
+  public void closeAllSubMenuItems() {
+    for (int i = 0; i < menuItemsPanel.getComponentCount(); i++) {
+      if (!(menuItemsPanel.getComponent(i) instanceof MenuItemPanel)) continue;
+      ((MenuItemPanel) menuItemsPanel.getComponent(i)).closeSubMenuItems();
+    }
+  }
 }

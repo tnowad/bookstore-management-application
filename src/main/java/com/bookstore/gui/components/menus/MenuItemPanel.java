@@ -33,6 +33,7 @@ public class MenuItemPanel extends JPanel {
     firstButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
     firstButton.setMinimumSize(new Dimension(Integer.MAX_VALUE, 40));
     firstButton.setPreferredSize(new Dimension(Integer.MAX_VALUE, 40));
+
     add(firstButton);
   }
 
@@ -80,4 +81,11 @@ public class MenuItemPanel extends JPanel {
     revalidate();
     repaint();
   };
+
+  public void closeSubMenuItems() {
+    removeAll();
+    addFirstButton();
+    revalidate();
+    repaint();
+  }
 }
