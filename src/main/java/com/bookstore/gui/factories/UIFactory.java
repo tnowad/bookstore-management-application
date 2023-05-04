@@ -21,9 +21,8 @@ public class UIFactory {
     }
 
     MenuModel menuModel = MenuFactory.getMenu(user);
-
     MenuPanel.updateInstance(new MenuPanel(menuModel));
-    MainFrame.destroyInstance();
+
     MainFrame.getInstance().setVisible(true);
   }
 }
