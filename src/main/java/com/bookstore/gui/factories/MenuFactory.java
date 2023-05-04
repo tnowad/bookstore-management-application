@@ -619,7 +619,7 @@ public class MenuFactory {
 
   // customer
   private static ActionListener showHomeCustomer = e -> {
-    MainPanel.getInstance().showForm(HomeCustomer.getInstance());
+    MainPanel.getInstance().showForm(Discovery.getInstance());
   };
   private static ActionListener showDiscoveryCustomer = e -> {
     MainPanel.getInstance().showForm(Discovery.getInstance());
