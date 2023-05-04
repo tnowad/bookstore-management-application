@@ -16,7 +16,7 @@ public class Book extends javax.swing.JPanel {
 
   private void handleEvent() {
     bookDetailButton.addActionListener(e -> {
-      new Frame().add(new BookDetail(bookModel));
+      new Dialog(new BookDetail(bookModel));
     });
   }
 

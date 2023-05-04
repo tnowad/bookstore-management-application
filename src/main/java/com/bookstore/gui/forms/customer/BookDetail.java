@@ -1,13 +1,41 @@
 package com.bookstore.gui.forms.customer;
 
+import com.bookstore.bus.AuthorBUS;
 import com.bookstore.gui.components.labels.Label;
+import com.bookstore.models.AuthorModel;
 import com.bookstore.models.BookModel;
 import java.awt.*;
 import javax.swing.*;
 
-public class BookDetail extends JPanel {
+public class BookDetail extends JFrame {
+
+  private JButton addToCartButton;
+  private Label authorLabel;
+  private JTextField bookAuthorTextField;
+  private Label bookAvailableQuantity;
+  private JPanel bookDescriptionPanel;
+  private JPanel bookDetailsPanel;
+  private JPanel bookImagePanel;
+  private JPanel bookInformationPanel;
+  private JTextField bookIsbnTextField;
+  private JTextField bookPriceTextField;
+  private JTextField bookQuantityTextField;
+  private JTextField bookStatusTextField;
+  private JPanel bookTitleHeaderPanel;
+  private JTextField bookTitleTextField;
+  private JPanel buttonPanel;
+  private Label descriptionLabel;
+  private JTextArea descriptionTextArea;
+  private JPanel isbnAndAuthorAndQuantityPanel;
+  private Label isbnLabel;
+  private JScrollPane jScrollPane1;
+  private JPanel priceAndStatusField;
+  private Label priceLabel;
+  private JSpinner quantitySpinner;
+  private Label statusLabel;
 
   private BookModel bookModel;
+  private AuthorModel authorModel;
 
   public BookDetail(BookModel bookModel) {
     this.bookModel = bookModel;
@@ -15,7 +43,16 @@ public class BookDetail extends JPanel {
     updateDate();
   }
 
-  private void updateDate() {}
+  private void updateDate() {
+    authorModel = AuthorBUS.getInstance().getModelById(bookModel.getAuthorId());
+    bookTitleTextField.setText(bookModel.getTitle());
+    bookPriceTextField.setText("" + bookModel.getPrice());
+    bookStatusTextField.setText(bookModel.getStatus().toString());
+    bookIsbnTextField.setText(bookModel.getIsbn());
+    bookQuantityTextField.setText("" + bookModel.getQuantity());
+    descriptionTextArea.setText(bookModel.getDescription());
+    bookAuthorTextField.setText(authorModel.getName());
+  }
 
   private void initComponents() {
     bookTitleHeaderPanel = new JPanel();
@@ -165,29 +202,4 @@ public class BookDetail extends JPanel {
 
     add(bookDetailsPanel, BorderLayout.CENTER);
   }
-
-  private JButton addToCartButton;
-  private Label authorLabel;
-  private JTextField bookAuthorTextField;
-  private Label bookAvailableQuantity;
-  private JPanel bookDescriptionPanel;
-  private JPanel bookDetailsPanel;
-  private JPanel bookImagePanel;
-  private JPanel bookInformationPanel;
-  private JTextField bookIsbnTextField;
-  private JTextField bookPriceTextField;
-  private JTextField bookQuantityTextField;
-  private JTextField bookStatusTextField;
-  private JPanel bookTitleHeaderPanel;
-  private JTextField bookTitleTextField;
-  private JPanel buttonPanel;
-  private Label descriptionLabel;
-  private JTextArea descriptionTextArea;
-  private JPanel isbnAndAuthorAndQuantityPanel;
-  private Label isbnLabel;
-  private JScrollPane jScrollPane1;
-  private JPanel priceAndStatusField;
-  private Label priceLabel;
-  private JSpinner quantitySpinner;
-  private Label statusLabel;
 }
