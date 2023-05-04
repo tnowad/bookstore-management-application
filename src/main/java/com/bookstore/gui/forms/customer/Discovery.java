@@ -17,7 +17,9 @@ public class Discovery extends JPanel {
     handleEvent();
   }
 
-  private void handleEvent() {}
+  private void handleEvent() {
+    
+  }
 
   private void updateData() {
     bookList = BookBUS.getInstance().getAllModels();
