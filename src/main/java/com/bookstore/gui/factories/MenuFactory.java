@@ -160,8 +160,8 @@ public class MenuFactory {
 
           add(
             new MenuItemModel(
-              "Account",
-              new ImageIcon(""),
+              "My account",
+              new ImageIcon("src/main/java/resources/icons/profile.jpg"),
               null,
               new ArrayList<SubMenuItemModel>() {
                 {
@@ -183,16 +183,31 @@ public class MenuFactory {
               }
             )
           );
-
           add(
             new MenuItemModel(
-              "About us",
-              new ImageIcon("src/main/java/resources/icons/about-us.png"),
+              "Others",
+              new ImageIcon("src/main/java/resources/icons/others.png"),
               null,
-              null
+              new ArrayList<SubMenuItemModel>() {
+                {
+                  add(
+                    new SubMenuItemModel(
+                      "Contact us",
+                      new ImageIcon(""),
+                      showContact
+                    )
+                  );
+                  add(
+                    new SubMenuItemModel(
+                      "About us",
+                      new ImageIcon(""),
+                      showAboutUs
+                    )
+                  );
+                }
+              }
             )
           );
-
           add(
             new MenuItemModel(
               "Logout",
@@ -201,7 +216,6 @@ public class MenuFactory {
               null
             )
           );
-
           add(
             new MenuItemModel(
               "Exit",
@@ -291,8 +305,8 @@ public class MenuFactory {
 
           add(
             new MenuItemModel(
-              "Account",
-              new ImageIcon(""),
+              "My account",
+              new ImageIcon("src/main/java/resources/icons/profile.jpg"),
               null,
               new ArrayList<SubMenuItemModel>() {
                 {
@@ -314,26 +328,44 @@ public class MenuFactory {
               }
             )
           );
-
           add(
             new MenuItemModel(
-              "Other",
-              new ImageIcon(""),
+              "Others",
+              new ImageIcon("src/main/java/resources/icons/others.png"),
               null,
               new ArrayList<SubMenuItemModel>() {
                 {
-                  add(new SubMenuItemModel("About", new ImageIcon(""), null));
-                  add(new SubMenuItemModel("Contact", new ImageIcon(""), null));
+                  add(
+                    new SubMenuItemModel(
+                      "Contact us",
+                      new ImageIcon(""),
+                      showContact
+                    )
+                  );
+                  add(
+                    new SubMenuItemModel(
+                      "About us",
+                      new ImageIcon(""),
+                      showAboutUs
+                    )
+                  );
                 }
               }
             )
           );
-
           add(
             new MenuItemModel(
               "Logout",
               new ImageIcon("src/main/java/resources/icons/logout.png"),
               new LogoutActionListener(),
+              null
+            )
+          );
+          add(
+            new MenuItemModel(
+              "Exit",
+              new ImageIcon("src/main/java/resources/icons/exit.png"),
+              new ExitActionListener(),
               null
             )
           );
@@ -378,10 +410,11 @@ public class MenuFactory {
               null
             )
           );
+
           add(
             new MenuItemModel(
               "My account",
-              new ImageIcon(""),
+              new ImageIcon("src/main/java/resources/icons/profile.jpg"),
               null,
               new ArrayList<SubMenuItemModel>() {
                 {
@@ -403,13 +436,44 @@ public class MenuFactory {
               }
             )
           );
-          add(new MenuItemModel("Contact us", new ImageIcon(""), showContact));
-          add(new MenuItemModel("About us", new ImageIcon(""), showAboutUs));
+          add(
+            new MenuItemModel(
+              "Others",
+              new ImageIcon("src/main/java/resources/icons/others.png"),
+              null,
+              new ArrayList<SubMenuItemModel>() {
+                {
+                  add(
+                    new SubMenuItemModel(
+                      "Contact us",
+                      new ImageIcon(""),
+                      showContact
+                    )
+                  );
+                  add(
+                    new SubMenuItemModel(
+                      "About us",
+                      new ImageIcon(""),
+                      showAboutUs
+                    )
+                  );
+                }
+              }
+            )
+          );
           add(
             new MenuItemModel(
               "Logout",
-              new ImageIcon(""),
+              new ImageIcon("src/main/java/resources/icons/logout.png"),
               new LogoutActionListener(),
+              null
+            )
+          );
+          add(
+            new MenuItemModel(
+              "Exit",
+              new ImageIcon("src/main/java/resources/icons/exit.png"),
+              new ExitActionListener(),
               null
             )
           );
@@ -470,10 +534,11 @@ public class MenuFactory {
               null
             )
           );
+
           add(
             new MenuItemModel(
               "My account",
-              new ImageIcon(""),
+              new ImageIcon("src/main/java/resources/icons/profile.jpg"),
               null,
               new ArrayList<SubMenuItemModel>() {
                 {
@@ -495,13 +560,44 @@ public class MenuFactory {
               }
             )
           );
-          add(new MenuItemModel("Contact us", new ImageIcon(""), showContact));
-          add(new MenuItemModel("About us", new ImageIcon(""), showAboutUs));
+          add(
+            new MenuItemModel(
+              "Others",
+              new ImageIcon("src/main/java/resources/icons/others.png"),
+              null,
+              new ArrayList<SubMenuItemModel>() {
+                {
+                  add(
+                    new SubMenuItemModel(
+                      "Contact us",
+                      new ImageIcon(""),
+                      showContact
+                    )
+                  );
+                  add(
+                    new SubMenuItemModel(
+                      "About us",
+                      new ImageIcon(""),
+                      showAboutUs
+                    )
+                  );
+                }
+              }
+            )
+          );
           add(
             new MenuItemModel(
               "Logout",
-              new ImageIcon(""),
+              new ImageIcon("src/main/java/resources/icons/logout.png"),
               new LogoutActionListener(),
+              null
+            )
+          );
+          add(
+            new MenuItemModel(
+              "Exit",
+              new ImageIcon("src/main/java/resources/icons/exit.png"),
+              new ExitActionListener(),
               null
             )
           );
