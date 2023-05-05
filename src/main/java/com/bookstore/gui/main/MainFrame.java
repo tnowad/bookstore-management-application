@@ -58,12 +58,15 @@ public class MainFrame extends JFrame {
     int minSize = menuPanel.getMinimumSize().width;
     int maxSize = menuPanel.getMaximumSize().width;
 
-    int targetSize = (dividerLocation == minSize) ? maxSize : minSize;
+    int targetSize = (dividerLocation - minSize < maxSize - dividerLocation)
+      ? maxSize
+      : minSize;
+
     int currentSize = dividerLocation;
     int step = (targetSize - currentSize) / 10;
 
     Timer timer = new Timer(
-      20,
+      10,
       new ActionListener() {
         int newSize = currentSize;
         int count = 0;
