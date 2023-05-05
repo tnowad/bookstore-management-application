@@ -356,15 +356,50 @@ public class OrderBUS implements IBUS<OrderModel> {
     String expirationDate,
     String cvv
   ) {
-    System.out.println("Creating order...");
-    System.out.println("Cart ID: " + cartId);
-    System.out.println("Employee ID: " + employeeId);
-    System.out.println("Customer ID: " + customerId);
-    System.out.println("Shipping method: " + shippingMethod);
-    System.out.println("Payment method: " + paymentMethod);
-    System.out.println("Card number: " + cardNumber);
-    System.out.println("Card holder: " + cardHolder);
-    System.out.println("Expiration date: " + expirationDate);
-    System.out.println("CVV: " + cvv);
+    // create order
+    OrderModel orderModel = new OrderModel();
+    orderModel.setCartId(cartId);
+    orderModel.setCustomerId(customerId);
+    orderModel.setEmployeeId(employeeId);
+    orderModel.setTotal(CartBUS.getInstance().calculateTotal(cartId));
+    orderModel.setPaid(0);
+    orderModel.setStatus(OrderStatus.PENDING);
+    int orderId = OrderBUS.getInstance().addModel(orderModel);
+    orderModel = OrderBUS.getInstance().getModelById(orderId);
+    // create payment
+    PaymentModel paymentModel = new PaymentModel();
+    paymentModel.setOrderId(orderId);
+    paymentModel.setUserId(customerId);
+    paymentModel.setAmount(0);
+    paymentModel.setStatus(PaymentStatus.PENDING);
+    int paymentId = PaymentBUS.getInstance().addModel(paymentModel);
+    paymentModel = PaymentBUS.getInstance().getModelById(paymentId);
+    // create payment method
+    if (paymentMethod.equals("Credit")) {
+      PaymentMethodModel paymentMethodModel = new PaymentMethodModel();
+      paymentMethodModel.setPaymentId(paymentId);
+      paymentMethodModel.setCustomerId(customerId);
+
+      paymentMethodModel.setCardHolder(cardHolder);
+      paymentMethodModel.setCardNumber(cardNumber);
+      paymentMethodModel.setExpirationDate(expirationDate);
+      // paymentMethodModel.setCvv(cvv);
+      PaymentMethodBUS.getInstance().addModel(paymentMethodModel);
+    }
+
+    // create shipping
+    ShippingModel shippingModel = new ShippingModel();
+    shippingModel.setOrderId(orderId);
+    shippingModel.setShippingMethod(shippingMethod);
+    shippingModel.setShippingAddressId(
+      AddressBUS.getInstance().getModelById(customerId).getId()
+    );
+    shippingModel.setStatus(ShippingStatus.PENDING);
+    int shippingId = ShippingBUS.getInstance().addModel(shippingModel);
+    shippingModel = ShippingBUS.getInstance().getModelById(shippingId);
+
+    // set status of cart to pending
+    cartModel.setStatus(CartStatus.PENDING);
+    CartBUS.getInstance().updateModel(cartModel);
   }
 }
