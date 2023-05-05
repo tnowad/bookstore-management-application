@@ -1,17 +1,17 @@
 package com.bookstore.models.tables;
 
+import com.bookstore.bus.UserBUS;
+import com.bookstore.models.OrderModel;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
-
-import com.bookstore.models.OrderModel;
 
 public class OrderRecentTableModel extends DefaultTableModel {
 
   private static final String[] columnNames = {
     "ID",
-    "CustomerID",
-    "EmployeeID",
+    "Customer Email",
+    "Employee Email",
     "TotalPrice",
     "CreatedAt",
     "UpdatedAt",
@@ -26,8 +26,14 @@ public class OrderRecentTableModel extends DefaultTableModel {
       this.addRow(
           new Object[] {
             order.getId(),
-            order.getCustomerId(),
-            order.getEmployeeId(),
+            UserBUS
+              .getInstance()
+              .getModelById(order.getCustomerId())
+              .getEmail(),
+            UserBUS
+              .getInstance()
+              .getModelById(order.getEmployeeId())
+              .getEmail(),
             order.getTotal(),
             order.getCreatedAt().format(formatter),
             order.getUpdatedAt().format(formatter),
