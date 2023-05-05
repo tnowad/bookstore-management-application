@@ -52,7 +52,7 @@ public class ShopCustomer extends JPanel implements ISearchable {
 
   private void handleEvent() {
     cartButtonTextField.addActionListener(arg0 -> {
-      MainPanel.getInstance().showForm(Cart.getInstance());
+      MainPanel.getInstance().showForm(new Cart());
     });
     sortByConditionComboBox.addActionListener(e -> {
       bookListPanel.removeAll();

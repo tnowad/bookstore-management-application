@@ -681,7 +681,7 @@ public class MenuFactory {
   };
 
   private static ActionListener showCartCustomer = e -> {
-    MainPanel.getInstance().showForm(Cart.getInstance());
+    MainPanel.getInstance().showForm(new Cart());
   };
 
   private static ActionListener showCheckoutCustomer = e -> {

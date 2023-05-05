@@ -6,10 +6,26 @@ import com.bookstore.gui.components.buttons.Button;
 import com.bookstore.models.BookModel;
 import com.bookstore.models.CartItemsModel;
 import java.awt.*;
-import javax.swing.*;
 import java.util.List;
+import javax.swing.*;
 
 public class CartDetail extends JFrame {
+
+  private JPanel bookImagePanel;
+  private JLabel bookPriceLabel;
+  private JTextField bookTitleTextField;
+  private JPanel cententProductPanel;
+  private JPanel checkboxPanel;
+  private Button deleteProductButton;
+  private JPanel contentCartPanel;
+  private Button acceptButton;
+  private JPanel descriptionPanel;
+  private JScrollPane descriptionScrollPane;
+  private JTextArea descriptionTextArea;
+  private JPanel groupBottomPanel;
+  private JPanel groupHeaderPanel;
+  private JPanel infoDetailPanel;
+  private JSpinner quantitySpinner;
 
   private int cartId;
   private String bookIsbn;
@@ -213,20 +229,4 @@ public class CartDetail extends JFrame {
     // setVisible(true);
     pack();
   }
-
-  private JPanel bookImagePanel;
-  private JLabel bookPriceLabel;
-  private JTextField bookTitleTextField;
-  private JPanel cententProductPanel;
-  private JPanel checkboxPanel;
-  private Button deleteProductButton;
-  private JPanel contentCartPanel;
-  private Button acceptButton;
-  private JPanel descriptionPanel;
-  private JScrollPane descriptionScrollPane;
-  private JTextArea descriptionTextArea;
-  private JPanel groupBottomPanel;
-  private JPanel groupHeaderPanel;
-  private JPanel infoDetailPanel;
-  private JSpinner quantitySpinner;
 }

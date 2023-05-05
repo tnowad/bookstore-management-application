@@ -32,7 +32,7 @@ public class Cart extends JPanel {
   private BookBUS bookBUS;
   private List<BookModel> bookList;
 
-  private Cart() {
+  public Cart() {
     updateData();
     initComponents();
     listOrder();
@@ -40,12 +40,7 @@ public class Cart extends JPanel {
     handleEvent();
   }
 
-  public static Cart getInstance() {
-    if (instance == null) {
-      instance = new Cart();
-    }
-    return instance;
-  }
+
 
   private void updateData() {
     userModel = Authentication.getCurrentUser();
@@ -87,7 +82,7 @@ public class Cart extends JPanel {
 
     listCartPanel.setLayout(new BorderLayout());
 
-    listCartTable.setPreferredSize(new Dimension(350, 80));
+    listCartTable.setPreferredSize(new Dimension(350, 400));
 
     add(listCartPanel, BorderLayout.CENTER);
 
