@@ -81,11 +81,11 @@ public class OrderList extends JPanel {
     }
     // scrollPaneChild.setViewportView(orderTableList);
 
-    // orderListPanel.add(scrollPaneChild, java.awt.BorderLayout.CENTER);
+    // orderListPanel.add(scrollPaneChild, BorderLayout.CENTER);
 
     scrollPaneParent.setViewportView(orderTableList);
 
-    add(scrollPaneParent, java.awt.BorderLayout.CENTER);
+    add(scrollPaneParent, BorderLayout.CENTER);
   }
 
   private void initComponents() {

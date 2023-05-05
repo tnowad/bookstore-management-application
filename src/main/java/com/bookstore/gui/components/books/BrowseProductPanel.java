@@ -56,7 +56,7 @@ public class BrowseProductPanel extends JPanel {
     title.setFont(new Font("Segoe UI", 3, 18));
     title.setForeground(new Color(255, 0, 51));
     title.setText("List Book");
-    add(title, java.awt.BorderLayout.NORTH);
+    add(title, BorderLayout.NORTH);
 
     contendPanel.setLayout(new BorderLayout());
 
@@ -80,15 +80,15 @@ public class BrowseProductPanel extends JPanel {
     buttonDelete.addActionListener(actionBanned);
     panelButton.add(buttonDelete);
 
-    panel.add(panelButton, java.awt.BorderLayout.LINE_END);
+    panel.add(panelButton, BorderLayout.LINE_END);
 
-    contendPanel.add(panel, java.awt.BorderLayout.PAGE_START);
+    contendPanel.add(panel, BorderLayout.PAGE_START);
 
     scrollPane.setViewportView(table);
 
-    contendPanel.add(scrollPane, java.awt.BorderLayout.CENTER);
+    contendPanel.add(scrollPane, BorderLayout.CENTER);
 
-    add(contendPanel, java.awt.BorderLayout.CENTER);
+    add(contendPanel, BorderLayout.CENTER);
   }
 
   public void addTable() {
@@ -173,7 +173,6 @@ public class BrowseProductPanel extends JPanel {
         }
       }
     }
-
   };
 
   public ActionListener actionImport = new ActionListener() {

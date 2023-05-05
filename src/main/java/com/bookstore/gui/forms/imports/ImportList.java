@@ -121,7 +121,7 @@ public class ImportList extends JPanel {
 
     headerPanel.add(groupExcel);
 
-    add(headerPanel, java.awt.BorderLayout.PAGE_START);
+    add(headerPanel, BorderLayout.PAGE_START);
 
     groupListImport.setLayout(new BorderLayout());
 
@@ -142,11 +142,11 @@ public class ImportList extends JPanel {
       importTableList.getColumnModel().getColumn(4).setResizable(false);
     }
 
-    groupListImport.add(scrollPaneTableList, java.awt.BorderLayout.CENTER);
+    groupListImport.add(scrollPaneTableList, BorderLayout.CENTER);
 
     jScrollPane1.setViewportView(groupListImport);
 
-    add(jScrollPane1, java.awt.BorderLayout.CENTER);
+    add(jScrollPane1, BorderLayout.CENTER);
   }
 
   private void searh() {

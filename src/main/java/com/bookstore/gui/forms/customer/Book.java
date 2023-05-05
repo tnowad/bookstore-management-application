@@ -25,12 +25,21 @@ import javax.swing.JPanel;
 
 public class Book extends JPanel {
 
+  private JButton addToCartButton;
+  private JButton bookDetailButton;
+  private JPanel bookImagePanel;
+  private JLabel bookTitleLabel;
+  private JPanel groupButtonPanel;
+  private Label bookPriceLabel;
+  private Label setImage;
+
   private UserModel userModel = Authentication.getCurrentUser();
   private List<CartModel> cartList = CartBUS.getInstance().getAllModels();
   private CartModel myCartModel;
   private List<CartItemsModel> cartItemList = CartItemsBUS
     .getInstance()
     .getAllModels();
+
   private CartItemsModel cartItemsModel;
 
   private BookModel bookModel;
@@ -102,10 +111,12 @@ public class Book extends JPanel {
     try {
       image = ImageUtils.decodeFromBase64(imageBase64);
     } catch (Exception ex) {
-      image =  new ImageIcon("src/main/java/resources/images/product-placeholder.png").getImage();
+      image =
+        new ImageIcon("src/main/java/resources/images/product-placeholder.png")
+          .getImage();
     }
-   image = image.getScaledInstance(100,100,Image.SCALE_SMOOTH);
-   setImage.setIcon(new ImageIcon(image));
+    image = image.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+    setImage.setIcon(new ImageIcon(image));
   }
 
   private void initComponents() {
@@ -122,13 +133,10 @@ public class Book extends JPanel {
     bookTitleLabel.setFont(new Font("Segoe UI", 0, 14));
     bookTitleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     bookTitleLabel.setText(bookModel.getTitle());
-    add(bookTitleLabel, java.awt.BorderLayout.PAGE_START);
+    add(bookTitleLabel, BorderLayout.PAGE_START);
     bookTitleLabel.getAccessibleContext().setAccessibleDescription("");
 
-    bookImagePanel.setLayout(new FlowLayout());
-    bookImagePanel.add(setImage);
-    bookImagePanel.setPreferredSize(new Dimension(400, 300));
-    add(bookImagePanel, java.awt.BorderLayout.CENTER);
+    add(setImage, BorderLayout.CENTER);
 
     groupButtonPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 2, 0));
 
@@ -141,14 +149,6 @@ public class Book extends JPanel {
     addToCartButton.setText("Add to cart");
     groupButtonPanel.add(addToCartButton);
 
-    add(groupButtonPanel, java.awt.BorderLayout.SOUTH);
+    add(groupButtonPanel, BorderLayout.SOUTH);
   }
-
-  private JButton addToCartButton;
-  private JButton bookDetailButton;
-  private JPanel bookImagePanel;
-  private JLabel bookTitleLabel;
-  private JPanel groupButtonPanel;
-  private Label bookPriceLabel;
-  private Label setImage;
 }

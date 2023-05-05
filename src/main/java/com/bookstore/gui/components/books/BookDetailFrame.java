@@ -92,7 +92,7 @@ public class BookDetailFrame extends JFrame {
     );
     getImageBook.setEnabled(false);
     getImageBook.setPreferredSize(new Dimension(200, 16));
-    contendPanel.add(getImageBook, java.awt.BorderLayout.LINE_START);
+    contendPanel.add(getImageBook, BorderLayout.LINE_START);
 
     informationPanel.setPreferredSize(new Dimension(655, 300));
     informationPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -179,7 +179,7 @@ public class BookDetailFrame extends JFrame {
     setPublisherName.setPreferredSize(new Dimension(290, 31));
     informationPanel.add(setPublisherName);
 
-    contendPanel.add(informationPanel, java.awt.BorderLayout.CENTER);
+    contendPanel.add(informationPanel, BorderLayout.CENTER);
 
     getContentPane().add(contendPanel);
 
@@ -188,7 +188,7 @@ public class BookDetailFrame extends JFrame {
 
     descriptionText.setFont(new Font("Segoe UI", 1, 24));
     descriptionText.setText("Description:");
-    descriptionPanel.add(descriptionText, java.awt.BorderLayout.PAGE_START);
+    descriptionPanel.add(descriptionText, BorderLayout.PAGE_START);
 
     descriptionContend.setLayout(new BorderLayout());
 
@@ -209,7 +209,7 @@ public class BookDetailFrame extends JFrame {
     buttonSave.addActionListener(actionSave);
     buttonPanel.add(buttonSave);
 
-    descriptionContend.add(buttonPanel, java.awt.BorderLayout.PAGE_END);
+    descriptionContend.add(buttonPanel, BorderLayout.PAGE_END);
 
     setDescription.setColumns(5);
     setDescription.setFont(new Font("Segoe UI", 3, 15));
@@ -218,9 +218,9 @@ public class BookDetailFrame extends JFrame {
     setDescription.setText(book.getDescription());
     scrollPane.setViewportView(setDescription);
 
-    descriptionContend.add(scrollPane, java.awt.BorderLayout.CENTER);
+    descriptionContend.add(scrollPane, BorderLayout.CENTER);
 
-    descriptionPanel.add(descriptionContend, java.awt.BorderLayout.CENTER);
+    descriptionPanel.add(descriptionContend, BorderLayout.CENTER);
 
     getContentPane().add(descriptionPanel);
 

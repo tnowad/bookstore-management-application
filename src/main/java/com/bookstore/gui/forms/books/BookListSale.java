@@ -105,7 +105,7 @@ public class BookListSale extends JPanel {
 
     jPanel1.add(jPanel4);
 
-    add(jPanel1, java.awt.BorderLayout.PAGE_START);
+    add(jPanel1, BorderLayout.PAGE_START);
 
     jPanel6.setLayout(new BorderLayout());
 
@@ -120,11 +120,11 @@ public class BookListSale extends JPanel {
       bookListTable.getColumnModel().getColumn(4).setResizable(false);
     }
 
-    jPanel6.add(jscrollPane, java.awt.BorderLayout.CENTER);
+    jPanel6.add(jscrollPane, BorderLayout.CENTER);
 
     jScrollPane1.setViewportView(jPanel6);
 
-    add(jScrollPane1, java.awt.BorderLayout.CENTER);
+    add(jScrollPane1, BorderLayout.CENTER);
   }
 
   private void search() {
