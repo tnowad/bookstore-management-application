@@ -15,10 +15,11 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
-public class ItemOrderPanel extends javax.swing.JPanel {
+public class ItemOrderPanel extends JPanel {
 
   private JCheckBox checkBox;
   private JLabel setIdEmployee;

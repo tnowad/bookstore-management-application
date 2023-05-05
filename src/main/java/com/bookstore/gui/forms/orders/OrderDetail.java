@@ -203,7 +203,7 @@ public class OrderDetail extends JFrame {
     groupHeaderPanel.add(phoneCustomerLabel);
     // groupHeaderPanel.add(addressCustomerLabel);
 
-    container.add(groupHeaderPanel, java.awt.BorderLayout.PAGE_START);
+    container.add(groupHeaderPanel, BorderLayout.PAGE_START);
 
     groupBottomPanel.add(totalPriceLabel);
     groupBottomPanel.add(totalPriceTextField);

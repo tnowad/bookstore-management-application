@@ -7,7 +7,7 @@ import java.awt.GridLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class SalaryPanel extends javax.swing.JPanel {
+public class SalaryPanel extends JPanel {
 
   public SalaryPanel(int serial, EmployeeModel employee) {
     initComponents(serial, employee);

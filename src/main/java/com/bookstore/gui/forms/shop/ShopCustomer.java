@@ -3,7 +3,10 @@ package com.bookstore.gui.forms.shop;
 import com.bookstore.bus.BookBUS;
 import com.bookstore.bus.BooksCategoryBUS;
 import com.bookstore.bus.CategoryBUS;
+import com.bookstore.gui.components.panels.MainPanel;
+import com.bookstore.gui.forms.carts.Cart;
 import com.bookstore.gui.forms.customer.Book;
+import com.bookstore.interfaces.ISearchable;
 import com.bookstore.models.BookModel;
 import com.bookstore.models.BooksCategoryModel;
 import com.bookstore.models.CategoryModel;
@@ -14,7 +17,7 @@ import java.util.Comparator;
 import java.util.List;
 import javax.swing.*;
 
-public class ShopCustomer extends JPanel {
+public class ShopCustomer extends JPanel implements ISearchable {
 
   private JPanel bookListPanel;
   private JScrollPane bookListScrollPane;
@@ -22,7 +25,6 @@ public class ShopCustomer extends JPanel {
   private JLabel categoryLabel;
   private JComboBox<String> categoryListComboBox;
   private JPanel headerPanel;
-  private JTextField searchTextField;
   private JComboBox<String> sortByConditionComboBox;
   private JLabel sortByLabel;
 
@@ -49,6 +51,9 @@ public class ShopCustomer extends JPanel {
   }
 
   private void handleEvent() {
+    cartButtonTextField.addActionListener(arg0 -> {
+      MainPanel.getInstance().showForm(Cart.getInstance());
+    });
     sortByConditionComboBox.addActionListener(e -> {
       bookListPanel.removeAll();
       String selectedValue = (String) sortByConditionComboBox.getSelectedItem();
@@ -83,9 +88,11 @@ public class ShopCustomer extends JPanel {
     categoryListComboBox.addActionListener(e -> {
       bookListPanel.removeAll();
       String selectedCategory = (String) categoryListComboBox.getSelectedItem();
-      List<BookModel> books = new ArrayList<>();
+      List<BookModel> books = new ArrayList<BookModel>();
       if (selectedCategory.equals("All")) {
         renderListProduct(bookList);
+        this.revalidate();
+        this.repaint();
       } else {
         BooksCategoryBUS booksCategoryBUS = BooksCategoryBUS.getInstance();
         CategoryBUS categoryBUS = CategoryBUS.getInstance();
@@ -95,24 +102,33 @@ public class ShopCustomer extends JPanel {
         if (categoryModel != null) {
           List<BooksCategoryModel> booksCategoryModels = booksCategoryBUS.getAllModels();
           for (BooksCategoryModel booksCategoryModel : booksCategoryModels) {
-            BookModel bookModel = BookBUS
-              .getInstance()
-              .getBookByIsbn(booksCategoryModel.getBookIsbn());
-            if (bookModel != null && !books.contains(bookModel)) {
-              books.add(bookModel);
+            if (booksCategoryModel.getCategoryId() == categoryModel.getId()) {
+              BookModel bookModel = BookBUS
+                .getInstance()
+                .getBookByIsbn(booksCategoryModel.getBookIsbn());
+              if (bookModel != null && !books.contains(bookModel)) {
+                books.add(bookModel);
+              }
             }
           }
         }
+
+        renderListProduct(books);
+        this.revalidate();
+        this.repaint();
       }
-      renderListProduct(books);
-      this.revalidate();
-      this.repaint();
     });
   }
 
   private void renderListProduct(List<BookModel> bookListRender) {
-    for (BookModel bookModel : bookListRender) {
-      bookListPanel.add(new Book(bookModel));
+    System.out.println(bookListRender.size());
+    if (bookListRender.size() <= 0) {
+      bookListPanel.add(new NoData("Don't have data for product"));
+      System.out.println("No data");
+    } else {
+      for (BookModel bookModel : bookListRender) {
+        bookListPanel.add(new Book(bookModel));
+      }
     }
   }
 
@@ -129,7 +145,6 @@ public class ShopCustomer extends JPanel {
     sortByConditionComboBox = new JComboBox<>();
     categoryLabel = new JLabel();
     categoryListComboBox = new JComboBox<>();
-    searchTextField = new JTextField();
     cartButtonTextField = new JButton();
     bookListScrollPane = new JScrollPane();
     bookListPanel = new JPanel();
@@ -173,14 +188,6 @@ public class ShopCustomer extends JPanel {
     headerPanel.add(categoryLabel);
     headerPanel.add(categoryListComboBox);
 
-    searchTextField.setFont(new Font("Segoe UI", 0, 14));
-    searchTextField.setText("Search anything here..");
-    searchTextField.setMaximumSize(new Dimension(300, 30));
-    searchTextField.setMinimumSize(new Dimension(300, 30));
-    searchTextField.setPreferredSize(new Dimension(300, 30));
-
-    headerPanel.add(searchTextField);
-
     cartButtonTextField.setText("Cart");
     cartButtonTextField.setPreferredSize(new Dimension(80, 30));
 
@@ -196,5 +203,32 @@ public class ShopCustomer extends JPanel {
     bookListScrollPane.getVerticalScrollBar().setUnitIncrement(50);
 
     add(bookListScrollPane, BorderLayout.CENTER);
+  }
+
+  @Override
+  public void search(String keyword) {
+    bookListPanel.removeAll();
+    if (keyword == null || keyword.isBlank()) {
+      JOptionPane.showMessageDialog(
+        null,
+        "Please enter your search information!"
+      );
+      renderListProduct(bookList);
+      this.revalidate();
+      this.repaint();
+    } else {
+      List<BookModel> books = new ArrayList<BookModel>();
+      for (BookModel bookModel : bookList) {
+        if (
+          bookModel.getTitle().toLowerCase().contains(keyword.toLowerCase())
+        ) {
+          books.add(bookModel);
+        }
+      }
+
+      renderListProduct(books);
+      this.revalidate();
+      this.repaint();
+    }
   }
 }

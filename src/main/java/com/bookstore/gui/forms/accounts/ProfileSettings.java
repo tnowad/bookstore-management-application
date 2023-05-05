@@ -166,10 +166,12 @@ public class ProfileSettings extends JPanel {
   }
 
   private void updateInformation() {
-    cityTextField.setText(addressModel.getCity());
-    streetTextField.setText(addressModel.getStreet());
-    zipTextField.setText(addressModel.getZip());
-    stateTextField.setText(addressModel.getState());
+    if(addressModel!= null) {
+      cityTextField.setText(addressModel.getCity());
+      streetTextField.setText(addressModel.getStreet());
+      zipTextField.setText(addressModel.getZip());
+      stateTextField.setText(addressModel.getState());
+    }
     usernameTextField.setText(currentUser.getUsername());
     nameTextField.setText(currentUser.getName());
     emailTextField.setText(currentUser.getEmail());

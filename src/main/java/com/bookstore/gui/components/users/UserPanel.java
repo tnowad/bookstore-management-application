@@ -7,9 +7,8 @@ import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.text.View;
 
-public class UserPanel extends javax.swing.JPanel implements MouseListener {
+public class UserPanel extends JPanel implements MouseListener {
 
   private JTextField setId;
 

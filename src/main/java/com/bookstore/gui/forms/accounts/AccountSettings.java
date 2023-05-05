@@ -152,7 +152,7 @@ public class AccountSettings extends JPanel {
   private ActionListener toggleNewPasswordActionListener = e -> {
     if (toggleNewPasswordButton.isSelected()) {
       newPasswordField.setEchoChar((char) 0);
-      toggleConfirmNewPasswordButton.setIcon(showPassword);
+      toggleNewPasswordButton.setIcon(showPassword);
     } else {
       newPasswordField.setEchoChar('\u25cf');
       toggleNewPasswordButton.setIcon(hidePassword);

@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
-public class SalaryListPanel extends javax.swing.JPanel {
+public class SalaryListPanel extends JPanel {
 
   private static SalaryListPanel instance;
   EmployeeBUS employeeBUS = EmployeeBUS.getInstance();
@@ -54,7 +54,7 @@ public class SalaryListPanel extends javax.swing.JPanel {
 
     title.setFont(new Font("Segoe UI", 1, 18));
     title.setText("List Salary");
-    add(title, java.awt.BorderLayout.PAGE_START);
+    add(title, BorderLayout.PAGE_START);
 
     contend.setLayout(new BorderLayout());
 
@@ -90,13 +90,13 @@ public class SalaryListPanel extends javax.swing.JPanel {
     contactText.setText("Contact");
     headerTable.add(contactText);
 
-    table.add(headerTable, java.awt.BorderLayout.NORTH);
+    table.add(headerTable, BorderLayout.NORTH);
 
     scrollPane.setViewportView(contendTable);
 
-    table.add(scrollPane, java.awt.BorderLayout.CENTER);
+    table.add(scrollPane, BorderLayout.CENTER);
 
-    contend.add(table, java.awt.BorderLayout.CENTER);
+    contend.add(table, BorderLayout.CENTER);
 
     sumSalaryPanel.setPreferredSize(new Dimension(720, 50));
     sumSalaryPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 10, 10));
@@ -109,9 +109,9 @@ public class SalaryListPanel extends javax.swing.JPanel {
     setSumSalary.setPreferredSize(new Dimension(75, 30));
     sumSalaryPanel.add(setSumSalary);
 
-    contend.add(sumSalaryPanel, java.awt.BorderLayout.SOUTH);
+    contend.add(sumSalaryPanel, BorderLayout.SOUTH);
 
-    add(contend, java.awt.BorderLayout.CENTER);
+    add(contend, BorderLayout.CENTER);
   }
 
   public void addTable() {

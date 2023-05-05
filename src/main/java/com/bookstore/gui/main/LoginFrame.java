@@ -28,7 +28,6 @@ public class LoginFrame extends JFrame {
   private LayoutManager layout;
   private JPanel loginPanel;
   private Button exitButton;
-  private Button forgotPasswordButton;
   private Button loginButton;
   private Button registerButton;
   private JLabel LogoLabel;
@@ -74,8 +73,6 @@ public class LoginFrame extends JFrame {
     loginButton = new Button("Login");
     exitButton = new Button("Exit");
     registerButton = new Button("Register");
-    forgotPasswordButton = new Button("Forgot Password");
-    forgotPasswordButton.setPreferredSize(new Dimension(150, 30));
     showPassword =
       new ImageIcon("src/main/java/resources/icons/show_password.png");
     hidePassword =
@@ -84,7 +81,6 @@ public class LoginFrame extends JFrame {
     loginButton.addActionListener(loginButtonActionListener);
     exitButton.addActionListener(exitButtonActionListener);
     registerButton.addActionListener(registerButtonActionListener);
-    forgotPasswordButton.addActionListener(forgotPasswordButtonActionListener);
     toggleButton.addActionListener(showPasswordButtonActionListener);
 
     loginPanel.setLayout(new GridBagLayout());
@@ -119,8 +115,6 @@ public class LoginFrame extends JFrame {
     loginPanel.add(loginButton, gridBagConstraints);
     gridBagConstraints.gridx = 1;
     loginPanel.add(registerButton, gridBagConstraints);
-    gridBagConstraints.gridx = 2;
-    loginPanel.add(forgotPasswordButton, gridBagConstraints);
     gridBagConstraints.gridx = 3;
     loginPanel.add(exitButton, gridBagConstraints);
 

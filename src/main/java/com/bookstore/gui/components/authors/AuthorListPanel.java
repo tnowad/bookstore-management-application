@@ -13,7 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-public class AuthorListPanel extends javax.swing.JPanel {
+public class AuthorListPanel extends JPanel {
 
   private static AuthorListPanel instance;
 
@@ -70,7 +70,7 @@ public class AuthorListPanel extends javax.swing.JPanel {
 
     title.setFont(new Font("Segoe UI", 1, 18));
     title.setText("List Author");
-    add(title, java.awt.BorderLayout.PAGE_START);
+    add(title, BorderLayout.PAGE_START);
 
     contend.setLayout(new BorderLayout());
 
@@ -85,7 +85,7 @@ public class AuthorListPanel extends javax.swing.JPanel {
     buttonDelete.setPreferredSize(new Dimension(75, 30));
     buttonsPanel.add(buttonDelete);
 
-    contend.add(buttonsPanel, java.awt.BorderLayout.PAGE_START);
+    contend.add(buttonsPanel, BorderLayout.PAGE_START);
 
     table.setLayout(new BorderLayout());
 
@@ -112,15 +112,15 @@ public class AuthorListPanel extends javax.swing.JPanel {
     descriptionText.setText("Description");
     headerTable.add(descriptionText);
 
-    table.add(headerTable, java.awt.BorderLayout.NORTH);
+    table.add(headerTable, BorderLayout.NORTH);
 
     scrollPane.setViewportView(contendTable);
 
-    table.add(scrollPane, java.awt.BorderLayout.CENTER);
+    table.add(scrollPane, BorderLayout.CENTER);
 
-    contend.add(table, java.awt.BorderLayout.CENTER);
+    contend.add(table, BorderLayout.CENTER);
 
-    add(contend, java.awt.BorderLayout.CENTER);
+    add(contend, BorderLayout.CENTER);
   }
 
   public void addTable() {

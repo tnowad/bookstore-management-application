@@ -5,7 +5,9 @@ import com.bookstore.bus.OrderBUS;
 import com.bookstore.bus.UserBUS;
 import com.bookstore.gui.components.cards.CardPanel;
 import com.bookstore.gui.components.tables.Table;
-import com.bookstore.models.StatisticCardModel;
+import com.bookstore.models.gui.StatisticCardModel;
+import com.bookstore.models.tables.OrderRecentTableModel;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
@@ -108,6 +110,7 @@ public class DashboardPanel extends JPanel {
     contentPanel = new JPanel(new BorderLayout());
 
     table = new Table();
+
     JLabel label = new JLabel("Recent Orders");
 
     contentPanel.add(table, BorderLayout.CENTER);

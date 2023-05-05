@@ -17,7 +17,7 @@ import java.time.format.DateTimeFormatter;
 
 import javax.swing.*;
 
-public class PopupUserFrame extends javax.swing.JFrame {
+public class PopupUserFrame extends JFrame {
   private UserModel user;
 
   public PopupUserFrame(UserModel user) {

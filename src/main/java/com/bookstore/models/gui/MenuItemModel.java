@@ -1,32 +1,38 @@
-package com.bookstore.models;
+package com.bookstore.models.gui;
 
 import java.awt.Image;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
-public class SubMenuItemModel {
+public class MenuItemModel {
 
   private String title;
   private Icon icon;
   private ActionListener actionListener;
+  private ArrayList<SubMenuItemModel> subMenuItems;
 
-  public SubMenuItemModel(
-    String title,
-    Icon icon,
-    ActionListener actionListener
-  ) {
+  public MenuItemModel(String title, Icon icon, ActionListener actionListener) {
     this.title = title;
     this.icon = icon;
     this.actionListener = actionListener;
   }
 
-  public String getTitle() {
-    return title;
+  public MenuItemModel(
+    String title,
+    Icon icon,
+    ActionListener actionListener,
+    ArrayList<SubMenuItemModel> subMenuItems
+  ) {
+    this.title = title;
+    this.icon = icon;
+    this.actionListener = actionListener;
+    this.subMenuItems = subMenuItems;
   }
 
-  public void setTitle(String title) {
-    this.title = title;
+  public String getTitle() {
+    return title;
   }
 
   public Icon getIcon() {
@@ -35,7 +41,7 @@ public class SubMenuItemModel {
     }
     Image iconImage = ((ImageIcon) icon).getImage();
     return new ImageIcon(
-      iconImage.getScaledInstance(24, 24, java.awt.Image.SCALE_SMOOTH)
+      iconImage.getScaledInstance(24, 24, Image.SCALE_SMOOTH)
     ) {
       @Override
       public int getIconHeight() {
@@ -49,15 +55,11 @@ public class SubMenuItemModel {
     };
   }
 
-  public void setIcon(Icon icon) {
-    this.icon = icon;
-  }
-
   public ActionListener getActionListener() {
     return actionListener;
   }
 
-  public void setActionListener(ActionListener actionListener) {
-    this.actionListener = actionListener;
+  public ArrayList<SubMenuItemModel> getSubMenuItems() {
+    return subMenuItems;
   }
 }

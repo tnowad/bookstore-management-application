@@ -40,21 +40,21 @@ public class CartUserAdmin extends JPanel {
     setLayout(new BorderLayout());
 
     icon.setIcon(new ImageIcon(getClass().getResource(linkIcon)));
-    add(icon, java.awt.BorderLayout.WEST);
+    add(icon, BorderLayout.WEST);
 
     text.setFont(new Font("Segoe UI", 3, 14));
     text.setForeground(new Color(255, 51, 51));
     text.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     text.setText(title);
-    add(text, java.awt.BorderLayout.PAGE_START);
+    add(text, BorderLayout.PAGE_START);
 
     newUser.setFont(new Font("Segoe UI", 3, 12));
     newUser.setText("New User: " + valueNewUser);
-    add(newUser, java.awt.BorderLayout.PAGE_END);
+    add(newUser, BorderLayout.PAGE_END);
 
     quantity.setFont(new Font("Segoe UI", 0, 16));
     quantity.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     quantity.setText("" + quantityUser);
-    add(quantity, java.awt.BorderLayout.CENTER);
+    add(quantity, BorderLayout.CENTER);
   }
 }

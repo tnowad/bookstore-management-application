@@ -1,4 +1,4 @@
-package com.bookstore.models;
+package com.bookstore.models.gui;
 
 import javax.swing.Icon;
 

@@ -7,7 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class BookProductPanel extends javax.swing.JPanel {
+public class BookProductPanel extends JPanel {
 
   public BookProductPanel() {
     initComponents();
@@ -23,7 +23,7 @@ public class BookProductPanel extends javax.swing.JPanel {
     bookTitleLabel.setFont(new Font("Segoe UI", 0, 14));
     bookTitleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     bookTitleLabel.setText("Name book");
-    add(bookTitleLabel, java.awt.BorderLayout.PAGE_START);
+    add(bookTitleLabel, BorderLayout.PAGE_START);
     bookTitleLabel.getAccessibleContext().setAccessibleDescription("");
 
     javax.swing.GroupLayout bookImagePanelLayout = new GroupLayout(
@@ -41,10 +41,10 @@ public class BookProductPanel extends javax.swing.JPanel {
         .addGap(0, 207, Short.MAX_VALUE)
     );
 
-    add(bookImagePanel, java.awt.BorderLayout.CENTER);
+    add(bookImagePanel, BorderLayout.CENTER);
 
     bookDetailButton.setText("Book Detail");
-    add(bookDetailButton, java.awt.BorderLayout.PAGE_END);
+    add(bookDetailButton, BorderLayout.PAGE_END);
   }
 
   private JButton bookDetailButton;

@@ -10,7 +10,7 @@ import java.awt.Image;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class BookProductPanel extends javax.swing.JPanel {
+public class BookProductPanel extends JPanel {
 
   private JTextField isbnBook;
   private BookModel bookModel;
@@ -45,19 +45,19 @@ public class BookProductPanel extends javax.swing.JPanel {
     setLayout(new BorderLayout());
 
     checkBox.setPreferredSize(new Dimension(50, 19));
-    add(checkBox, java.awt.BorderLayout.PAGE_END);
+    add(checkBox, BorderLayout.PAGE_END);
 
     contendPanel.setLayout(new BorderLayout());
 
     buttonDetail.setFont(new Font("Segoe UI", 1, 14));
     buttonDetail.setText("Detail");
     buttonDetail.addActionListener(actionDetail);
-    contendPanel.add(buttonDetail, java.awt.BorderLayout.PAGE_END);
+    contendPanel.add(buttonDetail, BorderLayout.PAGE_END);
 
     setImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     setImage.setBorder(javax.swing.BorderFactory.createEtchedBorder());
     setImage.setPreferredSize(new Dimension(399, 260));
-    contendPanel.add(setImage, java.awt.BorderLayout.CENTER);
+    contendPanel.add(setImage, BorderLayout.CENTER);
 
     titlePanel.setMinimumSize(new Dimension(30, 30));
 
@@ -66,9 +66,9 @@ public class BookProductPanel extends javax.swing.JPanel {
     setTitle.setPreferredSize(new Dimension(220, 22));
     titlePanel.add(setTitle);
 
-    contendPanel.add(titlePanel, java.awt.BorderLayout.PAGE_START);
+    contendPanel.add(titlePanel, BorderLayout.PAGE_START);
 
-    add(contendPanel, java.awt.BorderLayout.CENTER);
+    add(contendPanel, BorderLayout.CENTER);
   }
 
   public void actionDetail(BookModel book) {}

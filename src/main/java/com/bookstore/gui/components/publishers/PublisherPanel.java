@@ -7,7 +7,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class PublisherPanel extends javax.swing.JPanel {
+public class PublisherPanel extends JPanel {
 
   public PublisherPanel(int serial, PublisherModel publisher) {
     initComponents(serial, publisher);
