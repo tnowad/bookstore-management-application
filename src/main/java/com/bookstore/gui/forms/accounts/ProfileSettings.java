@@ -26,7 +26,6 @@ public class ProfileSettings extends JPanel {
   private JTextField nameTextField;
   private JLabel phoneLabel;
   private JTextField phoneTextField;
-  // private Button resetButton;
   private JLabel stateLabel;
   private JTextField stateTextField;
   private JLabel streetLabel;
@@ -190,13 +189,29 @@ public class ProfileSettings extends JPanel {
 
         userBus.updateModel(currentUser);
         addressBus.updateModel(addressModel);
+
         confirmPasswordField.setText("");
-        JOptionPane.showMessageDialog(null, "Confirm Password Successfully");
+        JOptionPane.showMessageDialog(
+          null,
+          "Update information successfully",
+          "Success",
+          JOptionPane.INFORMATION_MESSAGE
+        );
       } catch (Exception exception) {
-        JOptionPane.showMessageDialog(null, exception.getMessage());
+        JOptionPane.showMessageDialog(
+          null,
+          exception.getMessage(),
+          "Error",
+          JOptionPane.ERROR_MESSAGE
+        );
       }
     } else {
-      JOptionPane.showMessageDialog(null, "Passwords do not match");
+      JOptionPane.showMessageDialog(
+        null,
+        "Confirm password is not correct",
+        "Error",
+        JOptionPane.ERROR_MESSAGE
+      );
     }
   };
 }
