@@ -180,7 +180,9 @@ public class CartCustomerPanel extends JPanel {
       totalPriceTextField.setText(
         String.valueOf(CartBUS.getInstance().getTotalPrice(cartModel.getId()))
       );
-    } catch (Exception e) {}
+    } catch (Exception e) {
+      totalPriceTextField.setText("0");
+    }
   }
 
   private void handleEvent() {
@@ -231,13 +233,19 @@ public class CartCustomerPanel extends JPanel {
           JOptionPane.WARNING_MESSAGE
         );
       } else {
-        cartItemsBUS.deleteModel(cartModel.getId());
-        JOptionPane.showMessageDialog(
+        int result = JOptionPane.showConfirmDialog(
           null,
-          "Your cart is empty",
-          "Delete successfully",
-          JOptionPane.YES_NO_OPTION
+          "Are you sure you want to delete all products?",
+          "Warning",
+          JOptionPane.YES_NO_OPTION,
+          JOptionPane.QUESTION_MESSAGE
         );
+        if (result == JOptionPane.YES_OPTION) {
+          for (CartItemsModel cartItemsModel : myCartList) {
+            CartItemsBUS.getInstance().delete(cartItemsModel);
+          }
+          updateTable();
+        }
       }
     });
     // chooseAllCheckBox.addActionListener(e -> {
