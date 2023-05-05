@@ -310,6 +310,9 @@ public class CheckoutCustomerPanel extends JPanel {
             null,
             null
           );
+        MainPanel
+          .getInstance()
+          .showForm(new CompletedOrderForm(cartModel.getId()));
         return;
       }
       String cardNumber = InputValidator.validateCardNumber(
@@ -335,6 +338,9 @@ public class CheckoutCustomerPanel extends JPanel {
           expirationDate,
           cvv
         );
+      MainPanel
+        .getInstance()
+        .showForm(new CompletedOrderForm(cartModel.getId()));
     } catch (Exception exception) {
       JOptionPane.showMessageDialog(
         null,
