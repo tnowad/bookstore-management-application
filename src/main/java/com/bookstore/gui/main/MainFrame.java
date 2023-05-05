@@ -106,6 +106,8 @@ public class MainFrame extends JFrame {
     splitPane.setDividerSize(0);
 
     add(splitPane, BorderLayout.CENTER);
+
+    menuPanel.getMenuModel().getFirstActionListener().actionPerformed(null);
   }
 
   public static void destroyInstance() {

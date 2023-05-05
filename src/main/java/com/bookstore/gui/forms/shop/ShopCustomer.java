@@ -142,8 +142,6 @@ public class ShopCustomer extends JPanel implements ISearchable {
     bookListScrollPane = new JScrollPane();
     bookListPanel = new JPanel();
 
-    setMaximumSize(new Dimension(800, 530));
-    setMinimumSize(new Dimension(800, 530));
     setLayout(new BorderLayout());
 
     sortByLabel.setFont(new Font("Arial", 0, 14));
