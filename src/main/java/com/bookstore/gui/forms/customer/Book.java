@@ -92,6 +92,7 @@ public class Book extends javax.swing.JPanel {
         cartItemsModel.setQuantity(1);
         CartItemsBUS.getInstance().addModel(cartItemsModel);
       }
+      JOptionPane.showMessageDialog(null, "This book is add too cart");
     });
   }
 
