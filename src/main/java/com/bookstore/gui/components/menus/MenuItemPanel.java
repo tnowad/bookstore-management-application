@@ -3,7 +3,6 @@ package com.bookstore.gui.components.menus;
 import com.bookstore.gui.components.buttons.MenuButton;
 import com.bookstore.models.gui.MenuItemModel;
 import com.bookstore.models.gui.SubMenuItemModel;
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
@@ -21,7 +20,7 @@ public class MenuItemPanel extends JPanel {
   }
 
   private void addFirstButton() {
-    MenuButton firstButton = new MenuButton("  " + menuItemModel.getTitle());
+    MenuButton firstButton = new MenuButton("      " + menuItemModel.getTitle());
     firstButton.setIcon(menuItemModel.getIcon());
     firstButton.setForeground(Color.decode("#FFFFFF"));
     firstButton.setFont(firstButton.getFont().deriveFont(1));
