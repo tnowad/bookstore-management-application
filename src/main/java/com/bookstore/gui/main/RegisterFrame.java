@@ -86,7 +86,7 @@ public class RegisterFrame extends JFrame {
     registerButton = new Button("Register");
     registerButton.addActionListener(registerButtonActionListener);
     loginButton = new Button("Login");
-
+    loginButton.addActionListener(loginButtonActionListener);
     registerPanel.setLayout(new GridBagLayout());
     GridBagConstraints gridBagConstraints = new GridBagConstraints();
 
@@ -172,4 +172,10 @@ public class RegisterFrame extends JFrame {
       return;
     }
   };
+
+  private ActionListener loginButtonActionListener = e -> {
+    LoginFrame.getInstance().setVisible(true);
+    dispose();
+  };
+
 }
