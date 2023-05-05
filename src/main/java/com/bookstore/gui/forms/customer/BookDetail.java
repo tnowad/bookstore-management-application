@@ -2,12 +2,16 @@ package com.bookstore.gui.forms.customer;
 
 import com.bookstore.bus.AuthorBUS;
 import com.bookstore.gui.components.labels.Label;
+import com.bookstore.gui.components.panels.MainPanel;
 import com.bookstore.models.AuthorModel;
 import com.bookstore.models.BookModel;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 
 public class BookDetail extends JPanel {
+
+  private JButton backPreviousButton;
 
   private JButton addToCartButton;
   private Label authorLabel;
@@ -55,7 +59,10 @@ public class BookDetail extends JPanel {
   }
 
   private void initComponents() {
-    bookTitleHeaderPanel = new JPanel();
+    backPreviousButton = new JButton("Back Previous");
+    backPreviousButton.addActionListener(backPreviousButtonActionListener);
+
+    bookTitleHeaderPanel = new JPanel(new BorderLayout());
     bookTitleTextField = new JTextField();
     bookDescriptionPanel = new JPanel();
     descriptionTextArea = new JTextArea();
@@ -92,7 +99,8 @@ public class BookDetail extends JPanel {
     bookTitleTextField.setMinimumSize(new Dimension(830, 30));
     bookTitleTextField.setPreferredSize(new Dimension(830, 30));
 
-    bookTitleHeaderPanel.add(bookTitleTextField);
+    bookTitleHeaderPanel.add(backPreviousButton, BorderLayout.LINE_START);
+    bookTitleHeaderPanel.add(bookTitleTextField, BorderLayout.CENTER);
 
     add(bookTitleHeaderPanel, BorderLayout.PAGE_START);
 
@@ -202,4 +210,8 @@ public class BookDetail extends JPanel {
 
     add(bookDetailsPanel, BorderLayout.CENTER);
   }
+
+  private ActionListener backPreviousButtonActionListener = e -> {
+    MainPanel.getInstance().backToPreviousForm();
+  };
 }

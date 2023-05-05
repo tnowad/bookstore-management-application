@@ -59,8 +59,7 @@ public class Book extends JPanel {
 
   private void handleEvent() {
     detailButton.addActionListener(e -> {
-      
-      MainPanel.getInstance().showForm(new BookDetail(bookModel));
+      MainPanel.getInstance().showFormStack(new BookDetail(bookModel));
     });
 
     addToCartButton.addActionListener(e -> {
@@ -110,7 +109,6 @@ public class Book extends JPanel {
 
   private void initComponents() {
     setLayout(new BorderLayout());
-
     titleLabel = new JLabel(bookModel.getTitle());
     titleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     add(titleLabel, BorderLayout.PAGE_START);

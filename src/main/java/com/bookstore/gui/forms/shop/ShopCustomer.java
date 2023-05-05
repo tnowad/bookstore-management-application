@@ -118,7 +118,6 @@ public class ShopCustomer extends JPanel implements ISearchable {
     System.out.println(bookListRender.size());
     if (bookListRender.size() <= 0) {
       bookListPanel.add(new NoData("Don't have data for product"));
-      System.out.println("No data");
     } else {
       for (BookModel bookModel : bookListRender) {
         bookListPanel.add(new Book(bookModel));
@@ -204,10 +203,6 @@ public class ShopCustomer extends JPanel implements ISearchable {
           } else {
             column = 3;
           }
-
-          System.out.println(width);
-          System.out.println(column);
-
           bookListPanel.setLayout(new GridLayout(0, column));
         }
       }
