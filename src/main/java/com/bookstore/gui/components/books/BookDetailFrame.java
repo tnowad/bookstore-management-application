@@ -15,7 +15,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
-public class BookDetailFrame extends javax.swing.JFrame {
+public class BookDetailFrame extends JFrame {
 
   private JLabel authorText;
   private JButton buttonBack;
@@ -286,7 +286,6 @@ public class BookDetailFrame extends javax.swing.JFrame {
           BookBUS.getInstance().updateModel(newBook);
         }
       }
-
     }
   };
 

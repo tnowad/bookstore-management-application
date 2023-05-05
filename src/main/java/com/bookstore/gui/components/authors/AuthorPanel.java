@@ -7,7 +7,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class AuthorPanel extends javax.swing.JPanel {
+public class AuthorPanel extends JPanel {
 
   private JCheckBox checkBox;
   private JPanel panel;

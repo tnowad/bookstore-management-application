@@ -7,7 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class BookProductPanel extends javax.swing.JPanel {
+public class BookProductPanel extends JPanel {
 
   public BookProductPanel() {
     initComponents();

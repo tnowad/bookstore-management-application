@@ -14,7 +14,7 @@ import java.util.*;
 import java.util.regex.Pattern;
 import javax.swing.*;
 
-public class CreateUserFrame extends javax.swing.JFrame {
+public class CreateUserFrame extends JFrame {
 
   public CreateUserFrame() {
     initComponents();

@@ -7,7 +7,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class ProviderPanel extends javax.swing.JPanel {
+public class ProviderPanel extends JPanel {
 
   public ProviderPanel(int serial, ProviderModel providerModel) {
     initComponents(serial, providerModel);

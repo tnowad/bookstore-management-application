@@ -13,7 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-public class ProviderListPanel extends javax.swing.JPanel {
+public class ProviderListPanel extends JPanel {
 
   private static ProviderListPanel instance;
   ProviderBUS providerBUS = ProviderBUS.getInstance();

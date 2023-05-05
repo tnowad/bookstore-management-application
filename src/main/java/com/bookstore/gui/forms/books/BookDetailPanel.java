@@ -14,7 +14,7 @@ import javax.swing.JSpinner;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-public class BookDetailPanel extends javax.swing.JPanel {
+public class BookDetailPanel extends JPanel {
 
   public BookDetailPanel() {
     initComponents();

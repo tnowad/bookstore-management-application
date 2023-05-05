@@ -13,7 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-public class PublisherListPanel extends javax.swing.JPanel {
+public class PublisherListPanel extends JPanel {
 
   private static PublisherListPanel instance;
   PublisherBUS publisherBUS = PublisherBUS.getInstance();

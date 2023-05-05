@@ -10,7 +10,7 @@ import java.awt.Image;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class BookProductPanel extends javax.swing.JPanel {
+public class BookProductPanel extends JPanel {
 
   private JTextField isbnBook;
   private BookModel bookModel;

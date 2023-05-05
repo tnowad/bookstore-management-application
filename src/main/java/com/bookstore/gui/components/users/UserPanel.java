@@ -7,7 +7,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class UserPanel extends javax.swing.JPanel implements MouseListener {
+public class UserPanel extends JPanel implements MouseListener {
 
   public UserPanel(int serial, UserModel user) {
     initComponents(serial, user);

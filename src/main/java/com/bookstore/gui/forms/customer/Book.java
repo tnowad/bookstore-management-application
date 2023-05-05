@@ -22,7 +22,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-public class Book extends javax.swing.JPanel {
+public class Book extends JPanel {
 
   private UserModel userModel = Authentication.getCurrentUser();
   private List<CartModel> cartList = CartBUS.getInstance().getAllModels();

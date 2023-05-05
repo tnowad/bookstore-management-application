@@ -15,7 +15,7 @@ import java.awt.event.ActionListener;
 import java.time.*;
 import javax.swing.*;
 
-public class PopupUserFrame extends javax.swing.JFrame {
+public class PopupUserFrame extends JFrame {
 
   public PopupUserFrame(UserModel user) {
     initComponents(user);

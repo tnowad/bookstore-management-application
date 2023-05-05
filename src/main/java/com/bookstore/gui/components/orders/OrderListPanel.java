@@ -22,7 +22,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
-public class OrderListPanel extends javax.swing.JPanel {
+public class OrderListPanel extends JPanel {
 
   private static OrderListPanel instance;
   java.util.List<OrderModel> orderList = OrderBUS.getInstance().getAllModels();

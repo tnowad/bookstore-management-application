@@ -13,7 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-public class AuthorListPanel extends javax.swing.JPanel {
+public class AuthorListPanel extends JPanel {
 
   private static AuthorListPanel instance;
 

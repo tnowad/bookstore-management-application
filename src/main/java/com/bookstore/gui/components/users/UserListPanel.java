@@ -10,7 +10,7 @@ import java.time.*;
 import java.util.List;
 import javax.swing.*;
 
-public class UserListPanel extends javax.swing.JPanel {
+public class UserListPanel extends JPanel {
 
   private static UserListPanel instance;
   private int QuantityAdminNew = 0;

@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
-public class SalaryListPanel extends javax.swing.JPanel {
+public class SalaryListPanel extends JPanel {
 
   private static SalaryListPanel instance;
   EmployeeBUS employeeBUS = EmployeeBUS.getInstance();
