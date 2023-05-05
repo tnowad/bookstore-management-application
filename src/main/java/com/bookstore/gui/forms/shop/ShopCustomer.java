@@ -11,6 +11,8 @@ import com.bookstore.models.BookModel;
 import com.bookstore.models.BooksCategoryModel;
 import com.bookstore.models.CategoryModel;
 import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -29,20 +31,12 @@ public class ShopCustomer extends JPanel implements ISearchable {
   private JLabel sortByLabel;
 
   private static ShopCustomer instance;
+
   private final List<BookModel> bookList = BookBUS.getInstance().getAllModels();
   private List<BookModel> modifiableBookList = new ArrayList<>(bookList);
-  private final List<BooksCategoryModel> booksCategoryModels = BooksCategoryBUS
-    .getInstance()
-    .getAllModels();
-  private List<BooksCategoryModel> modifiableBooksCategoryModelList = new ArrayList<>(
-    booksCategoryModels
-  );
   private final List<CategoryModel> categoryList = CategoryBUS
     .getInstance()
     .getAllModels();
-  private List<CategoryModel> modifiableCategoryList = new ArrayList<>(
-    categoryList
-  );
 
   private ShopCustomer() {
     initComponents();
@@ -195,11 +189,34 @@ public class ShopCustomer extends JPanel implements ISearchable {
 
     add(headerPanel, BorderLayout.PAGE_START);
 
-    bookListPanel.setLayout(new GridLayout(0, 3));
-    bookListScrollPane.setViewportView(bookListPanel);
+    bookListPanel.setLayout(new GridLayout(0, 2));
+
+    bookListScrollPane.addComponentListener(
+      new ComponentAdapter() {
+        @Override
+        public void componentResized(ComponentEvent e) {
+          int width = bookListScrollPane.getWidth();
+          int column = 3;
+          if (width <= 400) {
+            column = 1;
+          } else if (width <= 1300) {
+            column = 2;
+          } else {
+            column = 3;
+          }
+
+          System.out.println(width);
+          System.out.println(column);
+
+          bookListPanel.setLayout(new GridLayout(0, column));
+        }
+      }
+    );
+
     bookListScrollPane.setHorizontalScrollBarPolicy(
       JScrollPane.HORIZONTAL_SCROLLBAR_NEVER
     );
+    bookListScrollPane.setViewportView(bookListPanel);
     bookListScrollPane.getVerticalScrollBar().setUnitIncrement(50);
 
     add(bookListScrollPane, BorderLayout.CENTER);
