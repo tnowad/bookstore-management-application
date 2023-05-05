@@ -2,7 +2,6 @@ package com.bookstore.gui.forms.checkout;
 
 import com.bookstore.bus.AddressBUS;
 import com.bookstore.bus.BookBUS;
-import com.bookstore.bus.CartBUS;
 import com.bookstore.bus.CartItemsBUS;
 import com.bookstore.bus.OrderBUS;
 import com.bookstore.enums.CartStatus;
@@ -26,7 +25,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import javax.xml.validation.Validator;
 
 public class CheckoutCustomerPanel extends JPanel {
 
@@ -271,6 +269,7 @@ public class CheckoutCustomerPanel extends JPanel {
   private ActionListener paymentMethodActionListener = e -> {
     if (e.getActionCommand().equals("comboBoxChanged")) {
       if (e.getSource() instanceof JComboBox) {
+        @SuppressWarnings("unchecked")
         JComboBox<String> cb = (JComboBox<String>) e.getSource();
         String paymentMethod = (String) cb.getSelectedItem();
         if (paymentMethod.equals("Cash")) {
