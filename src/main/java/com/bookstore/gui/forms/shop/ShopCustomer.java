@@ -29,10 +29,18 @@ public class ShopCustomer extends JPanel {
   private static ShopCustomer instance;
   private final List<BookModel> bookList = BookBUS.getInstance().getAllModels();
   private List<BookModel> modifiableBookList = new ArrayList<>(bookList);
-  private final List<BooksCategoryModel> booksCategoryModels = BooksCategoryBUS.getInstance().getAllModels();
-  private List<BooksCategoryModel> modifiableBooksCategoryModelList = new ArrayList<>(booksCategoryModels);
-  private final List<CategoryModel> categoryList = CategoryBUS.getInstance().getAllModels();
-  private List<CategoryModel> modifiableCategoryList = new ArrayList<>(categoryList);
+  private final List<BooksCategoryModel> booksCategoryModels = BooksCategoryBUS
+    .getInstance()
+    .getAllModels();
+  private List<BooksCategoryModel> modifiableBooksCategoryModelList = new ArrayList<>(
+    booksCategoryModels
+  );
+  private final List<CategoryModel> categoryList = CategoryBUS
+    .getInstance()
+    .getAllModels();
+  private List<CategoryModel> modifiableCategoryList = new ArrayList<>(
+    categoryList
+  );
 
   private ShopCustomer() {
     initComponents();
@@ -58,12 +66,14 @@ public class ShopCustomer extends JPanel {
         // }
 
         Collections.sort(
-            modifiableBookList,
-            Comparator.comparingInt(BookModel::getPrice));
+          modifiableBookList,
+          Comparator.comparingInt(BookModel::getPrice)
+        );
       } else if (selectedValue.equals("Price: high -> low")) {
         Collections.sort(
-            modifiableBookList,
-            Comparator.comparingInt(BookModel::getPrice).reversed());
+          modifiableBookList,
+          Comparator.comparingInt(BookModel::getPrice).reversed()
+        );
       }
       renderListProduct(modifiableBookList);
       this.revalidate();
@@ -71,6 +81,7 @@ public class ShopCustomer extends JPanel {
     });
 
     categoryListComboBox.addActionListener(e -> {
+      bookListPanel.removeAll();
       String selectedCategory = (String) categoryListComboBox.getSelectedItem();
       List<BookModel> books = new ArrayList<>();
       if (selectedCategory.equals("All")) {
@@ -78,11 +89,15 @@ public class ShopCustomer extends JPanel {
       } else {
         BooksCategoryBUS booksCategoryBUS = BooksCategoryBUS.getInstance();
         CategoryBUS categoryBUS = CategoryBUS.getInstance();
-        CategoryModel categoryModel = categoryBUS.getModelByName(selectedCategory);
+        CategoryModel categoryModel = categoryBUS.getModelByName(
+          selectedCategory
+        );
         if (categoryModel != null) {
           List<BooksCategoryModel> booksCategoryModels = booksCategoryBUS.getAllModels();
           for (BooksCategoryModel booksCategoryModel : booksCategoryModels) {
-            BookModel bookModel = BookBUS.getInstance().getBookByIsbn(booksCategoryModel.getBookIsbn());
+            BookModel bookModel = BookBUS
+              .getInstance()
+              .getBookByIsbn(booksCategoryModel.getBookIsbn());
             if (bookModel != null && !books.contains(bookModel)) {
               books.add(bookModel);
             }
@@ -133,8 +148,10 @@ public class ShopCustomer extends JPanel {
 
     sortByConditionComboBox.setFont(new Font("Arial", 0, 14));
     sortByConditionComboBox.setModel(
-        new DefaultComboBoxModel<>(
-            new String[] { "Price: low -> high", "Price: high -> low" }));
+      new DefaultComboBoxModel<>(
+        new String[] { "Price: low -> high", "Price: high -> low" }
+      )
+    );
     sortByConditionComboBox.setMaximumSize(new Dimension(150, 30));
     sortByConditionComboBox.setMinimumSize(new Dimension(150, 30));
     sortByConditionComboBox.setPreferredSize(new Dimension(150, 30));
@@ -174,7 +191,8 @@ public class ShopCustomer extends JPanel {
     bookListPanel.setLayout(new GridLayout(0, 3));
     bookListScrollPane.setViewportView(bookListPanel);
     bookListScrollPane.setHorizontalScrollBarPolicy(
-        JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+      JScrollPane.HORIZONTAL_SCROLLBAR_NEVER
+    );
     bookListScrollPane.getVerticalScrollBar().setUnitIncrement(50);
 
     add(bookListScrollPane, BorderLayout.CENTER);
