@@ -6,6 +6,8 @@ import java.awt.Panel;
 
 public class NoData extends Panel {
 
+  private Label noDataLabel;
+
   public NoData(String name) {
     initComponents(name);
   }
@@ -18,6 +20,4 @@ public class NoData extends Panel {
     noDataLabel.setPreferredSize(new java.awt.Dimension(600, 200));
     add(noDataLabel);
   }
-
-  private Label noDataLabel;
 }

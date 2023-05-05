@@ -7,6 +7,14 @@ public class Order extends JPanel {
 
   private static Order instance;
 
+  private JPanel buttonPanel;
+  private JTextField deliveryStatusField;
+  private JPanel deliveryStatusPanel;
+  private JButton getCheckoutReceiptButton;
+  private JScrollPane viewBooksJScrollPane;
+  private JButton viewOrderDetailsButton;
+  private JPanel viewBooksPanel;
+
   private Order() {
     initComponents();
   }
@@ -58,12 +66,4 @@ public class Order extends JPanel {
 
     add(buttonPanel, BorderLayout.PAGE_END);
   }
-
-  private JPanel buttonPanel;
-  private JTextField deliveryStatusField;
-  private JPanel deliveryStatusPanel;
-  private JButton getCheckoutReceiptButton;
-  private JScrollPane viewBooksJScrollPane;
-  private JButton viewOrderDetailsButton;
-  private JPanel viewBooksPanel;
 }

@@ -14,6 +14,15 @@ import javax.swing.table.DefaultTableModel;
 
 public class OrderList extends JPanel {
 
+  private JPanel headerPanel;
+  private Label orderLabel;
+  // private JPanel orderListPanel;
+  private JTable orderTableList;
+  // private JScrollPane scrollPaneChild;
+  private JScrollPane scrollPaneParent;
+  private Button searchButton;
+  private TextField searchTextField;
+
   private static OrderList instance;
 
   OrderBUS orderBus = OrderBUS.getInstance();
@@ -120,13 +129,4 @@ public class OrderList extends JPanel {
 
     // add(scrollPaneParent, BorderLayout.CENTER);
   }
-
-  private JPanel headerPanel;
-  private Label orderLabel;
-  // private JPanel orderListPanel;
-  private JTable orderTableList;
-  // private JScrollPane scrollPaneChild;
-  private JScrollPane scrollPaneParent;
-  private Button searchButton;
-  private TextField searchTextField;
 }

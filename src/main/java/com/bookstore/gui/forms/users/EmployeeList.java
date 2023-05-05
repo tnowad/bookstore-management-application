@@ -15,6 +15,20 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 public class EmployeeList extends JPanel {
+
+  private Button searchButton;
+  private Button addEmployeeButton;
+  private JTable employeeTableList;
+  private Label employeeListLabel;
+  private JPanel addEmployeePanel;
+
+  private JPanel headerPanel;
+  private JPanel tableContainerPanel;
+  private JPanel groupTopHeaderPanel;
+  private JPanel groupBottomHeaderPanel;
+  private JScrollPane jScrollPane1;
+  private JScrollPane jScrollPane2;
+  private JTextField searchEmployeeTxtField;
   private static EmployeeList instance;
 
   UserBUS userBus = UserBUS.getInstance();
@@ -38,8 +52,9 @@ public class EmployeeList extends JPanel {
       String text = searchEmployeeTxtField.getText();
       if (text == null || text.isBlank()) {
         JOptionPane.showMessageDialog(
-            null,
-            "Search field cannot be empty. Please try again!");
+          null,
+          "Search field cannot be empty. Please try again!"
+        );
         showTable();
       } else {
         DefaultTableModel model = new DefaultTableModel();
@@ -52,13 +67,14 @@ public class EmployeeList extends JPanel {
         for (UserModel customer : employeeList) {
           if (customer.getName().toLowerCase().contains(text.toLowerCase())) {
             model.addRow(
-                new Object[] {
-                    customer.getId(),
-                    customer.getName(),
-                    customer.getEmail(),
-                    customer.getPhone(),
-                    customer.getStatus(),
-                });
+              new Object[] {
+                customer.getId(),
+                customer.getName(),
+                customer.getEmail(),
+                customer.getPhone(),
+                customer.getStatus(),
+              }
+            );
             employeeTableList.setModel(model);
           }
         }
@@ -86,16 +102,18 @@ public class EmployeeList extends JPanel {
       if (employee.getRole() == UserRole.EMPLOYEE) {
         EmployeeBUS employeeBUS = EmployeeBUS.getInstance();
         EmployeeModel employeeModel = employeeBUS.getModelById(
-            employee.getId());
+          employee.getId()
+        );
         if (employeeModel.getEmployeeType() == EmployeeType.EMPLOYEE_SALES) {
           model.addRow(
-              new Object[] {
-                  employee.getId(),
-                  employee.getName(),
-                  employee.getEmail(),
-                  employee.getPhone(),
-                  employee.getStatus(),
-              });
+            new Object[] {
+              employee.getId(),
+              employee.getName(),
+              employee.getEmail(),
+              employee.getPhone(),
+              employee.getStatus(),
+            }
+          );
           employeeTableList.setModel(model);
         }
       }
@@ -160,18 +178,4 @@ public class EmployeeList extends JPanel {
 
     add(jScrollPane1, BorderLayout.CENTER);
   }
-
-  private Button searchButton;
-  private Button addEmployeeButton;
-  private JTable employeeTableList;
-  private Label employeeListLabel;
-  private JPanel addEmployeePanel;
-
-  private JPanel headerPanel;
-  private JPanel tableContainerPanel;
-  private JPanel groupTopHeaderPanel;
-  private JPanel groupBottomHeaderPanel;
-  private JScrollPane jScrollPane1;
-  private JScrollPane jScrollPane2;
-  private JTextField searchEmployeeTxtField;
 }

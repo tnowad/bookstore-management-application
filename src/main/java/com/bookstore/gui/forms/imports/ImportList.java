@@ -21,6 +21,21 @@ import javax.swing.table.DefaultTableModel;
 
 public class ImportList extends JPanel {
 
+  private JPanel addPanel;
+  private Button addReceiptButton;
+  private Button exportToExcelButton;
+  private JPanel groupExcel;
+  private JPanel groupListImport;
+  private JPanel groupSearchPanel;
+  private JPanel headerPanel;
+  private Button importFromExcelButton;
+  private Label importLabel;
+  private JTable importTableList;
+  private JScrollPane jScrollPane1;
+  private JScrollPane scrollPaneTableList;
+  private JTextField searchBarTextField;
+  private Button searchButton;
+
   private static ImportList instance;
 
   ImportBUS importBus = ImportBUS.getInstance();
@@ -249,19 +264,4 @@ public class ImportList extends JPanel {
   private void searchButtonActionPerformed(ActionEvent evt) {}
 
   private void importTableListMouseClicked(MouseEvent evt) {}
-
-  private JPanel addPanel;
-  private Button addReceiptButton;
-  private Button exportToExcelButton;
-  private JPanel groupExcel;
-  private JPanel groupListImport;
-  private JPanel groupSearchPanel;
-  private JPanel headerPanel;
-  private Button importFromExcelButton;
-  private Label importLabel;
-  private JTable importTableList;
-  private JScrollPane jScrollPane1;
-  private JScrollPane scrollPaneTableList;
-  private JTextField searchBarTextField;
-  private Button searchButton;
 }
