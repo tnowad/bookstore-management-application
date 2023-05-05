@@ -12,8 +12,8 @@ import com.bookstore.gui.components.salary.SalaryListPanel;
 import com.bookstore.gui.components.users.UserListPanel;
 import com.bookstore.gui.events.general.ExitActionListener;
 import com.bookstore.gui.events.general.LogoutActionListener;
-import com.bookstore.gui.forms.accounts.AccountSettings;
-import com.bookstore.gui.forms.accounts.ProfileSettings;
+import com.bookstore.gui.forms.accounts.AccountPasswordForm;
+import com.bookstore.gui.forms.accounts.AccountProfileForm;
 import com.bookstore.gui.forms.books.BookList;
 import com.bookstore.gui.forms.carts.Cart;
 import com.bookstore.gui.forms.customer.Order;
@@ -188,21 +188,21 @@ public class MenuFactory {
             new MenuItemModel(
               "My account",
               new ImageIcon("src/main/java/resources/icons/profile.jpg"),
-              null,
+              showAccountProfile,
               new ArrayList<SubMenuItemModel>() {
                 {
                   add(
                     new SubMenuItemModel(
                       "My profile",
                       new ImageIcon(""),
-                      showProfile
+                      showAccountProfile
                     )
                   );
                   add(
                     new SubMenuItemModel(
                       "My account",
                       new ImageIcon(""),
-                      showAccount
+                      showAccountPassword
                     )
                   );
                 }
@@ -301,21 +301,21 @@ public class MenuFactory {
             new MenuItemModel(
               "My account",
               new ImageIcon("src/main/java/resources/icons/profile.jpg"),
-              null,
+              showAccountProfile,
               new ArrayList<SubMenuItemModel>() {
                 {
                   add(
                     new SubMenuItemModel(
                       "My profile",
                       new ImageIcon(""),
-                      showProfile
+                      showAccountProfile
                     )
                   );
                   add(
                     new SubMenuItemModel(
                       "My account",
                       new ImageIcon(""),
-                      showAccount
+                      showAccountPassword
                     )
                   );
                 }
@@ -430,21 +430,21 @@ public class MenuFactory {
             new MenuItemModel(
               "My account",
               new ImageIcon("src/main/java/resources/icons/profile.jpg"),
-              null,
+              showAccountProfile,
               new ArrayList<SubMenuItemModel>() {
                 {
                   add(
                     new SubMenuItemModel(
                       "My profile",
                       new ImageIcon(""),
-                      showProfile
+                      showAccountProfile
                     )
                   );
                   add(
                     new SubMenuItemModel(
                       "My account",
                       new ImageIcon(""),
-                      showAccount
+                      showAccountPassword
                     )
                   );
                 }
@@ -554,21 +554,21 @@ public class MenuFactory {
             new MenuItemModel(
               "My account",
               new ImageIcon("src/main/java/resources/icons/profile.jpg"),
-              null,
+              showAccountProfile,
               new ArrayList<SubMenuItemModel>() {
                 {
                   add(
                     new SubMenuItemModel(
                       "My profile",
                       new ImageIcon(""),
-                      showProfile
+                      showAccountProfile
                     )
                   );
                   add(
                     new SubMenuItemModel(
                       "My account",
                       new ImageIcon(""),
-                      showAccount
+                      showAccountPassword
                     )
                   );
                 }
@@ -682,11 +682,11 @@ public class MenuFactory {
     MainPanel.getInstance().showForm(new Order());
   };
   // general
-  private static ActionListener showProfile = e -> {
-    MainPanel.getInstance().showForm(new ProfileSettings());
+  private static ActionListener showAccountProfile = e -> {
+    MainPanel.getInstance().showForm(new AccountProfileForm());
   };
-  private static ActionListener showAccount = e -> {
-    MainPanel.getInstance().showForm(new AccountSettings());
+  private static ActionListener showAccountPassword = e -> {
+    MainPanel.getInstance().showForm(new AccountPasswordForm());
   };
   private static ActionListener showContact = e -> {
     MainPanel.getInstance().showForm(new ContactUs());

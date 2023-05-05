@@ -10,7 +10,7 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
-public class AccountSettings extends JPanel {
+public class AccountPasswordForm extends JPanel {
 
   private JLabel currentPasswordLabel;
   private JLabel newPasswordLabel;
@@ -22,7 +22,7 @@ public class AccountSettings extends JPanel {
 
   UserModel currentUser = Authentication.getCurrentUser();
 
-  public AccountSettings() {
+  public AccountPasswordForm() {
     initComponents();
   }
 

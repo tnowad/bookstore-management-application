@@ -12,7 +12,7 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
-public class ProfileSettings extends JPanel {
+public class AccountProfileForm extends JPanel {
 
   private JLabel cityLabel;
   private JTextField cityTextField;
@@ -36,22 +36,20 @@ public class ProfileSettings extends JPanel {
   private JTextField usernameTextField;
   private JLabel zipLabel;
   private JTextField zipTextField;
-  private static ProfileSettings instance;
+  private static AccountProfileForm instance;
 
   UserBUS userBus = UserBUS.getInstance();
   AddressBUS addressBus = AddressBUS.getInstance();
   UserModel currentUser = Authentication.getCurrentUser();
   AddressModel addressModel = addressBus.getModelById(currentUser.getId());
 
-  public ProfileSettings() {
+  public AccountProfileForm() {
     initComponents();
-    updateInformation();
-    handleEvent();
   }
 
-  public static ProfileSettings getInstance() {
+  public static AccountProfileForm getInstance() {
     if (instance == null) {
-      instance = new ProfileSettings();
+      instance = new AccountProfileForm();
     }
     return instance;
   }
@@ -86,6 +84,17 @@ public class ProfileSettings extends JPanel {
 
     zipLabel = new JLabel("Zip");
     zipTextField = new JTextField();
+
+    if (addressModel != null) {
+      cityTextField.setText(addressModel.getCity());
+      streetTextField.setText(addressModel.getStreet());
+      zipTextField.setText(addressModel.getZip());
+      stateTextField.setText(addressModel.getState());
+    }
+    usernameTextField.setText(currentUser.getUsername());
+    nameTextField.setText(currentUser.getName());
+    emailTextField.setText(currentUser.getEmail());
+    phoneTextField.setText(currentUser.getPhone());
 
     confirmPasswordLabel = new JLabel("Confirm password");
     confirmPasswordField = new JPasswordField();
@@ -142,21 +151,6 @@ public class ProfileSettings extends JPanel {
 
     add(actionPanel, BorderLayout.PAGE_END);
   }
-
-  private void updateInformation() {
-    if (addressModel != null) {
-      cityTextField.setText(addressModel.getCity());
-      streetTextField.setText(addressModel.getStreet());
-      zipTextField.setText(addressModel.getZip());
-      stateTextField.setText(addressModel.getState());
-    }
-    usernameTextField.setText(currentUser.getUsername());
-    nameTextField.setText(currentUser.getName());
-    emailTextField.setText(currentUser.getEmail());
-    phoneTextField.setText(currentUser.getPhone());
-  }
-
-  private void handleEvent() {}
 
   private ActionListener updateUserInformationActionListener = e -> {
     String confirmPassword = new String(confirmPasswordField.getPassword());
