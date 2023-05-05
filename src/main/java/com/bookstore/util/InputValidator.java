@@ -106,4 +106,15 @@ public class InputValidator {
     }
     return zip;
   }
+
+  public static String validateISBN(String isbn) {
+    if (isbn == null || isbn.trim().isEmpty()) {
+      throw new IllegalArgumentException("ISBN cannot be empty.");
+    }
+    String regex = "^\\d{11,13}$";
+    if (!isbn.matches(regex)) {
+      throw new IllegalArgumentException("ISBN is not valid.");
+    }
+    return isbn;
+  }
 }
