@@ -16,7 +16,7 @@ public class AboutUs extends JPanel {
     return instance;
   }
 
-  private AboutUs() {
+  public AboutUs() {
     setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
     titleLabel = new JLabel("About Us");

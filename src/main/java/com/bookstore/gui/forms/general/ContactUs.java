@@ -18,7 +18,7 @@ public class ContactUs extends JPanel {
         return instance;
     }
 
-    private ContactUs() {
+    public ContactUs() {
         setLayout(new GridLayout(4, 2));
 
         nameLabel = new JLabel("Name:");

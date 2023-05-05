@@ -28,7 +28,7 @@ public class OrderList extends JPanel {
   OrderBUS orderBus = OrderBUS.getInstance();
   java.util.List<OrderModel> orderList = orderBus.getAllModels();
 
-  private OrderList() {
+  public OrderList() {
     initComponents();
     listOrder();
     handleEvent();

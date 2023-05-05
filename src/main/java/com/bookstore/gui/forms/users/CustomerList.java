@@ -32,7 +32,7 @@ public class CustomerList extends JPanel {
   UserBUS userBus = UserBUS.getInstance();
   List<UserModel> customersList = userBus.getAllModels();
 
-  private CustomerList() {
+  public CustomerList() {
     initComponents();
     listCustomer();
     search();

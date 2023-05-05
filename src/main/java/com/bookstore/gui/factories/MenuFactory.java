@@ -626,72 +626,72 @@ public class MenuFactory {
     MainPanel.getInstance().showForm(new DashboardPanel());
   };
   private static ActionListener showBookListAdmin = e -> {
-    MainPanel.getInstance().showForm(BrowseProductPanel.getInstance());
+    MainPanel.getInstance().showForm(new BrowseProductPanel());
   };
   private static ActionListener showUserListAdmin = e -> {
-    MainPanel.getInstance().showForm(UserListPanel.getInstance());
+    MainPanel.getInstance().showForm(new UserListPanel());
   };
   private static ActionListener showOrderListAdmin = e -> {
-    MainPanel.getInstance().showForm(OrderListPanel.getInstance());
+    MainPanel.getInstance().showForm(new OrderListPanel());
   };
   private static ActionListener showPublisherListAdmin = e -> {
-    MainPanel.getInstance().showForm(PublisherListPanel.getInstance());
+    MainPanel.getInstance().showForm(new PublisherListPanel());
   };
   private static ActionListener showAuthorListAdmin = e -> {
-    MainPanel.getInstance().showForm(AuthorListPanel.getInstance());
+    MainPanel.getInstance().showForm(new AuthorListPanel());
   };
   private static ActionListener showProviderListAdmin = e -> {
-    MainPanel.getInstance().showForm(ProviderListPanel.getInstance());
+    MainPanel.getInstance().showForm(new ProviderListPanel());
   };
   private static ActionListener showSalaryListAdmin = e -> {
-    MainPanel.getInstance().showForm(SalaryListPanel.getInstance());
+    MainPanel.getInstance().showForm(new SalaryListPanel());
   };
 
   // employee and manager
   private static ActionListener showCustomerList = e -> {
-    MainPanel.getInstance().showForm(CustomerList.getInstance());
+    MainPanel.getInstance().showForm(new CustomerList());
   };
   private static ActionListener showBookList = e -> {
-    MainPanel.getInstance().showForm(BookList.getInstance());
+    MainPanel.getInstance().showForm(new BookList());
   };
   private static ActionListener showImportList = e -> {
-    MainPanel.getInstance().showForm(ImportList.getInstance());
+    MainPanel.getInstance().showForm(new ImportList());
   };
   private static ActionListener showOrderList = e -> {
-    MainPanel.getInstance().showForm(OrderList.getInstance());
+    MainPanel.getInstance().showForm(new OrderList());
   };
 
   // manager
   private static ActionListener showEmployeeList = e -> {
-    MainPanel.getInstance().showForm(EmployeeList.getInstance());
+    MainPanel.getInstance().showForm(new EmployeeList());
   };
 
   private static ActionListener showSalaryList = e -> {
-    MainPanel.getInstance().showForm(SalaryList.getInstance());
+    MainPanel.getInstance().showForm(new SalaryList());
   };
 
   // customer
   private static ActionListener showHomeCustomer = e -> {
-    MainPanel.getInstance().showForm(ShopCustomer.getInstance());
+    MainPanel.getInstance().showForm(new ShopCustomer());
   };
   private static ActionListener showCartCustomer = e -> {
     MainPanel.getInstance().showForm(new Cart());
   };
 
   private static ActionListener showMyOrderCustomer = e -> {
-    MainPanel.getInstance().showForm(Order.getInstance());
+    MainPanel.getInstance().showForm(new Order());
   };
   // general
   private static ActionListener showProfile = e -> {
-    MainPanel.getInstance().showForm(ProfileSettings.getInstance());
+    MainPanel.getInstance().showForm(new ProfileSettings());
   };
   private static ActionListener showAccount = e -> {
-    MainPanel.getInstance().showForm(AccountSettings.getInstance());
+    MainPanel.getInstance().showForm(new AccountSettings());
   };
   private static ActionListener showContact = e -> {
-    MainPanel.getInstance().showForm(ContactUs.getInstance());
+    MainPanel.getInstance().showForm(new ContactUs());
   };
   private static ActionListener showAboutUs = e -> {
-    MainPanel.getInstance().showForm(AboutUs.getInstance());
+    MainPanel.getInstance().showForm(new AboutUs());
   };
 }

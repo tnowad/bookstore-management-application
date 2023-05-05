@@ -38,7 +38,7 @@ public class ShopCustomer extends JPanel implements ISearchable {
     .getInstance()
     .getAllModels();
 
-  private ShopCustomer() {
+  public ShopCustomer() {
     initComponents();
     renderListProduct(bookList);
     handleEvent();

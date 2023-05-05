@@ -15,7 +15,7 @@ public class Order extends JPanel {
   private JButton viewOrderDetailsButton;
   private JPanel viewBooksPanel;
 
-  private Order() {
+  public Order() {
     initComponents();
   }
 
