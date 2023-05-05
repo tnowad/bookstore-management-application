@@ -6,6 +6,7 @@ import com.bookstore.bus.CategoryBUS;
 import com.bookstore.gui.components.panels.MainPanel;
 import com.bookstore.gui.forms.carts.Cart;
 import com.bookstore.gui.forms.customer.Book;
+import com.bookstore.interfaces.ISearchable;
 import com.bookstore.models.BookModel;
 import com.bookstore.models.BooksCategoryModel;
 import com.bookstore.models.CategoryModel;
@@ -16,7 +17,7 @@ import java.util.Comparator;
 import java.util.List;
 import javax.swing.*;
 
-public class ShopCustomer extends JPanel {
+public class ShopCustomer extends JPanel implements ISearchable {
 
   private JPanel bookListPanel;
   private JScrollPane bookListScrollPane;
@@ -51,9 +52,9 @@ public class ShopCustomer extends JPanel {
   }
 
   private void handleEvent() {
-      cartButtonTextField.addActionListener(arg0 -> {
+    cartButtonTextField.addActionListener(arg0 -> {
       MainPanel.getInstance().showForm(Cart.getInstance());
-    } );
+    });
     sortByConditionComboBox.addActionListener(e -> {
       bookListPanel.removeAll();
       String selectedValue = (String) sortByConditionComboBox.getSelectedItem();
@@ -123,8 +124,12 @@ public class ShopCustomer extends JPanel {
   }
 
   private void renderListProduct(List<BookModel> bookListRender) {
-    for (BookModel bookModel : bookListRender) {
-      bookListPanel.add(new Book(bookModel));
+    if (bookListRender.size() < 0) {
+      bookListPanel.add(new NoData());
+    } else {
+      for (BookModel bookModel : bookListRender) {
+        bookListPanel.add(new Book(bookModel));
+      }
     }
   }
 
@@ -208,5 +213,11 @@ public class ShopCustomer extends JPanel {
     bookListScrollPane.getVerticalScrollBar().setUnitIncrement(50);
 
     add(bookListScrollPane, BorderLayout.CENTER);
+  }
+
+  @Override
+  public void search(String keyword) {
+    System.out.println(keyword);
+    System.out.println("It workings");
   }
 }
