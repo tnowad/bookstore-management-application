@@ -1,9 +1,11 @@
 package com.bookstore.gui.forms.shop;
 
 import com.bookstore.bus.BookBUS;
+import com.bookstore.bus.BooksCategoryBUS;
 import com.bookstore.bus.CategoryBUS;
 import com.bookstore.gui.forms.customer.Book;
 import com.bookstore.models.BookModel;
+import com.bookstore.models.BooksCategoryModel;
 import com.bookstore.models.CategoryModel;
 import java.awt.*;
 import java.util.ArrayList;
@@ -25,9 +27,13 @@ public class ShopCustomer extends JPanel {
   private JLabel sortByLabel;
 
   private static ShopCustomer instance;
-  private List<BookModel> bookList = BookBUS.getInstance().getAllModels();
+  private final List<BookModel> bookList = BookBUS.getInstance().getAllModels();
   private List<BookModel> modifiableBookList = new ArrayList<>(bookList);
-  private List<BookModel> categoriesBookList = new ArrayList<>(bookList);
+  private final List<BooksCategoryModel> booksCategoriesList = BooksCategoryBUS
+      .getInstance()
+      .getAllModels();
+  private List<BooksCategoryModel> modifiableBooksCategoriesList = new ArrayList<>(
+      booksCategoriesList);
   private final List<CategoryModel> categoryList = CategoryBUS
       .getInstance()
       .getAllModels();
@@ -72,7 +78,25 @@ public class ShopCustomer extends JPanel {
 
     categoryListComboBox.addActionListener(e -> {
       String selectedCategory = (String) categoryListComboBox.getSelectedItem();
-      System.out.println("Selected Category: " + selectedCategory);
+      CategoryModel categoryModel = new CategoryModel();
+      for (CategoryModel model : categoryList) {
+        if (model.getName().equals(selectedCategory)) {
+          categoryModel = model;
+          break;
+        }
+      }
+      if (selectedCategory.equals("All")) {
+        renderListProduct(bookList);
+      } else {
+        for (BookModel bookModel : bookList) {
+          BooksCategoryModel booksCategoryModel = BooksCategoryBUS
+              .getInstance()
+              .getModelById(categoryModel.getId(), bookModel.getIsbn());
+        }
+        renderListProduct(modifiableBookList);
+        this.revalidate();
+        this.repaint();
+      }
     });
   }
 

@@ -3,7 +3,6 @@ package com.bookstore.bus;
 import com.bookstore.dao.BooksCategoryDAO;
 import com.bookstore.interfaces.IBUS;
 import com.bookstore.models.BooksCategoryModel;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -21,7 +20,9 @@ public class BooksCategoryBUS implements IBUS<BooksCategoryModel> {
   }
 
   private BooksCategoryBUS() {
-    this.booksCategoryList.addAll(BooksCategoryDAO.getInstance().readDatabase());
+    this.booksCategoryList.addAll(
+        BooksCategoryDAO.getInstance().readDatabase()
+      );
   }
 
   @Override
@@ -29,10 +30,12 @@ public class BooksCategoryBUS implements IBUS<BooksCategoryModel> {
     return Collections.unmodifiableList(booksCategoryList);
   }
 
-  
-  public BooksCategoryModel getModelById(int categoiesId,String bookIsbn) {
+  public BooksCategoryModel getModelById(int categoiesId, String bookIsbn) {
     for (BooksCategoryModel booksCategoryModel : booksCategoryList) {
-      if (booksCategoryModel.getCategoryId() == categoiesId && booksCategoryModel.getBookIsbn() == bookIsbn) {
+      if (
+        booksCategoryModel.getCategoryId() == categoiesId &&
+        booksCategoryModel.getBookIsbn() == bookIsbn
+      ) {
         return booksCategoryModel;
       }
     }
@@ -45,7 +48,10 @@ public class BooksCategoryBUS implements IBUS<BooksCategoryModel> {
     return to;
   }
 
-  private void updateEntityFields(BooksCategoryModel from, BooksCategoryModel to) {
+  private void updateEntityFields(
+    BooksCategoryModel from,
+    BooksCategoryModel to
+  ) {
     to.setCategoryId(from.getCategoryId());
     to.setBookIsbn(from.getBookIsbn());
   }
@@ -64,7 +70,10 @@ public class BooksCategoryBUS implements IBUS<BooksCategoryModel> {
         }
         case "books_isbn" -> {
           if (
-            booksCategoryModel.getBookIsbn().toLowerCase().contains(value.toLowerCase())
+            booksCategoryModel
+              .getBookIsbn()
+              .toLowerCase()
+              .contains(value.toLowerCase())
           ) {
             return true;
           }
@@ -79,20 +88,31 @@ public class BooksCategoryBUS implements IBUS<BooksCategoryModel> {
     return false;
   }
 
-  private boolean checkAllColumns(BooksCategoryModel booksCategoryModel, String value) {
+  private boolean checkAllColumns(
+    BooksCategoryModel booksCategoryModel,
+    String value
+  ) {
     return (
       booksCategoryModel.getCategoryId() == Integer.parseInt(value) ||
-      booksCategoryModel.getBookIsbn().toLowerCase().contains(value.toLowerCase())
+      booksCategoryModel
+        .getBookIsbn()
+        .toLowerCase()
+        .contains(value.toLowerCase())
     );
   }
 
   @Override
   public int addModel(BooksCategoryModel booksCategoryModel) {
-    if (booksCategoryModel.getBookIsbn() == null || booksCategoryModel.getBookIsbn().isEmpty()) {
+    if (
+      booksCategoryModel.getBookIsbn() == null ||
+      booksCategoryModel.getBookIsbn().isEmpty()
+    ) {
       throw new IllegalArgumentException("Book cannot be null or empty!");
     }
 
-    int id = BooksCategoryDAO.getInstance().insert(mapToEntity(booksCategoryModel));
+    int id = BooksCategoryDAO
+      .getInstance()
+      .insert(mapToEntity(booksCategoryModel));
     booksCategoryModel.setCategoryId(id);
     booksCategoryList.add(booksCategoryModel);
     return id;
@@ -103,7 +123,10 @@ public class BooksCategoryBUS implements IBUS<BooksCategoryModel> {
     int updatedRows = BooksCategoryDAO.getInstance().update(booksCategoryModel);
     if (updatedRows > 0) {
       for (int i = 0; i < booksCategoryList.size(); i++) {
-        if (booksCategoryList.get(i).getCategoryId() == booksCategoryModel.getCategoryId()) {
+        if (
+          booksCategoryList.get(i).getCategoryId() ==
+          booksCategoryModel.getCategoryId()
+        ) {
           booksCategoryList.set(i, booksCategoryModel);
           break;
         }
@@ -153,6 +176,8 @@ public class BooksCategoryBUS implements IBUS<BooksCategoryModel> {
   @Override
   public BooksCategoryModel getModelById(int id) {
     // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'getModelById'");
+    throw new UnsupportedOperationException(
+      "Unimplemented method 'getModelById'"
+    );
   }
 }
