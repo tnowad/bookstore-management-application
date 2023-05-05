@@ -40,13 +40,10 @@ public class MenuItemPanel extends JPanel {
   private void addSubMenuItems() {
     if (menuItemModel.getSubMenuItems() != null) {
       JPanel subMenuItemsPanel = new JPanel();
-      // color of sub menu items
-      subMenuItemsPanel.setBackground(Color.decode("#007aff"));
-
+      subMenuItemsPanel.setBackground(Color.decode("#72A7FF"));
       subMenuItemsPanel.setLayout(
         new BoxLayout(subMenuItemsPanel, BoxLayout.Y_AXIS)
       );
-
       for (SubMenuItemModel subMenuItemModel : menuItemModel.getSubMenuItems()) {
         MenuButton subMenuItemButton = new MenuButton(
           "           " + subMenuItemModel.getTitle()
@@ -55,7 +52,6 @@ public class MenuItemPanel extends JPanel {
         subMenuItemButton.addActionListener(
           subMenuItemModel.getActionListener()
         );
-
         subMenuItemButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
         subMenuItemButton.setMinimumSize(new Dimension(Integer.MAX_VALUE, 40));
         subMenuItemButton.setPreferredSize(

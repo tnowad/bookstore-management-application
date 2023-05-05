@@ -4,7 +4,6 @@ import com.bookstore.gui.components.headers.HeaderPanel;
 import com.bookstore.gui.components.menus.MenuPanel;
 import com.bookstore.gui.components.panels.MainPanel;
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
@@ -46,7 +45,7 @@ public class MainFrame extends JFrame {
     this.menuPanel = menuPanel;
     this.mainPanel = mainPanel;
     this.headerPanel = headerPanel;
-    setMinimumSize(new Dimension(800, 600));
+    setMinimumSize(new Dimension(900, 700));
 
     initComponents();
     pack();

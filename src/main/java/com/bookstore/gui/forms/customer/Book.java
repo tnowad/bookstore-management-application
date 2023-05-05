@@ -11,11 +11,16 @@ import com.bookstore.models.CartModel;
 import com.bookstore.models.UserModel;
 import com.bookstore.services.Authentication;
 import com.bookstore.util.image.ImageUtils;
+import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.Image;
 import java.util.List;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 public class Book extends javax.swing.JPanel {
 
@@ -93,7 +98,7 @@ public class Book extends javax.swing.JPanel {
   public void setImage(String image) {
     try {
       Image imageBase = ImageUtils.decodeFromBase64(image);
-      setImage.setIcon(new javax.swing.ImageIcon(imageBase));
+      setImage.setIcon(new ImageIcon(imageBase));
     } catch (Exception ex) {
       setImage.setIcon(
         new ImageIcon("src/main/java/resources/images/product-placeholder.png")
@@ -102,17 +107,17 @@ public class Book extends javax.swing.JPanel {
   }
 
   private void initComponents() {
-    bookTitleLabel = new javax.swing.JLabel();
-    bookImagePanel = new javax.swing.JPanel();
-    groupButtonPanel = new javax.swing.JPanel();
-    bookDetailButton = new javax.swing.JButton();
-    addToCartButton = new javax.swing.JButton();
+    bookTitleLabel = new JLabel();
+    bookImagePanel = new JPanel();
+    groupButtonPanel = new JPanel();
+    bookDetailButton = new JButton();
+    addToCartButton = new JButton();
     bookPriceLabel = new Label("");
     setImage = new Label("");
 
-    setLayout(new java.awt.BorderLayout());
+    setLayout(new BorderLayout());
 
-    bookTitleLabel.setFont(new java.awt.Font("Segoe UI", 0, 14));
+    bookTitleLabel.setFont(new Font("Segoe UI", 0, 14));
     bookTitleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     bookTitleLabel.setText(bookModel.getTitle());
     add(bookTitleLabel, java.awt.BorderLayout.PAGE_START);
@@ -123,9 +128,7 @@ public class Book extends javax.swing.JPanel {
 
     add(bookImagePanel, java.awt.BorderLayout.CENTER);
 
-    groupButtonPanel.setLayout(
-      new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 2, 0)
-    );
+    groupButtonPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 2, 0));
 
     bookPriceLabel.setText("" + bookModel.getPrice() + " $");
     groupButtonPanel.add(bookPriceLabel);
@@ -139,11 +142,11 @@ public class Book extends javax.swing.JPanel {
     add(groupButtonPanel, java.awt.BorderLayout.SOUTH);
   }
 
-  private javax.swing.JButton addToCartButton;
-  private javax.swing.JButton bookDetailButton;
-  private javax.swing.JPanel bookImagePanel;
-  private javax.swing.JLabel bookTitleLabel;
-  private javax.swing.JPanel groupButtonPanel;
+  private JButton addToCartButton;
+  private JButton bookDetailButton;
+  private JPanel bookImagePanel;
+  private JLabel bookTitleLabel;
+  private JPanel groupButtonPanel;
   private Label bookPriceLabel;
   private Label setImage;
 }

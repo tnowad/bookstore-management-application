@@ -3,6 +3,7 @@ package com.bookstore.gui.components.cards;
 import com.bookstore.models.StatisticCardModel;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Font;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -93,16 +94,16 @@ public class CardPanel extends JPanel {
       }
     );
 
-    labelTitle.setFont(new java.awt.Font("sansserif", 1, 14));
-    labelTitle.setForeground(new java.awt.Color(255, 255, 255));
+    labelTitle.setFont(new Font("sansserif", 1, 14));
+    labelTitle.setForeground(new Color(255, 255, 255));
     labelTitle.setText("Title");
 
-    labelValues.setFont(new java.awt.Font("sansserif", 1, 18));
-    labelValues.setForeground(new java.awt.Color(255, 255, 255));
+    labelValues.setFont(new Font("sansserif", 1, 18));
+    labelValues.setForeground(new Color(255, 255, 255));
     labelValues.setText("Values");
 
-    labelDescription.setFont(new java.awt.Font("sansserif", 0, 14));
-    labelDescription.setForeground(new java.awt.Color(255, 255, 255));
+    labelDescription.setFont(new Font("sansserif", 0, 14));
+    labelDescription.setForeground(new Color(255, 255, 255));
     labelDescription.setText("Description");
 
     GroupLayout layout = new GroupLayout(this);

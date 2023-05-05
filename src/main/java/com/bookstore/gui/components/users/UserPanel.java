@@ -1,196 +1,79 @@
 package com.bookstore.gui.components.users;
 
-import com.bookstore.enums.UserRole;
-import com.bookstore.enums.UserStatus;
+import com.bookstore.models.UserModel;
+import java.awt.GridLayout;
 import java.awt.event.*;
-import java.time.LocalDateTime;
+import javax.swing.JCheckBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 public class UserPanel extends javax.swing.JPanel implements MouseListener {
 
-  /**
-   * Creates new form UserForm
-   */
-  public UserPanel(
-    int serial,
-    int idUser,
-    String userName,
-    String password,
-    UserStatus status,
-    String name,
-    String email,
-    String phone,
-    UserRole role,
-    LocalDateTime dateCreate,
-    LocalDateTime dateUpdate
-  ) {
-    initComponents(
-      serial,
-      idUser,
-      userName,
-      password,
-      status,
-      name,
-      email,
-      phone,
-      role,
-      dateCreate,
-      dateUpdate
-    );
+  public UserPanel(int serial, UserModel user) {
+    initComponents(serial, user);
     addMouseListener(
       new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {
-          PopupUserFrame userFullForm = new PopupUserFrame(
-            idUser,
-            userName,
-            password,
-            status,
-            name,
-            email,
-            phone,
-            role,
-            dateCreate,
-            dateUpdate
-          );
+          PopupUserFrame userFullForm = new PopupUserFrame(user);
           userFullForm.setVisible(true);
         }
       }
     );
   }
 
-  private void initComponents(
-    int serial,
-    int idUser,
-    String userName,
-    String password,
-    UserStatus status,
-    String name,
-    String email,
-    String phone,
-    UserRole role,
-    LocalDateTime dateCreate,
-    LocalDateTime dateUpdate
-  ) {
-    java.awt.GridBagConstraints gridBagConstraints;
+  private void initComponents(int serial, UserModel user) {
+    checkBox = new JCheckBox();
+    setName = new JLabel();
+    setPhone = new JLabel();
+    setEmail = new JLabel();
+    setSerial = new JLabel();
+    setRole = new JLabel();
+    setStatus = new JLabel();
+    panelItemHeader_1 = new JPanel();
+    panelItemHeader_2 = new JPanel();
 
-    checkBox = new javax.swing.JCheckBox();
-    setName = new javax.swing.JLabel();
-    setPhone = new javax.swing.JLabel();
-    setEmail = new javax.swing.JLabel();
-    setSerial = new javax.swing.JLabel();
-    setRole = new javax.swing.JTextField();
-    setStatus = new javax.swing.JTextField();
+    setLayout(new GridLayout());
 
-    java.awt.GridBagLayout layout = new java.awt.GridBagLayout();
-    layout.columnWeights = new double[] { 1.0, 2.0, 3.0, 4.0, 5.0, 6.0 };
-    setLayout(layout);
+    panelItemHeader_1.setLayout(new GridLayout(1, 2));
 
-    checkBox.setMaximumSize(new java.awt.Dimension(21, 19));
-    checkBox.setMinimumSize(new java.awt.Dimension(21, 19));
-    checkBox.setPreferredSize(new java.awt.Dimension(20, 19));
-    gridBagConstraints = new java.awt.GridBagConstraints();
-    gridBagConstraints.gridx = 0;
-    gridBagConstraints.gridy = 0;
-    gridBagConstraints.gridheight = 2;
-    gridBagConstraints.ipady = 34;
-    gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-    add(checkBox, gridBagConstraints);
+    panelItemHeader_1.add(checkBox);
 
-    setName.setFont(new java.awt.Font("Segoe UI", 0, 14));
-    setName.setText(name);
-    setName.setMaximumSize(new java.awt.Dimension(50, 20));
-    setName.setMinimumSize(new java.awt.Dimension(50, 20));
-    setName.setPreferredSize(new java.awt.Dimension(50, 20));
-    gridBagConstraints = new java.awt.GridBagConstraints();
-    gridBagConstraints.gridx = 2;
-    gridBagConstraints.gridy = 0;
-    gridBagConstraints.gridheight = 2;
-    gridBagConstraints.ipadx = 99;
-    gridBagConstraints.ipady = 33;
-    gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-    gridBagConstraints.insets = new java.awt.Insets(0, 18, 0, 0);
-    add(setName, gridBagConstraints);
-
-    setPhone.setFont(new java.awt.Font("Segoe UI", 0, 14));
-    setPhone.setText(phone);
-    setPhone.setPreferredSize(new java.awt.Dimension(50, 20));
-    gridBagConstraints = new java.awt.GridBagConstraints();
-    gridBagConstraints.gridx = 3;
-    gridBagConstraints.gridy = 0;
-    gridBagConstraints.gridheight = 2;
-    gridBagConstraints.ipadx = 85;
-    gridBagConstraints.ipady = 33;
-    gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-    gridBagConstraints.insets = new java.awt.Insets(0, 12, 0, 0);
-    add(setPhone, gridBagConstraints);
-
-    setEmail.setFont(new java.awt.Font("Segoe UI", 0, 14));
-    setEmail.setText(email);
-    setEmail.setPreferredSize(new java.awt.Dimension(45, 20));
-    gridBagConstraints = new java.awt.GridBagConstraints();
-    gridBagConstraints.gridx = 4;
-    gridBagConstraints.gridy = 0;
-    gridBagConstraints.gridheight = 2;
-    gridBagConstraints.ipadx = 125;
-    gridBagConstraints.ipady = 33;
-    gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-    gridBagConstraints.insets = new java.awt.Insets(0, 6, 0, 0);
-    add(setEmail, gridBagConstraints);
-
-    setSerial.setFont(new java.awt.Font("Segoe UI", 0, 14));
-    setSerial.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     setSerial.setText("" + serial);
-    setSerial.setMaximumSize(new java.awt.Dimension(12, 18));
-    setSerial.setMinimumSize(new java.awt.Dimension(12, 18));
-    setSerial.setPreferredSize(new java.awt.Dimension(12, 19));
-    gridBagConstraints = new java.awt.GridBagConstraints();
-    gridBagConstraints.gridx = 1;
-    gridBagConstraints.gridy = 0;
-    gridBagConstraints.gridheight = 2;
-    gridBagConstraints.ipadx = 18;
-    gridBagConstraints.ipady = 35;
-    gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-    gridBagConstraints.insets = new java.awt.Insets(0, 6, 0, 0);
-    add(setSerial, gridBagConstraints);
+    panelItemHeader_1.add(setSerial);
 
-    setRole.setEditable(false);
-    setRole.setFont(new java.awt.Font("Segoe UI", 0, 14));
-    setRole.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-    setRole.setText("" + role);
-    setRole.setMinimumSize(new java.awt.Dimension(90, 26));
-    setRole.setPreferredSize(new java.awt.Dimension(90, 26));
-    gridBagConstraints = new java.awt.GridBagConstraints();
-    gridBagConstraints.gridx = 5;
-    gridBagConstraints.gridy = 0;
-    gridBagConstraints.ipady = 10;
-    gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-    gridBagConstraints.insets = new java.awt.Insets(6, 6, 0, 0);
-    add(setRole, gridBagConstraints);
+    add(panelItemHeader_1);
 
-    setStatus.setEditable(false);
-    setStatus.setFont(new java.awt.Font("Segoe UI", 0, 14));
-    setStatus.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-    setStatus.setText("" + status);
-    gridBagConstraints = new java.awt.GridBagConstraints();
-    gridBagConstraints.gridx = 6;
-    gridBagConstraints.gridy = 0;
-    gridBagConstraints.ipadx = 7;
-    gridBagConstraints.ipady = 10;
-    gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-    gridBagConstraints.insets = new java.awt.Insets(6, 18, 0, 6);
-    add(setStatus, gridBagConstraints);
-  } // </editor-fold>//GEN-END:initComponents
+    setName.setText(user.getName());
+    add(setName);
 
-  // Variables declaration - do not modify//GEN-BEGIN:variables
-  private javax.swing.JCheckBox checkBox;
-  private javax.swing.JLabel setEmail;
-  private javax.swing.JLabel setName;
-  private javax.swing.JLabel setPhone;
-  private javax.swing.JTextField setRole;
-  private javax.swing.JLabel setSerial;
-  private javax.swing.JTextField setStatus;
+    setPhone.setText(user.getPhone());
+    add(setPhone);
 
-  // End of variables declaration//GEN-END:variables
+    setEmail.setText(user.getEmail());
+    add(setEmail);
+
+    panelItemHeader_2.setLayout(new GridLayout(1, 2));
+
+    setRole.setText("" + user.getRole());
+    panelItemHeader_2.add(setRole);
+
+    setStatus.setText("" + user.getStatus());
+    panelItemHeader_2.add(setStatus);
+
+    add(panelItemHeader_2);
+  }
+
+  private JCheckBox checkBox;
+  private JLabel setEmail;
+  private JLabel setName;
+  private JLabel setPhone;
+  private JLabel setRole;
+  private JLabel setSerial;
+  private JLabel setStatus;
+  private JPanel panelItemHeader_1;
+  private JPanel panelItemHeader_2;
+
   @Override
   public void mouseClicked(MouseEvent e) {}
 
