@@ -13,8 +13,10 @@ import com.bookstore.models.UserModel;
 import com.bookstore.services.Authentication;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Flow;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
@@ -36,6 +38,7 @@ public class CheckoutCustomerPanel extends JPanel {
   private JPanel groupButtonPanel;
   private JPanel groupCheckoutInfoPanel;
   private JPanel infoUserPanel;
+  private JPanel infoUserWrapperPanel;
   private JRadioButton internationalShippingRadioButton;
   private JLabel expirationDateLabel;
   private JLabel cvvLabel;
@@ -110,14 +113,25 @@ public class CheckoutCustomerPanel extends JPanel {
 
   private void handleEvent() {
     creditRadioButton.addActionListener(e -> {
-      groupCheckoutInfoPanel.add(creditDetailPanel);
-      groupButtonPanel.revalidate();
-      groupButtonPanel.repaint();
+      // groupCheckoutInfoPanel.add(creditDetailPanel);
+
+      creditDetailPanel.add(cvvLabel);
+      creditDetailPanel.add(cardNumberTextField);
+
+      creditDetailPanel.add(expirationDateLabel);
+      creditDetailPanel.add(expirationDateTextField);
+
+      creditDetailPanel.add(cvvLabel);
+      creditDetailPanel.add(cvvTextField);
+
+      creditDetailPanel.revalidate();
+      creditDetailPanel.repaint();
     });
     cashRadioButton.addActionListener(e -> {
-      groupCheckoutInfoPanel.remove(creditDetailPanel);
-      groupButtonPanel.revalidate();
-      groupButtonPanel.repaint();
+      // groupCheckoutInfoPanel.remove(creditDetailPanel);
+      creditDetailPanel.removeAll();
+      creditDetailPanel.revalidate();
+      creditDetailPanel.repaint();
     });
     backPreviousButton.addActionListener(e -> {
       MainPanel.getInstance().backToPreviousForm();
@@ -160,6 +174,7 @@ public class CheckoutCustomerPanel extends JPanel {
     backPreviousButton = new JButton();
     groupCheckoutInfoPanel = new JPanel();
     infoUserPanel = new JPanel();
+    infoUserWrapperPanel = new JPanel();
     nameLabel = new JLabel();
     nameTextField = new JTextField();
     emailLabel = new JLabel();
@@ -216,25 +231,33 @@ public class CheckoutCustomerPanel extends JPanel {
       new BoxLayout(groupCheckoutInfoPanel, BoxLayout.X_AXIS)
     );
 
-    infoUserPanel.setPreferredSize(new java.awt.Dimension(500, 83));
-    infoUserPanel.setLayout(new java.awt.GridLayout(4, 2));
+    infoUserPanel.setLayout(new FlowLayout());
+    infoUserPanel.setPreferredSize(new java.awt.Dimension(200, 20));
+    // infoUserPanel.setLayout(new java.awt.GridLayout(4, 2));
 
     nameLabel.setText("Name : ");
+    nameLabel.setPreferredSize(new Dimension(70, 20));
     infoUserPanel.add(nameLabel);
 
+    nameTextField.setPreferredSize(new Dimension(200, 20));
     infoUserPanel.add(nameTextField);
 
     emailLabel.setText("Email :");
+    emailLabel.setPreferredSize(new Dimension(70, 20));
     infoUserPanel.add(emailLabel);
+    emailTextField.setPreferredSize(new Dimension(200, 20));
     infoUserPanel.add(emailTextField);
 
     phoneLabel.setText("Phone :");
+    phoneLabel.setPreferredSize(new Dimension(70, 20));
     infoUserPanel.add(phoneLabel);
-
+    phoneTextField.setPreferredSize(new Dimension(200, 20));
     infoUserPanel.add(phoneTextField);
 
     addressLabel.setText("Address :");
+    addressLabel.setPreferredSize(new Dimension(70, 20));
     infoUserPanel.add(addressLabel);
+    addressTextField.setPreferredSize(new Dimension(200, 20));
     infoUserPanel.add(addressTextField);
 
     groupCheckoutInfoPanel.add(infoUserPanel);
@@ -270,29 +293,30 @@ public class CheckoutCustomerPanel extends JPanel {
 
     groupCheckoutInfoPanel.add(optionPaymentMethodPanel);
 
-    creditDetailPanel.setLayout(
-      new BoxLayout(creditDetailPanel, BoxLayout.Y_AXIS)
-    );
+    creditDetailPanel.setLayout(new FlowLayout());
+    creditDetailPanel.setPreferredSize(new Dimension(230, 20));
 
     cardNumberLabel.setText("Card Number");
+    cardNumberLabel.setPreferredSize(new Dimension(50, 20));
     creditDetailPanel.add(cvvLabel);
+    cardNumberTextField.setPreferredSize(new Dimension(170, 20));
     creditDetailPanel.add(cardNumberTextField);
 
     expirationDateLabel.setText("Expiration date");
+    expirationDateLabel.setPreferredSize(new Dimension(50, 20));
     creditDetailPanel.add(expirationDateLabel);
+    expirationDateTextField.setPreferredSize(new Dimension(170, 20));
     creditDetailPanel.add(expirationDateTextField);
 
     cvvLabel.setText("Cvv");
+    cvvLabel.setPreferredSize(new Dimension(50, 20));
     creditDetailPanel.add(cvvLabel);
+    cvvTextField.setPreferredSize(new Dimension(170, 20));
     creditDetailPanel.add(cvvTextField);
 
     groupCheckoutInfoPanel.add(creditDetailPanel);
 
     add(groupCheckoutInfoPanel);
-
-    // productTableScrollPane.setViewportView(productListTable);
-
-    // productListTablePanel.add(productTableScrollPane);
 
     add(productListTablePanel);
 
