@@ -18,11 +18,11 @@ import com.bookstore.gui.forms.books.BookList;
 import com.bookstore.gui.forms.carts.Cart;
 import com.bookstore.gui.forms.customer.Checkout;
 import com.bookstore.gui.forms.customer.Order;
-import com.bookstore.gui.forms.customer.Shop;
 import com.bookstore.gui.forms.general.AboutUs;
 import com.bookstore.gui.forms.general.ContactUs;
 import com.bookstore.gui.forms.imports.ImportList;
 import com.bookstore.gui.forms.orders.OrderList;
+import com.bookstore.gui.forms.shop.ShopCustomer;
 import com.bookstore.gui.forms.users.CustomerList;
 import com.bookstore.gui.forms.users.EmployeeList;
 import com.bookstore.gui.forms.users.SalaryList;
@@ -673,10 +673,10 @@ public class MenuFactory {
 
   // customer
   private static ActionListener showHomeCustomer = e -> {
-    MainPanel.getInstance().showForm(Shop.getInstance());
+    MainPanel.getInstance().showForm(ShopCustomer.getInstance());
   };
   private static ActionListener showDiscoveryCustomer = e -> {
-    MainPanel.getInstance().showForm(Shop.getInstance());
+    MainPanel.getInstance().showForm(ShopCustomer.getInstance());
   };
 
   private static ActionListener showCartCustomer = e -> {

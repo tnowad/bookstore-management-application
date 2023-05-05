@@ -1,7 +1,8 @@
-package com.bookstore.gui.forms.customer;
+package com.bookstore.gui.forms.shop;
 
 import com.bookstore.bus.BookBUS;
 import com.bookstore.bus.CategoryBUS;
+import com.bookstore.gui.forms.customer.Book;
 import com.bookstore.models.BookModel;
 import com.bookstore.models.CategoryModel;
 import java.awt.*;
@@ -11,13 +12,13 @@ import java.util.Comparator;
 import java.util.List;
 import javax.swing.*;
 
-public class Shop extends JPanel {
+public class ShopCustomer extends JPanel {
 
-  private static Shop instance;
+  private static ShopCustomer instance;
   private List<BookModel> bookList = BookBUS.getInstance().getAllModels();
   private List<BookModel> modifiableBookList = new ArrayList<>(bookList);
 
-  private Shop() {
+  private ShopCustomer() {
     initComponents();
     renderListProduct(bookList);
     handleEvent();
@@ -61,9 +62,9 @@ public class Shop extends JPanel {
     }
   }
 
-  public static Shop getInstance() {
+  public static ShopCustomer getInstance() {
     if (instance == null) {
-      instance = new Shop();
+      instance = new ShopCustomer();
     }
     return instance;
   }
