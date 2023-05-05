@@ -117,4 +117,15 @@ public class InputValidator {
     }
     return isbn;
   }
+
+  public static String validatePassword(String password) {
+    if (password == null || password.trim().isEmpty()) {
+      throw new IllegalArgumentException("Password cannot be empty.");
+    }
+    String regex = "^[a-zA-Z0-9_]{8,20}$";
+    if (!password.matches(regex)) {
+      throw new IllegalArgumentException("Password is not valid.");
+    }
+    return password;
+  }
 }
