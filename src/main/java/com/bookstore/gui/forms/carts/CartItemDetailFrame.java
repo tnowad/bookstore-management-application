@@ -82,40 +82,16 @@ public class CartItemDetailFrame extends JFrame {
     gridBagConstraints.weightx = 1;
     gridBagConstraints.weighty = 1;
     gridBagConstraints.fill = GridBagConstraints.BOTH;
-    // insets: top, left, bottom, right
     gridBagConstraints.insets = new Insets(10, 10, 10, 10);
     contentPanel.add(imageLabel, gridBagConstraints);
-    gridBagConstraints.gridx = 0;
     gridBagConstraints.gridy = 1;
-    gridBagConstraints.gridwidth = 2;
-    gridBagConstraints.gridheight = 1;
-    gridBagConstraints.weightx = 1;
-    gridBagConstraints.weighty = 1;
-    gridBagConstraints.fill = GridBagConstraints.BOTH;
     contentPanel.add(titleLabel, gridBagConstraints);
-    gridBagConstraints.gridx = 0;
     gridBagConstraints.gridy = 2;
-    gridBagConstraints.gridwidth = 2;
-    gridBagConstraints.gridheight = 1;
-    gridBagConstraints.weightx = 1;
-    gridBagConstraints.weighty = 1;
-    gridBagConstraints.fill = GridBagConstraints.BOTH;
     contentPanel.add(descriptionTextArea, gridBagConstraints);
-    gridBagConstraints.gridx = 0;
     gridBagConstraints.gridy = 3;
     gridBagConstraints.gridwidth = 1;
-    gridBagConstraints.gridheight = 1;
-    gridBagConstraints.weightx = 1;
-    gridBagConstraints.weighty = 1;
-    gridBagConstraints.fill = GridBagConstraints.BOTH;
     contentPanel.add(priceLabel, gridBagConstraints);
     gridBagConstraints.gridx = 1;
-    gridBagConstraints.gridy = 3;
-    gridBagConstraints.gridwidth = 1;
-    gridBagConstraints.gridheight = 1;
-    gridBagConstraints.weightx = 1;
-    gridBagConstraints.weighty = 1;
-    gridBagConstraints.fill = GridBagConstraints.BOTH;
     contentPanel.add(quantitySpinner, gridBagConstraints);
 
     add(contentPanel, BorderLayout.CENTER);
@@ -124,7 +100,7 @@ public class CartItemDetailFrame extends JFrame {
 
     removeButton = new Button("Delete");
     removeButton.addActionListener(removeButtonListener);
-    updateButton = new Button("update");
+    updateButton = new Button("Update");
     updateButton.addActionListener(updateButtonListener);
     actionPanel.add(removeButton);
     actionPanel.add(updateButton);
