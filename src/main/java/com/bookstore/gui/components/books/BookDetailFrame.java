@@ -286,14 +286,7 @@ public class BookDetailFrame extends javax.swing.JFrame {
           BookBUS.getInstance().updateModel(newBook);
         }
       }
-      for (Frame window : JFrame.getFrames()) {
-        if (window instanceof JFrame) {
-          JFrame frame = (JFrame) window;
-          frame.setVisible(false);
-          frame.dispose();
-          frame.setVisible(true);
-        }
-      }
+
     }
   };
 
