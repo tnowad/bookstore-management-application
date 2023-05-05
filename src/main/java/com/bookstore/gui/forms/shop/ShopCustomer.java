@@ -207,8 +207,7 @@ public class ShopCustomer extends JPanel implements ISearchable {
 
   @Override
   public void search(String keyword) {
-    System.out.println(keyword);
-    System.out.println("It workings");
+    bookListPanel.removeAll();
     if (keyword == null || keyword.isBlank()) {
       JOptionPane.showMessageDialog(
         null,
@@ -218,7 +217,6 @@ public class ShopCustomer extends JPanel implements ISearchable {
       this.revalidate();
       this.repaint();
     } else {
-      bookListPanel.removeAll();
       List<BookModel> books = new ArrayList<BookModel>();
       for (BookModel bookModel : bookList) {
         if (

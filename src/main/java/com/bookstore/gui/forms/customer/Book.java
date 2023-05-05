@@ -127,7 +127,7 @@ public class Book extends JPanel {
     image = image.getScaledInstance(200, 150, Image.SCALE_SMOOTH);
     imageLabel.setIcon(new ImageIcon(image));
 
-    imageLabel.setPreferredSize(new Dimension(200, 200));
+    imageLabel.setPreferredSize(new Dimension(200, 150));
     imageLabel.setHorizontalAlignment(SwingConstants.CENTER);
     add(imageLabel, BorderLayout.CENTER);
 
