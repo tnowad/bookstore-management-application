@@ -83,30 +83,37 @@ public class ShopCustomer extends JPanel {
     categoryListComboBox.addActionListener(e -> {
       bookListPanel.removeAll();
       String selectedCategory = (String) categoryListComboBox.getSelectedItem();
-      List<BookModel> books = new ArrayList<>();
+      List<BookModel> books = new ArrayList<BookModel>();
       if (selectedCategory.equals("All")) {
         renderListProduct(bookList);
+        this.revalidate();
+        this.repaint();
       } else {
         BooksCategoryBUS booksCategoryBUS = BooksCategoryBUS.getInstance();
         CategoryBUS categoryBUS = CategoryBUS.getInstance();
         CategoryModel categoryModel = categoryBUS.getModelByName(
           selectedCategory
         );
+        System.out.println(selectedCategory);
+        System.out.println(categoryModel.getId());
         if (categoryModel != null) {
           List<BooksCategoryModel> booksCategoryModels = booksCategoryBUS.getAllModels();
           for (BooksCategoryModel booksCategoryModel : booksCategoryModels) {
-            BookModel bookModel = BookBUS
-              .getInstance()
-              .getBookByIsbn(booksCategoryModel.getBookIsbn());
-            if (bookModel != null && !books.contains(bookModel)) {
-              books.add(bookModel);
+            if (booksCategoryModel.getCategoryId() == categoryModel.getId()) {
+              BookModel bookModel = BookBUS
+                .getInstance()
+                .getBookByIsbn(booksCategoryModel.getBookIsbn());
+              if (bookModel != null && !books.contains(bookModel)) {
+                books.add(bookModel);
+              }
             }
           }
         }
+
+        renderListProduct(books);
+        this.revalidate();
+        this.repaint();
       }
-      renderListProduct(books);
-      this.revalidate();
-      this.repaint();
     });
   }
 
