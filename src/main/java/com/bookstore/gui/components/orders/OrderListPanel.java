@@ -14,7 +14,9 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.List;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -54,7 +56,12 @@ public class OrderListPanel extends JPanel {
               new Dialog(new OrderDetail(customerId));
               addTable();
             } else {
-              System.out.println("Don't know how to handle this order");
+              JOptionPane.showMessageDialog(
+                null,
+                "No row selected!",
+                "Warning",
+                JOptionPane.WARNING_MESSAGE
+              );
             }
           }
         }

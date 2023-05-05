@@ -3,6 +3,7 @@ package com.bookstore.runnable;
 import com.bookstore.dao.DatabaseConnection;
 
 public class CheckConnectionRunnable implements Runnable {
+
   @Override
   public void run() {
     while (DatabaseConnection.getInstance().checkConnection()) {

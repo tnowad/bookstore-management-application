@@ -67,7 +67,6 @@ public class Cart extends JPanel {
       cartModel.setStatus(CartStatus.PENDING);
       cartModel.setPromotionId(1);
       CartBUS.getInstance().addModel(cartModel);
-      System.out.println("Add cart model");
     }
     myCartList = new ArrayList<CartItemsModel>();
     cartItemsBUS = CartItemsBUS.getInstance();
@@ -163,7 +162,6 @@ public class Cart extends JPanel {
         if (
           cartItemsModel.getBookIsbn().equalsIgnoreCase(bookModel.getIsbn())
         ) {
-          System.out.println(cartItemsModel.getCartId());
           model.addRow(
             new Object[] {
               bookModel.getIsbn(),
@@ -194,7 +192,12 @@ public class Cart extends JPanel {
               new Dialog(new CartDetail(cartModel.getId(), bookIsbn));
               listCart();
             } else {
-              System.out.println("Don't know how to handle this cart");
+              JOptionPane.showMessageDialog(
+                null,
+                "Please choose a book",
+                "Warning",
+                JOptionPane.WARNING_MESSAGE
+              );
             }
           }
         }

@@ -1,23 +1,22 @@
 package com.bookstore.gui.factories;
 
-import com.bookstore.bus.EmployeeBUS;
-import com.bookstore.enums.UserRole;
 import com.bookstore.gui.components.menus.MenuPanel;
 import com.bookstore.gui.components.panels.MainPanel;
 import com.bookstore.gui.main.MainFrame;
 import com.bookstore.models.UserModel;
+import javax.swing.JOptionPane;
 
 public class UIFactory {
 
   public static void showForm(UserModel user) {
     if (user == null) {
-      System.out.println("User is null");
+      JOptionPane.showMessageDialog(
+        null,
+        "User not found. Please try again!",
+        "Error",
+        JOptionPane.ERROR_MESSAGE
+      );
       return;
-    }
-
-    System.out.println(user);
-    if (user.getRole() == UserRole.EMPLOYEE) {
-      System.out.println(EmployeeBUS.getInstance().getModelById(user.getId()));
     }
 
     MenuPanel.destroyInstance();

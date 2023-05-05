@@ -136,7 +136,6 @@ public class OrderDetail extends JFrame {
     model.addColumn("Status");
     for (CartModel cartModel : cartList) {
       if (cartModel.getId() == orderModel.getCartId()) {
-        System.out.println(1);
         for (CartItemsModel cartItemModel : cartItemList) {
           if (cartItemModel.getCartId() == cartModel.getId()) {
             BookModel bookModel = bookList

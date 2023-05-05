@@ -151,7 +151,6 @@ public class AccountSettings extends JPanel {
     if (toggleCurrentPasswordButton.isSelected()) {
       currentPasswordField.setEchoChar((char) 0);
       toggleCurrentPasswordButton.setIcon(showPassword);
-      System.out.println(1);
     } else {
       currentPasswordField.setEchoChar('\u25cf');
       toggleCurrentPasswordButton.setIcon(hidePassword);
