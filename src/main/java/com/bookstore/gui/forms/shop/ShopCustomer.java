@@ -14,9 +14,23 @@ import javax.swing.*;
 
 public class ShopCustomer extends JPanel {
 
+  private JPanel bookListPanel;
+  private JScrollPane bookListScrollPane;
+  private JButton cartButtonTextField;
+  private JLabel categoryLabel;
+  private JComboBox<String> categoryListComboBox;
+  private JPanel headerPanel;
+  private JTextField searchTextField;
+  private JComboBox<String> sortByConditionComboBox;
+  private JLabel sortByLabel;
+
   private static ShopCustomer instance;
   private List<BookModel> bookList = BookBUS.getInstance().getAllModels();
   private List<BookModel> modifiableBookList = new ArrayList<>(bookList);
+  private List<BookModel> categoriesBookList = new ArrayList<>(bookList);
+  private final List<CategoryModel> categoryList = CategoryBUS
+      .getInstance()
+      .getAllModels();
 
   private ShopCustomer() {
     initComponents();
@@ -40,6 +54,7 @@ public class ShopCustomer extends JPanel {
         // }
         // }
         // }
+
         Collections.sort(
             modifiableBookList,
             Comparator.comparingInt(BookModel::getPrice));
@@ -53,6 +68,11 @@ public class ShopCustomer extends JPanel {
       renderListProduct(modifiableBookList);
       this.revalidate();
       this.repaint();
+    });
+
+    categoryListComboBox.addActionListener(e -> {
+      String selectedCategory = (String) categoryListComboBox.getSelectedItem();
+      System.out.println("Selected Category: " + selectedCategory);
     });
   }
 
@@ -109,18 +129,13 @@ public class ShopCustomer extends JPanel {
     categoryListComboBox.setMaximumSize(new Dimension(100, 30));
     categoryListComboBox.setMinimumSize(new Dimension(100, 30));
     categoryListComboBox.setPreferredSize(new Dimension(120, 30));
-    List<CategoryModel> categoryList = CategoryBUS.getInstance().getAllModels();
-    String[] categoryNames = new String[categoryList.size()];
+    categoryListComboBox.addItem("All");
     for (int i = 0; i < categoryList.size(); i++) {
-      categoryNames[i] = categoryList.get(i).getName();
+      categoryListComboBox.addItem(categoryList.get(i).getName());
     }
-    categoryNames[categoryNames.length - 1] = "All";
-    DefaultComboBoxModel<String> categoryModel = new DefaultComboBoxModel<>(
-        categoryNames);
-    JComboBox<String> categoryComboBox = new JComboBox<>(categoryModel);
 
     headerPanel.add(categoryLabel);
-    headerPanel.add(categoryComboBox);
+    headerPanel.add(categoryListComboBox);
 
     searchTextField.setFont(new Font("Segoe UI", 0, 14));
     searchTextField.setText("Search anything here..");
@@ -145,14 +160,4 @@ public class ShopCustomer extends JPanel {
 
     add(bookListScrollPane, BorderLayout.CENTER);
   }
-
-  private JPanel bookListPanel;
-  private JScrollPane bookListScrollPane;
-  private JButton cartButtonTextField;
-  private JLabel categoryLabel;
-  private JComboBox<String> categoryListComboBox;
-  private JPanel headerPanel;
-  private JTextField searchTextField;
-  private JComboBox<String> sortByConditionComboBox;
-  private JLabel sortByLabel;
 }
