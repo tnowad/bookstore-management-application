@@ -12,6 +12,7 @@ import com.bookstore.models.UserModel;
 import com.bookstore.services.Authentication;
 import com.bookstore.util.image.ImageUtils;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Image;
@@ -96,15 +97,15 @@ public class Book extends JPanel {
     });
   }
 
-  public void setImage(String image) {
+  public void setImage(String imageBase64) {
+    Image image = null;
     try {
-      Image imageBase = ImageUtils.decodeFromBase64(image);
-      setImage.setIcon(new ImageIcon(imageBase));
+      image = ImageUtils.decodeFromBase64(imageBase64);
     } catch (Exception ex) {
-      setImage.setIcon(
-        new ImageIcon("src/main/java/resources/images/product-placeholder.png")
-      );
+      image =  new ImageIcon("src/main/java/resources/images/product-placeholder.png").getImage();
     }
+   image = image.getScaledInstance(100,100,Image.SCALE_SMOOTH);
+   setImage.setIcon(new ImageIcon(image));
   }
 
   private void initComponents() {
@@ -126,7 +127,7 @@ public class Book extends JPanel {
 
     bookImagePanel.setLayout(new FlowLayout());
     bookImagePanel.add(setImage);
-
+    bookImagePanel.setPreferredSize(new Dimension(400, 300));
     add(bookImagePanel, java.awt.BorderLayout.CENTER);
 
     groupButtonPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 2, 0));
