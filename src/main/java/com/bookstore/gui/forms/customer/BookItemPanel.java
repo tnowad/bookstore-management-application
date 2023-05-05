@@ -5,6 +5,7 @@ import com.bookstore.bus.CartItemsBUS;
 import com.bookstore.enums.CartStatus;
 import com.bookstore.gui.components.labels.Label;
 import com.bookstore.gui.components.panels.MainPanel;
+import com.bookstore.gui.forms.books.BookDetailCustomer;
 import com.bookstore.models.BookModel;
 import com.bookstore.models.CartItemsModel;
 import com.bookstore.models.CartModel;
@@ -56,7 +57,7 @@ public class BookItemPanel extends JPanel {
 
   private void handleEvent() {
     detailButton.addActionListener(e -> {
-      MainPanel.getInstance().showFormStack(new BookDetail(bookModel));
+      MainPanel.getInstance().showFormStack(new BookDetailCustomer(bookModel));
     });
 
     addToCartButton.addActionListener(e -> {

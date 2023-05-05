@@ -1,4 +1,4 @@
-package com.bookstore.gui.forms.customer;
+package com.bookstore.gui.forms.books;
 
 import com.bookstore.bus.AuthorBUS;
 import com.bookstore.gui.components.labels.Label;
@@ -9,7 +9,7 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
-public class BookDetail extends JPanel {
+public class BookDetailCustomer extends JPanel {
 
   private JButton backPreviousButton;
 
@@ -41,7 +41,7 @@ public class BookDetail extends JPanel {
   private BookModel bookModel;
   private AuthorModel authorModel;
 
-  public BookDetail(BookModel bookModel) {
+  public BookDetailCustomer(BookModel bookModel) {
     this.bookModel = bookModel;
     initComponents();
     updateDate();
