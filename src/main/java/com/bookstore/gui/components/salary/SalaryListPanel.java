@@ -15,6 +15,23 @@ import javax.swing.JTextField;
 
 public class SalaryListPanel extends JPanel {
 
+  private JLabel totalText;
+  private JTextField setSumSalary;
+  private JPanel sumSalaryPanel;
+  private JPanel contend;
+  private JPanel contendTable;
+  private JLabel contactText;
+  private JPanel headerTable;
+  private JLabel idText;
+  private JLabel nameText;
+  private JLabel salaryText;
+  private JLabel typeText;
+  private JPanel panel;
+  private JScrollPane scrollPane;
+  private JLabel serialText;
+  private JPanel table;
+  private JLabel title;
+
   private static SalaryListPanel instance;
   EmployeeBUS employeeBUS = EmployeeBUS.getInstance();
   List<EmployeeModel> listEmployee = employeeBUS.getAllModels();
@@ -126,21 +143,4 @@ public class SalaryListPanel extends JPanel {
     contendTable.revalidate();
     contendTable.repaint();
   }
-
-  private JLabel totalText;
-  private JTextField setSumSalary;
-  private JPanel sumSalaryPanel;
-  private JPanel contend;
-  private JPanel contendTable;
-  private JLabel contactText;
-  private JPanel headerTable;
-  private JLabel idText;
-  private JLabel nameText;
-  private JLabel salaryText;
-  private JLabel typeText;
-  private JPanel panel;
-  private JScrollPane scrollPane;
-  private JLabel serialText;
-  private JPanel table;
-  private JLabel title;
 }

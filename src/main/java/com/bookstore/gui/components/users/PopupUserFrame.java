@@ -20,6 +20,29 @@ import javax.swing.*;
 public class PopupUserFrame extends JFrame {
   private UserModel user;
 
+  private JLabel addressText;
+  private JButton buttonBack;
+  private JPanel buttonPanel;
+  private JButton buttonSave;
+  private JLabel dateCreatedText;
+  private JLabel dateUpdatedText;
+  private JLabel emailText;
+  private JTextField getDateCreated;
+  private JLabel idText;
+  private JLabel phoneText;
+  private JLabel roleText;
+  private JTextField setAddress;
+  private JTextField setDateUpdated;
+  private JTextField setEmail;
+  private JTextField setId;
+  private JTextField setName;
+  private JTextField setPhone;
+  private JComboBox<String> setRole;
+  private JComboBox<String> setStatus;
+  private JTextField setUserName;
+  private JLabel statusText;
+  private JLabel userNameText;
+
   public PopupUserFrame(UserModel user) {
     initComponents(user);
     this.user=user;
@@ -243,29 +266,6 @@ public class PopupUserFrame extends JFrame {
   }
 
   public void actionSave() {}
-
-  private JLabel addressText;
-  private JButton buttonBack;
-  private JPanel buttonPanel;
-  private JButton buttonSave;
-  private JLabel dateCreatedText;
-  private JLabel dateUpdatedText;
-  private JLabel emailText;
-  private JTextField getDateCreated;
-  private JLabel idText;
-  private JLabel phoneText;
-  private JLabel roleText;
-  private JTextField setAddress;
-  private JTextField setDateUpdated;
-  private JTextField setEmail;
-  private JTextField setId;
-  private JTextField setName;
-  private JTextField setPhone;
-  private JComboBox<String> setRole;
-  private JComboBox<String> setStatus;
-  private JTextField setUserName;
-  private JLabel statusText;
-  private JLabel userNameText;
 
   public ActionListener actionBack = new ActionListener() {
     @Override

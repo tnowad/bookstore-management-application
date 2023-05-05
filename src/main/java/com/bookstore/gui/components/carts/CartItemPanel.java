@@ -13,6 +13,16 @@ import javax.swing.LayoutStyle;
 
 public class CartItemPanel extends javax.swing.JPanel {
 
+  private JTextArea DescriptionTextArea;
+  private JPanel bookImagePanel;
+  private JCheckBox checkBoxChooseBookButton;
+  private JButton deleteItemBtn;
+  private JPanel jPanel1;
+  private JScrollPane jScrollPane1;
+  private JLabel lbPrice;
+  private JLabel lblBookName;
+  private JSpinner quantitySpinner;
+
   public CartItemPanel() {
     initComponents();
   }
@@ -245,14 +255,4 @@ public class CartItemPanel extends javax.swing.JPanel {
   }
 
   private void checkBoxChooseBookButtonActionPerformed(ActionEvent evt) {}
-
-  private JTextArea DescriptionTextArea;
-  private JPanel bookImagePanel;
-  private JCheckBox checkBoxChooseBookButton;
-  private JButton deleteItemBtn;
-  private JPanel jPanel1;
-  private JScrollPane jScrollPane1;
-  private JLabel lbPrice;
-  private JLabel lblBookName;
-  private JSpinner quantitySpinner;
 }

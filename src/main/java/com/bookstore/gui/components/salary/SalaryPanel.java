@@ -9,6 +9,14 @@ import javax.swing.JPanel;
 
 public class SalaryPanel extends JPanel {
 
+  private JPanel panel;
+  private JLabel setDescription;
+  private JLabel setId;
+  private JLabel setName;
+  private JLabel setSalary;
+  private JLabel setType;
+  private JLabel setSerial;
+
   public SalaryPanel(int serial, EmployeeModel employee) {
     initComponents(serial, employee);
   }
@@ -52,12 +60,4 @@ public class SalaryPanel extends JPanel {
     setDescription.setPreferredSize(new Dimension(50, 16));
     add(setDescription);
   }
-
-  private JPanel panel;
-  private JLabel setDescription;
-  private JLabel setId;
-  private JLabel setName;
-  private JLabel setSalary;
-  private JLabel setType;
-  private JLabel setSerial;
 }

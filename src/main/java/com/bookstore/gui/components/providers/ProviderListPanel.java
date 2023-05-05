@@ -16,6 +16,23 @@ import javax.swing.JScrollPane;
 public class ProviderListPanel extends JPanel {
 
   private static ProviderListPanel instance;
+
+  private JButton buttonAdd;
+  private JButton buttonDelete;
+  private JPanel buttonsPanel;
+  private JPanel contend;
+  private JPanel contendTable;
+  private JLabel descriptionText;
+  private JPanel headerTable;
+  private JLabel idText;
+  private JLabel label;
+  private JLabel nameText;
+  private JPanel panel;
+  private JScrollPane scrollPane;
+  private JLabel serialText;
+  private JPanel table;
+  private JLabel title;
+
   ProviderBUS providerBUS = ProviderBUS.getInstance();
   List<ProviderModel> listProvider = providerBUS.getAllModels();
 
@@ -118,20 +135,4 @@ public class ProviderListPanel extends JPanel {
     contendTable.revalidate();
     contendTable.repaint();
   }
-
-  private JButton buttonAdd;
-  private JButton buttonDelete;
-  private JPanel buttonsPanel;
-  private JPanel contend;
-  private JPanel contendTable;
-  private JLabel descriptionText;
-  private JPanel headerTable;
-  private JLabel idText;
-  private JLabel label;
-  private JLabel nameText;
-  private JPanel panel;
-  private JScrollPane scrollPane;
-  private JLabel serialText;
-  private JPanel table;
-  private JLabel title;
 }

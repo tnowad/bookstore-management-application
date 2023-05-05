@@ -5,7 +5,6 @@ import com.bookstore.enums.UserRole;
 import com.bookstore.enums.UserStatus;
 import com.bookstore.models.UserModel;
 import com.bookstore.util.PasswordUtils;
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -17,6 +16,25 @@ import java.util.regex.Pattern;
 import javax.swing.*;
 
 public class CreateUserFrame extends JFrame {
+
+  private JButton buttonBack;
+  private JPanel buttonPanel;
+  private JButton buttonSave;
+  private JLabel emailText;
+  private JLabel nameText;
+  private JLabel passwordText;
+  private JLabel phoneText;
+  private JLabel roleText;
+  private JTextField setEmail;
+  private JTextField setName;
+  private JPasswordField setPassword;
+  private JTextField setPhone;
+  private JComboBox<String> setRole;
+  private JComboBox<String> setStatus;
+  private JTextField setUserName;
+  private JLabel statusText;
+  private JLabel titlePanel;
+  private JLabel usernameText;
 
   public CreateUserFrame() {
     initComponents();
@@ -162,25 +180,6 @@ public class CreateUserFrame extends JFrame {
     Pattern pattern = Pattern.compile("^\\d{10}$");
     return pattern.matcher(number).matches();
   }
-
-  private JButton buttonBack;
-  private JPanel buttonPanel;
-  private JButton buttonSave;
-  private JLabel emailText;
-  private JLabel nameText;
-  private JLabel passwordText;
-  private JLabel phoneText;
-  private JLabel roleText;
-  private JTextField setEmail;
-  private JTextField setName;
-  private JPasswordField setPassword;
-  private JTextField setPhone;
-  private JComboBox<String> setRole;
-  private JComboBox<String> setStatus;
-  private JTextField setUserName;
-  private JLabel statusText;
-  private JLabel titlePanel;
-  private JLabel usernameText;
 
   public ActionListener actionBack = new ActionListener() {
     @Override

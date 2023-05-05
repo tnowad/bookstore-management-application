@@ -16,6 +16,25 @@ import javax.swing.*;
 
 public class CreateUserFrame extends JFrame {
 
+  private JButton buttonBack;
+  private JPanel buttonPanel;
+  private JButton buttonSave;
+  private JLabel emailText;
+  private JLabel nameText;
+  private JLabel passwordText;
+  private JLabel phoneText;
+  private JLabel roleText;
+  private JTextField setEmail;
+  private JTextField setName;
+  private JPasswordField setPassword;
+  private JTextField setPhone;
+  private JComboBox<String> setRole;
+  private JComboBox<String> setStatus;
+  private JTextField setUserName;
+  private JLabel statusText;
+  private JLabel titlePanel;
+  private JLabel usernameText;
+
   public CreateUserFrame() {
     initComponents();
     setLocationRelativeTo(null);
@@ -293,23 +312,4 @@ public class CreateUserFrame extends JFrame {
       frame.repaint();
     }
   }
-
-  private JButton buttonBack;
-  private JPanel buttonPanel;
-  private JButton buttonSave;
-  private JLabel emailText;
-  private JLabel nameText;
-  private JLabel passwordText;
-  private JLabel phoneText;
-  private JLabel roleText;
-  private JTextField setEmail;
-  private JTextField setName;
-  private JPasswordField setPassword;
-  private JTextField setPhone;
-  private JComboBox<String> setRole;
-  private JComboBox<String> setStatus;
-  private JTextField setUserName;
-  private JLabel statusText;
-  private JLabel titlePanel;
-  private JLabel usernameText;
 }

@@ -10,6 +10,16 @@ import javax.swing.JTextField;
 
 public class UserPanel extends JPanel implements MouseListener {
 
+  private JCheckBox checkBox;
+  private JLabel setEmail;
+  private JLabel setName;
+  private JLabel setPhone;
+  private JLabel setRole;
+  private JLabel setSerial;
+  private JLabel setStatus;
+  private JPanel panelItemHeader_1;
+  private JPanel panelItemHeader_2;
+
   private JTextField setId;
 
   public UserPanel(int serial, UserModel user) {
@@ -37,9 +47,9 @@ public class UserPanel extends JPanel implements MouseListener {
     panelItemHeader_2 = new JPanel();
     setId = new JTextField();
 
-    setId.setText(""+user.getId());
+    setId.setText("" + user.getId());
     setId.setVisible(false);
-    
+
     setLayout(new GridLayout());
 
     panelItemHeader_1.setLayout(new GridLayout(1, 2));
@@ -70,18 +80,7 @@ public class UserPanel extends JPanel implements MouseListener {
     panelItemHeader_2.add(setStatus);
 
     add(panelItemHeader_2);
-
   }
-
-  private JCheckBox checkBox;
-  private JLabel setEmail;
-  private JLabel setName;
-  private JLabel setPhone;
-  private JLabel setRole;
-  private JLabel setSerial;
-  private JLabel setStatus;
-  private JPanel panelItemHeader_1;
-  private JPanel panelItemHeader_2;
 
   @Override
   public void mouseClicked(MouseEvent e) {}

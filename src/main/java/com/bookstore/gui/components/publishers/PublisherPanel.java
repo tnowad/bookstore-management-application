@@ -9,6 +9,13 @@ import javax.swing.JPanel;
 
 public class PublisherPanel extends JPanel {
 
+  private JCheckBox checkBox;
+  private JPanel panel;
+  private JLabel setDescription;
+  private JLabel setId;
+  private JLabel setName;
+  private JLabel setSerial;
+
   public PublisherPanel(int serial, PublisherModel publisher) {
     initComponents(serial, publisher);
   }
@@ -42,11 +49,4 @@ public class PublisherPanel extends JPanel {
     setDescription.setPreferredSize(new Dimension(300, 16));
     add(setDescription);
   }
-
-  private JCheckBox checkBox;
-  private JPanel panel;
-  private JLabel setDescription;
-  private JLabel setId;
-  private JLabel setName;
-  private JLabel setSerial;
 }

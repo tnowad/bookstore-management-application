@@ -15,6 +15,21 @@ import javax.swing.JScrollPane;
 
 public class PublisherListPanel extends JPanel {
 
+  private JButton buttonAdd;
+  private JButton buttonDelete;
+  private JPanel buttonsPanel;
+  private JPanel contend;
+  private JPanel contendTable;
+  private JLabel descriptionText;
+  private JPanel headerTable;
+  private JLabel idText;
+  private JLabel label;
+  private JLabel nameText;
+  private JPanel panel;
+  private JScrollPane scrollPane;
+  private JLabel serialText;
+  private JPanel table;
+  private JLabel title;
   private static PublisherListPanel instance;
   PublisherBUS publisherBUS = PublisherBUS.getInstance();
   List<PublisherModel> listPublisher = publisherBUS.getAllModels();
@@ -119,19 +134,4 @@ public class PublisherListPanel extends JPanel {
     contendTable.repaint();
   }
 
-  private JButton buttonAdd;
-  private JButton buttonDelete;
-  private JPanel buttonsPanel;
-  private JPanel contend;
-  private JPanel contendTable;
-  private JLabel descriptionText;
-  private JPanel headerTable;
-  private JLabel idText;
-  private JLabel label;
-  private JLabel nameText;
-  private JPanel panel;
-  private JScrollPane scrollPane;
-  private JLabel serialText;
-  private JPanel table;
-  private JLabel title;
 }

@@ -13,6 +13,38 @@ import javax.swing.*;
 public class UserListPanel extends JPanel {
 
   private static UserListPanel instance;
+
+  private JPanel buttonAction;
+  private JButton buttonBanned;
+  private JButton buttonCreate;
+  private JPanel buttonFilter;
+  private JPanel buttonPanel;
+  private JPanel cartPanel;
+  private JPanel contend;
+  private JPanel contendTable;
+  private JLabel emailText;
+  private JButton filterAdmin;
+  private JButton filterAll;
+  private JButton filterCustomer;
+  private JButton filterEmployee;
+  private JPanel headerTable;
+  private JLabel nameText;
+  private JLabel phoneText;
+  private JLabel roleText;
+  private JScrollPane scrollPane;
+  private JLabel serialText;
+  private JLabel statusText;
+  private JPanel table;
+  private JPanel tablePanel;
+  private JLabel titlePanel;
+  private JPanel panelItemHeader_1;
+  private JPanel panelItemHeader_2;
+  private JLabel label;
+
+  private int quantityAdmin = 0;
+  private int quantityCustomer = 0;
+  private int quantityUser = 0;
+  private int quantityEmployee = 0;
   private int quantityAdminNew = 0;
   private int quantityCustomerNew = 0;
   private int quantityEmployeeNew = 0;
@@ -272,38 +304,6 @@ public class UserListPanel extends JPanel {
     table.revalidate();
     table.repaint();
   }
-
-  private JPanel buttonAction;
-  private JButton buttonBanned;
-  private JButton buttonCreate;
-  private JPanel buttonFilter;
-  private JPanel buttonPanel;
-  private JPanel cartPanel;
-  private JPanel contend;
-  private JPanel contendTable;
-  private JLabel emailText;
-  private JButton filterAdmin;
-  private JButton filterAll;
-  private JButton filterCustomer;
-  private JButton filterEmployee;
-  private JPanel headerTable;
-  private JLabel nameText;
-  private JLabel phoneText;
-  private JLabel roleText;
-  private JScrollPane scrollPane;
-  private JLabel serialText;
-  private JLabel statusText;
-  private JPanel table;
-  private JPanel tablePanel;
-  private JLabel titlePanel;
-  private JPanel panelItemHeader_1;
-  private JPanel panelItemHeader_2;
-  private JLabel label;
-
-  private int quantityAdmin = 0;
-  private int quantityCustomer = 0;
-  private int quantityUser = 0;
-  private int quantityEmployee = 0;
 
   public ActionListener actionCreate = new ActionListener() {
     @Override

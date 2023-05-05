@@ -27,9 +27,6 @@ public class OrderListPanel extends JPanel {
   private static OrderListPanel instance;
   java.util.List<OrderModel> orderList = OrderBUS.getInstance().getAllModels();
 
-  /**
-   * Creates new form OrderPanel
-   */
   public OrderListPanel() {
     initComponents();
     addTable();
