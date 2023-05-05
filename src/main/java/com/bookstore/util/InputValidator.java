@@ -128,4 +128,17 @@ public class InputValidator {
     }
     return password;
   }
+
+  public static String validateConfirmPassword(
+    String password,
+    String confirmPassword
+  ) {
+    if (confirmPassword == null || confirmPassword.trim().isEmpty()) {
+      throw new IllegalArgumentException("Confirm password cannot be empty.");
+    }
+    if (!password.equals(confirmPassword)) {
+      throw new IllegalArgumentException("Confirm password is not valid.");
+    }
+    return confirmPassword;
+  }
 }

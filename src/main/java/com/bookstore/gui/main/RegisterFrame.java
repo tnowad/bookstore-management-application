@@ -4,6 +4,7 @@ import com.bookstore.bus.UserBUS;
 import com.bookstore.gui.components.buttons.Button;
 import com.bookstore.models.UserModel;
 import com.bookstore.services.Authentication;
+import com.bookstore.util.InputValidator;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
@@ -132,29 +133,25 @@ public class RegisterFrame extends JFrame {
   }
 
   private ActionListener registerButtonActionListener = e -> {
-    String username = usernameTextField.getText();
-    String name = nameTextField.getText();
-    String email = emailTextField.getText();
-    String phone = phoneTextField.getText();
-    String password = String.valueOf(passwordField.getPassword());
-    String confirmPassword = String.valueOf(confirmPasswordField.getPassword());
     try {
-      if (
-        username.isEmpty() ||
-        name.isEmpty() ||
-        email.isEmpty() ||
-        phone.isEmpty() ||
-        password.isEmpty() ||
-        confirmPassword.isEmpty()
-      ) {
-        throw new IllegalArgumentException("Please fill all fields");
-      }
-      if (!password.equals(confirmPassword)) {
-        throw new IllegalArgumentException("Password not match");
-      }
+      String username = InputValidator.validateUsername(
+        usernameTextField.getText()
+      );
+      String name = InputValidator.validateName(nameTextField.getText());
+      String email = InputValidator.validateEmail(emailTextField.getText());
+      String phone = InputValidator.validatePhone(phoneTextField.getText());
+      String password = InputValidator.validatePassword(
+        String.valueOf(passwordField.getPassword())
+      );
+      InputValidator.validateConfirmPassword(
+        String.valueOf(passwordField.getPassword()),
+        String.valueOf(confirmPasswordField.getPassword())
+      );
+
       UserModel user = UserBUS
         .getInstance()
         .register(username, password, name, email, phone);
+
       Authentication.setCurrentUser(user);
       JOptionPane.showMessageDialog(
         null,
@@ -169,7 +166,6 @@ public class RegisterFrame extends JFrame {
         "Error",
         JOptionPane.ERROR_MESSAGE
       );
-      return;
     }
   };
 
