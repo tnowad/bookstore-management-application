@@ -29,14 +29,10 @@ public class ShopCustomer extends JPanel {
   private static ShopCustomer instance;
   private final List<BookModel> bookList = BookBUS.getInstance().getAllModels();
   private List<BookModel> modifiableBookList = new ArrayList<>(bookList);
-  private final List<BooksCategoryModel> booksCategoriesList = BooksCategoryBUS
-      .getInstance()
-      .getAllModels();
-  private List<BooksCategoryModel> modifiableBooksCategoriesList = new ArrayList<>(
-      booksCategoriesList);
-  private final List<CategoryModel> categoryList = CategoryBUS
-      .getInstance()
-      .getAllModels();
+  private final List<BooksCategoryModel> booksCategoryModels = BooksCategoryBUS.getInstance().getAllModels();
+  private List<BooksCategoryModel> modifiableBooksCategoryModelList = new ArrayList<>(booksCategoryModels);
+  private final List<CategoryModel> categoryList = CategoryBUS.getInstance().getAllModels();
+  private List<CategoryModel> modifiableCategoryList = new ArrayList<>(categoryList);
 
   private ShopCustomer() {
     initComponents();
@@ -64,12 +60,10 @@ public class ShopCustomer extends JPanel {
         Collections.sort(
             modifiableBookList,
             Comparator.comparingInt(BookModel::getPrice));
-        System.out.println("Tang dan");
       } else if (selectedValue.equals("Price: high -> low")) {
         Collections.sort(
             modifiableBookList,
             Comparator.comparingInt(BookModel::getPrice).reversed());
-        System.out.println("Giam dan");
       }
       renderListProduct(modifiableBookList);
       this.revalidate();
@@ -78,25 +72,26 @@ public class ShopCustomer extends JPanel {
 
     categoryListComboBox.addActionListener(e -> {
       String selectedCategory = (String) categoryListComboBox.getSelectedItem();
-      CategoryModel categoryModel = new CategoryModel();
-      for (CategoryModel model : categoryList) {
-        if (model.getName().equals(selectedCategory)) {
-          categoryModel = model;
-          break;
-        }
-      }
+      List<BookModel> books = new ArrayList<>();
       if (selectedCategory.equals("All")) {
         renderListProduct(bookList);
       } else {
-        for (BookModel bookModel : bookList) {
-          BooksCategoryModel booksCategoryModel = BooksCategoryBUS
-              .getInstance()
-              .getModelById(categoryModel.getId(), bookModel.getIsbn());
+        BooksCategoryBUS booksCategoryBUS = BooksCategoryBUS.getInstance();
+        CategoryBUS categoryBUS = CategoryBUS.getInstance();
+        CategoryModel categoryModel = categoryBUS.getModelByName(selectedCategory);
+        if (categoryModel != null) {
+          List<BooksCategoryModel> booksCategoryModels = booksCategoryBUS.getAllModels();
+          for (BooksCategoryModel booksCategoryModel : booksCategoryModels) {
+            BookModel bookModel = BookBUS.getInstance().getBookByIsbn(booksCategoryModel.getBookIsbn());
+            if (bookModel != null && !books.contains(bookModel)) {
+              books.add(bookModel);
+            }
+          }
         }
-        renderListProduct(modifiableBookList);
-        this.revalidate();
-        this.repaint();
       }
+      renderListProduct(books);
+      this.revalidate();
+      this.repaint();
     });
   }
 

@@ -24,7 +24,7 @@ public class BooksCategoryDAO implements IDAO<BooksCategoryModel> {
       throws SQLException {
     return new BooksCategoryModel(
         rs.getInt("categories_id"),
-        rs.getString("book_isbn"));
+        rs.getString("books_isbn"));
   }
 
   @Override
@@ -46,7 +46,7 @@ public class BooksCategoryDAO implements IDAO<BooksCategoryModel> {
 
   @Override
   public int insert(BooksCategoryModel booksCategory) {
-    String insertSql = "INSERT INTO categories_books (categories_id,book_isbn) VALUES (?,?)";
+    String insertSql = "INSERT INTO categories_books (categories_id,books_isbn) VALUES (?,?)";
     Object[] args = {
         booksCategory.getCategoryId(),
         booksCategory.getBookIsbn(),
@@ -61,7 +61,7 @@ public class BooksCategoryDAO implements IDAO<BooksCategoryModel> {
 
   @Override
   public int update(BooksCategoryModel booksCategory) {
-    String updateSql = "UPDATE categories_books SET categoies_id = ? WHERE book_isbn = ?";
+    String updateSql = "UPDATE categories_books SET categories_id = ? WHERE books_isbn = ?";
     Object[] args = {
         booksCategory.getCategoryId(),
         booksCategory.getBookIsbn(),
@@ -76,7 +76,7 @@ public class BooksCategoryDAO implements IDAO<BooksCategoryModel> {
 
   @Override
   public int delete(int id) {
-    String deleteSql = "DELETE FROM categories_books WHERE book_isbn = ?";
+    String deleteSql = "DELETE FROM categories_books WHERE books_isbn = ?";
     Object[] args = { id };
     try {
       return DatabaseConnection.executeUpdate(deleteSql, args);
@@ -98,7 +98,7 @@ public class BooksCategoryDAO implements IDAO<BooksCategoryModel> {
     String query;
     if (columnNames == null || columnNames.length == 0) {
       // Search all columns
-      query = "SELECT * FROM categories_books WHERE CONCAT(categories_id, book_isbn) LIKE ?";
+      query = "SELECT * FROM categories_books WHERE CONCAT(categories_id, books_isbn) LIKE ?";
     } else if (columnNames.length == 1) {
       // Search specific column in categories table
       String column = columnNames[0];
