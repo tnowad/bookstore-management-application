@@ -80,10 +80,10 @@ public class Book extends JPanel {
           cartItemModel.getBookIsbn().equals(bookModel.getIsbn()) &&
           cartItemModel.getCartId() == myCartModel.getId()
         ) {
-          JOptionPane.showMessageDialog(
-            null,
-            "This book is already in your cart!"
-          );
+          // JOptionPane.showMessageDialog(
+          //   null,
+          //   "This book is already in your cart!"
+          // );
           bookAlreadyInCart = true;
           break;
         }
