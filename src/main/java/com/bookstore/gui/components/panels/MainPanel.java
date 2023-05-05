@@ -4,6 +4,9 @@ import com.bookstore.interfaces.ISearchable;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.Stack;
 import javax.swing.GroupLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -13,6 +16,8 @@ public class MainPanel extends JPanel {
 
   private static MainPanel instance;
 
+  private Deque<Component> formStack = new ArrayDeque<>();
+
   public static MainPanel getInstance() {
     if (instance == null) {
       instance = new MainPanel();
@@ -21,15 +26,39 @@ public class MainPanel extends JPanel {
   }
 
   public MainPanel() {
+    formStack = new ArrayDeque<>();
     initializeComponents();
   }
 
   public void showForm(Component formComponent) {
-    removeAll();
+    endFormStack();
     if (formComponent != null) {
+      formStack.push(formComponent);
+      removeAll();
       add(formComponent);
       refreshFrame();
     }
+  }
+
+  public void showFormStack(Component formComponent) {
+    if (formComponent != null) {
+      formStack.push(formComponent);
+      removeAll();
+      add(formComponent);
+      refreshFrame();
+    }
+  }
+
+  public void endFormStack() {
+    formStack.clear();
+  }
+
+  public void backToPreviousForm() {
+    formStack.pop();
+    Component previousForm = formStack.peek();
+    removeAll();
+    add(previousForm);
+    refreshFrame();
   }
 
   private void initializeComponents() {
