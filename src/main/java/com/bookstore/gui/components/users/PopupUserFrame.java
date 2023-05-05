@@ -13,12 +13,16 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.*;
+import java.time.format.DateTimeFormatter;
+
 import javax.swing.*;
 
 public class PopupUserFrame extends javax.swing.JFrame {
+  private UserModel user;
 
   public PopupUserFrame(UserModel user) {
     initComponents(user);
+    this.user=user;
     setStatus(user.getStatus());
     setRole(user.getRole());
     setAddress(user.getId());
@@ -275,40 +279,34 @@ public class PopupUserFrame extends javax.swing.JFrame {
     public void actionPerformed(ActionEvent e) {
       Object selectedStatusItem = setStatus.getSelectedItem();
       Object selectedRoleItem = setRole.getSelectedItem();
-      if (selectedStatusItem != null && selectedRoleItem != null) {
-        String statusString = selectedStatusItem.toString().toUpperCase();
-        UserStatus newStatus = UserStatus.valueOf(statusString);
-        String roleString = selectedRoleItem.toString().toUpperCase();
-        UserRole newRole = UserRole.valueOf(roleString);
 
-        LocalDateTime timeNow = LocalDateTime.now();
-        UserModel newUser = new UserModel(
-          Integer.valueOf(setId.getText().trim()),
-          setUserName.getText().trim(),
-          UserBUS
-            .getInstance()
-            .getModelByUsername(setUserName.getText().trim())
-            .getPassword(),
-          newStatus,
-          setName.getText(),
-          setEmail.getText(),
-          setPhone.getText(),
-          UserBUS
-            .getInstance()
-            .getModelByUsername(setUserName.getText().trim())
-            .getUpdatedAt(),
-          timeNow,
-          newRole
-        );
-        int confirm = JOptionPane.showConfirmDialog(
-          null,
-          "Do you want to continue?",
-          "Confirmation",
-          JOptionPane.YES_NO_OPTION
-        );
-        if (confirm == JOptionPane.YES_OPTION) {
-          UserBUS.getInstance().updateModel(newUser);
-        }
+      UserStatus newStatus = UserStatus.valueOf(selectedStatusItem.toString().toUpperCase());
+
+      UserRole newRole = UserRole.valueOf(selectedRoleItem.toString().toUpperCase());
+
+      LocalDateTime timeNow = LocalDateTime.now();
+      timeNow.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
+
+      UserModel newUser = new UserModel();
+      newUser.setId(user.getId());
+      newUser.setUsername(user.getUsername());
+      newUser.setPassword(user.getPassword());
+      newUser.setStatus(newStatus);
+      newUser.setName(setName.getText().trim());
+      newUser.setEmail(user.getEmail());
+      newUser.setPhone(user.getPhone());
+      newUser.setCreatedAt(user.getCreatedAt());
+      newUser.setUpdatedAt(timeNow);
+      newUser.setRole(newRole);
+
+      int confirm = JOptionPane.showConfirmDialog(
+        null,
+        "Do you want to continue?",
+        "Confirmation",
+        JOptionPane.YES_NO_OPTION
+      );
+      if (confirm == JOptionPane.YES_OPTION) {
+        UserBUS.getInstance().updateModel(newUser);
       }
     }
   };

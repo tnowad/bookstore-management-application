@@ -6,8 +6,12 @@ import java.awt.event.*;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.text.View;
 
 public class UserPanel extends javax.swing.JPanel implements MouseListener {
+
+  private JTextField setId;
 
   public UserPanel(int serial, UserModel user) {
     initComponents(serial, user);
@@ -32,11 +36,16 @@ public class UserPanel extends javax.swing.JPanel implements MouseListener {
     setStatus = new JLabel();
     panelItemHeader_1 = new JPanel();
     panelItemHeader_2 = new JPanel();
+    setId = new JTextField();
 
+    setId.setText(""+user.getId());
+    setId.setVisible(false);
+    
     setLayout(new GridLayout());
 
     panelItemHeader_1.setLayout(new GridLayout(1, 2));
 
+    panelItemHeader_1.add(setId);
     panelItemHeader_1.add(checkBox);
 
     setSerial.setText("" + serial);
@@ -62,6 +71,7 @@ public class UserPanel extends javax.swing.JPanel implements MouseListener {
     panelItemHeader_2.add(setStatus);
 
     add(panelItemHeader_2);
+
   }
 
   private JCheckBox checkBox;
