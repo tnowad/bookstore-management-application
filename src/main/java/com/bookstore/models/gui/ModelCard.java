@@ -1,23 +1,8 @@
-package com.bookstore.models;
+package com.bookstore.models.gui;
 
 import javax.swing.Icon;
 
-public class CardModel {
-
-  private String title;
-  private double values;
-  private int percentage;
-  private Icon icon;
-
-  public CardModel(String title, double values, int percentage, Icon icon) {
-    this.title = title;
-    this.values = values;
-    this.percentage = percentage;
-    this.icon = icon;
-  }
-
-  public CardModel() {
-  }
+public class ModelCard {
 
   public String getTitle() {
     return title;
@@ -51,4 +36,18 @@ public class CardModel {
     this.icon = icon;
   }
 
+  public ModelCard(String title, double values, int percentage, Icon icon) {
+    this.title = title;
+    this.values = values;
+    this.percentage = percentage;
+    this.icon = icon;
+  }
+
+  public ModelCard() {
+  }
+
+  private String title;
+  private double values;
+  private int percentage;
+  private Icon icon;
 }

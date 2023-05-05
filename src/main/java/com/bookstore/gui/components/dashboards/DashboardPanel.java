@@ -5,8 +5,9 @@ import com.bookstore.bus.OrderBUS;
 import com.bookstore.bus.UserBUS;
 import com.bookstore.gui.components.cards.CardPanel;
 import com.bookstore.gui.components.tables.Table;
-import com.bookstore.models.OrderRecentTableModel;
-import com.bookstore.models.StatisticCardModel;
+import com.bookstore.models.gui.StatisticCardModel;
+import com.bookstore.models.tables.OrderRecentTableModel;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridBagConstraints;

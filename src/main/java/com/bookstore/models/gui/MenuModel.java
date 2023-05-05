@@ -1,4 +1,4 @@
-package com.bookstore.models;
+package com.bookstore.models.gui;
 
 import java.util.ArrayList;
 import java.util.List;

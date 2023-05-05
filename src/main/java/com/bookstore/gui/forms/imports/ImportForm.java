@@ -3,7 +3,8 @@ package com.bookstore.gui.forms.imports;
 import com.bookstore.bus.ImportBUS;
 import com.bookstore.gui.components.tables.Table;
 import com.bookstore.models.ImportModel;
-import com.bookstore.models.ImportTableModel;
+import com.bookstore.models.tables.ImportTableModel;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
