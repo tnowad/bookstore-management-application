@@ -41,8 +41,6 @@ public class BookProductPanel extends javax.swing.JPanel {
 
     setBackground(new Color(255, 255, 255));
     setBorder(javax.swing.BorderFactory.createLineBorder(new Color(0, 0, 0)));
-    setMaximumSize(new Dimension(199, 333));
-    setMinimumSize(new Dimension(199, 333));
     setPreferredSize(new Dimension(199, 333));
     setLayout(new BorderLayout());
 

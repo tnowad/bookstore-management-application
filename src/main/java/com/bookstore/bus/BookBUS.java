@@ -310,8 +310,7 @@ public class BookBUS implements IBUS<BookModel> {
 
   @Override
   public void refreshData() {
-    throw new UnsupportedOperationException(
-      "Unimplemented method 'refreshData'"
-    );
+    bookList.clear();
+    bookList.addAll(BookDAO.getInstance().readDatabase());
   }
 }

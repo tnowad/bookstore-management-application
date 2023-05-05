@@ -19,6 +19,8 @@ public class BrowseProductPanel extends JPanel {
   private BookBUS bookBUS;
   private List<BookModel> listBook;
 
+  private double width;
+
   public BrowseProductPanel() {
     bookBUS = BookBUS.getInstance();
     listBook = bookBUS.getAllModels();
@@ -47,6 +49,8 @@ public class BrowseProductPanel extends JPanel {
 
     setPreferredSize(new Dimension(702, 444));
     setLayout(new BorderLayout());
+
+    addComponentListener(reSize);
 
     title.setFont(new Font("Segoe UI", 3, 18));
     title.setForeground(new Color(255, 0, 51));
@@ -160,8 +164,6 @@ public class BrowseProductPanel extends JPanel {
                       null,
                       "You've successfully locked an products!"
                     );
-                    table.revalidate();
-                    table.repaint();
                   }
                 }
               }
@@ -170,6 +172,7 @@ public class BrowseProductPanel extends JPanel {
         }
       }
     }
+
   };
 
   public ActionListener actionImport = new ActionListener() {
@@ -198,5 +201,22 @@ public class BrowseProductPanel extends JPanel {
         e.printStackTrace();
       }
     }
+  };
+  public ComponentListener reSize = new ComponentListener() {
+    @Override
+    public void componentResized(ComponentEvent e) {
+      double width = BrowseProductPanel.getInstance().getWidth();
+      int cols = (int) width / 199;
+      table.setLayout(new GridLayout(0, cols, 10, 10));
+    }
+
+    @Override
+    public void componentMoved(ComponentEvent e) {}
+
+    @Override
+    public void componentShown(ComponentEvent e) {}
+
+    @Override
+    public void componentHidden(ComponentEvent e) {}
   };
 }
