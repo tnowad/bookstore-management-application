@@ -140,7 +140,6 @@ public class Cart extends JPanel {
     model.addColumn("Title");
     model.addColumn("Price");
     model.addColumn("Quantity");
-    model.addColumn("Action");
     for (CartItemsModel cartItemsModel : myCartList) {
       for (BookModel bookModel : bookList) {
         if (
