@@ -55,7 +55,12 @@ public class OrderList extends JPanel {
               new Dialog(new OrderDetail(customerId));
               listOrder();
             } else {
-              System.out.println("Don't know how to handle this order");
+              JOptionPane.showMessageDialog(
+                null,
+                "Please select a row to view detail",
+                "Warning",
+                JOptionPane.WARNING_MESSAGE
+              );
             }
           }
         }

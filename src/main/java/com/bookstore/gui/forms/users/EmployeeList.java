@@ -82,7 +82,6 @@ public class EmployeeList extends JPanel {
           JOptionPane.showMessageDialog(null, "No employee found!");
           showTable();
         }
-        System.out.println(employeeTableList.getRowCount());
       }
     });
   }

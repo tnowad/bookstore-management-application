@@ -36,8 +36,6 @@ public class CartDetail extends JFrame {
   public CartDetail(int cartId, String bookIsbn) {
     this.cartId = cartId;
     this.bookIsbn = bookIsbn;
-    System.out.println(cartId);
-    System.out.println(bookIsbn);
     initComponents();
     updateData();
     handleEvent();
@@ -83,7 +81,6 @@ public class CartDetail extends JFrame {
           );
         } else {
           cartItemsModel.setQuantity((int) quantitySpinner.getValue());
-          System.out.println(cartItemsModel.getQuantity());
           CartItemsBUS
             .getInstance()
             .deleteModel(
@@ -120,7 +117,6 @@ public class CartDetail extends JFrame {
           );
         } else {
           cartItemsModel.setQuantity((int) quantitySpinner.getValue());
-          System.out.println(cartItemsModel.getQuantity());
           CartItemsBUS.getInstance().updateModel(cartItemsModel);
           JOptionPane.showMessageDialog(
             this,

@@ -178,7 +178,6 @@ public class ImportList extends JPanel {
           } else {
             ProviderModel provider = new ProviderModel();
             DefaultTableModel model = new DefaultTableModel();
-            System.out.println(text);
             model.addColumn("Id");
             model.addColumn("Provider");
             model.addColumn("Employee ID");
@@ -193,15 +192,11 @@ public class ImportList extends JPanel {
                   .contains(text.toLowerCase())
               ) {
                 provider = providerModel;
-                System.out.println(providerModel.getName());
                 break;
               }
             }
             for (ImportModel imports : importList) {
               if (provider.getId() == imports.getProviderId()) {
-                System.out.println(
-                  provider.getId() + " and " + imports.getProviderId()
-                );
                 model.addRow(
                   new Object[] {
                     imports.getId(),

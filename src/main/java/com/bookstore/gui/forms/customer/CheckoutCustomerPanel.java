@@ -151,7 +151,6 @@ public class CheckoutCustomerPanel extends JPanel {
         if (
           cartItemsModel.getBookIsbn().equalsIgnoreCase(bookModel.getIsbn())
         ) {
-          System.out.println(cartItemsModel.getCartId());
           model.addRow(
             new Object[] {
               bookModel.getIsbn(),

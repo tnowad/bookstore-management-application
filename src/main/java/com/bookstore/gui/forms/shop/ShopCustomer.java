@@ -51,7 +51,6 @@ public class ShopCustomer extends JPanel implements ISearchable {
     sortByConditionComboBox.addActionListener(e -> {
       bookListPanel.removeAll();
       String selectedValue = (String) sortByConditionComboBox.getSelectedItem();
-      System.out.println("Selected value is " + selectedValue);
       if (selectedValue.equals("Price: low -> high")) {
         // for (int i = 0; i < books.size() - 1; i++) {
         // for (int j = i + 1; j < books.size(); j++) {
@@ -115,7 +114,6 @@ public class ShopCustomer extends JPanel implements ISearchable {
   }
 
   private void renderListProduct(List<BookModel> bookListRender) {
-    System.out.println(bookListRender.size());
     if (bookListRender.size() <= 0) {
       bookListPanel.add(new NoData("Don't have data for product"));
     } else {

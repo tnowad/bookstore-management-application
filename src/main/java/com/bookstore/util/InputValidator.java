@@ -106,4 +106,39 @@ public class InputValidator {
     }
     return zip;
   }
+
+  public static String validateISBN(String isbn) {
+    if (isbn == null || isbn.trim().isEmpty()) {
+      throw new IllegalArgumentException("ISBN cannot be empty.");
+    }
+    String regex = "^\\d{11,13}$";
+    if (!isbn.matches(regex)) {
+      throw new IllegalArgumentException("ISBN is not valid.");
+    }
+    return isbn;
+  }
+
+  public static String validatePassword(String password) {
+    if (password == null || password.trim().isEmpty()) {
+      throw new IllegalArgumentException("Password cannot be empty.");
+    }
+    String regex = "^[a-zA-Z0-9_]{8,20}$";
+    if (!password.matches(regex)) {
+      throw new IllegalArgumentException("Password is not valid.");
+    }
+    return password;
+  }
+
+  public static String validateConfirmPassword(
+    String password,
+    String confirmPassword
+  ) {
+    if (confirmPassword == null || confirmPassword.trim().isEmpty()) {
+      throw new IllegalArgumentException("Confirm password cannot be empty.");
+    }
+    if (!password.equals(confirmPassword)) {
+      throw new IllegalArgumentException("Confirm password is not valid.");
+    }
+    return confirmPassword;
+  }
 }

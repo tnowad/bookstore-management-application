@@ -148,7 +148,6 @@ public class BrowseProductPanel extends JPanel {
               for (Component c : components) {
                 if (c instanceof JTextField) {
                   String id = ((JTextField) c).getText();
-                  System.out.println(id);
                   String status = "DELETED";
                   int updateStatusRows = BookBUS
                     .getInstance()

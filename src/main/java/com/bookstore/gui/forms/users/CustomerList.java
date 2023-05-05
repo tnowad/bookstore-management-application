@@ -80,7 +80,6 @@ public class CustomerList extends JPanel {
           JOptionPane.showMessageDialog(null, "No customers found!");
           showTable();
         }
-        System.out.println(customerTableList.getRowCount());
       }
     });
   }
