@@ -14,6 +14,7 @@ public class SearchTextField extends JTextField {
   public SearchTextField() {
     setBorder(new EmptyBorder(5, 5, 5, 5));
     setSelectionColor(new Color(220, 204, 182));
+    handleEvent();
   }
 
   private final String hint = "Search here ...";
@@ -41,4 +42,6 @@ public class SearchTextField extends JTextField {
       );
     }
   }
+
+  private void handleEvent() {}
 }
