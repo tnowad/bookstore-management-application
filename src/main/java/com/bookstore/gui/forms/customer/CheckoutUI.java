@@ -12,7 +12,6 @@ import com.bookstore.services.Authentication;
 import java.awt.*;
 import java.util.ArrayList;
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 
 public class CheckoutUI extends JFrame {
 
@@ -156,11 +155,6 @@ public class CheckoutUI extends JFrame {
 
     ButtonGroup groupShippingMethodRadio = new ButtonGroup();
 
-    // JRadioButton button1 = new JRadioButton("Option 1");
-    // JRadioButton button2 = new JRadioButton("Option 2");
-    // JRadioButton button3 = new JRadioButton("Option 3");
-    // JRadioButton button4 = new JRadioButton("Option 4");
-
     groupShippingMethodRadio.add(internationalShippingRadioButton);
     groupShippingMethodRadio.add(standardShippingRadioButton);
     groupShippingMethodRadio.add(expressShippingRadioButton);
@@ -173,16 +167,11 @@ public class CheckoutUI extends JFrame {
 
     internationalShippingRadioButton.setText("International Shipping  ");
 
-    // groupPaymentMethodPanel.add(internationalShippingRadioButton);
-
     standardShippingRadioButton.setText("Standard Shipping");
-    // groupPaymentMethodPanel.add(standardShippingRadioButton);
 
     expressShippingRadioButton.setText("Express Shipping");
-    // groupPaymentMethodPanel.add(expressShippingRadioButton);
 
     nextDayShippingRadioButton.setText(" Next Day Shipping");
-    // groupPaymentMethodPanel.add(nextDayShippingRadioButton);
 
     groupContentPanel.add(groupPaymentMethodPanel);
 
