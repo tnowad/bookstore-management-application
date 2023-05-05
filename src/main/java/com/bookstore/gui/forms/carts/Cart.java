@@ -6,7 +6,6 @@ import com.bookstore.bus.CartItemsBUS;
 import com.bookstore.enums.CartStatus;
 import com.bookstore.gui.components.dialogs.Dialog;
 import com.bookstore.gui.components.panels.MainPanel;
-import com.bookstore.gui.forms.customer.CheckoutCustomerFormatPanel;
 import com.bookstore.gui.forms.customer.CheckoutCustomerPanel;
 import com.bookstore.models.BookModel;
 import com.bookstore.models.CartItemsModel;
@@ -214,7 +213,7 @@ public class Cart extends JPanel {
 
         MainPanel
           .getInstance()
-          .showFormStack(new CheckoutCustomerFormatPanel(cartModel));
+          .showFormStack(new CheckoutCustomerPanel(cartModel));
 
         JOptionPane.showMessageDialog(
           null,
