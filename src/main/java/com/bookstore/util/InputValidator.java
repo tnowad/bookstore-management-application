@@ -47,7 +47,7 @@ public class InputValidator {
     if (phone == null || phone.trim().isEmpty()) {
       throw new IllegalArgumentException("Phone number cannot be empty.");
     }
-    String regex = "^\\+?[1-9]\\d{1,14}$";
+    String regex = "(84|0[3|5|7|8|9])+([0-9]{8})";
     if (!phone.matches(regex)) {
       throw new IllegalArgumentException("Phone number is not valid.");
     }
