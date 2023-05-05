@@ -24,7 +24,10 @@ public class MenuModel {
     if (menuItems.size() > 0) {
       if (menuItems.get(0).getActionListener() != null) {
         return menuItems.get(0).getActionListener();
-      } else if (menuItems.get(0).getSubMenuItems().size() > 0) {
+      } else if (
+        menuItems.get(0).getSubMenuItems() != null &&
+        menuItems.get(0).getSubMenuItems().size() > 0
+      ) {
         return menuItems.get(0).getSubMenuItems().get(0).getActionListener();
       }
     }
