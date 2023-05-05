@@ -186,21 +186,21 @@ public class MenuFactory {
 
           add(
             new MenuItemModel(
-              "My account",
+              "Profile",
               new ImageIcon("src/main/java/resources/icons/profile.jpg"),
               showAccountProfile,
               new ArrayList<SubMenuItemModel>() {
                 {
                   add(
                     new SubMenuItemModel(
-                      "My profile",
+                      "Update Profile",
                       new ImageIcon(""),
                       showAccountProfile
                     )
                   );
                   add(
                     new SubMenuItemModel(
-                      "My account",
+                      "Update Password",
                       new ImageIcon(""),
                       showAccountPassword
                     )
@@ -299,21 +299,21 @@ public class MenuFactory {
 
           add(
             new MenuItemModel(
-              "My account",
+              "Profile",
               new ImageIcon("src/main/java/resources/icons/profile.jpg"),
               showAccountProfile,
               new ArrayList<SubMenuItemModel>() {
                 {
                   add(
                     new SubMenuItemModel(
-                      "My profile",
+                      "Update Profile",
                       new ImageIcon(""),
                       showAccountProfile
                     )
                   );
                   add(
                     new SubMenuItemModel(
-                      "My account",
+                      "Update Password",
                       new ImageIcon(""),
                       showAccountPassword
                     )
@@ -428,21 +428,21 @@ public class MenuFactory {
 
           add(
             new MenuItemModel(
-              "My account",
+              "Profile",
               new ImageIcon("src/main/java/resources/icons/profile.jpg"),
               showAccountProfile,
               new ArrayList<SubMenuItemModel>() {
                 {
                   add(
                     new SubMenuItemModel(
-                      "My profile",
+                      "Update Profile",
                       new ImageIcon(""),
                       showAccountProfile
                     )
                   );
                   add(
                     new SubMenuItemModel(
-                      "My account",
+                      "Update Password",
                       new ImageIcon(""),
                       showAccountPassword
                     )
@@ -552,21 +552,21 @@ public class MenuFactory {
 
           add(
             new MenuItemModel(
-              "My account",
+              "Profile",
               new ImageIcon("src/main/java/resources/icons/profile.jpg"),
               showAccountProfile,
               new ArrayList<SubMenuItemModel>() {
                 {
                   add(
                     new SubMenuItemModel(
-                      "My profile",
+                      "Update Profile",
                       new ImageIcon(""),
                       showAccountProfile
                     )
                   );
                   add(
                     new SubMenuItemModel(
-                      "My account",
+                      "Update Password",
                       new ImageIcon(""),
                       showAccountPassword
                     )

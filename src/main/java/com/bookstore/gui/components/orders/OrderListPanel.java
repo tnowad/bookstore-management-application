@@ -14,7 +14,6 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.List;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -70,14 +69,14 @@ public class OrderListPanel extends JPanel {
 
   private void initComponents() {
     titlePanel = new JLabel();
-    contend = new JPanel();
-    buttonPanel = new JPanel();
+    contentPanel = new JPanel();
+    actionPanel = new JPanel();
     jPanel3 = new JPanel();
-    ButtonExport = new JButton();
-    ButtonImport = new JButton();
-    ButtonCreate = new JButton();
-    ButtonDelete = new JButton();
-    tableContend = new JPanel();
+    exportButton = new JButton();
+    importButton = new JButton();
+    createButton = new JButton();
+    deleteButton = new JButton();
+    tableContent = new JPanel();
     scrollPane = new JScrollPane();
     table = new JTable();
 
@@ -89,36 +88,36 @@ public class OrderListPanel extends JPanel {
     titlePanel.setText("List Order");
     add(titlePanel, BorderLayout.NORTH);
 
-    contend.setLayout(new BorderLayout());
+    contentPanel.setLayout(new BorderLayout());
 
-    buttonPanel.setLayout(new BorderLayout());
+    actionPanel.setLayout(new BorderLayout());
 
     jPanel3.setLayout(new GridLayout(1, 0, 5, 0));
 
-    ButtonExport.setText("Xuất File");
-    ButtonExport.setToolTipText("");
-    jPanel3.add(ButtonExport);
+    exportButton.setText("Xuất File");
+    exportButton.setToolTipText("");
+    jPanel3.add(exportButton);
 
-    ButtonImport.setText("Nhập File");
-    jPanel3.add(ButtonImport);
+    importButton.setText("Nhập File");
+    jPanel3.add(importButton);
 
-    ButtonCreate.setText("Create");
-    jPanel3.add(ButtonCreate);
+    createButton.setText("Create");
+    jPanel3.add(createButton);
 
-    ButtonDelete.setText("Delete");
-    jPanel3.add(ButtonDelete);
+    deleteButton.setText("Delete");
+    jPanel3.add(deleteButton);
 
-    buttonPanel.add(jPanel3, BorderLayout.LINE_END);
+    actionPanel.add(jPanel3, BorderLayout.LINE_END);
 
-    contend.add(buttonPanel, BorderLayout.PAGE_START);
+    contentPanel.add(actionPanel, BorderLayout.PAGE_START);
 
-    tableContend.setLayout(new BorderLayout());
+    tableContent.setLayout(new BorderLayout());
 
-    tableContend.add(scrollPane, BorderLayout.CENTER);
+    tableContent.add(scrollPane, BorderLayout.CENTER);
 
-    contend.add(tableContend, BorderLayout.CENTER);
+    contentPanel.add(tableContent, BorderLayout.CENTER);
 
-    add(contend, BorderLayout.CENTER);
+    add(contentPanel, BorderLayout.CENTER);
   }
 
   public void addTable() {
@@ -175,15 +174,15 @@ public class OrderListPanel extends JPanel {
     table.repaint();
   }
 
-  private JButton ButtonCreate;
-  private JButton ButtonDelete;
-  private JButton ButtonExport;
-  private JButton ButtonImport;
-  private JPanel buttonPanel;
-  private JPanel contend;
+  private JButton createButton;
+  private JButton deleteButton;
+  private JButton exportButton;
+  private JButton importButton;
+  private JPanel actionPanel;
+  private JPanel contentPanel;
   private JPanel jPanel3;
   private JScrollPane scrollPane;
   private JTable table;
-  private JPanel tableContend;
+  private JPanel tableContent;
   private JLabel titlePanel;
 }

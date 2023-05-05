@@ -14,27 +14,14 @@ import javax.swing.*;
 
 public class AccountProfileForm extends JPanel {
 
-  private JLabel cityLabel;
   private JTextField cityTextField;
-  private JLabel confirmPasswordLabel;
   private JPasswordField confirmPasswordField;
-  private JLabel editLabel;
-  private JLabel emailLabel;
   private JTextField emailTextField;
-  private JPanel actionPanel;
-  private JLabel nameLabel;
   private JTextField nameTextField;
-  private JLabel phoneLabel;
   private JTextField phoneTextField;
-  private JLabel stateLabel;
   private JTextField stateTextField;
-  private JLabel streetLabel;
   private JTextField streetTextField;
-  private Button updateButton;
-  private JLabel updateLabel;
-  private JLabel usernameLabel;
   private JTextField usernameTextField;
-  private JLabel zipLabel;
   private JTextField zipTextField;
   private static AccountProfileForm instance;
 
@@ -55,6 +42,20 @@ public class AccountProfileForm extends JPanel {
   }
 
   private void initComponents() {
+    JLabel zipLabel;
+    JLabel usernameLabel;
+    JLabel updateLabel;
+    Button updateButton;
+    JLabel streetLabel;
+    JLabel stateLabel;
+    JLabel phoneLabel;
+    JLabel nameLabel;
+    JPanel actionPanel;
+    JLabel emailLabel;
+    JLabel editLabel;
+    JLabel confirmPasswordLabel;
+    JLabel cityLabel;
+
     setLayout(new BorderLayout());
     setBackground(Color.WHITE);
 
@@ -124,17 +125,16 @@ public class AccountProfileForm extends JPanel {
     formPanel.add(confirmPasswordLabel);
     formPanel.add(confirmPasswordField);
 
+    JPanel formPanelWrapper = new JPanel(new BorderLayout());
+    formPanelWrapper.setBackground(Color.WHITE);
+    formPanelWrapper.add(formPanel, BorderLayout.NORTH);
+
     JScrollPane scrollPane = new JScrollPane(
-      new JPanel() {
-        {
-          setLayout(new BorderLayout());
-          setBackground(Color.WHITE);
-          add(formPanel, BorderLayout.NORTH);
-        }
-      },
-      JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-      JScrollPane.HORIZONTAL_SCROLLBAR_NEVER
+      formPanelWrapper,
+      ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+      ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER
     );
+
     scrollPane.setBorder(null);
     scrollPane.setBackground(Color.WHITE);
     add(scrollPane, BorderLayout.CENTER);

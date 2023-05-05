@@ -108,9 +108,12 @@ public class MainFrame extends JFrame {
     add(splitPane, BorderLayout.CENTER);
 
     menuPanel.getMenuModel().getFirstActionListener().actionPerformed(null);
+
+    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
   }
 
   public static void destroyInstance() {
     MainFrame.instance = null;
+
   }
 }
