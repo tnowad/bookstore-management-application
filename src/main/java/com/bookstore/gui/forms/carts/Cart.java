@@ -189,15 +189,8 @@ public class Cart extends JPanel {
               String bookIsbn = listCartTable
                 .getValueAt(selectedRowIndex, 0)
                 .toString();
-              new Dialog(new CartDetail(cartModel.getId(), bookIsbn));
+              new Dialog(new CartItemDetailFrame(cartModel.getId(), bookIsbn));
               listCart();
-            } else {
-              JOptionPane.showMessageDialog(
-                null,
-                "Please choose a book",
-                "Warning",
-                JOptionPane.WARNING_MESSAGE
-              );
             }
           }
         }

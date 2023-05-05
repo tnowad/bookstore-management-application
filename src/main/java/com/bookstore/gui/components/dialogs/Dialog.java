@@ -5,13 +5,14 @@ import javax.swing.JFrame;
 
 public class Dialog extends JDialog {
 
-    public Dialog(JFrame parent) {
-        super(parent, true);
-        getContentPane().add(parent.getContentPane());
-        setModal(true);
-        setSize(400, 700);
-        setLocationRelativeTo(null);
-        pack();
-        setVisible(true);
-    }
+  public Dialog(JFrame parent) {
+    super(parent, true);
+    getContentPane().add(parent.getContentPane());
+    setModal(true);
+    setSize(parent.getSize());
+    setResizable(parent.isResizable());
+    pack();
+    setLocationRelativeTo(null);
+    setVisible(true);
+  }
 }

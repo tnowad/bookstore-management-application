@@ -189,4 +189,31 @@ public class CartItemsBUS implements IBUS<CartItemsModel> {
       "Unimplemented method 'getModelById'"
     );
   }
+
+  public void delete(CartItemsModel cartItemsModel) {
+    CartItemsDAO
+      .getInstance()
+      .delete(cartItemsModel.getCartId(), cartItemsModel.getBookIsbn());
+    cartItemsList.remove(cartItemsModel);
+  }
+
+  public void deleteAll(int cartId) {
+    CartItemsDAO.getInstance().delete(cartId);
+    cartItemsList.removeIf(cartItemsModel ->
+      cartItemsModel.getCartId() == cartId
+    );
+  }
+
+  public void update(CartItemsModel cartItemsModel) {
+    CartItemsDAO.getInstance().update(cartItemsModel);
+    for (int i = 0; i < cartItemsList.size(); i++) {
+      if (
+        cartItemsList.get(i).getCartId() == cartItemsModel.getCartId() &&
+        cartItemsList.get(i).getBookIsbn().equals(cartItemsModel.getBookIsbn())
+      ) {
+        cartItemsList.set(i, cartItemsModel);
+        break;
+      }
+    }
+  }
 }

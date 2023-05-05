@@ -9,6 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Base64;
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 public class ImageUtils {
 
@@ -33,5 +34,18 @@ public class ImageUtils {
   public static Image decodeFromBase64(String base64) throws IOException {
     byte[] bytes = Base64.getDecoder().decode(base64);
     return ImageIO.read(new ByteArrayInputStream(bytes));
+  }
+
+  public static Image decodeFromBase64(
+    String base64,
+    String filePathPlaceholder
+  ) {
+    Image image = null;
+    try {
+      image = decodeFromBase64(base64);
+    } catch (Exception e) {
+      image = new ImageIcon(filePathPlaceholder).getImage();
+    }
+    return image;
   }
 }
