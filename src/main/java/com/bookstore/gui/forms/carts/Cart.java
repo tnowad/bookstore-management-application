@@ -5,6 +5,8 @@ import com.bookstore.bus.CartBUS;
 import com.bookstore.bus.CartItemsBUS;
 import com.bookstore.enums.CartStatus;
 import com.bookstore.gui.components.dialogs.Dialog;
+import com.bookstore.gui.components.panels.MainPanel;
+import com.bookstore.gui.forms.customer.CheckoutCustomerFormatPanel;
 import com.bookstore.gui.forms.customer.CheckoutCustomerPanel;
 import com.bookstore.models.BookModel;
 import com.bookstore.models.CartItemsModel;
@@ -32,7 +34,7 @@ public class Cart extends JPanel {
   private JScrollPane listCartScrollPane;
   private JTable listCartTable;
   private JTextField totalPriceTextField;
-  
+
   private BookBUS bookBUS;
   private CartBUS cartBUS;
   private CartItemsBUS cartItemsBUS;
@@ -209,7 +211,11 @@ public class Cart extends JPanel {
         );
       } else {
         // cartBUS.updateStatus(cartModel.getId(), "SHOPPING");
-        new Dialog(new CheckoutCustomerPanel(cartModel));
+
+        MainPanel
+          .getInstance()
+          .showFormStack(new CheckoutCustomerFormatPanel(cartModel));
+
         JOptionPane.showMessageDialog(
           null,
           "Your cart is shopping",

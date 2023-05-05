@@ -2,7 +2,6 @@ package com.bookstore.gui.forms.customer;
 
 import com.bookstore.bus.AddressBUS;
 import com.bookstore.bus.BookBUS;
-import com.bookstore.bus.CartBUS;
 import com.bookstore.bus.CartItemsBUS;
 import com.bookstore.enums.CartStatus;
 import com.bookstore.gui.components.labels.Label;
@@ -14,10 +13,11 @@ import com.bookstore.models.UserModel;
 import com.bookstore.services.Authentication;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-public class CheckoutCustomerPanel extends JFrame {
+public class CheckoutCustomerPanel extends JPanel {
 
   private Label addressLabel;
   private JTextField addressTextField;
@@ -44,7 +44,6 @@ public class CheckoutCustomerPanel extends JFrame {
   private JRadioButton creditRadioButton;
   private JScrollPane bookListScrollPane;
   private JTable productListTable;
-  private JTextField jTextField6;
   private Label nameLabel;
   private JTextField nameTextField;
   private JRadioButton nextDayShippingRadioButton;
@@ -53,14 +52,13 @@ public class CheckoutCustomerPanel extends JFrame {
   private Label shippingMethodLabel;
   private JRadioButton standardShippingRadioButton;
 
-  // private int cartId;
   private CartModel cartModel;
-  private java.util.List<CartItemsModel> cartItemList;
+  private List<CartItemsModel> cartItemList;
   private UserModel userModel;
   private AddressModel addressModel;
 
-  private java.util.List<BookModel> bookList;
-  private java.util.List<CartItemsModel> myCartItemList;
+  private List<BookModel> bookList;
+  private List<CartItemsModel> myCartItemList;
 
   public CheckoutCustomerPanel(CartModel cartModel) {
     this.cartModel = cartModel;
@@ -108,7 +106,6 @@ public class CheckoutCustomerPanel extends JFrame {
   }
 
   private void initComponents() {
-    jTextField6 = new JTextField();
     groupHeaderPanel = new JPanel();
     nameLabel = new Label("Name");
     nameTextField = new JTextField();
@@ -142,9 +139,6 @@ public class CheckoutCustomerPanel extends JFrame {
     checkoutButton = new JButton();
     exitButton = new JButton();
 
-    jTextField6.setText("jTextField6");
-
-    setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     setPreferredSize(new Dimension(500, 409));
 
     groupHeaderPanel.setLayout(new GridLayout(4, 2));
@@ -165,7 +159,7 @@ public class CheckoutCustomerPanel extends JFrame {
 
     groupHeaderPanel.add(phoneTextField);
 
-    getContentPane().add(groupHeaderPanel, BorderLayout.PAGE_START);
+    add(groupHeaderPanel, BorderLayout.PAGE_START);
 
     groupContentPanel.setPreferredSize(new Dimension(100, 277));
     groupContentPanel.setLayout(
@@ -234,14 +228,14 @@ public class CheckoutCustomerPanel extends JFrame {
     cvvTextField.setPreferredSize(new Dimension(73, 10));
     groupCreditCardPanel.add(cvvTextField);
 
-    getContentPane().add(groupContentPanel, BorderLayout.CENTER);
+    add(groupContentPanel, BorderLayout.CENTER);
 
     productListTable.setPreferredSize(new Dimension(250, 50));
     bookListScrollPane.setViewportView(productListTable);
 
     groupTableProductPanel.add(bookListScrollPane);
 
-    getContentPane().add(groupTableProductPanel, BorderLayout.LINE_END);
+    add(groupTableProductPanel, BorderLayout.LINE_END);
 
     checkoutButton.setText("Checkout");
     groupButtonPanel.add(checkoutButton);
@@ -249,9 +243,7 @@ public class CheckoutCustomerPanel extends JFrame {
     exitButton.setText("Exit");
     groupButtonPanel.add(exitButton);
 
-    getContentPane().add(groupButtonPanel, BorderLayout.PAGE_END);
-
-    pack();
+    add(groupButtonPanel, BorderLayout.PAGE_END);
   }
 
   private void showProductListTable() {
@@ -279,6 +271,7 @@ public class CheckoutCustomerPanel extends JFrame {
         }
       }
     }
+    productListTable.setPreferredSize(new Dimension(400, 300));
     productListTable.setModel(model);
     bookListScrollPane.setViewportView(productListTable);
     groupTableProductPanel.add(bookListScrollPane, BorderLayout.CENTER);
