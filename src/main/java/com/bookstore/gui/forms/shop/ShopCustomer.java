@@ -25,7 +25,6 @@ public class ShopCustomer extends JPanel implements ISearchable {
   private JLabel categoryLabel;
   private JComboBox<String> categoryListComboBox;
   private JPanel headerPanel;
-  private JTextField searchTextField;
   private JComboBox<String> sortByConditionComboBox;
   private JLabel sortByLabel;
 
@@ -100,8 +99,6 @@ public class ShopCustomer extends JPanel implements ISearchable {
         CategoryModel categoryModel = categoryBUS.getModelByName(
           selectedCategory
         );
-        System.out.println(selectedCategory);
-        System.out.println(categoryModel.getId());
         if (categoryModel != null) {
           List<BooksCategoryModel> booksCategoryModels = booksCategoryBUS.getAllModels();
           for (BooksCategoryModel booksCategoryModel : booksCategoryModels) {
@@ -124,8 +121,10 @@ public class ShopCustomer extends JPanel implements ISearchable {
   }
 
   private void renderListProduct(List<BookModel> bookListRender) {
-    if (bookListRender.size() < 0) {
-      bookListPanel.add(new NoData());
+    System.out.println(bookListRender.size());
+    if (bookListRender.size() <= 0) {
+      bookListPanel.add(new NoData("Don't have data for product"));
+      System.out.println("No data");
     } else {
       for (BookModel bookModel : bookListRender) {
         bookListPanel.add(new Book(bookModel));
@@ -146,7 +145,6 @@ public class ShopCustomer extends JPanel implements ISearchable {
     sortByConditionComboBox = new JComboBox<>();
     categoryLabel = new JLabel();
     categoryListComboBox = new JComboBox<>();
-    searchTextField = new JTextField();
     cartButtonTextField = new JButton();
     bookListScrollPane = new JScrollPane();
     bookListPanel = new JPanel();
@@ -190,14 +188,6 @@ public class ShopCustomer extends JPanel implements ISearchable {
     headerPanel.add(categoryLabel);
     headerPanel.add(categoryListComboBox);
 
-    searchTextField.setFont(new Font("Segoe UI", 0, 14));
-    searchTextField.setText("Search anything here..");
-    searchTextField.setMaximumSize(new Dimension(300, 30));
-    searchTextField.setMinimumSize(new Dimension(300, 30));
-    searchTextField.setPreferredSize(new Dimension(300, 30));
-
-    headerPanel.add(searchTextField);
-
     cartButtonTextField.setText("Cart");
     cartButtonTextField.setPreferredSize(new Dimension(80, 30));
 
@@ -219,5 +209,28 @@ public class ShopCustomer extends JPanel implements ISearchable {
   public void search(String keyword) {
     System.out.println(keyword);
     System.out.println("It workings");
+    if (keyword == null || keyword.isBlank()) {
+      JOptionPane.showMessageDialog(
+        null,
+        "Please enter your search information!"
+      );
+      renderListProduct(bookList);
+      this.revalidate();
+      this.repaint();
+    } else {
+      bookListPanel.removeAll();
+      List<BookModel> books = new ArrayList<BookModel>();
+      for (BookModel bookModel : bookList) {
+        if (
+          bookModel.getTitle().toLowerCase().contains(keyword.toLowerCase())
+        ) {
+          books.add(bookModel);
+        }
+      }
+
+      renderListProduct(books);
+      this.revalidate();
+      this.repaint();
+    }
   }
 }

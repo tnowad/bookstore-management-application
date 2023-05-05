@@ -6,16 +6,16 @@ import java.awt.Panel;
 
 public class NoData extends Panel {
 
-  public NoData() {
-    initComponents();
+  public NoData(String name) {
+    initComponents(name);
   }
 
-  private void initComponents() {
+  private void initComponents(String name) {
     noDataLabel = new Label();
-
+    System.out.println(5);
     noDataLabel.setFont(new ThemeFont().getLargeFont());
-    noDataLabel.setText("No Data");
-    noDataLabel.setPreferredSize(new java.awt.Dimension(400, 200));
+    noDataLabel.setText(name);
+    noDataLabel.setPreferredSize(new java.awt.Dimension(600, 200));
     add(noDataLabel);
   }
 

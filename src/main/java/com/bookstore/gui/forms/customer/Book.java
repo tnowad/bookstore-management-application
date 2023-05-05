@@ -124,10 +124,10 @@ public class Book extends JPanel {
         new ImageIcon("src/main/java/resources/images/product-placeholder.png")
           .getImage();
     }
-    image = image.getScaledInstance(200, 300, Image.SCALE_SMOOTH);
+    image = image.getScaledInstance(200, 150, Image.SCALE_SMOOTH);
     imageLabel.setIcon(new ImageIcon(image));
 
-    imageLabel.setPreferredSize(new Dimension(200, 300));
+    imageLabel.setPreferredSize(new Dimension(200, 200));
     imageLabel.setHorizontalAlignment(SwingConstants.CENTER);
     add(imageLabel, BorderLayout.CENTER);
 

@@ -20,7 +20,8 @@ public class Label extends JLabel {
     setText(name);
     setFont(new ThemeFont().getSmallFont());
     setLabelSize(100, 50);
-    setForeground(new ThemeColor().getButtonForeground());
+    // setForeground(new ThemeColor().getButtonForeground());
+    
     setBorder(null);
     setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
   }
