@@ -86,9 +86,7 @@ public class BookDetailFrame extends JFrame {
     contendPanel.setPreferredSize(new Dimension(858, 280));
     contendPanel.setLayout(new BorderLayout());
 
-    getImageBook.setBorder(
-      javax.swing.BorderFactory.createLineBorder(new Color(0, 0, 0))
-    );
+    getImageBook.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
     getImageBook.setEnabled(false);
     getImageBook.setPreferredSize(new Dimension(200, 16));
     contendPanel.add(getImageBook, BorderLayout.LINE_START);

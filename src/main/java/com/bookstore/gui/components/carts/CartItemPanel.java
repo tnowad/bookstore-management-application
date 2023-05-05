@@ -1,5 +1,16 @@
 package com.bookstore.gui.components.carts;
 
+import java.awt.event.ActionEvent;
+import javax.swing.GroupLayout;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JSpinner;
+import javax.swing.JTextArea;
+import javax.swing.LayoutStyle;
+
 public class CartItemPanel extends javax.swing.JPanel {
 
   public CartItemPanel() {
@@ -31,16 +42,14 @@ public class CartItemPanel extends javax.swing.JPanel {
     DescriptionTextArea.setRows(5);
     jScrollPane1.setViewportView(DescriptionTextArea);
 
-    javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(
-      jPanel1
-    );
+    GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
     jPanel1.setLayout(jPanel1Layout);
     jPanel1Layout.setHorizontalGroup(
       jPanel1Layout
         .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
         .addComponent(
           jScrollPane1,
-          javax.swing.GroupLayout.DEFAULT_SIZE,
+          GroupLayout.DEFAULT_SIZE,
           302,
           Short.MAX_VALUE
         )
@@ -53,9 +62,9 @@ public class CartItemPanel extends javax.swing.JPanel {
             .createSequentialGroup()
             .addComponent(
               jScrollPane1,
-              javax.swing.GroupLayout.PREFERRED_SIZE,
+              GroupLayout.PREFERRED_SIZE,
               125,
-              javax.swing.GroupLayout.PREFERRED_SIZE
+              GroupLayout.PREFERRED_SIZE
             )
             .addGap(0, 0, Short.MAX_VALUE)
         )
@@ -63,13 +72,13 @@ public class CartItemPanel extends javax.swing.JPanel {
 
     checkBoxChooseBookButton.addActionListener(
       new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
+        public void actionPerformed(ActionEvent evt) {
           checkBoxChooseBookButtonActionPerformed(evt);
         }
       }
     );
 
-    javax.swing.GroupLayout bookImagePanelLayout = new javax.swing.GroupLayout(
+    GroupLayout bookImagePanelLayout = new javax.swing.GroupLayout(
       bookImagePanel
     );
     bookImagePanel.setLayout(bookImagePanelLayout);
@@ -88,28 +97,28 @@ public class CartItemPanel extends javax.swing.JPanel {
       new javax.swing.ImageIcon(getClass().getResource("/icon/x (Custom).png"))
     );
 
-    javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+    GroupLayout layout = new javax.swing.GroupLayout(this);
     this.setLayout(layout);
     layout.setHorizontalGroup(
       layout
         .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
         .addGroup(
-          javax.swing.GroupLayout.Alignment.TRAILING,
+          GroupLayout.Alignment.TRAILING,
           layout
             .createSequentialGroup()
             .addContainerGap()
             .addComponent(
               checkBoxChooseBookButton,
-              javax.swing.GroupLayout.PREFERRED_SIZE,
+              GroupLayout.PREFERRED_SIZE,
               19,
-              javax.swing.GroupLayout.PREFERRED_SIZE
+              GroupLayout.PREFERRED_SIZE
             )
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addComponent(
               bookImagePanel,
-              javax.swing.GroupLayout.PREFERRED_SIZE,
-              javax.swing.GroupLayout.DEFAULT_SIZE,
-              javax.swing.GroupLayout.PREFERRED_SIZE
+              GroupLayout.PREFERRED_SIZE,
+              GroupLayout.DEFAULT_SIZE,
+              GroupLayout.PREFERRED_SIZE
             )
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addGroup(
@@ -117,47 +126,45 @@ public class CartItemPanel extends javax.swing.JPanel {
                 .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(
                   jPanel1,
-                  javax.swing.GroupLayout.Alignment.TRAILING,
-                  javax.swing.GroupLayout.DEFAULT_SIZE,
-                  javax.swing.GroupLayout.DEFAULT_SIZE,
+                  GroupLayout.Alignment.TRAILING,
+                  GroupLayout.DEFAULT_SIZE,
+                  GroupLayout.DEFAULT_SIZE,
                   Short.MAX_VALUE
                 )
                 .addGroup(
-                  javax.swing.GroupLayout.Alignment.TRAILING,
+                  GroupLayout.Alignment.TRAILING,
                   layout
                     .createSequentialGroup()
                     .addComponent(
                       lblBookName,
-                      javax.swing.GroupLayout.DEFAULT_SIZE,
-                      javax.swing.GroupLayout.DEFAULT_SIZE,
+                      GroupLayout.DEFAULT_SIZE,
+                      GroupLayout.DEFAULT_SIZE,
                       Short.MAX_VALUE
                     )
-                    .addPreferredGap(
-                      javax.swing.LayoutStyle.ComponentPlacement.RELATED
-                    )
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(
                       deleteItemBtn,
-                      javax.swing.GroupLayout.PREFERRED_SIZE,
+                      GroupLayout.PREFERRED_SIZE,
                       30,
-                      javax.swing.GroupLayout.PREFERRED_SIZE
+                      GroupLayout.PREFERRED_SIZE
                     )
                 )
                 .addGroup(
-                  javax.swing.GroupLayout.Alignment.TRAILING,
+                  GroupLayout.Alignment.TRAILING,
                   layout
                     .createSequentialGroup()
                     .addComponent(
                       lbPrice,
-                      javax.swing.GroupLayout.DEFAULT_SIZE,
-                      javax.swing.GroupLayout.DEFAULT_SIZE,
+                      GroupLayout.DEFAULT_SIZE,
+                      GroupLayout.DEFAULT_SIZE,
                       Short.MAX_VALUE
                     )
                     .addGap(18, 18, 18)
                     .addComponent(
                       quantitySpinner,
-                      javax.swing.GroupLayout.PREFERRED_SIZE,
+                      GroupLayout.PREFERRED_SIZE,
                       76,
-                      javax.swing.GroupLayout.PREFERRED_SIZE
+                      GroupLayout.PREFERRED_SIZE
                     )
                 )
             )
@@ -185,56 +192,48 @@ public class CartItemPanel extends javax.swing.JPanel {
                     .createSequentialGroup()
                     .addComponent(
                       bookImagePanel,
-                      javax.swing.GroupLayout.DEFAULT_SIZE,
-                      javax.swing.GroupLayout.DEFAULT_SIZE,
+                      GroupLayout.DEFAULT_SIZE,
+                      GroupLayout.DEFAULT_SIZE,
                       Short.MAX_VALUE
                     )
                     .addContainerGap()
                 )
                 .addGroup(
-                  javax.swing.GroupLayout.Alignment.TRAILING,
+                  GroupLayout.Alignment.TRAILING,
                   layout
                     .createSequentialGroup()
                     .addGroup(
                       layout
-                        .createParallelGroup(
-                          javax.swing.GroupLayout.Alignment.LEADING
-                        )
+                        .createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addComponent(
                           lblBookName,
-                          javax.swing.GroupLayout.PREFERRED_SIZE,
+                          GroupLayout.PREFERRED_SIZE,
                           37,
-                          javax.swing.GroupLayout.PREFERRED_SIZE
+                          GroupLayout.PREFERRED_SIZE
                         )
                         .addComponent(
                           deleteItemBtn,
-                          javax.swing.GroupLayout.PREFERRED_SIZE,
+                          GroupLayout.PREFERRED_SIZE,
                           25,
-                          javax.swing.GroupLayout.PREFERRED_SIZE
+                          GroupLayout.PREFERRED_SIZE
                         )
                     )
-                    .addPreferredGap(
-                      javax.swing.LayoutStyle.ComponentPlacement.RELATED
-                    )
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(
                       jPanel1,
-                      javax.swing.GroupLayout.DEFAULT_SIZE,
-                      javax.swing.GroupLayout.DEFAULT_SIZE,
+                      GroupLayout.DEFAULT_SIZE,
+                      GroupLayout.DEFAULT_SIZE,
                       Short.MAX_VALUE
                     )
-                    .addPreferredGap(
-                      javax.swing.LayoutStyle.ComponentPlacement.RELATED
-                    )
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                     .addGroup(
                       layout
-                        .createParallelGroup(
-                          javax.swing.GroupLayout.Alignment.LEADING
-                        )
+                        .createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addComponent(
                           quantitySpinner,
-                          javax.swing.GroupLayout.PREFERRED_SIZE,
+                          GroupLayout.PREFERRED_SIZE,
                           25,
-                          javax.swing.GroupLayout.PREFERRED_SIZE
+                          GroupLayout.PREFERRED_SIZE
                         )
                         .addComponent(lbPrice)
                     )
@@ -245,17 +244,15 @@ public class CartItemPanel extends javax.swing.JPanel {
     );
   }
 
-  private void checkBoxChooseBookButtonActionPerformed(
-    java.awt.event.ActionEvent evt
-  ) {}
+  private void checkBoxChooseBookButtonActionPerformed(ActionEvent evt) {}
 
-  private javax.swing.JTextArea DescriptionTextArea;
-  private javax.swing.JPanel bookImagePanel;
-  private javax.swing.JCheckBox checkBoxChooseBookButton;
-  private javax.swing.JButton deleteItemBtn;
-  private javax.swing.JPanel jPanel1;
-  private javax.swing.JScrollPane jScrollPane1;
-  private javax.swing.JLabel lbPrice;
-  private javax.swing.JLabel lblBookName;
-  private javax.swing.JSpinner quantitySpinner;
+  private JTextArea DescriptionTextArea;
+  private JPanel bookImagePanel;
+  private JCheckBox checkBoxChooseBookButton;
+  private JButton deleteItemBtn;
+  private JPanel jPanel1;
+  private JScrollPane jScrollPane1;
+  private JLabel lbPrice;
+  private JLabel lblBookName;
+  private JSpinner quantitySpinner;
 }

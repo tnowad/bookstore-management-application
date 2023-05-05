@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 public class BookDetailPanel extends JPanel {
 
@@ -76,10 +77,7 @@ public class BookDetailPanel extends JPanel {
     descriptionTextArea.setMaximumSize(new Dimension(232, 160));
     descriptionTextArea.setMinimumSize(new Dimension(232, 160));
     descriptionTextArea.setPreferredSize(new Dimension(232, 160));
-    bookDescriptionPanel.add(
-      descriptionTextArea,
-      java.awt.BorderLayout.PAGE_END
-    );
+    bookDescriptionPanel.add(descriptionTextArea, BorderLayout.PAGE_END);
 
     descriptionLabel.setFont(new Font("Arial", 1, 18));
     descriptionLabel.setText("Desciption:");
@@ -132,10 +130,7 @@ public class BookDetailPanel extends JPanel {
     );
     priceAndStatusField.add(bookStatusTextField);
 
-    bookInformationPanel.add(
-      priceAndStatusField,
-      java.awt.BorderLayout.PAGE_START
-    );
+    bookInformationPanel.add(priceAndStatusField, BorderLayout.PAGE_START);
 
     isbnAndAuthorAndQuantityPanel.setLayout(new GridLayout(3, 2, 5, 5));
 
@@ -174,13 +169,9 @@ public class BookDetailPanel extends JPanel {
     isbnAndAuthorAndQuantityPanel.add(bookAuthorTextField);
 
     bookAvailableQuantity.setFont(new Font("Arial", 0, 14));
-    bookAvailableQuantity.setHorizontalAlignment(
-      javax.swing.SwingConstants.CENTER
-    );
+    bookAvailableQuantity.setHorizontalAlignment(SwingConstants.CENTER);
     bookAvailableQuantity.setText("Available Quantity:");
-    bookAvailableQuantity.setHorizontalTextPosition(
-      javax.swing.SwingConstants.CENTER
-    );
+    bookAvailableQuantity.setHorizontalTextPosition(SwingConstants.CENTER);
     bookAvailableQuantity.setPreferredSize(new Dimension(100, 30));
     isbnAndAuthorAndQuantityPanel.add(bookAvailableQuantity);
 
@@ -191,7 +182,7 @@ public class BookDetailPanel extends JPanel {
 
     bookInformationPanel.add(
       isbnAndAuthorAndQuantityPanel,
-      java.awt.BorderLayout.CENTER
+      BorderLayout.CENTER
     );
 
     quantitySpinner.setFont(new Font("Arial", 0, 14));
@@ -229,25 +220,15 @@ public class BookDetailPanel extends JPanel {
     add(bookDetailsPanel, BorderLayout.CENTER);
   } // </editor-fold>
 
-  private void bookTitleTextFieldActionPerformed(
-    java.awt.event.ActionEvent evt
-  ) {}
+  private void bookTitleTextFieldActionPerformed(ActionEvent evt) {}
 
-  private void bookPriceTextFieldActionPerformed(
-    java.awt.event.ActionEvent evt
-  ) {}
+  private void bookPriceTextFieldActionPerformed(ActionEvent evt) {}
 
-  private void bookStatusTextFieldActionPerformed(
-    java.awt.event.ActionEvent evt
-  ) {}
+  private void bookStatusTextFieldActionPerformed(ActionEvent evt) {}
 
-  private void bookIsbnTextFieldActionPerformed(
-    java.awt.event.ActionEvent evt
-  ) {}
+  private void bookIsbnTextFieldActionPerformed(ActionEvent evt) {}
 
-  private void bookAuthorTextFieldActionPerformed(
-    java.awt.event.ActionEvent evt
-  ) {}
+  private void bookAuthorTextFieldActionPerformed(ActionEvent evt) {}
 
   private void addToCartButtonActionPerformed(ActionEvent evt) {}
 

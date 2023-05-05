@@ -240,17 +240,11 @@ public class ImportList extends JPanel {
     scrollPaneTableList.setViewportView(importTableList);
   }
 
-  private void addReceiptButtonActionPerformed(
-    java.awt.event.ActionEvent evt
-  ) {}
+  private void addReceiptButtonActionPerformed(ActionEvent evt) {}
 
-  private void exportToExcelButtonActionPerformed(
-    java.awt.event.ActionEvent evt
-  ) {}
+  private void exportToExcelButtonActionPerformed(ActionEvent evt) {}
 
-  private void importFromExcelButtonActionPerformed(
-    java.awt.event.ActionEvent evt
-  ) {}
+  private void importFromExcelButtonActionPerformed(ActionEvent evt) {}
 
   private void searchButtonActionPerformed(ActionEvent evt) {}
 

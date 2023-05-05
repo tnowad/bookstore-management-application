@@ -48,7 +48,7 @@ public class ItemOrderPanel extends JPanel {
   }
 
   private void initComponents(int serial, OrderModel orderModel) {
-    java.awt.GridBagConstraints gridBagConstraints;
+    GridBagConstraints gridBagConstraints;
 
     setSerial = new JLabel();
     setIdOrder = new JLabel();
@@ -59,7 +59,7 @@ public class ItemOrderPanel extends JPanel {
     setTotal = new JLabel();
 
     setPreferredSize(new Dimension(611, 53));
-    java.awt.GridBagLayout layout = new GridBagLayout();
+    GridBagLayout layout = new GridBagLayout();
     layout.columnWeights = new double[] { 1.0, 2.0, 3.0, 4.0, 5.0, 6.0 };
     setLayout(layout);
 

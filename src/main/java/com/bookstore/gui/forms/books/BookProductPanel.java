@@ -26,9 +26,7 @@ public class BookProductPanel extends JPanel {
     add(bookTitleLabel, BorderLayout.PAGE_START);
     bookTitleLabel.getAccessibleContext().setAccessibleDescription("");
 
-    javax.swing.GroupLayout bookImagePanelLayout = new GroupLayout(
-      bookImagePanel
-    );
+    GroupLayout bookImagePanelLayout = new GroupLayout(bookImagePanel);
     bookImagePanel.setLayout(bookImagePanelLayout);
     bookImagePanelLayout.setHorizontalGroup(
       bookImagePanelLayout
