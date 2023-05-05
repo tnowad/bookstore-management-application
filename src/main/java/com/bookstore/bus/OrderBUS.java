@@ -259,5 +259,24 @@ public class OrderBUS implements IBUS<OrderModel> {
     return 0;
   }
 
-  
+  public void createCustomerOrder(
+    int cartId,
+    int customerId,
+    String shippingMethod,
+    String paymentMethod,
+    String cardNumber,
+    String cardHolder,
+    String expirationDate,
+    String cvv
+  ) {
+    System.out.println("Creating order...");
+    System.out.println("Cart ID: " + cartId);
+    System.out.println("Customer ID: " + customerId);
+    System.out.println("Shipping method: " + shippingMethod);
+    System.out.println("Payment method: " + paymentMethod);
+    System.out.println("Card number: " + cardNumber);
+    System.out.println("Card holder: " + cardHolder);
+    System.out.println("Expiration date: " + expirationDate);
+    System.out.println("CVV: " + cvv);
+  }
 }

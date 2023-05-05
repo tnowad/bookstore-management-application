@@ -4,6 +4,7 @@ import com.bookstore.bus.AddressBUS;
 import com.bookstore.bus.BookBUS;
 import com.bookstore.bus.CartBUS;
 import com.bookstore.bus.CartItemsBUS;
+import com.bookstore.bus.OrderBUS;
 import com.bookstore.enums.CartStatus;
 import com.bookstore.gui.components.panels.MainPanel;
 import com.bookstore.models.AddressModel;
@@ -297,10 +298,18 @@ public class CheckoutCustomerPanel extends JPanel {
         .getSelectedItem()
         .toString();
       if (paymentMethod.equals("Cash")) {
-        System.out.println(cartId);
-        System.out.println(customerId);
-        System.out.println(shippingMethod);
-        System.out.println(paymentMethod);
+        OrderBUS
+          .getInstance()
+          .createCustomerOrder(
+            cartId,
+            customerId,
+            shippingMethod,
+            paymentMethod,
+            null,
+            null,
+            null,
+            null
+          );
         return;
       }
       String cardNumber = InputValidator.validateCardNumber(
@@ -314,14 +323,18 @@ public class CheckoutCustomerPanel extends JPanel {
       );
       String cvv = InputValidator.validateCvv(cvvTextField.getText());
 
-      System.out.println(cartId);
-      System.out.println(customerId);
-      System.out.println(shippingMethod);
-      System.out.println(paymentMethod);
-      System.out.println(cardNumber);
-      System.out.println(cardHolder);
-      System.out.println(expirationDate);
-      System.out.println(cvv);
+      OrderBUS
+        .getInstance()
+        .createCustomerOrder(
+          cartId,
+          customerId,
+          shippingMethod,
+          paymentMethod,
+          cardNumber,
+          cardHolder,
+          expirationDate,
+          cvv
+        );
     } catch (Exception exception) {
       JOptionPane.showMessageDialog(
         null,
