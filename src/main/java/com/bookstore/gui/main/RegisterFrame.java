@@ -82,7 +82,7 @@ public class RegisterFrame extends JFrame {
     passwordField = new JPasswordField();
     confirmPasswordField = new JPasswordField();
     exitButton = new Button("Exit");
-
+    exitButton.addActionListener(exitButtonActionListener);
     registerButton = new Button("Register");
     registerButton.addActionListener(registerButtonActionListener);
     loginButton = new Button("Login");
@@ -178,4 +178,7 @@ public class RegisterFrame extends JFrame {
     dispose();
   };
 
+  private ActionListener exitButtonActionListener = e -> {
+    System.exit(0);
+  };
 }
