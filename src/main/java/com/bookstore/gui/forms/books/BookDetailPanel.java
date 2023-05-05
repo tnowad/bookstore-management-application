@@ -17,6 +17,31 @@ import javax.swing.SwingConstants;
 
 public class BookDetailPanel extends JPanel {
 
+  private JButton addToCartButton;
+  private JLabel authorLabel;
+  private JTextField bookAuthorTextField;
+  private JLabel bookAvailableQuantity;
+  private JPanel bookDescriptionPanel;
+  private JPanel bookDetailsPanel;
+  private JPanel bookImagePanel;
+  private JPanel bookInformationPanel;
+  private JTextField bookIsbnTextField;
+  private JTextField bookPriceTextField;
+  private JTextField bookQuantityTextField;
+  private JTextField bookStatusTextField;
+  private JPanel bookTitleHeaderPanel;
+  private JTextField bookTitleTextField;
+  private JPanel buttonPanel;
+  private JButton buyNowButton;
+  private JLabel descriptionLabel;
+  private JTextArea descriptionTextArea;
+  private JPanel isbnAndAuthorAndQuantityPanel;
+  private JLabel isbnLabel;
+  private JPanel priceAndStatusField;
+  private JLabel priceLabel;
+  private JSpinner quantitySpinner;
+  private JLabel statusLabel;
+
   public BookDetailPanel() {
     initComponents();
   }
@@ -235,30 +260,4 @@ public class BookDetailPanel extends JPanel {
   private void quantitySpinnerPropertyChange(
     java.beans.PropertyChangeEvent evt
   ) {}
-
-  // Variables declaration - do not modify
-  private JButton addToCartButton;
-  private JLabel authorLabel;
-  private JTextField bookAuthorTextField;
-  private JLabel bookAvailableQuantity;
-  private JPanel bookDescriptionPanel;
-  private JPanel bookDetailsPanel;
-  private JPanel bookImagePanel;
-  private JPanel bookInformationPanel;
-  private JTextField bookIsbnTextField;
-  private JTextField bookPriceTextField;
-  private JTextField bookQuantityTextField;
-  private JTextField bookStatusTextField;
-  private JPanel bookTitleHeaderPanel;
-  private JTextField bookTitleTextField;
-  private JPanel buttonPanel;
-  private JButton buyNowButton;
-  private JLabel descriptionLabel;
-  private JTextArea descriptionTextArea;
-  private JPanel isbnAndAuthorAndQuantityPanel;
-  private JLabel isbnLabel;
-  private JPanel priceAndStatusField;
-  private JLabel priceLabel;
-  private JSpinner quantitySpinner;
-  private JLabel statusLabel;
 }

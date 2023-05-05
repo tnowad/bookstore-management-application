@@ -15,6 +15,40 @@ import javax.swing.*;
 
 public class Checkout extends JFrame {
 
+  private Label addressLabel;
+  private JTextField addressTextField;
+  private Label cardNumberLabel;
+  private JTextField cardNumberTextField;
+  private JButton checkoutButton;
+  private Label cvvLabel;
+  private JTextField cvvTextField;
+  private Label emailLabel;
+  private JTextField emailTextField;
+  private JButton exitButton;
+  private Label expirationDateLabel;
+  private JTextField expirationDateTextField;
+  private JRadioButton expressShippingRadioButton;
+  private JPanel groupButtonPanel;
+  private JPanel groupContentPanel;
+  private JPanel groupHeaderPanel;
+  private JPanel groupCreditCardPanel;
+  private JPanel groupPaymentMethodPanel;
+  private JPanel groupTableProductPanel;
+  private JRadioButton internationalShippingRadioButton;
+  private Label paymentMethodLabel;
+  private JRadioButton jRadioButton1;
+  private JRadioButton jRadioButton2;
+  private JScrollPane jScrollPane1;
+  private JTable productListTable;
+  private JTextField jTextField6;
+  private Label nameLabel;
+  private JTextField nameTextField;
+  private JRadioButton nextDayShippingRadioButton;
+  private Label phoneLabel;
+  private JTextField phoneTextField;
+  private Label shippingMethodLabel;
+  private JRadioButton standardShippingRadioButton;
+
   private int cartId;
   private CartBUS cartBUS;
   private CartModel cartModel;
@@ -23,7 +57,6 @@ public class Checkout extends JFrame {
   private UserModel userModel = Authentication.getCurrentUser();
   private AddressBUS addressBUS;
   private AddressModel addressModel;
-
 
   public Checkout(int cartId) {
     this.cartId = cartId;
@@ -221,38 +254,4 @@ public class Checkout extends JFrame {
       groupButtonPanel.repaint();
     });
   }
-
-  private Label addressLabel;
-  private JTextField addressTextField;
-  private Label cardNumberLabel;
-  private JTextField cardNumberTextField;
-  private JButton checkoutButton;
-  private Label cvvLabel;
-  private JTextField cvvTextField;
-  private Label emailLabel;
-  private JTextField emailTextField;
-  private JButton exitButton;
-  private Label expirationDateLabel;
-  private JTextField expirationDateTextField;
-  private JRadioButton expressShippingRadioButton;
-  private JPanel groupButtonPanel;
-  private JPanel groupContentPanel;
-  private JPanel groupHeaderPanel;
-  private JPanel groupCreditCardPanel;
-  private JPanel groupPaymentMethodPanel;
-  private JPanel groupTableProductPanel;
-  private JRadioButton internationalShippingRadioButton;
-  private Label paymentMethodLabel;
-  private JRadioButton jRadioButton1;
-  private JRadioButton jRadioButton2;
-  private JScrollPane jScrollPane1;
-  private JTable productListTable;
-  private JTextField jTextField6;
-  private Label nameLabel;
-  private JTextField nameTextField;
-  private JRadioButton nextDayShippingRadioButton;
-  private Label phoneLabel;
-  private JTextField phoneTextField;
-  private Label shippingMethodLabel;
-  private JRadioButton standardShippingRadioButton;
 }

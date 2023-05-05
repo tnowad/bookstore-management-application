@@ -14,7 +14,7 @@ public class CartDetail extends JFrame {
   private JPanel bookImagePanel;
   private JLabel bookPriceLabel;
   private JTextField bookTitleTextField;
-  private JPanel cententProductPanel;
+  private JPanel contentProductPanel;
   private JPanel checkboxPanel;
   private Button deleteProductButton;
   private JPanel contentCartPanel;
@@ -135,7 +135,7 @@ public class CartDetail extends JFrame {
   }
 
   private void initComponents() {
-    cententProductPanel = new JPanel();
+    contentProductPanel = new JPanel();
     checkboxPanel = new JPanel();
     deleteProductButton = new Button("Delete");
     bookImagePanel = new JPanel();
@@ -156,21 +156,21 @@ public class CartDetail extends JFrame {
     setPreferredSize(new Dimension(500, 250));
     setLayout(new BorderLayout());
 
-    cententProductPanel.setMaximumSize(new Dimension(155, 100));
-    cententProductPanel.setMinimumSize(new Dimension(155, 100));
-    cententProductPanel.setPreferredSize(new Dimension(155, 100));
-    cententProductPanel.setLayout(new BorderLayout());
+    contentProductPanel.setMaximumSize(new Dimension(155, 100));
+    contentProductPanel.setMinimumSize(new Dimension(155, 100));
+    contentProductPanel.setPreferredSize(new Dimension(155, 100));
+    contentProductPanel.setLayout(new BorderLayout());
 
     checkboxPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
 
     checkboxPanel.add(deleteProductButton);
 
-    cententProductPanel.add(checkboxPanel, BorderLayout.PAGE_START);
+    contentProductPanel.add(checkboxPanel, BorderLayout.PAGE_START);
 
     bookImagePanel.setLayout(new BorderLayout());
-    cententProductPanel.add(bookImagePanel, BorderLayout.CENTER);
+    contentProductPanel.add(bookImagePanel, BorderLayout.CENTER);
 
-    add(cententProductPanel, BorderLayout.LINE_START);
+    add(contentProductPanel, BorderLayout.LINE_START);
 
     contentCartPanel.setLayout(new BorderLayout());
 

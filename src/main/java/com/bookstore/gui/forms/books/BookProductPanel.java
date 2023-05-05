@@ -9,6 +9,10 @@ import javax.swing.JPanel;
 
 public class BookProductPanel extends JPanel {
 
+  private JButton bookDetailButton;
+  private JPanel bookImagePanel;
+  private JLabel bookTitleLabel;
+
   public BookProductPanel() {
     initComponents();
   }
@@ -44,8 +48,4 @@ public class BookProductPanel extends JPanel {
     bookDetailButton.setText("Book Detail");
     add(bookDetailButton, BorderLayout.PAGE_END);
   }
-
-  private JButton bookDetailButton;
-  private JPanel bookImagePanel;
-  private JLabel bookTitleLabel;
 }

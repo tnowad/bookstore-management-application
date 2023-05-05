@@ -21,16 +21,26 @@ import javax.swing.table.DefaultTableModel;
 
 public class Cart extends JPanel {
 
-  private static Cart instance;
-  private UserModel userModel;
+  private BookBUS bookBUS;
   private CartBUS cartBUS;
-  private List<CartModel> cartList;
-  private CartModel cartModel;
   private CartItemsBUS cartItemsBUS;
+  private CartModel cartModel;
+  private JButton deleteAllProductsButton;
+  private JButton proceedToCheckoutButton;
+  private JCheckBox chooseAllCheckBox;
+  private JLabel totalCostLabel;
+  private JPanel groupActionPanel;
+  private JPanel groupBottomPanel;
+  private JPanel groupTotalCostPanel;
+  private JPanel listCartPanel;
+  private JScrollPane listCartScrollPane;
+  private JTable listCartTable;
+  private JTextField totalPriceTextField;
+  private List<BookModel> bookList;
   private List<CartItemsModel> cartItemList;
   private List<CartItemsModel> myCartList;
-  private BookBUS bookBUS;
-  private List<BookModel> bookList;
+  private List<CartModel> cartList;
+  private UserModel userModel;
 
   public Cart() {
     updateData();
@@ -241,16 +251,4 @@ public class Cart extends JPanel {
     //   }
     // });
   }
-
-  private JCheckBox chooseAllCheckBox;
-  private JButton deleteAllProductsButton;
-  private JPanel groupActionPanel;
-  private JPanel groupBottomPanel;
-  private JPanel groupTotalCostPanel;
-  private JPanel listCartPanel;
-  private JScrollPane listCartScrollPane;
-  private JTable listCartTable;
-  private JButton proceedToCheckoutButton;
-  private JLabel totalCostLabel;
-  private JTextField totalPriceTextField;
 }
