@@ -1,5 +1,6 @@
 package com.bookstore.gui.components.cards;
 
+import com.bookstore.models.gui.StatisticCardModel;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
@@ -8,25 +9,32 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import javax.swing.GroupLayout;
-import javax.swing.Icon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.LayoutStyle;
 
-import com.bookstore.models.gui.StatisticCardModel;
-
 public class CardPanel extends JPanel {
 
   private JLabel labelDescription;
-  private JLabel labelIcon;
   private JLabel labelTitle;
   private JLabel labelValues;
 
   private Color colorTop;
   private Color colorBottom;
+  private StatisticCardModel statisticCardModel;
 
   public Color getColorTop() {
     return colorTop;
+  }
+
+  public void setColor(Color colorTop, Color colorBottom) {
+    this.colorTop = colorTop;
+    this.colorBottom = colorBottom;
+  }
+
+  public void setColor(Color color) {
+    this.colorTop = color;
+    this.colorBottom = color;
   }
 
   public void setColorTop(Color color1) {
@@ -41,59 +49,18 @@ public class CardPanel extends JPanel {
     this.colorBottom = color2;
   }
 
-  public CardPanel() {
+  public CardPanel(StatisticCardModel statisticCardModel) {
+    this.statisticCardModel = statisticCardModel;
     initComponents();
     setOpaque(false);
     colorTop = Color.BLACK;
     colorBottom = Color.WHITE;
   }
 
-  public void setData(StatisticCardModel data) {
-    labelIcon.setIcon(data.getIcon());
-    labelTitle.setText(data.getTitle());
-    labelValues.setText(data.getValues());
-    labelDescription.setText(data.getDescription());
-  }
-
   private void initComponents() {
-    labelIcon = new JLabel();
     labelTitle = new JLabel();
     labelValues = new JLabel();
     labelDescription = new JLabel();
-
-    labelIcon.setIcon(
-      new Icon() {
-        @Override
-        public void paintIcon(Component c, Graphics g, int x, int y) {
-          Graphics2D g2d = (Graphics2D) g;
-          g2d.setRenderingHint(
-            RenderingHints.KEY_ANTIALIASING,
-            RenderingHints.VALUE_ANTIALIAS_ON
-          );
-          GradientPaint gp = new GradientPaint(
-            0,
-            0,
-            colorTop,
-            0,
-            50,
-            colorBottom,
-            true
-          );
-          g2d.setPaint(gp);
-          g2d.fillOval(0, 0, 50, 50);
-        }
-
-        @Override
-        public int getIconWidth() {
-          return 50;
-        }
-
-        @Override
-        public int getIconHeight() {
-          return 50;
-        }
-      }
-    );
 
     labelTitle.setFont(new Font("sansserif", 1, 14));
     labelTitle.setForeground(new Color(255, 255, 255));
@@ -122,7 +89,6 @@ public class CardPanel extends JPanel {
                 .addComponent(labelDescription)
                 .addComponent(labelValues)
                 .addComponent(labelTitle)
-                .addComponent(labelIcon)
             )
             .addContainerGap(283, Short.MAX_VALUE)
         )
@@ -133,8 +99,6 @@ public class CardPanel extends JPanel {
         .addGroup(
           layout
             .createSequentialGroup()
-            .addGap(32, 32, 32)
-            .addComponent(labelIcon)
             .addGap(18, 18, 18)
             .addComponent(labelTitle)
             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
@@ -144,6 +108,11 @@ public class CardPanel extends JPanel {
             .addContainerGap(25, Short.MAX_VALUE)
         )
     );
+
+    labelTitle.setIcon(statisticCardModel.getIcon());
+    labelTitle.setText(statisticCardModel.getTitle());
+    labelValues.setText(statisticCardModel.getValues());
+    labelDescription.setText(statisticCardModel.getDescription());
   }
 
   @Override
@@ -153,7 +122,7 @@ public class CardPanel extends JPanel {
       RenderingHints.KEY_ANTIALIASING,
       RenderingHints.VALUE_ANTIALIAS_ON
     );
-    GradientPaint g = new GradientPaint(
+    GradientPaint gradientPaint = new GradientPaint(
       0,
       0,
       colorTop,
@@ -161,7 +130,7 @@ public class CardPanel extends JPanel {
       getHeight(),
       colorBottom
     );
-    graphics2d.setPaint(g);
+    graphics2d.setPaint(gradientPaint);
     graphics2d.fillRoundRect(0, 0, getWidth(), getHeight(), 15, 15);
     graphics2d.setColor(new Color(255, 255, 255, 50));
     graphics2d.fillOval(

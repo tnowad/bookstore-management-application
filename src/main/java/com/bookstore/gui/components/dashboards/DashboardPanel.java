@@ -5,6 +5,7 @@ import com.bookstore.bus.OrderBUS;
 import com.bookstore.bus.UserBUS;
 import com.bookstore.gui.components.cards.CardPanel;
 import com.bookstore.gui.components.tables.Table;
+import com.bookstore.interfaces.ISearchable;
 import com.bookstore.models.OrderModel;
 import com.bookstore.models.gui.StatisticCardModel;
 import com.bookstore.models.tables.OrderRecentTableModel;
@@ -20,7 +21,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 
-public class DashboardPanel extends JPanel {
+public class DashboardPanel extends JPanel implements ISearchable {
 
   private JPanel headerPanel;
   private JPanel contentPanel;
@@ -40,56 +41,49 @@ public class DashboardPanel extends JPanel {
   private void initComponents() {
     setLayout(new BorderLayout());
     headerPanel = new JPanel(new GridBagLayout());
-    totalRevenuePanel = new CardPanel();
-    totalOrderPanel = new CardPanel();
-    totalProductPanel = new CardPanel();
-    totalUserPanel = new CardPanel();
+    headerPanel.setBackground(Color.WHITE);
 
-    totalRevenuePanel.setColorBottom(Color.decode("#FFC107"));
-    totalOrderPanel.setColorBottom(Color.decode("#FFC107"));
-    totalProductPanel.setColorBottom(Color.decode("#4CAF50"));
-    totalUserPanel.setColorBottom(Color.decode("#2196F3"));
+    totalRevenuePanel =
+      new CardPanel(
+        new StatisticCardModel(
+          new ImageIcon("src/main/java/resources/icons/revenue.png"),
+          "Total Revenue",
+          "Rp. " + OrderBUS.getInstance().calculateTotalRevenue(),
+          "Total revenue from all orders"
+        )
+      );
+    totalOrderPanel =
+      new CardPanel(
+        new StatisticCardModel(
+          new ImageIcon("src/main/java/resources/icons/cart.png"),
+          "Total Order",
+          OrderBUS.getInstance().getAllModels().size() + "",
+          "Total order from all users"
+        )
+      );
+    totalProductPanel =
+      new CardPanel(
+        new StatisticCardModel(
+          new ImageIcon("src/main/java/resources/icons/book.png"),
+          "Total Product",
+          BookBUS.getInstance().getAllModels().size() + "",
+          "Total product in the store"
+        )
+      );
+    totalUserPanel =
+      new CardPanel(
+        new StatisticCardModel(
+          new ImageIcon("src/main/java/resources/icons/user.png"),
+          "Total User",
+          UserBUS.getInstance().getAllModels().size() + "",
+          "Total user in the store"
+        )
+      );
 
-    totalRevenuePanel.setColorTop(Color.decode("#FFC107"));
-    totalOrderPanel.setColorTop(Color.decode("#FFC107"));
-    totalProductPanel.setColorTop(Color.decode("#4CAF50"));
-    totalUserPanel.setColorTop(Color.decode("#2196F3"));
-
-    totalRevenuePanel.setData(
-      new StatisticCardModel(
-        new ImageIcon("src/main/resources/icons/revenue.png"),
-        "Total Revenue",
-        "Rp. " + OrderBUS.getInstance().calculateTotalRevenue(),
-        "Total revenue from all orders"
-      )
-    );
-
-    totalOrderPanel.setData(
-      new StatisticCardModel(
-        new ImageIcon("src/main/resources/icons/order.png"),
-        "Total Order",
-        OrderBUS.getInstance().getAllModels().size() + "",
-        "Total order from all users"
-      )
-    );
-
-    totalProductPanel.setData(
-      new StatisticCardModel(
-        new ImageIcon("src/main/resources/icons/product.png"),
-        "Total Product",
-        BookBUS.getInstance().getAllModels().size() + "",
-        "Total product in the store"
-      )
-    );
-
-    totalUserPanel.setData(
-      new StatisticCardModel(
-        new ImageIcon("src/main/resources/icons/user.png"),
-        "Total User",
-        UserBUS.getInstance().getAllModels().size() + "",
-        "Total user in the store"
-      )
-    );
+    totalOrderPanel.setColor(Color.decode("#FFC107"));
+    totalRevenuePanel.setColor(Color.decode("#FFC107"));
+    totalProductPanel.setColor(Color.decode("#4CAF50"));
+    totalUserPanel.setColor(Color.decode("#2196F3"));
 
     GridBagConstraints gridBagConstraints = new GridBagConstraints();
     gridBagConstraints.insets = new Insets(10, 10, 10, 10);
@@ -110,24 +104,50 @@ public class DashboardPanel extends JPanel {
     headerPanel.add(totalUserPanel, gridBagConstraints);
 
     add(headerPanel, BorderLayout.NORTH);
+
     contentPanel = new JPanel(new BorderLayout());
+    contentPanel.setBackground(Color.WHITE);
 
     table = new Table();
-
     JLabel label = new JLabel("Recent Orders");
-
-    contentPanel.add(table, BorderLayout.CENTER);
     contentPanel.add(label, BorderLayout.NORTH);
-
+    contentPanel.add(table, BorderLayout.CENTER);
     JScrollPane scrollPane = new JScrollPane(table);
     contentPanel.add(scrollPane, BorderLayout.CENTER);
-
     add(contentPanel, BorderLayout.CENTER);
   }
 
   public void updateTable() {
     List<OrderModel> orders = OrderBUS.getInstance().getAllModels();
     DefaultTableModel model = new OrderRecentTableModel(orders);
+    table.setModel(model);
+  }
+
+  @Override
+  public void search(String keyword) {
+    List<OrderModel> orders = OrderBUS.getInstance().getAllModels();
+    List<OrderModel> filteredOrders = new java.util.ArrayList<>();
+
+    for (OrderModel order : orders) {
+      if (
+        UserBUS
+          .getInstance()
+          .getModelById(order.getCustomerId())
+          .getEmail()
+          .toLowerCase()
+          .contains(keyword.toLowerCase()) ||
+        UserBUS
+          .getInstance()
+          .getModelById(order.getEmployeeId())
+          .getEmail()
+          .toLowerCase()
+          .contains(keyword.toLowerCase())
+      ) {
+        filteredOrders.add(order);
+      }
+    }
+
+    DefaultTableModel model = new OrderRecentTableModel(filteredOrders);
     table.setModel(model);
   }
 }

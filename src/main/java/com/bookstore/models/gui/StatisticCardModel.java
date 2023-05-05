@@ -1,6 +1,8 @@
 package com.bookstore.models.gui;
 
+import java.awt.Image;
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 
 public class StatisticCardModel {
 
@@ -24,7 +26,23 @@ public class StatisticCardModel {
   }
 
   public Icon getIcon() {
-    return icon;
+    if (icon == null) {
+      icon = new ImageIcon("");
+    }
+    Image iconImage = ((ImageIcon) icon).getImage();
+    return new ImageIcon(
+      iconImage.getScaledInstance(24, 24, Image.SCALE_SMOOTH)
+    ) {
+      @Override
+      public int getIconHeight() {
+        return 24;
+      }
+
+      @Override
+      public int getIconWidth() {
+        return 24;
+      }
+    };
   }
 
   public void setIcon(Icon icon) {
