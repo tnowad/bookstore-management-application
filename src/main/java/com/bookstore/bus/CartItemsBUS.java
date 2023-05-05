@@ -185,7 +185,6 @@ public class CartItemsBUS implements IBUS<CartItemsModel> {
 
   @Override
   public CartItemsModel getModelById(int id) {
-    // TODO Auto-generated method stub
     throw new UnsupportedOperationException(
       "Unimplemented method 'getModelById'"
     );
