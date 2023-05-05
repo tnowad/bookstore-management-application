@@ -16,7 +16,6 @@ import com.bookstore.gui.forms.accounts.AccountSettings;
 import com.bookstore.gui.forms.accounts.ProfileSettings;
 import com.bookstore.gui.forms.books.BookList;
 import com.bookstore.gui.forms.carts.Cart;
-import com.bookstore.gui.forms.customer.Checkout;
 import com.bookstore.gui.forms.customer.Order;
 import com.bookstore.gui.forms.general.AboutUs;
 import com.bookstore.gui.forms.general.ContactUs;
@@ -31,7 +30,6 @@ import com.bookstore.models.UserModel;
 import com.bookstore.models.gui.MenuItemModel;
 import com.bookstore.models.gui.MenuModel;
 import com.bookstore.models.gui.SubMenuItemModel;
-
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
@@ -684,9 +682,6 @@ public class MenuFactory {
     MainPanel.getInstance().showForm(new Cart());
   };
 
-  private static ActionListener showCheckoutCustomer = e -> {
-    MainPanel.getInstance().showForm(Checkout.getInstance());
-  };
   private static ActionListener showMyOrderCustomer = e -> {
     MainPanel.getInstance().showForm(Order.getInstance());
   };
