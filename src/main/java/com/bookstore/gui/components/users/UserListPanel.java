@@ -66,7 +66,7 @@ public class UserListPanel extends JPanel {
 
     titlePanel.setFont(new Font("Segoe UI", 3, 14));
     titlePanel.setText("User List");
-    add(titlePanel, java.awt.BorderLayout.NORTH);
+    add(titlePanel, BorderLayout.NORTH);
 
     contend.setLayout(new BorderLayout(0, 5));
 
@@ -102,7 +102,7 @@ public class UserListPanel extends JPanel {
 
     cartPanel.add(cartUserAdmin);
 
-    contend.add(cartPanel, java.awt.BorderLayout.PAGE_START);
+    contend.add(cartPanel, BorderLayout.PAGE_START);
 
     contendTable.setLayout(new BorderLayout());
 
@@ -134,7 +134,7 @@ public class UserListPanel extends JPanel {
     filterCustomer.addActionListener(findCustomer);
     buttonFilter.add(filterCustomer);
 
-    buttonPanel.add(buttonFilter, java.awt.BorderLayout.WEST);
+    buttonPanel.add(buttonFilter, BorderLayout.WEST);
 
     buttonAction.setLayout(new GridLayout(1, 0, 0, 5));
 
@@ -146,9 +146,9 @@ public class UserListPanel extends JPanel {
     buttonBanned.addActionListener(actionDelete);
     buttonAction.add(buttonBanned);
 
-    buttonPanel.add(buttonAction, java.awt.BorderLayout.EAST);
+    buttonPanel.add(buttonAction, BorderLayout.EAST);
 
-    contendTable.add(buttonPanel, java.awt.BorderLayout.PAGE_START);
+    contendTable.add(buttonPanel, BorderLayout.PAGE_START);
 
     tablePanel.setLayout(new BorderLayout());
 
@@ -191,17 +191,17 @@ public class UserListPanel extends JPanel {
 
     headerTable.add(panelItemHeader_2);
 
-    tablePanel.add(headerTable, java.awt.BorderLayout.PAGE_START);
+    tablePanel.add(headerTable, BorderLayout.PAGE_START);
 
     scrollPane.setViewportView(table);
 
-    tablePanel.add(scrollPane, java.awt.BorderLayout.CENTER);
+    tablePanel.add(scrollPane, BorderLayout.CENTER);
 
-    contendTable.add(tablePanel, java.awt.BorderLayout.CENTER);
+    contendTable.add(tablePanel, BorderLayout.CENTER);
 
-    contend.add(contendTable, java.awt.BorderLayout.CENTER);
+    contend.add(contendTable, BorderLayout.CENTER);
 
-    add(contend, java.awt.BorderLayout.CENTER);
+    add(contend, BorderLayout.CENTER);
   }
 
   public void actionCard() {

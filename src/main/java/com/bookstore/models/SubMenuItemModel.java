@@ -35,7 +35,7 @@ public class SubMenuItemModel {
     }
     Image iconImage = ((ImageIcon) icon).getImage();
     return new ImageIcon(
-      iconImage.getScaledInstance(24, 24, java.awt.Image.SCALE_SMOOTH)
+      iconImage.getScaledInstance(24, 24, Image.SCALE_SMOOTH)
     ) {
       @Override
       public int getIconHeight() {

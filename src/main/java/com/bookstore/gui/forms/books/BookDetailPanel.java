@@ -65,7 +65,7 @@ public class BookDetailPanel extends JPanel {
     );
     bookTitleHeaderPanel.add(bookTitleTextField);
 
-    add(bookTitleHeaderPanel, java.awt.BorderLayout.PAGE_START);
+    add(bookTitleHeaderPanel, BorderLayout.PAGE_START);
 
     bookDescriptionPanel.setPreferredSize(new Dimension(830, 200));
     bookDescriptionPanel.setLayout(new BorderLayout());
@@ -83,15 +83,15 @@ public class BookDetailPanel extends JPanel {
 
     descriptionLabel.setFont(new Font("Arial", 1, 18));
     descriptionLabel.setText("Desciption:");
-    bookDescriptionPanel.add(descriptionLabel, java.awt.BorderLayout.CENTER);
+    bookDescriptionPanel.add(descriptionLabel, BorderLayout.CENTER);
 
-    add(bookDescriptionPanel, java.awt.BorderLayout.PAGE_END);
+    add(bookDescriptionPanel, BorderLayout.PAGE_END);
 
     bookDetailsPanel.setLayout(new BorderLayout());
 
     bookImagePanel.setPreferredSize(new Dimension(300, 290));
     bookImagePanel.setLayout(new BorderLayout());
-    bookDetailsPanel.add(bookImagePanel, java.awt.BorderLayout.LINE_START);
+    bookDetailsPanel.add(bookImagePanel, BorderLayout.LINE_START);
 
     bookInformationPanel.setLayout(new BorderLayout());
 
@@ -222,11 +222,11 @@ public class BookDetailPanel extends JPanel {
     buyNowButton.setPreferredSize(new Dimension(90, 30));
     buttonPanel.add(buyNowButton);
 
-    bookInformationPanel.add(buttonPanel, java.awt.BorderLayout.PAGE_END);
+    bookInformationPanel.add(buttonPanel, BorderLayout.PAGE_END);
 
-    bookDetailsPanel.add(bookInformationPanel, java.awt.BorderLayout.CENTER);
+    bookDetailsPanel.add(bookInformationPanel, BorderLayout.CENTER);
 
-    add(bookDetailsPanel, java.awt.BorderLayout.CENTER);
+    add(bookDetailsPanel, BorderLayout.CENTER);
   } // </editor-fold>
 
   private void bookTitleTextFieldActionPerformed(

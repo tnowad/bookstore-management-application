@@ -7,7 +7,7 @@ import com.bookstore.models.BookModel;
 import java.awt.*;
 import javax.swing.*;
 
-public class BookDetail extends JFrame {
+public class BookDetail extends JPanel {
 
   private JButton addToCartButton;
   private Label authorLabel;

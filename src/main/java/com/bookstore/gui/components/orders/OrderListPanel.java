@@ -83,7 +83,7 @@ public class OrderListPanel extends JPanel {
     titlePanel.setFont(new Font("Segoe UI", 3, 18));
     titlePanel.setForeground(new Color(255, 0, 51));
     titlePanel.setText("List Order");
-    add(titlePanel, java.awt.BorderLayout.NORTH);
+    add(titlePanel, BorderLayout.NORTH);
 
     contend.setLayout(new BorderLayout());
 
@@ -104,17 +104,17 @@ public class OrderListPanel extends JPanel {
     ButtonDelete.setText("Delete");
     jPanel3.add(ButtonDelete);
 
-    buttonPanel.add(jPanel3, java.awt.BorderLayout.LINE_END);
+    buttonPanel.add(jPanel3, BorderLayout.LINE_END);
 
-    contend.add(buttonPanel, java.awt.BorderLayout.PAGE_START);
+    contend.add(buttonPanel, BorderLayout.PAGE_START);
 
     tableContend.setLayout(new BorderLayout());
 
-    tableContend.add(scrollPane, java.awt.BorderLayout.CENTER);
+    tableContend.add(scrollPane, BorderLayout.CENTER);
 
-    contend.add(tableContend, java.awt.BorderLayout.CENTER);
+    contend.add(tableContend, BorderLayout.CENTER);
 
-    add(contend, java.awt.BorderLayout.CENTER);
+    add(contend, BorderLayout.CENTER);
   }
 
   public void addTable() {
