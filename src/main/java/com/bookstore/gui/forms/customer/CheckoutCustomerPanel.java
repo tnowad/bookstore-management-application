@@ -40,9 +40,9 @@ public class CheckoutCustomerPanel extends JFrame {
   private JPanel groupTableProductPanel;
   private JRadioButton internationalShippingRadioButton;
   private Label paymentMethodLabel;
-  private JRadioButton jRadioButton1;
-  private JRadioButton jRadioButton2;
-  private JScrollPane jScrollPane1;
+  private JRadioButton cashRadioButton;
+  private JRadioButton creditRadioButton;
+  private JScrollPane bookListScrollPane;
   private JTable productListTable;
   private JTextField jTextField6;
   private Label nameLabel;
@@ -54,18 +54,13 @@ public class CheckoutCustomerPanel extends JFrame {
   private JRadioButton standardShippingRadioButton;
 
   // private int cartId;
-  private CartBUS cartBUS;
   private CartModel cartModel;
-  private CartItemsBUS cartItemsBUS;
   private java.util.List<CartItemsModel> cartItemList;
-  private UserModel userModel = Authentication.getCurrentUser();
-  private AddressBUS addressBUS;
+  private UserModel userModel;
   private AddressModel addressModel;
-  private BookBUS bookBUS;
 
   private java.util.List<BookModel> bookList;
-  private java.util.List<CartItemsModel> myCartList;
-  private java.util.List<CartModel> cartList;
+  private java.util.List<CartItemsModel> myCartItemList;
 
   public CheckoutCustomerPanel(CartModel cartModel) {
     this.cartModel = cartModel;
@@ -76,18 +71,26 @@ public class CheckoutCustomerPanel extends JFrame {
   }
 
   private void updateData() {
-    addressBUS = AddressBUS.getInstance();
-    addressModel = addressBUS.getModelById(userModel.getId());
-    cartBUS = CartBUS.getInstance();
-    // cartModel = cartBUS.getModelById(cartId);
-    cartItemsBUS = CartItemsBUS.getInstance();
+    userModel = Authentication.getCurrentUser();
+    addressModel = AddressBUS.getInstance().getModelById(userModel.getId());
     cartItemList = new ArrayList<CartItemsModel>();
-    for (CartItemsModel cartItemModel : cartItemsBUS.getAllModels()) {
+    for (CartItemsModel cartItemModel : CartItemsBUS
+      .getInstance()
+      .getAllModels()) {
       if (cartItemModel.getCartId() == cartModel.getId()) {
         cartItemList.add(cartItemModel);
       }
-      //
+    }
 
+    myCartItemList = new ArrayList<CartItemsModel>();
+    if (cartModel.getStatus() == CartStatus.PENDING) {
+      cartItemList = CartItemsBUS.getInstance().getAllModels();
+      bookList = BookBUS.getInstance().getAllModels();
+      for (CartItemsModel cartItemsModel : cartItemList) {
+        if (cartItemsModel.getCartId() == cartModel.getId()) {
+          myCartItemList.add(cartItemsModel);
+        }
+      }
     }
 
     nameTextField.setText(userModel.getName());
@@ -118,8 +121,8 @@ public class CheckoutCustomerPanel extends JFrame {
     groupContentPanel = new JPanel();
     groupPaymentMethodPanel = new JPanel();
     paymentMethodLabel = new Label("Payment Method");
-    jRadioButton1 = new JRadioButton();
-    jRadioButton2 = new JRadioButton();
+    cashRadioButton = new JRadioButton();
+    creditRadioButton = new JRadioButton();
     shippingMethodLabel = new Label("Shipping method");
     internationalShippingRadioButton = new JRadioButton();
     standardShippingRadioButton = new JRadioButton();
@@ -133,7 +136,7 @@ public class CheckoutCustomerPanel extends JFrame {
     cvvLabel = new Label("Cvv");
     cvvTextField = new JTextField();
     groupTableProductPanel = new JPanel();
-    jScrollPane1 = new JScrollPane();
+    bookListScrollPane = new JScrollPane();
     productListTable = new JTable();
     groupButtonPanel = new JPanel();
     checkoutButton = new JButton();
@@ -177,14 +180,14 @@ public class CheckoutCustomerPanel extends JFrame {
 
     ButtonGroup groupPaymentMethodRadio = new ButtonGroup();
 
-    jRadioButton1.setText("Cash");
-    groupPaymentMethodPanel.add(jRadioButton1);
+    cashRadioButton.setText("Cash");
+    groupPaymentMethodPanel.add(cashRadioButton);
 
-    jRadioButton2.setText("Credit");
-    groupPaymentMethodPanel.add(jRadioButton2);
+    creditRadioButton.setText("Credit");
+    groupPaymentMethodPanel.add(creditRadioButton);
 
-    groupPaymentMethodRadio.add(jRadioButton1);
-    groupPaymentMethodRadio.add(jRadioButton2);
+    groupPaymentMethodRadio.add(cashRadioButton);
+    groupPaymentMethodRadio.add(creditRadioButton);
 
     groupPaymentMethodPanel.add(shippingMethodLabel);
 
@@ -234,9 +237,9 @@ public class CheckoutCustomerPanel extends JFrame {
     getContentPane().add(groupContentPanel, BorderLayout.CENTER);
 
     productListTable.setPreferredSize(new Dimension(250, 50));
-    jScrollPane1.setViewportView(productListTable);
+    bookListScrollPane.setViewportView(productListTable);
 
-    groupTableProductPanel.add(jScrollPane1);
+    groupTableProductPanel.add(bookListScrollPane);
 
     getContentPane().add(groupTableProductPanel, BorderLayout.LINE_END);
 
@@ -259,7 +262,7 @@ public class CheckoutCustomerPanel extends JFrame {
     model.addColumn("Title");
     model.addColumn("Price");
     model.addColumn("Quantity");
-    for (CartItemsModel cartItemsModel : myCartList) {
+    for (CartItemsModel cartItemsModel : myCartItemList) {
       for (BookModel bookModel : bookList) {
         if (
           cartItemsModel.getBookIsbn().equalsIgnoreCase(bookModel.getIsbn())
@@ -277,15 +280,15 @@ public class CheckoutCustomerPanel extends JFrame {
       }
     }
     productListTable.setModel(model);
-    jScrollPane1.setViewportView(productListTable);
-    groupTableProductPanel.add(jScrollPane1, BorderLayout.CENTER);
+    bookListScrollPane.setViewportView(productListTable);
+    groupTableProductPanel.add(bookListScrollPane, BorderLayout.CENTER);
   }
 
   private void handleEvent() {
-    jRadioButton2.addActionListener(e -> {
+    creditRadioButton.addActionListener(e -> {
       groupContentPanel.add(groupCreditCardPanel);
     });
-    jRadioButton1.addActionListener(e -> {
+    cashRadioButton.addActionListener(e -> {
       groupContentPanel.remove(groupCreditCardPanel);
       groupButtonPanel.revalidate();
       groupButtonPanel.repaint();
