@@ -87,8 +87,6 @@ public class BookDetailCustomer extends JPanel {
     quantitySpinner = new JSpinner();
     addToCartButton = new JButton();
 
-    setMaximumSize(new Dimension(750, 530));
-    setMinimumSize(new Dimension(750, 530));
     setPreferredSize(new Dimension(800, 530));
     setLayout(new BorderLayout());
 

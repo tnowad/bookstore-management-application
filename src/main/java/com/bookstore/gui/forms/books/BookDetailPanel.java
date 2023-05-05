@@ -105,7 +105,7 @@ public class BookDetailPanel extends JPanel {
     bookDescriptionPanel.add(descriptionTextArea, BorderLayout.PAGE_END);
 
     descriptionLabel.setFont(new Font("Arial", 1, 18));
-    descriptionLabel.setText("Desciption:");
+    descriptionLabel.setText("Description:");
     bookDescriptionPanel.add(descriptionLabel, BorderLayout.CENTER);
 
     add(bookDescriptionPanel, BorderLayout.PAGE_END);

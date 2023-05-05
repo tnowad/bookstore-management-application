@@ -1,4 +1,4 @@
-package com.bookstore.gui.forms.customer;
+package com.bookstore.gui.forms.checkout;
 
 import com.bookstore.bus.AddressBUS;
 import com.bookstore.bus.BookBUS;
@@ -16,13 +16,12 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Flow;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 public class CheckoutCustomerPanel extends JPanel {
 
-  private JPanel acctionBackPreviousPanel;
+  private JPanel actionBackPreviousPanel;
   private JLabel addressLabel;
   private JTextField addressTextField;
   private JButton backPreviousButton;
@@ -38,7 +37,6 @@ public class CheckoutCustomerPanel extends JPanel {
   private JPanel groupButtonPanel;
   private JPanel groupCheckoutInfoPanel;
   private JPanel infoUserPanel;
-  private JPanel infoUserWrapperPanel;
   private JRadioButton internationalShippingRadioButton;
   private JLabel expirationDateLabel;
   private JLabel cvvLabel;
@@ -169,11 +167,11 @@ public class CheckoutCustomerPanel extends JPanel {
   }
 
   private void initComponents() {
-    acctionBackPreviousPanel = new JPanel();
+    actionBackPreviousPanel = new JPanel();
     backPreviousButton = new JButton();
     groupCheckoutInfoPanel = new JPanel();
     infoUserPanel = new JPanel();
-    infoUserWrapperPanel = new JPanel();
+    new JPanel();
     nameLabel = new JLabel();
     nameTextField = new JTextField();
     emailLabel = new JLabel();
@@ -216,15 +214,15 @@ public class CheckoutCustomerPanel extends JPanel {
 
     setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-    acctionBackPreviousPanel.setLayout(
+    actionBackPreviousPanel.setLayout(
       new java.awt.FlowLayout(java.awt.FlowLayout.LEFT)
     );
 
     backPreviousButton.setText("Back Previous");
 
-    acctionBackPreviousPanel.add(backPreviousButton);
+    actionBackPreviousPanel.add(backPreviousButton);
 
-    add(acctionBackPreviousPanel);
+    add(actionBackPreviousPanel);
 
     groupCheckoutInfoPanel.setLayout(
       new BoxLayout(groupCheckoutInfoPanel, BoxLayout.X_AXIS)

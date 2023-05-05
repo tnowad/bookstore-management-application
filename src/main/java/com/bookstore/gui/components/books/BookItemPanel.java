@@ -1,4 +1,4 @@
-package com.bookstore.gui.forms.customer;
+package com.bookstore.gui.components.books;
 
 import com.bookstore.bus.CartBUS;
 import com.bookstore.bus.CartItemsBUS;

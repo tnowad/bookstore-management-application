@@ -179,7 +179,7 @@ public class BookList extends JPanel {
           if (text == null || text.isBlank()) {
             JOptionPane.showMessageDialog(
               null,
-              "Vui lòng nhập thông tin tìm kiếm !"
+              "Please enter the title of the book you want to search"
             );
             showTable();
           } else {
