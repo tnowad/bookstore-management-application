@@ -26,7 +26,6 @@ public class RegisterFrame extends JFrame {
   private LayoutManager layout;
   private JPanel registerPanel;
   private Button exitButton;
-  private Button forgotPasswordButton;
   private Button registerButton;
   private Button loginButton;
   private JLabel LogoLabel;
@@ -65,7 +64,7 @@ public class RegisterFrame extends JFrame {
     layout = new FlowLayout(FlowLayout.CENTER, 10, 10);
     setLayout(layout);
     LogoLabel = new JLabel();
-    LogoLabel.setIcon(new ImageIcon("src/main/java/resources/book_logo.png"));
+    LogoLabel.setIcon(new ImageIcon("src/main/java/resources/images/logo.png"));
 
     registerPanel = new JPanel();
     registerPanel.setLayout(new GridBagLayout());
@@ -83,7 +82,7 @@ public class RegisterFrame extends JFrame {
     passwordField = new JPasswordField();
     confirmPasswordField = new JPasswordField();
     exitButton = new Button("Exit");
-    forgotPasswordButton = new Button("Forgot Password");
+
     registerButton = new Button("Register");
     registerButton.addActionListener(registerButtonActionListener);
     loginButton = new Button("Login");
@@ -125,7 +124,6 @@ public class RegisterFrame extends JFrame {
     gridBagConstraints.gridx = 1;
     registerPanel.add(loginButton, gridBagConstraints);
     gridBagConstraints.gridx = 2;
-    registerPanel.add(forgotPasswordButton, gridBagConstraints);
     gridBagConstraints.gridx = 3;
     registerPanel.add(exitButton, gridBagConstraints);
 
