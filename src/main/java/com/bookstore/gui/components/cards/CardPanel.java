@@ -2,7 +2,6 @@ package com.bookstore.gui.components.cards;
 
 import com.bookstore.models.gui.StatisticCardModel;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Font;
 import java.awt.GradientPaint;
 import java.awt.Graphics;

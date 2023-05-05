@@ -674,10 +674,6 @@ public class MenuFactory {
   private static ActionListener showHomeCustomer = e -> {
     MainPanel.getInstance().showForm(ShopCustomer.getInstance());
   };
-  private static ActionListener showDiscoveryCustomer = e -> {
-    MainPanel.getInstance().showForm(ShopCustomer.getInstance());
-  };
-
   private static ActionListener showCartCustomer = e -> {
     MainPanel.getInstance().showForm(new Cart());
   };

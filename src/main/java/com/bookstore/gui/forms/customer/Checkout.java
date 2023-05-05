@@ -220,8 +220,6 @@ public class Checkout extends JFrame {
     cvvTextField.setPreferredSize(new Dimension(73, 10));
     groupCreditCardPanel.add(cvvTextField);
 
-    // groupContentPanel.add(groupInforCreditCardPanel);
-
     getContentPane().add(groupContentPanel, BorderLayout.CENTER);
 
     productListTable.setPreferredSize(new Dimension(250, 50));

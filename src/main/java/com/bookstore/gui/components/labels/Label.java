@@ -1,6 +1,5 @@
 package com.bookstore.gui.components.labels;
 
-import com.bookstore.gui.theme.ThemeColor;
 import com.bookstore.gui.theme.ThemeFont;
 import java.awt.Cursor;
 import java.awt.Dimension;
