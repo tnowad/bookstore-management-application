@@ -1,10 +1,13 @@
 package com.bookstore.gui.forms.customer;
 
 import com.bookstore.bus.AddressBUS;
+import com.bookstore.bus.BookBUS;
 import com.bookstore.bus.CartBUS;
 import com.bookstore.bus.CartItemsBUS;
+import com.bookstore.enums.CartStatus;
 import com.bookstore.gui.components.labels.Label;
 import com.bookstore.models.AddressModel;
+import com.bookstore.models.BookModel;
 import com.bookstore.models.CartItemsModel;
 import com.bookstore.models.CartModel;
 import com.bookstore.models.UserModel;
@@ -12,8 +15,9 @@ import com.bookstore.services.Authentication;
 import java.awt.*;
 import java.util.ArrayList;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
-public class Checkout extends JFrame {
+public class CheckoutCustomerPanel extends JFrame {
 
   private Label addressLabel;
   private JTextField addressTextField;
@@ -49,7 +53,7 @@ public class Checkout extends JFrame {
   private Label shippingMethodLabel;
   private JRadioButton standardShippingRadioButton;
 
-  private int cartId;
+  // private int cartId;
   private CartBUS cartBUS;
   private CartModel cartModel;
   private CartItemsBUS cartItemsBUS;
@@ -57,9 +61,14 @@ public class Checkout extends JFrame {
   private UserModel userModel = Authentication.getCurrentUser();
   private AddressBUS addressBUS;
   private AddressModel addressModel;
+  private BookBUS bookBUS;
 
-  public Checkout(int cartId) {
-    this.cartId = cartId;
+  private java.util.List<BookModel> bookList;
+  private java.util.List<CartItemsModel> myCartList;
+  private java.util.List<CartModel> cartList;
+
+  public CheckoutCustomerPanel(CartModel cartModel) {
+    this.cartModel = cartModel;
     initComponents();
     updateData();
     handleEvent();
@@ -70,13 +79,15 @@ public class Checkout extends JFrame {
     addressBUS = AddressBUS.getInstance();
     addressModel = addressBUS.getModelById(userModel.getId());
     cartBUS = CartBUS.getInstance();
-    cartModel = cartBUS.getModelById(cartId);
+    // cartModel = cartBUS.getModelById(cartId);
     cartItemsBUS = CartItemsBUS.getInstance();
     cartItemList = new ArrayList<CartItemsModel>();
     for (CartItemsModel cartItemModel : cartItemsBUS.getAllModels()) {
-      if (cartItemModel.getCartId() == cartId) {
+      if (cartItemModel.getCartId() == cartModel.getId()) {
         cartItemList.add(cartItemModel);
       }
+      //
+
     }
 
     nameTextField.setText(userModel.getName());
@@ -242,7 +253,35 @@ public class Checkout extends JFrame {
     pack();
   }
 
-  private void showProductListTable() {}
+  private void showProductListTable() {
+    CartItemsBUS.getInstance().refreshData();
+    updateData();
+    DefaultTableModel model = new DefaultTableModel();
+    model.addColumn("ISBN");
+    model.addColumn("Title");
+    model.addColumn("Price");
+    model.addColumn("Quantity");
+    for (CartItemsModel cartItemsModel : myCartList) {
+      for (BookModel bookModel : bookList) {
+        if (
+          cartItemsModel.getBookIsbn().equalsIgnoreCase(bookModel.getIsbn())
+        ) {
+          System.out.println(cartItemsModel.getCartId());
+          model.addRow(
+            new Object[] {
+              bookModel.getIsbn(),
+              bookModel.getTitle(),
+              bookModel.getPrice(),
+              cartItemsModel.getQuantity(),
+            }
+          );
+        }
+      }
+    }
+    productListTable.setModel(model);
+    jScrollPane1.setViewportView(productListTable);
+    groupTableProductPanel.add(jScrollPane1, BorderLayout.CENTER);
+  }
 
   private void handleEvent() {
     jRadioButton2.addActionListener(e -> {

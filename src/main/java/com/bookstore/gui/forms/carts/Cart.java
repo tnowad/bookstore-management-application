@@ -5,7 +5,7 @@ import com.bookstore.bus.CartBUS;
 import com.bookstore.bus.CartItemsBUS;
 import com.bookstore.enums.CartStatus;
 import com.bookstore.gui.components.dialogs.Dialog;
-import com.bookstore.gui.forms.customer.Checkout;
+import com.bookstore.gui.forms.customer.CheckoutCustomerPanel;
 import com.bookstore.models.BookModel;
 import com.bookstore.models.CartItemsModel;
 import com.bookstore.models.CartModel;
@@ -21,10 +21,6 @@ import javax.swing.table.DefaultTableModel;
 
 public class Cart extends JPanel {
 
-  private BookBUS bookBUS;
-  private CartBUS cartBUS;
-  private CartItemsBUS cartItemsBUS;
-  private CartModel cartModel;
   private JButton deleteAllProductsButton;
   private JButton proceedToCheckoutButton;
   private JCheckBox chooseAllCheckBox;
@@ -36,6 +32,11 @@ public class Cart extends JPanel {
   private JScrollPane listCartScrollPane;
   private JTable listCartTable;
   private JTextField totalPriceTextField;
+  
+  private BookBUS bookBUS;
+  private CartBUS cartBUS;
+  private CartItemsBUS cartItemsBUS;
+  private CartModel cartModel;
   private List<BookModel> bookList;
   private List<CartItemsModel> cartItemList;
   private List<CartItemsModel> myCartList;
@@ -208,7 +209,7 @@ public class Cart extends JPanel {
         );
       } else {
         // cartBUS.updateStatus(cartModel.getId(), "SHOPPING");
-        new Dialog(new Checkout(cartModel.getId()));
+        new Dialog(new CheckoutCustomerPanel(cartModel));
         JOptionPane.showMessageDialog(
           null,
           "Your cart is shopping",
