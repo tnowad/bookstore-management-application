@@ -40,8 +40,6 @@ public class Cart extends JPanel {
     handleEvent();
   }
 
-
-
   private void updateData() {
     userModel = Authentication.getCurrentUser();
     cartBUS = CartBUS.getInstance();
@@ -50,6 +48,14 @@ public class Cart extends JPanel {
       if (cartModel.getUserId() == userModel.getId()) {
         this.cartModel = cartModel;
       }
+    }
+    if (cartModel == null) {
+      cartModel = new CartModel();
+      cartModel.setUserId(userModel.getId());
+      cartModel.setStatus(CartStatus.PENDING);
+      cartModel.setPromotionId(1);
+      CartBUS.getInstance().addModel(cartModel);
+      System.out.println("Add cart model");
     }
     myCartList = new ArrayList<CartItemsModel>();
     cartItemsBUS = CartItemsBUS.getInstance();
