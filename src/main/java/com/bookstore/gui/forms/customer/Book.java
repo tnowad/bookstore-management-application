@@ -5,6 +5,7 @@ import com.bookstore.bus.CartItemsBUS;
 import com.bookstore.enums.CartStatus;
 import com.bookstore.gui.components.dialogs.Dialog;
 import com.bookstore.gui.components.labels.Label;
+import com.bookstore.gui.components.panels.MainPanel;
 import com.bookstore.models.BookModel;
 import com.bookstore.models.CartItemsModel;
 import com.bookstore.models.CartModel;
@@ -16,22 +17,23 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.LayoutManager;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 public class Book extends JPanel {
 
   private JButton addToCartButton;
-  private JButton bookDetailButton;
-  private JPanel bookImagePanel;
-  private JLabel bookTitleLabel;
-  private JPanel groupButtonPanel;
-  private Label bookPriceLabel;
-  private Label setImage;
+  private JButton detailButton;
+  private JLabel titleLabel;
+  private JPanel footerPanel;
+  private Label priceLabel;
+  private Label imageLabel;
 
   private UserModel userModel = Authentication.getCurrentUser();
   private List<CartModel> cartList = CartBUS.getInstance().getAllModels();
@@ -48,7 +50,6 @@ public class Book extends JPanel {
     this.bookModel = bookModel;
     initComponents();
     updateData();
-    setImage(bookModel.getImage());
     handleEvent();
   }
 
@@ -57,8 +58,9 @@ public class Book extends JPanel {
   }
 
   private void handleEvent() {
-    bookDetailButton.addActionListener(e -> {
-      new Dialog(new BookDetail(bookModel));
+    detailButton.addActionListener(e -> {
+      
+      MainPanel.getInstance().showForm(new BookDetail(bookModel));
     });
 
     addToCartButton.addActionListener(e -> {
@@ -106,49 +108,39 @@ public class Book extends JPanel {
     });
   }
 
-  public void setImage(String imageBase64) {
+  private void initComponents() {
+    setLayout(new BorderLayout());
+
+    titleLabel = new JLabel(bookModel.getTitle());
+    titleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+    add(titleLabel, BorderLayout.PAGE_START);
+
+    imageLabel = new Label();
     Image image = null;
     try {
-      image = ImageUtils.decodeFromBase64(imageBase64);
+      image = ImageUtils.decodeFromBase64(bookModel.getImage());
     } catch (Exception ex) {
       image =
         new ImageIcon("src/main/java/resources/images/product-placeholder.png")
           .getImage();
     }
-    image = image.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
-    setImage.setIcon(new ImageIcon(image));
-  }
+    image = image.getScaledInstance(200, 300, Image.SCALE_SMOOTH);
+    imageLabel.setIcon(new ImageIcon(image));
 
-  private void initComponents() {
-    bookTitleLabel = new JLabel();
-    bookImagePanel = new JPanel();
-    groupButtonPanel = new JPanel();
-    bookDetailButton = new JButton();
+    imageLabel.setPreferredSize(new Dimension(200, 300));
+    imageLabel.setHorizontalAlignment(SwingConstants.CENTER);
+    add(imageLabel, BorderLayout.CENTER);
+
+    footerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 5));
+    priceLabel = new Label();
+    detailButton = new JButton();
     addToCartButton = new JButton();
-    bookPriceLabel = new Label("");
-    setImage = new Label("");
-
-    setLayout(new BorderLayout());
-
-    bookTitleLabel.setFont(new Font("Segoe UI", 0, 14));
-    bookTitleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-    bookTitleLabel.setText(bookModel.getTitle());
-    add(bookTitleLabel, BorderLayout.PAGE_START);
-    bookTitleLabel.getAccessibleContext().setAccessibleDescription("");
-
-    add(setImage, BorderLayout.CENTER);
-
-    groupButtonPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 2, 0));
-
-    bookPriceLabel.setText("" + bookModel.getPrice() + " $");
-    groupButtonPanel.add(bookPriceLabel);
-
-    bookDetailButton.setText("Book detail");
-    groupButtonPanel.add(bookDetailButton);
-
+    priceLabel.setText(bookModel.getPrice() + " $");
+    footerPanel.add(priceLabel);
+    detailButton.setText("Book detail");
+    footerPanel.add(detailButton);
     addToCartButton.setText("Add to cart");
-    groupButtonPanel.add(addToCartButton);
-
-    add(groupButtonPanel, BorderLayout.SOUTH);
+    footerPanel.add(addToCartButton);
+    add(footerPanel, BorderLayout.SOUTH);
   }
 }
