@@ -16,16 +16,12 @@ public class ProfileSettings extends JPanel {
 
   private Label cityLabel;
   private JTextField cityTextField;
-  private Label confirmLabel;
+  private Label confirmPasswordLabel;
   private JPasswordField confirmPasswordField;
   private Label editLabel;
   private Label emailLabel;
   private JTextField emailTextField;
-  private JPanel groupButtonPanel;
-  private JPanel groupEditAddressPanel;
-  private JPanel groupEditPanel;
-  private JPanel groupEditProfilePanel;
-  private JPanel groupUpdatePanel;
+  private JPanel actionPanel;
   private Label nameLabel;
   private JTextField nameTextField;
   private Label phoneLabel;
@@ -48,7 +44,7 @@ public class ProfileSettings extends JPanel {
   UserModel currentUser = Authentication.getCurrentUser();
   AddressModel addressModel = addressBus.getModelById(currentUser.getId());
 
-  private ProfileSettings() {
+  public ProfileSettings() {
     initComponents();
     updateInformation();
     handleEvent();
@@ -62,111 +58,88 @@ public class ProfileSettings extends JPanel {
   }
 
   private void initComponents() {
-    groupEditPanel = new JPanel();
-    editLabel = new Label();
-    groupEditProfilePanel = new JPanel();
-    nameLabel = new Label();
+    setLayout(new BorderLayout());
+
+    editLabel = new Label("Edit profile information");
+    nameLabel = new Label("Name");
     nameTextField = new JTextField();
-    usernameLabel = new Label();
+
+    usernameLabel = new Label("Username");
     usernameTextField = new JTextField();
-    emailLabel = new Label();
+    usernameTextField.setEditable(false);
+
+    emailLabel = new Label("Email");
     emailTextField = new JTextField();
-    phoneLabel = new Label();
+
+    phoneLabel = new Label("Phone");
     phoneTextField = new JTextField();
-    groupUpdatePanel = new JPanel();
-    updateLabel = new Label();
-    groupEditAddressPanel = new JPanel();
-    streetLabel = new Label();
+
+    updateLabel = new Label("Update address information");
+    streetLabel = new Label("Street");
     streetTextField = new JTextField();
-    cityLabel = new Label();
+
+    cityLabel = new Label("City");
     cityTextField = new JTextField();
-    stateLabel = new Label();
+
+    stateLabel = new Label("State");
     stateTextField = new JTextField();
-    zipLabel = new Label();
+
+    zipLabel = new Label("Zip");
     zipTextField = new JTextField();
-    confirmLabel = new Label();
+
+    confirmPasswordLabel = new Label("Confirm password");
     confirmPasswordField = new JPasswordField();
-    groupButtonPanel = new JPanel();
+    JPanel wrapperPanel = new JPanel(new GridLayout(0, 2));
+    wrapperPanel.setBackground(Color.WHITE);
+
+    wrapperPanel.add(editLabel);
+    wrapperPanel.add(new JLabel());
+    wrapperPanel.add(nameLabel);
+    wrapperPanel.add(nameTextField);
+    wrapperPanel.add(usernameLabel);
+    wrapperPanel.add(usernameTextField);
+    wrapperPanel.add(emailLabel);
+    wrapperPanel.add(emailTextField);
+    wrapperPanel.add(phoneLabel);
+    wrapperPanel.add(phoneTextField);
+    wrapperPanel.add(updateLabel);
+    wrapperPanel.add(new JLabel());
+    wrapperPanel.add(streetLabel);
+    wrapperPanel.add(streetTextField);
+    wrapperPanel.add(cityLabel);
+    wrapperPanel.add(cityTextField);
+    wrapperPanel.add(stateLabel);
+    wrapperPanel.add(stateTextField);
+    wrapperPanel.add(zipLabel);
+    wrapperPanel.add(zipTextField);
+    wrapperPanel.add(confirmPasswordLabel);
+    wrapperPanel.add(confirmPasswordField);
+
+    JScrollPane scrollPane = new JScrollPane(
+      new JPanel() {
+        {
+          setLayout(new BorderLayout());
+          add(wrapperPanel, BorderLayout.NORTH);
+        }
+      },
+      JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+      JScrollPane.HORIZONTAL_SCROLLBAR_NEVER
+    );
+
+    add(scrollPane, BorderLayout.CENTER);
+
+    actionPanel = new JPanel();
+    actionPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 30, 5));
+
     updateButton = new Button("Update");
-    // resetButton = new Button("Reset");
+    updateButton.addActionListener(updateUserInformationActionListener);
+    actionPanel.add(updateButton);
 
-    setPreferredSize(new Dimension(550, 500));
-    setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-
-    groupEditPanel.setLayout(new BorderLayout());
-
-    editLabel.setText("Edit personal settings");
-    groupEditPanel.add(editLabel, BorderLayout.PAGE_START);
-
-    groupEditProfilePanel.setLayout(new GridLayout(4, 2));
-
-    nameLabel.setText("Name");
-    groupEditProfilePanel.add(nameLabel);
-
-    groupEditProfilePanel.add(nameTextField);
-
-    usernameLabel.setText("Username");
-    groupEditProfilePanel.add(usernameLabel);
-    groupEditProfilePanel.add(usernameTextField);
-
-    emailLabel.setText("Email");
-    groupEditProfilePanel.add(emailLabel);
-
-    groupEditProfilePanel.add(emailTextField);
-
-    phoneLabel.setText("Phone");
-    groupEditProfilePanel.add(phoneLabel);
-
-    groupEditProfilePanel.add(phoneTextField);
-
-    groupEditPanel.add(groupEditProfilePanel, BorderLayout.CENTER);
-
-    add(groupEditPanel);
-
-    groupUpdatePanel.setLayout(new BorderLayout());
-
-    updateLabel.setText("Update address information");
-    groupUpdatePanel.add(updateLabel, BorderLayout.PAGE_START);
-
-    groupEditAddressPanel.setLayout(new GridLayout(5, 2));
-
-    streetLabel.setText("Street");
-    groupEditAddressPanel.add(streetLabel);
-    groupEditAddressPanel.add(streetTextField);
-
-    cityLabel.setText("City");
-    groupEditAddressPanel.add(cityLabel);
-
-    groupEditAddressPanel.add(cityTextField);
-
-    stateLabel.setText("State");
-    groupEditAddressPanel.add(stateLabel);
-    groupEditAddressPanel.add(stateTextField);
-
-    zipLabel.setText("Zip");
-    groupEditAddressPanel.add(zipLabel);
-
-    groupEditAddressPanel.add(zipTextField);
-
-    confirmLabel.setText("Confirm password");
-    groupEditAddressPanel.add(confirmLabel);
-    groupEditAddressPanel.add(confirmPasswordField);
-
-    groupUpdatePanel.add(groupEditAddressPanel, BorderLayout.CENTER);
-
-    add(groupUpdatePanel);
-
-    groupButtonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 30, 5));
-
-    groupButtonPanel.add(updateButton);
-
-    // groupButtonPanel.add(resetButton);
-
-    add(groupButtonPanel);
+    add(actionPanel, BorderLayout.PAGE_END);
   }
 
   private void updateInformation() {
-    if(addressModel!= null) {
+    if (addressModel != null) {
       cityTextField.setText(addressModel.getCity());
       streetTextField.setText(addressModel.getStreet());
       zipTextField.setText(addressModel.getZip());
@@ -178,24 +151,13 @@ public class ProfileSettings extends JPanel {
     phoneTextField.setText(currentUser.getPhone());
   }
 
-  private void handleEvent() {
-    updateButton.addActionListener(
-        new ActionListener() {
-          public void actionPerformed(ActionEvent evt) {
-            updateUserInformationButtonActionPerformed(evt);
-          }
-        });
-    // resetButton.addActionListener(
-        // new ActionListener() {
-        //   public void actionPerformed(ActionEvent evt) {
-        //     resetUserInformationButtonActionPerformed(evt);
-        //   }
-        // });
-  }
+  private void handleEvent() {}
 
-  protected void updateUserInformationButtonActionPerformed(ActionEvent evt) {
+  private ActionListener updateUserInformationActionListener = e -> {
     String confirmPassword = new String(confirmPasswordField.getPassword());
-    if (PasswordUtils.checkPassword(confirmPassword, currentUser.getPassword())) {
+    if (
+      PasswordUtils.checkPassword(confirmPassword, currentUser.getPassword())
+    ) {
       currentUser.setName(nameTextField.getText());
       currentUser.setUsername(usernameTextField.getText());
       currentUser.setEmail(emailTextField.getText());
@@ -212,18 +174,5 @@ public class ProfileSettings extends JPanel {
     } else {
       JOptionPane.showMessageDialog(null, "Passwords do not match");
     }
-  }
-
-  protected void resetUserInformationButtonActionPerformed(ActionEvent evt) {
-    confirmPasswordField.setText("");
-    cityTextField.setText("");
-    emailTextField.setText("");
-    nameTextField.setText("");
-    phoneTextField.setText("");
-    stateTextField.setText("");
-    stateTextField.setText("");
-    usernameTextField.setText("");
-    zipTextField.setText("");
-  }
-
+  };
 }

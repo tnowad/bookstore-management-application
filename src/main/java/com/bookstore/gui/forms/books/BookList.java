@@ -45,7 +45,7 @@ public class BookList extends JPanel {
   BookBUS bookBus = BookBUS.getInstance();
   List<BookModel> bookList = bookBus.getAllModels();
 
-  private BookList() {
+  public BookList() {
     initComponents();
     listBooks();
     search();

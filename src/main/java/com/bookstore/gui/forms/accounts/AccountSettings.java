@@ -31,7 +31,7 @@ public class AccountSettings extends JPanel {
   UserBUS userBus = UserBUS.getInstance();
   UserModel currentUser = Authentication.getCurrentUser();
 
-  private AccountSettings() {
+  public AccountSettings() {
     initComponents();
   }
 

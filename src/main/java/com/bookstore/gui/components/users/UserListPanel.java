@@ -52,7 +52,7 @@ public class UserListPanel extends JPanel {
 
   UserBUS userBUS = UserBUS.getInstance();
 
-  private UserListPanel() {
+  public UserListPanel() {
     actionCard();
     initComponents();
     addTable();

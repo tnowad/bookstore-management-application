@@ -34,7 +34,7 @@ public class EmployeeList extends JPanel {
   UserBUS userBus = UserBUS.getInstance();
   List<UserModel> employeeList = userBus.getAllModels();
 
-  private EmployeeList() {
+  public EmployeeList() {
     initComponents();
     listCustomer();
     search();

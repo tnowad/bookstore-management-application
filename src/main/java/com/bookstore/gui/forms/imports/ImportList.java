@@ -43,7 +43,7 @@ public class ImportList extends JPanel {
   List<ImportModel> importList = importBus.getAllModels();
   List<ProviderModel> providerList = providerBus.getAllModels();
 
-  private ImportList() {
+  public ImportList() {
     initComponents();
     listImport();
     search();
