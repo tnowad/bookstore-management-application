@@ -45,6 +45,10 @@ public class PaymentMethodModel {
     this.paymentId = paymentId;
   }
 
+  public void setPaymentId(int paymentId) {
+    this.paymentId = String.valueOf(paymentId);
+  }
+
   public String getCardNumber() {
     return this.cardNumber;
   }
@@ -67,6 +71,10 @@ public class PaymentMethodModel {
 
   public void setExpirationDate(LocalDate expirationDate) {
     this.expirationDate = expirationDate;
+  }
+
+  public void setExpirationDate(String expirationDate) {
+    this.expirationDate = LocalDate.parse(expirationDate);
   }
 
   public int getCustomerId() {

@@ -241,4 +241,8 @@ public class CartBUS implements IBUS<CartModel> {
     }
     return totalPrice;
   }
+
+  public int calculateTotal(int cartId) {
+    return 0;
+  }
 }

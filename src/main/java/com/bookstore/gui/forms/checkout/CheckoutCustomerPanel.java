@@ -45,10 +45,10 @@ public class CheckoutCustomerPanel extends JPanel {
   private JLabel paymentMethodLabel;
   private JLabel phoneLabel;
   private JTextField phoneTextField;
-  private JTable productListTable;
+  private JTable booksTable;
   private JComboBox<String> shippingMethodComboBox;
 
-  private JScrollPane productTableScrollPane;
+  private JScrollPane booksTableScrollPane;
   private JLabel shippingMethodLabel;
 
   private CartModel cartModel;
@@ -137,8 +137,8 @@ public class CheckoutCustomerPanel extends JPanel {
         }
       }
     }
-    productListTable.setPreferredSize(new Dimension(400, 300));
-    productListTable.setModel(model);
+    booksTable.setPreferredSize(new Dimension(400, 300));
+    booksTable.setModel(model);
   }
 
   private void initComponents() {
@@ -231,14 +231,14 @@ public class CheckoutCustomerPanel extends JPanel {
     creditDetailPanel.add(cvvLabel);
     creditDetailPanel.add(cvvTextField);
 
-    productListTable = new JTable();
-    productTableScrollPane = new JScrollPane(productListTable);
+    booksTable = new JTable();
+    booksTableScrollPane = new JScrollPane(booksTable);
 
     JPanel mainPanel = new JPanel(new GridBagLayout());
 
     GridBagConstraints gridBagConstraints = new GridBagConstraints();
     gridBagConstraints.insets = new Insets(10, 10, 10, 10);
-    gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+    gridBagConstraints.fill = GridBagConstraints.BOTH;
     gridBagConstraints.gridx = 0;
     gridBagConstraints.gridy = 0;
     gridBagConstraints.weightx = 0.5;
@@ -251,7 +251,7 @@ public class CheckoutCustomerPanel extends JPanel {
     gridBagConstraints.gridy = 1;
     gridBagConstraints.weightx = 1;
     gridBagConstraints.gridwidth = 2;
-    mainPanel.add(productTableScrollPane, gridBagConstraints);
+    mainPanel.add(booksTableScrollPane, gridBagConstraints);
     add(mainPanel, BorderLayout.CENTER);
 
     actionPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));

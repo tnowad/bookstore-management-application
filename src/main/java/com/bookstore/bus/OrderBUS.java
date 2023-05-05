@@ -1,9 +1,17 @@
 package com.bookstore.bus;
 
+import com.bookstore.dao.CartDAO;
+import com.bookstore.dao.DatabaseConnection;
 import com.bookstore.dao.OrderDAO;
+import com.bookstore.enums.CartStatus;
 import com.bookstore.enums.OrderStatus;
+import com.bookstore.enums.PaymentStatus;
 import com.bookstore.interfaces.IBUS;
+import com.bookstore.models.CartModel;
 import com.bookstore.models.OrderModel;
+import com.bookstore.models.PaymentMethodModel;
+import com.bookstore.models.PaymentModel;
+import com.bookstore.models.ShippingModel;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -278,6 +286,63 @@ public class OrderBUS implements IBUS<OrderModel> {
     System.out.println("Card holder: " + cardHolder);
     System.out.println("Expiration date: " + expirationDate);
     System.out.println("CVV: " + cvv);
+
+    // get cart by id
+    CartModel cartModel = CartBUS.getInstance().getModelById(customerId);
+    if (cartModel == null) {
+      throw new IllegalArgumentException(
+        "Cart with ID " + cartId + " does not exist."
+      );
+    }
+
+    DatabaseConnection.getInstance().beginTransaction();
+
+    // create order
+    OrderModel orderModel = new OrderModel();
+    orderModel.setCartId(cartId);
+    orderModel.setCustomerId(customerId);
+    orderModel.setTotal(CartBUS.getInstance().calculateTotal(cartId));
+    orderModel.setPaid(0);
+    orderModel.setStatus(OrderStatus.PENDING);
+    int orderId = OrderBUS.getInstance().addModel(orderModel);
+    orderModel = OrderBUS.getInstance().getModelById(orderId);
+    // create payment
+    PaymentModel paymentModel = new PaymentModel();
+    paymentModel.setOrderId(orderId);
+    paymentModel.setUserId(customerId);
+    paymentModel.setAmount(0);
+    paymentModel.setStatus(PaymentStatus.PENDING);
+    int paymentId = PaymentBUS.getInstance().addModel(paymentModel);
+    paymentModel = PaymentBUS.getInstance().getModelById(paymentId);
+    // create payment method
+    if (paymentMethod.equals("Credit")) {
+      PaymentMethodModel paymentMethodModel = new PaymentMethodModel();
+      paymentMethodModel.setPaymentId(paymentId);
+      paymentMethodModel.setCustomerId(customerId);
+
+      paymentMethodModel.setCardHolder(cardHolder);
+      paymentMethodModel.setCardNumber(cardNumber);
+      paymentMethodModel.setExpirationDate(expirationDate);
+      // paymentMethodModel.setCvv(cvv);
+      PaymentMethodBUS.getInstance().addModel(paymentMethodModel);
+    }
+
+    // create shipping
+    ShippingModel shippingModel = new ShippingModel();
+    shippingModel.setOrderId(orderId);
+    shippingModel.setShippingMethod(shippingMethod);
+    shippingModel.setShippingAddressId(
+      AddressBUS.getInstance().getModelById(customerId).getId()
+    );
+    shippingModel.setStatus(ShippingStatus.PENDING);
+    int shippingId = ShippingBUS.getInstance().addModel(shippingModel);
+    shippingModel = ShippingBUS.getInstance().getModelById(shippingId);
+
+    // set status of cart to pending
+    cartModel.setStatus(CartStatus.PENDING);
+    CartBUS.getInstance().updateModel(cartModel);
+
+    DatabaseConnection.getInstance().endTransaction();
   }
 
   public void createEmployeeOrder(
