@@ -1,7 +1,12 @@
 package com.bookstore.gui.components.carts;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.GroupLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
@@ -28,31 +33,31 @@ public class CartItemPanel extends javax.swing.JPanel {
   }
 
   private void initComponents() {
-    lblBookName = new javax.swing.JLabel();
-    lbPrice = new javax.swing.JLabel();
-    jPanel1 = new javax.swing.JPanel();
-    jScrollPane1 = new javax.swing.JScrollPane();
-    DescriptionTextArea = new javax.swing.JTextArea();
-    checkBoxChooseBookButton = new javax.swing.JCheckBox();
-    quantitySpinner = new javax.swing.JSpinner();
-    bookImagePanel = new javax.swing.JPanel();
-    deleteItemBtn = new javax.swing.JButton();
+    lblBookName = new JLabel();
+    lbPrice = new JLabel();
+    jPanel1 = new JPanel();
+    jScrollPane1 = new JScrollPane();
+    DescriptionTextArea = new JTextArea();
+    checkBoxChooseBookButton = new JCheckBox();
+    quantitySpinner = new JSpinner();
+    bookImagePanel = new JPanel();
+    deleteItemBtn = new JButton();
 
-    setPreferredSize(new java.awt.Dimension(500, 215));
+    setPreferredSize(new Dimension(500, 215));
 
-    lblBookName.setFont(new java.awt.Font("sansserif", 1, 18));
-    lblBookName.setForeground(new java.awt.Color(76, 76, 76));
+    lblBookName.setFont(new Font("sansserif", 1, 18));
+    lblBookName.setForeground(new Color(76, 76, 76));
     lblBookName.setText("Book Title");
 
-    lbPrice.setFont(new java.awt.Font("sansserif", 1, 18));
-    lbPrice.setForeground(new java.awt.Color(76, 76, 76));
+    lbPrice.setFont(new Font("sansserif", 1, 18));
+    lbPrice.setForeground(new Color(76, 76, 76));
     lbPrice.setText("$0.00");
 
     DescriptionTextArea.setColumns(20);
     DescriptionTextArea.setRows(5);
     jScrollPane1.setViewportView(DescriptionTextArea);
 
-    GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+    GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
     jPanel1.setLayout(jPanel1Layout);
     jPanel1Layout.setHorizontalGroup(
       jPanel1Layout
@@ -81,16 +86,14 @@ public class CartItemPanel extends javax.swing.JPanel {
     );
 
     checkBoxChooseBookButton.addActionListener(
-      new java.awt.event.ActionListener() {
+      new ActionListener() {
         public void actionPerformed(ActionEvent evt) {
           checkBoxChooseBookButtonActionPerformed(evt);
         }
       }
     );
 
-    GroupLayout bookImagePanelLayout = new javax.swing.GroupLayout(
-      bookImagePanel
-    );
+    GroupLayout bookImagePanelLayout = new GroupLayout(bookImagePanel);
     bookImagePanel.setLayout(bookImagePanelLayout);
     bookImagePanelLayout.setHorizontalGroup(
       bookImagePanelLayout
@@ -104,10 +107,10 @@ public class CartItemPanel extends javax.swing.JPanel {
     );
 
     deleteItemBtn.setIcon(
-      new javax.swing.ImageIcon(getClass().getResource("/icon/x (Custom).png"))
+      new ImageIcon(getClass().getResource("/icon/x (Custom).png"))
     );
 
-    GroupLayout layout = new javax.swing.GroupLayout(this);
+    GroupLayout layout = new GroupLayout(this);
     this.setLayout(layout);
     layout.setHorizontalGroup(
       layout
