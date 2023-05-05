@@ -20,19 +20,19 @@ public class Order extends JPanel {
 
   private void initComponents() {
     viewBooksJScrollPane = new JScrollPane();
-    viewbooksPanel = new JPanel();
+    viewBooksPanel = new JPanel();
     deliveryStatusPanel = new JPanel();
     deliveryStatusField = new JTextField();
     buttonPanel = new JPanel();
     viewOrderDetailsButton = new JButton();
-    getcheckoutReceiptButton = new JButton();
+    getCheckoutReceiptButton = new JButton();
 
     setMaximumSize(new Dimension(530, 170));
     setMinimumSize(new Dimension(530, 170));
     setLayout(new BorderLayout());
 
-    viewbooksPanel.setLayout(new GridLayout(3, 1, 0, 5));
-    viewBooksJScrollPane.setViewportView(viewbooksPanel);
+    viewBooksPanel.setLayout(new GridLayout(3, 1, 0, 5));
+    viewBooksJScrollPane.setViewportView(viewBooksPanel);
 
     add(viewBooksJScrollPane, BorderLayout.CENTER);
 
@@ -52,9 +52,9 @@ public class Order extends JPanel {
 
     buttonPanel.add(viewOrderDetailsButton);
 
-    getcheckoutReceiptButton.setText("Get Checkout Receipt");
+    getCheckoutReceiptButton.setText("Get Checkout Receipt");
 
-    buttonPanel.add(getcheckoutReceiptButton);
+    buttonPanel.add(getCheckoutReceiptButton);
 
     add(buttonPanel, BorderLayout.PAGE_END);
   }
@@ -62,8 +62,8 @@ public class Order extends JPanel {
   private JPanel buttonPanel;
   private JTextField deliveryStatusField;
   private JPanel deliveryStatusPanel;
-  private JButton getcheckoutReceiptButton;
+  private JButton getCheckoutReceiptButton;
   private JScrollPane viewBooksJScrollPane;
   private JButton viewOrderDetailsButton;
-  private JPanel viewbooksPanel;
+  private JPanel viewBooksPanel;
 }
