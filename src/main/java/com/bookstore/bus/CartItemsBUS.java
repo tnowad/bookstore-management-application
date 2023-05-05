@@ -169,7 +169,6 @@ public class CartItemsBUS implements IBUS<CartItemsModel> {
 
   @Override
   public int deleteModel(int id) {
-    //  delete all cart items if have id
     CartItemsModel CartItemsModel = getModelById(id);
     if (CartItemsModel == null) {
       throw new IllegalArgumentException(
@@ -216,6 +215,4 @@ public class CartItemsBUS implements IBUS<CartItemsModel> {
       }
     }
   }
-
-  
 }

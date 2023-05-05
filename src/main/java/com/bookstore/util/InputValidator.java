@@ -141,4 +141,53 @@ public class InputValidator {
     }
     return confirmPassword;
   }
+
+  public static String validateCardNumber(String text) {
+    text = text.replaceAll("\\s|-", "");
+    if (text == null || text.trim().isEmpty()) {
+      throw new IllegalArgumentException("Card number cannot be empty.");
+    }
+    String regex = "^\\d{16}$";
+    if (!text.matches(regex)) {
+      throw new IllegalArgumentException("Card number is not valid.");
+    }
+    return text;
+  }
+
+  public static String validateCardHolder(String text) {
+    if (text == null || text.trim().isEmpty()) {
+      throw new IllegalArgumentException("Card holder cannot be empty.");
+    }
+    String regex = "^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$";
+    if (!text.matches(regex)) {
+      throw new IllegalArgumentException(
+        "Card holder can only contain letters and the characters ',. -'."
+      );
+    }
+    return text;
+  }
+
+  public static String validateExpirationDate(String text) {
+    if (text == null || text.trim().isEmpty()) {
+      throw new IllegalArgumentException("Expiration date cannot be empty.");
+    }
+    String regex = "^(0[1-9]|1[0-2])\\/?([0-9]{4}|[0-9]{2})$";
+    if (!text.matches(regex)) {
+      throw new IllegalArgumentException(
+        "Expiration date must be in the format MM/YY or MM/YYYY."
+      );
+    }
+    return text;
+  }
+
+  public static String validateCvv(String text) {
+    if (text == null || text.trim().isEmpty()) {
+      throw new IllegalArgumentException("CVV cannot be empty.");
+    }
+    String regex = "^\\d{3,4}$";
+    if (!text.matches(regex)) {
+      throw new IllegalArgumentException("CVV is not valid.");
+    }
+    return text;
+  }
 }
