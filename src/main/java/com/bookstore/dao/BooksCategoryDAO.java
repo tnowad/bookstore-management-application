@@ -21,25 +21,21 @@ public class BooksCategoryDAO implements IDAO<BooksCategoryModel> {
   }
 
   private BooksCategoryModel createCategoryModelFromResultSet(ResultSet rs)
-    throws SQLException {
+      throws SQLException {
     return new BooksCategoryModel(
-      rs.getInt("categories_id"),
-      rs.getString("book_isbn")
-    );
+        rs.getInt("categories_id"),
+        rs.getString("book_isbn"));
   }
 
   @Override
   public ArrayList<BooksCategoryModel> readDatabase() {
     ArrayList<BooksCategoryModel> categoryList = new ArrayList<>();
     try (
-      ResultSet rs = DatabaseConnection.executeQuery(
-        "SELECT * FROM categories_books"
-      )
-    ) {
+        ResultSet rs = DatabaseConnection.executeQuery(
+            "SELECT * FROM categories_books")) {
       while (rs.next()) {
         BooksCategoryModel booksCategoryModel = createCategoryModelFromResultSet(
-          rs
-        );
+            rs);
         categoryList.add(booksCategoryModel);
       }
     } catch (SQLException e) {
@@ -50,11 +46,10 @@ public class BooksCategoryDAO implements IDAO<BooksCategoryModel> {
 
   @Override
   public int insert(BooksCategoryModel booksCategory) {
-    String insertSql =
-      "INSERT INTO categories_books (categories_id,book_isbn) VALUES (?,?)";
+    String insertSql = "INSERT INTO categories_books (categories_id,book_isbn) VALUES (?,?)";
     Object[] args = {
-      booksCategory.getCategoryId(),
-      booksCategory.getBookIsbn(),
+        booksCategory.getCategoryId(),
+        booksCategory.getBookIsbn(),
     };
     try {
       return DatabaseConnection.executeUpdate(insertSql, args);
@@ -66,11 +61,10 @@ public class BooksCategoryDAO implements IDAO<BooksCategoryModel> {
 
   @Override
   public int update(BooksCategoryModel booksCategory) {
-    String updateSql =
-      "UPDATE categories_books SET categoies_id = ? WHERE book_isbn = ?";
+    String updateSql = "UPDATE categories_books SET categoies_id = ? WHERE book_isbn = ?";
     Object[] args = {
-      booksCategory.getCategoryId(),
-      booksCategory.getBookIsbn(),
+        booksCategory.getCategoryId(),
+        booksCategory.getBookIsbn(),
     };
     try {
       return DatabaseConnection.executeUpdate(updateSql, args);
@@ -94,50 +88,42 @@ public class BooksCategoryDAO implements IDAO<BooksCategoryModel> {
 
   @Override
   public List<BooksCategoryModel> search(
-    String condition,
-    String[] columnNames
-  ) {
+      String condition,
+      String[] columnNames) {
     if (condition == null || condition.trim().isEmpty()) {
       throw new IllegalArgumentException(
-        "Search condition cannot be empty or null"
-      );
+          "Search condition cannot be empty or null");
     }
 
     String query;
     if (columnNames == null || columnNames.length == 0) {
       // Search all columns
-      query =
-        "SELECT * FROM categories_books WHERE CONCAT(categories_id, book_isbn) LIKE ?";
+      query = "SELECT * FROM categories_books WHERE CONCAT(categories_id, book_isbn) LIKE ?";
     } else if (columnNames.length == 1) {
       // Search specific column in categories table
       String column = columnNames[0];
       query = "SELECT * FROM categories_books WHERE " + column + " LIKE ?";
     } else {
       // Search specific columns in categories table
-      query =
-        "SELECT id, name FROM categories_books WHERE CONCAT(" +
-        String.join(", ", columnNames) +
-        ") LIKE ?";
+      query = "SELECT id, name FROM categories_books WHERE CONCAT(" +
+          String.join(", ", columnNames) +
+          ") LIKE ?";
     }
 
     try (
-      PreparedStatement pst = DatabaseConnection.getPreparedStatement(
-        query,
-        "%" + condition + "%"
-      )
-    ) {
+        PreparedStatement pst = DatabaseConnection.getPreparedStatement(
+            query,
+            "%" + condition + "%")) {
       try (ResultSet rs = pst.executeQuery()) {
         List<BooksCategoryModel> booksCategoryList = new ArrayList<>();
         while (rs.next()) {
           BooksCategoryModel categoryModel = createCategoryModelFromResultSet(
-            rs
-          );
+              rs);
           booksCategoryList.add(categoryModel);
         }
         if (booksCategoryList.isEmpty()) {
           throw new SQLException(
-            "No records found for the given condition: " + condition
-          );
+              "No records found for the given condition: " + condition);
         }
         return booksCategoryList;
       }
