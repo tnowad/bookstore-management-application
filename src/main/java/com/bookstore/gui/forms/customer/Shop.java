@@ -6,12 +6,12 @@ import java.awt.*;
 import java.util.List;
 import javax.swing.*;
 
-public class Discovery extends JPanel {
+public class Shop extends JPanel {
 
-  private static Discovery instance;
+  private static Shop instance;
   private List<BookModel> bookList;
 
-  private Discovery() {
+  private Shop() {
     initComponents();
     updateData();
     handleEvent();
@@ -28,9 +28,9 @@ public class Discovery extends JPanel {
     }
   }
 
-  public static Discovery getInstance() {
+  public static Shop getInstance() {
     if (instance == null) {
-      instance = new Discovery();
+      instance = new Shop();
     }
     return instance;
   }

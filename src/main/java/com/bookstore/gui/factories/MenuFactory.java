@@ -13,9 +13,8 @@ import com.bookstore.gui.forms.accounts.ProfileSettings;
 import com.bookstore.gui.forms.books.BookList;
 import com.bookstore.gui.forms.carts.Cart;
 import com.bookstore.gui.forms.customer.Checkout;
-import com.bookstore.gui.forms.customer.Discovery;
-import com.bookstore.gui.forms.customer.HomeCustomer;
 import com.bookstore.gui.forms.customer.Order;
+import com.bookstore.gui.forms.customer.Shop;
 import com.bookstore.gui.forms.general.AboutUs;
 import com.bookstore.gui.forms.general.ContactUs;
 import com.bookstore.gui.forms.imports.ImportList;
@@ -618,10 +617,10 @@ public class MenuFactory {
 
   // customer
   private static ActionListener showHomeCustomer = e -> {
-    MainPanel.getInstance().showForm(Discovery.getInstance());
+    MainPanel.getInstance().showForm(Shop.getInstance());
   };
   private static ActionListener showDiscoveryCustomer = e -> {
-    MainPanel.getInstance().showForm(Discovery.getInstance());
+    MainPanel.getInstance().showForm(Shop.getInstance());
   };
 
   private static ActionListener showCartCustomer = e -> {
