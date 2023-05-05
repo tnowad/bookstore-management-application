@@ -28,7 +28,7 @@ public class CheckoutCustomerPanel extends JPanel {
   private JButton checkoutButton;
   private JPanel creditDetailPanel;
   private JRadioButton creditRadioButton;
-  private JLabel cvvLabel;
+  private JLabel cardNumberLabel;
   private JLabel emailLabel;
   private JTextField emailTextField;
   private JButton exitButton;
@@ -37,11 +37,11 @@ public class CheckoutCustomerPanel extends JPanel {
   private JPanel groupCheckoutInfoPanel;
   private JPanel infoUserPanel;
   private JRadioButton internationalShippingRadioButton;
-  private JLabel jLabel8;
-  private JLabel jLabel9;
-  private JTextField jTextField5;
-  private JTextField jTextField6;
-  private JTextField jTextField7;
+  private JLabel expirationDateLabel;
+  private JLabel cvvLabel;
+  private JTextField cardNumberTextField;
+  private JTextField expirationDateTextField;
+  private JTextField cvvTextField;
   private JLabel nameLabel;
   private JTextField nameTextField;
   private JRadioButton nextDayShippingRadioButton;
@@ -178,12 +178,12 @@ public class CheckoutCustomerPanel extends JPanel {
     expressShippingRadioButton = new JRadioButton();
     nextDayShippingRadioButton = new JRadioButton();
     creditDetailPanel = new JPanel();
+    cardNumberLabel = new JLabel();
+    cardNumberTextField = new JTextField();
+    expirationDateLabel = new JLabel();
+    expirationDateTextField = new JTextField();
     cvvLabel = new JLabel();
-    jTextField5 = new JTextField();
-    jLabel8 = new JLabel();
-    jTextField6 = new JTextField();
-    jLabel9 = new JLabel();
-    jTextField7 = new JTextField();
+    cvvTextField = new JTextField();
     productListTablePanel = new JPanel();
     productTableScrollPane = new JScrollPane();
     productListTable = new JTable();
@@ -274,23 +274,17 @@ public class CheckoutCustomerPanel extends JPanel {
       new BoxLayout(creditDetailPanel, BoxLayout.Y_AXIS)
     );
 
-    cvvLabel.setText("jLabel7");
+    cardNumberLabel.setText("Card Number");
     creditDetailPanel.add(cvvLabel);
+    creditDetailPanel.add(cardNumberTextField);
 
-    jTextField5.setText("jTextField5");
-    creditDetailPanel.add(jTextField5);
+    expirationDateLabel.setText("Expiration date");
+    creditDetailPanel.add(expirationDateLabel);
+    creditDetailPanel.add(expirationDateTextField);
 
-    jLabel8.setText("jLabel8");
-    creditDetailPanel.add(jLabel8);
-
-    jTextField6.setText("jTextField6");
-    creditDetailPanel.add(jTextField6);
-
-    jLabel9.setText("jLabel9");
-    creditDetailPanel.add(jLabel9);
-
-    jTextField7.setText("jTextField7");
-    creditDetailPanel.add(jTextField7);
+    cvvLabel.setText("Cvv");
+    creditDetailPanel.add(cvvLabel);
+    creditDetailPanel.add(cvvTextField);
 
     groupCheckoutInfoPanel.add(creditDetailPanel);
 
