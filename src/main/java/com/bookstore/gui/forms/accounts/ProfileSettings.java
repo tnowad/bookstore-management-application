@@ -8,34 +8,33 @@ import com.bookstore.models.UserModel;
 import com.bookstore.services.Authentication;
 import com.bookstore.util.PasswordUtils;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
 public class ProfileSettings extends JPanel {
 
-  private Label cityLabel;
+  private JLabel cityLabel;
   private JTextField cityTextField;
-  private Label confirmPasswordLabel;
+  private JLabel confirmPasswordLabel;
   private JPasswordField confirmPasswordField;
-  private Label editLabel;
-  private Label emailLabel;
+  private JLabel editLabel;
+  private JLabel emailLabel;
   private JTextField emailTextField;
   private JPanel actionPanel;
-  private Label nameLabel;
+  private JLabel nameLabel;
   private JTextField nameTextField;
-  private Label phoneLabel;
+  private JLabel phoneLabel;
   private JTextField phoneTextField;
   // private Button resetButton;
-  private Label stateLabel;
+  private JLabel stateLabel;
   private JTextField stateTextField;
-  private Label streetLabel;
+  private JLabel streetLabel;
   private JTextField streetTextField;
   private Button updateButton;
-  private Label updateLabel;
-  private Label usernameLabel;
+  private JLabel updateLabel;
+  private JLabel usernameLabel;
   private JTextField usernameTextField;
-  private Label zipLabel;
+  private JLabel zipLabel;
   private JTextField zipTextField;
   private static ProfileSettings instance;
 
@@ -59,35 +58,36 @@ public class ProfileSettings extends JPanel {
 
   private void initComponents() {
     setLayout(new BorderLayout());
+    setBackground(Color.WHITE);
 
-    editLabel = new Label("Edit profile information");
-    nameLabel = new Label("Name");
+    editLabel = new JLabel("Edit profile information");
+    nameLabel = new JLabel("Name");
     nameTextField = new JTextField();
 
-    usernameLabel = new Label("Username");
+    usernameLabel = new JLabel("Username");
     usernameTextField = new JTextField();
     usernameTextField.setEditable(false);
 
-    emailLabel = new Label("Email");
+    emailLabel = new JLabel("Email");
     emailTextField = new JTextField();
 
-    phoneLabel = new Label("Phone");
+    phoneLabel = new JLabel("Phone");
     phoneTextField = new JTextField();
 
-    updateLabel = new Label("Update address information");
-    streetLabel = new Label("Street");
+    updateLabel = new JLabel("Update address information");
+    streetLabel = new JLabel("Street");
     streetTextField = new JTextField();
 
-    cityLabel = new Label("City");
+    cityLabel = new JLabel("City");
     cityTextField = new JTextField();
 
-    stateLabel = new Label("State");
+    stateLabel = new JLabel("State");
     stateTextField = new JTextField();
 
-    zipLabel = new Label("Zip");
+    zipLabel = new JLabel("Zip");
     zipTextField = new JTextField();
 
-    confirmPasswordLabel = new Label("Confirm password");
+    confirmPasswordLabel = new JLabel("Confirm password");
     confirmPasswordField = new JPasswordField();
     JPanel wrapperPanel = new JPanel(new GridLayout(0, 2));
     wrapperPanel.setBackground(Color.WHITE);
@@ -119,16 +119,21 @@ public class ProfileSettings extends JPanel {
       new JPanel() {
         {
           setLayout(new BorderLayout());
+          setBackground(Color.WHITE);
           add(wrapperPanel, BorderLayout.NORTH);
         }
       },
       JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
       JScrollPane.HORIZONTAL_SCROLLBAR_NEVER
     );
-
+    scrollPane.setBorder(null);
+    scrollPane.setBackground(Color.WHITE);
     add(scrollPane, BorderLayout.CENTER);
 
     actionPanel = new JPanel();
+
+    actionPanel.setBackground(Color.WHITE);
+
     actionPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 30, 5));
 
     updateButton = new Button("Update");

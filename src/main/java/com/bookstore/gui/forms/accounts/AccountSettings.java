@@ -14,11 +14,11 @@ public class AccountSettings extends JPanel {
 
   private Button resetButton;
   private PasswordField confirmNewPasswordField;
-  private Label confirmNewPasswordLabel;
+  private JLabel confirmNewPasswordLabel;
   private PasswordField currentPasswordField;
-  private Label currentPasswordLabel;
+  private JLabel currentPasswordLabel;
   private JPanel groupButton;
-  private Label newPassordLabel;
+  private JLabel newPasswordLabel;
   private PasswordField newPasswordField;
   private Button updateButton;
   private JToggleButton toggleCurrentPasswordButton;
@@ -43,17 +43,21 @@ public class AccountSettings extends JPanel {
   }
 
   private void initComponents() {
-    currentPasswordLabel = new Label("Your current password");
+    setLayout(new BorderLayout());
+
+    currentPasswordLabel = new JLabel("Your current password");
     currentPasswordField = new PasswordField();
-    newPassordLabel = new Label("New password");
+    newPasswordLabel = new JLabel("New password");
     newPasswordField = new PasswordField();
-    confirmNewPasswordLabel = new Label("Confirm new password");
+    confirmNewPasswordLabel = new JLabel("Confirm new password");
     confirmNewPasswordField = new PasswordField();
-    groupButton = new JPanel();
+
     updateButton = new Button("Update");
     resetButton = new Button("Reset");
-    showPassword = new ImageIcon("src/main/java/resources/icons/show_password.png");
-    hidePassword = new ImageIcon("src/main/java/resources/icons/hide_password.png");
+    showPassword =
+      new ImageIcon("src/main/java/resources/icons/show_password.png");
+    hidePassword =
+      new ImageIcon("src/main/java/resources/icons/hide_password.png");
     toggleCurrentPasswordButton = new JToggleButton(hidePassword);
     toggleNewPasswordButton = new JToggleButton(hidePassword);
     toggleConfirmNewPasswordButton = new JToggleButton(hidePassword);
@@ -61,21 +65,20 @@ public class AccountSettings extends JPanel {
     updateButton.addActionListener(updateButtonActionListener);
     resetButton.addActionListener(resetButtonActionListener);
     toggleCurrentPasswordButton.addActionListener(
-        toggleCurrentPasswordActionListener);
+      toggleCurrentPasswordActionListener
+    );
     toggleNewPasswordButton.addActionListener(toggleNewPasswordActionListener);
     toggleConfirmNewPasswordButton.addActionListener(
-        toggleConfirmNewPasswordActionListener);
+      toggleConfirmNewPasswordActionListener
+    );
 
-    setMaximumSize(new Dimension(300, 200));
-    setMinimumSize(new Dimension(300, 200));
-    setPreferredSize(new Dimension(300, 250));
     setLayout(new GridLayout(7, 1));
 
     currentPasswordLabel.setHorizontalAlignment(SwingConstants.LEFT);
     currentPasswordLabel.setVerticalAlignment(SwingConstants.BOTTOM);
 
-    newPassordLabel.setHorizontalAlignment(SwingConstants.LEFT);
-    newPassordLabel.setVerticalAlignment(SwingConstants.BOTTOM);
+    newPasswordLabel.setHorizontalAlignment(SwingConstants.LEFT);
+    newPasswordLabel.setVerticalAlignment(SwingConstants.BOTTOM);
 
     confirmNewPasswordLabel.setHorizontalAlignment(SwingConstants.LEFT);
     confirmNewPasswordLabel.setVerticalAlignment(SwingConstants.BOTTOM);
@@ -83,26 +86,31 @@ public class AccountSettings extends JPanel {
     JPanel currentPasswordFieldPanel = new JPanel(new BorderLayout());
     currentPasswordFieldPanel.add(currentPasswordField, BorderLayout.CENTER);
     currentPasswordFieldPanel.add(
-        toggleCurrentPasswordButton,
-        BorderLayout.EAST);
+      toggleCurrentPasswordButton,
+      BorderLayout.EAST
+    );
     add(currentPasswordLabel);
     add(currentPasswordFieldPanel);
 
     JPanel newPasswordFieldPanel = new JPanel(new BorderLayout());
     newPasswordFieldPanel.add(newPasswordField, BorderLayout.CENTER);
     newPasswordFieldPanel.add(toggleNewPasswordButton, BorderLayout.EAST);
-    add(newPassordLabel);
+    add(newPasswordLabel);
     add(newPasswordFieldPanel);
 
     JPanel confirmNewPasswordFieldPanel = new JPanel(new BorderLayout());
     confirmNewPasswordFieldPanel.add(
-        confirmNewPasswordField,
-        BorderLayout.CENTER);
+      confirmNewPasswordField,
+      BorderLayout.CENTER
+    );
     confirmNewPasswordFieldPanel.add(
-        toggleConfirmNewPasswordButton,
-        BorderLayout.EAST);
+      toggleConfirmNewPasswordButton,
+      BorderLayout.EAST
+    );
     add(confirmNewPasswordLabel);
     add(confirmNewPasswordFieldPanel);
+
+    groupButton = new JPanel();
     groupButton.add(updateButton);
 
     groupButton.add(resetButton);
@@ -115,7 +123,8 @@ public class AccountSettings extends JPanel {
     if (currentPassword.equals(currentUser.getPassword())) {
       String newPassword = new String(newPasswordField.getPassword());
       String confirmPassword = new String(
-          confirmNewPasswordField.getPassword());
+        confirmNewPasswordField.getPassword()
+      );
       if (newPassword.equals(confirmPassword)) {
         currentUser.setPassword(newPassword);
         userBus.updateModel(currentUser);
@@ -124,8 +133,9 @@ public class AccountSettings extends JPanel {
         updateButton.setEnabled(false);
       } else {
         JOptionPane.showMessageDialog(
-            null,
-            "New password and confirm password do not match");
+          null,
+          "New password and confirm password do not match"
+        );
       }
     } else {
       JOptionPane.showMessageDialog(null, "Current password does not match");
