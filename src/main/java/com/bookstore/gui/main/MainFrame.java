@@ -103,6 +103,7 @@ public class MainFrame extends JFrame {
     splitPane.setEnabled(false);
     splitPane.setOneTouchExpandable(false);
     splitPane.setDividerLocation(250);
+    splitPane.setDividerSize(0);
 
     add(splitPane, BorderLayout.CENTER);
   }
