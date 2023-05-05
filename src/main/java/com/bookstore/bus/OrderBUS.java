@@ -258,4 +258,6 @@ public class OrderBUS implements IBUS<OrderModel> {
   public int calculateTotalRevenue() {
     return 0;
   }
+
+  
 }

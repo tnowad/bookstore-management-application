@@ -2,12 +2,7 @@ package com.bookstore.gui.components.books;
 
 import com.bookstore.bus.BookBUS;
 import com.bookstore.models.BookModel;
-import com.bookstore.runnable.UpdateDataRunnable;
 import com.bookstore.util.Excel.BookExcelUtil;
-/**
- *
- * @author yanti
- */
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
@@ -19,8 +14,6 @@ public class BrowseProductPanel extends JPanel {
   private static BrowseProductPanel instance;
   private BookBUS bookBUS;
   private List<BookModel> listBook;
-
-  private double width;
 
   public BrowseProductPanel() {
     bookBUS = BookBUS.getInstance();

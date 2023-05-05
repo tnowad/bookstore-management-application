@@ -158,8 +158,4 @@ public class LoginFrame extends JFrame {
     RegisterFrame.getInstance().setVisible(true);
     dispose();
   };
-
-  private ActionListener forgotPasswordButtonActionListener = e -> {
-    dispose();
-  };
 }

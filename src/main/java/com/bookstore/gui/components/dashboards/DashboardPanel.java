@@ -5,18 +5,20 @@ import com.bookstore.bus.OrderBUS;
 import com.bookstore.bus.UserBUS;
 import com.bookstore.gui.components.cards.CardPanel;
 import com.bookstore.gui.components.tables.Table;
+import com.bookstore.models.OrderModel;
 import com.bookstore.models.gui.StatisticCardModel;
 import com.bookstore.models.tables.OrderRecentTableModel;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.table.DefaultTableModel;
 
 public class DashboardPanel extends JPanel {
 
@@ -32,6 +34,7 @@ public class DashboardPanel extends JPanel {
 
   public DashboardPanel() {
     initComponents();
+    updateTable();
   }
 
   private void initComponents() {
@@ -120,5 +123,11 @@ public class DashboardPanel extends JPanel {
     contentPanel.add(scrollPane, BorderLayout.CENTER);
 
     add(contentPanel, BorderLayout.CENTER);
+  }
+
+  public void updateTable() {
+    List<OrderModel> orders = OrderBUS.getInstance().getAllModels();
+    DefaultTableModel model = new OrderRecentTableModel(orders);
+    table.setModel(model);
   }
 }

@@ -3,7 +3,6 @@ package com.bookstore.gui.forms.customer;
 import com.bookstore.bus.CartBUS;
 import com.bookstore.bus.CartItemsBUS;
 import com.bookstore.enums.CartStatus;
-import com.bookstore.gui.components.dialogs.Dialog;
 import com.bookstore.gui.components.labels.Label;
 import com.bookstore.gui.components.panels.MainPanel;
 import com.bookstore.models.BookModel;
@@ -15,9 +14,7 @@ import com.bookstore.util.image.ImageUtils;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.Image;
-import java.awt.LayoutManager;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -26,7 +23,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-public class Book extends JPanel {
+public class BookItemPanel extends JPanel {
 
   private JButton addToCartButton;
   private JButton detailButton;
@@ -46,7 +43,7 @@ public class Book extends JPanel {
 
   private BookModel bookModel;
 
-  public Book(BookModel bookModel) {
+  public BookItemPanel(BookModel bookModel) {
     this.bookModel = bookModel;
     initComponents();
     updateData();

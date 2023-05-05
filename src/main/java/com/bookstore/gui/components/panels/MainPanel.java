@@ -6,7 +6,6 @@ import java.awt.Color;
 import java.awt.Component;
 import java.util.ArrayDeque;
 import java.util.Deque;
-import java.util.Stack;
 import javax.swing.GroupLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -27,7 +26,7 @@ public class MainPanel extends JPanel {
 
   public MainPanel() {
     formStack = new ArrayDeque<>();
-    initializeComponents();
+    initComponents();
   }
 
   public void showForm(Component formComponent) {
@@ -61,7 +60,7 @@ public class MainPanel extends JPanel {
     refreshFrame();
   }
 
-  private void initializeComponents() {
+  private void initComponents() {
     GroupLayout layout = new GroupLayout(this);
     setLayout(layout);
     setBorder(new EmptyBorder(5, 5, 5, 5));

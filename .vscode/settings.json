@@ -1,5 +1,8 @@
 {
-  "cSpell.words": [],
+  "cSpell.words": [
+    "IBUS",
+    "Segoe"
+  ],
   "cSpell.language": "en,en-GB,en-US,lorem",
   "java.debug.settings.onBuildFailureProceed": true,
   "java.configuration.updateBuildConfiguration": "automatic",
