@@ -4,6 +4,8 @@ import com.bookstore.bus.UserBUS;
 import com.bookstore.enums.UserRole;
 import com.bookstore.enums.UserStatus;
 import com.bookstore.models.UserModel;
+import com.bookstore.util.PasswordUtils;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -136,6 +138,7 @@ public class CreateUserFrame extends JFrame {
       new ImageIcon(getClass().getResource("/resources/icons/save.png"))
     );
     buttonSave.setPreferredSize(new Dimension(70, 23));
+    buttonSave.addActionListener(actionSave);
     buttonPanel.add(buttonSave);
 
     getContentPane().add(buttonPanel);
@@ -284,7 +287,7 @@ public class CreateUserFrame extends JFrame {
         UserModel newUser = new UserModel(
           0,
           setUserName.getText().trim(),
-          password,
+          PasswordUtils.hashPassword(password),
           status,
           setName.getText().trim(),
           setEmail.getText().trim(),

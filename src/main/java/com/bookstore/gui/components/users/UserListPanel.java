@@ -13,9 +13,9 @@ import javax.swing.*;
 public class UserListPanel extends JPanel {
 
   private static UserListPanel instance;
-  private int QuantityAdminNew = 0;
-  private int QuantityCustomerNew = 0;
-  private int QuantityEmployeeNew = 0;
+  private int quantityAdminNew = 0;
+  private int quantityCustomerNew = 0;
+  private int quantityEmployeeNew = 0;
   CartUserAdmin cartUserAdmin;
 
   UserBUS userBUS = UserBUS.getInstance();
@@ -76,8 +76,8 @@ public class UserListPanel extends JPanel {
       new CartUserAdmin(
         "/resources/icons/employeeCart.png",
         "EMPLOYEE",
-        QuantityEmployee,
-        QuantityEmployeeNew
+        quantityEmployeeNew,
+        quantityEmployee
       );
 
     cartPanel.add(cartUserAdmin);
@@ -86,8 +86,8 @@ public class UserListPanel extends JPanel {
       new CartUserAdmin(
         "/resources/icons/adminCart.png",
         "ADMIN",
-        QuantityAdmin,
-        QuantityAdminNew
+        quantityAdminNew,
+        quantityAdmin
       );
 
     cartPanel.add(cartUserAdmin);
@@ -96,8 +96,8 @@ public class UserListPanel extends JPanel {
       new CartUserAdmin(
         "/resources/icons/customerCart.png",
         "CUSTOMER",
-        QuantityCustomer,
-        QuantityCustomerNew
+        quantityCustomerNew,
+        quantityCustomer
       );
 
     cartPanel.add(cartUserAdmin);
@@ -205,37 +205,37 @@ public class UserListPanel extends JPanel {
   }
 
   public void actionCard() {
-    QuantityAdmin = 0;
-    QuantityCustomer = 0;
-    QuantityEmployee = 0;
-    QuantityUser = 0;
+    quantityAdmin = 0;
+    quantityCustomer = 0;
+    quantityEmployee = 0;
+    quantityUser = 0;
     List<UserModel> userList = userBUS.getAllModels();
     for (UserModel user : userList) {
       LocalDateTime getTime = user.getCreatedAt();
       LocalDateTime timeNow = LocalDateTime.now();
       Duration duration = Duration.between(getTime, timeNow);
-      long daysDiff = duration.toMillis();
+      long daysDiff = duration.toDays();
 
       if (!user.getStatus().toString().equals("BANNED")) {
-        QuantityUser = QuantityUser + 1;
+        quantityUser = quantityUser + 1;
 
         if (user.getRole().toString().equals("ADMIN")) {
-          QuantityAdmin = QuantityAdmin + 1;
+          quantityAdmin = quantityAdmin + 1;
 
           if (daysDiff <= 7) {
-            QuantityAdminNew = QuantityAdminNew + 1;
+            quantityAdminNew = quantityAdminNew + 1;
           }
         } else if (user.getRole().toString().equals("EMPLOYEE")) {
-          QuantityEmployee = QuantityEmployee + 1;
+          quantityEmployee = quantityEmployee + 1;
 
           if (daysDiff <= 7) {
-            QuantityEmployeeNew = QuantityEmployeeNew + 1;
+            quantityEmployeeNew = quantityEmployeeNew + 1;
           }
         } else {
-          QuantityCustomer = QuantityCustomer + 1;
+          quantityCustomer = quantityCustomer + 1;
 
           if (daysDiff <= 7) {
-            QuantityCustomerNew = QuantityCustomerNew + 1;
+            quantityCustomerNew = quantityCustomerNew + 1;
           }
         }
       }
@@ -300,10 +300,10 @@ public class UserListPanel extends JPanel {
   private JPanel panelItemHeader_2;
   private JLabel label;
 
-  private int QuantityAdmin = 0;
-  private int QuantityCustomer = 0;
-  private int QuantityUser = 0;
-  private int QuantityEmployee = 0;
+  private int quantityAdmin = 0;
+  private int quantityCustomer = 0;
+  private int quantityUser = 0;
+  private int quantityEmployee = 0;
 
   public ActionListener actionCreate = new ActionListener() {
     @Override
@@ -315,34 +315,53 @@ public class UserListPanel extends JPanel {
   public ActionListener actionDelete = new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
-      for (Component component : table.getComponents()) {
-        JPanel subPanel = (JPanel) component;
-        for (Component subComponent : subPanel.getComponents()) {
-          if (
-            subComponent instanceof JCheckBox &&
-            ((JCheckBox) subComponent).isSelected()
-          ) {
-            Component[] components = subPanel.getComponents();
-            boolean foundTextField = false;
-            for (Component c : components) {
-              if (c instanceof JTextField && !foundTextField) {
-                foundTextField = true;
-                System.out.println(((JTextField) c).getText());
-                int id = Integer.parseInt(((JTextField) c).getText());
-                int deletedRows = UserBUS.getInstance().deleteModel(id);
-                if (deletedRows == 1) {
-                  JOptionPane.showMessageDialog(
-                    null,
-                    " Account lock successful !"
-                  );
+      int choice = JOptionPane.showConfirmDialog(
+        null,
+        "Do you want to banned users?",
+        "Confirmation",
+        JOptionPane.YES_NO_OPTION
+      );
+
+      if (choice == JOptionPane.YES_OPTION) {
+        int deletedRows = 0;
+        for (Component component : table.getComponents()) {
+          if (component instanceof JPanel) {
+            JPanel subPanel = (JPanel) component;
+
+            for (Component subComponent : subPanel.getComponents()) {
+              if (subComponent instanceof JPanel) {
+                JPanel subPanelItem = (JPanel) subComponent;
+
+                for (Component subComponentItem : subPanelItem.getComponents()) {
+                  if (
+                    subComponentItem instanceof JCheckBox &&
+                    ((JCheckBox) subComponentItem).isSelected()
+                  ) {
+                    for (Component c : subPanelItem.getComponents()) {
+                      if (c instanceof JTextField) {
+                        int id = UserBUS
+                          .getInstance()
+                          .getModelById(
+                            Integer.valueOf(((JTextField) c).getText())
+                          )
+                          .getId();
+                        deletedRows = UserBUS.getInstance().deleteModel(id);
+                        break;
+                      }
+                    }
+                    break;
+                  }
                 }
               }
             }
           }
         }
+        if (deletedRows != 0) {
+          JOptionPane.showMessageDialog(null, " Account lock successful !");
+        }
+        tablePanel.revalidate();
+        tablePanel.repaint();
       }
-      tablePanel.revalidate();
-      tablePanel.repaint();
     }
   };
 
@@ -357,7 +376,7 @@ public class UserListPanel extends JPanel {
     @Override
     public void actionPerformed(ActionEvent e) {
       table.removeAll();
-      table.setLayout(new GridLayout(0, 1));
+      table.setLayout(new GridLayout(0, 1, 0, 20));
       int serial = 0;
       List<UserModel> userList = UserBUS.getInstance().getAllModels();
       for (UserModel user : userList) {
@@ -378,7 +397,7 @@ public class UserListPanel extends JPanel {
     @Override
     public void actionPerformed(ActionEvent e) {
       table.removeAll();
-      table.setLayout(new GridLayout(0, 1));
+      table.setLayout(new GridLayout(0, 1, 0, 20));
       int serial = 0;
       List<UserModel> userList = UserBUS.getInstance().getAllModels();
       for (UserModel user : userList) {
@@ -399,7 +418,7 @@ public class UserListPanel extends JPanel {
     @Override
     public void actionPerformed(ActionEvent e) {
       table.removeAll();
-      table.setLayout(new GridLayout(0, 1));
+      table.setLayout(new GridLayout(0, 1, 0, 20));
       int serial = 0;
       List<UserModel> userList = UserBUS.getInstance().getAllModels();
       for (UserModel user : userList) {
