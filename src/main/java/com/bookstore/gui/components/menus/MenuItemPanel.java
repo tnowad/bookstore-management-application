@@ -1,8 +1,9 @@
 package com.bookstore.gui.components.menus;
 
 import com.bookstore.gui.components.buttons.MenuButton;
-import com.bookstore.models.MenuItemModel;
-import com.bookstore.models.SubMenuItemModel;
+import com.bookstore.models.gui.MenuItemModel;
+import com.bookstore.models.gui.SubMenuItemModel;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;

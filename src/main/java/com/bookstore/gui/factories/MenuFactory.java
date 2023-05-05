@@ -27,10 +27,11 @@ import com.bookstore.gui.forms.users.CustomerList;
 import com.bookstore.gui.forms.users.EmployeeList;
 import com.bookstore.gui.forms.users.SalaryList;
 import com.bookstore.models.EmployeeModel;
-import com.bookstore.models.MenuItemModel;
-import com.bookstore.models.MenuModel;
-import com.bookstore.models.SubMenuItemModel;
 import com.bookstore.models.UserModel;
+import com.bookstore.models.gui.MenuItemModel;
+import com.bookstore.models.gui.MenuModel;
+import com.bookstore.models.gui.SubMenuItemModel;
+
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;

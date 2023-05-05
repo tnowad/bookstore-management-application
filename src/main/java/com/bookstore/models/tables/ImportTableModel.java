@@ -1,8 +1,10 @@
-package com.bookstore.models;
+package com.bookstore.models.tables;
 
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
+
+import com.bookstore.models.ImportModel;
 
 public class ImportTableModel extends DefaultTableModel {
 

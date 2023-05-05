@@ -31,7 +31,7 @@ public class ImportList extends JPanel {
   private ImportList() {
     initComponents();
     listImport();
-    searh();
+    search();
   }
 
   public static ImportList getInstance() {
@@ -149,7 +149,7 @@ public class ImportList extends JPanel {
     add(jScrollPane1, BorderLayout.CENTER);
   }
 
-  private void searh() {
+  private void search() {
     searchButton.addActionListener(
       new ActionListener() {
         public void actionPerformed(ActionEvent e) {
