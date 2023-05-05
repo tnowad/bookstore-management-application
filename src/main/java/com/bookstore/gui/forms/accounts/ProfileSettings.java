@@ -6,6 +6,7 @@ import com.bookstore.gui.components.buttons.Button;
 import com.bookstore.models.AddressModel;
 import com.bookstore.models.UserModel;
 import com.bookstore.services.Authentication;
+import com.bookstore.util.InputValidator;
 import com.bookstore.util.PasswordUtils;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -163,19 +164,37 @@ public class ProfileSettings extends JPanel {
     if (
       PasswordUtils.checkPassword(confirmPassword, currentUser.getPassword())
     ) {
-      currentUser.setName(nameTextField.getText());
-      currentUser.setUsername(usernameTextField.getText());
-      currentUser.setEmail(emailTextField.getText());
-      currentUser.setPhone(phoneTextField.getText());
-      addressModel.setCity(cityTextField.getText());
-      addressModel.setState(stateTextField.getText());
-      addressModel.setStreet(stateTextField.getText());
-      addressModel.setZip(zipTextField.getText());
+      try {
+        currentUser.setName(
+          InputValidator.validateName(nameTextField.getText())
+        );
+        currentUser.setUsername(
+          InputValidator.validateUsername(usernameTextField.getText())
+        );
+        currentUser.setEmail(
+          InputValidator.validateEmail(emailTextField.getText())
+        );
+        currentUser.setPhone(
+          InputValidator.validatePhone(phoneTextField.getText())
+        );
+        addressModel.setCity(
+          InputValidator.validateCity(cityTextField.getText())
+        );
+        addressModel.setState(
+          InputValidator.validateState(stateTextField.getText())
+        );
+        addressModel.setStreet(
+          InputValidator.validateStreet(streetTextField.getText())
+        );
+        addressModel.setZip(InputValidator.validateZip(zipTextField.getText()));
 
-      userBus.updateModel(currentUser);
-      addressBus.updateModel(addressModel);
-      confirmPasswordField.setText("");
-      JOptionPane.showMessageDialog(null, "Confirm Password Successfully");
+        userBus.updateModel(currentUser);
+        addressBus.updateModel(addressModel);
+        confirmPasswordField.setText("");
+        JOptionPane.showMessageDialog(null, "Confirm Password Successfully");
+      } catch (Exception exception) {
+        JOptionPane.showMessageDialog(null, exception.getMessage());
+      }
     } else {
       JOptionPane.showMessageDialog(null, "Passwords do not match");
     }
