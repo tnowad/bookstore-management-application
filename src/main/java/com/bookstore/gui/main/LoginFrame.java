@@ -5,6 +5,7 @@ import com.bookstore.gui.components.buttons.Button;
 import com.bookstore.gui.factories.UIFactory;
 import com.bookstore.models.UserModel;
 import com.bookstore.services.Authentication;
+import com.bookstore.util.InputValidator;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
@@ -133,19 +134,25 @@ public class LoginFrame extends JFrame {
   };
 
   private ActionListener loginButtonActionListener = e -> {
-    String username = usernameTextField.getText();
-    String password = new String(passwordField.getPassword());
     try {
-      if (username.isEmpty() || password.isEmpty()) {
-        throw new Exception("Username and password must not be empty");
-      }
+      String username = InputValidator.validateUsername(
+        usernameTextField.getText()
+      );
+      String password = InputValidator.validatePassword(
+        String.valueOf(passwordField.getPassword())
+      );
+
       UserModel user = UserBUS.getInstance().login(username, password);
       Authentication.setCurrentUser(user);
-      JOptionPane.showMessageDialog(null, "Login successfully");
       UIFactory.showForm(user);
       dispose();
     } catch (Exception exception) {
-      JOptionPane.showMessageDialog(null, exception.getMessage());
+      JOptionPane.showMessageDialog(
+        null,
+        exception.getMessage(),
+        "Error",
+        JOptionPane.ERROR_MESSAGE
+      );
     }
     passwordField.setText("");
   };

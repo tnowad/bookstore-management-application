@@ -89,38 +89,38 @@ public class ProfileSettings extends JPanel {
 
     confirmPasswordLabel = new JLabel("Confirm password");
     confirmPasswordField = new JPasswordField();
-    JPanel wrapperPanel = new JPanel(new GridLayout(0, 2));
-    wrapperPanel.setBackground(Color.WHITE);
+    JPanel formPanel = new JPanel(new GridLayout(0, 2));
+    formPanel.setBackground(Color.WHITE);
 
-    wrapperPanel.add(editLabel);
-    wrapperPanel.add(new JLabel());
-    wrapperPanel.add(nameLabel);
-    wrapperPanel.add(nameTextField);
-    wrapperPanel.add(usernameLabel);
-    wrapperPanel.add(usernameTextField);
-    wrapperPanel.add(emailLabel);
-    wrapperPanel.add(emailTextField);
-    wrapperPanel.add(phoneLabel);
-    wrapperPanel.add(phoneTextField);
-    wrapperPanel.add(updateLabel);
-    wrapperPanel.add(new JLabel());
-    wrapperPanel.add(streetLabel);
-    wrapperPanel.add(streetTextField);
-    wrapperPanel.add(cityLabel);
-    wrapperPanel.add(cityTextField);
-    wrapperPanel.add(stateLabel);
-    wrapperPanel.add(stateTextField);
-    wrapperPanel.add(zipLabel);
-    wrapperPanel.add(zipTextField);
-    wrapperPanel.add(confirmPasswordLabel);
-    wrapperPanel.add(confirmPasswordField);
+    formPanel.add(editLabel);
+    formPanel.add(new JLabel());
+    formPanel.add(nameLabel);
+    formPanel.add(nameTextField);
+    formPanel.add(usernameLabel);
+    formPanel.add(usernameTextField);
+    formPanel.add(emailLabel);
+    formPanel.add(emailTextField);
+    formPanel.add(phoneLabel);
+    formPanel.add(phoneTextField);
+    formPanel.add(updateLabel);
+    formPanel.add(new JLabel());
+    formPanel.add(streetLabel);
+    formPanel.add(streetTextField);
+    formPanel.add(cityLabel);
+    formPanel.add(cityTextField);
+    formPanel.add(stateLabel);
+    formPanel.add(stateTextField);
+    formPanel.add(zipLabel);
+    formPanel.add(zipTextField);
+    formPanel.add(confirmPasswordLabel);
+    formPanel.add(confirmPasswordField);
 
     JScrollPane scrollPane = new JScrollPane(
       new JPanel() {
         {
           setLayout(new BorderLayout());
           setBackground(Color.WHITE);
-          add(wrapperPanel, BorderLayout.NORTH);
+          add(formPanel, BorderLayout.NORTH);
         }
       },
       JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
@@ -134,7 +134,7 @@ public class ProfileSettings extends JPanel {
 
     actionPanel.setBackground(Color.WHITE);
 
-    actionPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 30, 5));
+    actionPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
     updateButton = new Button("Update");
     updateButton.addActionListener(updateUserInformationActionListener);
