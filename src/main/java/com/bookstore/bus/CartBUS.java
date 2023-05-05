@@ -232,15 +232,12 @@ public class CartBUS implements IBUS<CartModel> {
 
   public int getTotalPrice(int cartId) {
     int totalPrice = 0;
-    try {
-      List<CartItemsModel> cartItems = CartItemsDAO
-        .getInstance()
-        .search(String.valueOf(cartId), new String[] { "cart_id" });
-      for (CartItemsModel cartItem : cartItems) {
-        totalPrice += cartItem.getQuantity() * cartItem.getPrice();
-      }
-    } catch (Exception e) {
-      totalPrice = 0;
+
+    List<CartItemsModel> cartItems = CartItemsDAO
+      .getInstance()
+      .search(String.valueOf(cartId), new String[] { "cart_id" });
+    for (CartItemsModel cartItem : cartItems) {
+      totalPrice += cartItem.getQuantity() * cartItem.getPrice();
     }
     return totalPrice;
   }
