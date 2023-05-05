@@ -1,8 +1,10 @@
 package com.bookstore.bus;
 
 import com.bookstore.dao.CartDAO;
+import com.bookstore.dao.CartItemsDAO;
 import com.bookstore.enums.CartStatus;
 import com.bookstore.interfaces.IBUS;
+import com.bookstore.models.CartItemsModel;
 import com.bookstore.models.CartModel;
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -226,5 +228,16 @@ public class CartBUS implements IBUS<CartModel> {
     throw new UnsupportedOperationException(
       "Unimplemented method 'refreshData'"
     );
+  }
+
+  public int getTotalPrice(int cartId) {
+    int totalPrice = 0;
+    List<CartItemsModel> cartItems = CartItemsDAO
+      .getInstance()
+      .search(String.valueOf(cartId), new String[] { "cart_id" });
+    for (CartItemsModel cartItem : cartItems) {
+      totalPrice += cartItem.getQuantity() * cartItem.getPrice();
+    }
+    return totalPrice;
   }
 }

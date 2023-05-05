@@ -20,7 +20,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
-public class Cart extends JPanel {
+public class CartCustomerPanel extends JPanel {
 
   private JButton deleteAllProductsButton;
   private JButton proceedToCheckoutButton;
@@ -44,11 +44,10 @@ public class Cart extends JPanel {
   private List<CartModel> cartList;
   private UserModel userModel;
 
-  public Cart() {
+  public CartCustomerPanel() {
     updateData();
     initComponents();
-    listOrder();
-    listCart();
+    updateTable();
     handleEvent();
   }
 
@@ -89,7 +88,10 @@ public class Cart extends JPanel {
     groupBottomPanel = new JPanel();
     groupTotalCostPanel = new JPanel();
     totalCostLabel = new JLabel();
-    totalPriceTextField = new JTextField();
+    totalPriceTextField =
+      new JTextField(
+        String.valueOf(CartBUS.getInstance().getTotalPrice(cartModel.getId()))
+      );
     groupActionPanel = new JPanel();
     chooseAllCheckBox = new JCheckBox();
     deleteAllProductsButton = new JButton();
@@ -147,9 +149,7 @@ public class Cart extends JPanel {
     add(groupBottomPanel, BorderLayout.SOUTH);
   }
 
-  private void listOrder() {}
-
-  private void listCart() {
+  private void updateTable() {
     CartItemsBUS.getInstance().refreshData();
     updateData();
     DefaultTableModel model = new DefaultTableModel();
@@ -176,6 +176,11 @@ public class Cart extends JPanel {
     listCartTable.setModel(model);
     listCartScrollPane.setViewportView(listCartTable);
     listCartPanel.add(listCartScrollPane, BorderLayout.CENTER);
+    try {
+      totalPriceTextField.setText(
+        String.valueOf(CartBUS.getInstance().getTotalPrice(cartModel.getId()))
+      );
+    } catch (Exception e) {}
   }
 
   private void handleEvent() {
@@ -190,7 +195,7 @@ public class Cart extends JPanel {
                 .getValueAt(selectedRowIndex, 0)
                 .toString();
               new Dialog(new CartItemDetailFrame(cartModel.getId(), bookIsbn));
-              listCart();
+              updateTable();
             }
           }
         }
@@ -205,12 +210,9 @@ public class Cart extends JPanel {
           JOptionPane.WARNING_MESSAGE
         );
       } else {
-        // cartBUS.updateStatus(cartModel.getId(), "SHOPPING");
-
         MainPanel
           .getInstance()
           .showFormStack(new CheckoutCustomerPanel(cartModel));
-
         JOptionPane.showMessageDialog(
           null,
           "Your cart is shopping",
