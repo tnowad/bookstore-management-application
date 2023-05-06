@@ -65,9 +65,10 @@ public class BookItemPanel extends JPanel {
     addToCartButton.addActionListener(e -> {
       updateData();
 
-      System.out.println(
-        CartBUS.getInstance().getShoppingCartByUserId(userModel.getId())
-      );
+      CartModel cartModel = CartBUS
+        .getInstance()
+        .getShoppingCartByUserId(userModel.getId());
+      CartItemsBUS.getInstance().addBookToCart(cartModel, bookModel);
       // boolean bookAlreadyInCart = false;
       // for (CartModel cartModel : cartList) {
       //   if (

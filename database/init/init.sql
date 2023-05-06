@@ -144,7 +144,7 @@ CREATE TABLE
         `book_isbn` VARCHAR(20) NOT NULL,
         `price` INT NOT NULL,
         `quantity` INT NOT NULL,
-        `discount` INT NOT NULL
+        `discount` INT DEFAULT NULL
     );
 
 CREATE TABLE
