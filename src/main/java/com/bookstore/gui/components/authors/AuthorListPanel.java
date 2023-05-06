@@ -1,6 +1,7 @@
 package com.bookstore.gui.components.authors;
 
 import com.bookstore.bus.AuthorBUS;
+import com.bookstore.gui.forms.authors.AuthorPanel;
 import com.bookstore.models.AuthorModel;
 import java.awt.BorderLayout;
 import java.awt.Dimension;

@@ -1,6 +1,7 @@
 package com.bookstore.gui.components.providers;
 
 import com.bookstore.bus.ProviderBUS;
+import com.bookstore.gui.forms.providers.ProviderPanel;
 import com.bookstore.models.ProviderModel;
 import java.awt.BorderLayout;
 import java.awt.Dimension;

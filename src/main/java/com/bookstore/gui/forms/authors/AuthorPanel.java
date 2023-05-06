@@ -1,4 +1,4 @@
-package com.bookstore.gui.components.authors;
+package com.bookstore.gui.forms.authors;
 
 import com.bookstore.models.AuthorModel;
 import java.awt.*;
@@ -58,6 +58,7 @@ public class AuthorPanel extends JPanel implements MouseListener {
     setDescription.setPreferredSize(new Dimension(300, 16));
     add(setDescription);
   }
+
   @Override
   public void mouseClicked(MouseEvent e) {
     
@@ -82,4 +83,5 @@ public class AuthorPanel extends JPanel implements MouseListener {
   public void mouseExited(MouseEvent e) {
     
   }
+
 }

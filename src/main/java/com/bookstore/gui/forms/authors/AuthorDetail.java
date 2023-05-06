@@ -1,32 +1,30 @@
-package com.bookstore.gui.components.publishers;
+package com.bookstore.gui.forms.authors;
 
 import java.awt.*;
 import javax.swing.*;
 
-import com.bookstore.models.PublisherModel;
+import com.bookstore.models.AuthorModel;
 
-public class PublisherDetail extends JFrame {
+public class AuthorDetail extends JFrame {
 
   private JTextArea setDescription;
-private JPanel buttonPanel;
-private JButton buttonBack;
-private JButton buttonSave;
+  private JPanel buttonPanel;
+  private JButton buttonBack;
+  private JButton buttonSave;
 
-  public PublisherDetail(PublisherModel publisher) {
-    initComponents(publisher);
+  public AuthorDetail(AuthorModel author) {
+    initComponents(author);
     setLocationRelativeTo(null);
     setResizable(false);
     this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
   }
 
-  private void initComponents(PublisherModel publisher) {
+  private void initComponents(AuthorModel author) {
     contend = new JPanel();
     idText = new JLabel();
     setId = new JTextField();
     nameText = new JLabel();
     setName = new JTextField();
-    productsText = new JLabel();
-    setProducts = new JTextField();
     descriptionText = new JLabel();
     scrollPane = new JScrollPane();
     setDescription = new JTextArea();
@@ -45,7 +43,7 @@ private JButton buttonSave;
     contend.add(idText);
 
     setId.setPreferredSize(new Dimension(200, 25));
-    setId.setText(""+publisher.getId());
+    setId.setText(""+author.getId());
     contend.add(setId);
 
     nameText.setFont(new Font("Segoe UI", 1, 14)); // NOI18N
@@ -55,17 +53,8 @@ private JButton buttonSave;
     contend.add(nameText);
 
     setName.setPreferredSize(new Dimension(200, 25));
-    setName.setText(publisher.getName());
+    setName.setText(author.getName());
     contend.add(setName);
-
-    productsText.setFont(new Font("Segoe UI", 1, 14)); // NOI18N
-    productsText.setHorizontalAlignment(SwingConstants.RIGHT);
-    productsText.setText("Product Of This");
-    productsText.setPreferredSize(new Dimension(130, 16));
-    contend.add(productsText);
-
-    setProducts.setPreferredSize(new Dimension(130, 25));
-    contend.add(setProducts);
 
     descriptionText.setFont(new Font("Segoe UI", 1, 14)); // NOI18N
     descriptionText.setHorizontalAlignment(SwingConstants.LEFT);
@@ -76,7 +65,7 @@ private JButton buttonSave;
     setDescription.setFont(new Font("Segoe UI", 3, 15));
     setDescription.setLineWrap(true);
     setDescription.setRows(5);
-    setDescription.setText(publisher.getDescription());
+    setDescription.setText(author.getDescription());
     scrollPane.setViewportView(setDescription);
     scrollPane.getVerticalScrollBar().setValue(0);
 
@@ -102,15 +91,11 @@ private JButton buttonSave;
     pack();
   }
 
-  // Variables declaration - do not modify//GEN-BEGIN:variables
   private JPanel contend;
   private JLabel descriptionText;
   private JLabel idText;
   private JLabel nameText;
-  private JLabel productsText;
   private JScrollPane scrollPane;
   private JTextField setId;
   private JTextField setName;
-  private JTextField setProducts;
-  // End of variables declaration//GEN-END:variables
 }

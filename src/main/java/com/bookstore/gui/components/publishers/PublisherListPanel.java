@@ -1,6 +1,7 @@
 package com.bookstore.gui.components.publishers;
 
 import com.bookstore.bus.PublisherBUS;
+import com.bookstore.gui.forms.publishers.PublisherPanel;
 import com.bookstore.models.PublisherModel;
 import java.awt.BorderLayout;
 import java.awt.Dimension;

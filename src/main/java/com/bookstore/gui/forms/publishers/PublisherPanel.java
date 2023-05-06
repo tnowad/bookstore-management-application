@@ -1,13 +1,13 @@
-package com.bookstore.gui.components.providers;
+package com.bookstore.gui.forms.publishers;
 
-import com.bookstore.models.ProviderModel;
+import com.bookstore.models.PublisherModel;
 import java.awt.*;
 import java.awt.event.*;
 
-
 import javax.swing.*;
 
-public class ProviderPanel extends JPanel implements MouseListener{
+
+public class PublisherPanel extends JPanel implements MouseListener{
 
   private JCheckBox checkBox;
   private JPanel panel;
@@ -16,20 +16,20 @@ public class ProviderPanel extends JPanel implements MouseListener{
   private JLabel setName;
   private JLabel setSerial;
 
-  public ProviderPanel(int serial, ProviderModel providerModel) {
-    initComponents(serial, providerModel);
+  public PublisherPanel(int serial, PublisherModel publisher) {
+    initComponents(serial, publisher);
     addMouseListener(
       new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {
-          ProviderDetail providerDetail = new ProviderDetail(providerModel);
-          providerDetail.setVisible(true);
+          PublisherDetail publisherDetail = new PublisherDetail(publisher);
+          publisherDetail.setVisible(true);
         }
       }
     );
   }
 
-  private void initComponents(int serial, ProviderModel providerModel) {
+  private void initComponents(int serial, PublisherModel publisher) {
     panel = new JPanel();
     checkBox = new JCheckBox();
     setSerial = new JLabel();
@@ -45,16 +45,16 @@ public class ProviderPanel extends JPanel implements MouseListener{
     setSerial.setText("" + serial);
     panel.add(setSerial);
 
-    setId.setText("" + providerModel.getId());
+    setId.setText("" + publisher.getId());
     panel.add(setId);
 
     add(panel);
 
-    setName.setText(providerModel.getName());
+    setName.setText(publisher.getName());
     setName.setPreferredSize(new Dimension(100, 16));
     add(setName);
 
-    setDescription.setText(providerModel.getDescription());
+    setDescription.setText(publisher.getDescription());
     setDescription.setPreferredSize(new Dimension(300, 16));
     add(setDescription);
   }
@@ -66,7 +66,7 @@ public class ProviderPanel extends JPanel implements MouseListener{
 
   @Override
   public void mousePressed(MouseEvent e) {
-    
+   
   }
 
   @Override
@@ -81,6 +81,7 @@ public class ProviderPanel extends JPanel implements MouseListener{
 
   @Override
   public void mouseExited(MouseEvent e) {
-    
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'mouseExited'");
   }
 }

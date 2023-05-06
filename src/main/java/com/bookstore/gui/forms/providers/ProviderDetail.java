@@ -1,4 +1,4 @@
-package com.bookstore.gui.components.providers;
+package com.bookstore.gui.forms.providers;
 
 import java.awt.*;
 import javax.swing.*;
