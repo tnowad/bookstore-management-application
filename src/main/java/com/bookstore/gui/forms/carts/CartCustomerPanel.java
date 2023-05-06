@@ -98,10 +98,7 @@ public class CartCustomerPanel extends JPanel {
     groupBottomPanel = new JPanel();
     groupTotalCostPanel = new JPanel();
     totalCostLabel = new JLabel();
-    // totalPriceTextField =
-    //   new JTextField(
-    //     String.valueOf(CartBUS.getInstance().getTotalPrice(cartModel.getId()))
-    //   );
+ 
     groupActionPanel = new JPanel();
     deleteAllProductsButton = new JButton();
     proceedToCheckoutButton = new JButton();
@@ -130,14 +127,11 @@ public class CartCustomerPanel extends JPanel {
         CartBUS.getInstance().getTotalPrice(cartModel.getId())
       )
     );
-    // totalCostLabel.setText("Total cost:" + "");
+   
     totalCostLabel.setPreferredSize(new Dimension(150, 30));
     groupTotalCostPanel.add(totalCostLabel);
 
-    // totalPriceTextField.setEditable(false);
-    // totalPriceTextField.setPreferredSize(new Dimension(200, 30));
-
-    // groupTotalCostPanel.add(totalPriceTextField);
+  
 
     groupBottomPanel.add(groupTotalCostPanel);
 
@@ -201,9 +195,7 @@ public class CartCustomerPanel extends JPanel {
           CartBUS.getInstance().getTotalPrice(cartModel.getId())
         )
       );
-      // totalPriceTextField.setText(
-      //   String.valueOf(CartBUS.getInstance().getTotalPrice(cartModel.getId()))
-      // );
+   
     } catch (Exception e) {
       totalCostLabel.setText("0");
     }
