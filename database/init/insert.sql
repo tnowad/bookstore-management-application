@@ -267,26 +267,26 @@ INSERT INTO `import_items` (`import_id`, `book_isbn`, `quantity`, `price`) VALUE
 (19, '9780000000193', 17, 80000),
 (20, '9780000000209', 12, 130000);
 
--- INSERT INTO `promotions` (`id`, `description`, `quantity`, `start_date`, `end_date`, `condition_apply`, `discount_percent`, `discount_amount`) VALUES
--- (1, '30% off fiction books', 100, '2023-05-01', '2023-05-31', NULL, 30, NULL),
--- (2, 'Buy 2 Books Get 1 Free Book', 50, '2023-04-18', '2023-05-31', 'Applies to books over 200,000VND', NULL, NULL),
--- (3, '50% off economics books', 80, '2023-05-15', '2023-06-15', NULL, 50, NULL),
--- (4, 'Give away bookmarks when buying detective books', 120, '2023-04-25', '2023-05-01', NULL, NULL, NULL),
--- (5, '10% off all books', 250, '2023-05-01', '2023-05-31', 'Applies to orders over 500,000 VND', 10, NULL),
--- (6, 'Buy 3 books, get 30,000 VND off', 200, '2023-04-25', '2023-05-31', NULL, NULL, 30000),
--- (7, 'Buy literature books 20% off', 150, '2023-05-01', '2023-05-31', 'Applicable to orders over 300,000 VND', 20, NULL),
--- (8, '10% off textbooks', 100, '2023-04-25', '2023-05-15', NULL, 10, NULL),
--- (9, 'Buy 1 book, get free bookmarks', 50, '2023-05-01', '2023-05-31', 'Applies to books over 150,000 VND', NULL, NULL),
--- (10, 'Discount 50,000 VND when buying natural books', 80, '2023-04-25', '2023-05-31', NULL, NULL, 50000),
--- (11, 'Giving vouchers to buy books worth VND 100,000', 120, '2023-05-01', '2023-05-31', 'Applicable to orders over VND 800,000', NULL, NULL),
--- (12, 'Buy children books, get free picture books', 200, '2023-04-18', '2023-06-30', 'Applicable to orders over 400,000 VND', NULL, NULL),
--- (13, '20% off foreign language books', 70, '2023-05-01', '2023-05-31', NULL, 20, NULL),
--- (14, 'Buy 1 book for 10,000 VND off', 100, '2023-04-25', '2023-05-31', NULL, NULL, 10000),
--- (15, '30% off all comic books', 80, '2023-05-01', '2023-05-15', NULL, 30, NULL),
--- (16, 'Giving a voucher to buy a book worth VND 50,000', 150, '2023-04-18', '2023-05-31', 'Applicable to orders over 300,000 VND', NULL, NULL),
--- (17, 'Buy 1 economic book, get free bookmark', 50, '2023-05-01', '2023-05-31', 'Apply to books over 200,000 VND', NULL, NULL),
--- (18, '20% off textbooks', 150, '2023-05-01', '2023-05-31', 'Applies to orders over 400,000 VND', 20, NULL),
--- (19, 'Buy economics books 15% off', 100, '2023-04-25', '2023-05-31', NULL, 15, NULL);
+INSERT INTO `promotions` (`id`, `description`, `quantity`, `start_date`, `end_date`, `condition_apply`, `discount_percent`, `discount_amount`) VALUES
+(1, '30% off fiction books', 100, '2023-05-01', '2023-05-31', NULL, 30, NULL),
+(2, 'Buy 2 Books Get 1 Free Book', 50, '2023-04-18', '2023-05-31', 'Applies to books over 200,000VND', NULL, NULL),
+(3, '50% off economics books', 80, '2023-05-15', '2023-06-15', NULL, 50, NULL),
+(4, 'Give away bookmarks when buying detective books', 120, '2023-04-25', '2023-05-01', NULL, NULL, NULL),
+(5, '10% off all books', 250, '2023-05-01', '2023-05-31', 'Applies to orders over 500,000 VND', 10, NULL),
+(6, 'Buy 3 books, get 30,000 VND off', 200, '2023-04-25', '2023-05-31', NULL, NULL, 30000),
+(7, 'Buy literature books 20% off', 150, '2023-05-01', '2023-05-31', 'Applicable to orders over 300,000 VND', 20, NULL),
+(8, '10% off textbooks', 100, '2023-04-25', '2023-05-15', NULL, 10, NULL),
+(9, 'Buy 1 book, get free bookmarks', 50, '2023-05-01', '2023-05-31', 'Applies to books over 150,000 VND', NULL, NULL),
+(10, 'Discount 50,000 VND when buying natural books', 80, '2023-04-25', '2023-05-31', NULL, NULL, 50000),
+(11, 'Giving vouchers to buy books worth VND 100,000', 120, '2023-05-01', '2023-05-31', 'Applicable to orders over VND 800,000', NULL, NULL),
+(12, 'Buy children books, get free picture books', 200, '2023-04-18', '2023-06-30', 'Applicable to orders over 400,000 VND', NULL, NULL),
+(13, '20% off foreign language books', 70, '2023-05-01', '2023-05-31', NULL, 20, NULL),
+(14, 'Buy 1 book for 10,000 VND off', 100, '2023-04-25', '2023-05-31', NULL, NULL, 10000),
+(15, '30% off all comic books', 80, '2023-05-01', '2023-05-15', NULL, 30, NULL),
+(16, 'Giving a voucher to buy a book worth VND 50,000', 150, '2023-04-18', '2023-05-31', 'Applicable to orders over 300,000 VND', NULL, NULL),
+(17, 'Buy 1 economic book, get free bookmark', 50, '2023-05-01', '2023-05-31', 'Apply to books over 200,000 VND', NULL, NULL),
+(18, '20% off textbooks', 150, '2023-05-01', '2023-05-31', 'Applies to orders over 400,000 VND', 20, NULL),
+(19, 'Buy economics books 15% off', 100, '2023-04-25', '2023-05-31', NULL, 15, NULL);
 
 INSERT INTO `providers` (`id`, `name`, `description`) VALUES
 (1, 'Thanh Cong Bookstore', 'Prestigious bookstore specializing in providing all kinds of books of literature, economics, natural science,...'),
