@@ -15,6 +15,7 @@ import com.bookstore.util.image.ImageUtils;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.Image;
 import java.util.List;
 import javax.swing.ImageIcon;
@@ -32,6 +33,7 @@ public class BookItemPanel extends JPanel {
   private JPanel footerPanel;
   private Label priceLabel;
   private Label imageLabel;
+  private JPanel jPanelFooter;
 
   private UserModel userModel = Authentication.getCurrentUser();
   private List<CartModel> cartList = CartBUS.getInstance().getAllModels();
@@ -109,7 +111,7 @@ public class BookItemPanel extends JPanel {
     setLayout(new BorderLayout());
     titleLabel = new JLabel(bookModel.getTitle());
     titleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-    add(titleLabel, BorderLayout.PAGE_START);
+    add(titleLabel, BorderLayout.CENTER);
 
     imageLabel = new Label();
     Image image = null;
@@ -125,18 +127,29 @@ public class BookItemPanel extends JPanel {
 
     imageLabel.setPreferredSize(new Dimension(200, 150));
     imageLabel.setHorizontalAlignment(SwingConstants.CENTER);
-    add(imageLabel, BorderLayout.CENTER);
+    add(imageLabel, BorderLayout.NORTH);
 
-    footerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 5));
+    // footerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 5));
+    footerPanel = new JPanel(new BorderLayout());
     priceLabel = new Label();
     detailButton = new JButton();
     addToCartButton = new JButton();
+    jPanelFooter =  new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
+
     priceLabel.setText(bookModel.getPrice() + " $");
-    footerPanel.add(priceLabel);
+    priceLabel.setHorizontalAlignment(SwingConstants.CENTER);
+    priceLabel.setFont(new Font("Arial", Font.BOLD, 16));
+    priceLabel.setLabelSize(100, 22);
+    footerPanel.add(priceLabel, BorderLayout.NORTH);
+    
     detailButton.setText("Book detail");
-    footerPanel.add(detailButton);
+    jPanelFooter.add(detailButton);
+    // footerPanel.add(detailButton, BorderLayout.WEST);
     addToCartButton.setText("Add to cart");
-    footerPanel.add(addToCartButton);
+    jPanelFooter.add(addToCartButton);
+
+    footerPanel.add(jPanelFooter, BorderLayout.CENTER);
+    // footerPanel.add(addToCartButton, BorderLayout.CENTER);
     add(footerPanel, BorderLayout.SOUTH);
   }
 }
