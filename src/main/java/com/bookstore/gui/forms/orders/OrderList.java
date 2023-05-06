@@ -59,12 +59,12 @@ public class OrderList extends JPanel {
 
               listOrder();
             } else {
-              JOptionPane.showMessageDialog(
-                null,
-                "Please select a row to view detail",
-                "Warning",
-                JOptionPane.WARNING_MESSAGE
-              );
+              // JOptionPane.showMessageDialog(
+              //   null,
+              //   "Please select a row to view detail",
+              //   "Warning",
+              //   JOptionPane.WARNING_MESSAGE
+              // );
             }
           }
         }
