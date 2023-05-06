@@ -8,6 +8,7 @@ import com.bookstore.bus.UserBUS;
 import com.bookstore.enums.OrderStatus;
 import com.bookstore.gui.components.buttons.Button;
 import com.bookstore.gui.components.labels.Label;
+import com.bookstore.gui.components.panels.MainPanel;
 import com.bookstore.models.BookModel;
 import com.bookstore.models.CartItemsModel;
 import com.bookstore.models.CartModel;
@@ -59,10 +60,12 @@ public class OrderDetail extends JPanel {
   private void handleEvent() {
     acceptButton.addActionListener(acceptButtonActionListener);
     rejectButton.addActionListener(rejectButtonActionListener);
+    backToPreviousButton.addActionListener(e -> {
+      MainPanel.getInstance().backToPreviousForm();
+    });
   }
 
   private ActionListener acceptButtonActionListener = e -> {
-    // the message says do you want to click accept this order?
     int answer = JOptionPane.showConfirmDialog(
       this,
       "Do you want to click accept this order?",
@@ -100,6 +103,8 @@ public class OrderDetail extends JPanel {
       );
     }
   };
+  private JPanel backToPreviousPanel;
+  private JButton backToPreviousButton;
 
   private void updateData() {
     userBUS = UserBUS.getInstance();
@@ -180,13 +185,18 @@ public class OrderDetail extends JPanel {
     totalPriceTextField.setEditable(false);
     acceptButton = new Button();
     rejectButton = new Button();
+    backToPreviousPanel = new JPanel();
+    backToPreviousButton = new JButton("Back to Previous");
 
+    backToPreviousPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+    backToPreviousPanel.add(backToPreviousButton);
 
     container.setLayout(new BorderLayout());
     groupHeaderPanel.setLayout(
       new BoxLayout(groupHeaderPanel, javax.swing.BoxLayout.Y_AXIS)
     );
 
+    groupHeaderPanel.add(backToPreviousPanel);
     titleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     titleLabel.setText("Order detail");
     groupHeaderPanel.add(titleLabel);
@@ -211,6 +221,5 @@ public class OrderDetail extends JPanel {
     container.add(groupBottomPanel, BorderLayout.PAGE_END);
 
     add(container);
-
   }
 }
