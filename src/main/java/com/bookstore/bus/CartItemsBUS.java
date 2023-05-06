@@ -1,6 +1,7 @@
 package com.bookstore.bus;
 
 import com.bookstore.dao.CartItemsDAO;
+import com.bookstore.enums.BookStatus;
 import com.bookstore.interfaces.IBUS;
 import com.bookstore.models.BookModel;
 import com.bookstore.models.CartItemsModel;
@@ -223,7 +224,22 @@ public class CartItemsBUS implements IBUS<CartItemsModel> {
     BookModel bookModel,
     int quantity
   ) {
-    // TODO: check quantity and status
+    if (cartModel == null) {
+      throw new IllegalArgumentException("Cart is null");
+    }
+    if (bookModel == null) {
+      throw new IllegalArgumentException("Book is null");
+    }
+    if (quantity <= 0) {
+      throw new IllegalArgumentException("Quantity must be positive");
+    }
+
+    if (bookModel.getQuantity() < quantity) {
+      throw new IllegalArgumentException("Not enough books in stock");
+    }
+    if (bookModel.getStatus() != BookStatus.AVAILABLE) {
+      throw new IllegalArgumentException("Book is not available");
+    }
 
     for (CartItemsModel cartItemsModel : cartItemsList) {
       if (

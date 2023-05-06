@@ -22,6 +22,7 @@ import java.util.Locale;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
@@ -68,48 +69,25 @@ public class BookItemPanel extends JPanel {
       CartModel cartModel = CartBUS
         .getInstance()
         .getShoppingCartByUserId(userModel.getId());
-      CartItemsBUS.getInstance().addBookToCart(cartModel, bookModel);
-      // boolean bookAlreadyInCart = false;
-      // for (CartModel cartModel : cartList) {
-      //   if (
-      //     cartModel.getStatus().equals(CartStatus.PENDING) &&
-      //     cartModel.getUserId() == userModel.getId()
-      //   ) {
-      //     myCartModel = cartModel;
-      //     break;
-      //   }
-      // }
-      // if (myCartModel == null) {
-      //   myCartModel = new CartModel();
-      //   myCartModel.setUserId(userModel.getId());
-      //   myCartModel.setPromotionId(1);
-      //   myCartModel.setStatus(CartStatus.PENDING);
-      //   CartBUS.getInstance().addModel(myCartModel);
-      //   System.out.println(myCartModel.getId());
-      // }
-      // for (CartItemsModel cartItemModel : cartItemList) {
-      //   if (
-      //     cartItemModel.getBookIsbn().equals(bookModel.getIsbn()) &&
-      //     cartItemModel.getCartId() == myCartModel.getId()
-      //   ) {
-      //     JOptionPane.showMessageDialog(
-      //       null,
-      //       "This book is already in your cart!!!"
-      //     );
-      //     bookAlreadyInCart = true;
-      //     break;
-      //   }
-      // }
-      // if (!bookAlreadyInCart) {
-      //   cartItemsModel = new CartItemsModel();
-      //   cartItemsModel.setBookIsbn(bookModel.getIsbn());
-      //   cartItemsModel.setCartId(myCartModel.getId());
-      //   cartItemsModel.setDiscount(ABORT);
-      //   cartItemsModel.setPrice(bookModel.getPrice());
-      //   cartItemsModel.setQuantity(1);
-      //   CartItemsBUS.getInstance().addModel(cartItemsModel);
-      //   JOptionPane.showMessageDialog(null, "This book is add too cart");
-      // }
+      try {
+        CartItemsBUS.getInstance().addBookToCart(cartModel, bookModel);
+      } catch (Exception exception) {
+        JOptionPane.showMessageDialog(
+          null,
+          exception.getMessage(),
+          "Error",
+          JOptionPane.ERROR_MESSAGE
+        );
+        return;
+      } finally {
+        JOptionPane.showMessageDialog(
+          null,
+          "Add book to cart successfully!",
+          "Success",
+          JOptionPane.INFORMATION_MESSAGE
+        );
+        updateData();
+      }
     });
   }
 
