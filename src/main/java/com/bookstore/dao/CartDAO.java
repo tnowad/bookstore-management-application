@@ -57,11 +57,10 @@ public class CartDAO implements IDAO<CartModel> {
   @Override
   public int insert(CartModel cart) {
     String insertSql =
-      "INSERT INTO carts (user_id, status, promotion_id, expires) VALUES (?, ?, ?, ?)";
+      "INSERT INTO carts (user_id, status, expires) VALUES (?, ?, ?)";
     Object[] args = {
       cart.getUserId(),
       cart.getStatus().name(),
-      cart.getPromotionId(),
       cart.getExpires(),
     };
     try {

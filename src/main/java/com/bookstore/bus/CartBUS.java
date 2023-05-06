@@ -264,7 +264,7 @@ public class CartBUS implements IBUS<CartModel> {
         ZoneId.systemDefault()
       )
     );
-    CartBUS.getInstance().addModel(cart);
+     CartBUS.getInstance().addModel(cart);
     refreshData();
     return CartBUS.getInstance().getShoppingCartByUserId(userId);
   }

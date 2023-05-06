@@ -107,4 +107,23 @@ public class CartModel {
     setPromotionId(promotionId);
     return this;
   }
+
+  @Override
+  public String toString() {
+    return (
+      "CartModel [id=" +
+      id +
+      ", userId=" +
+      userId +
+      ", createdAt=" +
+      createdAt +
+      ", status=" +
+      status +
+      ", expires=" +
+      expires +
+      ", promotionId=" +
+      promotionId +
+      "]"
+    );
+  }
 }
