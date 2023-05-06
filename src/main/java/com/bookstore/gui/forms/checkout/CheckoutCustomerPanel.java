@@ -8,6 +8,7 @@ import com.bookstore.bus.OrderBUS;
 import com.bookstore.bus.PaymentBUS;
 import com.bookstore.bus.PaymentMethodBUS;
 import com.bookstore.bus.ShippingBUS;
+import com.bookstore.bus.UserBUS;
 import com.bookstore.enums.CartStatus;
 import com.bookstore.enums.OrderStatus;
 import com.bookstore.enums.PaymentStatus;
@@ -157,6 +158,10 @@ public class CheckoutCustomerPanel extends JPanel {
 
     checkoutButton.addActionListener(e -> {
       try {
+        if (userModel.getRole().equals(UserRole.EMPLOYEE)) {
+          customerModel =
+            UserBUS.getInstance().getModelByUsername(nameTextField.getText());
+        }
         int cartId = cartModel.getId();
         int customerId = userModel.getId();
         int totalPrice = CartBUS.getInstance().getTotalPrice(cartModel.getId());
