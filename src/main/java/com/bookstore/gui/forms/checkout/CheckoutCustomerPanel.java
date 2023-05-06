@@ -6,11 +6,13 @@ import com.bookstore.bus.CartBUS;
 import com.bookstore.bus.CartItemsBUS;
 import com.bookstore.bus.OrderBUS;
 import com.bookstore.enums.CartStatus;
+import com.bookstore.enums.OrderStatus;
 import com.bookstore.gui.components.panels.MainPanel;
 import com.bookstore.models.AddressModel;
 import com.bookstore.models.BookModel;
 import com.bookstore.models.CartItemsModel;
 import com.bookstore.models.CartModel;
+import com.bookstore.models.OrderModel;
 import com.bookstore.models.UserModel;
 import com.bookstore.services.Authentication;
 import com.bookstore.util.InputValidator;
@@ -299,20 +301,19 @@ public class CheckoutCustomerPanel extends JPanel {
         .getSelectedItem()
         .toString();
       if (paymentMethod.equals("Cash")) {
-        OrderBUS
-          .getInstance()
-          .createCustomerOrder(
-            cartId,
-            customerId,
-            1,
-            totalPrice,
-            shippingMethod,
-            paymentMethod,
-            null,
-            null,
-            null,
-            null
-          );
+        OrderModel orderModel = new OrderModel();
+        orderModel.setId(0);
+        orderModel.setCartId(cartId);
+        orderModel.setCustomerId(customerId);
+        orderModel.setEmployeeId(1);
+        orderModel.setTotal(CartBUS.getInstance().calculateTotal(cartId));
+        orderModel.setTotal(totalPrice);
+        orderModel.setPaid(0);
+        orderModel.setStatus(OrderStatus.PENDING);
+        int orderId = OrderBUS.getInstance().addModel(orderModel);
+        // orderModel = OrderBUS.getInstance().getModelById(orderId);
+        System.out.println(orderModel.getId());
+
         MainPanel
           .getInstance()
           .showForm(new CompletedOrderForm(cartModel.getId()));
@@ -329,20 +330,6 @@ public class CheckoutCustomerPanel extends JPanel {
       );
       String cvv = InputValidator.validateCvv(cvvTextField.getText());
 
-      OrderBUS
-        .getInstance()
-        .createCustomerOrder(
-          cartId,
-          customerId,
-          1,
-          totalPrice,
-          shippingMethod,
-          paymentMethod,
-          cardNumber,
-          cardHolder,
-          expirationDate,
-          cvv
-        );
       MainPanel
         .getInstance()
         .showForm(new CompletedOrderForm(cartModel.getId()));
