@@ -225,9 +225,8 @@ public class CartBUS implements IBUS<CartModel> {
 
   @Override
   public void refreshData() {
-    throw new UnsupportedOperationException(
-      "Unimplemented method 'refreshData'"
-    );
+    cartList.clear();
+    cartList.addAll(CartDAO.getInstance().readDatabase());
   }
 
   public int getTotalPrice(int cartId) {
@@ -244,5 +243,29 @@ public class CartBUS implements IBUS<CartModel> {
 
   public int calculateTotal(int cartId) {
     return 0;
+  }
+
+  public CartModel getShoppingCartByUserId(int userId) {
+    List<CartModel> carts = CartDAO
+      .getInstance()
+      .search(String.valueOf(userId), new String[] { "user_id" });
+    for (CartModel cart : carts) {
+      if (cart.getStatus() == CartStatus.SHOPPING) {
+        return cart;
+      }
+    }
+    // Create new cart if not found
+    CartModel cart = new CartModel();
+    cart.setUserId(userId);
+    cart.setStatus(CartStatus.SHOPPING);
+    cart.setExpires(
+      LocalDateTime.ofInstant(
+        Instant.ofEpochMilli(System.currentTimeMillis()),
+        ZoneId.systemDefault()
+      )
+    );
+    CartBUS.getInstance().addModel(cart);
+    refreshData();
+    return CartBUS.getInstance().getShoppingCartByUserId(userId);
   }
 }
