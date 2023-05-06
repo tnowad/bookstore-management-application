@@ -2,6 +2,7 @@ package com.bookstore.bus;
 
 import com.bookstore.dao.ProviderDAO;
 import com.bookstore.interfaces.IBUS;
+import com.bookstore.models.ImportModel;
 import com.bookstore.models.ProviderModel;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -37,6 +38,7 @@ public class ProviderBUS implements IBUS<ProviderModel> {
     }
     return null;
   }
+
   public ProviderModel getModelByName(String name) {
     for (ProviderModel providerModel : providerList) {
       if (providerModel.getName().equals(name)) {

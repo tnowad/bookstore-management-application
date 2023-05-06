@@ -4,6 +4,7 @@ import com.bookstore.bus.ImportBUS;
 import com.bookstore.bus.ProviderBUS;
 import com.bookstore.gui.components.buttons.Button;
 import com.bookstore.gui.components.labels.Label;
+import com.bookstore.gui.components.panels.MainPanel;
 import com.bookstore.interfaces.ISearchable;
 import com.bookstore.models.ImportModel;
 import com.bookstore.models.ProviderModel;
@@ -187,7 +188,12 @@ public class ImportList extends JPanel implements ISearchable {
 
   private void importFromExcelButtonActionPerformed(ActionEvent evt) {}
 
-  private void importTableListMouseClicked(MouseEvent evt) {}
+  private void importTableListMouseClicked(MouseEvent evt) {
+    int row = importTableList.getSelectedRow();
+    int id = (int) importTableList.getValueAt(row, 0);
+    ImportDetailList importDetailList = new ImportDetailList(id);
+    MainPanel.getInstance().showFormStack(importDetailList);
+  }
 
   @Override
   public void search(String keyword) {

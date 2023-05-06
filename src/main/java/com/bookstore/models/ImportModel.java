@@ -106,4 +106,23 @@ public class ImportModel {
     setUpdatedAt(updatedAt);
     return this;
   }
+
+  @Override
+  public String toString() {
+    return (
+      "ImportModel [id=" +
+      id +
+      ", providerId=" +
+      providerId +
+      ", employeeId=" +
+      employeeId +
+      ", totalPrice=" +
+      totalPrice +
+      ", createdAt=" +
+      createdAt +
+      ", updatedAt=" +
+      updatedAt +
+      "]"
+    );
+  }
 }

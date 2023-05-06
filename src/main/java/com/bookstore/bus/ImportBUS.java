@@ -1,7 +1,9 @@
 package com.bookstore.bus;
 
 import com.bookstore.dao.ImportDAO;
+import com.bookstore.dao.ImportItemsDAO;
 import com.bookstore.interfaces.IBUS;
+import com.bookstore.models.ImportItemsModel;
 import com.bookstore.models.ImportModel;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -226,5 +228,15 @@ public class ImportBUS implements IBUS<ImportModel> {
     throw new UnsupportedOperationException(
       "Unimplemented method 'refreshData'"
     );
+  }
+
+  public List<ImportItemsModel> getImportItems(int importId) {
+    try {
+      return ImportItemsDAO
+        .getInstance()
+        .search(String.valueOf(importId), new String[] { "import_id" });
+    } catch (Exception e) {
+      return Collections.emptyList();
+    }
   }
 }

@@ -1,14 +1,19 @@
 package com.bookstore.models;
 
 public class ImportItemsModel {
+
   private int importId, quantity;
   private String bookIsbn;
   private double price;
 
-  public ImportItemsModel() {
-  }
+  public ImportItemsModel() {}
 
-  public ImportItemsModel(int importId, int quantity, String bookIsbn, double price) {
+  public ImportItemsModel(
+    int importId,
+    int quantity,
+    String bookIsbn,
+    double price
+  ) {
     this.importId = importId;
     this.quantity = quantity;
     this.bookIsbn = bookIsbn;
@@ -67,4 +72,18 @@ public class ImportItemsModel {
     return this;
   }
 
+  @Override
+  public String toString() {
+    return (
+      "ImportItemsModel [importId=" +
+      importId +
+      ", quantity=" +
+      quantity +
+      ", bookIsbn=" +
+      bookIsbn +
+      ", price=" +
+      price +
+      "]"
+    );
+  }
 }
