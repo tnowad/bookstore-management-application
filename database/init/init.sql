@@ -1,7 +1,9 @@
 -- Active: 1676799504168@@127.0.0.1@3306@bookstore
+
 DROP DATABASE IF EXISTS bookstore;
 
-CREATE DATABASE bookstore CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE DATABASE
+    bookstore CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 USE bookstore;
 
@@ -170,7 +172,11 @@ CREATE TABLE
         `paid` INT NOT NULL,
         `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
         `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-        `status` ENUM ('pending', 'solved','rejected') NOT NULL DEFAULT "pending",
+        `status` ENUM (
+            'pending',
+            'solved',
+            'rejected'
+        ) NOT NULL DEFAULT "pending",
         PRIMARY KEY (`id`)
     );
 
@@ -180,7 +186,11 @@ CREATE TABLE
         `order_id` int NOT NULL,
         `shipping_method` NVARCHAR (255),
         `address_id` int NOT NULL,
-        `status` ENUM ('pending', 'accepted', 'rejected') NOT NULL DEFAULT "pending",
+        `status` ENUM (
+            'pending',
+            'accepted',
+            'rejected'
+        ) NOT NULL DEFAULT "pending",
         PRIMARY KEY (`id`)
     );
 
@@ -268,10 +278,6 @@ ADD
 ALTER TABLE `orders`
 ADD
     FOREIGN KEY (`cart_id`) REFERENCES `carts` (`id`);
-
-ALTER TABLE `orders`
-ADD
-    FOREIGN KEY (`customer_id`) REFERENCES `users` (`id`);
 
 ALTER TABLE `orders`
 ADD

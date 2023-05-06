@@ -158,10 +158,6 @@ public class CheckoutCustomerPanel extends JPanel {
 
     checkoutButton.addActionListener(e -> {
       try {
-        if (userModel.getRole().equals(UserRole.EMPLOYEE)) {
-          customerModel =
-            UserBUS.getInstance().getModelByUsername(nameTextField.getText());
-        }
         int cartId = cartModel.getId();
         int customerId = userModel.getId();
         int totalPrice = CartBUS.getInstance().getTotalPrice(cartModel.getId());
@@ -175,8 +171,13 @@ public class CheckoutCustomerPanel extends JPanel {
 
         OrderModel myOrderModel = new OrderModel();
         myOrderModel.setCartId(cartId);
-        myOrderModel.setCustomerId(customerId);
-        myOrderModel.setEmployeeId(2);
+        if (userModel.getRole().equals(UserRole.EMPLOYEE)) {
+          myOrderModel.setCustomerId(0);
+          myOrderModel.setEmployeeId(userModel.getId());
+        } else {
+          myOrderModel.setCustomerId(customerId);
+          myOrderModel.setEmployeeId(2);
+        }
         myOrderModel.setTotal(CartBUS.getInstance().calculateTotal(cartId));
         myOrderModel.setTotal(totalPrice);
         myOrderModel.setPaid(0);
