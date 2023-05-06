@@ -199,6 +199,7 @@ public class BrowseProductPanel extends JPanel {
     public void componentResized(ComponentEvent e) {
       double width = BrowseProductPanel.getInstance().getWidth();
       int cols = (int) width / 199;
+      if (cols == 0) return;
       table.setLayout(new GridLayout(0, cols, 10, 10));
     }
 
