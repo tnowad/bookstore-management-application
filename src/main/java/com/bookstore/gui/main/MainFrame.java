@@ -107,13 +107,17 @@ public class MainFrame extends JFrame {
 
     add(splitPane, BorderLayout.CENTER);
 
-    menuPanel.getMenuModel().getFirstActionListener().actionPerformed(null);
+    ActionListener actionListener = menuPanel
+      .getMenuModel()
+      .getFirstActionListener();
+    if (actionListener != null) {
+      actionListener.actionPerformed(null);
+    }
 
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
   }
 
   public static void destroyInstance() {
     MainFrame.instance = null;
-
   }
 }
