@@ -39,7 +39,7 @@ public class CartUserAdmin extends JPanel {
     setBorder(javax.swing.BorderFactory.createEtchedBorder());
     setLayout(new BorderLayout());
 
-    icon.setIcon(new ImageIcon(getClass().getResource(linkIcon)));
+    icon.setIcon(new ImageIcon(linkIcon));
     add(icon, BorderLayout.WEST);
 
     text.setFont(new Font("Segoe UI", 3, 14));
