@@ -25,7 +25,6 @@ public class CartCustomerPanel extends JPanel {
 
   private JButton deleteAllProductsButton;
   private JButton proceedToCheckoutButton;
-  // private JCheckBox chooseAllCheckBox;
   private JLabel totalCostLabel;
   private JPanel groupActionPanel;
   private JPanel groupBottomPanel;
@@ -48,7 +47,7 @@ public class CartCustomerPanel extends JPanel {
   public CartCustomerPanel() {
     updateData();
     initComponents();
-    if (myCartList.size() >= 0) {
+    if (myCartList.size() > 0) {
       listCart();
     } else {
       listCartPanel.add(new NoData("Don't have any cart"));
@@ -66,10 +65,6 @@ public class CartCustomerPanel extends JPanel {
         cartModel.getStatus().equals(CartStatus.PENDING)
       ) {
         this.cartModel = cartModel;
-        System.out.println("Id user : " + cartModel.getUserId());
-        System.out.println("id User: " + cartModel.getUserId());
-        System.out.println("Nhan:" + cartModel.getId());
-        System.out.println("Status:" + cartModel.getStatus());
         break;
       }
     }
@@ -106,7 +101,6 @@ public class CartCustomerPanel extends JPanel {
         String.valueOf(CartBUS.getInstance().getTotalPrice(cartModel.getId()))
       );
     groupActionPanel = new JPanel();
-    // chooseAllCheckBox = new JCheckBox();
     deleteAllProductsButton = new JButton();
     proceedToCheckoutButton = new JButton();
 
@@ -135,12 +129,6 @@ public class CartCustomerPanel extends JPanel {
     groupBottomPanel.add(groupTotalCostPanel);
 
     groupActionPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
-
-    // chooseAllCheckBox.setFont(new Font("Arial", 0, 14));
-    // chooseAllCheckBox.setText("Choose all");
-    // chooseAllCheckBox.setPreferredSize(new Dimension(100, 30));
-
-    // groupActionPanel.add(chooseAllCheckBox);
 
     deleteAllProductsButton.setFont(new Font("Arial", 0, 18));
     deleteAllProductsButton.setText("Delete all products");
@@ -269,19 +257,5 @@ public class CartCustomerPanel extends JPanel {
         }
       }
     });
-    // chooseAllCheckBox.addActionListener(e -> {
-    // if (myCartList.isEmpty()) {
-    // JOptionPane.showMessageDialog(
-    // null,
-    // "You have no items in your cart",
-    // "Warning",
-    // JOptionPane.WARNING_MESSAGE
-    // );
-    // } else {
-    // for (CartItemsModel cartItemsModel : myCartList) {
-    // cartItemsModel.setSelected(true);
-    // }
-    // }
-    // });
   }
 }
