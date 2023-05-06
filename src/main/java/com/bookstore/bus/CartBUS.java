@@ -254,6 +254,7 @@ public class CartBUS implements IBUS<CartModel> {
         return cart;
       }
     }
+
     // Create new cart if not found
     CartModel cart = new CartModel();
     cart.setUserId(userId);
@@ -264,7 +265,7 @@ public class CartBUS implements IBUS<CartModel> {
         ZoneId.systemDefault()
       )
     );
-     CartBUS.getInstance().addModel(cart);
+    CartBUS.getInstance().addModel(cart);
     refreshData();
     return CartBUS.getInstance().getShoppingCartByUserId(userId);
   }
