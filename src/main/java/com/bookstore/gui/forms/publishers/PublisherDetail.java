@@ -1,19 +1,33 @@
 package com.bookstore.gui.forms.publishers;
 
-import java.awt.*;
-import javax.swing.*;
-
+import com.bookstore.bus.PublisherBUS;
 import com.bookstore.models.PublisherModel;
+import java.awt.*;
+import java.awt.event.*;
+
+import javax.swing.*;
 
 public class PublisherDetail extends JFrame {
 
   private JTextArea setDescription;
-private JPanel buttonPanel;
-private JButton buttonBack;
-private JButton buttonSave;
+  private JPanel buttonPanel;
+  private JButton buttonBack;
+  private JButton buttonSave;
+  private JPanel contend;
+  private JLabel descriptionText;
+  private JLabel idText;
+  private JLabel nameText;
+  private JScrollPane scrollPane;
+  private JTextField setId;
+  private JTextField setName;
+  private JLabel title;
+
+  PublisherBUS publisherBUS = PublisherBUS.getInstance();
+  PublisherModel publisher;
 
   public PublisherDetail(PublisherModel publisher) {
     initComponents(publisher);
+    this.publisher = publisher;
     setLocationRelativeTo(null);
     setResizable(false);
     this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -25,18 +39,24 @@ private JButton buttonSave;
     setId = new JTextField();
     nameText = new JLabel();
     setName = new JTextField();
-    productsText = new JLabel();
-    setProducts = new JTextField();
     descriptionText = new JLabel();
     scrollPane = new JScrollPane();
     setDescription = new JTextArea();
     buttonPanel = new JPanel();
     buttonBack = new JButton();
     buttonSave = new JButton();
+    title = new JLabel();
 
     contend.setMinimumSize(new Dimension(400, 100));
     contend.setPreferredSize(new Dimension(390, 115));
     contend.setLayout(new FlowLayout(FlowLayout.LEFT));
+
+    title.setFont(new Font("Segoe UI", 1, 18));
+    title.setHorizontalAlignment(SwingConstants.LEFT);
+    title.setText("Publisher ");
+    title.setForeground(Color.BLUE);
+    title.setPreferredSize(new Dimension(390, 25));
+    contend.add(title);
 
     idText.setFont(new Font("Segoe UI", 1, 14)); // NOI18N
     idText.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -45,7 +65,8 @@ private JButton buttonSave;
     contend.add(idText);
 
     setId.setPreferredSize(new Dimension(200, 25));
-    setId.setText(""+publisher.getId());
+    setId.setText("" + publisher.getId());
+    setId.setEditable(false);
     contend.add(setId);
 
     nameText.setFont(new Font("Segoe UI", 1, 14)); // NOI18N
@@ -57,15 +78,6 @@ private JButton buttonSave;
     setName.setPreferredSize(new Dimension(200, 25));
     setName.setText(publisher.getName());
     contend.add(setName);
-
-    productsText.setFont(new Font("Segoe UI", 1, 14)); // NOI18N
-    productsText.setHorizontalAlignment(SwingConstants.RIGHT);
-    productsText.setText("Product Of This");
-    productsText.setPreferredSize(new Dimension(130, 16));
-    contend.add(productsText);
-
-    setProducts.setPreferredSize(new Dimension(130, 25));
-    contend.add(setProducts);
 
     descriptionText.setFont(new Font("Segoe UI", 1, 14)); // NOI18N
     descriptionText.setHorizontalAlignment(SwingConstants.LEFT);
@@ -86,14 +98,15 @@ private JButton buttonSave;
       new ImageIcon(getClass().getResource("/resources/icons/back.png"))
     );
     buttonBack.setPreferredSize(new Dimension(80, 30));
+    buttonBack.addActionListener(actionBack);
     buttonPanel.add(buttonBack);
 
     buttonSave.setIcon(
       new ImageIcon(getClass().getResource("/resources/icons/save.png"))
     );
     buttonSave.setPreferredSize(new Dimension(80, 30));
+    buttonSave.addActionListener(actionSave);
     buttonPanel.add(buttonSave);
-
 
     getContentPane().add(contend, BorderLayout.PAGE_START);
     getContentPane().add(scrollPane, BorderLayout.CENTER);
@@ -102,15 +115,31 @@ private JButton buttonSave;
     pack();
   }
 
-  // Variables declaration - do not modify//GEN-BEGIN:variables
-  private JPanel contend;
-  private JLabel descriptionText;
-  private JLabel idText;
-  private JLabel nameText;
-  private JLabel productsText;
-  private JScrollPane scrollPane;
-  private JTextField setId;
-  private JTextField setName;
-  private JTextField setProducts;
-  // End of variables declaration//GEN-END:variables
+  public ActionListener actionSave = new ActionListener() {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+      if (setName.getText().trim().isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Publisher name cannot be empty!");
+        return;
+      }
+      publisherBUS.updateModel(
+        new PublisherModel(
+          publisher.getId(),
+          setName.getText().trim(),
+          setDescription.getText().trim()
+        )
+      );
+      JOptionPane.showMessageDialog(null, "Complete");
+    }
+  };
+
+  {}
+
+  public ActionListener actionBack = new ActionListener() {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+      JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(buttonBack);
+      frame.dispose();
+    }
+  };
 }

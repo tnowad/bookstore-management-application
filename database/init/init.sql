@@ -1,7 +1,9 @@
 -- Active: 1676799504168@@127.0.0.1@3306@bookstore
+
 DROP DATABASE IF EXISTS bookstore;
 
-CREATE DATABASE bookstore CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE DATABASE
+    bookstore CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 USE bookstore;
 
@@ -144,7 +146,7 @@ CREATE TABLE
         `book_isbn` VARCHAR(20) NOT NULL,
         `price` INT NOT NULL,
         `quantity` INT NOT NULL,
-        `discount` INT NOT NULL
+        `discount` INT DEFAULT NULL
     );
 
 CREATE TABLE
@@ -164,13 +166,17 @@ CREATE TABLE
     `orders` (
         `id` INT NOT NULL AUTO_INCREMENT,
         `cart_id` INT NOT NULL,
-        `customer_id` INT NOT NULL,
-        `employee_id` INT NOT NULL,
+        `customer_id` INT DEFAULT NULL,
+        `employee_id` INT DEFAULT NULL,
         `total` INT NOT NULL,
         `paid` INT NOT NULL,
         `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
         `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-        `status` ENUM ('pending', 'solved','rejected') NOT NULL DEFAULT "pending",
+        `status` ENUM (
+            'pending',
+            'solved',
+            'rejected'
+        ) NOT NULL DEFAULT "pending",
         PRIMARY KEY (`id`)
     );
 
@@ -180,7 +186,11 @@ CREATE TABLE
         `order_id` int NOT NULL,
         `shipping_method` NVARCHAR (255),
         `address_id` int NOT NULL,
-        `status` ENUM ('pending', 'accepted', 'rejected') NOT NULL DEFAULT "pending",
+        `status` ENUM (
+            'pending',
+            'accepted',
+            'rejected'
+        ) NOT NULL DEFAULT "pending",
         PRIMARY KEY (`id`)
     );
 
@@ -231,10 +241,6 @@ ADD
 
 ALTER TABLE `carts`
 ADD
-    FOREIGN KEY (`promotion_id`) REFERENCES `promotions` (`id`);
-
-ALTER TABLE `carts`
-ADD
     FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 ALTER TABLE `categories_books`
@@ -268,10 +274,6 @@ ADD
 ALTER TABLE `orders`
 ADD
     FOREIGN KEY (`cart_id`) REFERENCES `carts` (`id`);
-
-ALTER TABLE `orders`
-ADD
-    FOREIGN KEY (`customer_id`) REFERENCES `users` (`id`);
 
 ALTER TABLE `orders`
 ADD

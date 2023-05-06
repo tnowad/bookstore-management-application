@@ -6,6 +6,7 @@ import com.bookstore.bus.CategoryBUS;
 import com.bookstore.gui.components.books.BookItemPanel;
 import com.bookstore.gui.components.panels.MainPanel;
 import com.bookstore.gui.forms.carts.CartCustomerPanel;
+import com.bookstore.gui.forms.nodata.NoData;
 import com.bookstore.interfaces.ISearchable;
 import com.bookstore.models.BookModel;
 import com.bookstore.models.BooksCategoryModel;
@@ -115,6 +116,7 @@ public class ShopCustomer extends JPanel implements ISearchable {
 
   private void renderListProduct(List<BookModel> bookListRender) {
     if (bookListRender.size() <= 0) {
+      bookListPanel.setLayout(new GridLayout(0, 1));
       bookListPanel.add(new NoData("Don't have data for product"));
     } else {
       for (BookModel bookModel : bookListRender) {

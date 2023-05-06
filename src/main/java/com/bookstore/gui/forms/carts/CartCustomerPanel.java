@@ -3,19 +3,19 @@ package com.bookstore.gui.forms.carts;
 import com.bookstore.bus.BookBUS;
 import com.bookstore.bus.CartBUS;
 import com.bookstore.bus.CartItemsBUS;
-import com.bookstore.enums.CartStatus;
 import com.bookstore.gui.components.dialogs.Dialog;
 import com.bookstore.gui.components.panels.MainPanel;
 import com.bookstore.gui.forms.checkout.CheckoutCustomerPanel;
-import com.bookstore.gui.forms.shop.NoData;
+import com.bookstore.gui.forms.nodata.NoData;
 import com.bookstore.models.BookModel;
 import com.bookstore.models.CartItemsModel;
 import com.bookstore.models.CartModel;
 import com.bookstore.models.UserModel;
 import com.bookstore.services.Authentication;
 import java.awt.*;
-import java.util.ArrayList;
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -32,22 +32,15 @@ public class CartCustomerPanel extends JPanel {
   private JPanel listCartPanel;
   private JScrollPane listCartScrollPane;
   private JTable listCartTable;
-  private JTextField totalPriceTextField;
 
-  private BookBUS bookBUS;
-  private CartBUS cartBUS;
-  private CartItemsBUS cartItemsBUS;
   private CartModel cartModel;
-  private List<BookModel> bookList;
-  private List<CartItemsModel> cartItemList;
-  private List<CartItemsModel> myCartList;
-  private List<CartModel> cartList;
+  private List<CartItemsModel> cartItemsList;
   private UserModel userModel;
 
   public CartCustomerPanel() {
     updateData();
     initComponents();
-    if (myCartList.size() > 0) {
+    if (cartItemsList.size() > 0) {
       listCart();
     } else {
       listCartPanel.add(new NoData("Don't have any cart"));
@@ -57,36 +50,10 @@ public class CartCustomerPanel extends JPanel {
 
   private void updateData() {
     userModel = Authentication.getCurrentUser();
-    cartBUS = CartBUS.getInstance();
-    cartList = cartBUS.getAllModels();
-    for (CartModel cartModel : cartList) {
-      if (
-        cartModel.getUserId() == userModel.getId() &&
-        cartModel.getStatus().equals(CartStatus.SHOPPING)
-      ) {
-        this.cartModel = cartModel;
-        break;
-      }
-    }
-    if (cartModel == null) {
-      cartModel = new CartModel();
-      cartModel.setUserId(userModel.getId());
-      cartModel.setStatus(CartStatus.SHOPPING);
-      cartModel.setPromotionId(1);
-      CartBUS.getInstance().addModel(cartModel);
-    }
-    myCartList = new ArrayList<CartItemsModel>();
-    cartItemsBUS = CartItemsBUS.getInstance();
-    if (cartModel.getStatus() == CartStatus.SHOPPING) {
-      cartItemList = cartItemsBUS.getAllModels();
-      bookBUS = BookBUS.getInstance();
-      bookList = bookBUS.getAllModels();
-      for (CartItemsModel cartItemsModel : cartItemList) {
-        if (cartItemsModel.getCartId() == cartModel.getId()) {
-          myCartList.add(cartItemsModel);
-        }
-      }
-    }
+    cartModel =
+      CartBUS.getInstance().getShoppingCartByUserId(userModel.getId());
+    cartItemsList =
+      CartItemsBUS.getInstance().getListCartItemsByCartId(cartModel.getId());
   }
 
   private void initComponents() {
@@ -96,10 +63,7 @@ public class CartCustomerPanel extends JPanel {
     groupBottomPanel = new JPanel();
     groupTotalCostPanel = new JPanel();
     totalCostLabel = new JLabel();
-    totalPriceTextField =
-      new JTextField(
-        String.valueOf(CartBUS.getInstance().getTotalPrice(cartModel.getId()))
-      );
+
     groupActionPanel = new JPanel();
     deleteAllProductsButton = new JButton();
     proceedToCheckoutButton = new JButton();
@@ -117,14 +81,20 @@ public class CartCustomerPanel extends JPanel {
     groupTotalCostPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
     totalCostLabel.setFont(new Font("Arial", 0, 14));
-    totalCostLabel.setText("Total cost:");
-    totalCostLabel.setPreferredSize(new Dimension(75, 30));
+
+    NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(
+      new Locale("vi", "VN")
+    );
+
+    totalCostLabel.setText(
+      "Total cost: " +
+      currencyFormatter.format(
+        CartBUS.getInstance().getTotalPrice(cartModel.getId())
+      )
+    );
+
+    totalCostLabel.setPreferredSize(new Dimension(150, 30));
     groupTotalCostPanel.add(totalCostLabel);
-
-    totalPriceTextField.setEditable(false);
-    totalPriceTextField.setPreferredSize(new Dimension(200, 30));
-
-    groupTotalCostPanel.add(totalPriceTextField);
 
     groupBottomPanel.add(groupTotalCostPanel);
 
@@ -158,31 +128,35 @@ public class CartCustomerPanel extends JPanel {
     model.addColumn("Title");
     model.addColumn("Price");
     model.addColumn("Quantity");
-    for (CartItemsModel cartItemsModel : myCartList) {
-      for (BookModel bookModel : bookList) {
-        if (
-          cartItemsModel.getBookIsbn().equalsIgnoreCase(bookModel.getIsbn())
-        ) {
-          model.addRow(
-            new Object[] {
-              bookModel.getIsbn(),
-              bookModel.getTitle(),
-              bookModel.getPrice(),
-              cartItemsModel.getQuantity(),
-            }
-          );
+    for (CartItemsModel cartItemsModel : cartItemsList) {
+      BookModel bookModel = BookBUS
+        .getInstance()
+        .getBookByIsbn(cartItemsModel.getBookIsbn());
+      model.addRow(
+        new Object[] {
+          bookModel.getIsbn(),
+          bookModel.getTitle(),
+          bookModel.getPrice(),
+          cartItemsModel.getQuantity(),
         }
-      }
+      );
     }
     listCartTable.setModel(model);
     listCartScrollPane.setViewportView(listCartTable);
     listCartPanel.add(listCartScrollPane, BorderLayout.CENTER);
     try {
-      totalPriceTextField.setText(
-        String.valueOf(CartBUS.getInstance().getTotalPrice(cartModel.getId()))
+      NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(
+        new Locale("vi", "VN")
+      );
+
+      totalCostLabel.setText(
+        "Total cost: " +
+        currencyFormatter.format(
+          CartBUS.getInstance().getTotalPrice(cartModel.getId())
+        )
       );
     } catch (Exception e) {
-      totalPriceTextField.setText("0");
+      totalCostLabel.setText("0");
     }
   }
 
@@ -205,7 +179,7 @@ public class CartCustomerPanel extends JPanel {
       );
 
     proceedToCheckoutButton.addActionListener(e -> {
-      if (myCartList.isEmpty()) {
+      if (cartItemsList.isEmpty()) {
         JOptionPane.showMessageDialog(
           null,
           "You have no items in your cart",
@@ -223,18 +197,12 @@ public class CartCustomerPanel extends JPanel {
           MainPanel
             .getInstance()
             .showFormStack(new CheckoutCustomerPanel(cartModel));
-          JOptionPane.showMessageDialog(
-            null,
-            "Your cart is shopping",
-            "Success",
-            JOptionPane.PLAIN_MESSAGE
-          );
         }
       }
     });
 
     deleteAllProductsButton.addActionListener(e -> {
-      if (myCartList.isEmpty()) {
+      if (cartItemsList.isEmpty()) {
         JOptionPane.showMessageDialog(
           null,
           "You have no items in your cart",
@@ -250,7 +218,7 @@ public class CartCustomerPanel extends JPanel {
           JOptionPane.QUESTION_MESSAGE
         );
         if (result == JOptionPane.YES_OPTION) {
-          for (CartItemsModel cartItemsModel : myCartList) {
+          for (CartItemsModel cartItemsModel : cartItemsList) {
             CartItemsBUS.getInstance().deleteModel(cartItemsModel);
           }
           listCart();

@@ -1,44 +1,38 @@
-package com.bookstore.gui.forms.providers;
+package com.bookstore.gui.forms.publishers;
 
-import com.bookstore.bus.ProviderBUS;
 import com.bookstore.bus.PublisherBUS;
-import com.bookstore.models.ProviderModel;
 import com.bookstore.models.PublisherModel;
-import java.awt.*;
-import java.awt.event.*;
 
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 
-public class ProviderDetail extends JFrame {
+public class AddPublisher extends JFrame {
 
+  private JLabel title;
+  private JPanel contend;
+  private JLabel descriptionText;
+  private JLabel nameText;
+  private JScrollPane scrollPane;
+  private JTextField setName;
   private JTextArea setDescription;
   private JPanel buttonPanel;
   private JButton buttonBack;
   private JButton buttonSave;
-  private JPanel contend;
-  private JLabel descriptionText;
-  private JLabel idText;
-  private JLabel nameText;
-  private JScrollPane scrollPane;
-  private JTextField setId;
-  private JTextField setName;
-  private JLabel title; 
 
-  ProviderBUS providerBUS = ProviderBUS.getInstance();
-  ProviderModel provider;
+  private PublisherBUS publisherBUS = PublisherBUS.getInstance();
 
-  public ProviderDetail(ProviderModel provider) {
-    initComponents(provider);
-    this.provider = provider;
+  public AddPublisher() {
+    initComponents();
     setLocationRelativeTo(null);
     setResizable(false);
     this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
   }
 
-  private void initComponents(ProviderModel provider) {
+  private void initComponents() {
+    title = new JLabel();
     contend = new JPanel();
-    idText = new JLabel();
-    setId = new JTextField();
     nameText = new JLabel();
     setName = new JTextField();
     descriptionText = new JLabel();
@@ -47,29 +41,17 @@ public class ProviderDetail extends JFrame {
     buttonPanel = new JPanel();
     buttonBack = new JButton();
     buttonSave = new JButton();
-    title = new JLabel();
 
     contend.setMinimumSize(new Dimension(400, 100));
-    contend.setPreferredSize(new Dimension(390, 115));
+    contend.setPreferredSize(new Dimension(390, 90));
     contend.setLayout(new FlowLayout(FlowLayout.LEFT));
 
     title.setFont(new Font("Segoe UI", 1, 18));
     title.setHorizontalAlignment(SwingConstants.LEFT);
-    title.setText("Provider ");
+    title.setText("New Publisher ");
     title.setForeground(Color.BLUE);
     title.setPreferredSize(new Dimension(390, 25));
     contend.add(title);
-
-    idText.setFont(new Font("Segoe UI", 1, 14)); // NOI18N
-    idText.setHorizontalAlignment(SwingConstants.RIGHT);
-    idText.setText("ID:");
-    idText.setPreferredSize(new Dimension(130, 16));
-    contend.add(idText);
-
-    setId.setPreferredSize(new Dimension(200, 25));
-    setId.setText("" + provider.getId());
-    setId.setEditable(false);
-    contend.add(setId);
 
     nameText.setFont(new Font("Segoe UI", 1, 14)); // NOI18N
     nameText.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -78,7 +60,6 @@ public class ProviderDetail extends JFrame {
     contend.add(nameText);
 
     setName.setPreferredSize(new Dimension(200, 25));
-    setName.setText(provider.getName());
     contend.add(setName);
 
     descriptionText.setFont(new Font("Segoe UI", 1, 14)); // NOI18N
@@ -90,7 +71,7 @@ public class ProviderDetail extends JFrame {
     setDescription.setFont(new Font("Segoe UI", 3, 15));
     setDescription.setLineWrap(true);
     setDescription.setRows(5);
-    setDescription.setText(provider.getDescription());
+    setDescription.setText("Description here!");
     scrollPane.setViewportView(setDescription);
     scrollPane.getVerticalScrollBar().setValue(0);
 
@@ -120,22 +101,29 @@ public class ProviderDetail extends JFrame {
   public ActionListener actionSave = new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
-      if (setName.getText().trim().isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Provider name cannot be empty!");
-        return;
-      }
-      providerBUS.updateModel(
-        new ProviderModel(
-          provider.getId(),
-          setName.getText().trim(),
-          setDescription.getText().trim()
-        )
+      int choice = JOptionPane.showConfirmDialog(
+        null,
+        "Do you want to add publisher?",
+        "Confirmation",
+        JOptionPane.YES_NO_OPTION
       );
-      JOptionPane.showMessageDialog(null, "Complete");
+      if (choice == JOptionPane.YES_OPTION) {
+        if (setName.getText().trim().isEmpty()) {
+          JOptionPane.showMessageDialog(null, "Publisher name cannot be empty!");
+          return;
+        }
+
+        if (publisherBUS.getModelByPublisherName(setName.getText().trim())!=null) {
+          JOptionPane.showMessageDialog(null, "Publisher already exists!");
+          return;
+        }
+        publisherBUS.addModel(new PublisherModel(9, setName.getText().trim(), setDescription.getText().trim()));
+        JOptionPane.showMessageDialog(null,"Complete");
+        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(buttonBack);
+        frame.dispose();
+      }
     }
   };
-
-  {}
 
   public ActionListener actionBack = new ActionListener() {
     @Override

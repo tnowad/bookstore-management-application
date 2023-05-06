@@ -51,13 +51,12 @@ public class CartItemsDAO implements IDAO<CartItemsModel> {
   @Override
   public int insert(CartItemsModel cartItem) {
     String insertSql =
-      "INSERT INTO cart_items (cart_id, book_isbn, price, quantity, discount) VALUES (?, ?, ?, ?, ?)";
+      "INSERT INTO cart_items (cart_id, book_isbn, price, quantity) VALUES (?, ?, ?, ?)";
     Object[] args = {
       cartItem.getCartId(),
       cartItem.getBookIsbn(),
       cartItem.getPrice(),
       cartItem.getQuantity(),
-      cartItem.getDiscount(),
     };
     try {
       return DatabaseConnection.executeUpdate(insertSql, args);

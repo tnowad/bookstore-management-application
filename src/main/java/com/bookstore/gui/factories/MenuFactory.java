@@ -266,7 +266,7 @@ public class MenuFactory {
             new MenuItemModel(
               "Shop",
               new ImageIcon("src/main/java/resources/icons/shop.png"),
-              showHomeCustomer,
+              showShop,
               null
             )
           );
@@ -377,7 +377,7 @@ public class MenuFactory {
             new MenuItemModel(
               "Shop",
               new ImageIcon("src/main/java/resources/icons/shop.png"),
-              null,
+              showShop,
               null
             )
           );
@@ -671,7 +671,7 @@ public class MenuFactory {
   };
 
   // customer
-  private static ActionListener showHomeCustomer = e -> {
+  private static ActionListener showShop = e -> {
     MainPanel.getInstance().showForm(new ShopCustomer());
   };
   private static ActionListener showCartCustomer = e -> {

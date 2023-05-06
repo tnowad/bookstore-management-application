@@ -243,7 +243,7 @@ public class BookDetailPanel extends JPanel {
     bookDetailsPanel.add(bookInformationPanel, BorderLayout.CENTER);
 
     add(bookDetailsPanel, BorderLayout.CENTER);
-  } // </editor-fold>
+  } 
 
   private void bookTitleTextFieldActionPerformed(ActionEvent evt) {}
 

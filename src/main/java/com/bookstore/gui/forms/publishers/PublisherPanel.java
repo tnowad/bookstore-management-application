@@ -9,7 +9,6 @@ import javax.swing.*;
 
 public class PublisherPanel extends JPanel implements MouseListener{
 
-  private JCheckBox checkBox;
   private JPanel panel;
   private JLabel setDescription;
   private JLabel setId;
@@ -30,17 +29,14 @@ public class PublisherPanel extends JPanel implements MouseListener{
   }
 
   private void initComponents(int serial, PublisherModel publisher) {
-    panel = new JPanel();
-    checkBox = new JCheckBox();
     setSerial = new JLabel();
     setId = new JLabel();
     setName = new JLabel();
     setDescription = new JLabel();
+    panel = new JPanel();
 
     setLayout(new GridLayout(1, 3));
-
-    panel.setLayout(new GridLayout(1, 3));
-    panel.add(checkBox);
+    panel.setLayout(new GridLayout());
 
     setSerial.setText("" + serial);
     panel.add(setSerial);
@@ -51,11 +47,11 @@ public class PublisherPanel extends JPanel implements MouseListener{
     add(panel);
 
     setName.setText(publisher.getName());
-    setName.setPreferredSize(new Dimension(100, 16));
+    setName.setPreferredSize(new Dimension(80, 16));
     add(setName);
 
     setDescription.setText(publisher.getDescription());
-    setDescription.setPreferredSize(new Dimension(300, 16));
+    setDescription.setPreferredSize(new Dimension(100, 16));
     add(setDescription);
   }
 
@@ -81,7 +77,6 @@ public class PublisherPanel extends JPanel implements MouseListener{
 
   @Override
   public void mouseExited(MouseEvent e) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'mouseExited'");
+    
   }
 }

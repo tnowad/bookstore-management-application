@@ -37,6 +37,15 @@ public class ProviderBUS implements IBUS<ProviderModel> {
     }
     return null;
   }
+  public ProviderModel getModelByName(String name) {
+    for (ProviderModel providerModel : providerList) {
+      if (providerModel.getName().equals(name)) {
+        return providerModel;
+      }
+    }
+
+    return null;
+  }
 
   private ProviderModel mapToEntity(ProviderModel from) {
     ProviderModel to = new ProviderModel();

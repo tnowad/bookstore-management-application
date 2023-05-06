@@ -71,7 +71,7 @@ public class AddAuthor extends JFrame {
     setDescription.setFont(new Font("Segoe UI", 3, 15));
     setDescription.setLineWrap(true);
     setDescription.setRows(5);
-    setDescription.setText("Description ?");
+    setDescription.setText("Description here!");
     scrollPane.setViewportView(setDescription);
     scrollPane.getVerticalScrollBar().setValue(0);
 

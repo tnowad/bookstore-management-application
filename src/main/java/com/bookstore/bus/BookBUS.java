@@ -37,6 +37,7 @@ public class BookBUS implements IBUS<BookModel> {
   }
 
   public BookModel getBookByIsbn(String isbn) {
+    refreshData();
     for (BookModel bookModel : bookList) {
       if (bookModel.getIsbn().equals(isbn)) {
         return bookModel;

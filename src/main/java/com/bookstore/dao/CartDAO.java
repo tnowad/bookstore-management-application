@@ -158,7 +158,6 @@ public class CartDAO implements IDAO<CartModel> {
         return cartList;
       }
     } catch (SQLException e) {
-      e.printStackTrace();
       return Collections.emptyList();
     }
   }

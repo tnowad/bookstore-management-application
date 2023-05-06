@@ -2,12 +2,10 @@ package com.bookstore.gui.components.books;
 
 import com.bookstore.bus.CartBUS;
 import com.bookstore.bus.CartItemsBUS;
-import com.bookstore.enums.CartStatus;
 import com.bookstore.gui.components.labels.Label;
 import com.bookstore.gui.components.panels.MainPanel;
 import com.bookstore.gui.forms.books.BookDetailCustomer;
 import com.bookstore.models.BookModel;
-import com.bookstore.models.CartItemsModel;
 import com.bookstore.models.CartModel;
 import com.bookstore.models.UserModel;
 import com.bookstore.services.Authentication;
@@ -17,7 +15,8 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Image;
-import java.util.List;
+import java.text.NumberFormat;
+import java.util.Locale;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -36,13 +35,6 @@ public class BookItemPanel extends JPanel {
   private JPanel jPanelFooter;
 
   private UserModel userModel = Authentication.getCurrentUser();
-  private List<CartModel> cartList = CartBUS.getInstance().getAllModels();
-  private CartModel myCartModel;
-  private List<CartItemsModel> cartItemList = CartItemsBUS
-    .getInstance()
-    .getAllModels();
-
-  private CartItemsModel cartItemsModel;
 
   private BookModel bookModel;
 
@@ -65,50 +57,28 @@ public class BookItemPanel extends JPanel {
     addToCartButton.addActionListener(e -> {
       updateData();
 
-      System.out.println(
-        CartBUS.getInstance().getShoppingCartByUserId(userModel.getId())
+      CartModel cartModel = CartBUS
+        .getInstance()
+        .getShoppingCartByUserId(userModel.getId());
+      System.out.println(cartModel.getId());
+      try {
+        CartItemsBUS.getInstance().addBookToCart(cartModel, bookModel);
+      } catch (Exception exception) {
+        JOptionPane.showMessageDialog(
+          null,
+          exception.getMessage(),
+          "Error",
+          JOptionPane.ERROR_MESSAGE
+        );
+        return;
+      }
+      JOptionPane.showMessageDialog(
+        null,
+        "Add book to cart successfully!",
+        "Success",
+        JOptionPane.INFORMATION_MESSAGE
       );
-      // boolean bookAlreadyInCart = false;
-      // for (CartModel cartModel : cartList) {
-      //   if (
-      //     cartModel.getStatus().equals(CartStatus.PENDING) &&
-      //     cartModel.getUserId() == userModel.getId()
-      //   ) {
-      //     myCartModel = cartModel;
-      //     break;
-      //   }
-      // }
-      // if (myCartModel == null) {
-      //   myCartModel = new CartModel();
-      //   myCartModel.setUserId(userModel.getId());
-      //   myCartModel.setPromotionId(1);
-      //   myCartModel.setStatus(CartStatus.PENDING);
-      //   CartBUS.getInstance().addModel(myCartModel);
-      //   System.out.println(myCartModel.getId());
-      // }
-      // for (CartItemsModel cartItemModel : cartItemList) {
-      //   if (
-      //     cartItemModel.getBookIsbn().equals(bookModel.getIsbn()) &&
-      //     cartItemModel.getCartId() == myCartModel.getId()
-      //   ) {
-      //     JOptionPane.showMessageDialog(
-      //       null,
-      //       "This book is already in your cart!!!"
-      //     );
-      //     bookAlreadyInCart = true;
-      //     break;
-      //   }
-      // }
-      // if (!bookAlreadyInCart) {
-      //   cartItemsModel = new CartItemsModel();
-      //   cartItemsModel.setBookIsbn(bookModel.getIsbn());
-      //   cartItemsModel.setCartId(myCartModel.getId());
-      //   cartItemsModel.setDiscount(ABORT);
-      //   cartItemsModel.setPrice(bookModel.getPrice());
-      //   cartItemsModel.setQuantity(1);
-      //   CartItemsBUS.getInstance().addModel(cartItemsModel);
-      //   JOptionPane.showMessageDialog(null, "This book is add too cart");
-      // }
+      updateData();
     });
   }
 
@@ -141,7 +111,11 @@ public class BookItemPanel extends JPanel {
     addToCartButton = new JButton();
     jPanelFooter = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
 
-    priceLabel.setText(bookModel.getPrice() + " $");
+    NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(
+      new Locale("vi", "VN")
+    );
+
+    priceLabel.setText(currencyFormatter.format(bookModel.getPrice()));
     priceLabel.setHorizontalAlignment(SwingConstants.CENTER);
     priceLabel.setFont(new Font("Arial", Font.BOLD, 16));
     priceLabel.setLabelSize(100, 22);

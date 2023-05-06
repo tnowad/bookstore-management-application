@@ -1,30 +1,24 @@
 package com.bookstore.gui.components.publishers;
 
 import com.bookstore.bus.PublisherBUS;
+import com.bookstore.gui.forms.publishers.AddPublisher;
 import com.bookstore.gui.forms.publishers.PublisherPanel;
 import com.bookstore.models.PublisherModel;
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.GridLayout;
+import java.awt.*;
+import java.awt.event.*;
 import java.util.List;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
+import javax.swing.*;
+
 
 public class PublisherListPanel extends JPanel {
 
   private JButton buttonAdd;
-  private JButton buttonDelete;
   private JPanel buttonsPanel;
   private JPanel contend;
   private JPanel contendTable;
   private JLabel descriptionText;
   private JPanel headerTable;
   private JLabel idText;
-  private JLabel label;
   private JLabel nameText;
   private JPanel panel;
   private JScrollPane scrollPane;
@@ -52,17 +46,15 @@ public class PublisherListPanel extends JPanel {
     contend = new JPanel();
     buttonsPanel = new JPanel();
     buttonAdd = new JButton();
-    buttonDelete = new JButton();
     table = new JPanel();
     headerTable = new JPanel();
-    panel = new JPanel();
-    label = new JLabel();
     serialText = new JLabel();
     idText = new JLabel();
     nameText = new JLabel();
     descriptionText = new JLabel();
     scrollPane = new JScrollPane();
     contendTable = new JPanel();
+    panel = new JPanel();
 
     setPreferredSize(new Dimension(720, 444));
     setLayout(new BorderLayout());
@@ -78,11 +70,8 @@ public class PublisherListPanel extends JPanel {
 
     buttonAdd.setText("Add");
     buttonAdd.setPreferredSize(new Dimension(75, 30));
+    buttonAdd.addActionListener(actionAdd);
     buttonsPanel.add(buttonAdd);
-
-    buttonDelete.setText("Delete");
-    buttonDelete.setPreferredSize(new Dimension(75, 30));
-    buttonsPanel.add(buttonDelete);
 
     contend.add(buttonsPanel, BorderLayout.PAGE_START);
 
@@ -90,8 +79,7 @@ public class PublisherListPanel extends JPanel {
 
     headerTable.setLayout(new GridLayout(1, 3));
 
-    panel.setLayout(new GridLayout(1, 3));
-    panel.add(label);
+    panel.setLayout(new GridLayout());
 
     serialText.setFont(new Font("Segoe UI", 0, 16));
     serialText.setText("Serial");
@@ -125,7 +113,7 @@ public class PublisherListPanel extends JPanel {
   public void addTable() {
     contendTable.removeAll();
     contendTable.setLayout(new GridLayout(0, 1, 0, 15));
-    int serial = 0;
+    int serial = 1;
     for (PublisherModel publisher : listPublisher) {
       PublisherPanel publisherPanel = new PublisherPanel(serial, publisher);
       contendTable.add(publisherPanel);
@@ -134,5 +122,15 @@ public class PublisherListPanel extends JPanel {
     contendTable.revalidate();
     contendTable.repaint();
   }
+
+  public ActionListener actionAdd = new ActionListener() {
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+      AddPublisher addPublisher = new AddPublisher();
+      addPublisher.setVisible(true);
+    }
+    
+  };
 
 }

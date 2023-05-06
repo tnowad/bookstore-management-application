@@ -37,11 +37,11 @@ public class ItemOrderPanel extends JPanel {
         public void mouseClicked(MouseEvent e) {
           OrderDetail orderDetail = new OrderDetail(orderModel.getCustomerId());
           orderDetail.setSize(new Dimension(530, 600));
-          orderDetail.setLocationRelativeTo(null);
-          orderDetail.setDefaultCloseOperation(
-            WindowConstants.DISPOSE_ON_CLOSE
-          );
-          orderDetail.setVisible(true);
+          // orderDetail.setLocationRelativeTo(null);
+          // orderDetail.setDefaultCloseOperation(
+          //   WindowConstants.DISPOSE_ON_CLOSE
+          // );
+          // orderDetail.setVisible(true);
         }
       }
     );

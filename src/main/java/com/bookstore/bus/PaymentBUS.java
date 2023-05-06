@@ -212,8 +212,7 @@ public class PaymentBUS implements IBUS<PaymentModel> {
 
   @Override
   public void refreshData() {
-    throw new UnsupportedOperationException(
-      "Unimplemented method 'refreshData'"
-    );
+    paymentList.clear();
+    paymentList.addAll(PaymentDAO.getInstance().readDatabase());
   }
 }

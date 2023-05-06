@@ -36,6 +36,7 @@ public class CartBUS implements IBUS<CartModel> {
 
   @Override
   public CartModel getModelById(int id) {
+    refreshData();
     for (CartModel cartModel : cartList) {
       if (cartModel.getId() == id) {
         return cartModel;
@@ -242,7 +243,7 @@ public class CartBUS implements IBUS<CartModel> {
   }
 
   public int calculateTotal(int cartId) {
-    return 0;
+    return 1000;
   }
 
   public CartModel getShoppingCartByUserId(int userId) {
@@ -254,6 +255,7 @@ public class CartBUS implements IBUS<CartModel> {
         return cart;
       }
     }
+
     // Create new cart if not found
     CartModel cart = new CartModel();
     cart.setUserId(userId);
@@ -264,7 +266,7 @@ public class CartBUS implements IBUS<CartModel> {
         ZoneId.systemDefault()
       )
     );
-     CartBUS.getInstance().addModel(cart);
+    CartBUS.getInstance().addModel(cart);
     refreshData();
     return CartBUS.getInstance().getShoppingCartByUserId(userId);
   }

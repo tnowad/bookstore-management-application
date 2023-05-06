@@ -5,6 +5,7 @@ import com.bookstore.gui.forms.authors.AddAuthor;
 import com.bookstore.gui.forms.authors.AuthorPanel;
 import com.bookstore.models.AuthorModel;
 import java.awt.BorderLayout;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -22,23 +23,23 @@ public class AuthorListPanel extends JPanel {
   private static AuthorListPanel instance;
 
   private JButton buttonAdd;
-  private JButton buttonDelete;
   private JPanel buttonsPanel;
   private JPanel contend;
   private JPanel contendTable;
   private JLabel descriptionText;
   private JPanel headerTable;
   private JLabel idText;
-  private JLabel label;
   private JLabel nameText;
-  private JPanel panel;
   private JScrollPane scrollPane;
   private JLabel serialText;
   private JPanel table;
   private JLabel title;
+  private JPanel panel;
 
   AuthorBUS authorBUS = AuthorBUS.getInstance();
   List<AuthorModel> listAuthor = authorBUS.getAllModels();
+
+ 
 
   public AuthorListPanel() {
     initComponents();
@@ -57,17 +58,15 @@ public class AuthorListPanel extends JPanel {
     contend = new JPanel();
     buttonsPanel = new JPanel();
     buttonAdd = new JButton();
-    buttonDelete = new JButton();
     table = new JPanel();
     headerTable = new JPanel();
-    panel = new JPanel();
-    label = new JLabel();
     serialText = new JLabel();
     idText = new JLabel();
     nameText = new JLabel();
     descriptionText = new JLabel();
     scrollPane = new JScrollPane();
     contendTable = new JPanel();
+    panel = new JPanel();
 
     setPreferredSize(new Dimension(720, 444));
     setLayout(new BorderLayout());
@@ -86,18 +85,13 @@ public class AuthorListPanel extends JPanel {
     buttonAdd.addActionListener(actionAdd);
     buttonsPanel.add(buttonAdd);
 
-    buttonDelete.setText("Delete");
-    buttonDelete.setPreferredSize(new Dimension(75, 30));
-    buttonsPanel.add(buttonDelete);
-
     contend.add(buttonsPanel, BorderLayout.PAGE_START);
 
     table.setLayout(new BorderLayout());
 
     headerTable.setLayout(new GridLayout(1, 3));
 
-    panel.setLayout(new GridLayout(1, 3));
-    panel.add(label);
+    panel.setLayout(new GridLayout());
 
     serialText.setFont(new Font("Segoe UI", 0, 16));
     serialText.setText("Serial");
@@ -131,7 +125,7 @@ public class AuthorListPanel extends JPanel {
   public void addTable() {
     contendTable.removeAll();
     contendTable.setLayout(new GridLayout(0, 1, 0, 15));
-    int serial = 0;
+    int serial = 1;
     for (AuthorModel author : listAuthor) {
       AuthorPanel publisherPanel = new AuthorPanel(serial, author);
       contendTable.add(publisherPanel);

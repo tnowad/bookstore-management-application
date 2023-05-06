@@ -1,12 +1,11 @@
 package com.bookstore.gui.forms.authors;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
+import java.awt.event.*;
 import javax.swing.*;
 
 import com.bookstore.bus.AuthorBUS;
+import com.bookstore.bus.BookBUS;
 import com.bookstore.models.AuthorModel;
 
 public class AuthorDetail extends JFrame {
@@ -15,7 +14,6 @@ public class AuthorDetail extends JFrame {
   private JPanel buttonPanel;
   private JButton buttonBack;
   private JButton buttonSave;
-  private JButton buttonDelete;
   private JPanel contend;
   private JLabel descriptionText;
   private JLabel idText;
@@ -23,6 +21,13 @@ public class AuthorDetail extends JFrame {
   private JScrollPane scrollPane;
   private JTextField setId;
   private JTextField setName;
+  private JLabel productsText;
+  private JTextField setProducts;
+  private JLabel title;
+
+
+
+
 
   private AuthorBUS authorBUS = AuthorBUS.getInstance();
   AuthorModel author;
@@ -48,11 +53,20 @@ public class AuthorDetail extends JFrame {
     buttonPanel = new JPanel();
     buttonBack = new JButton();
     buttonSave = new JButton();
-    buttonDelete = new JButton();
+    productsText = new JLabel();
+    setProducts = new JTextField();
+    title = new JLabel();
 
     contend.setMinimumSize(new Dimension(400, 100));
-    contend.setPreferredSize(new Dimension(390, 115));
+    contend.setPreferredSize(new Dimension(390, 123));
     contend.setLayout(new FlowLayout(FlowLayout.LEFT));
+
+    title.setFont(new Font("Segoe UI", 1, 18));
+    title.setHorizontalAlignment(SwingConstants.LEFT);
+    title.setText("Author ");
+    title.setForeground(Color.BLUE);
+    title.setPreferredSize(new Dimension(390, 25));
+    contend.add(title);
 
     idText.setFont(new Font("Segoe UI", 1, 14)); // NOI18N
     idText.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -62,6 +76,7 @@ public class AuthorDetail extends JFrame {
 
     setId.setPreferredSize(new Dimension(200, 25));
     setId.setText(""+author.getId());
+    setId.setEditable(false);
     contend.add(setId);
 
     nameText.setFont(new Font("Segoe UI", 1, 14)); // NOI18N
@@ -73,6 +88,17 @@ public class AuthorDetail extends JFrame {
     setName.setPreferredSize(new Dimension(200, 25));
     setName.setText(author.getName());
     contend.add(setName);
+
+    productsText.setFont(new Font("Segoe UI", 1, 14)); // NOI18N
+    productsText.setHorizontalAlignment(SwingConstants.RIGHT);
+    productsText.setText("Product Of This");
+    productsText.setPreferredSize(new Dimension(130, 16));
+    contend.add(productsText);
+
+    setProducts.setPreferredSize(new Dimension(130, 25));
+    setProducts.setEditable(false);
+    setProducts.setText(""+BookBUS.getInstance().searchModel(String.valueOf(author.getId()), new String[]{"author_id"}).size());
+    contend.add(setProducts);
 
     descriptionText.setFont(new Font("Segoe UI", 1, 14)); // NOI18N
     descriptionText.setHorizontalAlignment(SwingConstants.LEFT);
@@ -93,20 +119,15 @@ public class AuthorDetail extends JFrame {
       new ImageIcon(getClass().getResource("/resources/icons/back.png"))
     );
     buttonBack.setPreferredSize(new Dimension(80, 30));
+    buttonBack.addActionListener(actionBack);
     buttonPanel.add(buttonBack);
 
     buttonSave.setIcon(
       new ImageIcon(getClass().getResource("/resources/icons/save.png"))
     );
     buttonSave.setPreferredSize(new Dimension(80, 30));
+    buttonSave.addActionListener(actionSave);
     buttonPanel.add(buttonSave);
-
-    buttonDelete.setIcon(
-      new ImageIcon(getClass().getResource("/resources/icons/delete.png"))
-    );
-    buttonDelete.setPreferredSize(new Dimension(80, 30));
-    buttonPanel.add(buttonDelete);
-
 
     getContentPane().add(contend, BorderLayout.PAGE_START);
     getContentPane().add(scrollPane, BorderLayout.CENTER);
@@ -114,24 +135,6 @@ public class AuthorDetail extends JFrame {
 
     pack();
   }
-
-  public ActionListener actionDelete = new ActionListener() {
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-      int choice = JOptionPane.showConfirmDialog(
-        null,
-        "Do you want to delete author?",
-        "Confirmation",
-        JOptionPane.YES_NO_OPTION
-      );
-      if (choice == JOptionPane.YES_OPTION) {
-        authorBUS.deleteModel(Integer.parseInt(setId.getText().trim()));
-        JOptionPane.showMessageDialog(null,"Complete");
-      }
-    }
-    
-  };
 
   public ActionListener actionSave = new ActionListener() {
 
@@ -141,12 +144,8 @@ public class AuthorDetail extends JFrame {
         JOptionPane.showMessageDialog(null, "Author name cannot be empty!");
         return;
       }
-
-      if (authorBUS.getModelByName(setName.getText().trim())!=null) {
-        JOptionPane.showMessageDialog(null, "Author already exists!");
-        return;
-      }
       authorBUS.updateModel(new AuthorModel(author.getId(), setName.getText().trim(), setDescription.getText().trim()));
+      JOptionPane.showMessageDialog(null,"Complete");
     }
     
   };{

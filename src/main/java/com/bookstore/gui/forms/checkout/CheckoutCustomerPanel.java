@@ -8,10 +8,12 @@ import com.bookstore.bus.OrderBUS;
 import com.bookstore.bus.PaymentBUS;
 import com.bookstore.bus.PaymentMethodBUS;
 import com.bookstore.bus.ShippingBUS;
+import com.bookstore.bus.UserBUS;
 import com.bookstore.enums.CartStatus;
 import com.bookstore.enums.OrderStatus;
 import com.bookstore.enums.PaymentStatus;
 import com.bookstore.enums.ShippingStatus;
+import com.bookstore.enums.UserRole;
 import com.bookstore.gui.components.panels.MainPanel;
 import com.bookstore.models.AddressModel;
 import com.bookstore.models.BookModel;
@@ -64,6 +66,7 @@ public class CheckoutCustomerPanel extends JPanel {
   private CartModel cartModel;
   private List<CartItemsModel> cartItemList;
   private UserModel userModel;
+  private UserModel customerModel;
   private AddressModel addressModel;
 
   private List<BookModel> bookList;
@@ -103,18 +106,28 @@ public class CheckoutCustomerPanel extends JPanel {
       }
     }
 
-    nameTextField.setText(userModel.getName());
-    emailTextField.setText(userModel.getEmail());
-    addressTextField.setText(
-      addressModel.getStreet() +
-      ", " +
-      addressModel.getState() +
-      ", " +
-      addressModel.getCity() +
-      ", " +
-      addressModel.getZip()
-    );
-    phoneTextField.setText(userModel.getPhone());
+    if (userModel.getRole().equals(UserRole.CUSTOMER)) {
+      nameTextField.setText(userModel.getName());
+      emailTextField.setText(userModel.getEmail());
+      addressTextField.setText(
+        addressModel.getStreet() +
+        ", " +
+        addressModel.getState() +
+        ", " +
+        addressModel.getCity() +
+        ", " +
+        addressModel.getZip()
+      );
+      phoneTextField.setText(userModel.getPhone());
+      nameTextField.setEditable(false);
+      emailTextField.setEditable(false);
+      addressTextField.setEditable(false);
+      phoneTextField.setEditable(false);
+      phoneTextField.setEditable(false);
+    } else {
+      paymentMethodComboBox.setSelectedItem("Cash");
+      paymentMethodComboBox.setEnabled(false);
+    }
   }
 
   private void handleEvent() {
@@ -155,14 +168,20 @@ public class CheckoutCustomerPanel extends JPanel {
         String shippingMethod = shippingMethodComboBox
           .getSelectedItem()
           .toString();
+
         OrderModel myOrderModel = new OrderModel();
         myOrderModel.setCartId(cartId);
-        myOrderModel.setCustomerId(customerId);
-        myOrderModel.setEmployeeId(2);
+        if (userModel.getRole().equals(UserRole.EMPLOYEE)) {
+          myOrderModel.setEmployeeId(userModel.getId());
+          myOrderModel.setStatus(OrderStatus.SOLVED);
+        } else {
+          myOrderModel.setCustomerId(customerId);
+          myOrderModel.setEmployeeId(2);
+          myOrderModel.setStatus(OrderStatus.PENDING);
+        }
         myOrderModel.setTotal(CartBUS.getInstance().calculateTotal(cartId));
         myOrderModel.setTotal(totalPrice);
         myOrderModel.setPaid(0);
-        myOrderModel.setStatus(OrderStatus.PENDING);
         OrderBUS.getInstance().addModel(myOrderModel);
         OrderBUS.getInstance().refreshData();
         for (OrderModel orderModel : OrderBUS.getInstance().getAllModels()) {
@@ -244,7 +263,12 @@ public class CheckoutCustomerPanel extends JPanel {
   private void showProductListTable() {
     CartItemsBUS.getInstance().refreshData();
     updateData();
-    DefaultTableModel model = new DefaultTableModel();
+    DefaultTableModel model = new DefaultTableModel() {
+      @Override
+      public boolean isCellEditable(int row, int column) {
+        return false;
+      }
+    };
     model.addColumn("ISBN");
     model.addColumn("Title");
     model.addColumn("Price");
@@ -276,32 +300,19 @@ public class CheckoutCustomerPanel extends JPanel {
     topPanel.add(backPreviousButton);
     add(topPanel, BorderLayout.NORTH);
 
-    nameTextField = new JTextField(userModel.getName());
-    nameTextField.setEditable(false);
+    nameTextField = new JTextField();
     nameLabel = new JLabel("Name");
     nameLabel.setLabelFor(nameTextField);
 
-    emailTextField = new JTextField(userModel.getEmail());
-    emailTextField.setEditable(false);
+    emailTextField = new JTextField();
     emailLabel = new JLabel("Email");
     emailLabel.setLabelFor(emailTextField);
 
-    addressTextField =
-      new JTextField(
-        addressModel.getStreet() +
-        ", " +
-        addressModel.getState() +
-        ", " +
-        addressModel.getCity() +
-        ", " +
-        addressModel.getZip()
-      );
-    addressTextField.setEditable(false);
+    addressTextField = new JTextField();
     addressLabel = new JLabel("Address");
     addressLabel.setLabelFor(addressTextField);
 
-    phoneTextField = new JTextField(userModel.getPhone());
-    phoneTextField.setEditable(false);
+    phoneTextField = new JTextField();
     phoneLabel = new JLabel("Phone");
     phoneLabel.setLabelFor(phoneTextField);
 
