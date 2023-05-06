@@ -67,7 +67,7 @@ public class BookItemPanel extends JPanel {
       boolean bookAlreadyInCart = false;
       for (CartModel cartModel : cartList) {
         if (
-          cartModel.getStatus().equals(CartStatus.PENDING) &&
+          cartModel.getStatus().equals(CartStatus.SHOPPING) &&
           cartModel.getUserId() == userModel.getId()
         ) {
           myCartModel = cartModel;
@@ -78,7 +78,7 @@ public class BookItemPanel extends JPanel {
         myCartModel = new CartModel();
         myCartModel.setUserId(userModel.getId());
         myCartModel.setPromotionId(1);
-        myCartModel.setStatus(CartStatus.PENDING);
+        myCartModel.setStatus(CartStatus.SHOPPING);
         CartBUS.getInstance().addModel(myCartModel);
         System.out.println(myCartModel.getId());
       }

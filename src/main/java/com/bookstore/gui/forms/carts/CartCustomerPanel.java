@@ -62,7 +62,7 @@ public class CartCustomerPanel extends JPanel {
     for (CartModel cartModel : cartList) {
       if (
         cartModel.getUserId() == userModel.getId() &&
-        cartModel.getStatus().equals(CartStatus.PENDING)
+        cartModel.getStatus().equals(CartStatus.SHOPPING)
       ) {
         this.cartModel = cartModel;
         break;
@@ -71,13 +71,13 @@ public class CartCustomerPanel extends JPanel {
     if (cartModel == null) {
       cartModel = new CartModel();
       cartModel.setUserId(userModel.getId());
-      cartModel.setStatus(CartStatus.PENDING);
+      cartModel.setStatus(CartStatus.SHOPPING);
       cartModel.setPromotionId(1);
       CartBUS.getInstance().addModel(cartModel);
     }
     myCartList = new ArrayList<CartItemsModel>();
     cartItemsBUS = CartItemsBUS.getInstance();
-    if (cartModel.getStatus() == CartStatus.PENDING) {
+    if (cartModel.getStatus() == CartStatus.SHOPPING) {
       cartItemList = cartItemsBUS.getAllModels();
       bookBUS = BookBUS.getInstance();
       bookList = bookBUS.getAllModels();

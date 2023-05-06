@@ -93,7 +93,7 @@ public class CheckoutCustomerPanel extends JPanel {
     }
 
     myCartItemList = new ArrayList<CartItemsModel>();
-    if (cartModel.getStatus() == CartStatus.PENDING) {
+    if (cartModel.getStatus() == CartStatus.SHOPPING) {
       cartItemList = CartItemsBUS.getInstance().getAllModels();
       bookList = BookBUS.getInstance().getAllModels();
       for (CartItemsModel cartItemsModel : cartItemList) {
@@ -200,7 +200,7 @@ public class CheckoutCustomerPanel extends JPanel {
             myShippingModel = shippingModel;
           }
         }
-        cartModel.setStatus(CartStatus.SHOPPING);
+        cartModel.setStatus(CartStatus.PENDING);
         CartBUS.getInstance().updateModel(cartModel);
         if (paymentMethod.equals("Cash")) {
           MainPanel

@@ -404,7 +404,7 @@ public class OrderBUS implements IBUS<OrderModel> {
 
     // set status of cart to pending
     CartModel cart = new CartModel();
-    cart.setStatus(CartStatus.PENDING);
+    cart.setStatus(CartStatus.SHOPPING);
     CartBUS.getInstance().updateModel(cart);
   }
 }
