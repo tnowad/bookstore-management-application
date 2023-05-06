@@ -2,12 +2,10 @@ package com.bookstore.gui.components.books;
 
 import com.bookstore.bus.CartBUS;
 import com.bookstore.bus.CartItemsBUS;
-import com.bookstore.bus.UserBUS;
 import com.bookstore.gui.components.labels.Label;
 import com.bookstore.gui.components.panels.MainPanel;
 import com.bookstore.gui.forms.books.BookDetailCustomer;
 import com.bookstore.models.BookModel;
-import com.bookstore.models.CartItemsModel;
 import com.bookstore.models.CartModel;
 import com.bookstore.models.UserModel;
 import com.bookstore.services.Authentication;
@@ -18,7 +16,6 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Image;
 import java.text.NumberFormat;
-import java.util.List;
 import java.util.Locale;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -38,13 +35,6 @@ public class BookItemPanel extends JPanel {
   private JPanel jPanelFooter;
 
   private UserModel userModel = Authentication.getCurrentUser();
-  private List<CartModel> cartList = CartBUS.getInstance().getAllModels();
-  private CartModel myCartModel;
-  private List<CartItemsModel> cartItemList = CartItemsBUS
-    .getInstance()
-    .getAllModels();
-
-  private CartItemsModel cartItemsModel;
 
   private BookModel bookModel;
 
@@ -72,7 +62,6 @@ public class BookItemPanel extends JPanel {
         .getShoppingCartByUserId(userModel.getId());
       System.out.println(cartModel.getId());
       try {
-        System.out.println("Recieved cart: ");
         CartItemsBUS.getInstance().addBookToCart(cartModel, bookModel);
       } catch (Exception exception) {
         JOptionPane.showMessageDialog(

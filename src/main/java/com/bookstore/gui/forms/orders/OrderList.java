@@ -5,6 +5,7 @@ import com.bookstore.enums.OrderStatus;
 import com.bookstore.gui.components.buttons.Button;
 import com.bookstore.gui.components.dialogs.Dialog;
 import com.bookstore.gui.components.labels.Label;
+import com.bookstore.gui.components.panels.MainPanel;
 import com.bookstore.models.OrderModel;
 import java.awt.*;
 import javax.swing.*;
@@ -52,7 +53,10 @@ public class OrderList extends JPanel {
               int customerId = Integer.parseInt(
                 orderTableList.getValueAt(selectedRowIndex, 2).toString()
               );
-              new Dialog(new OrderDetail(customerId));
+              MainPanel
+                .getInstance()
+                .showFormStack(new OrderDetail(customerId));
+
               listOrder();
             } else {
               JOptionPane.showMessageDialog(

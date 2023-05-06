@@ -19,7 +19,7 @@ import java.util.List;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-public class OrderDetail extends JFrame {
+public class OrderDetail extends JPanel {
 
   private Button acceptButton;
   private JPanel container;
@@ -78,7 +78,6 @@ public class OrderDetail extends JFrame {
         "Success",
         JOptionPane.INFORMATION_MESSAGE
       );
-      dispose();
     }
   };
 
@@ -99,7 +98,6 @@ public class OrderDetail extends JFrame {
         "Success",
         JOptionPane.INFORMATION_MESSAGE
       );
-      dispose();
     }
   };
 
@@ -183,8 +181,6 @@ public class OrderDetail extends JFrame {
     acceptButton = new Button();
     rejectButton = new Button();
 
-    setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-    getContentPane().setLayout(new FlowLayout());
 
     container.setLayout(new BorderLayout());
     groupHeaderPanel.setLayout(
@@ -195,12 +191,10 @@ public class OrderDetail extends JFrame {
     titleLabel.setText("Order detail");
     groupHeaderPanel.add(titleLabel);
 
-    // groupHeader
     groupHeaderPanel.setPreferredSize(new Dimension(500, 100));
     groupHeaderPanel.add(nameCustomerLabel);
     groupHeaderPanel.add(emailCustomerLabel);
     groupHeaderPanel.add(phoneCustomerLabel);
-    // groupHeaderPanel.add(addressCustomerLabel);
 
     container.add(groupHeaderPanel, BorderLayout.PAGE_START);
 
@@ -216,8 +210,7 @@ public class OrderDetail extends JFrame {
 
     container.add(groupBottomPanel, BorderLayout.PAGE_END);
 
-    getContentPane().add(container);
+    add(container);
 
-    pack();
   }
 }
