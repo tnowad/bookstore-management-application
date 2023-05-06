@@ -14,8 +14,10 @@ import com.bookstore.models.CartModel;
 import com.bookstore.models.UserModel;
 import com.bookstore.services.Authentication;
 import java.awt.*;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -32,7 +34,7 @@ public class CartCustomerPanel extends JPanel {
   private JPanel listCartPanel;
   private JScrollPane listCartScrollPane;
   private JTable listCartTable;
-  private JTextField totalPriceTextField;
+  // private JTextField totalPriceTextField;
 
   private BookBUS bookBUS;
   private CartBUS cartBUS;
@@ -96,10 +98,10 @@ public class CartCustomerPanel extends JPanel {
     groupBottomPanel = new JPanel();
     groupTotalCostPanel = new JPanel();
     totalCostLabel = new JLabel();
-    totalPriceTextField =
-      new JTextField(
-        String.valueOf(CartBUS.getInstance().getTotalPrice(cartModel.getId()))
-      );
+    // totalPriceTextField =
+    //   new JTextField(
+    //     String.valueOf(CartBUS.getInstance().getTotalPrice(cartModel.getId()))
+    //   );
     groupActionPanel = new JPanel();
     deleteAllProductsButton = new JButton();
     proceedToCheckoutButton = new JButton();
@@ -117,14 +119,25 @@ public class CartCustomerPanel extends JPanel {
     groupTotalCostPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
     totalCostLabel.setFont(new Font("Arial", 0, 14));
-    totalCostLabel.setText("Total cost:");
-    totalCostLabel.setPreferredSize(new Dimension(75, 30));
+
+    NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(
+      new Locale("vi", "VN")
+    );
+
+    totalCostLabel.setText(
+      "Total cost: " +
+      currencyFormatter.format(
+        CartBUS.getInstance().getTotalPrice(cartModel.getId())
+      )
+    );
+    // totalCostLabel.setText("Total cost:" + "");
+    totalCostLabel.setPreferredSize(new Dimension(150, 30));
     groupTotalCostPanel.add(totalCostLabel);
 
-    totalPriceTextField.setEditable(false);
-    totalPriceTextField.setPreferredSize(new Dimension(200, 30));
+    // totalPriceTextField.setEditable(false);
+    // totalPriceTextField.setPreferredSize(new Dimension(200, 30));
 
-    groupTotalCostPanel.add(totalPriceTextField);
+    // groupTotalCostPanel.add(totalPriceTextField);
 
     groupBottomPanel.add(groupTotalCostPanel);
 
@@ -178,11 +191,21 @@ public class CartCustomerPanel extends JPanel {
     listCartScrollPane.setViewportView(listCartTable);
     listCartPanel.add(listCartScrollPane, BorderLayout.CENTER);
     try {
-      totalPriceTextField.setText(
-        String.valueOf(CartBUS.getInstance().getTotalPrice(cartModel.getId()))
+      NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(
+        new Locale("vi", "VN")
       );
+
+      totalCostLabel.setText(
+        "Total cost: " +
+        currencyFormatter.format(
+          CartBUS.getInstance().getTotalPrice(cartModel.getId())
+        )
+      );
+      // totalPriceTextField.setText(
+      //   String.valueOf(CartBUS.getInstance().getTotalPrice(cartModel.getId()))
+      // );
     } catch (Exception e) {
-      totalPriceTextField.setText("0");
+      totalCostLabel.setText("0");
     }
   }
 
