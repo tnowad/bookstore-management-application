@@ -1,13 +1,13 @@
 package com.bookstore.gui.components.authors;
 
 import com.bookstore.models.AuthorModel;
-import java.awt.Dimension;
-import java.awt.GridLayout;
-import javax.swing.JCheckBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import java.awt.*;
+import java.awt.event.*;
 
-public class AuthorPanel extends JPanel {
+import javax.swing.*;
+
+
+public class AuthorPanel extends JPanel implements MouseListener {
 
   private JCheckBox checkBox;
   private JPanel panel;
@@ -18,6 +18,15 @@ public class AuthorPanel extends JPanel {
 
   public AuthorPanel(int serial, AuthorModel author) {
     initComponents(serial, author);
+    addMouseListener(
+      new MouseAdapter() {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+          AuthorDetail authorDetail = new AuthorDetail(author);
+          authorDetail.setVisible(true);
+        }
+      }
+    );
   }
 
   private void initComponents(int serial, AuthorModel author) {
@@ -48,5 +57,29 @@ public class AuthorPanel extends JPanel {
     setDescription.setText(author.getDescription());
     setDescription.setPreferredSize(new Dimension(300, 16));
     add(setDescription);
+  }
+  @Override
+  public void mouseClicked(MouseEvent e) {
+    
+  }
+
+  @Override
+  public void mousePressed(MouseEvent e) {
+    
+  }
+
+  @Override
+  public void mouseReleased(MouseEvent e) {
+    
+  }
+
+  @Override
+  public void mouseEntered(MouseEvent e) {
+    
+  }
+
+  @Override
+  public void mouseExited(MouseEvent e) {
+    
   }
 }
