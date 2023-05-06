@@ -1,13 +1,13 @@
 package com.bookstore.gui.components.providers;
 
 import com.bookstore.models.ProviderModel;
-import java.awt.Dimension;
-import java.awt.GridLayout;
-import javax.swing.JCheckBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import java.awt.*;
+import java.awt.event.*;
 
-public class ProviderPanel extends JPanel {
+
+import javax.swing.*;
+
+public class ProviderPanel extends JPanel implements MouseListener{
 
   private JCheckBox checkBox;
   private JPanel panel;
@@ -18,6 +18,15 @@ public class ProviderPanel extends JPanel {
 
   public ProviderPanel(int serial, ProviderModel providerModel) {
     initComponents(serial, providerModel);
+    addMouseListener(
+      new MouseAdapter() {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+          ProviderDetail providerDetail = new ProviderDetail(providerModel);
+          providerDetail.setVisible(true);
+        }
+      }
+    );
   }
 
   private void initComponents(int serial, ProviderModel providerModel) {
@@ -48,5 +57,30 @@ public class ProviderPanel extends JPanel {
     setDescription.setText(providerModel.getDescription());
     setDescription.setPreferredSize(new Dimension(300, 16));
     add(setDescription);
+  }
+
+  @Override
+  public void mouseClicked(MouseEvent e) {
+    
+  }
+
+  @Override
+  public void mousePressed(MouseEvent e) {
+    
+  }
+
+  @Override
+  public void mouseReleased(MouseEvent e) {
+    
+  }
+
+  @Override
+  public void mouseEntered(MouseEvent e) {
+    
+  }
+
+  @Override
+  public void mouseExited(MouseEvent e) {
+    
   }
 }

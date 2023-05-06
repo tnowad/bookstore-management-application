@@ -1,13 +1,13 @@
 package com.bookstore.gui.components.publishers;
 
 import com.bookstore.models.PublisherModel;
-import java.awt.Dimension;
-import java.awt.GridLayout;
-import javax.swing.JCheckBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import java.awt.*;
+import java.awt.event.*;
 
-public class PublisherPanel extends JPanel {
+import javax.swing.*;
+
+
+public class PublisherPanel extends JPanel implements MouseListener{
 
   private JCheckBox checkBox;
   private JPanel panel;
@@ -18,6 +18,15 @@ public class PublisherPanel extends JPanel {
 
   public PublisherPanel(int serial, PublisherModel publisher) {
     initComponents(serial, publisher);
+    addMouseListener(
+      new MouseAdapter() {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+          PublisherDetail publisherDetail = new PublisherDetail(publisher);
+          publisherDetail.setVisible(true);
+        }
+      }
+    );
   }
 
   private void initComponents(int serial, PublisherModel publisher) {
@@ -48,5 +57,31 @@ public class PublisherPanel extends JPanel {
     setDescription.setText(publisher.getDescription());
     setDescription.setPreferredSize(new Dimension(300, 16));
     add(setDescription);
+  }
+
+  @Override
+  public void mouseClicked(MouseEvent e) {
+    
+  }
+
+  @Override
+  public void mousePressed(MouseEvent e) {
+   
+  }
+
+  @Override
+  public void mouseReleased(MouseEvent e) {
+    
+  }
+
+  @Override
+  public void mouseEntered(MouseEvent e) {
+    
+  }
+
+  @Override
+  public void mouseExited(MouseEvent e) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'mouseExited'");
   }
 }
