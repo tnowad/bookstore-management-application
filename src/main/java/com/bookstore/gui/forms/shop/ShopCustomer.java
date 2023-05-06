@@ -116,6 +116,7 @@ public class ShopCustomer extends JPanel implements ISearchable {
 
   private void renderListProduct(List<BookModel> bookListRender) {
     if (bookListRender.size() <= 0) {
+      bookListPanel.setLayout(new GridLayout(0, 1));
       bookListPanel.add(new NoData("Don't have data for product"));
     } else {
       for (BookModel bookModel : bookListRender) {
