@@ -159,9 +159,9 @@ public class OrderBUS implements IBUS<OrderModel> {
     if (orderModel.getCartId() <= 0) {
       throw new IllegalArgumentException("Cart ID must be greater than 0!");
     }
-    if (orderModel.getCustomerId() < 0) {
-      throw new IllegalArgumentException("Customer ID must be greater than or equal 0!");
-    }
+    // if (orderModel.getCustomerId() <= 0) {
+    //   throw new IllegalArgumentException("Customer ID must be greater than or equal 0!");
+    // }
     if (orderModel.getEmployeeId() <= 0) {
       throw new IllegalArgumentException("Employee ID must be greater than 0!");
     }

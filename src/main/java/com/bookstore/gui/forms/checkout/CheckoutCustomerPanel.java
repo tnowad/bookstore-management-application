@@ -172,7 +172,6 @@ public class CheckoutCustomerPanel extends JPanel {
         OrderModel myOrderModel = new OrderModel();
         myOrderModel.setCartId(cartId);
         if (userModel.getRole().equals(UserRole.EMPLOYEE)) {
-          myOrderModel.setCustomerId(0);
           myOrderModel.setEmployeeId(userModel.getId());
         } else {
           myOrderModel.setCustomerId(customerId);

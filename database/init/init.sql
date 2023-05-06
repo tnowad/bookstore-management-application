@@ -149,18 +149,18 @@ CREATE TABLE
         `discount` INT DEFAULT NULL
     );
 
-CREATE TABLE
-    `promotions` (
-        `id` INT NOT NULL AUTO_INCREMENT,
-        `description` NVARCHAR (255) NOT NULL,
-        `quantity` INT NOT NULL,
-        `start_date` DATE NOT NULL,
-        `end_date` DATE NOT NULL,
-        `condition_apply` NVARCHAR (255),
-        `discount_percent` INT,
-        `discount_amount` INT,
-        PRIMARY KEY (`id`)
-    );
+-- CREATE TABLE
+--     `promotions` (
+--         `id` INT NOT NULL AUTO_INCREMENT,
+--         `description` NVARCHAR (255) NOT NULL,
+--         `quantity` INT NOT NULL,
+--         `start_date` DATE NOT NULL,
+--         `end_date` DATE NOT NULL,
+--         `condition_apply` NVARCHAR (255),
+--         `discount_percent` INT,
+--         `discount_amount` INT,
+--         PRIMARY KEY (`id`)
+--     );
 
 CREATE TABLE
     `orders` (
@@ -239,9 +239,9 @@ ALTER TABLE `cart_items`
 ADD
     FOREIGN KEY (`cart_id`) REFERENCES `carts` (`id`);
 
-ALTER TABLE `carts`
-ADD
-    FOREIGN KEY (`promotion_id`) REFERENCES `promotions` (`id`);
+-- ALTER TABLE `carts`
+-- ADD
+--     FOREIGN KEY (`promotion_id`) REFERENCES `promotions` (`id`);
 
 ALTER TABLE `carts`
 ADD
