@@ -173,14 +173,15 @@ public class CheckoutCustomerPanel extends JPanel {
         myOrderModel.setCartId(cartId);
         if (userModel.getRole().equals(UserRole.EMPLOYEE)) {
           myOrderModel.setEmployeeId(userModel.getId());
+          myOrderModel.setStatus(OrderStatus.SOLVED);
         } else {
           myOrderModel.setCustomerId(customerId);
           myOrderModel.setEmployeeId(2);
+          myOrderModel.setStatus(OrderStatus.PENDING);
         }
         myOrderModel.setTotal(CartBUS.getInstance().calculateTotal(cartId));
         myOrderModel.setTotal(totalPrice);
         myOrderModel.setPaid(0);
-        myOrderModel.setStatus(OrderStatus.PENDING);
         OrderBUS.getInstance().addModel(myOrderModel);
         OrderBUS.getInstance().refreshData();
         for (OrderModel orderModel : OrderBUS.getInstance().getAllModels()) {
