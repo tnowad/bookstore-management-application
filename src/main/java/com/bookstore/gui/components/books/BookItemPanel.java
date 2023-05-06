@@ -2,7 +2,6 @@ package com.bookstore.gui.components.books;
 
 import com.bookstore.bus.CartBUS;
 import com.bookstore.bus.CartItemsBUS;
-import com.bookstore.enums.CartStatus;
 import com.bookstore.gui.components.labels.Label;
 import com.bookstore.gui.components.panels.MainPanel;
 import com.bookstore.gui.forms.books.BookDetailCustomer;
@@ -17,11 +16,12 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Image;
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
@@ -141,7 +141,11 @@ public class BookItemPanel extends JPanel {
     addToCartButton = new JButton();
     jPanelFooter = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
 
-    priceLabel.setText(bookModel.getPrice() + " $");
+    NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(
+      new Locale("vi", "VN")
+    );
+
+    priceLabel.setText(currencyFormatter.format(bookModel.getPrice()));
     priceLabel.setHorizontalAlignment(SwingConstants.CENTER);
     priceLabel.setFont(new Font("Arial", Font.BOLD, 16));
     priceLabel.setLabelSize(100, 22);
