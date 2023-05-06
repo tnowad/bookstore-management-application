@@ -65,9 +65,10 @@ public class OrderBUS implements IBUS<OrderModel> {
   }
 
   private boolean checkFilter(
-      OrderModel orderModel,
-      String value,
-      String[] columns) {
+    OrderModel orderModel,
+    String value,
+    String[] columns
+  ) {
     for (String column : columns) {
       if (checkColumn(orderModel, column, value)) {
         return true;
@@ -77,9 +78,10 @@ public class OrderBUS implements IBUS<OrderModel> {
   }
 
   private boolean checkColumn(
-      OrderModel orderModel,
-      String column,
-      String value) {
+    OrderModel orderModel,
+    String column,
+    String value
+  ) {
     switch (column.toLowerCase()) {
       case "id" -> {
         return orderModel.getId() == Integer.parseInt(value);
@@ -101,24 +103,24 @@ public class OrderBUS implements IBUS<OrderModel> {
       }
       case "created_at" -> {
         return orderModel
-            .getCreatedAt()
-            .toString()
-            .toLowerCase()
-            .contains(value.toLowerCase());
+          .getCreatedAt()
+          .toString()
+          .toLowerCase()
+          .contains(value.toLowerCase());
       }
       case "updated_at" -> {
         return orderModel
-            .getUpdatedAt()
-            .toString()
-            .toLowerCase()
-            .contains(value.toLowerCase());
+          .getUpdatedAt()
+          .toString()
+          .toLowerCase()
+          .contains(value.toLowerCase());
       }
       case "status" -> {
         return orderModel
-            .getStatus()
-            .toString()
-            .toLowerCase()
-            .contains(value.toLowerCase());
+          .getStatus()
+          .toString()
+          .toLowerCase()
+          .contains(value.toLowerCase());
       }
       default -> {
         return checkAllColumns(orderModel, value);
@@ -127,29 +129,29 @@ public class OrderBUS implements IBUS<OrderModel> {
   }
 
   private boolean checkAllColumns(OrderModel orderModel, String value) {
-    return (orderModel.getId() == Integer.parseInt(value) ||
-        orderModel.getCartId() == Integer.parseInt(value) ||
-        orderModel.getCustomerId() == Integer.parseInt(value) ||
-        orderModel.getEmployeeId() == Integer.parseInt(value) ||
-        orderModel.getTotal() == Integer.parseInt(value) ||
-        orderModel.getPaid() == Integer.parseInt(value) ||
-        orderModel
-            .getCreatedAt()
-            .toString()
-            .toLowerCase()
-            .contains(value.toLowerCase())
-        ||
-        orderModel
-            .getUpdatedAt()
-            .toString()
-            .toLowerCase()
-            .contains(value.toLowerCase())
-        ||
-        orderModel
-            .getStatus()
-            .toString()
-            .toLowerCase()
-            .contains(value.toLowerCase()));
+    return (
+      orderModel.getId() == Integer.parseInt(value) ||
+      orderModel.getCartId() == Integer.parseInt(value) ||
+      orderModel.getCustomerId() == Integer.parseInt(value) ||
+      orderModel.getEmployeeId() == Integer.parseInt(value) ||
+      orderModel.getTotal() == Integer.parseInt(value) ||
+      orderModel.getPaid() == Integer.parseInt(value) ||
+      orderModel
+        .getCreatedAt()
+        .toString()
+        .toLowerCase()
+        .contains(value.toLowerCase()) ||
+      orderModel
+        .getUpdatedAt()
+        .toString()
+        .toLowerCase()
+        .contains(value.toLowerCase()) ||
+      orderModel
+        .getStatus()
+        .toString()
+        .toLowerCase()
+        .contains(value.toLowerCase())
+    );
   }
 
   @Override
@@ -170,9 +172,10 @@ public class OrderBUS implements IBUS<OrderModel> {
       throw new IllegalArgumentException("Paid cannot be negative!");
     }
     orderModel.setStatus(
-        orderModel.getStatus() != null
-            ? orderModel.getStatus()
-            : OrderStatus.PENDING);
+      orderModel.getStatus() != null
+        ? orderModel.getStatus()
+        : OrderStatus.PENDING
+    );
 
     int id = OrderDAO.getInstance().insert(mapToEntity(orderModel));
     System.out.println(id);
@@ -199,7 +202,8 @@ public class OrderBUS implements IBUS<OrderModel> {
     OrderModel orderModel = getModelById(id);
     if (orderModel == null) {
       throw new IllegalArgumentException(
-          "Order with ID " + id + " does not exist.");
+        "Order with ID " + id + " does not exist."
+      );
     }
     orderModel.setPaid(paid);
     int updatedRows = updateModel(orderModel);
@@ -228,7 +232,8 @@ public class OrderBUS implements IBUS<OrderModel> {
     OrderModel orderModel = getModelById(id);
     if (orderModel == null) {
       throw new IllegalArgumentException(
-          "Order with ID " + id + " does not exist.");
+        "Order with ID " + id + " does not exist."
+      );
     }
     int deletedRows = OrderDAO.getInstance().delete(id);
     if (deletedRows > 0) {
@@ -253,8 +258,8 @@ public class OrderBUS implements IBUS<OrderModel> {
 
   @Override
   public void refreshData() {
-    throw new UnsupportedOperationException(
-        "Unimplemented method 'refreshData'");
+    orderList.clear();
+    orderList.addAll(OrderDAO.getInstance().readDatabase());
   }
 
   public int calculateTotalRevenue() {
@@ -345,15 +350,16 @@ public class OrderBUS implements IBUS<OrderModel> {
   // }
 
   public void createEmployeeOrder(
-      int cartId,
-      int employeeId,
-      int customerId,
-      String shippingMethod,
-      String paymentMethod,
-      String cardNumber,
-      String cardHolder,
-      String expirationDate,
-      String cvv) {
+    int cartId,
+    int employeeId,
+    int customerId,
+    String shippingMethod,
+    String paymentMethod,
+    String cardNumber,
+    String cardHolder,
+    String expirationDate,
+    String cvv
+  ) {
     // create order
     OrderModel orderModel = new OrderModel();
     orderModel.setCartId(cartId);
@@ -390,7 +396,8 @@ public class OrderBUS implements IBUS<OrderModel> {
     shippingModel.setOrderId(orderId);
     shippingModel.setShippingMethod(shippingMethod);
     shippingModel.setAddressId(
-        AddressBUS.getInstance().getModelById(customerId).getId());
+      AddressBUS.getInstance().getModelById(customerId).getId()
+    );
     shippingModel.setStatus(ShippingStatus.PENDING);
     int shippingId = ShippingBUS.getInstance().addModel(shippingModel);
     shippingModel = ShippingBUS.getInstance().getModelById(shippingId);
