@@ -266,88 +266,16 @@ public class OrderBUS implements IBUS<OrderModel> {
     return 0;
   }
 
-  // public void createCustomerOrder(
-  // int cartId,
-  // int customerId,
-  // int employeeId,
-  // int totalPrice,
-  // String shippingMethod,
-  // String paymentMethod,
-  // String cardNumber,
-  // String cardHolder,
-  // String expirationDate,
-  // String cvv
-  // ) {
-  // System.out.println("Creating order...");
-  // System.out.println("Cart ID: " + cartId);
-  // System.out.println("Customer ID: " + customerId);
-  // System.out.println("Shipping method: " + shippingMethod);
-  // System.out.println("Payment method: " + paymentMethod);
-  // System.out.println("Card number: " + cardNumber);
-  // System.out.println("Card holder: " + cardHolder);
-  // System.out.println("Expiration date: " + expirationDate);
-  // System.out.println("CVV: " + cvv);
-
-  // // get cart by id
-  // CartModel cartModel = CartBUS.getInstance().getModelById(cartId);
-  // if (cartModel == null) {
-  // throw new IllegalArgumentException(
-  // "Cart with ID " + cartId + " does not exist."
-  // );
-  // }
-
-  // DatabaseConnection.getInstance().beginTransaction();
-
-  // // create order
-  // OrderModel orderModel = new OrderModel();
-  // orderModel.setCartId(cartId);
-  // orderModel.setCustomerId(customerId);
-  // orderModel.setEmployeeId(employeeId);
-  // orderModel.setTotal(CartBUS.getInstance().calculateTotal(cartId));
-  // orderModel.setTotal(totalPrice);
-  // orderModel.setPaid(0);
-  // orderModel.setStatus(OrderStatus.PENDING);
-  // int orderId = OrderBUS.getInstance().addModel(orderModel);
-  // orderModel = OrderBUS.getInstance().getModelById(orderId);
-  // // System.out.println(orderModel.getId());
-  // // create payment
-  // PaymentModel paymentModel = new PaymentModel();
-  // paymentModel.setOrderId(orderId);
-  // paymentModel.setUserId(customerId);
-  // paymentModel.setAmount(0);
-  // paymentModel.setStatus(PaymentStatus.PENDING);
-  // int paymentId = PaymentBUS.getInstance().addModel(paymentModel);
-  // paymentModel = PaymentBUS.getInstance().getModelById(paymentId);
-  // // create payment method
-  // if (paymentMethod.equals("Credit")) {
-  // PaymentMethodModel paymentMethodModel = new PaymentMethodModel();
-  // paymentMethodModel.setPaymentId(paymentId);
-  // paymentMethodModel.setCustomerId(customerId);
-
-  // paymentMethodModel.setCardHolder(cardHolder);
-  // paymentMethodModel.setCardNumber(cardNumber);
-  // paymentMethodModel.setExpirationDate(expirationDate);
-  // // paymentMethodModel.setCvv(cvv);
-  // PaymentMethodBUS.getInstance().addModel(paymentMethodModel);
-  // }
-
-  // // create shipping
-  // ShippingModel shippingModel = new ShippingModel();
-  // shippingModel.setOrderId(orderId);
-  // shippingModel.setShippingMethod(shippingMethod);
-  // shippingModel.setAddressId(
-  // AddressBUS.getInstance().getModelById(customerId).getId()
-  // );
-  // shippingModel.setStatus(ShippingStatus.PENDING);
-  // int shippingId = ShippingBUS.getInstance().addModel(shippingModel);
-  // shippingModel = ShippingBUS.getInstance().getModelById(shippingId);
-
-  // // set status of cart to pending
-  // cartModel.setStatus(CartStatus.PENDING);
-  // CartBUS.getInstance().updateModel(cartModel);
-
-  // DatabaseConnection.getInstance().endTransaction();
-  // }
+  public void createCustomerOrder(
+    int cartId,
+    int customerId,
+    String shippingMethod,
+    String paymentMethod,
+    String cardNumber,
+    String cardHolder,
+    String expirationDate,
+    String cvv
+  ) {}
 
   public void createEmployeeOrder(
     int cartId,
@@ -360,6 +288,12 @@ public class OrderBUS implements IBUS<OrderModel> {
     String expirationDate,
     String cvv
   ) {
+    CartModel cartModel = CartBUS.getInstance().getModelById(cartId);
+    if (cartModel == null) {
+      throw new IllegalArgumentException(
+        "Cart with ID " + cartId + " does not exist."
+      );
+    }
     // create order
     OrderModel orderModel = new OrderModel();
     orderModel.setCartId(cartId);
@@ -369,6 +303,7 @@ public class OrderBUS implements IBUS<OrderModel> {
     orderModel.setPaid(0);
     orderModel.setStatus(OrderStatus.PENDING);
     int orderId = OrderBUS.getInstance().addModel(orderModel);
+    OrderBUS.getInstance().refreshData();
     orderModel = OrderBUS.getInstance().getModelById(orderId);
     // create payment
     PaymentModel paymentModel = new PaymentModel();
@@ -377,17 +312,16 @@ public class OrderBUS implements IBUS<OrderModel> {
     paymentModel.setAmount(0);
     paymentModel.setStatus(PaymentStatus.PENDING);
     int paymentId = PaymentBUS.getInstance().addModel(paymentModel);
+    PaymentBUS.getInstance().refreshData();
     paymentModel = PaymentBUS.getInstance().getModelById(paymentId);
     // create payment method
     if (paymentMethod.equals("Credit")) {
       PaymentMethodModel paymentMethodModel = new PaymentMethodModel();
       paymentMethodModel.setPaymentId(paymentId);
       paymentMethodModel.setCustomerId(customerId);
-
       paymentMethodModel.setCardHolder(cardHolder);
       paymentMethodModel.setCardNumber(cardNumber);
       paymentMethodModel.setExpirationDate(expirationDate);
-      // paymentMethodModel.setCvv(cvv);
       PaymentMethodBUS.getInstance().addModel(paymentMethodModel);
     }
 
@@ -400,11 +334,10 @@ public class OrderBUS implements IBUS<OrderModel> {
     );
     shippingModel.setStatus(ShippingStatus.PENDING);
     int shippingId = ShippingBUS.getInstance().addModel(shippingModel);
+    ShippingBUS.getInstance().refreshData();
     shippingModel = ShippingBUS.getInstance().getModelById(shippingId);
 
-    // set status of cart to pending
-    CartModel cart = new CartModel();
-    cart.setStatus(CartStatus.SHOPPING);
-    CartBUS.getInstance().updateModel(cart);
+    cartModel.setStatus(CartStatus.PENDING);
+    CartBUS.getInstance().updateModel(cartModel);
   }
 }

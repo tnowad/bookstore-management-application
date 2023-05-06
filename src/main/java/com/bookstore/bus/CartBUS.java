@@ -242,7 +242,7 @@ public class CartBUS implements IBUS<CartModel> {
   }
 
   public int calculateTotal(int cartId) {
-    return 0;
+    return 1000;
   }
 
   public CartModel getShoppingCartByUserId(int userId) {
