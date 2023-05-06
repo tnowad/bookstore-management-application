@@ -78,8 +78,8 @@ public class CheckoutCustomerPanel extends JPanel {
     addressModel = AddressBUS.getInstance().getModelById(userModel.getId());
     cartItemList = new ArrayList<CartItemsModel>();
     for (CartItemsModel cartItemModel : CartItemsBUS
-      .getInstance()
-      .getAllModels()) {
+        .getInstance()
+        .getAllModels()) {
       if (cartItemModel.getCartId() == cartModel.getId()) {
         cartItemList.add(cartItemModel);
       }
@@ -99,14 +99,13 @@ public class CheckoutCustomerPanel extends JPanel {
     nameTextField.setText(userModel.getName());
     emailTextField.setText(userModel.getEmail());
     addressTextField.setText(
-      addressModel.getStreet() +
-      ", " +
-      addressModel.getState() +
-      ", " +
-      addressModel.getCity() +
-      ", " +
-      addressModel.getZip()
-    );
+        addressModel.getStreet() +
+            ", " +
+            addressModel.getState() +
+            ", " +
+            addressModel.getCity() +
+            ", " +
+            addressModel.getZip());
     phoneTextField.setText(userModel.getPhone());
   }
 
@@ -126,17 +125,14 @@ public class CheckoutCustomerPanel extends JPanel {
     model.addColumn("Quantity");
     for (CartItemsModel cartItemsModel : myCartItemList) {
       for (BookModel bookModel : bookList) {
-        if (
-          cartItemsModel.getBookIsbn().equalsIgnoreCase(bookModel.getIsbn())
-        ) {
+        if (cartItemsModel.getBookIsbn().equalsIgnoreCase(bookModel.getIsbn())) {
           model.addRow(
-            new Object[] {
-              bookModel.getIsbn(),
-              bookModel.getTitle(),
-              bookModel.getPrice(),
-              cartItemsModel.getQuantity(),
-            }
-          );
+              new Object[] {
+                  bookModel.getIsbn(),
+                  bookModel.getTitle(),
+                  bookModel.getPrice(),
+                  cartItemsModel.getQuantity(),
+              });
         }
       }
     }
@@ -162,16 +158,14 @@ public class CheckoutCustomerPanel extends JPanel {
     emailLabel = new JLabel("Email");
     emailLabel.setLabelFor(emailTextField);
 
-    addressTextField =
-      new JTextField(
+    addressTextField = new JTextField(
         addressModel.getStreet() +
-        ", " +
-        addressModel.getState() +
-        ", " +
-        addressModel.getCity() +
-        ", " +
-        addressModel.getZip()
-      );
+            ", " +
+            addressModel.getState() +
+            ", " +
+            addressModel.getCity() +
+            ", " +
+            addressModel.getZip());
     addressTextField.setEditable(false);
     addressLabel = new JLabel("Address");
     addressLabel.setLabelFor(addressTextField);
@@ -181,20 +175,17 @@ public class CheckoutCustomerPanel extends JPanel {
     phoneLabel = new JLabel("Phone");
     phoneLabel.setLabelFor(phoneTextField);
 
-    shippingMethodComboBox =
-      new JComboBox<String>(
+    shippingMethodComboBox = new JComboBox<String>(
         new String[] {
-          "Standard Shipping",
-          "Express Shipping",
-          "Next Day Shipping",
-          "International Shipping",
-        }
-      );
+            "Standard Shipping",
+            "Express Shipping",
+            "Next Day Shipping",
+            "International Shipping",
+        });
     shippingMethodLabel = new JLabel("Shipping Method");
     shippingMethodLabel.setLabelFor(shippingMethodComboBox);
 
-    paymentMethodComboBox =
-      new JComboBox<String>(new String[] { "Credit", "Cash" });
+    paymentMethodComboBox = new JComboBox<String>(new String[] { "Credit", "Cash" });
     paymentMethodComboBox.addActionListener(paymentMethodActionListener);
 
     paymentMethodLabel = new JLabel("Payment Method");
@@ -297,52 +288,45 @@ public class CheckoutCustomerPanel extends JPanel {
       int totalPrice = CartBUS.getInstance().getTotalPrice(cartModel.getId());
 
       String paymentMethod = paymentMethodComboBox.getSelectedItem().toString();
-      String shippingMethod = shippingMethodComboBox
-        .getSelectedItem()
-        .toString();
+      String shippingMethod = shippingMethodComboBox.getSelectedItem().toString();
       if (paymentMethod.equals("Cash")) {
         OrderModel orderModel = new OrderModel();
-        orderModel.setId(0);
         orderModel.setCartId(cartId);
         orderModel.setCustomerId(customerId);
-        orderModel.setEmployeeId(1);
+        orderModel.setEmployeeId(2);
         orderModel.setTotal(CartBUS.getInstance().calculateTotal(cartId));
         orderModel.setTotal(totalPrice);
         orderModel.setPaid(0);
         orderModel.setStatus(OrderStatus.PENDING);
-        int orderId = OrderBUS.getInstance().addModel(orderModel);
+        OrderBUS.getInstance().addModel(orderModel);
         // orderModel = OrderBUS.getInstance().getModelById(orderId);
         System.out.println(orderModel.getId());
 
         MainPanel
-          .getInstance()
-          .showForm(new CompletedOrderForm(cartModel.getId()));
+            .getInstance()
+            .showForm(new CompletedOrderForm(cartModel.getId()));
         return;
       }
       String cardNumber = InputValidator.validateCardNumber(
-        cardNumberTextField.getText()
-      );
+          cardNumberTextField.getText());
       String cardHolder = InputValidator.validateCardHolder(
-        cardHolderTextField.getText()
-      );
+          cardHolderTextField.getText());
       String expirationDate = InputValidator.validateExpirationDate(
-        expirationDateTextField.getText()
-      );
+          expirationDateTextField.getText());
       String cvv = InputValidator.validateCvv(cvvTextField.getText());
 
       MainPanel
-        .getInstance()
-        .showForm(new CompletedOrderForm(cartModel.getId()));
+          .getInstance()
+          .showForm(new CompletedOrderForm(cartModel.getId()));
     } catch (Exception exception) {
       JOptionPane.showMessageDialog(
-        null,
-        exception.getMessage(),
-        "Error",
-        JOptionPane.ERROR_MESSAGE
-      );
+          null,
+          exception.getMessage(),
+          "Error",
+          JOptionPane.ERROR_MESSAGE);
     }
   };
   // private ActionListener backToPreviousActionListener = e -> {
-  //   MainPanel.getInstance().backToPreviousForm();
+  // MainPanel.getInstance().backToPreviousForm();
   // };
 }

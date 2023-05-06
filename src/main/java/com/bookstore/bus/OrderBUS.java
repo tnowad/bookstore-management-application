@@ -1,6 +1,5 @@
 package com.bookstore.bus;
 
-import com.bookstore.dao.DatabaseConnection;
 import com.bookstore.dao.OrderDAO;
 import com.bookstore.enums.CartStatus;
 import com.bookstore.enums.OrderStatus;
@@ -66,10 +65,9 @@ public class OrderBUS implements IBUS<OrderModel> {
   }
 
   private boolean checkFilter(
-    OrderModel orderModel,
-    String value,
-    String[] columns
-  ) {
+      OrderModel orderModel,
+      String value,
+      String[] columns) {
     for (String column : columns) {
       if (checkColumn(orderModel, column, value)) {
         return true;
@@ -79,10 +77,9 @@ public class OrderBUS implements IBUS<OrderModel> {
   }
 
   private boolean checkColumn(
-    OrderModel orderModel,
-    String column,
-    String value
-  ) {
+      OrderModel orderModel,
+      String column,
+      String value) {
     switch (column.toLowerCase()) {
       case "id" -> {
         return orderModel.getId() == Integer.parseInt(value);
@@ -104,24 +101,24 @@ public class OrderBUS implements IBUS<OrderModel> {
       }
       case "created_at" -> {
         return orderModel
-          .getCreatedAt()
-          .toString()
-          .toLowerCase()
-          .contains(value.toLowerCase());
+            .getCreatedAt()
+            .toString()
+            .toLowerCase()
+            .contains(value.toLowerCase());
       }
       case "updated_at" -> {
         return orderModel
-          .getUpdatedAt()
-          .toString()
-          .toLowerCase()
-          .contains(value.toLowerCase());
+            .getUpdatedAt()
+            .toString()
+            .toLowerCase()
+            .contains(value.toLowerCase());
       }
       case "status" -> {
         return orderModel
-          .getStatus()
-          .toString()
-          .toLowerCase()
-          .contains(value.toLowerCase());
+            .getStatus()
+            .toString()
+            .toLowerCase()
+            .contains(value.toLowerCase());
       }
       default -> {
         return checkAllColumns(orderModel, value);
@@ -130,29 +127,29 @@ public class OrderBUS implements IBUS<OrderModel> {
   }
 
   private boolean checkAllColumns(OrderModel orderModel, String value) {
-    return (
-      orderModel.getId() == Integer.parseInt(value) ||
-      orderModel.getCartId() == Integer.parseInt(value) ||
-      orderModel.getCustomerId() == Integer.parseInt(value) ||
-      orderModel.getEmployeeId() == Integer.parseInt(value) ||
-      orderModel.getTotal() == Integer.parseInt(value) ||
-      orderModel.getPaid() == Integer.parseInt(value) ||
-      orderModel
-        .getCreatedAt()
-        .toString()
-        .toLowerCase()
-        .contains(value.toLowerCase()) ||
-      orderModel
-        .getUpdatedAt()
-        .toString()
-        .toLowerCase()
-        .contains(value.toLowerCase()) ||
-      orderModel
-        .getStatus()
-        .toString()
-        .toLowerCase()
-        .contains(value.toLowerCase())
-    );
+    return (orderModel.getId() == Integer.parseInt(value) ||
+        orderModel.getCartId() == Integer.parseInt(value) ||
+        orderModel.getCustomerId() == Integer.parseInt(value) ||
+        orderModel.getEmployeeId() == Integer.parseInt(value) ||
+        orderModel.getTotal() == Integer.parseInt(value) ||
+        orderModel.getPaid() == Integer.parseInt(value) ||
+        orderModel
+            .getCreatedAt()
+            .toString()
+            .toLowerCase()
+            .contains(value.toLowerCase())
+        ||
+        orderModel
+            .getUpdatedAt()
+            .toString()
+            .toLowerCase()
+            .contains(value.toLowerCase())
+        ||
+        orderModel
+            .getStatus()
+            .toString()
+            .toLowerCase()
+            .contains(value.toLowerCase()));
   }
 
   @Override
@@ -164,7 +161,6 @@ public class OrderBUS implements IBUS<OrderModel> {
       throw new IllegalArgumentException("Customer ID must be greater than 0!");
     }
     if (orderModel.getEmployeeId() <= 0) {
-      System.out.println(orderModel.getEmployeeId());
       throw new IllegalArgumentException("Employee ID must be greater than 0!");
     }
     if (orderModel.getTotal() <= 0) {
@@ -174,10 +170,9 @@ public class OrderBUS implements IBUS<OrderModel> {
       throw new IllegalArgumentException("Paid cannot be negative!");
     }
     orderModel.setStatus(
-      orderModel.getStatus() != null
-        ? orderModel.getStatus()
-        : OrderStatus.PENDING
-    );
+        orderModel.getStatus() != null
+            ? orderModel.getStatus()
+            : OrderStatus.PENDING);
 
     int id = OrderDAO.getInstance().insert(mapToEntity(orderModel));
     System.out.println(id);
@@ -204,8 +199,7 @@ public class OrderBUS implements IBUS<OrderModel> {
     OrderModel orderModel = getModelById(id);
     if (orderModel == null) {
       throw new IllegalArgumentException(
-        "Order with ID " + id + " does not exist."
-      );
+          "Order with ID " + id + " does not exist.");
     }
     orderModel.setPaid(paid);
     int updatedRows = updateModel(orderModel);
@@ -234,8 +228,7 @@ public class OrderBUS implements IBUS<OrderModel> {
     OrderModel orderModel = getModelById(id);
     if (orderModel == null) {
       throw new IllegalArgumentException(
-        "Order with ID " + id + " does not exist."
-      );
+          "Order with ID " + id + " does not exist.");
     }
     int deletedRows = OrderDAO.getInstance().delete(id);
     if (deletedRows > 0) {
@@ -261,8 +254,7 @@ public class OrderBUS implements IBUS<OrderModel> {
   @Override
   public void refreshData() {
     throw new UnsupportedOperationException(
-      "Unimplemented method 'refreshData'"
-    );
+        "Unimplemented method 'refreshData'");
   }
 
   public int calculateTotalRevenue() {
@@ -270,99 +262,98 @@ public class OrderBUS implements IBUS<OrderModel> {
   }
 
   // public void createCustomerOrder(
-  //   int cartId,
-  //   int customerId,
-  //   int employeeId,
-  //   int totalPrice,
-  //   String shippingMethod,
-  //   String paymentMethod,
-  //   String cardNumber,
-  //   String cardHolder,
-  //   String expirationDate,
-  //   String cvv
+  // int cartId,
+  // int customerId,
+  // int employeeId,
+  // int totalPrice,
+  // String shippingMethod,
+  // String paymentMethod,
+  // String cardNumber,
+  // String cardHolder,
+  // String expirationDate,
+  // String cvv
   // ) {
-  //   System.out.println("Creating order...");
-  //   System.out.println("Cart ID: " + cartId);
-  //   System.out.println("Customer ID: " + customerId);
-  //   System.out.println("Shipping method: " + shippingMethod);
-  //   System.out.println("Payment method: " + paymentMethod);
-  //   System.out.println("Card number: " + cardNumber);
-  //   System.out.println("Card holder: " + cardHolder);
-  //   System.out.println("Expiration date: " + expirationDate);
-  //   System.out.println("CVV: " + cvv);
+  // System.out.println("Creating order...");
+  // System.out.println("Cart ID: " + cartId);
+  // System.out.println("Customer ID: " + customerId);
+  // System.out.println("Shipping method: " + shippingMethod);
+  // System.out.println("Payment method: " + paymentMethod);
+  // System.out.println("Card number: " + cardNumber);
+  // System.out.println("Card holder: " + cardHolder);
+  // System.out.println("Expiration date: " + expirationDate);
+  // System.out.println("CVV: " + cvv);
 
-  //   // get cart by id
-  //   CartModel cartModel = CartBUS.getInstance().getModelById(cartId);
-  //   if (cartModel == null) {
-  //     throw new IllegalArgumentException(
-  //       "Cart with ID " + cartId + " does not exist."
-  //     );
-  //   }
+  // // get cart by id
+  // CartModel cartModel = CartBUS.getInstance().getModelById(cartId);
+  // if (cartModel == null) {
+  // throw new IllegalArgumentException(
+  // "Cart with ID " + cartId + " does not exist."
+  // );
+  // }
 
-  //   DatabaseConnection.getInstance().beginTransaction();
+  // DatabaseConnection.getInstance().beginTransaction();
 
-  //   // create order
-  //   OrderModel orderModel = new OrderModel();
-  //   orderModel.setCartId(cartId);
-  //   orderModel.setCustomerId(customerId);
-  //   orderModel.setEmployeeId(employeeId);
-  //   orderModel.setTotal(CartBUS.getInstance().calculateTotal(cartId));
-  //   orderModel.setTotal(totalPrice);
-  //   orderModel.setPaid(0);
-  //   orderModel.setStatus(OrderStatus.PENDING);
-  //   int orderId = OrderBUS.getInstance().addModel(orderModel);
-  //   orderModel = OrderBUS.getInstance().getModelById(orderId);
-  //   // System.out.println(orderModel.getId());
-  //   // create payment
-  //   PaymentModel paymentModel = new PaymentModel();
-  //   paymentModel.setOrderId(orderId);
-  //   paymentModel.setUserId(customerId);
-  //   paymentModel.setAmount(0);
-  //   paymentModel.setStatus(PaymentStatus.PENDING);
-  //   int paymentId = PaymentBUS.getInstance().addModel(paymentModel);
-  //   paymentModel = PaymentBUS.getInstance().getModelById(paymentId);
-  //   // create payment method
-  //   if (paymentMethod.equals("Credit")) {
-  //     PaymentMethodModel paymentMethodModel = new PaymentMethodModel();
-  //     paymentMethodModel.setPaymentId(paymentId);
-  //     paymentMethodModel.setCustomerId(customerId);
+  // // create order
+  // OrderModel orderModel = new OrderModel();
+  // orderModel.setCartId(cartId);
+  // orderModel.setCustomerId(customerId);
+  // orderModel.setEmployeeId(employeeId);
+  // orderModel.setTotal(CartBUS.getInstance().calculateTotal(cartId));
+  // orderModel.setTotal(totalPrice);
+  // orderModel.setPaid(0);
+  // orderModel.setStatus(OrderStatus.PENDING);
+  // int orderId = OrderBUS.getInstance().addModel(orderModel);
+  // orderModel = OrderBUS.getInstance().getModelById(orderId);
+  // // System.out.println(orderModel.getId());
+  // // create payment
+  // PaymentModel paymentModel = new PaymentModel();
+  // paymentModel.setOrderId(orderId);
+  // paymentModel.setUserId(customerId);
+  // paymentModel.setAmount(0);
+  // paymentModel.setStatus(PaymentStatus.PENDING);
+  // int paymentId = PaymentBUS.getInstance().addModel(paymentModel);
+  // paymentModel = PaymentBUS.getInstance().getModelById(paymentId);
+  // // create payment method
+  // if (paymentMethod.equals("Credit")) {
+  // PaymentMethodModel paymentMethodModel = new PaymentMethodModel();
+  // paymentMethodModel.setPaymentId(paymentId);
+  // paymentMethodModel.setCustomerId(customerId);
 
-  //     paymentMethodModel.setCardHolder(cardHolder);
-  //     paymentMethodModel.setCardNumber(cardNumber);
-  //     paymentMethodModel.setExpirationDate(expirationDate);
-  //     // paymentMethodModel.setCvv(cvv);
-  //     PaymentMethodBUS.getInstance().addModel(paymentMethodModel);
-  //   }
+  // paymentMethodModel.setCardHolder(cardHolder);
+  // paymentMethodModel.setCardNumber(cardNumber);
+  // paymentMethodModel.setExpirationDate(expirationDate);
+  // // paymentMethodModel.setCvv(cvv);
+  // PaymentMethodBUS.getInstance().addModel(paymentMethodModel);
+  // }
 
-  //   // create shipping
-  //   ShippingModel shippingModel = new ShippingModel();
-  //   shippingModel.setOrderId(orderId);
-  //   shippingModel.setShippingMethod(shippingMethod);
-  //   shippingModel.setAddressId(
-  //     AddressBUS.getInstance().getModelById(customerId).getId()
-  //   );
-  //   shippingModel.setStatus(ShippingStatus.PENDING);
-  //   int shippingId = ShippingBUS.getInstance().addModel(shippingModel);
-  //   shippingModel = ShippingBUS.getInstance().getModelById(shippingId);
+  // // create shipping
+  // ShippingModel shippingModel = new ShippingModel();
+  // shippingModel.setOrderId(orderId);
+  // shippingModel.setShippingMethod(shippingMethod);
+  // shippingModel.setAddressId(
+  // AddressBUS.getInstance().getModelById(customerId).getId()
+  // );
+  // shippingModel.setStatus(ShippingStatus.PENDING);
+  // int shippingId = ShippingBUS.getInstance().addModel(shippingModel);
+  // shippingModel = ShippingBUS.getInstance().getModelById(shippingId);
 
-  //   // set status of cart to pending
-  //   cartModel.setStatus(CartStatus.PENDING);
-  //   CartBUS.getInstance().updateModel(cartModel);
+  // // set status of cart to pending
+  // cartModel.setStatus(CartStatus.PENDING);
+  // CartBUS.getInstance().updateModel(cartModel);
 
-  //   DatabaseConnection.getInstance().endTransaction();
+  // DatabaseConnection.getInstance().endTransaction();
   // }
 
   public void createEmployeeOrder(
-    int cartId,
-    int employeeId,
-    int customerId,
-    String shippingMethod,
-    String paymentMethod,
-    String cardNumber,
-    String cardHolder,
-    String expirationDate,
-    String cvv
-  ) {
+      int cartId,
+      int employeeId,
+      int customerId,
+      String shippingMethod,
+      String paymentMethod,
+      String cardNumber,
+      String cardHolder,
+      String expirationDate,
+      String cvv) {
     // create order
     OrderModel orderModel = new OrderModel();
     orderModel.setCartId(cartId);
@@ -399,8 +390,7 @@ public class OrderBUS implements IBUS<OrderModel> {
     shippingModel.setOrderId(orderId);
     shippingModel.setShippingMethod(shippingMethod);
     shippingModel.setAddressId(
-      AddressBUS.getInstance().getModelById(customerId).getId()
-    );
+        AddressBUS.getInstance().getModelById(customerId).getId());
     shippingModel.setStatus(ShippingStatus.PENDING);
     int shippingId = ShippingBUS.getInstance().addModel(shippingModel);
     shippingModel = ShippingBUS.getInstance().getModelById(shippingId);
