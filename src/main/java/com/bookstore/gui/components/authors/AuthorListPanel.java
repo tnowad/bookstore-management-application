@@ -1,6 +1,7 @@
 package com.bookstore.gui.components.authors;
 
 import com.bookstore.bus.AuthorBUS;
+import com.bookstore.gui.forms.authors.AddAuthor;
 import com.bookstore.gui.forms.authors.AuthorPanel;
 import com.bookstore.models.AuthorModel;
 import java.awt.BorderLayout;
@@ -8,6 +9,8 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -80,6 +83,7 @@ public class AuthorListPanel extends JPanel {
 
     buttonAdd.setText("Add");
     buttonAdd.setPreferredSize(new Dimension(75, 30));
+    buttonAdd.addActionListener(actionAdd);
     buttonsPanel.add(buttonAdd);
 
     buttonDelete.setText("Delete");
@@ -136,4 +140,14 @@ public class AuthorListPanel extends JPanel {
     contendTable.revalidate();
     contendTable.repaint();
   }
+
+  public ActionListener actionAdd = new ActionListener() {
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+      AddAuthor addAuthor = new AddAuthor();
+      addAuthor.setVisible(true);
+    }
+    
+  };
 }
