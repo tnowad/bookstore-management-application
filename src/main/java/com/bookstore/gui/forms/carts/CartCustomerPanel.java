@@ -199,12 +199,6 @@ public class CartCustomerPanel extends JPanel {
           MainPanel
             .getInstance()
             .showFormStack(new CheckoutCustomerPanel(cartModel));
-          JOptionPane.showMessageDialog(
-            null,
-            "Your cart is shopping",
-            "Success",
-            JOptionPane.PLAIN_MESSAGE
-          );
         }
       }
     });
