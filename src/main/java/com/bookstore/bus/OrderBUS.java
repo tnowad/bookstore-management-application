@@ -162,6 +162,7 @@ public class OrderBUS implements IBUS<OrderModel> {
       throw new IllegalArgumentException("Customer ID must be greater than 0!");
     }
     if (orderModel.getEmployeeId() <= 0) {
+      System.out.println(orderModel.getEmployeeId());
       throw new IllegalArgumentException("Employee ID must be greater than 0!");
     }
     if (orderModel.getTotal() <= 0) {
@@ -264,6 +265,8 @@ public class OrderBUS implements IBUS<OrderModel> {
   public void createCustomerOrder(
       int cartId,
       int customerId,
+      int employeeId,
+      int totalPrice,
       String shippingMethod,
       String paymentMethod,
       String cardNumber,
@@ -281,7 +284,7 @@ public class OrderBUS implements IBUS<OrderModel> {
     System.out.println("CVV: " + cvv);
 
     // get cart by id
-    CartModel cartModel = CartBUS.getInstance().getModelById(customerId);
+    CartModel cartModel = CartBUS.getInstance().getModelById(cartId);
     if (cartModel == null) {
       throw new IllegalArgumentException(
           "Cart with ID " + cartId + " does not exist.");
@@ -293,7 +296,9 @@ public class OrderBUS implements IBUS<OrderModel> {
     OrderModel orderModel = new OrderModel();
     orderModel.setCartId(cartId);
     orderModel.setCustomerId(customerId);
+    orderModel.setEmployeeId(employeeId);
     orderModel.setTotal(CartBUS.getInstance().calculateTotal(cartId));
+    orderModel.setTotal(totalPrice);
     orderModel.setPaid(0);
     orderModel.setStatus(OrderStatus.PENDING);
     int orderId = OrderBUS.getInstance().addModel(orderModel);

@@ -2,6 +2,7 @@ package com.bookstore.gui.forms.checkout;
 
 import com.bookstore.bus.AddressBUS;
 import com.bookstore.bus.BookBUS;
+import com.bookstore.bus.CartBUS;
 import com.bookstore.bus.CartItemsBUS;
 import com.bookstore.bus.OrderBUS;
 import com.bookstore.enums.CartStatus;
@@ -145,7 +146,7 @@ public class CheckoutCustomerPanel extends JPanel {
     setLayout(new BorderLayout());
     JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
     backPreviousButton = new JButton("Back Previous");
-    backPreviousButton.addActionListener(backToPreviousActionListener);
+    // backPreviousButton.addActionListener(backToPreviousActionListener);
     topPanel.add(backPreviousButton);
     add(topPanel, BorderLayout.NORTH);
 
@@ -259,7 +260,7 @@ public class CheckoutCustomerPanel extends JPanel {
     checkoutButton = new JButton("Checkout");
     checkoutButton.addActionListener(checkoutActionListener);
     cancelButton = new JButton("Cancel");
-    cancelButton.addActionListener(backToPreviousActionListener);
+    // cancelButton.addActionListener(backToPreviousActionListener);
     actionPanel.add(checkoutButton);
 
     actionPanel.add(cancelButton);
@@ -291,6 +292,7 @@ public class CheckoutCustomerPanel extends JPanel {
     try {
       int cartId = cartModel.getId();
       int customerId = userModel.getId();
+      int totalPrice = CartBUS.getInstance().getTotalPrice(cartModel.getId());
 
       String paymentMethod = paymentMethodComboBox.getSelectedItem().toString();
       String shippingMethod = shippingMethodComboBox
@@ -302,6 +304,8 @@ public class CheckoutCustomerPanel extends JPanel {
           .createCustomerOrder(
             cartId,
             customerId,
+            1,
+            totalPrice,
             shippingMethod,
             paymentMethod,
             null,
@@ -330,6 +334,8 @@ public class CheckoutCustomerPanel extends JPanel {
         .createCustomerOrder(
           cartId,
           customerId,
+          1,
+          totalPrice,
           shippingMethod,
           paymentMethod,
           cardNumber,
@@ -349,7 +355,7 @@ public class CheckoutCustomerPanel extends JPanel {
       );
     }
   };
-  private ActionListener backToPreviousActionListener = e -> {
-    MainPanel.getInstance().backToPreviousForm();
-  };
+  // private ActionListener backToPreviousActionListener = e -> {
+  //   MainPanel.getInstance().backToPreviousForm();
+  // };
 }
