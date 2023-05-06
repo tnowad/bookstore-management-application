@@ -20,9 +20,7 @@ public class BooksCategoryBUS implements IBUS<BooksCategoryModel> {
   }
 
   private BooksCategoryBUS() {
-    this.booksCategoryList.addAll(
-        BooksCategoryDAO.getInstance().readDatabase()
-      );
+    this.booksCategoryList.addAll(BooksCategoryDAO.getInstance().readDatabase());
   }
 
   @Override
@@ -32,10 +30,7 @@ public class BooksCategoryBUS implements IBUS<BooksCategoryModel> {
 
   public BooksCategoryModel getModel(int categoriesId, String bookIsbn) {
     for (BooksCategoryModel booksCategoryModel : booksCategoryList) {
-      if (
-        booksCategoryModel.getCategoryId() == categoriesId &&
-        booksCategoryModel.getBookIsbn() == bookIsbn
-      ) {
+      if (booksCategoryModel.getCategoryId() == categoriesId && booksCategoryModel.getBookIsbn() == bookIsbn) {
         return booksCategoryModel;
       }
     }
@@ -48,19 +43,15 @@ public class BooksCategoryBUS implements IBUS<BooksCategoryModel> {
     return to;
   }
 
-  private void updateEntityFields(
-    BooksCategoryModel from,
-    BooksCategoryModel to
-  ) {
+  private void updateEntityFields(BooksCategoryModel from, BooksCategoryModel to) {
     to.setCategoryId(from.getCategoryId());
     to.setBookIsbn(from.getBookIsbn());
   }
 
   private boolean checkFilter(
-    BooksCategoryModel booksCategoryModel,
-    String value,
-    String[] column
-  ) {
+      BooksCategoryModel booksCategoryModel,
+      String value,
+      String[] column) {
     for (String col : column) {
       switch (col.toLowerCase()) {
         case "categories_id" -> {
@@ -69,12 +60,7 @@ public class BooksCategoryBUS implements IBUS<BooksCategoryModel> {
           }
         }
         case "books_isbn" -> {
-          if (
-            booksCategoryModel
-              .getBookIsbn()
-              .toLowerCase()
-              .contains(value.toLowerCase())
-          ) {
+          if (booksCategoryModel.getBookIsbn().toLowerCase().contains(value.toLowerCase())) {
             return true;
           }
         }
@@ -88,31 +74,19 @@ public class BooksCategoryBUS implements IBUS<BooksCategoryModel> {
     return false;
   }
 
-  private boolean checkAllColumns(
-    BooksCategoryModel booksCategoryModel,
-    String value
-  ) {
-    return (
-      booksCategoryModel.getCategoryId() == Integer.parseInt(value) ||
-      booksCategoryModel
-        .getBookIsbn()
-        .toLowerCase()
-        .contains(value.toLowerCase())
-    );
+  private boolean checkAllColumns(BooksCategoryModel booksCategoryModel, String value) {
+    return (booksCategoryModel.getCategoryId() == Integer.parseInt(value) ||
+        booksCategoryModel.getBookIsbn().toLowerCase().contains(value.toLowerCase()));
   }
 
   @Override
   public int addModel(BooksCategoryModel booksCategoryModel) {
-    if (
-      booksCategoryModel.getBookIsbn() == null ||
-      booksCategoryModel.getBookIsbn().isEmpty()
-    ) {
-      throw new IllegalArgumentException("Book cannot be null or empty!");
+    if (booksCategoryModel.getBookIsbn() == null ||
+        booksCategoryModel.getBookIsbn().isEmpty()) {
+      throw new IllegalArgumentException("BookIsbn cannot be null or empty!");
     }
 
-    int id = BooksCategoryDAO
-      .getInstance()
-      .insert(mapToEntity(booksCategoryModel));
+    int id = BooksCategoryDAO.getInstance().insert(mapToEntity(booksCategoryModel));
     booksCategoryModel.setCategoryId(id);
     booksCategoryList.add(booksCategoryModel);
     return id;
@@ -123,10 +97,7 @@ public class BooksCategoryBUS implements IBUS<BooksCategoryModel> {
     int updatedRows = BooksCategoryDAO.getInstance().update(booksCategoryModel);
     if (updatedRows > 0) {
       for (int i = 0; i < booksCategoryList.size(); i++) {
-        if (
-          booksCategoryList.get(i).getCategoryId() ==
-          booksCategoryModel.getCategoryId()
-        ) {
+        if (booksCategoryList.get(i).getCategoryId() == booksCategoryModel.getCategoryId()) {
           booksCategoryList.set(i, booksCategoryModel);
           break;
         }
@@ -140,8 +111,7 @@ public class BooksCategoryBUS implements IBUS<BooksCategoryModel> {
     BooksCategoryModel booksCategoryModel = getModelById(id);
     if (booksCategoryModel == null) {
       throw new IllegalArgumentException(
-        "Book category with ID " + id + " does not exist."
-      );
+          "Book category with ID: " + id + " does not exist.");
     }
     int deletedRows = BooksCategoryDAO.getInstance().delete(id);
     if (deletedRows > 0) {
@@ -153,9 +123,7 @@ public class BooksCategoryBUS implements IBUS<BooksCategoryModel> {
   @Override
   public List<BooksCategoryModel> searchModel(String value, String[] columns) {
     List<BooksCategoryModel> results = new ArrayList<>();
-    List<BooksCategoryModel> entities = BooksCategoryDAO
-      .getInstance()
-      .search(value, columns);
+    List<BooksCategoryModel> entities = BooksCategoryDAO.getInstance().search(value, columns);
     for (BooksCategoryModel entity : entities) {
       BooksCategoryModel model = mapToEntity(entity);
       if (checkFilter(model, value, columns)) {
@@ -169,14 +137,12 @@ public class BooksCategoryBUS implements IBUS<BooksCategoryModel> {
   @Override
   public void refreshData() {
     throw new UnsupportedOperationException(
-      "Unimplemented method 'refreshData'"
-    );
+        "Unimplemented method 'refreshData'");
   }
 
   @Override
   public BooksCategoryModel getModelById(int id) {
     throw new UnsupportedOperationException(
-      "Unimplemented method 'getModelById'"
-    );
+        "Unimplemented method 'getModelById'");
   }
 }

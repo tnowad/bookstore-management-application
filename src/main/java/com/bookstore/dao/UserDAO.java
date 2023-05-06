@@ -24,13 +24,12 @@ public class UserDAO implements IDAO<UserModel> {
   }
 
   private static UserModel createUserModelFromResultSet(ResultSet rs)
-    throws SQLException {
+      throws SQLException {
     int id = rs.getInt("id");
     String username = rs.getString("username");
     String password = rs.getString("password");
     UserStatus status = UserStatus.valueOf(
-      rs.getString("status").toUpperCase()
-    );
+        rs.getString("status").toUpperCase());
     String name = rs.getString("name");
     String email = rs.getString("email");
     String phone = rs.getString("phone");
@@ -38,25 +37,23 @@ public class UserDAO implements IDAO<UserModel> {
     LocalDateTime updatedAt = rs.getTimestamp("updated_at").toLocalDateTime();
     UserRole role = UserRole.valueOf(rs.getString("role").toUpperCase());
     return new UserModel(
-      id,
-      username,
-      password,
-      status,
-      name,
-      email,
-      phone,
-      createdAt,
-      updatedAt,
-      role
-    );
+        id,
+        username,
+        password,
+        status,
+        name,
+        email,
+        phone,
+        createdAt,
+        updatedAt,
+        role);
   }
 
   @Override
   public ArrayList<UserModel> readDatabase() {
     ArrayList<UserModel> userList = new ArrayList<>();
     try (
-      ResultSet rs = DatabaseConnection.executeQuery("SELECT * FROM users")
-    ) {
+        ResultSet rs = DatabaseConnection.executeQuery("SELECT * FROM users")) {
       while (rs.next()) {
         UserModel userModel = createUserModelFromResultSet(rs);
         userList.add(userModel);
@@ -68,34 +65,37 @@ public class UserDAO implements IDAO<UserModel> {
   }
 
   @Override
-  public int insert(UserModel user) throws SQLException {
-    String insertSql =
-      "INSERT INTO users (username, password, status, name, email, phone, role) VALUES (?, ?, ?, ?, ?, ?, ?)";
+  public int insert(UserModel user) {
+    String insertSql = "INSERT INTO users (username, password, status, name, email, phone, role) VALUES (?, ?, ?, ?, ?, ?, ?)";
     Object[] args = {
-      user.getUsername(),
-      user.getPassword(),
-      user.getStatus().toString().toUpperCase(),
-      user.getName(),
-      user.getEmail(),
-      user.getPhone(),
-      user.getRole().toString().toUpperCase(),
+        user.getUsername(),
+        user.getPassword(),
+        user.getStatus().toString().toUpperCase(),
+        user.getName(),
+        user.getEmail(),
+        user.getPhone(),
+        user.getRole().toString().toUpperCase(),
     };
-    return DatabaseConnection.executeUpdate(insertSql, args);
+    try {
+      return DatabaseConnection.executeUpdate(insertSql, args);
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return -1;
+    }
   }
 
   @Override
   public int update(UserModel user) {
-    String updateSql =
-      "UPDATE users SET username = ?, password = ?, status = ?, name = ?, email = ?, phone = ?, role = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?";
+    String updateSql = "UPDATE users SET username = ?, password = ?, status = ?, name = ?, email = ?, phone = ?, role = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?";
     Object[] args = {
-      user.getUsername(),
-      user.getPassword(),
-      user.getStatus().toString().toUpperCase(),
-      user.getName(),
-      user.getEmail(),
-      user.getPhone(),
-      user.getRole().toString().toUpperCase(),
-      user.getId(),
+        user.getUsername(),
+        user.getPassword(),
+        user.getStatus().toString().toUpperCase(),
+        user.getName(),
+        user.getEmail(),
+        user.getPhone(),
+        user.getRole().toString().toUpperCase(),
+        user.getId(),
     };
     try {
       return DatabaseConnection.executeUpdate(updateSql, args);
@@ -106,8 +106,7 @@ public class UserDAO implements IDAO<UserModel> {
   }
 
   public int updateStatus(String username, String status) {
-    String updateSql =
-      "UPDATE users SET status = ?, updated_at = CURRENT_TIMESTAMP WHERE username = ?";
+    String updateSql = "UPDATE users SET status = ?, updated_at = CURRENT_TIMESTAMP WHERE username = ?";
     Object[] args = { status, username };
     try {
       return DatabaseConnection.executeUpdate(updateSql, args);
@@ -118,8 +117,7 @@ public class UserDAO implements IDAO<UserModel> {
   }
 
   public int updateRole(String username, UserRole role) {
-    String updateSql =
-      "UPDATE users SET role = ?, updated_at = CURRENT_TIMESTAMP WHERE username = ?";
+    String updateSql = "UPDATE users SET role = ?, updated_at = CURRENT_TIMESTAMP WHERE username = ?";
     Object[] args = { role, username };
     try {
       return DatabaseConnection.executeUpdate(updateSql, args);
@@ -146,33 +144,29 @@ public class UserDAO implements IDAO<UserModel> {
     try {
       if (condition == null || condition.trim().isEmpty()) {
         throw new IllegalArgumentException(
-          "Search condition cannot be empty or null"
-        );
+            "Search condition cannot be empty or null");
       }
 
       String query;
       if (columnNames == null || columnNames.length == 0) {
         // Search all columns
-        query =
-          "SELECT * FROM users WHERE CONCAT(id, username, password, status, name, email, phone, created_at, updated_at, role) LIKE ?";
+        query = "SELECT * FROM users WHERE CONCAT(id, username, password, status, name, email, phone, created_at, updated_at, role) LIKE ?";
       } else if (columnNames.length == 1) {
         // Search specific column in users table
         String column = columnNames[0];
         query = "SELECT * FROM users WHERE " + column + " LIKE ?";
       } else {
         // Search specific columns in users table
-        query =
-          "SELECT id, username, password, status, name, email, phone, created_at, updated_at, role FROM users WHERE CONCAT(" +
-          String.join(", ", columnNames) +
-          ") LIKE ?";
+        query = "SELECT id, username, password, status, name, email, phone, created_at, updated_at, role FROM users WHERE CONCAT("
+            +
+            String.join(", ", columnNames) +
+            ") LIKE ?";
       }
 
       try (
-        PreparedStatement pst = DatabaseConnection.getPreparedStatement(
-          query,
-          "%" + condition + "%"
-        )
-      ) {
+          PreparedStatement pst = DatabaseConnection.getPreparedStatement(
+              query,
+              "%" + condition + "%")) {
         try (ResultSet rs = pst.executeQuery()) {
           List<UserModel> userList = new ArrayList<>();
           while (rs.next()) {
@@ -182,8 +176,7 @@ public class UserDAO implements IDAO<UserModel> {
 
           if (userList.isEmpty()) {
             throw new SQLException(
-              "No records found for the given condition: " + condition
-            );
+                "No records found for the given condition: " + condition);
           }
 
           return userList;
@@ -199,12 +192,10 @@ public class UserDAO implements IDAO<UserModel> {
     String query = "SELECT * FROM users WHERE username = ?";
     Object[] args = { username };
     try (
-      PreparedStatement pst = DatabaseConnection.getPreparedStatement(
-        query,
-        args
-      );
-      ResultSet rs = pst.executeQuery()
-    ) {
+        PreparedStatement pst = DatabaseConnection.getPreparedStatement(
+            query,
+            args);
+        ResultSet rs = pst.executeQuery()) {
       if (rs.next()) {
         return createUserModelFromResultSet(rs);
       }
@@ -218,12 +209,10 @@ public class UserDAO implements IDAO<UserModel> {
     String query = "SELECT * FROM users WHERE id = ?";
     Object[] args = { id };
     try (
-      PreparedStatement pst = DatabaseConnection.getPreparedStatement(
-        query,
-        args
-      );
-      ResultSet rs = pst.executeQuery()
-    ) {
+        PreparedStatement pst = DatabaseConnection.getPreparedStatement(
+            query,
+            args);
+        ResultSet rs = pst.executeQuery()) {
       if (rs.next()) {
         return createUserModelFromResultSet(rs);
       }

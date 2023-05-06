@@ -21,20 +21,18 @@ public class AuthorDAO implements IDAO<AuthorModel> {
   }
 
   private AuthorModel createAuthorModelFromResultSet(ResultSet rs)
-    throws SQLException {
+      throws SQLException {
     return new AuthorModel(
-      rs.getInt("id"),
-      rs.getString("name"),
-      rs.getString("description")
-    );
+        rs.getInt("id"),
+        rs.getString("name"),
+        rs.getString("description"));
   }
 
   @Override
   public ArrayList<AuthorModel> readDatabase() {
     ArrayList<AuthorModel> authorList = new ArrayList<>();
     try (
-      ResultSet rs = DatabaseConnection.executeQuery("SELECT * FROM authors")
-    ) {
+        ResultSet rs = DatabaseConnection.executeQuery("SELECT * FROM authors")) {
       while (rs.next()) {
         AuthorModel authorModel = createAuthorModelFromResultSet(rs);
         authorList.add(authorModel);
@@ -59,12 +57,11 @@ public class AuthorDAO implements IDAO<AuthorModel> {
 
   @Override
   public int update(AuthorModel author) {
-    String updateSql =
-      "UPDATE authors SET name = ?, description = ? WHERE id = ?";
+    String updateSql = "UPDATE authors SET name = ?, description = ? WHERE id = ?";
     Object[] args = {
-      author.getName(),
-      author.getDescription(),
-      author.getId(),
+        author.getName(),
+        author.getDescription(),
+        author.getId(),
     };
     try {
       return DatabaseConnection.executeUpdate(updateSql, args);
@@ -90,33 +87,28 @@ public class AuthorDAO implements IDAO<AuthorModel> {
   public List<AuthorModel> search(String condition, String[] columnNames) {
     if (condition == null || condition.trim().isEmpty()) {
       throw new IllegalArgumentException(
-        "Search condition cannot be empty or null"
-      );
+          "Search condition cannot be empty or null");
     }
 
     String query;
     if (columnNames == null || columnNames.length == 0) {
       // Search all columns
-      query =
-        "SELECT * FROM authors WHERE CONCAT(id, name, description) LIKE ?";
+      query = "SELECT * FROM authors WHERE CONCAT(id, name, description) LIKE ?";
     } else if (columnNames.length == 1) {
       // Search specific column in authors table
       String column = columnNames[0];
       query = "SELECT * FROM authors WHERE " + column + " LIKE ?";
     } else {
       // Search specific columns in authors table
-      query =
-        "SELECT id, name, description FROM authors WHERE CONCAT(" +
-        String.join(", ", columnNames) +
-        ") LIKE ?";
+      query = "SELECT id, name, description FROM authors WHERE CONCAT(" +
+          String.join(", ", columnNames) +
+          ") LIKE ?";
     }
 
     try (
-      PreparedStatement pst = DatabaseConnection.getPreparedStatement(
-        query,
-        "%" + condition + "%"
-      )
-    ) {
+        PreparedStatement pst = DatabaseConnection.getPreparedStatement(
+            query,
+            "%" + condition + "%")) {
       try (ResultSet rs = pst.executeQuery()) {
         List<AuthorModel> authorList = new ArrayList<>();
         while (rs.next()) {
@@ -125,8 +117,7 @@ public class AuthorDAO implements IDAO<AuthorModel> {
         }
         if (authorList.isEmpty()) {
           throw new SQLException(
-            "No records found for the given condition: " + condition
-          );
+              "No records found for the given condition: " + condition);
         }
         return authorList;
       }
@@ -134,24 +125,5 @@ public class AuthorDAO implements IDAO<AuthorModel> {
       e.printStackTrace();
       return Collections.emptyList();
     }
-  }
-
-  public AuthorModel getModelByAuthorName(String name) {
-    String query = "SELECT * FROM authors WHERE name = ?";
-    Object[] args = { name };
-    try (
-      PreparedStatement pst = DatabaseConnection.getPreparedStatement(
-        query,
-        args
-      );
-      ResultSet rs = pst.executeQuery()
-    ) {
-      if (rs.next()) {
-        return createAuthorModelFromResultSet(rs);
-      }
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-    return null;
   }
 }

@@ -88,10 +88,8 @@ public class CartCustomerPanel extends JPanel {
     groupBottomPanel = new JPanel();
     groupTotalCostPanel = new JPanel();
     totalCostLabel = new JLabel();
-    totalPriceTextField =
-      new JTextField(
-        String.valueOf(CartBUS.getInstance().getTotalPrice(cartModel.getId()))
-      );
+    totalPriceTextField = new JTextField(
+        String.valueOf(CartBUS.getInstance().getTotalPrice(cartModel.getId())));
     groupActionPanel = new JPanel();
     chooseAllCheckBox = new JCheckBox();
     deleteAllProductsButton = new JButton();
@@ -159,17 +157,14 @@ public class CartCustomerPanel extends JPanel {
     model.addColumn("Quantity");
     for (CartItemsModel cartItemsModel : myCartList) {
       for (BookModel bookModel : bookList) {
-        if (
-          cartItemsModel.getBookIsbn().equalsIgnoreCase(bookModel.getIsbn())
-        ) {
+        if (cartItemsModel.getBookIsbn().equalsIgnoreCase(bookModel.getIsbn())) {
           model.addRow(
-            new Object[] {
-              bookModel.getIsbn(),
-              bookModel.getTitle(),
-              bookModel.getPrice(),
-              cartItemsModel.getQuantity(),
-            }
-          );
+              new Object[] {
+                  bookModel.getIsbn(),
+                  bookModel.getTitle(),
+                  bookModel.getPrice(),
+                  cartItemsModel.getQuantity(),
+              });
         }
       }
     }
@@ -178,8 +173,7 @@ public class CartCustomerPanel extends JPanel {
     listCartPanel.add(listCartScrollPane, BorderLayout.CENTER);
     try {
       totalPriceTextField.setText(
-        String.valueOf(CartBUS.getInstance().getTotalPrice(cartModel.getId()))
-      );
+          String.valueOf(CartBUS.getInstance().getTotalPrice(cartModel.getId())));
     } catch (Exception e) {
       totalPriceTextField.setText("0");
     }
@@ -187,80 +181,75 @@ public class CartCustomerPanel extends JPanel {
 
   private void handleEvent() {
     listCartTable
-      .getSelectionModel()
-      .addListSelectionListener(
-        new ListSelectionListener() {
-          public void valueChanged(ListSelectionEvent event) {
-            int selectedRowIndex = listCartTable.getSelectedRow();
-            if (selectedRowIndex != -1) {
-              String bookIsbn = listCartTable
-                .getValueAt(selectedRowIndex, 0)
-                .toString();
-              new Dialog(new CartItemDetailFrame(cartModel.getId(), bookIsbn));
-              updateTable();
-            }
-          }
-        }
-      );
+        .getSelectionModel()
+        .addListSelectionListener(
+            new ListSelectionListener() {
+              public void valueChanged(ListSelectionEvent event) {
+                int selectedRowIndex = listCartTable.getSelectedRow();
+                if (selectedRowIndex != -1) {
+                  String bookIsbn = listCartTable
+                      .getValueAt(selectedRowIndex, 0)
+                      .toString();
+                  new Dialog(new CartItemDetailFrame(cartModel.getId(), bookIsbn));
+                  updateTable();
+                }
+              }
+            });
 
     proceedToCheckoutButton.addActionListener(e -> {
       if (myCartList.isEmpty()) {
         JOptionPane.showMessageDialog(
-          null,
-          "You have no items in your cart",
-          "Warning",
-          JOptionPane.WARNING_MESSAGE
-        );
+            null,
+            "You have no items in your cart",
+            "Warning",
+            JOptionPane.WARNING_MESSAGE);
       } else {
         MainPanel
-          .getInstance()
-          .showFormStack(new CheckoutCustomerPanel(cartModel));
+            .getInstance()
+            .showFormStack(new CheckoutCustomerPanel(cartModel));
         JOptionPane.showMessageDialog(
-          null,
-          "Your cart is shopping",
-          "Success",
-          JOptionPane.PLAIN_MESSAGE
-        );
+            null,
+            "Your cart is shopping",
+            "Success",
+            JOptionPane.PLAIN_MESSAGE);
       }
     });
 
     deleteAllProductsButton.addActionListener(e -> {
       if (myCartList.isEmpty()) {
         JOptionPane.showMessageDialog(
-          null,
-          "You have no items in your cart",
-          "Warning",
-          JOptionPane.WARNING_MESSAGE
-        );
+            null,
+            "You have no items in your cart",
+            "Warning",
+            JOptionPane.WARNING_MESSAGE);
       } else {
         int result = JOptionPane.showConfirmDialog(
-          null,
-          "Are you sure you want to delete all products?",
-          "Warning",
-          JOptionPane.YES_NO_OPTION,
-          JOptionPane.QUESTION_MESSAGE
-        );
+            null,
+            "Are you sure you want to delete all products?",
+            "Warning",
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.QUESTION_MESSAGE);
         if (result == JOptionPane.YES_OPTION) {
           for (CartItemsModel cartItemsModel : myCartList) {
-            CartItemsBUS.getInstance().delete(cartItemsModel);
+            CartItemsBUS.getInstance().deleteModel(cartItemsModel);
           }
           updateTable();
         }
       }
     });
     // chooseAllCheckBox.addActionListener(e -> {
-    //   if (myCartList.isEmpty()) {
-    //     JOptionPane.showMessageDialog(
-    //       null,
-    //       "You have no items in your cart",
-    //       "Warning",
-    //       JOptionPane.WARNING_MESSAGE
-    //     );
-    //   } else {
-    //     for (CartItemsModel cartItemsModel : myCartList) {
-    //       cartItemsModel.setSelected(true);
-    //     }
-    //   }
+    // if (myCartList.isEmpty()) {
+    // JOptionPane.showMessageDialog(
+    // null,
+    // "You have no items in your cart",
+    // "Warning",
+    // JOptionPane.WARNING_MESSAGE
+    // );
+    // } else {
+    // for (CartItemsModel cartItemsModel : myCartList) {
+    // cartItemsModel.setSelected(true);
+    // }
+    // }
     // });
   }
 }

@@ -30,10 +30,8 @@ public class CartItemsBUS implements IBUS<CartItemsModel> {
 
   public CartItemsModel getModelByIdAndIsbn(int id, String isbn) {
     for (CartItemsModel cartItemsModel : cartItemsList) {
-      if (
-        cartItemsModel.getCartId() == id &&
-        cartItemsModel.getBookIsbn().equals(isbn)
-      ) {
+      if (cartItemsModel.getCartId() == id &&
+          cartItemsModel.getBookIsbn().equals(isbn)) {
         return cartItemsModel;
       }
     }
@@ -55,10 +53,9 @@ public class CartItemsBUS implements IBUS<CartItemsModel> {
   }
 
   private boolean checkFilter(
-    CartItemsModel CartItemsModel,
-    String value,
-    String[] columns
-  ) {
+      CartItemsModel CartItemsModel,
+      String value,
+      String[] columns) {
     for (String column : columns) {
       switch (column.toLowerCase()) {
         case "cart_id" -> {
@@ -97,13 +94,11 @@ public class CartItemsBUS implements IBUS<CartItemsModel> {
   }
 
   private boolean checkAllColumns(CartItemsModel CartItemsModel, String value) {
-    return (
-      CartItemsModel.getCartId() == Integer.parseInt(value) ||
-      CartItemsModel.getBookIsbn().equals(value) ||
-      CartItemsModel.getPrice() == Integer.parseInt(value) ||
-      CartItemsModel.getQuantity() == Integer.parseInt(value) ||
-      CartItemsModel.getDiscount() == Integer.parseInt(value)
-    );
+    return (CartItemsModel.getCartId() == Integer.parseInt(value) ||
+        CartItemsModel.getBookIsbn().equals(value) ||
+        CartItemsModel.getPrice() == Integer.parseInt(value) ||
+        CartItemsModel.getQuantity() == Integer.parseInt(value) ||
+        CartItemsModel.getDiscount() == Integer.parseInt(value));
   }
 
   @Override
@@ -119,10 +114,8 @@ public class CartItemsBUS implements IBUS<CartItemsModel> {
     int updatedRows = CartItemsDAO.getInstance().update(model);
     if (updatedRows > 0) {
       for (int i = 0; i < cartItemsList.size(); i++) {
-        if (
-          cartItemsList.get(i).getCartId() == model.getCartId() &&
-          cartItemsList.get(i).getBookIsbn().equals(model.getBookIsbn())
-        ) {
+        if (cartItemsList.get(i).getCartId() == model.getCartId() &&
+            cartItemsList.get(i).getBookIsbn().equals(model.getBookIsbn())) {
           cartItemsList.set(i, model);
           break;
         }
@@ -131,12 +124,36 @@ public class CartItemsBUS implements IBUS<CartItemsModel> {
     return updatedRows;
   }
 
+  public void update(CartItemsModel cartItemsModel) {
+    CartItemsDAO.getInstance().update(cartItemsModel);
+    for (int i = 0; i < cartItemsList.size(); i++) {
+      if (cartItemsList.get(i).getCartId() == cartItemsModel.getCartId() &&
+          cartItemsList.get(i).getBookIsbn().equals(cartItemsModel.getBookIsbn())) {
+        cartItemsList.set(i, cartItemsModel);
+        break;
+      }
+    }
+  }
+
+  @Override
+  public int deleteModel(int cartId) {
+    CartItemsModel CartItemsModel = getModelById(cartId);
+    if (CartItemsModel == null) {
+      throw new IllegalArgumentException(
+          "cart_items with cart_id " + cartId + " does not exist.");
+    }
+    int deletedRows = CartItemsDAO.getInstance().delete(cartId);
+    if (deletedRows > 0) {
+      cartItemsList.remove(CartItemsModel);
+    }
+    return deletedRows;
+  }
+
   public int deleteModel(int id, String isbn) {
     CartItemsModel CartItemsModel = getModelByIdAndIsbn(id, isbn);
     if (CartItemsModel == null) {
       throw new IllegalArgumentException(
-        "cart_items with cart_id " + id + " does not exist."
-      );
+          "cart_items with cart_id " + id + " does not exist.");
     }
     int deletedRows = CartItemsDAO.getInstance().delete(id, isbn);
     if (deletedRows > 0) {
@@ -145,12 +162,24 @@ public class CartItemsBUS implements IBUS<CartItemsModel> {
     return deletedRows;
   }
 
+  public void deleteModel(CartItemsModel cartItemsModel) {
+    CartItemsDAO
+        .getInstance()
+        .delete(cartItemsModel.getCartId(), cartItemsModel.getBookIsbn());
+    cartItemsList.remove(cartItemsModel);
+  }
+
+  public void deleteAll(int cartId) {
+    CartItemsDAO.getInstance().delete(cartId);
+    cartItemsList.removeIf(cartItemsModel -> cartItemsModel.getCartId() == cartId);
+  }
+
   @Override
   public List<CartItemsModel> searchModel(String value, String[] columns) {
     List<CartItemsModel> results = new ArrayList<>();
     List<CartItemsModel> entities = CartItemsDAO
-      .getInstance()
-      .search(value, columns);
+        .getInstance()
+        .search(value, columns);
     for (CartItemsModel entity : entities) {
       CartItemsModel model = mapToEntity(entity);
       if (checkFilter(model, value, columns)) {
@@ -168,51 +197,8 @@ public class CartItemsBUS implements IBUS<CartItemsModel> {
   }
 
   @Override
-  public int deleteModel(int id) {
-    CartItemsModel CartItemsModel = getModelById(id);
-    if (CartItemsModel == null) {
-      throw new IllegalArgumentException(
-        "cart_items with cart_id " + id + " does not exist."
-      );
-    }
-    int deletedRows = CartItemsDAO.getInstance().delete(id);
-    if (deletedRows > 0) {
-      cartItemsList.remove(CartItemsModel);
-    }
-    return deletedRows;
-  }
-
-  @Override
   public CartItemsModel getModelById(int id) {
     throw new UnsupportedOperationException(
-      "Unimplemented method 'getModelById'"
-    );
-  }
-
-  public void delete(CartItemsModel cartItemsModel) {
-    CartItemsDAO
-      .getInstance()
-      .delete(cartItemsModel.getCartId(), cartItemsModel.getBookIsbn());
-    cartItemsList.remove(cartItemsModel);
-  }
-
-  public void deleteAll(int cartId) {
-    CartItemsDAO.getInstance().delete(cartId);
-    cartItemsList.removeIf(cartItemsModel ->
-      cartItemsModel.getCartId() == cartId
-    );
-  }
-
-  public void update(CartItemsModel cartItemsModel) {
-    CartItemsDAO.getInstance().update(cartItemsModel);
-    for (int i = 0; i < cartItemsList.size(); i++) {
-      if (
-        cartItemsList.get(i).getCartId() == cartItemsModel.getCartId() &&
-        cartItemsList.get(i).getBookIsbn().equals(cartItemsModel.getBookIsbn())
-      ) {
-        cartItemsList.set(i, cartItemsModel);
-        break;
-      }
-    }
+        "Unimplemented method 'getModelById'");
   }
 }

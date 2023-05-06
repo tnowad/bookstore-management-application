@@ -33,12 +33,7 @@ public class BookBUS implements IBUS<BookModel> {
 
   @Override
   public BookModel getModelById(int id) {
-    for (BookModel bookModel : bookList) {
-      if (bookModel.getIsbn() == String.valueOf(id)) {
-        return bookModel;
-      }
-    }
-    return null;
+    throw new UnsupportedOperationException("This method is unsupported.", null);
   }
 
   public BookModel getBookByIsbn(String isbn) {
@@ -68,11 +63,7 @@ public class BookBUS implements IBUS<BookModel> {
     to.setAuthorId(from.getAuthorId());
   }
 
-  private boolean checkFilter(
-    BookModel bookModel,
-    String value,
-    String[] columns
-  ) {
+  private boolean checkFilter(BookModel bookModel, String value, String[] columns) {
     for (String column : columns) {
       switch (column.toLowerCase()) {
         case "isbn" -> {
@@ -81,26 +72,12 @@ public class BookBUS implements IBUS<BookModel> {
           }
         }
         case "title" -> {
-          if (
-            bookModel.getTitle().toLowerCase().contains(value.toLowerCase())
-          ) {
+          if (bookModel.getTitle().toLowerCase().contains(value.toLowerCase())) {
             return true;
           }
         }
         case "description" -> {
-          if (
-            bookModel
-              .getDescription()
-              .toLowerCase()
-              .contains(value.toLowerCase())
-          ) {
-            return true;
-          }
-        }
-        case "image" -> {
-          if (
-            bookModel.getImage().toLowerCase().contains(value.toLowerCase())
-          ) {
+          if (bookModel.getDescription().toLowerCase().contains(value.toLowerCase())) {
             return true;
           }
         }
@@ -140,17 +117,14 @@ public class BookBUS implements IBUS<BookModel> {
   }
 
   private boolean checkAllColumns(BookModel bookModel, String value) {
-    return (
-      bookModel.getIsbn().toLowerCase().contains(value.toLowerCase()) ||
-      bookModel.getTitle().toLowerCase().contains(value.toLowerCase()) ||
-      bookModel.getDescription().toLowerCase().contains(value.toLowerCase()) ||
-      bookModel.getImage().toLowerCase().contains(value.toLowerCase()) ||
-      bookModel.getQuantity() == Integer.parseInt(value) ||
-      bookModel.getPrice() == Integer.parseInt(value) ||
-      bookModel.getStatus().toString().equalsIgnoreCase(value) ||
-      bookModel.getPublisherId() == Integer.parseInt(value) ||
-      bookModel.getAuthorId() == Integer.parseInt(value)
-    );
+    return (bookModel.getIsbn().toLowerCase().contains(value.toLowerCase()) ||
+        bookModel.getTitle().toLowerCase().contains(value.toLowerCase()) ||
+        bookModel.getDescription().toLowerCase().contains(value.toLowerCase()) ||
+        bookModel.getQuantity() == Integer.parseInt(value) ||
+        bookModel.getPrice() == Integer.parseInt(value) ||
+        bookModel.getStatus().toString().equalsIgnoreCase(value) ||
+        bookModel.getPublisherId() == Integer.parseInt(value) ||
+        bookModel.getAuthorId() == Integer.parseInt(value));
   }
 
   @Override
@@ -161,12 +135,9 @@ public class BookBUS implements IBUS<BookModel> {
     if (bookModel.getTitle() == null || bookModel.getTitle().isEmpty()) {
       throw new IllegalArgumentException("Title cannot be null or empty!");
     }
-    if (
-      bookModel.getDescription() == null || bookModel.getDescription().isEmpty()
-    ) {
+    if (bookModel.getDescription() == null || bookModel.getDescription().isEmpty()) {
       throw new IllegalArgumentException(
-        "Description cannot be null or empty!"
-      );
+          "Description cannot be null or empty!");
     }
     if (bookModel.getImage() == null || bookModel.getImage().isEmpty()) {
       throw new IllegalArgumentException("Image cannot be null or empty!");
@@ -177,16 +148,13 @@ public class BookBUS implements IBUS<BookModel> {
     if (bookModel.getQuantity() <= 0) {
       throw new IllegalArgumentException("Quantity must be greater than 0!");
     }
-    if (
-      bookModel.getStatus() == null ||
-      bookModel.getStatus().toString().isEmpty()
-    ) {
+    if (bookModel.getStatus() == null ||
+        bookModel.getStatus().toString().isEmpty()) {
       bookModel.setStatus(BookStatus.AVAILABLE);
     }
     if (bookModel.getPublisherId() <= 0) {
       throw new IllegalArgumentException(
-        "Publisher ID must be greater than 0!"
-      );
+          "Publisher ID must be greater than 0!");
     }
     if (bookModel.getAuthorId() <= 0) {
       throw new IllegalArgumentException("Author ID must be greater than 0!");
@@ -257,8 +225,7 @@ public class BookBUS implements IBUS<BookModel> {
     BookModel bookModel = getModelById(id);
     if (bookModel == null) {
       throw new IllegalArgumentException(
-        "Book with ID " + id + " does not exist."
-      );
+          "Book with ID " + id + " does not exist.");
     }
     int deletedRows = BookDAO.getInstance().delete(id);
     if (deletedRows > 0) {
@@ -283,28 +250,24 @@ public class BookBUS implements IBUS<BookModel> {
 
   public boolean checkForDuplicate(List<String> values, String[] columns) {
     Optional<BookModel> optionalBook = BookBUS
-      .getInstance()
-      .getAllModels()
-      .stream()
-      .filter(user -> {
-        for (String value : values) {
-          if (
-            Arrays.asList(columns).contains("title") &&
-            !value.isEmpty() &&
-            user.getTitle().equals(value)
-          ) {
-            return true;
+        .getInstance()
+        .getAllModels()
+        .stream()
+        .filter(user -> {
+          for (String value : values) {
+            if (Arrays.asList(columns).contains("title") &&
+                !value.isEmpty() &&
+                user.getTitle().equals(value)) {
+              return true;
+            }
+            if (Arrays.asList(columns).contains("isbn") &&
+                user.getIsbn().equals(value)) {
+              return true;
+            }
           }
-          if (
-            Arrays.asList(columns).contains("isbn") &&
-            user.getIsbn().equals(value)
-          ) {
-            return true;
-          }
-        }
-        return false;
-      })
-      .findFirst();
+          return false;
+        })
+        .findFirst();
     return optionalBook.isPresent();
   }
 

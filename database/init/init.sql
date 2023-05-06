@@ -180,7 +180,7 @@ CREATE TABLE
         `order_id` int NOT NULL,
         `shipping_method` NVARCHAR (255),
         `address_id` int NOT NULL,
-        `status` ENUM ('pending') NOT NULL DEFAULT "pending",
+        `status` ENUM ('pending', 'accepted', 'rejected') NOT NULL DEFAULT "pending",
         PRIMARY KEY (`id`)
     );
 

@@ -54,10 +54,9 @@ public class AddressBUS implements IBUS<AddressModel> {
   }
 
   private boolean checkFilter(
-    AddressModel addressModel,
-    String value,
-    String[] columns
-  ) {
+      AddressModel addressModel,
+      String value,
+      String[] columns) {
     for (String column : columns) {
       switch (column.toLowerCase()) {
         case "id" -> {
@@ -71,30 +70,22 @@ public class AddressBUS implements IBUS<AddressModel> {
           }
         }
         case "street" -> {
-          if (
-            addressModel.getStreet().toLowerCase().contains(value.toLowerCase())
-          ) {
+          if (addressModel.getStreet().toLowerCase().contains(value.toLowerCase())) {
             return true;
           }
         }
         case "city" -> {
-          if (
-            addressModel.getCity().toLowerCase().contains(value.toLowerCase())
-          ) {
+          if (addressModel.getCity().toLowerCase().contains(value.toLowerCase())) {
             return true;
           }
         }
         case "state" -> {
-          if (
-            addressModel.getState().toLowerCase().contains(value.toLowerCase())
-          ) {
+          if (addressModel.getState().toLowerCase().contains(value.toLowerCase())) {
             return true;
           }
         }
         case "zip" -> {
-          if (
-            addressModel.getZip().toLowerCase().contains(value.toLowerCase())
-          ) {
+          if (addressModel.getZip().toLowerCase().contains(value.toLowerCase())) {
             return true;
           }
         }
@@ -109,21 +100,17 @@ public class AddressBUS implements IBUS<AddressModel> {
   }
 
   private boolean checkAllColumns(AddressModel addressModel, String value) {
-    return (
-      addressModel.getId() == Integer.parseInt(value) ||
-      addressModel.getUserId() == Integer.parseInt(value) ||
-      addressModel.getStreet().toLowerCase().contains(value.toLowerCase()) ||
-      addressModel.getCity().toLowerCase().contains(value.toLowerCase()) ||
-      addressModel.getState().toLowerCase().contains(value.toLowerCase()) ||
-      addressModel.getZip().toLowerCase().contains(value.toLowerCase())
-    );
+    return (addressModel.getId() == Integer.parseInt(value) ||
+        addressModel.getUserId() == Integer.parseInt(value) ||
+        addressModel.getStreet().toLowerCase().contains(value.toLowerCase()) ||
+        addressModel.getCity().toLowerCase().contains(value.toLowerCase()) ||
+        addressModel.getState().toLowerCase().contains(value.toLowerCase()) ||
+        addressModel.getZip().toLowerCase().contains(value.toLowerCase()));
   }
 
   @Override
   public int addModel(AddressModel addressModel) {
-    if (
-      addressModel.getStreet() == null || addressModel.getStreet().isEmpty()
-    ) {
+    if (addressModel.getStreet() == null || addressModel.getStreet().isEmpty()) {
       throw new IllegalArgumentException("Street cannot be null or empty!");
     }
     if (addressModel.getCity() == null || addressModel.getCity().isEmpty()) {
@@ -158,8 +145,7 @@ public class AddressBUS implements IBUS<AddressModel> {
     AddressModel addressModel = getModelById(userId);
     if (addressModel == null) {
       throw new IllegalArgumentException(
-        "Address with ID " + userId + " does not exist."
-      );
+          "Address with ID " + userId + " does not exist.");
     }
     int deletedRows = AddressDAO.getInstance().delete(userId);
     if (deletedRows > 0) {
@@ -172,8 +158,8 @@ public class AddressBUS implements IBUS<AddressModel> {
   public List<AddressModel> searchModel(String value, String[] columns) {
     List<AddressModel> results = new ArrayList<>();
     List<AddressModel> entities = AddressDAO
-      .getInstance()
-      .search(value, columns);
+        .getInstance()
+        .search(value, columns);
     for (AddressModel entity : entities) {
       AddressModel model = mapToEntity(entity);
       if (checkFilter(model, value, columns)) {
@@ -186,8 +172,7 @@ public class AddressBUS implements IBUS<AddressModel> {
 
   @Override
   public void refreshData() {
-    throw new UnsupportedOperationException(
-      "Unimplemented method 'refreshData'"
-    );
+    addressList.clear();
+    addressList.addAll(AddressDAO.getInstance().readDatabase());
   }
 }
