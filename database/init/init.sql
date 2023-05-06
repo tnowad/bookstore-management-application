@@ -164,8 +164,8 @@ CREATE TABLE
     `orders` (
         `id` INT NOT NULL AUTO_INCREMENT,
         `cart_id` INT NOT NULL,
-        `customer_id` INT NOT NULL,
-        `employee_id` INT NOT NULL,
+        `customer_id` INT DEFAULT NULL,
+        `employee_id` INT DEFAULT NULL,
         `total` INT NOT NULL,
         `paid` INT NOT NULL,
         `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,

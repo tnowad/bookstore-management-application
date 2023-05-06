@@ -155,6 +155,7 @@ public class CheckoutCustomerPanel extends JPanel {
         String shippingMethod = shippingMethodComboBox
           .getSelectedItem()
           .toString();
+        
         OrderModel myOrderModel = new OrderModel();
         myOrderModel.setCartId(cartId);
         myOrderModel.setCustomerId(customerId);

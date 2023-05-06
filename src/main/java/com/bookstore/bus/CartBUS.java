@@ -4,7 +4,6 @@ import com.bookstore.dao.CartDAO;
 import com.bookstore.dao.CartItemsDAO;
 import com.bookstore.enums.CartStatus;
 import com.bookstore.interfaces.IBUS;
-import com.bookstore.models.BookModel;
 import com.bookstore.models.CartItemsModel;
 import com.bookstore.models.CartModel;
 import java.time.Instant;
@@ -270,5 +269,4 @@ public class CartBUS implements IBUS<CartModel> {
     refreshData();
     return CartBUS.getInstance().getShoppingCartByUserId(userId);
   }
-
 }
