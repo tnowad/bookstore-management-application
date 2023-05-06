@@ -136,7 +136,6 @@ CREATE TABLE
             'accept'
         ) NOT NULL DEFAULT "shopping",
         `expires` DATETIME NULL,
-        `promotion_id` INT DEFAULT NULL,
         PRIMARY KEY (`id`)
     );
 
