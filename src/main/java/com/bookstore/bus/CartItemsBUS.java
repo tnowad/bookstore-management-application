@@ -265,6 +265,20 @@ public class CartItemsBUS implements IBUS<CartItemsModel> {
   }
 
   public void addBookToCart(CartModel cartModel, BookModel bookModel) {
+    System.out.println(cartModel.getId());
     addBookToCart(cartModel, bookModel, 1);
+  }
+
+  public List<CartItemsModel> getListCartItemsByCartId(int cartId) {
+    List<CartItemsModel> cartItemsList = new ArrayList<CartItemsModel>();
+
+    for (CartItemsModel cartItemsModel : CartItemsBUS
+      .getInstance()
+      .getAllModels()) {
+      if (cartItemsModel.getCartId() == cartId) {
+        cartItemsList.add(cartItemsModel);
+      }
+    }
+    return cartItemsList;
   }
 }

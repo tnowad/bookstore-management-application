@@ -2,6 +2,7 @@ package com.bookstore.gui.components.books;
 
 import com.bookstore.bus.CartBUS;
 import com.bookstore.bus.CartItemsBUS;
+import com.bookstore.bus.UserBUS;
 import com.bookstore.gui.components.labels.Label;
 import com.bookstore.gui.components.panels.MainPanel;
 import com.bookstore.gui.forms.books.BookDetailCustomer;
@@ -69,7 +70,9 @@ public class BookItemPanel extends JPanel {
       CartModel cartModel = CartBUS
         .getInstance()
         .getShoppingCartByUserId(userModel.getId());
+      System.out.println(cartModel.getId());
       try {
+        System.out.println("Recieved cart: ");
         CartItemsBUS.getInstance().addBookToCart(cartModel, bookModel);
       } catch (Exception exception) {
         JOptionPane.showMessageDialog(

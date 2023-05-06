@@ -36,6 +36,7 @@ public class CartBUS implements IBUS<CartModel> {
 
   @Override
   public CartModel getModelById(int id) {
+    refreshData();
     for (CartModel cartModel : cartList) {
       if (cartModel.getId() == id) {
         return cartModel;

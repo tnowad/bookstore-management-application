@@ -34,22 +34,15 @@ public class CartCustomerPanel extends JPanel {
   private JPanel listCartPanel;
   private JScrollPane listCartScrollPane;
   private JTable listCartTable;
-  // private JTextField totalPriceTextField;
 
-  private BookBUS bookBUS;
-  private CartBUS cartBUS;
-  private CartItemsBUS cartItemsBUS;
   private CartModel cartModel;
-  private List<BookModel> bookList;
-  private List<CartItemsModel> cartItemList;
-  private List<CartItemsModel> myCartList;
-  private List<CartModel> cartList;
+  private List<CartItemsModel> cartItemsList;
   private UserModel userModel;
 
   public CartCustomerPanel() {
     updateData();
     initComponents();
-    if (myCartList.size() > 0) {
+    if (cartItemsList.size() > 0) {
       listCart();
     } else {
       listCartPanel.add(new NoData("Don't have any cart"));
@@ -59,36 +52,10 @@ public class CartCustomerPanel extends JPanel {
 
   private void updateData() {
     userModel = Authentication.getCurrentUser();
-    cartBUS = CartBUS.getInstance();
-    cartList = cartBUS.getAllModels();
-    for (CartModel cartModel : cartList) {
-      if (
-        cartModel.getUserId() == userModel.getId() &&
-        cartModel.getStatus().equals(CartStatus.SHOPPING)
-      ) {
-        this.cartModel = cartModel;
-        break;
-      }
-    }
-    if (cartModel == null) {
-      cartModel = new CartModel();
-      cartModel.setUserId(userModel.getId());
-      cartModel.setStatus(CartStatus.SHOPPING);
-      cartModel.setPromotionId(1);
-      CartBUS.getInstance().addModel(cartModel);
-    }
-    myCartList = new ArrayList<CartItemsModel>();
-    cartItemsBUS = CartItemsBUS.getInstance();
-    if (cartModel.getStatus() == CartStatus.SHOPPING) {
-      cartItemList = cartItemsBUS.getAllModels();
-      bookBUS = BookBUS.getInstance();
-      bookList = bookBUS.getAllModels();
-      for (CartItemsModel cartItemsModel : cartItemList) {
-        if (cartItemsModel.getCartId() == cartModel.getId()) {
-          myCartList.add(cartItemsModel);
-        }
-      }
-    }
+    cartModel =
+      CartBUS.getInstance().getShoppingCartByUserId(userModel.getId());
+    cartItemsList =
+      CartItemsBUS.getInstance().getListCartItemsByCartId(cartModel.getId());
   }
 
   private void initComponents() {
@@ -98,7 +65,7 @@ public class CartCustomerPanel extends JPanel {
     groupBottomPanel = new JPanel();
     groupTotalCostPanel = new JPanel();
     totalCostLabel = new JLabel();
- 
+
     groupActionPanel = new JPanel();
     deleteAllProductsButton = new JButton();
     proceedToCheckoutButton = new JButton();
@@ -127,11 +94,9 @@ public class CartCustomerPanel extends JPanel {
         CartBUS.getInstance().getTotalPrice(cartModel.getId())
       )
     );
-   
+
     totalCostLabel.setPreferredSize(new Dimension(150, 30));
     groupTotalCostPanel.add(totalCostLabel);
-
-  
 
     groupBottomPanel.add(groupTotalCostPanel);
 
@@ -165,21 +130,18 @@ public class CartCustomerPanel extends JPanel {
     model.addColumn("Title");
     model.addColumn("Price");
     model.addColumn("Quantity");
-    for (CartItemsModel cartItemsModel : myCartList) {
-      for (BookModel bookModel : bookList) {
-        if (
-          cartItemsModel.getBookIsbn().equalsIgnoreCase(bookModel.getIsbn())
-        ) {
-          model.addRow(
-            new Object[] {
-              bookModel.getIsbn(),
-              bookModel.getTitle(),
-              bookModel.getPrice(),
-              cartItemsModel.getQuantity(),
-            }
-          );
+    for (CartItemsModel cartItemsModel : cartItemsList) {
+      BookModel bookModel = BookBUS
+        .getInstance()
+        .getBookByIsbn(cartItemsModel.getBookIsbn());
+      model.addRow(
+        new Object[] {
+          bookModel.getIsbn(),
+          bookModel.getTitle(),
+          bookModel.getPrice(),
+          cartItemsModel.getQuantity(),
         }
-      }
+      );
     }
     listCartTable.setModel(model);
     listCartScrollPane.setViewportView(listCartTable);
@@ -195,7 +157,6 @@ public class CartCustomerPanel extends JPanel {
           CartBUS.getInstance().getTotalPrice(cartModel.getId())
         )
       );
-   
     } catch (Exception e) {
       totalCostLabel.setText("0");
     }
@@ -220,7 +181,7 @@ public class CartCustomerPanel extends JPanel {
       );
 
     proceedToCheckoutButton.addActionListener(e -> {
-      if (myCartList.isEmpty()) {
+      if (cartItemsList.isEmpty()) {
         JOptionPane.showMessageDialog(
           null,
           "You have no items in your cart",
@@ -249,7 +210,7 @@ public class CartCustomerPanel extends JPanel {
     });
 
     deleteAllProductsButton.addActionListener(e -> {
-      if (myCartList.isEmpty()) {
+      if (cartItemsList.isEmpty()) {
         JOptionPane.showMessageDialog(
           null,
           "You have no items in your cart",
@@ -265,7 +226,7 @@ public class CartCustomerPanel extends JPanel {
           JOptionPane.QUESTION_MESSAGE
         );
         if (result == JOptionPane.YES_OPTION) {
-          for (CartItemsModel cartItemsModel : myCartList) {
+          for (CartItemsModel cartItemsModel : cartItemsList) {
             CartItemsBUS.getInstance().deleteModel(cartItemsModel);
           }
           listCart();
