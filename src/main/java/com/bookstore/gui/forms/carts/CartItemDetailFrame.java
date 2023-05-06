@@ -93,7 +93,7 @@ public class CartItemDetailFrame extends JFrame {
 
     removeButton = new Button("Delete");
     removeButton.addActionListener(removeButtonListener);
-    updateButton = new Button("Update");
+    updateButton = new Button("Save");
     updateButton.addActionListener(updateButtonListener);
     actionPanel.add(removeButton);
     actionPanel.add(updateButton);
