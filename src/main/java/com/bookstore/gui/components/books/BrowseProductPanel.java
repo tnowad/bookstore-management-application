@@ -11,7 +11,6 @@ import javax.swing.*;
 
 public class BrowseProductPanel extends JPanel {
 
-  private static BrowseProductPanel instance;
   private BookBUS bookBUS;
   private List<BookModel> listBook;
 
@@ -20,13 +19,6 @@ public class BrowseProductPanel extends JPanel {
     listBook = bookBUS.getAllModels();
     initComponents();
     addTable();
-  }
-
-  public static BrowseProductPanel getInstance() {
-    if (instance == null) {
-      instance = new BrowseProductPanel();
-    }
-    return instance;
   }
 
   private void initComponents() {
@@ -197,9 +189,8 @@ public class BrowseProductPanel extends JPanel {
   public ComponentListener reSize = new ComponentListener() {
     @Override
     public void componentResized(ComponentEvent e) {
-      double width = BrowseProductPanel.getInstance().getWidth();
+      double width = getWidth();
       int cols = (int) width / 199;
-      if (cols == 0) return;
       table.setLayout(new GridLayout(0, cols, 10, 10));
     }
 
