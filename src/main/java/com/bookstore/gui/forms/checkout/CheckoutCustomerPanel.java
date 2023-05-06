@@ -173,7 +173,8 @@ public class CheckoutCustomerPanel extends JPanel {
         PaymentModel myPaymentModel = new PaymentModel();
         myPaymentModel.setOrderId(myOrderModel.getId());
         myPaymentModel.setUserId(customerId);
-        myPaymentModel.setAmount(0);
+        myPaymentModel.setAmount(1);
+        myPaymentModel.setPaymentMethodId(1);
         myPaymentModel.setStatus(PaymentStatus.PENDING);
         PaymentBUS.getInstance().addModel(myPaymentModel);
         for (PaymentModel paymentModel : PaymentBUS

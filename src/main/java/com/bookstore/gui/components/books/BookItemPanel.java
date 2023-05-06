@@ -74,27 +74,28 @@ public class BookItemPanel extends JPanel {
           break;
         }
       }
+      if (myCartModel == null) {
+        myCartModel = new CartModel();
+        myCartModel.setUserId(userModel.getId());
+        myCartModel.setPromotionId(1);
+        myCartModel.setStatus(CartStatus.PENDING);
+        CartBUS.getInstance().addModel(myCartModel);
+        System.out.println(myCartModel.getId());
+      }
       for (CartItemsModel cartItemModel : cartItemList) {
         if (
           cartItemModel.getBookIsbn().equals(bookModel.getIsbn()) &&
           cartItemModel.getCartId() == myCartModel.getId()
         ) {
-          // JOptionPane.showMessageDialog(
-          //   null,
-          //   "This book is already in your cart!"
-          // );
+          JOptionPane.showMessageDialog(
+            null,
+            "This book is already in your cart!!!"
+          );
           bookAlreadyInCart = true;
           break;
         }
       }
       if (!bookAlreadyInCart) {
-        if (myCartModel == null) {
-          myCartModel = new CartModel();
-          myCartModel.setUserId(userModel.getId());
-          myCartModel.setPromotionId(1);
-          myCartModel.setStatus(CartStatus.PENDING);
-          CartBUS.getInstance().addModel(myCartModel);
-        }
         cartItemsModel = new CartItemsModel();
         cartItemsModel.setBookIsbn(bookModel.getIsbn());
         cartItemsModel.setCartId(myCartModel.getId());
@@ -102,8 +103,8 @@ public class BookItemPanel extends JPanel {
         cartItemsModel.setPrice(bookModel.getPrice());
         cartItemsModel.setQuantity(1);
         CartItemsBUS.getInstance().addModel(cartItemsModel);
+        JOptionPane.showMessageDialog(null, "This book is add too cart");
       }
-      JOptionPane.showMessageDialog(null, "This book is add too cart");
     });
   }
 
@@ -134,14 +135,14 @@ public class BookItemPanel extends JPanel {
     priceLabel = new Label();
     detailButton = new JButton();
     addToCartButton = new JButton();
-    jPanelFooter =  new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
+    jPanelFooter = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
 
     priceLabel.setText(bookModel.getPrice() + " $");
     priceLabel.setHorizontalAlignment(SwingConstants.CENTER);
     priceLabel.setFont(new Font("Arial", Font.BOLD, 16));
     priceLabel.setLabelSize(100, 22);
     footerPanel.add(priceLabel, BorderLayout.NORTH);
-    
+
     detailButton.setText("Book detail");
     jPanelFooter.add(detailButton);
     // footerPanel.add(detailButton, BorderLayout.WEST);
