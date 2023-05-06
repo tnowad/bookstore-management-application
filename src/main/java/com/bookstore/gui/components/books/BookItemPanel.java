@@ -79,15 +79,14 @@ public class BookItemPanel extends JPanel {
           JOptionPane.ERROR_MESSAGE
         );
         return;
-      } finally {
-        JOptionPane.showMessageDialog(
-          null,
-          "Add book to cart successfully!",
-          "Success",
-          JOptionPane.INFORMATION_MESSAGE
-        );
-        updateData();
       }
+      JOptionPane.showMessageDialog(
+        null,
+        "Add book to cart successfully!",
+        "Success",
+        JOptionPane.INFORMATION_MESSAGE
+      );
+      updateData();
     });
   }
 

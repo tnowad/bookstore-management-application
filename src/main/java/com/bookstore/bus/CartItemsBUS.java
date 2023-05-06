@@ -224,6 +224,9 @@ public class CartItemsBUS implements IBUS<CartItemsModel> {
     BookModel bookModel,
     int quantity
   ) {
+    cartModel = CartBUS.getInstance().getModelById(cartModel.getId());
+    bookModel = BookBUS.getInstance().getBookByIsbn(bookModel.getIsbn());
+
     if (cartModel == null) {
       throw new IllegalArgumentException("Cart is null");
     }
