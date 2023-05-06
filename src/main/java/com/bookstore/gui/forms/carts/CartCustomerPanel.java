@@ -6,7 +6,7 @@ import com.bookstore.bus.CartItemsBUS;
 import com.bookstore.gui.components.dialogs.Dialog;
 import com.bookstore.gui.components.panels.MainPanel;
 import com.bookstore.gui.forms.checkout.CheckoutCustomerPanel;
-import com.bookstore.gui.forms.shop.NoData;
+import com.bookstore.gui.forms.nodata.NoData;
 import com.bookstore.models.BookModel;
 import com.bookstore.models.CartItemsModel;
 import com.bookstore.models.CartModel;
