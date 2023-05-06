@@ -5,12 +5,22 @@ import com.bookstore.bus.BookBUS;
 import com.bookstore.bus.CartBUS;
 import com.bookstore.bus.CartItemsBUS;
 import com.bookstore.bus.OrderBUS;
+import com.bookstore.bus.PaymentBUS;
+import com.bookstore.bus.PaymentMethodBUS;
+import com.bookstore.bus.ShippingBUS;
 import com.bookstore.enums.CartStatus;
+import com.bookstore.enums.OrderStatus;
+import com.bookstore.enums.PaymentStatus;
+import com.bookstore.enums.ShippingStatus;
 import com.bookstore.gui.components.panels.MainPanel;
 import com.bookstore.models.AddressModel;
 import com.bookstore.models.BookModel;
 import com.bookstore.models.CartItemsModel;
 import com.bookstore.models.CartModel;
+import com.bookstore.models.OrderModel;
+import com.bookstore.models.PaymentMethodModel;
+import com.bookstore.models.PaymentModel;
+import com.bookstore.models.ShippingModel;
 import com.bookstore.models.UserModel;
 import com.bookstore.services.Authentication;
 import com.bookstore.util.InputValidator;
@@ -21,7 +31,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
@@ -112,6 +121,123 @@ public class CheckoutCustomerPanel extends JPanel {
     backPreviousButton.addActionListener(e -> {
       MainPanel.getInstance().backToPreviousForm();
     });
+
+    paymentMethodComboBox.addActionListener(e -> {
+      if (e.getActionCommand().equals("comboBoxChanged")) {
+        if (e.getSource() instanceof JComboBox) {
+          @SuppressWarnings("unchecked")
+          JComboBox<String> cb = (JComboBox<String>) e.getSource();
+          String paymentMethod = (String) cb.getSelectedItem();
+          if (paymentMethod.equals("Cash")) {
+            cardNumberTextField.setEditable(false);
+            cardHolderTextField.setEditable(false);
+            expirationDateTextField.setEditable(false);
+            cvvTextField.setEditable(false);
+          } else {
+            cardNumberTextField.setEditable(true);
+            cardHolderTextField.setEditable(true);
+            expirationDateTextField.setEditable(true);
+            cvvTextField.setEditable(true);
+          }
+        }
+      }
+    });
+
+    checkoutButton.addActionListener(e -> {
+      try {
+        int cartId = cartModel.getId();
+        int customerId = userModel.getId();
+        int totalPrice = CartBUS.getInstance().getTotalPrice(cartModel.getId());
+
+        String paymentMethod = paymentMethodComboBox
+          .getSelectedItem()
+          .toString();
+        String shippingMethod = shippingMethodComboBox
+          .getSelectedItem()
+          .toString();
+        OrderModel myOrderModel = new OrderModel();
+        myOrderModel.setCartId(cartId);
+        myOrderModel.setCustomerId(customerId);
+        myOrderModel.setEmployeeId(2);
+        myOrderModel.setTotal(CartBUS.getInstance().calculateTotal(cartId));
+        myOrderModel.setTotal(totalPrice);
+        myOrderModel.setPaid(0);
+        myOrderModel.setStatus(OrderStatus.PENDING);
+        OrderBUS.getInstance().addModel(myOrderModel);
+        OrderBUS.getInstance().refreshData();
+        for (OrderModel orderModel : OrderBUS.getInstance().getAllModels()) {
+          if (orderModel.getCartId() == cartModel.getId()) {
+            myOrderModel = orderModel;
+          }
+        }
+        PaymentModel myPaymentModel = new PaymentModel();
+        myPaymentModel.setOrderId(myOrderModel.getId());
+        myPaymentModel.setUserId(customerId);
+        myPaymentModel.setAmount(0);
+        myPaymentModel.setStatus(PaymentStatus.PENDING);
+        PaymentBUS.getInstance().addModel(myPaymentModel);
+        for (PaymentModel paymentModel : PaymentBUS
+          .getInstance()
+          .getAllModels()) {
+          if (paymentModel.getOrderId() == myOrderModel.getId()) {
+            myPaymentModel = paymentModel;
+          }
+        }
+        ShippingModel myShippingModel = new ShippingModel();
+        myShippingModel.setOrderId(myOrderModel.getId());
+        myShippingModel.setShippingMethod(shippingMethod);
+        myShippingModel.setAddressId(
+          AddressBUS.getInstance().getModelById(customerId).getId()
+        );
+        myShippingModel.setStatus(ShippingStatus.PENDING);
+        ShippingBUS.getInstance().addModel(myShippingModel);
+
+        for (ShippingModel shippingModel : ShippingBUS
+          .getInstance()
+          .getAllModels()) {
+          if (shippingModel.getOrderId() == myOrderModel.getId()) {
+            myShippingModel = shippingModel;
+          }
+        }
+        cartModel.setStatus(CartStatus.SHOPPING);
+        CartBUS.getInstance().updateModel(cartModel);
+        if (paymentMethod.equals("Cash")) {
+          MainPanel
+            .getInstance()
+            .showForm(new CompletedOrderForm(cartModel.getId()));
+          return;
+        }
+        String cardNumber = InputValidator.validateCardNumber(
+          cardNumberTextField.getText()
+        );
+        String cardHolder = InputValidator.validateCardHolder(
+          cardHolderTextField.getText()
+        );
+        String expirationDate = InputValidator.validateExpirationDate(
+          expirationDateTextField.getText()
+        );
+        String cvv = InputValidator.validateCvv(cvvTextField.getText());
+        PaymentMethodModel paymentMethodModel = new PaymentMethodModel();
+        paymentMethodModel.setPaymentId(myPaymentModel.getId());
+        paymentMethodModel.setCustomerId(customerId);
+
+        paymentMethodModel.setCardHolder(cardHolder);
+        paymentMethodModel.setCardNumber(cardNumber);
+        paymentMethodModel.setExpirationDate(expirationDate);
+        PaymentMethodBUS.getInstance().addModel(paymentMethodModel);
+
+        MainPanel
+          .getInstance()
+          .showForm(new CompletedOrderForm(cartModel.getId()));
+      } catch (Exception exception) {
+        JOptionPane.showMessageDialog(
+          null,
+          exception.getMessage(),
+          "Error",
+          JOptionPane.ERROR_MESSAGE
+        );
+      }
+    });
   }
 
   private void showProductListTable() {
@@ -146,7 +272,6 @@ public class CheckoutCustomerPanel extends JPanel {
     setLayout(new BorderLayout());
     JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
     backPreviousButton = new JButton("Back Previous");
-    // backPreviousButton.addActionListener(backToPreviousActionListener);
     topPanel.add(backPreviousButton);
     add(topPanel, BorderLayout.NORTH);
 
@@ -193,7 +318,6 @@ public class CheckoutCustomerPanel extends JPanel {
 
     paymentMethodComboBox =
       new JComboBox<String>(new String[] { "Credit", "Cash" });
-    paymentMethodComboBox.addActionListener(paymentMethodActionListener);
 
     paymentMethodLabel = new JLabel("Payment Method");
     paymentMethodLabel.setLabelFor(paymentMethodComboBox);
@@ -258,104 +382,10 @@ public class CheckoutCustomerPanel extends JPanel {
     actionPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 
     checkoutButton = new JButton("Checkout");
-    checkoutButton.addActionListener(checkoutActionListener);
     cancelButton = new JButton("Cancel");
-    // cancelButton.addActionListener(backToPreviousActionListener);
     actionPanel.add(checkoutButton);
 
     actionPanel.add(cancelButton);
     add(actionPanel, BorderLayout.SOUTH);
   }
-
-  private ActionListener paymentMethodActionListener = e -> {
-    if (e.getActionCommand().equals("comboBoxChanged")) {
-      if (e.getSource() instanceof JComboBox) {
-        @SuppressWarnings("unchecked")
-        JComboBox<String> cb = (JComboBox<String>) e.getSource();
-        String paymentMethod = (String) cb.getSelectedItem();
-        if (paymentMethod.equals("Cash")) {
-          cardNumberTextField.setEditable(false);
-          cardHolderTextField.setEditable(false);
-          expirationDateTextField.setEditable(false);
-          cvvTextField.setEditable(false);
-        } else {
-          cardNumberTextField.setEditable(true);
-          cardHolderTextField.setEditable(true);
-          expirationDateTextField.setEditable(true);
-          cvvTextField.setEditable(true);
-        }
-      }
-    }
-  };
-
-  private ActionListener checkoutActionListener = e -> {
-    try {
-      int cartId = cartModel.getId();
-      int customerId = userModel.getId();
-      int totalPrice = CartBUS.getInstance().getTotalPrice(cartModel.getId());
-
-      String paymentMethod = paymentMethodComboBox.getSelectedItem().toString();
-      String shippingMethod = shippingMethodComboBox
-        .getSelectedItem()
-        .toString();
-      if (paymentMethod.equals("Cash")) {
-        OrderBUS
-          .getInstance()
-          .createCustomerOrder(
-            cartId,
-            customerId,
-            1,
-            totalPrice,
-            shippingMethod,
-            paymentMethod,
-            null,
-            null,
-            null,
-            null
-          );
-        MainPanel
-          .getInstance()
-          .showForm(new CompletedOrderForm(cartModel.getId()));
-        return;
-      }
-      String cardNumber = InputValidator.validateCardNumber(
-        cardNumberTextField.getText()
-      );
-      String cardHolder = InputValidator.validateCardHolder(
-        cardHolderTextField.getText()
-      );
-      String expirationDate = InputValidator.validateExpirationDate(
-        expirationDateTextField.getText()
-      );
-      String cvv = InputValidator.validateCvv(cvvTextField.getText());
-
-      OrderBUS
-        .getInstance()
-        .createCustomerOrder(
-          cartId,
-          customerId,
-          1,
-          totalPrice,
-          shippingMethod,
-          paymentMethod,
-          cardNumber,
-          cardHolder,
-          expirationDate,
-          cvv
-        );
-      MainPanel
-        .getInstance()
-        .showForm(new CompletedOrderForm(cartModel.getId()));
-    } catch (Exception exception) {
-      JOptionPane.showMessageDialog(
-        null,
-        exception.getMessage(),
-        "Error",
-        JOptionPane.ERROR_MESSAGE
-      );
-    }
-  };
-  // private ActionListener backToPreviousActionListener = e -> {
-  //   MainPanel.getInstance().backToPreviousForm();
-  // };
 }
