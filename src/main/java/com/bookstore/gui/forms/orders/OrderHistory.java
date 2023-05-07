@@ -1,29 +1,22 @@
 package com.bookstore.gui.forms.orders;
 
 import com.bookstore.bus.OrderBUS;
-import com.bookstore.enums.OrderStatus;
-import com.bookstore.gui.components.buttons.Button;
 import com.bookstore.gui.components.labels.Label;
 import com.bookstore.gui.components.panels.MainPanel;
+import com.bookstore.interfaces.ISearchable;
 import com.bookstore.models.OrderModel;
 import com.bookstore.models.UserModel;
 import com.bookstore.services.Authentication;
-
 import java.awt.*;
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
-public class OrderHistory extends JPanel{
+public class OrderHistory extends JPanel implements ISearchable {
+
   private JPanel headerPanel;
   private Label orderLabel;
-  private JTable orderHistoryList;
-  private JScrollPane scrollPaneParent;
-  private Button searchButton;
-  private TextField searchTextField;
-
-  private static OrderList instance;
+  private JTable orderTable;
+  private JScrollPane orderTableScrollPane;
 
   OrderBUS orderBus = OrderBUS.getInstance();
   java.util.List<OrderModel> orderList = orderBus.getAllModels();
@@ -35,34 +28,25 @@ public class OrderHistory extends JPanel{
     handleEvent();
   }
 
-  public static OrderList getInstance() {
-    if (instance == null) {
-      instance = new OrderList();
-    }
-    return instance;
-  }
-
   private void handleEvent() {
-   orderHistoryList
+    orderTable
       .getSelectionModel()
-      .addListSelectionListener( event -> {
-        int selectedRowIndex = orderHistoryList.getSelectedRow();
+      .addListSelectionListener(event -> {
+        int selectedRowIndex = orderTable.getSelectedRow();
         if (selectedRowIndex != -1) {
           int orderId = Integer.parseInt(
-            orderHistoryList.getValueAt(selectedRowIndex, 1).toString()
+            orderTable.getValueAt(selectedRowIndex, 1).toString()
           );
           MainPanel
-              .getInstance()
-              .showFormStack(new OrderDetail(userModel.getId(), orderId));
-            OrderBUS.getInstance().refreshData();
-            listOrder();
+            .getInstance()
+            .showFormStack(new OrderDetail(userModel.getId(), orderId));
+          OrderBUS.getInstance().refreshData();
+          listOrder();
         }
-      }
-      );
+      });
   }
 
   private void listOrder() {
-
     DefaultTableModel model = new DefaultTableModel();
     int stt = 1;
     model.addColumn("STT");
@@ -82,21 +66,19 @@ public class OrderHistory extends JPanel{
           }
         );
       }
-      orderHistoryList.setModel(model);
+      orderTable.setModel(model);
     }
 
-    scrollPaneParent.setViewportView(orderHistoryList);
+    orderTableScrollPane.setViewportView(orderTable);
 
-    add(scrollPaneParent, BorderLayout.CENTER);
+    add(orderTableScrollPane, BorderLayout.CENTER);
   }
 
   private void initComponents() {
     headerPanel = new JPanel();
     orderLabel = new Label("Order History");
-    searchTextField = new TextField();
-    searchButton = new Button("Search");
-    scrollPaneParent = new JScrollPane();
-    orderHistoryList = new JTable();
+    orderTableScrollPane = new JScrollPane();
+    orderTable = new JTable();
 
     setMinimumSize(new Dimension(1180, 620));
     setLayout(new BorderLayout());
@@ -106,14 +88,11 @@ public class OrderHistory extends JPanel{
     orderLabel.setPreferredSize(new Dimension(300, 50));
     headerPanel.add(orderLabel);
 
-    searchTextField.setPreferredSize(new Dimension(500, 30));
-
-    headerPanel.add(searchTextField);
-
-    headerPanel.add(searchButton);
-
     add(headerPanel, BorderLayout.PAGE_START);
   }
+
+  @Override
+  public void search(String keyword) {
+    // Write search method in here
+  }
 }
-
-
