@@ -1,27 +1,30 @@
 package com.bookstore.gui.forms.general;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
-
-import javax.imageio.ImageIO;
 import javax.swing.*;
-
 public class ContactUs extends JPanel {
     private static ContactUs instance;
+    boolean isFormNewCaseVisible = false;
 
     private JLabel title;
     private JPanel titlePanel;
     private JPanel contactPhone;
     private JPanel contactNewCase;
     private JPanel contactChat;
+    private JPanel formNewCase;
     private JButton jButtonNewCase;
     private JButton jButtonChat;
 
     private JLabel contactPhoneLabel;
-
     private JLabel contactChatLabel;
-
     private JLabel contactNewCaseLabel;
+    private JLabel nameLabel;
+    private JLabel emailLabel;
+    private JLabel messageLabel;
+    private JTextField nameField;
+    private JTextField emailField;
+    private JTextArea messageArea;
+    private JButton submitButton;
 
     public static ContactUs getInstance() {
         if (instance == null) {
@@ -38,6 +41,7 @@ public class ContactUs extends JPanel {
         initPhone();
         initNewCase();
         initChat();
+        initFormNewCase();
         setLayout(new BorderLayout());
         add(titlePanel, BorderLayout.NORTH);
         add(contactPhone, BorderLayout.WEST);
@@ -48,14 +52,14 @@ public class ContactUs extends JPanel {
     private void initPhone() {
         titlePanel = new JPanel();
         titlePanel.setLayout(new BorderLayout());
-        titlePanel.setPreferredSize(new Dimension(1500, 100));
+        titlePanel.setPreferredSize(new Dimension(1500, 200));
         title = new JLabel("Contact Us");
         title.setFont(new Font("Arial", Font.BOLD, 28));
         title.setHorizontalAlignment(JLabel.CENTER);
         titlePanel.add(title, BorderLayout.CENTER);
 
         contactPhone = new JPanel();
-        contactPhone.setPreferredSize(new Dimension(400, ABORT));
+        contactPhone.setPreferredSize(new Dimension(250, ABORT));
         JLabel titlePhone = new JLabel("BY PHONE");
         titlePhone.setFont(new Font("Arial", Font.BOLD, 16));
         titlePhone.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -77,7 +81,7 @@ public class ContactUs extends JPanel {
 
     private void initChat() {
         contactChat = new JPanel();
-        contactChat.setPreferredSize(new Dimension(400, ABORT));
+        contactChat.setPreferredSize(new Dimension(250, ABORT));
         JLabel titleChat = new JLabel("CHAT");
         titleChat.setFont(new Font("Arial", Font.BOLD, 16));
         titleChat.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -85,10 +89,14 @@ public class ContactUs extends JPanel {
         contactChatLabel = new JLabel();
         contactChatLabel.setIcon(new ImageIcon("src/main/java/resources/images/contactmess.png"));
         contactChatLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        jButtonChat = new JButton("START CHAT");
+        jButtonChat.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         contactChat.add(contactChatLabel);
         contactChat.add(Box.createVerticalStrut(80));
         contactChat.add(titleChat);
+        contactChat.add(Box.createVerticalStrut(40));
+        contactChat.add(jButtonChat);
 
         contactChat.setLayout(new BoxLayout(contactChat, BoxLayout.Y_AXIS));
     }
@@ -103,11 +111,54 @@ public class ContactUs extends JPanel {
         contactNewCaseLabel.setIcon(new ImageIcon("src/main/java/resources/images/contactnewcase.png"));
         contactNewCaseLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+        jButtonNewCase = new JButton("START HERE");
+        jButtonNewCase.setAlignmentX(Component.CENTER_ALIGNMENT);
+       
+        jButtonNewCase.addActionListener(arg0 -> {
+            if (!isFormNewCaseVisible) {
+                add(formNewCase, BorderLayout.SOUTH);
+                isFormNewCaseVisible = true;
+            } 
+            else {
+                remove(formNewCase);
+                isFormNewCaseVisible = false;
+            }
+            revalidate();
+            repaint();
+        } );
+
         contactNewCase.add(contactNewCaseLabel);
         contactNewCase.add(Box.createVerticalStrut(80));
         contactNewCase.add(titleNewCase);
+        contactNewCase.add(Box.createVerticalStrut(40));
+        contactNewCase.add(jButtonNewCase);
 
         contactNewCase.setLayout(new BoxLayout(contactNewCase, BoxLayout.Y_AXIS));
+    }
+
+    private void initFormNewCase() {
+    formNewCase = new JPanel();
+    formNewCase.setPreferredSize(new Dimension(ABORT, 400));
+    JPanel formPanel = new JPanel();
+    nameLabel = new JLabel("Name");
+    emailLabel = new JLabel("Email");
+    messageLabel = new JLabel("Message");
+    nameField = new JTextField();
+    emailField = new JTextField();
+    messageArea = new JTextArea();
+    submitButton = new JButton("Submit");
+    formPanel.setLayout(new GridLayout(0, 2, 10, 10));
+    formPanel.add(nameLabel);
+    formPanel.add(nameField);
+    formPanel.add(emailLabel);
+    formPanel.add(emailField);
+    formPanel.add(messageLabel);
+    formPanel.add(messageArea);
+    formPanel.add(submitButton);
+    formPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+    formPanel.setPreferredSize(new Dimension(700, 200));
+
+    formNewCase.add(formPanel);
     }
 
     public static void main(String[] args) {
