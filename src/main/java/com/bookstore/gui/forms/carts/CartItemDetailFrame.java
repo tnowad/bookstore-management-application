@@ -26,7 +26,8 @@ public class CartItemDetailFrame extends JFrame {
   public CartItemDetailFrame(int cartId, String isbn) {
     this.bookModel = BookBUS.getInstance().getBookByIsbn(isbn);
 
-    this.cartItemsModel = CartItemsBUS.getInstance().getModelByIdAndIsbn(cartId, isbn);
+    this.cartItemsModel =
+      CartItemsBUS.getInstance().getModelByIdAndIsbn(cartId, isbn);
 
     initComponents();
     setPreferredSize(new Dimension(400, 500));
@@ -40,12 +41,15 @@ public class CartItemDetailFrame extends JFrame {
 
     imageLabel = new JLabel();
     imageLabel.setIcon(
-        new ImageIcon(
-            ImageUtils
-                .decodeFromBase64(
-                    bookModel.getImage(),
-                    "src/main/java/resources/images/product-placeholder.png")
-                .getScaledInstance(200, 200, Image.SCALE_SMOOTH)));
+      new ImageIcon(
+        ImageUtils
+          .decodeFromBase64(
+            bookModel.getImage(),
+            "src/main/java/resources/images/product-placeholder.png"
+          )
+          .getScaledInstance(200, 200, Image.SCALE_SMOOTH)
+      )
+    );
     imageLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
     titleLabel = new JLabel(bookModel.getTitle());
@@ -57,12 +61,15 @@ public class CartItemDetailFrame extends JFrame {
 
     priceLabel = new JLabel(String.valueOf(bookModel.getPrice()));
 
-    quantitySpinner = new JSpinner(
+    quantitySpinner =
+      new JSpinner(
         new SpinnerNumberModel(
-            cartItemsModel == null ? 0 : cartItemsModel.getQuantity(),
-            0,
-            bookModel.getQuantity(),
-            1));
+          cartItemsModel == null ? 0 : cartItemsModel.getQuantity(),
+          0,
+          bookModel.getQuantity(),
+          1
+        )
+      );
 
     JPanel contentPanel = new JPanel();
     contentPanel.setLayout(new GridBagLayout());
@@ -103,10 +110,11 @@ public class CartItemDetailFrame extends JFrame {
 
   private ActionListener removeButtonListener = e -> {
     int option = JOptionPane.showConfirmDialog(
-        null,
-        "Are you sure you want to delete this item?",
-        "Confirm",
-        JOptionPane.YES_NO_OPTION);
+      null,
+      "Are you sure you want to delete this item?",
+      "Confirm",
+      JOptionPane.YES_NO_OPTION
+    );
     if (option == JOptionPane.YES_OPTION) {
       CartItemsBUS.getInstance().deleteModel(cartItemsModel);
       dispose();
@@ -115,6 +123,15 @@ public class CartItemDetailFrame extends JFrame {
 
   private ActionListener updateButtonListener = e -> {
     int quantity = (int) quantitySpinner.getValue();
+    if (quantity <= 0) {
+      JOptionPane.showMessageDialog(
+        null,
+        "Quantity can't go below 1!",
+        "Error",
+        JOptionPane.ERROR_MESSAGE
+      );
+      quantity = 1;
+    }
     cartItemsModel.setQuantity(quantity);
     CartItemsBUS.getInstance().update(cartItemsModel);
     dispose();

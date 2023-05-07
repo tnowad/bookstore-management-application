@@ -86,7 +86,8 @@ public class CheckoutCustomerPanel extends JPanel {
   private void updateData() {
     userModel = Authentication.getCurrentUser();
     addressModel = AddressBUS.getInstance().getModelById(userModel.getId());
-    cartItemList = new ArrayList<CartItemsModel>();
+    cartItemList = new ArrayList<>();
+
     for (CartItemsModel cartItemModel : CartItemsBUS
       .getInstance()
       .getAllModels()) {
@@ -95,38 +96,44 @@ public class CheckoutCustomerPanel extends JPanel {
       }
     }
 
-    myCartItemList = new ArrayList<CartItemsModel>();
-    if (cartModel.getStatus() == CartStatus.SHOPPING) {
-      cartItemList = CartItemsBUS.getInstance().getAllModels();
+    myCartItemList = new ArrayList<>();
+
+    if (CartStatus.SHOPPING == cartModel.getStatus()) {
       bookList = BookBUS.getInstance().getAllModels();
-      for (CartItemsModel cartItemsModel : cartItemList) {
-        if (cartItemsModel.getCartId() == cartModel.getId()) {
-          myCartItemList.add(cartItemsModel);
+
+      for (CartItemsModel cartItemModel : cartItemList) {
+        if (cartItemModel.getCartId() == cartModel.getId()) {
+          myCartItemList.add(cartItemModel);
         }
       }
+    } else {
+      cartItemList = CartItemsBUS.getInstance().getAllModels();
     }
 
-    if (userModel.getRole().equals(UserRole.CUSTOMER)) {
-      nameTextField.setText(userModel.getName());
-      emailTextField.setText(userModel.getEmail());
-      addressTextField.setText(
-        addressModel.getStreet() +
-        ", " +
-        addressModel.getState() +
-        ", " +
-        addressModel.getCity() +
-        ", " +
-        addressModel.getZip()
-      );
-      phoneTextField.setText(userModel.getPhone());
-      nameTextField.setEditable(false);
-      emailTextField.setEditable(false);
-      addressTextField.setEditable(false);
-      phoneTextField.setEditable(false);
-      phoneTextField.setEditable(false);
-    } else {
-      paymentMethodComboBox.setSelectedItem("Cash");
-      paymentMethodComboBox.setEnabled(false);
+    nameTextField.setText(userModel.getName());
+    emailTextField.setText(userModel.getEmail());
+    addressTextField.setText(
+      addressModel.getStreet() +
+      ", " +
+      addressModel.getState() +
+      ", " +
+      addressModel.getCity() +
+      ", " +
+      addressModel.getZip()
+    );
+    phoneTextField.setText(userModel.getPhone());
+
+    switch (userModel.getRole()) {
+      case CUSTOMER:
+        nameTextField.setEditable(false);
+        emailTextField.setEditable(false);
+        addressTextField.setEditable(false);
+        phoneTextField.setEditable(false);
+        break;
+      default:
+        paymentMethodComboBox.setSelectedItem("Cash");
+        paymentMethodComboBox.setEnabled(false);
+        break;
     }
   }
 
