@@ -1,4 +1,4 @@
-package com.bookstore.gui.forms.nodata;
+package com.bookstore.gui.forms.others;
 
 import com.bookstore.gui.components.labels.Label;
 import com.bookstore.gui.theme.ThemeFont;
