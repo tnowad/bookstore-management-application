@@ -1,12 +1,17 @@
 package com.bookstore.gui.forms.imports;
 
+import com.bookstore.bus.BookBUS;
+import com.bookstore.bus.ImportItemsBUS;
 import com.bookstore.gui.components.buttons.Button;
+import com.bookstore.models.BookModel;
+import com.bookstore.models.ImportItemsModel;
 import com.bookstore.models.ImportModel;
 import com.bookstore.util.PDF.PDFWriter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.List;
 import javax.swing.*;
 import javax.swing.JFileChooser;
 import javax.swing.table.DefaultTableModel;
@@ -18,6 +23,38 @@ public class ImportDetailPanel extends JPanel {
   public ImportDetailPanel(ImportModel importModel) {
     this.importModel = importModel;
     initComponents();
+    updateData();
+    bookListTable();
+  }
+
+  private void updateData() {}
+
+  private void bookListTable() {
+    DefaultTableModel model = new DefaultTableModel(
+      new String[] { "Book ISBN", "Title", "Quantity", "Price" },
+      0
+    );
+
+    for (ImportItemsModel importItemsModel : ImportItemsBUS
+      .getInstance()
+      .getAllModels()) {
+      if (importItemsModel.getImportId() == importModel.getId()) {
+        BookModel bookModel = BookBUS
+          .getInstance()
+          .getBookByIsbn(importItemsModel.getBookIsbn());
+        model.addRow(
+          new Object[] {
+            bookModel.getIsbn(),
+            bookModel.getTitle(),
+            importItemsModel.getQuantity(),
+            importItemsModel.getPrice(),
+          }
+        );
+        bookListTable.setModel(model);
+      }
+    }
+
+    add(new JScrollPane(bookListTable), BorderLayout.CENTER);
   }
 
   private void initComponents() {
@@ -37,7 +74,7 @@ public class ImportDetailPanel extends JPanel {
     createdAtTextField = new JTextField();
     jPanel3 = new JPanel();
     jPanel4 = new JPanel();
-    importItemsLabel = new JLabel();
+    importItemsLabel = new Button("Import");
     exportToPDFButton = new Button();
     updateButton = new Button();
     resetButton = new Button();
@@ -53,7 +90,7 @@ public class ImportDetailPanel extends JPanel {
 
     jPanel1.setLayout(new FlowLayout(FlowLayout.LEFT));
 
-    importDataLabel.setText("Import Data");
+    importDataLabel.setText("Import");
     importDataLabel.setPreferredSize(new Dimension(95, 30));
     jPanel1.add(importDataLabel);
 
@@ -105,7 +142,6 @@ public class ImportDetailPanel extends JPanel {
 
     jPanel4.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
-    importItemsLabel.setText("Import Items");
     jPanel4.add(importItemsLabel);
 
     exportToPDFButton.setText("Export (PDF)");
@@ -169,7 +205,7 @@ public class ImportDetailPanel extends JPanel {
   private JLabel idLabel;
   private JTextField idTextField;
   private JLabel importDataLabel;
-  private JLabel importItemsLabel;
+  private Button importItemsLabel;
   private JPanel jPanel1;
   private JPanel jPanel3;
   private JPanel jPanel4;
