@@ -18,39 +18,40 @@ public class CartUserAdmin extends JPanel {
     String linkIcon,
     String title,
     int valueNewUser,
-    int quantityUser
+    int quantityUser,
+    String color
   ) {
-    initComponents(linkIcon, title, valueNewUser, quantityUser);
+    initComponents(linkIcon, title, valueNewUser, quantityUser,color);
   }
 
   public void initComponents(
     String linkIcon,
     String title,
     int valueNewUser,
-    int quantityUser
+    int quantityUser,
+    String color
   ) {
-    icon = new JLabel();
     icon = new JLabel();
     text = new JLabel();
     newUser = new JLabel();
     quantity = new JLabel();
 
-    setBackground(new Color(255, 204, 255));
+    setBackground(Color.decode(color));
     setBorder(javax.swing.BorderFactory.createEtchedBorder());
     setLayout(new BorderLayout());
 
-    icon.setIcon(new ImageIcon(linkIcon));
+    icon.setIcon(new ImageIcon(getClass().getResource(linkIcon)));
     add(icon, BorderLayout.WEST);
 
     text.setFont(new Font("Segoe UI", 3, 14));
     text.setForeground(new Color(255, 51, 51));
     text.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     text.setText(title);
-    add(text, BorderLayout.PAGE_START);
+    add(text, BorderLayout.NORTH);
 
     newUser.setFont(new Font("Segoe UI", 3, 12));
     newUser.setText("New User: " + valueNewUser);
-    add(newUser, BorderLayout.PAGE_END);
+    add(newUser, BorderLayout.SOUTH);
 
     quantity.setFont(new Font("Segoe UI", 0, 16));
     quantity.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);

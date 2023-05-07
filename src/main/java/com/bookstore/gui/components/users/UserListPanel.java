@@ -2,15 +2,19 @@ package com.bookstore.gui.components.users;
 
 import com.bookstore.bus.UserBUS;
 import com.bookstore.gui.components.carts.CartUserAdmin;
+import com.bookstore.interfaces.ISearchable;
 import com.bookstore.models.UserModel;
+import com.bookstore.services.Authentication;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.*;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import javax.swing.*;
 
-public class UserListPanel extends JPanel {
+public class UserListPanel extends JPanel implements ISearchable {
 
   private static UserListPanel instance;
 
@@ -37,8 +41,8 @@ public class UserListPanel extends JPanel {
   private JPanel table;
   private JPanel tablePanel;
   private JLabel titlePanel;
-  private JPanel panelItemHeader_1;
-  private JPanel panelItemHeader_2;
+  private JPanel panelHeader;
+  private JPanel panelEnd;
   private JLabel label;
 
   private int quantityAdmin = 0;
@@ -48,14 +52,19 @@ public class UserListPanel extends JPanel {
   private int quantityAdminNew = 0;
   private int quantityCustomerNew = 0;
   private int quantityEmployeeNew = 0;
+  private JButton buttonSortAz;
+  private JButton buttonSortZa;
+
   CartUserAdmin cartUserAdmin;
 
-  UserBUS userBUS = UserBUS.getInstance();
+  private UserBUS userBUS = UserBUS.getInstance();
+  private List<UserModel> listUser = userBUS.getAllModels();
+  private List<UserModel> modifiableUserList = new ArrayList<>(listUser);
 
   public UserListPanel() {
     actionCard();
     initComponents();
-    addTable();
+    addTable(modifiableUserList);
   }
 
   public static UserListPanel getInstance() {
@@ -88,8 +97,10 @@ public class UserListPanel extends JPanel {
     roleText = new JLabel();
     statusText = new JLabel();
     scrollPane = new JScrollPane();
-    panelItemHeader_1 = new JPanel();
-    panelItemHeader_2 = new JPanel();
+    panelHeader = new JPanel();
+    panelEnd = new JPanel();
+    buttonSortAz = new JButton();
+    buttonSortZa = new JButton();
 
     table = new JPanel();
     label = new JLabel();
@@ -109,17 +120,19 @@ public class UserListPanel extends JPanel {
         "/resources/icons/employeeCart.png",
         "EMPLOYEE",
         quantityEmployeeNew,
-        quantityEmployee
+        quantityEmployee,
+        "#72A7FF"
       );
 
     cartPanel.add(cartUserAdmin);
 
     cartUserAdmin =
       new CartUserAdmin(
-        "/resources/icons/adminCart.png",
+        "/resources/icons/admin-cart.png",
         "ADMIN",
         quantityAdminNew,
-        quantityAdmin
+        quantityAdmin,
+        "#FFC107"
       );
 
     cartPanel.add(cartUserAdmin);
@@ -129,7 +142,8 @@ public class UserListPanel extends JPanel {
         "/resources/icons/customerCart.png",
         "CUSTOMER",
         quantityCustomerNew,
-        quantityCustomer
+        quantityCustomer,
+        "#4CAF50"
       );
 
     cartPanel.add(cartUserAdmin);
@@ -170,6 +184,20 @@ public class UserListPanel extends JPanel {
 
     buttonAction.setLayout(new GridLayout(1, 0, 0, 5));
 
+    buttonSortAz.setIcon(
+      new ImageIcon(getClass().getResource("/resources/icons/sortAz.png"))
+    );
+    buttonSortAz.addActionListener(actionSortAz);
+    buttonSortAz.setBorder(null);
+    buttonAction.add(buttonSortAz);
+
+    buttonSortZa.setIcon(
+      new ImageIcon(getClass().getResource("/resources/icons/sortZa.png"))
+    );
+    buttonSortZa.addActionListener(actionSortZa);
+    buttonSortZa.setBorder(null);
+    buttonAction.add(buttonSortZa);
+
     buttonCreate.setText("Create");
     buttonCreate.addActionListener(actionCreate);
     buttonAction.add(buttonCreate);
@@ -188,16 +216,16 @@ public class UserListPanel extends JPanel {
 
     headerTable.setLayout(new GridLayout());
 
-    panelItemHeader_1.setLayout(new GridLayout(1, 2));
+    panelHeader.setLayout(new GridLayout(1, 2));
 
-    panelItemHeader_1.add(label);
+    panelHeader.add(label);
 
     serialText.setFont(new Font("Segoe UI", 0, 16));
     serialText.setText("Serial");
 
-    panelItemHeader_1.add(serialText);
+    panelHeader.add(serialText);
 
-    headerTable.add(panelItemHeader_1);
+    headerTable.add(panelHeader);
 
     nameText.setFont(new Font("Segoe UI", 0, 16));
     nameText.setText("Name");
@@ -211,17 +239,17 @@ public class UserListPanel extends JPanel {
     emailText.setText("Email");
     headerTable.add(emailText);
 
-    panelItemHeader_2.setLayout(new GridLayout(1, 2));
+    panelEnd.setLayout(new GridLayout(1, 2));
 
     roleText.setFont(new Font("Segoe UI", 0, 16));
     roleText.setText("Role");
-    panelItemHeader_2.add(roleText);
+    panelEnd.add(roleText);
 
     statusText.setFont(new Font("Segoe UI", 0, 16));
     statusText.setText("Status");
-    panelItemHeader_2.add(statusText);
+    panelEnd.add(statusText);
 
-    headerTable.add(panelItemHeader_2);
+    headerTable.add(panelEnd);
 
     tablePanel.add(headerTable, BorderLayout.PAGE_START);
 
@@ -274,31 +302,15 @@ public class UserListPanel extends JPanel {
     }
   }
 
-  public void addTable() {
+  public void addTable(List<UserModel> userList) {
     table.removeAll();
     table.setLayout(new GridLayout(0, 1, 0, 20));
-    List<UserModel> userList = UserBUS.getInstance().getAllModels();
-    int serial = 0;
+    int serial = 1;
     for (UserModel user : userList) {
       if (!user.getStatus().toString().equals("BANNED")) {
         UserPanel userForm = new UserPanel(serial, user);
         table.add(userForm);
         serial++;
-      }
-    }
-    table.revalidate();
-    table.repaint();
-  }
-
-  public void receiveValue(String value) {
-    String[] columns = new String[] { "name" };
-    table.removeAll();
-    List<UserModel> list = UserBUS.getInstance().searchModel(value, columns);
-    table.setLayout(new GridLayout(0, 1, 10, 10));
-    for (UserModel user : list) {
-      if (!user.getStatus().toString().equals("BANNED")) {
-        UserPanel userForm = new UserPanel(1, user);
-        table.add(userForm);
       }
     }
     table.revalidate();
@@ -315,6 +327,7 @@ public class UserListPanel extends JPanel {
   public ActionListener actionDelete = new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
+      int deletedRows = 0;
       int choice = JOptionPane.showConfirmDialog(
         null,
         "Do you want to banned users?",
@@ -323,7 +336,6 @@ public class UserListPanel extends JPanel {
       );
 
       if (choice == JOptionPane.YES_OPTION) {
-        int deletedRows = 0;
         for (Component component : table.getComponents()) {
           if (component instanceof JPanel) {
             JPanel subPanel = (JPanel) component;
@@ -345,7 +357,16 @@ public class UserListPanel extends JPanel {
                             Integer.valueOf(((JTextField) c).getText())
                           )
                           .getId();
-                        deletedRows = UserBUS.getInstance().deleteModel(id);
+                        UserModel userModel = Authentication.getCurrentUser();
+                        if (id == userModel.getId()) {
+                          JOptionPane.showMessageDialog(
+                            null,
+                            "You can't lock yourself here!"
+                          );
+                          deletedRows = 2;
+                        } else {
+                          deletedRows = UserBUS.getInstance().deleteModel(id);
+                        }
                         break;
                       }
                     }
@@ -356,8 +377,11 @@ public class UserListPanel extends JPanel {
             }
           }
         }
-        if (deletedRows != 0) {
-          JOptionPane.showMessageDialog(null, " Account lock successful !");
+        if (deletedRows == 1) {
+          JOptionPane.showMessageDialog(null, " Account lock successful!");
+        }
+        if (deletedRows == 0) {
+          JOptionPane.showMessageDialog(null, "no user selected!");
         }
         tablePanel.revalidate();
         tablePanel.repaint();
@@ -368,7 +392,7 @@ public class UserListPanel extends JPanel {
   public ActionListener findAllUser = new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
-      addTable();
+      addTable(listUser);
     }
   };
 
@@ -377,7 +401,7 @@ public class UserListPanel extends JPanel {
     public void actionPerformed(ActionEvent e) {
       table.removeAll();
       table.setLayout(new GridLayout(0, 1, 0, 20));
-      int serial = 0;
+      int serial = 1;
       List<UserModel> userList = UserBUS.getInstance().getAllModels();
       for (UserModel user : userList) {
         if (
@@ -398,7 +422,7 @@ public class UserListPanel extends JPanel {
     public void actionPerformed(ActionEvent e) {
       table.removeAll();
       table.setLayout(new GridLayout(0, 1, 0, 20));
-      int serial = 0;
+      int serial = 1;
       List<UserModel> userList = UserBUS.getInstance().getAllModels();
       for (UserModel user : userList) {
         if (
@@ -419,7 +443,7 @@ public class UserListPanel extends JPanel {
     public void actionPerformed(ActionEvent e) {
       table.removeAll();
       table.setLayout(new GridLayout(0, 1, 0, 20));
-      int serial = 0;
+      int serial = 1;
       List<UserModel> userList = UserBUS.getInstance().getAllModels();
       for (UserModel user : userList) {
         if (
@@ -435,4 +459,57 @@ public class UserListPanel extends JPanel {
       table.repaint();
     }
   };
+  public ActionListener actionSortAz = new ActionListener() {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+      table.removeAll();
+      modifiableUserList.sort(Comparator.comparing(UserModel::getName));
+      addTable(modifiableUserList);
+      table.revalidate();
+      table.repaint();
+    }
+  };
+  public ActionListener actionSortZa = new ActionListener() {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+      table.removeAll();
+      modifiableUserList.sort(
+        Comparator.comparing(UserModel::getName).reversed()
+      );
+      addTable(modifiableUserList);
+      table.revalidate();
+      table.repaint();
+    }
+  };
+
+  @Override
+  public void search(String keyword) {
+    table.removeAll();
+    if (keyword == null || keyword.isBlank()) {
+      JOptionPane.showMessageDialog(
+        null,
+        "Please enter your search information!"
+      );
+      addTable(listUser);
+      this.revalidate();
+      this.repaint();
+    } else {
+      List<UserModel> newList = UserBUS
+        .getInstance()
+        .searchModel(keyword, new String[] { "name" });
+      if (newList.isEmpty()) {
+        JOptionPane.showMessageDialog(
+          null,
+          "The information you entered could not be found!"
+        );
+        addTable(listUser);
+        this.revalidate();
+        this.repaint();
+      } else {
+        addTable(newList);
+        this.revalidate();
+        this.repaint();
+      }
+    }
+  }
 }

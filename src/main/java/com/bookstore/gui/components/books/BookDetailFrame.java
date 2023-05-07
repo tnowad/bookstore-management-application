@@ -5,6 +5,8 @@ import com.bookstore.bus.BookBUS;
 import com.bookstore.bus.PublisherBUS;
 import com.bookstore.enums.BookStatus;
 import com.bookstore.models.BookModel;
+import com.bookstore.util.image.ImageUtils;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -19,7 +21,7 @@ public class BookDetailFrame extends JFrame {
   private JPanel descriptionContend;
   private JPanel descriptionPanel;
   private JLabel descriptionText;
-  private JLabel getImageBook;
+  private JLabel setImage;
   private JPanel informationPanel;
   private JLabel isbnText;
   private JLabel priceText;
@@ -51,7 +53,7 @@ public class BookDetailFrame extends JFrame {
 
   private void initComponents(BookModel book) {
     contendPanel = new JPanel();
-    getImageBook = new JLabel();
+    setImage = new JLabel();
     informationPanel = new JPanel();
     setTitle = new JTextField();
     priceText = new JLabel();
@@ -81,10 +83,9 @@ public class BookDetailFrame extends JFrame {
     contendPanel.setPreferredSize(new Dimension(858, 280));
     contendPanel.setLayout(new BorderLayout());
 
-    getImageBook.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
-    getImageBook.setEnabled(false);
-    getImageBook.setPreferredSize(new Dimension(200, 16));
-    contendPanel.add(getImageBook, BorderLayout.LINE_START);
+    setImage.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
+    setImage.setPreferredSize(new Dimension(200, 100));
+    contendPanel.add(setImage, BorderLayout.LINE_START);
 
     informationPanel.setPreferredSize(new Dimension(655, 300));
     informationPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -236,23 +237,48 @@ public class BookDetailFrame extends JFrame {
   }
 
   public void setImage(String image) {
-    getImageBook.setIcon(new ImageIcon(image));
-    ImageIcon icon = (ImageIcon) getImageBook.getIcon();
-    int imageLoadStatus = icon.getImageLoadStatus();
-    if (imageLoadStatus != 8) {
-      getImageBook.setIcon(
-        new ImageIcon(
-          getClass().getResource("/resources/images/product-placeholder.png")
-        )
+    try {
+      Image imageBase = ImageUtils.decodeFromBase64(image);
+      setImage.setIcon(new ImageIcon(imageBase));
+    } catch (Exception ex) {
+      setImage.setIcon(
+        new ImageIcon("src/main/java/resources/images/product-placeholder.png")
       );
     }
   }
 
   public ActionListener actionSave = new ActionListener() {
+    final String INVALID_PRICE_ERROR = "Price is not valid!";
+    final String INVALID_QUANTITY_ERROR = "Quantity is not valid!";
     @Override
-    public void actionPerformed(ActionEvent e) {
-      Object selectedStatusItem = setStatus.getSelectedItem();
+    public void actionPerformed(ActionEvent evt) {
+      if (setDescription.getText().isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Description is cannot be empty!");
+        return;
+      }
 
+      try {
+        int price = Integer.parseInt(setPrice.getText().trim());
+        if (price <= 0) {
+          throw new NumberFormatException();
+        }
+      } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(null, INVALID_PRICE_ERROR);
+        return;
+      }
+
+      try {
+        int quantity = Integer.parseInt(setAvailableQuantity.getText().trim());
+        if (quantity <= 0) {
+          throw new NumberFormatException();
+        }
+      } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(null, INVALID_QUANTITY_ERROR);
+        return;
+      }
+
+
+      Object selectedStatusItem = setStatus.getSelectedItem();
       String statusString = selectedStatusItem.toString().toUpperCase();
       BookStatus newStatus = BookStatus.valueOf(statusString);
       int newPrice = Integer.valueOf(setPrice.getText());
@@ -277,6 +303,10 @@ public class BookDetailFrame extends JFrame {
       if (confirm == JOptionPane.YES_OPTION) {
         BookBUS.getInstance().updateModel(newBook);
         BookBUS.getInstance().refreshData();
+        JOptionPane.showMessageDialog(
+        null,
+        "Complete!"
+      );
       }
     }
   };

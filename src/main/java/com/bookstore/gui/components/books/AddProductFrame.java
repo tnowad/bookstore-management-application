@@ -384,6 +384,11 @@ public class AddProductFrame extends JFrame {
         JOptionPane.showMessageDialog(null, "Image" + EMPTY_FIELD_ERROR);
         return;
       }
+      if (setDescription.getText().isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Description" + EMPTY_FIELD_ERROR);
+        return;
+      }
+
 
       if (bookBUS
           .checkForDuplicate(

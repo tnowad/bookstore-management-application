@@ -64,6 +64,7 @@ public class BookProductPanel extends JPanel {
     setTitle.setFont(new Font("Segoe UI", 1, 14));
     setTitle.setText(book.getTitle());
     setTitle.setPreferredSize(new Dimension(220, 22));
+    setTitle.setEditable(false);
     titlePanel.add(setTitle);
 
     contendPanel.add(titlePanel, BorderLayout.PAGE_START);

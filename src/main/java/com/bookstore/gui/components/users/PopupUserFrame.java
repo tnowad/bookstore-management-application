@@ -6,6 +6,8 @@ import com.bookstore.enums.UserRole;
 import com.bookstore.enums.UserStatus;
 import com.bookstore.models.AddressModel;
 import com.bookstore.models.UserModel;
+import com.bookstore.services.Authentication;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -14,10 +16,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
-
 import javax.swing.*;
 
 public class PopupUserFrame extends JFrame {
+
   private UserModel user;
 
   private JLabel addressText;
@@ -45,7 +47,7 @@ public class PopupUserFrame extends JFrame {
 
   public PopupUserFrame(UserModel user) {
     initComponents(user);
-    this.user=user;
+    this.user = user;
     setStatus(user.getStatus());
     setRole(user.getRole());
     setAddress(user.getId());
@@ -160,7 +162,9 @@ public class PopupUserFrame extends JFrame {
     getContentPane().add(statusText);
 
     setStatus.setModel(
-      new DefaultComboBoxModel<>(new String[] { "INACTIVE", "ACTIVE" })
+      new DefaultComboBoxModel<>(
+        new String[] { "INACTIVE", "ACTIVE", "BANNED" }
+      )
     );
     setStatus.setPreferredSize(new Dimension(90, 25));
     getContentPane().add(setStatus);
@@ -265,8 +269,6 @@ public class PopupUserFrame extends JFrame {
     setRole.setSelectedIndex(index);
   }
 
-  public void actionSave() {}
-
   public ActionListener actionBack = new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -277,12 +279,32 @@ public class PopupUserFrame extends JFrame {
   public ActionListener actionSave = new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
+      UserModel currentUser = Authentication.getCurrentUser();
+
       Object selectedStatusItem = setStatus.getSelectedItem();
       Object selectedRoleItem = setRole.getSelectedItem();
 
-      UserStatus newStatus = UserStatus.valueOf(selectedStatusItem.toString().toUpperCase());
+      UserStatus newStatus = UserStatus.valueOf(
+        selectedStatusItem.toString().toUpperCase()
+      );
 
-      UserRole newRole = UserRole.valueOf(selectedRoleItem.toString().toUpperCase());
+      UserRole newRole = UserRole.valueOf(
+        selectedRoleItem.toString().toUpperCase()
+      );
+
+      if (setName.getText().trim().isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Name cannot be empty!");
+        return;
+      }
+      if(user.getId()==currentUser.getId() && newStatus == UserStatus.BANNED){
+        JOptionPane.showMessageDialog(null, "You can't lock yourself here!");
+        return;
+      }
+      if(user.getId()==currentUser.getId() && newRole != UserRole.ADMIN){
+        JOptionPane.showMessageDialog(null, "you can't change your role!");
+        return;
+      }
+
 
       LocalDateTime timeNow = LocalDateTime.now();
       timeNow.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
@@ -307,6 +329,7 @@ public class PopupUserFrame extends JFrame {
       );
       if (confirm == JOptionPane.YES_OPTION) {
         UserBUS.getInstance().updateModel(newUser);
+        JOptionPane.showMessageDialog(null, "Completed!");
       }
     }
   };

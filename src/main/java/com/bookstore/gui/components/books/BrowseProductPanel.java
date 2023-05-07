@@ -1,6 +1,7 @@
 package com.bookstore.gui.components.books;
 
 import com.bookstore.bus.BookBUS;
+import com.bookstore.interfaces.ISearchable;
 import com.bookstore.models.BookModel;
 import com.bookstore.util.Excel.BookExcelUtil;
 import java.awt.*;
@@ -11,7 +12,7 @@ import java.util.Comparator;
 import java.util.List;
 import javax.swing.*;
 
-public class BrowseProductPanel extends JPanel {
+public class BrowseProductPanel extends JPanel implements ISearchable {
 
   private static BrowseProductPanel instance;
   private JButton buttonSortAz;
@@ -120,22 +121,6 @@ public class BrowseProductPanel extends JPanel {
       }
     }
   }
-
-  public void receiveValue(String value) {
-    String[] columns = new String[] { "title" };
-    List<BookModel> list = BookBUS.getInstance().searchModel(value, columns);
-    table.removeAll();
-    table.setLayout(new GridLayout(0, 3, 10, 10));
-    for (BookModel book : list) {
-      if (!book.getStatus().toString().equals("DELETED")) {
-        BookProductPanel bookProductPanel = new BookProductPanel(book);
-        table.add(bookProductPanel);
-      }
-    }
-    table.revalidate();
-    table.repaint();
-  }
-
   public ActionListener actionAdd = new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -256,4 +241,33 @@ public class BrowseProductPanel extends JPanel {
     @Override
     public void componentHidden(ComponentEvent e) {}
   };
+
+  
+  @Override
+  public void search(String keyword) {    
+    table.removeAll();
+    if (keyword == null || keyword.isBlank()) {
+      JOptionPane.showMessageDialog(
+        null,
+        "Please enter your search information!"
+      );
+      addTable(listBook);
+      this.revalidate();
+      this.repaint();
+    } else {
+      List<BookModel> books = new ArrayList<BookModel>();
+      for (BookModel bookModel : listBook) {
+        if (
+          bookModel.getTitle().toLowerCase().contains(keyword.toLowerCase())
+        ) {
+          books.add(bookModel);
+        }
+      }
+
+      addTable(books);
+      this.revalidate();
+      this.repaint();
+    }
+  }
+
 }

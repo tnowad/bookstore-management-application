@@ -1,5 +1,6 @@
 package com.bookstore.gui.components.search;
 
+import com.bookstore.bus.UserBUS;
 import com.bookstore.models.BookModel;
 import com.bookstore.models.UserModel;
 import java.util.ArrayList;
@@ -28,12 +29,6 @@ public class Search {
   }
 
   public List<UserModel> searchUsers(String searchText) {
-    List<UserModel> searchResults = new ArrayList<>();
-    for (UserModel user : userList) {
-      if (user.getName().toLowerCase().contains(searchText.toLowerCase())) {
-        searchResults.add(user);
-      }
-    }
-    return searchResults;
+    return UserBUS.getInstance().searchModel(searchText, new String[]{"name"});
   }
 }

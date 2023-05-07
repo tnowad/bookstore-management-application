@@ -269,7 +269,7 @@ public class CreateUserFrame extends JFrame {
         JOptionPane.YES_NO_OPTION
       );
       if (confirm == JOptionPane.YES_OPTION) {
-        Object selectedRoleItem = setRole.getSelectedItem();
+        Object selectedRoleItem = setRole.getSelectedItem();      
         UserRole role = UserRole.valueOf(
           selectedRoleItem.toString().toUpperCase()
         );
@@ -297,6 +297,7 @@ public class CreateUserFrame extends JFrame {
         );
 
         UserBUS.getInstance().addModel(newUser);
+        JOptionPane.showMessageDialog(null, "Complete!");
       }
     }
   };
