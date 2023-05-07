@@ -108,19 +108,21 @@ public class OrderDetail extends JPanel {
 
   private void updateData() {
     userBUS = UserBUS.getInstance();
-    userModel = userBUS.getModelById(this.customerId);
-    orderBUS = OrderBUS.getInstance();
-    ordersList = orderBUS.getAllModels();
-    orderModel =
-      ordersList
-        .stream()
-        .filter(order -> order.getCustomerId() == this.customerId)
-        .findFirst()
-        .orElse(null);
-    cartBUS = CartBUS.getInstance();
-    cartList = cartBUS.getAllModels();
-    cartItemsBUS = CartItemsBUS.getInstance();
-    cartItemList = cartItemsBUS.getAllModels();
+    if (customerId != 1) {
+      userModel = userBUS.getModelById(this.customerId);
+      orderBUS = OrderBUS.getInstance();
+      ordersList = orderBUS.getAllModels();
+      orderModel =
+        ordersList
+          .stream()
+          .filter(order -> order.getCustomerId() == this.customerId)
+          .findFirst()
+          .orElse(null);
+      cartBUS = CartBUS.getInstance();
+      cartList = cartBUS.getAllModels();
+      cartItemsBUS = CartItemsBUS.getInstance();
+      cartItemList = cartItemsBUS.getAllModels();
+    } else {}
     bookBUS = BookBUS.getInstance();
     bookList = bookBUS.getAllModels();
   }
