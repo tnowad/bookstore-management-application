@@ -14,7 +14,6 @@ import javax.swing.*;
 
 public class BrowseProductPanel extends JPanel implements ISearchable {
 
-  private static BrowseProductPanel instance;
   private JButton buttonSortAz;
   private JButton buttonSortZa;
   private JButton buttonCreate;
@@ -32,11 +31,6 @@ public class BrowseProductPanel extends JPanel implements ISearchable {
   private BookBUS bookBUS = BookBUS.getInstance();
   private List<BookModel> listBook = bookBUS.getAllModels();
   private List<BookModel> modifiableBookList = new ArrayList<>(listBook);
-
-  public static BrowseProductPanel getInstance() {
-    if (instance == null) instance = new BrowseProductPanel();
-    return instance;
-  }
 
   public BrowseProductPanel() {
     initComponents();
@@ -121,6 +115,7 @@ public class BrowseProductPanel extends JPanel implements ISearchable {
       }
     }
   }
+
   public ActionListener actionAdd = new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -151,9 +146,8 @@ public class BrowseProductPanel extends JPanel implements ISearchable {
                 if (c instanceof JTextField) {
                   String id = ((JTextField) c).getText();
                   String status = "DELETED";
-                  updateStatusRows = BookBUS
-                    .getInstance()
-                    .updateStatus(id, status);
+                  updateStatusRows =
+                    BookBUS.getInstance().updateStatus(id, status);
                   if (updateStatusRows == 1) {
                     BookBUS.getInstance().refreshData();
                     JOptionPane.showMessageDialog(
@@ -167,8 +161,11 @@ public class BrowseProductPanel extends JPanel implements ISearchable {
           }
         }
       }
-      if(updateStatusRows==0){
-        JOptionPane.showMessageDialog(null, "No products have been selected yet!");
+      if (updateStatusRows == 0) {
+        JOptionPane.showMessageDialog(
+          null,
+          "No products have been selected yet!"
+        );
       }
     }
   };
@@ -242,9 +239,8 @@ public class BrowseProductPanel extends JPanel implements ISearchable {
     public void componentHidden(ComponentEvent e) {}
   };
 
-  
   @Override
-  public void search(String keyword) {    
+  public void search(String keyword) {
     table.removeAll();
     if (keyword == null || keyword.isBlank()) {
       JOptionPane.showMessageDialog(
@@ -269,5 +265,4 @@ public class BrowseProductPanel extends JPanel implements ISearchable {
       this.repaint();
     }
   }
-
 }
