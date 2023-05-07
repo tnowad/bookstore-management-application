@@ -12,12 +12,12 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class NoData extends JPanel {
+public class NoDataPanel extends JPanel {
 
   private Label noDataLabel;
   private JLabel noDataIconLabel;
 
-  public NoData(String name) {
+  public NoDataPanel(String name) {
     initComponents(name);
   }
 
@@ -46,7 +46,7 @@ public class NoData extends JPanel {
 
   public static void main(String[] args) {
     JFrame frame = new JFrame();
-    NoData noData = new NoData("test");
+    NoDataPanel noData = new NoDataPanel("test");
     frame.add(noData);
     frame.setSize(1000, 1000);
     frame.setLocationRelativeTo(null);
