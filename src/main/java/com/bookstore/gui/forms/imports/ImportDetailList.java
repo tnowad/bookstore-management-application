@@ -15,6 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 
 public class ImportDetailList extends JPanel {
 
@@ -96,6 +97,15 @@ public class ImportDetailList extends JPanel {
     // Import Items Table
     importItemsTableModel = new ImportItemsTableModel(importItemsList);
     importItemsTable = new JTable(importItemsTableModel);
+    DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+    centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+    for (int i = 0; i < importItemsTable.getColumnCount(); i++) {
+      importItemsTable
+        .getColumnModel()
+        .getColumn(i)
+        .setCellRenderer(centerRenderer);
+    }
+
     JScrollPane scrollPane = new JScrollPane(importItemsTable);
 
     constraints.gridx = 0;

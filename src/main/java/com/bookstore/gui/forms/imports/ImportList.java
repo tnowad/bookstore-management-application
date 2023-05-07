@@ -11,14 +11,12 @@ import com.bookstore.models.ProviderModel;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 public class ImportList extends JPanel implements ISearchable {
@@ -79,13 +77,6 @@ public class ImportList extends JPanel implements ISearchable {
 
     addPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
-    addReceiptButton.addActionListener(
-      new ActionListener() {
-        public void actionPerformed(ActionEvent evt) {
-          addReceiptButtonActionPerformed(evt);
-        }
-      }
-    );
     addPanel.add(addReceiptButton);
 
     headerPanel.add(addPanel);
@@ -100,22 +91,8 @@ public class ImportList extends JPanel implements ISearchable {
     groupExcel.setPreferredSize(new Dimension(590, 30));
     groupExcel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
-    importFromExcelButton.addActionListener(
-      new ActionListener() {
-        public void actionPerformed(ActionEvent evt) {
-          importFromExcelButtonActionPerformed(evt);
-        }
-      }
-    );
     groupExcel.add(importFromExcelButton);
 
-    exportToExcelButton.addActionListener(
-      new ActionListener() {
-        public void actionPerformed(ActionEvent evt) {
-          exportToExcelButtonActionPerformed(evt);
-        }
-      }
-    );
     groupExcel.add(exportToExcelButton);
 
     headerPanel.add(groupExcel);
@@ -133,13 +110,6 @@ public class ImportList extends JPanel implements ISearchable {
       }
     );
     scrollPaneTableList.setViewportView(importTableList);
-    if (importTableList.getColumnModel().getColumnCount() > 0) {
-      importTableList.getColumnModel().getColumn(0).setResizable(false);
-      importTableList.getColumnModel().getColumn(1).setResizable(false);
-      importTableList.getColumnModel().getColumn(2).setResizable(false);
-      importTableList.getColumnModel().getColumn(3).setResizable(false);
-      importTableList.getColumnModel().getColumn(4).setResizable(false);
-    }
 
     groupListImport.add(scrollPaneTableList, BorderLayout.CENTER);
 
@@ -179,14 +149,16 @@ public class ImportList extends JPanel implements ISearchable {
       }
     }
     importTableList.getTableHeader().setReorderingAllowed(false);
+    DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+    centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+    for (int i = 0; i < importTableList.getColumnCount(); i++) {
+      importTableList
+        .getColumnModel()
+        .getColumn(i)
+        .setCellRenderer(centerRenderer);
+    }
     scrollPaneTableList.setViewportView(importTableList);
   }
-
-  private void addReceiptButtonActionPerformed(ActionEvent evt) {}
-
-  private void exportToExcelButtonActionPerformed(ActionEvent evt) {}
-
-  private void importFromExcelButtonActionPerformed(ActionEvent evt) {}
 
   private void importTableListMouseClicked(MouseEvent evt) {
     int row = importTableList.getSelectedRow();
