@@ -281,7 +281,7 @@ public class MenuFactory {
                   add(
                     new SubMenuItemModel(
                       "View Cart",
-                      new ImageIcon("src/main/java/resources/icons/order_icon.png"),
+                      new ImageIcon("src/main/java/resources/icons/card.png"),
                       showCartCustomer
                     )
                   );
@@ -392,7 +392,7 @@ public class MenuFactory {
                   add(
                     new SubMenuItemModel(
                       "View Cart",
-                      new ImageIcon("src/main/java/resources/icons/cart.pnp"),
+                      new ImageIcon("src/main/java/resources/icons/card.png"),
                       showCartCustomer
                     )
                   );
