@@ -163,8 +163,11 @@ public class ImportList extends JPanel implements ISearchable {
   private void importTableListMouseClicked(MouseEvent evt) {
     int row = importTableList.getSelectedRow();
     int id = (int) importTableList.getValueAt(row, 0);
-    ImportDetailList importDetailList = new ImportDetailList(id);
-    MainPanel.getInstance().showFormStack(importDetailList);
+    MainPanel
+      .getInstance()
+      .showForm(
+        new ImportDetailPanel(ImportBUS.getInstance().getModelById(id))
+      );
   }
 
   @Override
