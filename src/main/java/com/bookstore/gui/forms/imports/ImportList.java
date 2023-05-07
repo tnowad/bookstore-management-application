@@ -8,12 +8,14 @@ import com.bookstore.gui.components.panels.MainPanel;
 import com.bookstore.interfaces.ISearchable;
 import com.bookstore.models.ImportModel;
 import com.bookstore.models.ProviderModel;
+import com.bookstore.util.Excel.ImportModelExcelUtil;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.util.List;
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -44,6 +46,17 @@ public class ImportList extends JPanel implements ISearchable {
   public ImportList() {
     initComponents();
     listImport();
+    handleEvent();
+  }
+
+  private void handleEvent() {
+    exportToExcelButton.addActionListener(e -> {
+      try {
+        ImportModelExcelUtil.writeImportsToExcel(importList);
+      } catch (IOException ex) {
+        ex.printStackTrace();
+      }
+    });
   }
 
   public static ImportList getInstance() {
@@ -62,6 +75,7 @@ public class ImportList extends JPanel implements ISearchable {
     groupExcel = new JPanel();
     importFromExcelButton = new Button("Import excel");
     exportToExcelButton = new Button("Export excel");
+
     jScrollPane1 = new JScrollPane();
     groupListImport = new JPanel();
     scrollPaneTableList = new JScrollPane();

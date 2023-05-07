@@ -1,16 +1,20 @@
 package com.bookstore.gui.forms.imports;
 
 import com.bookstore.bus.BookBUS;
+import com.bookstore.bus.ImportBUS;
 import com.bookstore.bus.ImportItemsBUS;
+import com.bookstore.bus.ProviderBUS;
 import com.bookstore.gui.components.buttons.Button;
 import com.bookstore.models.BookModel;
 import com.bookstore.models.ImportItemsModel;
 import com.bookstore.models.ImportModel;
+import com.bookstore.models.ProviderModel;
 import com.bookstore.util.PDF.PDFWriter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.security.Provider;
 import java.util.List;
 import javax.swing.*;
 import javax.swing.JFileChooser;
@@ -18,16 +22,37 @@ import javax.swing.table.DefaultTableModel;
 
 public class ImportDetailPanel extends JPanel {
 
+  private JPanel contentHeaderPanel;
+  private JLabel createdAtLabel;
+  private JTextField createdAtTextField;
+  private JLabel employeeLabel;
+  private JTextField employeeTextField;
+  private Button exportToPDFButton;
+  private JPanel headerPanel;
+  private JLabel idLabel;
+  private JTextField idTextField;
+  private JLabel importDataLabel;
+  private Button importItemsLabel;
+  private JPanel jPanel1;
+  private JPanel tablePanel;
+  private JPanel groupButtonPanel;
+  // private JPanel jPanel5;
+  // private JScrollPane jScrollPane1;
+  private JScrollPane tableScrollPane;
+  private JTable bookListTable;
+  private JLabel providerLabel;
+  private JTextField providerTextField;
+  private Button resetButton;
+  private JLabel totalPriceLabel;
+  private JTextField totalPriceTextField;
+  private Button updateButton;
   private ImportModel importModel;
 
   public ImportDetailPanel(ImportModel importModel) {
     this.importModel = importModel;
     initComponents();
-    updateData();
     bookListTable();
   }
-
-  private void updateData() {}
 
   private void bookListTable() {
     DefaultTableModel model = new DefaultTableModel(
@@ -53,8 +78,7 @@ public class ImportDetailPanel extends JPanel {
         bookListTable.setModel(model);
       }
     }
-
-    add(new JScrollPane(bookListTable), BorderLayout.CENTER);
+    // add(new JScrollPane(bookListTable), BorderLayout.CENTER);
   }
 
   private void initComponents() {
@@ -72,15 +96,15 @@ public class ImportDetailPanel extends JPanel {
     totalPriceTextField = new JTextField();
     createdAtLabel = new JLabel();
     createdAtTextField = new JTextField();
-    jPanel3 = new JPanel();
-    jPanel4 = new JPanel();
+    tablePanel = new JPanel();
+    groupButtonPanel = new JPanel();
     importItemsLabel = new Button("Import");
     exportToPDFButton = new Button();
     updateButton = new Button();
     resetButton = new Button();
-    jScrollPane2 = new JScrollPane();
-    jPanel5 = new JPanel();
-    jScrollPane1 = new JScrollPane();
+    tableScrollPane = new JScrollPane();
+    // jPanel5 = new JPanel();
+    // jScrollPane1 = new JScrollPane();
     bookListTable = new JTable();
 
     setPreferredSize(new Dimension(1180, 620));
@@ -138,11 +162,11 @@ public class ImportDetailPanel extends JPanel {
 
     add(headerPanel, BorderLayout.PAGE_START);
 
-    jPanel3.setLayout(new BorderLayout());
+    tablePanel.setLayout(new BorderLayout());
 
-    jPanel4.setLayout(new FlowLayout(FlowLayout.RIGHT));
+    groupButtonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
-    jPanel4.add(importItemsLabel);
+    groupButtonPanel.add(importItemsLabel);
 
     exportToPDFButton.setText("Export (PDF)");
     exportToPDFButton.addActionListener(
@@ -152,37 +176,42 @@ public class ImportDetailPanel extends JPanel {
         }
       }
     );
-    jPanel4.add(exportToPDFButton);
+    groupButtonPanel.add(exportToPDFButton);
 
     updateButton.setText("Update");
-
-    jPanel4.add(updateButton);
+    updateButton.addActionListener(e -> {
+      int choice = JOptionPane.showConfirmDialog(
+        null,
+        "Do you want to update?"
+      );
+      if (choice == JOptionPane.YES_OPTION) {
+        ImportBUS.getInstance().getModelById(importModel.getId());
+        ProviderModel providerModel = ProviderBUS
+          .getInstance()
+          .getModelById(importModel.getProviderId());
+        providerModel.setName(providerTextField.getText());
+        ProviderBUS.getInstance().updateModel(providerModel);
+        ImportBUS.getInstance().updateModel(importModel);
+        JOptionPane.showMessageDialog(null, "Updated successfully!");
+      } else if (choice == JOptionPane.NO_OPTION) {
+        return;
+      }
+    });
+    groupButtonPanel.add(updateButton);
 
     resetButton.setText("Reset");
 
-    jPanel4.add(resetButton);
+    groupButtonPanel.add(resetButton);
 
-    jPanel3.add(jPanel4, BorderLayout.PAGE_START);
-
-    jPanel5.setLayout(new BorderLayout());
+    tablePanel.add(groupButtonPanel, BorderLayout.PAGE_START);
 
     bookListTable.getTableHeader().setReorderingAllowed(false);
 
-    jScrollPane1.setViewportView(bookListTable);
-    if (bookListTable.getColumnModel().getColumnCount() > 0) {
-      bookListTable.getColumnModel().getColumn(0).setResizable(false);
-      bookListTable.getColumnModel().getColumn(1).setResizable(false);
-      bookListTable.getColumnModel().getColumn(2).setResizable(false);
-      bookListTable.getColumnModel().getColumn(3).setResizable(false);
-    }
+    tableScrollPane.setViewportView(bookListTable);
 
-    jPanel5.add(jScrollPane1, BorderLayout.CENTER);
+    tablePanel.add(tableScrollPane, BorderLayout.CENTER);
 
-    jScrollPane2.setViewportView(jPanel5);
-
-    jPanel3.add(jScrollPane2, BorderLayout.CENTER);
-
-    add(jPanel3, BorderLayout.CENTER);
+    add(tablePanel, BorderLayout.CENTER);
   }
 
   private void exportToPDFButtonActionPerformed(ActionEvent evt) {
@@ -194,29 +223,4 @@ public class ImportDetailPanel extends JPanel {
       PDFWriter.getInstance().exportImportsToPDF(importModel.getId(), url);
     }
   }
-
-  private JPanel contentHeaderPanel;
-  private JLabel createdAtLabel;
-  private JTextField createdAtTextField;
-  private JLabel employeeLabel;
-  private JTextField employeeTextField;
-  private Button exportToPDFButton;
-  private JPanel headerPanel;
-  private JLabel idLabel;
-  private JTextField idTextField;
-  private JLabel importDataLabel;
-  private Button importItemsLabel;
-  private JPanel jPanel1;
-  private JPanel jPanel3;
-  private JPanel jPanel4;
-  private JPanel jPanel5;
-  private JScrollPane jScrollPane1;
-  private JScrollPane jScrollPane2;
-  private JTable bookListTable;
-  private JLabel providerLabel;
-  private JTextField providerTextField;
-  private Button resetButton;
-  private JLabel totalPriceLabel;
-  private JTextField totalPriceTextField;
-  private Button updateButton;
 }
