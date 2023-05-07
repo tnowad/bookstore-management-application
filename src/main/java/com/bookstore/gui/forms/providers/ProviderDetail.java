@@ -1,12 +1,11 @@
 package com.bookstore.gui.forms.providers;
 
+import com.bookstore.bus.BookBUS;
+import com.bookstore.bus.ImportBUS;
 import com.bookstore.bus.ProviderBUS;
-import com.bookstore.bus.PublisherBUS;
 import com.bookstore.models.ProviderModel;
-import com.bookstore.models.PublisherModel;
 import java.awt.*;
 import java.awt.event.*;
-
 import javax.swing.*;
 
 public class ProviderDetail extends JFrame {
@@ -15,6 +14,7 @@ public class ProviderDetail extends JFrame {
   private JPanel buttonPanel;
   private JButton buttonBack;
   private JButton buttonSave;
+  private JButton buttonDelete;
   private JPanel contend;
   private JLabel descriptionText;
   private JLabel idText;
@@ -22,7 +22,7 @@ public class ProviderDetail extends JFrame {
   private JScrollPane scrollPane;
   private JTextField setId;
   private JTextField setName;
-  private JLabel title; 
+  private JLabel title;
 
   ProviderBUS providerBUS = ProviderBUS.getInstance();
   ProviderModel provider;
@@ -46,6 +46,7 @@ public class ProviderDetail extends JFrame {
     setDescription = new JTextArea();
     buttonPanel = new JPanel();
     buttonBack = new JButton();
+    buttonDelete = new JButton();
     buttonSave = new JButton();
     title = new JLabel();
 
@@ -110,6 +111,13 @@ public class ProviderDetail extends JFrame {
     buttonSave.addActionListener(actionSave);
     buttonPanel.add(buttonSave);
 
+    buttonDelete.setIcon(
+      new ImageIcon(getClass().getResource("/resources/icons/delete.png"))
+    );
+    buttonDelete.setPreferredSize(new Dimension(80, 30));
+    buttonDelete.addActionListener(actionDelete);
+    buttonPanel.add(buttonDelete);
+
     getContentPane().add(contend, BorderLayout.PAGE_START);
     getContentPane().add(scrollPane, BorderLayout.CENTER);
     getContentPane().add(buttonPanel, BorderLayout.SOUTH);
@@ -124,18 +132,28 @@ public class ProviderDetail extends JFrame {
         JOptionPane.showMessageDialog(null, "Provider name cannot be empty!");
         return;
       }
-      providerBUS.updateModel(
-        new ProviderModel(
-          provider.getId(),
-          setName.getText().trim(),
-          setDescription.getText().trim()
-        )
+      if (setDescription.getText().trim().isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Description cannot be empty!");
+        return;
+      }
+      int choice = JOptionPane.showConfirmDialog(
+        null,
+        "Do you want to add author?",
+        "Confirmation",
+        JOptionPane.YES_NO_OPTION
       );
-      JOptionPane.showMessageDialog(null, "Complete");
+      if (choice == JOptionPane.YES_OPTION) {
+        providerBUS.updateModel(
+          new ProviderModel(
+            provider.getId(),
+            setName.getText().trim(),
+            setDescription.getText().trim()
+          )
+        );
+        JOptionPane.showMessageDialog(null, "Complete");
+      }
     }
   };
-
-  {}
 
   public ActionListener actionBack = new ActionListener() {
     @Override
@@ -143,5 +161,28 @@ public class ProviderDetail extends JFrame {
       JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(buttonBack);
       frame.dispose();
     }
+  };
+  public ActionListener actionDelete = new ActionListener() {
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+      int choice = JOptionPane.showConfirmDialog(
+        null,
+        "Do you want to delete provider?",
+        "Confirmation",
+        JOptionPane.YES_NO_OPTION
+      );
+      if (choice == JOptionPane.YES_OPTION) {
+        if(ImportBUS.getInstance().searchModel(String.valueOf(provider.getId()),new String[] { "provider_id" }).size()!=0){
+          JOptionPane.showMessageDialog(null, "You cannot delete this author because of product constraints!");
+          return;
+        }
+        else{
+          ProviderBUS.getInstance().deleteModel(provider.getId());
+          JOptionPane.showMessageDialog(null, "Completed");
+        }
+      }
+    }
+    
   };
 }

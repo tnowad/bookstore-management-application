@@ -175,8 +175,7 @@ public class ProviderBUS implements IBUS<ProviderModel> {
 
   @Override
   public void refreshData() {
-    throw new UnsupportedOperationException(
-      "Unimplemented method 'refreshData'"
-    );
+    providerList.clear();
+    providerList.addAll(ProviderDAO.getInstance().readDatabase());
   }
 }

@@ -35,8 +35,8 @@ public class ItemOrderPanel extends JPanel {
       (MouseListener) new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {
-          OrderDetail orderDetail = new OrderDetail(orderModel.getCustomerId());
-          orderDetail.setSize(new Dimension(530, 600));
+          // OrderDetail orderDetail = new OrderDetail(orderModel.getCustomerId());
+          // orderDetail.setSize(new Dimension(530, 600));
           // orderDetail.setLocationRelativeTo(null);
           // orderDetail.setDefaultCloseOperation(
           //   WindowConstants.DISPOSE_ON_CLOSE

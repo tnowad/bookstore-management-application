@@ -53,9 +53,9 @@ public class OrderListPanel extends JPanel {
               int customerId = Integer.parseInt(
                 table.getValueAt(selectedRowIndex, 2).toString()
               );
-              MainPanel
-                .getInstance()
-                .showFormStack(new OrderDetail(customerId));
+              // MainPanel
+                // .getInstance()
+                // .showFormStack(new OrderDetail(customerId));
               addTable();
             } else {
               JOptionPane.showMessageDialog(

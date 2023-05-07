@@ -218,8 +218,7 @@ public class EmployeeBUS implements IBUS<EmployeeModel> {
 
   @Override
   public void refreshData() {
-    throw new UnsupportedOperationException(
-      "Unimplemented method 'refreshData'"
-    );
+    employeeList.clear();
+    employeeList.addAll(EmployeeDAO.getInstance().readDatabase());
   }
 }

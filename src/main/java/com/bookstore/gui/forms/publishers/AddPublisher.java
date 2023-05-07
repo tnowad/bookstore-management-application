@@ -101,6 +101,15 @@ public class AddPublisher extends JFrame {
   public ActionListener actionSave = new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
+      if (setDescription.getText().trim().isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Description cannot be empty!");
+        return;
+      }
+      
+      if (setName.getText().trim().isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Publisher name cannot be empty!");
+        return;
+      }
       int choice = JOptionPane.showConfirmDialog(
         null,
         "Do you want to add publisher?",
@@ -108,10 +117,6 @@ public class AddPublisher extends JFrame {
         JOptionPane.YES_NO_OPTION
       );
       if (choice == JOptionPane.YES_OPTION) {
-        if (setName.getText().trim().isEmpty()) {
-          JOptionPane.showMessageDialog(null, "Publisher name cannot be empty!");
-          return;
-        }
 
         if (publisherBUS.getModelByPublisherName(setName.getText().trim())!=null) {
           JOptionPane.showMessageDialog(null, "Publisher already exists!");
@@ -119,6 +124,7 @@ public class AddPublisher extends JFrame {
         }
         publisherBUS.addModel(new PublisherModel(9, setName.getText().trim(), setDescription.getText().trim()));
         JOptionPane.showMessageDialog(null,"Complete");
+        publisherBUS.refreshData();
         JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(buttonBack);
         frame.dispose();
       }

@@ -3,13 +3,14 @@ package com.bookstore.gui.components.providers;
 import com.bookstore.bus.ProviderBUS;
 import com.bookstore.gui.forms.providers.AddProvider;
 import com.bookstore.gui.forms.providers.ProviderPanel;
+import com.bookstore.interfaces.ISearchable;
 import com.bookstore.models.ProviderModel;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.List;
 import javax.swing.*;
 
-public class ProviderListPanel extends JPanel {
+public class ProviderListPanel extends JPanel implements ISearchable{
 
   private static ProviderListPanel instance;
 
@@ -32,7 +33,7 @@ public class ProviderListPanel extends JPanel {
 
   public ProviderListPanel() {
     initComponents();
-    addTable();
+    addTable(listProvider);
   }
 
   public static ProviderListPanel getInstance() {
@@ -111,7 +112,7 @@ public class ProviderListPanel extends JPanel {
     add(contend, BorderLayout.CENTER);
   }
 
-  public void addTable() {
+  public void addTable(List<ProviderModel> listProvider) {
     contendTable.removeAll();
     contendTable.setLayout(new GridLayout(0, 1, 0, 15));
     int serial = 0;
@@ -132,4 +133,36 @@ public class ProviderListPanel extends JPanel {
     }
     
   };
+
+  @Override
+  public void search(String keyword) {
+    contendTable.removeAll();
+    if (keyword == null || keyword.isBlank()) {
+      JOptionPane.showMessageDialog(
+        null,
+        "Please enter your search information!"
+      );
+      addTable(listProvider);
+      this.revalidate();
+      this.repaint();
+    } else {
+      List<ProviderModel> newList = ProviderBUS
+        .getInstance()
+        .searchModel(keyword, new String[] { "name" });
+      if (newList.isEmpty()) {
+        JOptionPane.showMessageDialog(
+          null,
+          "The information you entered could not be found!"
+        );
+        addTable(listProvider);
+        this.revalidate();
+        this.repaint();
+      } else {
+        addTable(newList);
+        this.revalidate();
+        this.repaint();
+      }
+    }
+  }
+
 }

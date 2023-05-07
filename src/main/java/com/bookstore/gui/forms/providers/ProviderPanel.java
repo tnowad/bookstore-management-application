@@ -9,7 +9,6 @@ import javax.swing.*;
 
 public class ProviderPanel extends JPanel implements MouseListener{
 
-  private JCheckBox checkBox;
   private JPanel panel;
   private JLabel setDescription;
   private JLabel setId;
@@ -31,7 +30,6 @@ public class ProviderPanel extends JPanel implements MouseListener{
 
   private void initComponents(int serial, ProviderModel providerModel) {
     panel = new JPanel();
-    checkBox = new JCheckBox();
     setSerial = new JLabel();
     setId = new JLabel();
     setName = new JLabel();
@@ -40,7 +38,6 @@ public class ProviderPanel extends JPanel implements MouseListener{
     setLayout(new GridLayout(1, 3));
 
     panel.setLayout(new GridLayout(1, 3));
-    panel.add(checkBox);
 
     setSerial.setText("" + serial);
     panel.add(setSerial);
