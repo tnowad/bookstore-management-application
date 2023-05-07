@@ -26,10 +26,12 @@ public class OrderRecentTableModel extends DefaultTableModel {
       this.addRow(
           new Object[] {
             order.getId(),
-            UserBUS
-              .getInstance()
-              .getModelById(order.getCustomerId())
-              .getEmail(),
+            (order.getCustomerId() == 0)
+              ? "Unknown"
+              : UserBUS
+                .getInstance()
+                .getModelById(order.getCustomerId())
+                .getEmail(),
             UserBUS
               .getInstance()
               .getModelById(order.getEmployeeId())
