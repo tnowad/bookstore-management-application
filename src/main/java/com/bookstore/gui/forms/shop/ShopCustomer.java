@@ -109,7 +109,9 @@ public class ShopCustomer extends JPanel implements ISearchable {
       bookListPanel.add(new NoData("Don't have data for product"));
     } else {
       for (BookModel bookModel : bookListRender) {
-        bookListPanel.add(new BookItemPanel(bookModel));
+        BookItemPanel bookItemPanel = new BookItemPanel(bookModel);
+        bookItemPanel.setPreferredSize(new Dimension(300, 400));
+        bookListPanel.add(bookItemPanel);
       }
     }
   }
@@ -182,17 +184,8 @@ public class ShopCustomer extends JPanel implements ISearchable {
         @Override
         public void componentResized(ComponentEvent e) {
           int width = bookListScrollPane.getWidth();
-          int column = 3;
-          if (width <= 400) {
-            column = 1;
-          } else if (width <= 1100) {
-            column = 2;
-          } else if (width <=1650) {
-            column = 3;
-          } else {
-            column = 4;
-          }
-          bookListPanel.setLayout(new GridLayout(0, column));
+          int column = width / 300 > 1 ? width / 300 : 1;
+          bookListPanel.setLayout(new GridLayout(0, column, 10, 10));
         }
       }
     );
@@ -200,7 +193,9 @@ public class ShopCustomer extends JPanel implements ISearchable {
     bookListScrollPane.setHorizontalScrollBarPolicy(
       JScrollPane.HORIZONTAL_SCROLLBAR_NEVER
     );
-    bookListScrollPane.setViewportView(bookListPanel);
+    JPanel bookListWrapper = new JPanel();
+    bookListWrapper.add(bookListPanel);
+    bookListScrollPane.setViewportView(bookListWrapper);
     bookListScrollPane.getVerticalScrollBar().setUnitIncrement(50);
 
     add(bookListScrollPane, BorderLayout.CENTER);
