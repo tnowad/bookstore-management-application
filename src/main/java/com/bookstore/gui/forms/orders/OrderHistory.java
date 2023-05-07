@@ -6,16 +6,12 @@ import com.bookstore.gui.components.labels.Label;
 import com.bookstore.interfaces.ISearchable;
 import com.bookstore.models.OrderModel;
 import com.bookstore.models.UserModel;
+import com.bookstore.models.tables.OrderTableModel;
 import com.bookstore.services.Authentication;
 import java.awt.*;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import javax.swing.*;
-import javax.swing.table.AbstractTableModel;
 
 public class OrderHistory extends JPanel implements ISearchable {
 
@@ -82,65 +78,5 @@ public class OrderHistory extends JPanel implements ISearchable {
     }
     orderTableModel.setOrderList(searchResults);
     orderTableModel.fireTableDataChanged();
-  }
-
-  private class OrderTableModel extends AbstractTableModel {
-
-    private final String[] columnNames = {
-      "Order ID",
-      "Customer ID",
-      "Employee ID",
-      "Total",
-      "Status",
-      "Created At",
-      "Updated At",
-    };
-    private List<OrderModel> orderList;
-
-    public void setOrderList(List<OrderModel> orderList) {
-      this.orderList = orderList;
-    }
-
-    @Override
-    public int getRowCount() {
-      return orderList == null ? 0 : orderList.size();
-    }
-
-    @Override
-    public int getColumnCount() {
-      return columnNames.length;
-    }
-
-    @Override
-    public String getColumnName(int column) {
-      return columnNames[column];
-    }
-
-    @Override
-    public Object getValueAt(int rowIndex, int columnIndex) {
-      OrderModel order = orderList.get(rowIndex);
-      switch (columnIndex) {
-        case 0:
-          return order.getId();
-        case 1:
-          return order.getCustomerId();
-        case 2:
-          return order.getEmployeeId();
-        case 3:
-          return order.getTotal();
-        case 4:
-          return order.getStatus().name();
-        case 5:
-          return order
-            .getCreatedAt()
-            .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        case 6:
-          return order
-            .getUpdatedAt()
-            .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        default:
-          return null;
-      }
-    }
   }
 }
