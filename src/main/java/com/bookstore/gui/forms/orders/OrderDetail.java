@@ -40,7 +40,6 @@ public class OrderDetail extends JPanel {
 
   private int customerId;
   private int orderId;
-  private java.util.List<OrderModel> ordersList;
   private java.util.List<CartModel> cartList;
   private java.util.List<CartItemsModel> cartItemList;
   private List<BookModel> bookList;
@@ -66,35 +65,8 @@ public class OrderDetail extends JPanel {
   private void handleEvent() {
     acceptButton.addActionListener(acceptButtonActionListener);
     rejectButton.addActionListener(rejectButtonActionListener);
-    backToPreviousButton.addActionListener(e -> {
-      MainPanel.getInstance().backToPreviousForm();
-    });
-  }
-
-  private ActionListener acceptButtonActionListener = e -> {
-    int answer = JOptionPane.showConfirmDialog(
-      this,
-      "Do you want to accept this order?",
-      "Confirm",
-      JOptionPane.YES_NO_OPTION
-    );
-    if (answer == JOptionPane.YES_OPTION) {
-      orderModel.setStatus(OrderStatus.SOLVED);
-      orderBUS.updateModel(orderModel);
-      JOptionPane.showMessageDialog(
-        this,
-        "Order Accepted",
-        "Success",
-        JOptionPane.INFORMATION_MESSAGE
-      );
-
-      int printAnswer = JOptionPane.showConfirmDialog(
-        null,
-        "Do you want to print this order to PDF?",
-        "Print Order",
-        JOptionPane.YES_NO_OPTION
-      );
-      if (printAnswer == JOptionPane.YES_OPTION) {
+    exportPdfButton.addActionListener(e -> {
+      if (orderModel.getStatus().equals(OrderStatus.SOLVED)) {
         JFileChooser fileChooser = new JFileChooser();
         int result = fileChooser.showSaveDialog(null);
         if (result == JFileChooser.APPROVE_OPTION) {
@@ -102,26 +74,97 @@ public class OrderDetail extends JPanel {
           String filePath = selectedFile.getAbsolutePath();
           PDFWriter.getInstance().exportReceiptToPDF(orderId, filePath);
         }
+      } else if (orderModel.getStatus().equals(OrderStatus.PENDING)) {
+        JOptionPane.showMessageDialog(
+          null,
+          "This order is pending so you can't print to PDF! You must accept in order to print to PDF!"
+        );
+      } else {
+        JOptionPane.showMessageDialog(
+          null,
+          "This order is rejected so you can't print to PDF!"
+        );
       }
+    });
+    backToPreviousButton.addActionListener(e -> {
+      MainPanel.getInstance().backToPreviousForm();
+    });
+  }
+
+  private ActionListener acceptButtonActionListener = e -> {
+    if (orderModel.getStatus().equals(OrderStatus.PENDING)) {
+      int answer = JOptionPane.showConfirmDialog(
+        this,
+        "Do you want to accept this order?",
+        "Confirm",
+        JOptionPane.YES_NO_OPTION
+      );
+      if (answer == JOptionPane.YES_OPTION) {
+        orderModel.setStatus(OrderStatus.SOLVED);
+        orderBUS.updateModel(orderModel);
+        JOptionPane.showMessageDialog(
+          this,
+          "Order Accepted",
+          "Success",
+          JOptionPane.INFORMATION_MESSAGE
+        );
+
+        int printAnswer = JOptionPane.showConfirmDialog(
+          null,
+          "Do you want to print this order to PDF?",
+          "Print Order",
+          JOptionPane.YES_NO_OPTION
+        );
+        if (printAnswer == JOptionPane.YES_OPTION) {
+          JFileChooser fileChooser = new JFileChooser();
+          int result = fileChooser.showSaveDialog(null);
+          if (result == JFileChooser.APPROVE_OPTION) {
+            java.io.File selectedFile = fileChooser.getSelectedFile();
+            String filePath = selectedFile.getAbsolutePath();
+            PDFWriter.getInstance().exportReceiptToPDF(orderId, filePath);
+          }
+        }
+      }
+    } else if (orderModel.getStatus().equals(OrderStatus.REJECTED)) {
+      JOptionPane.showMessageDialog(
+        null,
+        "This order is rejected so you can't accept"
+      );
+    } else {
+      JOptionPane.showMessageDialog(
+        null,
+        "This order is accepted , you can export to pdf"
+      );
     }
   };
 
   private ActionListener rejectButtonActionListener = e -> {
-    // The message says if you want to refuse this order?
-    int answer = JOptionPane.showConfirmDialog(
-      this,
-      "Do you want to reject this order?",
-      "Confirm",
-      JOptionPane.YES_NO_OPTION
-    );
-    if (answer == JOptionPane.YES_OPTION) {
-      orderModel.setStatus(OrderStatus.REJECTED);
-      orderBUS.updateModel(orderModel);
-      JOptionPane.showMessageDialog(
+    if (orderModel.getStatus().equals(OrderStatus.PENDING)) {
+      int answer = JOptionPane.showConfirmDialog(
         this,
-        "Order Rejected",
-        "Success",
-        JOptionPane.INFORMATION_MESSAGE
+        "Do you want to reject this order?",
+        "Confirm",
+        JOptionPane.YES_NO_OPTION
+      );
+      if (answer == JOptionPane.YES_OPTION) {
+        orderModel.setStatus(OrderStatus.REJECTED);
+        orderBUS.updateModel(orderModel);
+        JOptionPane.showMessageDialog(
+          this,
+          "Order Rejected",
+          "Success",
+          JOptionPane.INFORMATION_MESSAGE
+        );
+      }
+    } else if (orderModel.getStatus().equals(OrderStatus.SOLVED)) {
+      JOptionPane.showMessageDialog(
+        null,
+        "This order is accepted, you can't reject this order."
+      );
+    } else {
+      JOptionPane.showMessageDialog(
+        null,
+        "This order is rejected, you can't export to pdf"
       );
     }
   };
@@ -131,13 +174,7 @@ public class OrderDetail extends JPanel {
     if (customerId != 1) {
       userModel = userBUS.getModelById(this.customerId);
       orderBUS = OrderBUS.getInstance();
-      ordersList = orderBUS.getAllModels();
-      orderModel =
-        ordersList
-          .stream()
-          .filter(order -> order.getCustomerId() == this.customerId)
-          .findFirst()
-          .orElse(null);
+      orderModel = OrderBUS.getInstance().getModelById(orderId);
       cartBUS = CartBUS.getInstance();
       cartList = cartBUS.getAllModels();
       cartItemsBUS = CartItemsBUS.getInstance();
