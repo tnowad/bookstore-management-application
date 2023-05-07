@@ -14,8 +14,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.security.Provider;
-import java.util.List;
 import javax.swing.*;
 import javax.swing.JFileChooser;
 import javax.swing.table.DefaultTableModel;
@@ -56,25 +54,23 @@ public class ImportDetailPanel extends JPanel {
 
   private void bookListTable() {
     DefaultTableModel model = new DefaultTableModel(
-      new String[] { "Book ISBN", "Title", "Quantity", "Price" },
-      0
-    );
+        new String[] { "Book ISBN", "Title", "Quantity", "Price" },
+        0);
 
     for (ImportItemsModel importItemsModel : ImportItemsBUS
-      .getInstance()
-      .getAllModels()) {
+        .getInstance()
+        .getAllModels()) {
       if (importItemsModel.getImportId() == importModel.getId()) {
         BookModel bookModel = BookBUS
-          .getInstance()
-          .getBookByIsbn(importItemsModel.getBookIsbn());
+            .getInstance()
+            .getBookByIsbn(importItemsModel.getBookIsbn());
         model.addRow(
-          new Object[] {
-            bookModel.getIsbn(),
-            bookModel.getTitle(),
-            importItemsModel.getQuantity(),
-            importItemsModel.getPrice(),
-          }
-        );
+            new Object[] {
+                bookModel.getIsbn(),
+                bookModel.getTitle(),
+                importItemsModel.getQuantity(),
+                importItemsModel.getPrice(),
+            });
         bookListTable.setModel(model);
       }
     }
@@ -170,25 +166,23 @@ public class ImportDetailPanel extends JPanel {
 
     exportToPDFButton.setText("Export (PDF)");
     exportToPDFButton.addActionListener(
-      new ActionListener() {
-        public void actionPerformed(ActionEvent evt) {
-          exportToPDFButtonActionPerformed(evt);
-        }
-      }
-    );
+        new ActionListener() {
+          public void actionPerformed(ActionEvent evt) {
+            exportToPDFButtonActionPerformed(evt);
+          }
+        });
     groupButtonPanel.add(exportToPDFButton);
 
     updateButton.setText("Update");
     updateButton.addActionListener(e -> {
       int choice = JOptionPane.showConfirmDialog(
-        null,
-        "Do you want to update?"
-      );
+          null,
+          "Do you want to update?");
       if (choice == JOptionPane.YES_OPTION) {
         ImportBUS.getInstance().getModelById(importModel.getId());
         ProviderModel providerModel = ProviderBUS
-          .getInstance()
-          .getModelById(importModel.getProviderId());
+            .getInstance()
+            .getModelById(importModel.getProviderId());
         providerModel.setName(providerTextField.getText());
         ProviderBUS.getInstance().updateModel(providerModel);
         ImportBUS.getInstance().updateModel(importModel);
@@ -197,7 +191,7 @@ public class ImportDetailPanel extends JPanel {
         return;
       }
     });
-    
+
     groupButtonPanel.add(updateButton);
 
     resetButton.setText("Reset");

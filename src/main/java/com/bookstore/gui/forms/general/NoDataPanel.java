@@ -8,7 +8,6 @@ import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -25,8 +24,7 @@ public class NoDataPanel extends JPanel {
     noDataIconLabel = new JLabel();
     try {
       BufferedImage logoImage = ImageIO.read(
-        getClass().getResource("/resources/images/logo.png")
-      );
+          getClass().getResource("/resources/images/logo.png"));
       noDataIconLabel.setIcon(new ImageIcon(logoImage));
     } catch (Exception ex) {
       ex.printStackTrace();
