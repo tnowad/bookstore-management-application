@@ -108,7 +108,7 @@ public class ImportDetailList extends JPanel {
 
     JScrollPane scrollPane = new JScrollPane(importItemsTable);
 
-    constraints.gridx = 0;
+    constraints.gridx = 0; 
     constraints.gridy++;
     constraints.gridwidth = 2;
     constraints.fill = GridBagConstraints.BOTH;
