@@ -6,6 +6,7 @@ import com.bookstore.bus.CartItemsBUS;
 import com.bookstore.bus.OrderBUS;
 import com.bookstore.bus.UserBUS;
 import com.bookstore.enums.OrderStatus;
+import com.bookstore.enums.UserRole;
 import com.bookstore.gui.components.buttons.Button;
 import com.bookstore.gui.components.labels.Label;
 import com.bookstore.gui.components.panels.MainPanel;
@@ -275,12 +276,12 @@ public class OrderDetail extends JPanel {
 
     groupBottomPanel.add(totalPriceLabel);
 
+    if(userModel.getRole() != UserRole.CUSTOMER) {
     acceptButton.setText("Accept");
-
     groupBottomPanel.add(acceptButton);
-
     rejectButton.setText("Reject");
     groupBottomPanel.add(rejectButton);
+    }
 
     container.add(groupBottomPanel, BorderLayout.PAGE_END);
 

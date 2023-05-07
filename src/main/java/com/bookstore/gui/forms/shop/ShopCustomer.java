@@ -185,10 +185,12 @@ public class ShopCustomer extends JPanel implements ISearchable {
           int column = 3;
           if (width <= 400) {
             column = 1;
-          } else if (width <= 1300) {
+          } else if (width <= 1100) {
             column = 2;
-          } else {
+          } else if (width <=1650) {
             column = 3;
+          } else {
+            column = 4;
           }
           bookListPanel.setLayout(new GridLayout(0, column));
         }
