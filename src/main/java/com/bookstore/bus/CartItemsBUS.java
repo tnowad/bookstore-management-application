@@ -224,9 +224,11 @@ public class CartItemsBUS implements IBUS<CartItemsModel> {
     BookModel bookModel,
     int quantity
   ) {
+    // Get updated cart and book models from the database
     cartModel = CartBUS.getInstance().getModelById(cartModel.getId());
     bookModel = BookBUS.getInstance().getBookByIsbn(bookModel.getIsbn());
 
+    // Check for null or invalid input
     if (cartModel == null) {
       throw new IllegalArgumentException("Cart is null");
     }
@@ -236,7 +238,6 @@ public class CartItemsBUS implements IBUS<CartItemsModel> {
     if (quantity < 1) {
       throw new IllegalArgumentException("Quantity must be positive");
     }
-
     if (bookModel.getQuantity() < quantity) {
       throw new IllegalArgumentException("Not enough books in stock");
     }
@@ -249,9 +250,15 @@ public class CartItemsBUS implements IBUS<CartItemsModel> {
         cartItemsModel.getCartId() == cartModel.getId() &&
         cartItemsModel.getBookIsbn().equals(bookModel.getIsbn())
       ) {
-        cartItemsModel.setQuantity(cartItemsModel.getQuantity() + quantity);
-        CartItemsDAO.getInstance().update(cartItemsModel);
-        return;
+        if (
+          quantity + cartItemsModel.getQuantity() <= bookModel.getQuantity()
+        ) {
+          cartItemsModel.setQuantity(cartItemsModel.getQuantity() + quantity);
+          CartItemsDAO.getInstance().update(cartItemsModel);
+          return;
+        } else {
+          throw new IllegalArgumentException("Book is not having enough quantity!");
+        }
       }
     }
 
@@ -265,7 +272,6 @@ public class CartItemsBUS implements IBUS<CartItemsModel> {
   }
 
   public void addBookToCart(CartModel cartModel, BookModel bookModel) {
-    System.out.println(cartModel.getId());
     addBookToCart(cartModel, bookModel, 1);
   }
 

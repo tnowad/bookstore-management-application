@@ -8,7 +8,7 @@ import com.bookstore.bus.OrderBUS;
 import com.bookstore.bus.PaymentBUS;
 import com.bookstore.bus.PaymentMethodBUS;
 import com.bookstore.bus.ShippingBUS;
-import com.bookstore.bus.UserBUS;
+import com.bookstore.enums.BookStatus;
 import com.bookstore.enums.CartStatus;
 import com.bookstore.enums.OrderStatus;
 import com.bookstore.enums.PaymentStatus;
@@ -66,7 +66,6 @@ public class CheckoutCustomerPanel extends JPanel {
   private CartModel cartModel;
   private List<CartItemsModel> cartItemList;
   private UserModel userModel;
-  private UserModel customerModel;
   private AddressModel addressModel;
 
   private List<BookModel> bookList;
@@ -196,6 +195,20 @@ public class CheckoutCustomerPanel extends JPanel {
             myOrderModel = orderModel;
           }
         }
+        //Handle quantity for books when checkout:
+        for (CartItemsModel cartItemsModel : myCartItemList) {
+          BookModel bookModel = BookBUS
+            .getInstance()
+            .getBookByIsbn(cartItemsModel.getBookIsbn());
+          bookModel.setQuantity(
+            bookModel.getQuantity() - cartItemsModel.getQuantity()
+          );
+          if (bookModel.getQuantity() <= 0) {
+            bookModel.setStatus(BookStatus.UNAVAILABLE);
+          }
+          BookBUS.getInstance().updateModel(bookModel);
+        }
+
         PaymentModel myPaymentModel = new PaymentModel();
         myPaymentModel.setOrderId(myOrderModel.getId());
         myPaymentModel.setUserId(customerId);

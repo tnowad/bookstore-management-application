@@ -53,17 +53,6 @@ public class ShopCustomer extends JPanel implements ISearchable {
       bookListPanel.removeAll();
       String selectedValue = (String) sortByConditionComboBox.getSelectedItem();
       if (selectedValue.equals("Price: low -> high")) {
-        // for (int i = 0; i < books.size() - 1; i++) {
-        // for (int j = i + 1; j < books.size(); j++) {
-        // if (books.get(i).getPrice() > books.get(j).getPrice()) {
-        // // Swap the positions of the two books in the list
-        // BookModel temp = books.get(i);
-        // books.set(i, books.get(j));
-        // books.set(j, temp);
-        // }
-        // }
-        // }
-
         Collections.sort(
           modifiableBookList,
           Comparator.comparingInt(BookModel::getPrice)

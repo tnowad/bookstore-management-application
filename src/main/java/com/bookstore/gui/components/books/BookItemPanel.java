@@ -56,11 +56,9 @@ public class BookItemPanel extends JPanel {
 
     addToCartButton.addActionListener(e -> {
       updateData();
-
       CartModel cartModel = CartBUS
         .getInstance()
         .getShoppingCartByUserId(userModel.getId());
-      System.out.println(cartModel.getId());
       try {
         CartItemsBUS.getInstance().addBookToCart(cartModel, bookModel);
       } catch (Exception exception) {
