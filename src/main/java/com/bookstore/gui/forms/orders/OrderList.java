@@ -60,6 +60,7 @@ public class OrderList extends JPanel {
       },
       0
     );
+    orderTableList.setEnabled(false);
 
     for (OrderModel orderModel : orderList) {
       if (orderModel.getStatus() == OrderStatus.PENDING) {
