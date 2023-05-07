@@ -4,34 +4,17 @@ import com.bookstore.bus.AuthorBUS;
 import com.bookstore.bus.BookBUS;
 import com.bookstore.bus.PublisherBUS;
 import com.bookstore.enums.BookStatus;
+import com.bookstore.gui.components.panels.MainPanel;
 import com.bookstore.models.AuthorModel;
 import com.bookstore.models.BookModel;
 import com.bookstore.models.PublisherModel;
 import com.bookstore.util.image.ImageUtils;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.Toolkit;
+import java.awt.*;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.*;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.Arrays;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
-import javax.swing.WindowConstants;
+import javax.swing.*;
 
 public class AddProductFrame extends JFrame {
 
@@ -62,6 +45,8 @@ public class AddProductFrame extends JFrame {
   private JLabel titleFrame;
   private JLabel titleText;
   private String base64;
+
+  BookBUS bookBUS = BookBUS.getInstance();
 
   public AddProductFrame() {
     initComponents();
@@ -224,39 +209,7 @@ public class AddProductFrame extends JFrame {
     pack();
   }
 
-  public Boolean checkPublisherName() {
-    if (PublisherBUS
-        .getInstance()
-        .getModelByPublisherName(setPublisherName.getText().trim()) != null) {
-      setPublisherId.setText(
-          String.valueOf(
-              PublisherBUS
-                  .getInstance()
-                  .getModelByPublisherName(setPublisherName.getText().trim())
-                  .getId()));
-      return true;
-    } else {
-      setPublisherId.setText(null);
-      return false;
-    }
-  }
 
-  public Boolean checkAuthorName() {
-    if (AuthorBUS
-        .getInstance()
-        .getModelByName(setAuthorName.getText().trim()) != null) {
-      setAuthorId.setText(
-          String.valueOf(
-              AuthorBUS
-                  .getInstance()
-                  .getModelByName(setAuthorName.getText().trim())
-                  .getId()));
-      return true;
-    } else {
-      setAuthorId.setText(null);
-      return false;
-    }
-  }
 
   public FocusListener actionCheckPublisherId = new FocusListener() {
     @Override
@@ -286,7 +239,18 @@ public class AddProductFrame extends JFrame {
 
     @Override
     public void focusLost(FocusEvent e) {
-      checkPublisherName();
+      if (PublisherBUS
+        .getInstance()
+        .getModelByPublisherName(setPublisherName.getText().trim()) != null) {
+      setPublisherId.setText(
+          String.valueOf(
+              PublisherBUS
+                  .getInstance()
+                  .getModelByPublisherName(setPublisherName.getText().trim())
+                  .getId()));
+    } else {
+      setPublisherId.setText(null);
+    }
     }
   };
 
@@ -318,7 +282,18 @@ public class AddProductFrame extends JFrame {
 
     @Override
     public void focusLost(FocusEvent e) {
-      checkAuthorName();
+      if (AuthorBUS
+        .getInstance()
+        .getModelByName(setAuthorName.getText().trim()) != null) {
+      setAuthorId.setText(
+          String.valueOf(
+              AuthorBUS
+                  .getInstance()
+                  .getModelByName(setAuthorName.getText().trim())
+                  .getId()));
+    } else {
+      setAuthorId.setText(null);
+    }
     }
   };
 
@@ -405,17 +380,19 @@ public class AddProductFrame extends JFrame {
         JOptionPane.showMessageDialog(null, "Author Name" + EMPTY_FIELD_ERROR);
         return;
       }
+      if (stringImage.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Image" + EMPTY_FIELD_ERROR);
+        return;
+      }
 
-      if (BookBUS
-          .getInstance()
+      if (bookBUS
           .checkForDuplicate(
               Arrays.asList(setIsbn.getText()),
               new String[] { "isbn" })) {
         JOptionPane.showMessageDialog(null, DUPLICATE_ISBN_ERROR);
         return;
       }
-      if (BookBUS
-          .getInstance()
+      if (bookBUS
           .checkForDuplicate(
               Arrays.asList(setTitle.getText()),
               new String[] { "title" })) {
@@ -423,7 +400,7 @@ public class AddProductFrame extends JFrame {
         return;
       }
 
-      if (!checkPublisherName()) {
+      if (setPublisherId.getText().trim().isEmpty()) {
         int choice = JOptionPane.showConfirmDialog(
             null,
             "Do you want to add new publisher?");
@@ -438,7 +415,7 @@ public class AddProductFrame extends JFrame {
           return;
         }
       }
-      if (!checkAuthorName()) {
+      if (setAuthorId.getText().trim().isEmpty()) {
         int choice = JOptionPane.showConfirmDialog(
             null,
             "Do you want to add new author?");
@@ -474,7 +451,8 @@ public class AddProductFrame extends JFrame {
               .getInstance()
               .getModelByName(setAuthorName.getText().trim())
               .getId());
-      BookBUS.getInstance().addModel(book);
+      bookBUS.addModel(book);
+      bookBUS.refreshData();
       JOptionPane.showMessageDialog(null, "Completed!");
     }
   };

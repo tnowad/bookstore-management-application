@@ -5,13 +5,8 @@ import com.bookstore.bus.BookBUS;
 import com.bookstore.bus.PublisherBUS;
 import com.bookstore.enums.BookStatus;
 import com.bookstore.models.BookModel;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.*;
+import java.awt.event.*;
 import javax.swing.*;
 
 public class BookDetailFrame extends JFrame {
@@ -257,31 +252,31 @@ public class BookDetailFrame extends JFrame {
     @Override
     public void actionPerformed(ActionEvent e) {
       Object selectedStatusItem = setStatus.getSelectedItem();
-      if (selectedStatusItem != null) {
-        String statusString = selectedStatusItem.toString().toUpperCase();
-        BookStatus newStatus = BookStatus.valueOf(statusString);
-        int newPrice = Integer.valueOf(setPrice.getText());
-        int newQuantity = Integer.valueOf(setAvailableQuantity.getText());
-        String newDescription = setDescription.getText();
-        BookModel newBook = new BookModel();
-        newBook.setIsbn(bookModel.getIsbn());
-        newBook.setTitle(bookModel.getTitle());
-        newBook.setDescription(newDescription);
-        newBook.setImage(bookModel.getImage());
-        newBook.setPrice(newPrice);
-        newBook.setQuantity(newQuantity);
-        newBook.setStatus(newStatus);
-        newBook.setAuthorId(bookModel.getAuthorId());
-        newBook.setPublisherId(bookModel.getPublisherId());
-        int confirm = JOptionPane.showConfirmDialog(
-          null,
-          "Do you want to continue?",
-          "Confirmation",
-          JOptionPane.YES_NO_OPTION
-        );
-        if (confirm == JOptionPane.YES_OPTION) {
-          BookBUS.getInstance().updateModel(newBook);
-        }
+
+      String statusString = selectedStatusItem.toString().toUpperCase();
+      BookStatus newStatus = BookStatus.valueOf(statusString);
+      int newPrice = Integer.valueOf(setPrice.getText());
+      int newQuantity = Integer.valueOf(setAvailableQuantity.getText());
+      String newDescription = setDescription.getText();
+      BookModel newBook = new BookModel();
+      newBook.setIsbn(bookModel.getIsbn());
+      newBook.setTitle(bookModel.getTitle());
+      newBook.setDescription(newDescription);
+      newBook.setImage(bookModel.getImage());
+      newBook.setPrice(newPrice);
+      newBook.setQuantity(newQuantity);
+      newBook.setStatus(newStatus);
+      newBook.setAuthorId(bookModel.getAuthorId());
+      newBook.setPublisherId(bookModel.getPublisherId());
+      int confirm = JOptionPane.showConfirmDialog(
+        null,
+        "Do you want to continue?",
+        "Confirmation",
+        JOptionPane.YES_NO_OPTION
+      );
+      if (confirm == JOptionPane.YES_OPTION) {
+        BookBUS.getInstance().updateModel(newBook);
+        BookBUS.getInstance().refreshData();
       }
     }
   };

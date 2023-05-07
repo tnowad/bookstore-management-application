@@ -6,19 +6,40 @@ import com.bookstore.util.Excel.BookExcelUtil;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import javax.swing.*;
 
 public class BrowseProductPanel extends JPanel {
 
-  private BookBUS bookBUS;
-  private List<BookModel> listBook;
+  private static BrowseProductPanel instance;
+  private JButton buttonSortAz;
+  private JButton buttonSortZa;
+  private JButton buttonCreate;
+  private JButton buttonDelete;
+  private JButton buttonExport;
+  private JButton buttonImport;
+  private JPanel contendPanel;
+  private JPanel panel;
+  private JPanel panelButton;
+  private JScrollPane scrollPane;
+  private JPanel table;
+  private JLabel title;
+  private int cols = 3;
+
+  private BookBUS bookBUS = BookBUS.getInstance();
+  private List<BookModel> listBook = bookBUS.getAllModels();
+  private List<BookModel> modifiableBookList = new ArrayList<>(listBook);
+
+  public static BrowseProductPanel getInstance() {
+    if (instance == null) instance = new BrowseProductPanel();
+    return instance;
+  }
 
   public BrowseProductPanel() {
-    bookBUS = BookBUS.getInstance();
-    listBook = bookBUS.getAllModels();
     initComponents();
-    addTable();
+    addTable(modifiableBookList);
   }
 
   private void initComponents() {
@@ -30,6 +51,8 @@ public class BrowseProductPanel extends JPanel {
     buttonImport = new JButton();
     buttonCreate = new JButton();
     buttonDelete = new JButton();
+    buttonSortAz = new JButton();
+    buttonSortZa = new JButton();
     scrollPane = new JScrollPane();
     table = new JPanel();
 
@@ -48,6 +71,18 @@ public class BrowseProductPanel extends JPanel {
     panel.setLayout(new BorderLayout(5, 5));
 
     panelButton.setLayout(new GridLayout(1, 0, 10, 10));
+
+    buttonSortAz.setIcon(
+      new ImageIcon(getClass().getResource("/resources/icons/sortAz.png"))
+    );
+    buttonSortAz.addActionListener(actionSortAz);
+    panelButton.add(buttonSortAz);
+
+    buttonSortZa.setIcon(
+      new ImageIcon(getClass().getResource("/resources/icons/sortZa.png"))
+    );
+    buttonSortZa.addActionListener(actionSortZa);
+    panelButton.add(buttonSortZa);
 
     buttonExport.setText("Export");
     buttonExport.addActionListener(actionExport);
@@ -76,8 +111,8 @@ public class BrowseProductPanel extends JPanel {
     add(contendPanel, BorderLayout.CENTER);
   }
 
-  public void addTable() {
-    table.setLayout(new GridLayout(0, 3, 10, 10));
+  public void addTable(List<BookModel> listBook) {
+    table.setLayout(new GridLayout(0, cols, 10, 10));
     for (BookModel book : listBook) {
       if (!book.getStatus().toString().equals("DELETED")) {
         BookProductPanel bookProductPanel = new BookProductPanel(book);
@@ -101,17 +136,6 @@ public class BrowseProductPanel extends JPanel {
     table.repaint();
   }
 
-  private JButton buttonCreate;
-  private JButton buttonDelete;
-  private JButton buttonExport;
-  private JButton buttonImport;
-  private JPanel contendPanel;
-  private JPanel panel;
-  private JPanel panelButton;
-  private JScrollPane scrollPane;
-  private JPanel table;
-  private JLabel title;
-
   public ActionListener actionAdd = new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -122,6 +146,7 @@ public class BrowseProductPanel extends JPanel {
   public ActionListener actionBanned = new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
+      int updateStatusRows = 0;
       int choice = JOptionPane.showConfirmDialog(
         null,
         "Do you want to banned products?",
@@ -141,10 +166,11 @@ public class BrowseProductPanel extends JPanel {
                 if (c instanceof JTextField) {
                   String id = ((JTextField) c).getText();
                   String status = "DELETED";
-                  int updateStatusRows = BookBUS
+                  updateStatusRows = BookBUS
                     .getInstance()
                     .updateStatus(id, status);
                   if (updateStatusRows == 1) {
+                    BookBUS.getInstance().refreshData();
                     JOptionPane.showMessageDialog(
                       null,
                       "You've successfully locked an products!"
@@ -155,6 +181,9 @@ public class BrowseProductPanel extends JPanel {
             }
           }
         }
+      }
+      if(updateStatusRows==0){
+        JOptionPane.showMessageDialog(null, "No products have been selected yet!");
       }
     }
   };
@@ -186,11 +215,35 @@ public class BrowseProductPanel extends JPanel {
       }
     }
   };
+
+  public ActionListener actionSortAz = new ActionListener() {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+      table.removeAll();
+      modifiableBookList.sort(Comparator.comparing(BookModel::getTitle));
+      addTable(modifiableBookList);
+      table.revalidate();
+      table.repaint();
+    }
+  };
+  public ActionListener actionSortZa = new ActionListener() {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+      table.removeAll();
+      modifiableBookList.sort(
+        Comparator.comparing(BookModel::getTitle).reversed()
+      );
+      addTable(modifiableBookList);
+      table.revalidate();
+      table.repaint();
+    }
+  };
+
   public ComponentListener reSize = new ComponentListener() {
     @Override
     public void componentResized(ComponentEvent e) {
       double width = getWidth();
-      int cols = (int) width / 199;
+      cols = (int) width / 199;
       table.setLayout(new GridLayout(0, cols, 10, 10));
     }
 
