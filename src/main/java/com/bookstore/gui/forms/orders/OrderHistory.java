@@ -15,7 +15,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
-public class OderHistory extends JPanel{
+public class OrderHistory extends JPanel{
   private JPanel headerPanel;
   private Label orderLabel;
   private JTable orderHistoryList;
@@ -29,7 +29,7 @@ public class OderHistory extends JPanel{
   java.util.List<OrderModel> orderList = orderBus.getAllModels();
   UserModel userModel = Authentication.getCurrentUser();
 
-  public OderHistory() {
+  public OrderHistory() {
     initComponents();
     listOrder();
     handleEvent();
