@@ -17,7 +17,9 @@ import com.bookstore.models.UserModel;
 import com.bookstore.util.PDF.PDFWriter;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
@@ -31,7 +33,6 @@ public class OrderDetail extends JPanel {
   private JScrollPane tableListScrollPane;
   private Label titleLabel;
   private Label totalPriceLabel;
-  private JTextField totalPriceTextField;
   private JPanel groupHeaderPanel;
   private JLabel nameCustomerLabel;
   private JLabel emailCustomerLabel;
@@ -212,7 +213,7 @@ public class OrderDetail extends JPanel {
                 cartItemModel.getBookIsbn(),
                 bookModel.getTitle(),
                 bookModel.getPrice(),
-                bookModel.getQuantity(),
+                cartItemModel.getQuantity(),
                 bookModel.getStatus(),
               }
             );
@@ -234,14 +235,17 @@ public class OrderDetail extends JPanel {
     productListTable = new JTable();
     groupHeaderPanel = new JPanel();
     groupBottomPanel = new JPanel();
-    totalPriceLabel = new Label("Total Price");
+    NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(
+      new Locale("vi", "VN")
+    );
+    totalPriceLabel =
+      new Label(
+        "Total Price : " + currencyFormatter.format(orderModel.getTotal())
+      );
+    totalPriceLabel.setPreferredSize(new Dimension(200, 20));
     nameCustomerLabel = new Label("Name : " + userModel.getName());
     emailCustomerLabel = new Label("Email : " + userModel.getEmail());
     phoneCustomerLabel = new Label("Phone : " + userModel.getPhone());
-    totalPriceTextField = new JTextField();
-    int totalPrice = orderModel.getTotal();
-    totalPriceTextField.setText(String.valueOf(totalPrice));
-    totalPriceTextField.setEditable(false);
     acceptButton = new Button();
     rejectButton = new Button();
     backToPreviousPanel = new JPanel();
@@ -270,7 +274,6 @@ public class OrderDetail extends JPanel {
     container.add(groupHeaderPanel, BorderLayout.PAGE_START);
 
     groupBottomPanel.add(totalPriceLabel);
-    groupBottomPanel.add(totalPriceTextField);
 
     acceptButton.setText("Accept");
 
