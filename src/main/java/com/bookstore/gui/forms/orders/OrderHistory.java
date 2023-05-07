@@ -69,14 +69,16 @@ public class OrderHistory extends JPanel{
     model.addColumn("ID");
     model.addColumn("purchase date");
     model.addColumn("Total price");
+    model.addColumn("status");
     for (OrderModel orderModel : orderList) {
-      if (orderModel.getStatus() == OrderStatus.SOLVED && userModel.getId() == orderModel.getCustomerId()) {
+      if (userModel.getId() == orderModel.getCustomerId()) {
         model.addRow(
           new Object[] {
             stt++,
             orderModel.getId(),
             orderModel.getCreatedAt(),
             orderModel.getTotal(),
+            orderModel.getStatus(),
           }
         );
       }
