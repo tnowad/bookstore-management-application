@@ -392,14 +392,14 @@ public class MenuFactory {
                   add(
                     new SubMenuItemModel(
                       "View Cart",
-                      new ImageIcon(""),
+                      new ImageIcon("src/main/java/resources/icons/shopping_cart_logo.png"),
                       showCartCustomer
                     )
                   );
                   add(
                     new SubMenuItemModel(
                       "Order History",
-                      new ImageIcon(""),
+                      new ImageIcon("src/main/java/resources/icons/order_icon.png"),
                       showMyOrderCustomer
                     )
                   );
@@ -418,7 +418,7 @@ public class MenuFactory {
                   add(
                     new SubMenuItemModel(
                       "Customer management",
-                      new ImageIcon(""),
+                      new ImageIcon("src/main/java/resources/icons/customer_icon.png"),
                       showCustomerList
                     )
                   );
@@ -426,14 +426,14 @@ public class MenuFactory {
                   add(
                     new SubMenuItemModel(
                       "Order management",
-                      new ImageIcon(""),
+                      new ImageIcon("src/main/java/resources/icons/order_icon.png"),
                       showOrderList
                     )
                   );
                   add(
                     new SubMenuItemModel(
                       "Import management",
-                      new ImageIcon(""),
+                      new ImageIcon("src/main/java/resources/icons/import_icon.png"),
                       showImportList
                     )
                   );
@@ -452,14 +452,14 @@ public class MenuFactory {
                   add(
                     new SubMenuItemModel(
                       "Update Profile",
-                      new ImageIcon(""),
+                      new ImageIcon("src//main/java/resources/icons/profile.png"),
                       showAccountProfile
                     )
                   );
                   add(
                     new SubMenuItemModel(
-                      "Update Password",
-                      new ImageIcon(""),
+                      "Change Password",
+                      new ImageIcon("src/main/java/resources/icons/password-reset.png"),
                       showAccountPassword
                     )
                   );
