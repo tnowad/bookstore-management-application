@@ -4,9 +4,11 @@ import com.bookstore.bus.BookBUS;
 import com.bookstore.bus.BooksCategoryBUS;
 import com.bookstore.bus.CategoryBUS;
 import com.bookstore.gui.components.books.BookItemPanel;
+import com.bookstore.gui.components.dialogs.Dialog;
 import com.bookstore.gui.components.panels.MainPanel;
 import com.bookstore.gui.forms.carts.CartCustomerPanel;
 import com.bookstore.gui.forms.general.NoDataPanel;
+import com.bookstore.interfaces.IFilterAble;
 import com.bookstore.interfaces.ISearchable;
 import com.bookstore.models.BookModel;
 import com.bookstore.models.BooksCategoryModel;
@@ -20,7 +22,9 @@ import java.util.Comparator;
 import java.util.List;
 import javax.swing.*;
 
-public class ShopCustomer extends JPanel implements ISearchable {
+public class ShopCustomerPanel
+  extends JPanel
+  implements ISearchable, IFilterAble {
 
   private JPanel bookListPanel;
   private JScrollPane bookListScrollPane;
@@ -31,15 +35,13 @@ public class ShopCustomer extends JPanel implements ISearchable {
   private JComboBox<String> sortByConditionComboBox;
   private JLabel sortByLabel;
 
-  private static ShopCustomer instance;
-
   private final List<BookModel> bookList = BookBUS.getInstance().getAllModels();
   private List<BookModel> modifiableBookList = new ArrayList<>(bookList);
   private final List<CategoryModel> categoryList = CategoryBUS
     .getInstance()
     .getAllModels();
 
-  public ShopCustomer() {
+  public ShopCustomerPanel() {
     initComponents();
     renderListProduct(bookList);
     handleEvent();
@@ -103,7 +105,8 @@ public class ShopCustomer extends JPanel implements ISearchable {
     });
   }
 
-  private void renderListProduct(List<BookModel> bookListRender) {
+  void renderListProduct(List<BookModel> bookListRender) {
+    bookListPanel.removeAll();
     if (bookListRender.size() <= 0) {
       bookListPanel.setLayout(new GridLayout(0, 1));
       bookListPanel.add(new NoDataPanel("Don't have data for product"));
@@ -117,13 +120,8 @@ public class ShopCustomer extends JPanel implements ISearchable {
         bookListPanel.add(bookItemPanel);
       }
     }
-  }
-
-  public static ShopCustomer getInstance() {
-    if (instance == null) {
-      instance = new ShopCustomer();
-    }
-    return instance;
+    this.revalidate();
+    this.repaint();
   }
 
   private void initComponents() {
@@ -208,10 +206,6 @@ public class ShopCustomer extends JPanel implements ISearchable {
   public void search(String keyword) {
     bookListPanel.removeAll();
     if (keyword == null || keyword.isBlank()) {
-      JOptionPane.showMessageDialog(
-        null,
-        "Please enter your search information!"
-      );
       renderListProduct(bookList);
       this.revalidate();
       this.repaint();
@@ -229,5 +223,10 @@ public class ShopCustomer extends JPanel implements ISearchable {
       this.revalidate();
       this.repaint();
     }
+  }
+
+  @Override
+  public void filter() {
+    new Dialog(new BookFilterPanel(this));
   }
 }

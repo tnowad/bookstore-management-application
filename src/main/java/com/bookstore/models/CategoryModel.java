@@ -1,11 +1,11 @@
 package com.bookstore.models;
 
 public class CategoryModel {
+
   private int id;
   private String name;
 
-  public CategoryModel() {
-  }
+  public CategoryModel() {}
 
   public CategoryModel(int id, String name) {
     this.id = id;
@@ -38,4 +38,8 @@ public class CategoryModel {
     return this;
   }
 
+  @Override
+  public String toString() {
+    return "CategoryModel [id=" + id + ", name=" + name + "]";
+  }
 }

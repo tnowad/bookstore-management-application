@@ -59,9 +59,10 @@ public class CategoryBUS implements IBUS<CategoryModel> {
   }
 
   private boolean checkFilter(
-      CategoryModel categoryModel,
-      String value,
-      String[] column) {
+    CategoryModel categoryModel,
+    String value,
+    String[] column
+  ) {
     for (String col : column) {
       switch (col.toLowerCase()) {
         case "id" -> {
@@ -70,7 +71,9 @@ public class CategoryBUS implements IBUS<CategoryModel> {
           }
         }
         case "name" -> {
-          if (categoryModel.getName().toLowerCase().contains(value.toLowerCase())) {
+          if (
+            categoryModel.getName().toLowerCase().contains(value.toLowerCase())
+          ) {
             return true;
           }
         }
@@ -85,8 +88,10 @@ public class CategoryBUS implements IBUS<CategoryModel> {
   }
 
   private boolean checkAllColumns(CategoryModel categoryModel, String value) {
-    return (categoryModel.getId() == Integer.parseInt(value) ||
-        categoryModel.getName().toLowerCase().contains(value.toLowerCase()));
+    return (
+      categoryModel.getId() == Integer.parseInt(value) ||
+      categoryModel.getName().toLowerCase().contains(value.toLowerCase())
+    );
   }
 
   @Override
@@ -120,7 +125,8 @@ public class CategoryBUS implements IBUS<CategoryModel> {
     CategoryModel categoryModel = getModelById(id);
     if (categoryModel == null) {
       throw new IllegalArgumentException(
-          "Category with ID " + id + " does not exist.");
+        "Category with ID " + id + " does not exist."
+      );
     }
     int deletedRows = CategoryDAO.getInstance().delete(id);
     if (deletedRows > 0) {
@@ -133,8 +139,8 @@ public class CategoryBUS implements IBUS<CategoryModel> {
   public List<CategoryModel> searchModel(String value, String[] columns) {
     List<CategoryModel> results = new ArrayList<>();
     List<CategoryModel> entities = CategoryDAO
-        .getInstance()
-        .search(value, columns);
+      .getInstance()
+      .search(value, columns);
     for (CategoryModel entity : entities) {
       CategoryModel model = mapToEntity(entity);
       if (checkFilter(model, value, columns)) {
@@ -148,6 +154,7 @@ public class CategoryBUS implements IBUS<CategoryModel> {
   @Override
   public void refreshData() {
     throw new UnsupportedOperationException(
-        "Unimplemented method 'refreshData'");
+      "Unimplemented method 'refreshData'"
+    );
   }
 }
