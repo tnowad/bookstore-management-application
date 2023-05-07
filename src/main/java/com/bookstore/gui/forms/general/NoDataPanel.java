@@ -1,4 +1,4 @@
-package com.bookstore.gui.forms.others;
+package com.bookstore.gui.forms.general;
 
 import com.bookstore.gui.components.labels.Label;
 import com.bookstore.gui.theme.ThemeFont;
@@ -42,14 +42,5 @@ public class NoDataPanel extends JPanel {
     add(noDataLabel);
 
     setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-  }
-
-  public static void main(String[] args) {
-    JFrame frame = new JFrame();
-    NoDataPanel noData = new NoDataPanel("test");
-    frame.add(noData);
-    frame.setSize(1000, 1000);
-    frame.setLocationRelativeTo(null);
-    frame.setVisible(true);
   }
 }
