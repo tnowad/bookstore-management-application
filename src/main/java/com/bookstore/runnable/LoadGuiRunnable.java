@@ -13,7 +13,7 @@ public class LoadGuiRunnable implements Runnable {
   public void run() {
     UserModel user;
     try {
-      user = UserBUS.getInstance().login("admin", "password");
+      user = UserBUS.getInstance().login("employee_sales", "password");
       Authentication.setCurrentUser(user);
       UIFactory.showForm(user);
     } catch (LoginException e) {

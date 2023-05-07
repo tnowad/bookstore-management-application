@@ -1,12 +1,12 @@
 package com.bookstore.gui.forms.orders;
 
 import com.bookstore.bus.OrderBUS;
-import com.bookstore.enums.OrderStatus;
 import com.bookstore.gui.components.buttons.Button;
 import com.bookstore.gui.components.labels.Label;
 import com.bookstore.gui.components.panels.MainPanel;
 import com.bookstore.models.OrderModel;
 import java.awt.*;
+import java.util.List;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
@@ -17,7 +17,7 @@ public class OrderList extends JPanel {
   private static OrderList instance;
 
   OrderBUS orderBus = OrderBUS.getInstance();
-  java.util.List<OrderModel> orderList = orderBus.getAllModels();
+  List<OrderModel> orderList = orderBus.getAllModels();
 
   public OrderList() {
     initComponents();
@@ -38,11 +38,19 @@ public class OrderList extends JPanel {
       .addListSelectionListener(event -> {
         int selectedRowIndex = orderTableList.getSelectedRow();
         if (selectedRowIndex != -1) {
+          int orderId = Integer.parseInt(
+            orderTableList.getValueAt(selectedRowIndex, 0).toString()
+          );
           int customerId = Integer.parseInt(
             orderTableList.getValueAt(selectedRowIndex, 2).toString()
           );
-          MainPanel.getInstance().showFormStack(new OrderDetail(customerId));
-          listOrder();
+          if (customerId != 0) {
+            MainPanel
+              .getInstance()
+              .showFormStack(new OrderDetail(customerId, orderId));
+            OrderBUS.getInstance().refreshData();
+            listOrder();
+          }
         }
       });
   }
@@ -60,25 +68,21 @@ public class OrderList extends JPanel {
       },
       0
     );
-    orderTableList.setEnabled(false);
 
     for (OrderModel orderModel : orderList) {
-      if (orderModel.getStatus() == OrderStatus.PENDING) {
-        model.addRow(
-          new Object[] {
-            orderModel.getId(),
-            orderModel.getCartId(),
-            orderModel.getCustomerId(),
-            orderModel.getEmployeeId(),
-            orderModel.getTotal(),
-            orderModel.getPaid(),
-            orderModel.getStatus().toString(),
-          }
-        );
-      }
+      model.addRow(
+        new Object[] {
+          orderModel.getId(),
+          orderModel.getCartId(),
+          orderModel.getCustomerId(),
+          orderModel.getEmployeeId(),
+          orderModel.getTotal(),
+          orderModel.getPaid(),
+          orderModel.getStatus().toString(),
+        }
+      );
+      orderTableList.setModel(model);
     }
-
-    orderTableList.setModel(model);
 
     add(new JScrollPane(orderTableList), BorderLayout.CENTER);
   }
@@ -88,7 +92,7 @@ public class OrderList extends JPanel {
     Label orderLabel = new Label("Order");
     TextField searchTextField = new TextField();
     Button searchButton = new Button("Search");
-    JTable orderTableList = new JTable();
+    orderTableList = new JTable();
 
     setMinimumSize(new Dimension(1180, 620));
     setLayout(new BorderLayout());
@@ -101,6 +105,5 @@ public class OrderList extends JPanel {
     headerPanel.add(searchButton);
 
     add(headerPanel, BorderLayout.PAGE_START);
-    add(new JScrollPane(orderTableList), BorderLayout.CENTER);
   }
 }

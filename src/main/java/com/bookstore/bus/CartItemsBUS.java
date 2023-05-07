@@ -233,7 +233,7 @@ public class CartItemsBUS implements IBUS<CartItemsModel> {
     if (bookModel == null) {
       throw new IllegalArgumentException("Book is null");
     }
-    if (quantity <= 0) {
+    if (quantity < 1) {
       throw new IllegalArgumentException("Quantity must be positive");
     }
 

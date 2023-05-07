@@ -37,7 +37,7 @@ public class NoData extends JPanel {
     noDataLabel = new Label();
     noDataLabel.setFont(new ThemeFont().getLargeFont());
     noDataLabel.setText(name);
-    noDataLabel.setPreferredSize(new Dimension(400, 100)); // Use a relative size instead of absolute size
+    noDataLabel.setPreferredSize(new Dimension(400, 100));
     noDataLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
     add(noDataLabel);
 
