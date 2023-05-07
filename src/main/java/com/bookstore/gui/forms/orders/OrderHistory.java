@@ -90,7 +90,7 @@ public class OrderHistory extends JPanel{
 
   private void initComponents() {
     headerPanel = new JPanel();
-    orderLabel = new Label("Order");
+    orderLabel = new Label("Order History");
     searchTextField = new TextField();
     searchButton = new Button("Search");
     scrollPaneParent = new JScrollPane();
