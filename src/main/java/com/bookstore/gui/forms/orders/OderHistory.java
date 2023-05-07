@@ -18,7 +18,7 @@ import javax.swing.table.DefaultTableModel;
 public class OderHistory extends JPanel{
   private JPanel headerPanel;
   private Label orderLabel;
-  private JTable oderHistoryList;
+  private JTable orderHistoryList;
   private JScrollPane scrollPaneParent;
   private Button searchButton;
   private TextField searchTextField;
@@ -43,18 +43,21 @@ public class OderHistory extends JPanel{
   }
 
   private void handleEvent() {
-   oderHistoryList
+   orderHistoryList
       .getSelectionModel()
-      .addListSelectionListener(
-        new ListSelectionListener() {
-          public void valueChanged(ListSelectionEvent event) {
-              // MainPanel
-              //   .getInstance()
-              //   .showFormStack(new OrderDetail(userModel.getId()));
-
-              listOrder();
-            } 
+      .addListSelectionListener( event -> {
+        int selectedRowIndex = orderHistoryList.getSelectedRow();
+        if (selectedRowIndex != -1) {
+          int orderId = Integer.parseInt(
+            orderHistoryList.getValueAt(selectedRowIndex, 1).toString()
+          );
+          MainPanel
+              .getInstance()
+              .showFormStack(new OrderDetail(userModel.getId(), orderId));
+            OrderBUS.getInstance().refreshData();
+            listOrder();
         }
+      }
       );
   }
 
@@ -77,10 +80,10 @@ public class OderHistory extends JPanel{
           }
         );
       }
-      oderHistoryList.setModel(model);
+      orderHistoryList.setModel(model);
     }
 
-    scrollPaneParent.setViewportView(oderHistoryList);
+    scrollPaneParent.setViewportView(orderHistoryList);
 
     add(scrollPaneParent, BorderLayout.CENTER);
   }
@@ -91,7 +94,7 @@ public class OderHistory extends JPanel{
     searchTextField = new TextField();
     searchButton = new Button("Search");
     scrollPaneParent = new JScrollPane();
-    oderHistoryList = new JTable();
+    orderHistoryList = new JTable();
 
     setMinimumSize(new Dimension(1180, 620));
     setLayout(new BorderLayout());
