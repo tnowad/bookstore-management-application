@@ -4,7 +4,8 @@ import com.bookstore.bus.CartBUS;
 import com.bookstore.bus.CartItemsBUS;
 import com.bookstore.gui.components.labels.Label;
 import com.bookstore.gui.components.panels.MainPanel;
-import com.bookstore.gui.forms.books.BookDetailCustomer;
+import com.bookstore.gui.events.book.AddToCartActionListener;
+import com.bookstore.gui.forms.books.BookItemDetailCustomer;
 import com.bookstore.models.BookModel;
 import com.bookstore.models.CartModel;
 import com.bookstore.models.UserModel;
@@ -49,31 +50,13 @@ public class BookItemPanel extends JPanel {
 
   private void handleEvent() {
     detailButton.addActionListener(e -> {
-      MainPanel.getInstance().showFormStack(new BookDetailCustomer(bookModel));
+      MainPanel
+        .getInstance()
+        .showFormStack(new BookItemDetailCustomer(bookModel));
     });
-
     addToCartButton.addActionListener(e -> {
       updateData();
-      CartModel cartModel = CartBUS
-        .getInstance()
-        .getShoppingCartByUserId(userModel.getId());
-      try {
-        CartItemsBUS.getInstance().addBookToCart(cartModel, bookModel);
-      } catch (Exception exception) {
-        JOptionPane.showMessageDialog(
-          null,
-          exception.getMessage(),
-          "Error",
-          JOptionPane.ERROR_MESSAGE
-        );
-        return;
-      }
-      JOptionPane.showMessageDialog(
-        null,
-        "Add book to cart successfully!",
-        "Success",
-        JOptionPane.INFORMATION_MESSAGE
-      );
+      new AddToCartActionListener(bookModel).actionPerformed(e);
       updateData();
     });
   }

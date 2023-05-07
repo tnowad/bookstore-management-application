@@ -3,45 +3,37 @@ package com.bookstore.gui.forms.books;
 import com.bookstore.bus.AuthorBUS;
 import com.bookstore.gui.components.labels.Label;
 import com.bookstore.gui.components.panels.MainPanel;
+import com.bookstore.gui.events.book.AddToCartActionListener;
 import com.bookstore.models.AuthorModel;
 import com.bookstore.models.BookModel;
+import com.bookstore.util.image.ImageUtils;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
-public class BookDetailCustomer extends JPanel {
+public class BookItemDetailCustomer extends JPanel {
 
   private JButton backPreviousButton;
-
   private JButton addToCartButton;
   private Label authorLabel;
   private JTextField bookAuthorTextField;
   private Label bookAvailableQuantity;
-  private JPanel bookDescriptionPanel;
-  private JPanel bookDetailsPanel;
-  private JPanel bookImagePanel;
-  private JPanel bookInformationPanel;
   private JTextField bookIsbnTextField;
   private JTextField bookPriceTextField;
   private JTextField bookQuantityTextField;
   private JTextField bookStatusTextField;
-  private JPanel bookTitleHeaderPanel;
   private JTextField bookTitleTextField;
-  private JPanel buttonPanel;
   private Label descriptionLabel;
   private JTextArea descriptionTextArea;
-  private JPanel isbnAndAuthorAndQuantityPanel;
   private Label isbnLabel;
   private JScrollPane jScrollPane1;
-  private JPanel priceAndStatusField;
   private Label priceLabel;
-  private JSpinner quantitySpinner;
   private Label statusLabel;
 
   private BookModel bookModel;
   private AuthorModel authorModel;
 
-  public BookDetailCustomer(BookModel bookModel) {
+  public BookItemDetailCustomer(BookModel bookModel) {
     this.bookModel = bookModel;
     initComponents();
     updateDate();
@@ -59,33 +51,40 @@ public class BookDetailCustomer extends JPanel {
   }
 
   private void initComponents() {
+    setBackground(Color.WHITE);
     backPreviousButton = new JButton("Back Previous");
     backPreviousButton.addActionListener(backPreviousButtonActionListener);
 
-    bookTitleHeaderPanel = new JPanel(new BorderLayout());
+    JPanel bookTitleHeaderPanel = new JPanel(new BorderLayout());
+    bookTitleHeaderPanel.setBackground(Color.WHITE);
+    JPanel bookDescriptionPanel = new JPanel();
+    bookDescriptionPanel.setBackground(Color.WHITE);
+    JPanel bookDetailsPanel = new JPanel();
+    bookDetailsPanel.setBackground(Color.WHITE);
+    JPanel bookImagePanel = new JPanel();
+    bookImagePanel.setBackground(Color.WHITE);
+    JPanel bookInformationPanel = new JPanel();
+    bookInformationPanel.setBackground(Color.WHITE);
+    JPanel priceAndStatusField = new JPanel();
+    priceAndStatusField.setBackground(Color.WHITE);
+    JPanel isbnAndAuthorAndQuantityPanel = new JPanel();
+    isbnAndAuthorAndQuantityPanel.setBackground(Color.WHITE);
+    JPanel actionPanel = new JPanel();
+    actionPanel.setBackground(Color.WHITE);
     bookTitleTextField = new JTextField();
-    bookDescriptionPanel = new JPanel();
     descriptionTextArea = new JTextArea();
     descriptionLabel = new Label("Description");
     jScrollPane1 = new JScrollPane();
-    bookDetailsPanel = new JPanel();
-    bookImagePanel = new JPanel();
-    bookInformationPanel = new JPanel();
-    priceAndStatusField = new JPanel();
     priceLabel = new Label("Price");
     bookPriceTextField = new JTextField();
     statusLabel = new Label("Status");
     bookStatusTextField = new JTextField();
-    isbnAndAuthorAndQuantityPanel = new JPanel();
     isbnLabel = new Label("Isbn");
     bookIsbnTextField = new JTextField();
     authorLabel = new Label("Author");
     bookAuthorTextField = new JTextField();
     bookAvailableQuantity = new Label("Quantity");
     bookQuantityTextField = new JTextField();
-    buttonPanel = new JPanel();
-    quantitySpinner = new JSpinner();
-    addToCartButton = new JButton();
 
     setPreferredSize(new Dimension(800, 530));
     setLayout(new BorderLayout());
@@ -119,9 +118,34 @@ public class BookDetailCustomer extends JPanel {
     add(bookDescriptionPanel, BorderLayout.PAGE_END);
 
     bookDetailsPanel.setLayout(new BorderLayout());
-
     bookImagePanel.setPreferredSize(new Dimension(300, 290));
-    bookImagePanel.setLayout(new BorderLayout());
+    bookImagePanel.setLayout(new GridBagLayout());
+
+    JLabel imageLabel = new JLabel();
+    Image image = null;
+    try {
+      image = ImageUtils.decodeFromBase64(bookModel.getImage());
+    } catch (Exception ex) {
+      image =
+        new ImageIcon("src/main/java/resources/images/product-placeholder.png")
+          .getImage();
+    }
+    image = image.getScaledInstance(300, 450, Image.SCALE_SMOOTH);
+    imageLabel.setIcon(new ImageIcon(image));
+    imageLabel.setPreferredSize(new Dimension(300, 450));
+
+    bookImagePanel.add(
+      imageLabel,
+      new GridBagConstraints() {
+        {
+          gridx = 0;
+          gridy = 0;
+          weightx = 1;
+          weighty = 1;
+          anchor = GridBagConstraints.CENTER;
+        }
+      }
+    );
     bookDetailsPanel.add(bookImagePanel, BorderLayout.LINE_START);
 
     bookInformationPanel.setLayout(new BorderLayout());
@@ -188,21 +212,16 @@ public class BookDetailCustomer extends JPanel {
       BorderLayout.CENTER
     );
 
-    buttonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
-
-    quantitySpinner.setFont(new Font("Arial", 0, 14));
-    quantitySpinner.setPreferredSize(new Dimension(70, 30));
-
-    buttonPanel.add(quantitySpinner);
-
+    addToCartButton = new JButton();
+    actionPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
     addToCartButton.setFont(new Font("Arial", 0, 14));
-
     addToCartButton.setText("Add to cart");
-    addToCartButton.setPreferredSize(new Dimension(100, 30));
+    addToCartButton.addActionListener(e -> {
+      new AddToCartActionListener(bookModel).actionPerformed(e);
+    });
+    actionPanel.add(addToCartButton);
 
-    buttonPanel.add(addToCartButton);
-
-    bookInformationPanel.add(buttonPanel, BorderLayout.PAGE_END);
+    bookInformationPanel.add(actionPanel, BorderLayout.PAGE_END);
 
     bookDetailsPanel.add(bookInformationPanel, BorderLayout.CENTER);
 
