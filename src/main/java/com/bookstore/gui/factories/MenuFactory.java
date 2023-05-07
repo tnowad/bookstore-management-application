@@ -194,14 +194,14 @@ public class MenuFactory {
                   add(
                     new SubMenuItemModel(
                       "Update Profile",
-                      new ImageIcon(""),
+                      new ImageIcon("src//main/java/resources/icons/profile.png"),
                       showAccountProfile
                     )
                   );
                   add(
                     new SubMenuItemModel(
                       "Update Password",
-                      new ImageIcon(""),
+                      new ImageIcon("src/main/java/resources/icons/password-reset.png"),
                       showAccountPassword
                     )
                   );
@@ -220,14 +220,14 @@ public class MenuFactory {
                   add(
                     new SubMenuItemModel(
                       "Contact us",
-                      new ImageIcon(""),
+                      new ImageIcon("src/main/java/resources/icons/contact_us.png"),
                       showContact
                     )
                   );
                   add(
                     new SubMenuItemModel(
                       "About us",
-                      new ImageIcon(""),
+                      new ImageIcon("src/main/java/resources/icons/about_us.png"),
                       showAboutUs
                     )
                   );
@@ -281,14 +281,14 @@ public class MenuFactory {
                   add(
                     new SubMenuItemModel(
                       "View Cart",
-                      new ImageIcon(""),
+                      new ImageIcon("src/main/java/resources/icons/card.png"),
                       showCartCustomer
                     )
                   );
                   add(
                     new SubMenuItemModel(
                       "Order History",
-                      new ImageIcon(""),
+                      new ImageIcon("src/main/java/resources/icons/order_icon.png"),
                       showMyOrderCustomer
                     )
                   );
@@ -307,14 +307,14 @@ public class MenuFactory {
                   add(
                     new SubMenuItemModel(
                       "Update Profile",
-                      new ImageIcon(""),
+                      new ImageIcon("src//main/java/resources/icons/profile.png"),
                       showAccountProfile
                     )
                   );
                   add(
                     new SubMenuItemModel(
                       "Update Password",
-                      new ImageIcon(""),
+                      new ImageIcon("src/main/java/resources/icons/password-reset.png"),
                       showAccountPassword
                     )
                   );
@@ -333,14 +333,14 @@ public class MenuFactory {
                   add(
                     new SubMenuItemModel(
                       "Contact us",
-                      new ImageIcon(""),
+                      new ImageIcon("src/main/java/resources/icons/contact_us.png"),
                       showContact
                     )
                   );
                   add(
                     new SubMenuItemModel(
                       "About us",
-                      new ImageIcon(""),
+                      new ImageIcon("src/main/java/resources/icons/about_us.png"),
                       showAboutUs
                     )
                   );
@@ -392,7 +392,7 @@ public class MenuFactory {
                   add(
                     new SubMenuItemModel(
                       "View Cart",
-                      new ImageIcon("src/main/java/resources/icons/shopping_cart_logo.png"),
+                      new ImageIcon("src/main/java/resources/icons/card.png"),
                       showCartCustomer
                     )
                   );
@@ -477,14 +477,14 @@ public class MenuFactory {
                   add(
                     new SubMenuItemModel(
                       "Contact us",
-                      new ImageIcon(""),
+                      new ImageIcon("src/main/java/resources/icons/contact_us.png"),
                       showContact
                     )
                   );
                   add(
                     new SubMenuItemModel(
                       "About us",
-                      new ImageIcon(""),
+                      new ImageIcon("src/main/java/resources/icons/about_us.png"),
                       showAboutUs
                     )
                   );
@@ -576,14 +576,14 @@ public class MenuFactory {
                   add(
                     new SubMenuItemModel(
                       "Update Profile",
-                      new ImageIcon(""),
+                      new ImageIcon("src//main/java/resources/icons/profile.png"),
                       showAccountProfile
                     )
                   );
                   add(
                     new SubMenuItemModel(
                       "Update Password",
-                      new ImageIcon(""),
+                      new ImageIcon("src/main/java/resources/icons/password-reset.png"),
                       showAccountPassword
                     )
                   );
@@ -601,14 +601,14 @@ public class MenuFactory {
                   add(
                     new SubMenuItemModel(
                       "Contact us",
-                      new ImageIcon(""),
+                      new ImageIcon("src/main/java/resources/icons/contact_us.png"),
                       showContact
                     )
                   );
                   add(
                     new SubMenuItemModel(
                       "About us",
-                      new ImageIcon(""),
+                      new ImageIcon("src/main/java/resources/icons/about_us.png"),
                       showAboutUs
                     )
                   );
