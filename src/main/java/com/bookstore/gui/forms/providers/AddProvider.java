@@ -1,10 +1,7 @@
 package com.bookstore.gui.forms.providers;
 
 import com.bookstore.bus.ProviderBUS;
-import com.bookstore.bus.PublisherBUS;
 import com.bookstore.models.ProviderModel;
-import com.bookstore.models.PublisherModel;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -80,15 +77,13 @@ public class AddProvider extends JFrame {
     buttonPanel.setPreferredSize(new Dimension(50, 50));
     buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 30, 5));
     buttonBack.setIcon(
-      new ImageIcon(getClass().getResource("/resources/icons/back.png"))
-    );
+        new ImageIcon(getClass().getResource("/resources/icons/back.png")));
     buttonBack.setPreferredSize(new Dimension(80, 30));
     buttonBack.addActionListener(actionBack);
     buttonPanel.add(buttonBack);
 
     buttonSave.setIcon(
-      new ImageIcon(getClass().getResource("/resources/icons/save.png"))
-    );
+        new ImageIcon(getClass().getResource("/resources/icons/save.png")));
     buttonSave.setPreferredSize(new Dimension(80, 30));
     buttonSave.addActionListener(actionSave);
     buttonPanel.add(buttonSave);
@@ -107,25 +102,24 @@ public class AddProvider extends JFrame {
         JOptionPane.showMessageDialog(null, "Description cannot be empty!");
         return;
       }
-      
+
       if (setName.getText().trim().isEmpty()) {
         JOptionPane.showMessageDialog(null, "Provider name cannot be empty!");
         return;
       }
       int choice = JOptionPane.showConfirmDialog(
-        null,
-        "Do you want to add provider?",
-        "Confirmation",
-        JOptionPane.YES_NO_OPTION
-      );
+          null,
+          "Do you want to add provider?",
+          "Confirmation",
+          JOptionPane.YES_NO_OPTION);
       if (choice == JOptionPane.YES_OPTION) {
 
-        if (providerBUS.getModelByName(setName.getText().trim())!=null) {
+        if (providerBUS.getModelByName(setName.getText().trim()) != null) {
           JOptionPane.showMessageDialog(null, "Provider already exists!");
           return;
         }
         providerBUS.addModel(new ProviderModel(9, setName.getText().trim(), setDescription.getText().trim()));
-        JOptionPane.showMessageDialog(null,"Complete");
+        JOptionPane.showMessageDialog(null, "Complete");
         providerBUS.refreshData();
         JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(buttonBack);
         frame.dispose();

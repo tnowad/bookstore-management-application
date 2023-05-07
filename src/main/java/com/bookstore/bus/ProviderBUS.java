@@ -2,7 +2,6 @@ package com.bookstore.bus;
 
 import com.bookstore.dao.ProviderDAO;
 import com.bookstore.interfaces.IBUS;
-import com.bookstore.models.ImportModel;
 import com.bookstore.models.ProviderModel;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -62,10 +61,9 @@ public class ProviderBUS implements IBUS<ProviderModel> {
   }
 
   private boolean checkFilter(
-    ProviderModel providerModel,
-    String value,
-    String[] columns
-  ) {
+      ProviderModel providerModel,
+      String value,
+      String[] columns) {
     for (String column : columns) {
       switch (column.toLowerCase()) {
         case "id" -> {
@@ -74,19 +72,15 @@ public class ProviderBUS implements IBUS<ProviderModel> {
           }
         }
         case "name" -> {
-          if (
-            providerModel.getName().toLowerCase().contains(value.toLowerCase())
-          ) {
+          if (providerModel.getName().toLowerCase().contains(value.toLowerCase())) {
             return true;
           }
         }
         case "description" -> {
-          if (
-            providerModel
+          if (providerModel
               .getDescription()
               .toLowerCase()
-              .contains(value.toLowerCase())
-          ) {
+              .contains(value.toLowerCase())) {
             return true;
           }
         }
@@ -101,11 +95,9 @@ public class ProviderBUS implements IBUS<ProviderModel> {
   }
 
   private boolean checkAllColumns(ProviderModel providerModel, String value) {
-    return (
-      providerModel.getId() == Integer.parseInt(value) ||
-      providerModel.getName().toLowerCase().contains(value.toLowerCase()) ||
-      providerModel.getDescription().toLowerCase().contains(value.toLowerCase())
-    );
+    return (providerModel.getId() == Integer.parseInt(value) ||
+        providerModel.getName().toLowerCase().contains(value.toLowerCase()) ||
+        providerModel.getDescription().toLowerCase().contains(value.toLowerCase()));
   }
 
   @Override
@@ -113,13 +105,10 @@ public class ProviderBUS implements IBUS<ProviderModel> {
     if (providerModel.getName() == null || providerModel.getName().isEmpty()) {
       throw new IllegalArgumentException("Name cannot be null or empty!");
     }
-    if (
-      providerModel.getDescription() == null ||
-      providerModel.getDescription().isEmpty()
-    ) {
+    if (providerModel.getDescription() == null ||
+        providerModel.getDescription().isEmpty()) {
       throw new IllegalArgumentException(
-        "Description cannot be null or empty!"
-      );
+          "Description cannot be null or empty!");
     }
 
     int id = ProviderDAO.getInstance().insert(mapToEntity(providerModel));
@@ -147,8 +136,7 @@ public class ProviderBUS implements IBUS<ProviderModel> {
     ProviderModel providerModel = getModelById(id);
     if (providerModel == null) {
       throw new IllegalArgumentException(
-        "Provider with ID " + id + " does not exist."
-      );
+          "Provider with ID " + id + " does not exist.");
     }
     int deletedRows = ProviderDAO.getInstance().delete(id);
     if (deletedRows > 0) {
@@ -161,8 +149,8 @@ public class ProviderBUS implements IBUS<ProviderModel> {
   public List<ProviderModel> searchModel(String value, String[] columns) {
     List<ProviderModel> results = new ArrayList<>();
     List<ProviderModel> entities = ProviderDAO
-      .getInstance()
-      .search(value, columns);
+        .getInstance()
+        .search(value, columns);
     for (ProviderModel entity : entities) {
       ProviderModel model = mapToEntity(entity);
       if (checkFilter(model, value, columns)) {
