@@ -105,6 +105,10 @@ public class ProviderExcelUtil extends ExcelUtil {
       File outputFile = fileChooser.getSelectedFile();
       String filePath = outputFile.getAbsolutePath();
 
+      if (!filePath.endsWith(".xlsx")) {
+        filePath += ".xlsx";
+      }
+
       if (outputFile.exists()) {
         int overwriteOption = JOptionPane.showConfirmDialog(null,
             "The file already exists. Do you want to overwrite it?", "File Exists", JOptionPane.YES_NO_OPTION);
