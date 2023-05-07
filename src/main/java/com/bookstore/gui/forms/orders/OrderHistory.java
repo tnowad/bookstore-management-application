@@ -3,6 +3,7 @@ package com.bookstore.gui.forms.orders;
 import com.bookstore.bus.OrderBUS;
 import com.bookstore.enums.UserRole;
 import com.bookstore.gui.components.labels.Label;
+import com.bookstore.gui.components.panels.MainPanel;
 import com.bookstore.interfaces.ISearchable;
 import com.bookstore.models.OrderModel;
 import com.bookstore.models.UserModel;
@@ -91,7 +92,8 @@ public class OrderHistory extends JPanel implements ISearchable {
         int row = source.rowAtPoint(e.getPoint());
         if (row >= 0) {
           OrderModel selectedOrder = orderTableModel.getOrderAt(row);
-          System.out.println(selectedOrder);
+          OrderDetail orderDetail = new OrderDetail(selectedOrder);
+          MainPanel.getInstance().showFormStack(orderDetail);
         }
       }
     }

@@ -47,7 +47,9 @@ public class OrderList extends JPanel {
           if (customerId != 0) {
             MainPanel
               .getInstance()
-              .showFormStack(new OrderDetail(customerId, orderId));
+              .showFormStack(
+                new OrderDetail(OrderBUS.getInstance().getModelById(orderId))
+              );
             OrderBUS.getInstance().refreshData();
             listOrder();
           }

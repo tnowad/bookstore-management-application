@@ -41,24 +41,16 @@ public class OrderDetail extends JPanel {
   private JLabel phoneCustomerLabel;
   private JButton exportPdfButton;
 
-  private int customerId;
-  private int orderId;
   private java.util.List<CartModel> cartList;
   private java.util.List<CartItemsModel> cartItemList;
   private List<BookModel> bookList;
-  private OrderBUS orderBUS;
-  private OrderModel orderModel;
-  private CartBUS cartBUS;
-  private CartItemsBUS cartItemsBUS;
-  private BookBUS bookBUS;
-  private UserBUS userBUS;
   private UserModel userModel;
   private JPanel backToPreviousPanel;
   private JButton backToPreviousButton;
+  private OrderModel orderModel;
 
-  public OrderDetail(int customerId, int orderId) {
-    this.customerId = customerId;
-    this.orderId = orderId;
+  public OrderDetail(OrderModel orderModel) {
+    this.orderModel = orderModel;
     updateData();
     initComponents();
     listOrder();
@@ -75,7 +67,7 @@ public class OrderDetail extends JPanel {
         if (result == JFileChooser.APPROVE_OPTION) {
           java.io.File selectedFile = fileChooser.getSelectedFile();
           String filePath = selectedFile.getAbsolutePath();
-          PDFWriter.getInstance().exportReceiptToPDF(orderId, filePath);
+          PDFWriter.getInstance().exportReceiptToPDF(orderModel, filePath);
         }
       } else if (orderModel.getStatus().equals(OrderStatus.PENDING)) {
         JOptionPane.showMessageDialog(
@@ -104,7 +96,7 @@ public class OrderDetail extends JPanel {
       );
       if (answer == JOptionPane.YES_OPTION) {
         orderModel.setStatus(OrderStatus.SOLVED);
-        orderBUS.updateModel(orderModel);
+        OrderBUS.getInstance().updateModel(orderModel);
         JOptionPane.showMessageDialog(
           this,
           "Order Accepted",
@@ -124,7 +116,7 @@ public class OrderDetail extends JPanel {
           if (result == JFileChooser.APPROVE_OPTION) {
             java.io.File selectedFile = fileChooser.getSelectedFile();
             String filePath = selectedFile.getAbsolutePath();
-            PDFWriter.getInstance().exportReceiptToPDF(orderId, filePath);
+            PDFWriter.getInstance().exportReceiptToPDF(orderModel, filePath);
           }
         }
       }
@@ -151,7 +143,7 @@ public class OrderDetail extends JPanel {
       );
       if (answer == JOptionPane.YES_OPTION) {
         orderModel.setStatus(OrderStatus.REJECTED);
-        orderBUS.updateModel(orderModel);
+        OrderBUS.getInstance().updateModel(orderModel);
         JOptionPane.showMessageDialog(
           this,
           "Order Rejected",
@@ -173,18 +165,18 @@ public class OrderDetail extends JPanel {
   };
 
   private void updateData() {
-    userBUS = UserBUS.getInstance();
-    if (customerId != 0) {
-      userModel = userBUS.getModelById(this.customerId);
-      orderBUS = OrderBUS.getInstance();
-      orderModel = OrderBUS.getInstance().getModelById(orderId);
-      cartBUS = CartBUS.getInstance();
-      cartList = cartBUS.getAllModels();
-      cartItemsBUS = CartItemsBUS.getInstance();
-      cartItemList = cartItemsBUS.getAllModels();
-    } else {}
-    bookBUS = BookBUS.getInstance();
-    bookList = bookBUS.getAllModels();
+    if (orderModel.getCustomerId() == 0) {
+      userModel = new UserModel();
+      userModel.setName("Guest");
+      userModel.setEmail("Guest");
+      userModel.setPhone("Guest");
+    } else {
+      userModel =
+        UserBUS.getInstance().getModelById(orderModel.getCustomerId());
+    }
+    cartList = CartBUS.getInstance().getAllModels();
+    cartItemList = CartItemsBUS.getInstance().getAllModels();
+    bookList = BookBUS.getInstance().getAllModels();
   }
 
   private void listOrder() {

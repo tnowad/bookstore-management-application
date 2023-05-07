@@ -1,16 +1,5 @@
 package com.bookstore.util.PDF;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.text.NumberFormat;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import javax.swing.JTable;
-
 import com.bookstore.bus.BookBUS;
 import com.bookstore.bus.CartBUS;
 import com.bookstore.bus.CartItemsBUS;
@@ -42,9 +31,20 @@ import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.NumberFormat;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JTable;
 
 public class PDFWriter {
-  private static final String FONT_FILE_PATH = "./src/main/java/resources/fonts/Arial.ttf";
+
+  private static final String FONT_FILE_PATH =
+    "./src/main/java/resources/fonts/Arial.ttf";
   private static PDFWriter instance;
 
   public Document document;
@@ -68,7 +68,11 @@ public class PDFWriter {
   }
 
   private void initializeFonts() throws IOException, DocumentException {
-    BaseFont baseFont = BaseFont.createFont(FONT_FILE_PATH, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+    BaseFont baseFont = BaseFont.createFont(
+      FONT_FILE_PATH,
+      BaseFont.IDENTITY_H,
+      BaseFont.EMBEDDED
+    );
     fontData = new Font(baseFont, 11, Font.NORMAL);
     fontTitle = new Font(baseFont, 25, Font.NORMAL);
     fontHeader = new Font(baseFont, 13, Font.NORMAL);
@@ -142,9 +146,15 @@ public class PDFWriter {
   // TODO: THE FUNCTION WORKS AS INTENDED TO BE BUT IT NEEDS A PROPER CHECK
   public void exportImportsToPDF(int importId, String url) {
     ImportModel importData = ImportBUS.getInstance().getModelById(importId);
-    List<ImportItemsModel> importItemsList = ImportItemsBUS.getInstance().getAllModels();
-    List<ImportItemsModel> modifiableItemsList = new ArrayList<>(importItemsList);
-    modifiableItemsList.removeIf(items -> items.getImportId() != importData.getId());
+    List<ImportItemsModel> importItemsList = ImportItemsBUS
+      .getInstance()
+      .getAllModels();
+    List<ImportItemsModel> modifiableItemsList = new ArrayList<>(
+      importItemsList
+    );
+    modifiableItemsList.removeIf(items ->
+      items.getImportId() != importData.getId()
+    );
 
     List<BookModel> booksList = BookBUS.getInstance().getAllModels();
     List<BookModel> modifiableBooksList = new ArrayList<>(booksList);
@@ -161,8 +171,12 @@ public class PDFWriter {
       }
     }
 
-    ProviderModel provider = ProviderBUS.getInstance().getModelById(importData.getProviderId());
-    UserModel employee = UserBUS.getInstance().getModelById(importData.getEmployeeId());
+    ProviderModel provider = ProviderBUS
+      .getInstance()
+      .getModelById(importData.getProviderId());
+    UserModel employee = UserBUS
+      .getInstance()
+      .getModelById(importData.getEmployeeId());
 
     // Calculate Total Price
     double totalPrice = 0;
@@ -178,23 +192,41 @@ public class PDFWriter {
 
     chooseURL(url);
     try {
-
       setTitle("Import Receipt");
 
       // Add header information
       DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-      String headerInfoString = "ID: " + importData.getId() + "\n"
-          + "Provider: " + provider.getName() + "\n" + "Employee: " + employee.getName() + "\n"
-          + "Total Price: " + /* importData.getTotalPrice() */ formattedTotalPrice + "\n"
-          + "Created At: " + dateFormat.format(importData.getCreatedAt());
+      String headerInfoString =
+        "ID: " +
+        importData.getId() +
+        "\n" +
+        "Provider: " +
+        provider.getName() +
+        "\n" +
+        "Employee: " +
+        employee.getName() +
+        "\n" +
+        "Total Price: " +
+        /* importData.getTotalPrice() */formattedTotalPrice +
+        "\n" +
+        "Created At: " +
+        dateFormat.format(importData.getCreatedAt());
       writeObject(headerInfoString.split("\n"));
 
       // Add Book Information
-      String[] columnNames = { "ISBN", "Title", "Price", "Quantity", "Total Price" };
+      String[] columnNames = {
+        "ISBN",
+        "Title",
+        "Price",
+        "Quantity",
+        "Total Price",
+      };
       Object[][] data = new Object[modifiableItemsList.size()][5];
       for (int i = 0; i < modifiableItemsList.size(); i++) {
         ImportItemsModel item = modifiableItemsList.get(i);
-        BookModel book = BookBUS.getInstance().getBookByIsbn(item.getBookIsbn());
+        BookModel book = BookBUS
+          .getInstance()
+          .getBookByIsbn(item.getBookIsbn());
         double itemTotalPrice = item.getQuantity() * book.getPrice();
         data[i][0] = book.getIsbn();
         data[i][1] = book.getTitle();
@@ -212,15 +244,21 @@ public class PDFWriter {
     }
   }
 
-  // TODO: NEED A PROPER CHECK FOR THIS FUNCTION.
-  public void exportReceiptToPDF(int orderId, String url) {
-    OrderModel orderData = OrderBUS.getInstance().getModelById(orderId);
-    CartModel cartData = CartBUS.getInstance().getModelById(orderData.getCartId());
+  public void exportReceiptToPDF(OrderModel orderModel, String filepath) {
+    CartModel cartData = CartBUS
+      .getInstance()
+      .getModelById(orderModel.getCartId());
 
     // Get List Books in cart items:
-    List<CartItemsModel> cartItemsList = CartItemsBUS.getInstance().getAllModels();
-    List<CartItemsModel> modifiableCartItemsList = new ArrayList<>(cartItemsList);
-    modifiableCartItemsList.removeIf(cartItem -> cartItem.getCartId() != cartData.getId());
+    List<CartItemsModel> cartItemsList = CartItemsBUS
+      .getInstance()
+      .getAllModels();
+    List<CartItemsModel> modifiableCartItemsList = new ArrayList<>(
+      cartItemsList
+    );
+    modifiableCartItemsList.removeIf(cartItem ->
+      cartItem.getCartId() != cartData.getId()
+    );
 
     // Get Book information:
     List<BookModel> books = BookBUS.getInstance().getAllModels();
@@ -228,7 +266,9 @@ public class PDFWriter {
     for (int i = modifiableCartItemsList.size() - 1; i >= 0; i--) {
       boolean found = false;
       for (BookModel book : modifiableBookList) {
-        if (modifiableCartItemsList.get(i).getBookIsbn().equals(book.getIsbn())) {
+        if (
+          modifiableCartItemsList.get(i).getBookIsbn().equals(book.getIsbn())
+        ) {
           found = true;
           break;
         }
@@ -239,26 +279,42 @@ public class PDFWriter {
     }
 
     // Get Customer Data
-    UserModel customer = UserBUS.getInstance().getModelById(orderData.getCustomerId());
+    UserModel customer = UserBUS
+      .getInstance()
+      .getModelById(orderModel.getCustomerId());
+    if (customer == null) {
+      customer = new UserModel();
+      customer.setName("Guest");
+    }
 
     // Get Employee Information
-    UserModel employee = UserBUS.getInstance().getModelById(orderData.getEmployeeId());
+    UserModel employee = UserBUS
+      .getInstance()
+      .getModelById(orderModel.getEmployeeId());
 
     // Get Payment & payment method
-    List<PaymentModel> paymentData = PaymentBUS.getInstance().searchModel(String.valueOf(orderId),
-        new String[] { "order_id" });
+    List<PaymentModel> paymentData = PaymentBUS
+      .getInstance()
+      .searchModel(
+        String.valueOf(orderModel.getId()),
+        new String[] { "order_id" }
+      );
     PaymentMethodModel paymentMethod = null;
     PaymentModel payment = null;
     if (paymentData.size() == 1) {
       payment = paymentData.get(0);
-      paymentMethod = PaymentMethodBUS.getInstance().getModelById(payment.getId());
+      paymentMethod =
+        PaymentMethodBUS.getInstance().getModelById(payment.getId());
     }
 
     // Calculate Total Price
     double totalPrice = 0;
     for (CartItemsModel cartItem : modifiableCartItemsList) {
-      BookModel book = BookBUS.getInstance().getBookByIsbn(cartItem.getBookIsbn());
-      double itemTotalPrice = (cartItem.getQuantity() * book.getPrice()) - cartItem.getDiscount();
+      BookModel book = BookBUS
+        .getInstance()
+        .getBookByIsbn(cartItem.getBookIsbn());
+      double itemTotalPrice =
+        (cartItem.getQuantity() * book.getPrice()) - cartItem.getDiscount();
       totalPrice += itemTotalPrice;
     }
 
@@ -267,25 +323,47 @@ public class PDFWriter {
     String formattedTotalPrice = currencyFormatter.format(totalPrice);
 
     // Add receipt information into PDF File.
-    chooseURL(url);
+    chooseURL(filepath);
     try {
       setTitle("Purchase Receipt");
 
       // Add Order Information
       DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-      String orderInfoString = "Order Date: " + dateFormat.format(orderData.getCreatedAt()) + "\n"
-          + "Order ID: " + orderData.getId() + "\n" + "Customer Name: " + customer.getName() + "\n"
-          + "Employee Name: " + employee.getName() + "\n" + "Payment Method: "
-          + (paymentMethod != null ? payment.getPaymentMethod() : "") + "\n" + "Total Amount: "
-          + formattedTotalPrice;
+      String orderInfoString =
+        "Order Date: " +
+        dateFormat.format(orderModel.getCreatedAt()) +
+        "\n" +
+        "Order ID: " +
+        orderModel.getId() +
+        "\n" +
+        "Customer Name: " +
+        customer.getName() +
+        "\n" +
+        "Employee Name: " +
+        employee.getName() +
+        "\n" +
+        "Payment Method: " +
+        (paymentMethod != null ? payment.getPaymentMethod() : "") +
+        "\n" +
+        "Total Amount: " +
+        formattedTotalPrice;
       writeObject(orderInfoString.split("\n"));
 
       // Add Book Information
-      String[] columnNames = { "ISBN", "Title", "Price", "Quantity", "Discount", "Total Price" };
+      String[] columnNames = {
+        "ISBN",
+        "Title",
+        "Price",
+        "Quantity",
+        "Discount",
+        "Total Price",
+      };
       Object[][] data = new Object[modifiableCartItemsList.size()][6];
       for (int i = 0; i < modifiableCartItemsList.size(); i++) {
         CartItemsModel cartItem = modifiableCartItemsList.get(i);
-        BookModel book = BookBUS.getInstance().getBookByIsbn(cartItem.getBookIsbn());
+        BookModel book = BookBUS
+          .getInstance()
+          .getBookByIsbn(cartItem.getBookIsbn());
         double itemTotalPrice = cartItem.getQuantity() * book.getPrice();
         data[i][0] = book.getIsbn();
         data[i][1] = book.getTitle();
@@ -302,5 +380,4 @@ public class PDFWriter {
       e.printStackTrace();
     }
   }
-
 }
