@@ -110,7 +110,7 @@ public class ShopCustomer extends JPanel implements ISearchable {
     } else {
       for (BookModel bookModel : bookListRender) {
         BookItemPanel bookItemPanel = new BookItemPanel(bookModel);
-        bookItemPanel.setPreferredSize(new Dimension(300, 400));
+        bookItemPanel.setPreferredSize(new Dimension(250, 400));
         bookListPanel.add(bookItemPanel);
       }
     }
@@ -184,7 +184,7 @@ public class ShopCustomer extends JPanel implements ISearchable {
         @Override
         public void componentResized(ComponentEvent e) {
           int width = bookListScrollPane.getWidth();
-          int column = width / 300 > 1 ? width / 300 : 1;
+          int column = width / 250 > 0 ? width / 250 : 1;
           bookListPanel.setLayout(new GridLayout(0, column, 10, 10));
         }
       }
