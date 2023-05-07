@@ -75,20 +75,17 @@ public class OrderHistory extends JPanel implements ISearchable {
   }
 
   private void initComponents() {
-    headerPanel = new JPanel();
-    orderLabel = new Label("Order History");
+    setLayout(new BorderLayout());
+    headerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+    headerPanel.add(orderLabel);
+    add(headerPanel, BorderLayout.NORTH);
+
     orderTableScrollPane = new JScrollPane();
     orderTable = new JTable();
+    orderLabel = new Label("Order History");
+    orderTableScrollPane.setViewportView(orderTable);
 
-    setMinimumSize(new Dimension(1180, 620));
-    setLayout(new BorderLayout());
-
-    headerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 5));
-
-    orderLabel.setPreferredSize(new Dimension(300, 50));
-    headerPanel.add(orderLabel);
-
-    add(headerPanel, BorderLayout.PAGE_START);
+    add(orderTableScrollPane, BorderLayout.CENTER);
   }
 
   @Override
