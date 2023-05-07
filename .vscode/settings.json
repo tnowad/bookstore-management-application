@@ -10,5 +10,5 @@
   "java.configuration.updateBuildConfiguration": "automatic",
   "editor.tabCompletion": "on",
   "diffEditor.codeLens": true,
-  "MutableAI.upsell": true,
+  "MutableAI.upsell": false,
 }

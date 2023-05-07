@@ -4,7 +4,6 @@ import com.bookstore.enums.PaymentMethod;
 import com.bookstore.enums.PaymentStatus;
 import com.bookstore.interfaces.IDAO;
 import com.bookstore.models.PaymentModel;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -66,6 +65,18 @@ public class PaymentDAO implements IDAO<PaymentModel> {
       payment.getPaymentMethodId(),
       payment.getStatus().name(),
     };
+    if (payment.getPaymentMethod() == PaymentMethod.CASH) {
+      insertSql =
+        "INSERT INTO payments (order_id, user_id, amount, payment_method, status) VALUES (?, ?, ?, ?, ?)";
+      args =
+        new Object[] {
+          payment.getOrderId(),
+          payment.getUserId(),
+          payment.getAmount(),
+          payment.getPaymentMethod().name(),
+          payment.getStatus().name(),
+        };
+    }
     try {
       return DatabaseConnection.executeUpdate(insertSql, args);
     } catch (SQLException e) {
