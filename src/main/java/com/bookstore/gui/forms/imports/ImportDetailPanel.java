@@ -197,6 +197,7 @@ public class ImportDetailPanel extends JPanel {
         return;
       }
     });
+    
     groupButtonPanel.add(updateButton);
 
     resetButton.setText("Reset");

@@ -57,6 +57,14 @@ public class ImportList extends JPanel implements ISearchable {
         ex.printStackTrace();
       }
     });
+
+    importFromExcelButton.addActionListener(e -> {
+      try {
+        ImportModelExcelUtil.readImportsFromExcel();
+      } catch (IOException ex) {
+        ex.printStackTrace();
+      }
+    });
   }
 
   public static ImportList getInstance() {
