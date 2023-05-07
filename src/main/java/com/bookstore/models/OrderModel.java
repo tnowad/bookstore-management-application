@@ -1,8 +1,7 @@
 package com.bookstore.models;
 
-import java.time.LocalDateTime;
-
 import com.bookstore.enums.OrderStatus;
+import java.time.LocalDateTime;
 
 public class OrderModel {
 
@@ -155,5 +154,30 @@ public class OrderModel {
   public OrderModel status(OrderStatus status) {
     setStatus(status);
     return this;
+  }
+
+  @Override
+  public String toString() {
+    return (
+      "OrderModel [id=" +
+      id +
+      ", cartId=" +
+      cartId +
+      ", customerId=" +
+      customerId +
+      ", employeeId=" +
+      employeeId +
+      ", total=" +
+      total +
+      ", paid=" +
+      paid +
+      ", createdAt=" +
+      createdAt +
+      ", updatedAt=" +
+      updatedAt +
+      ", status=" +
+      status +
+      "]"
+    );
   }
 }

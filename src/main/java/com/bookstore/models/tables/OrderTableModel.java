@@ -63,4 +63,8 @@ public class OrderTableModel extends AbstractTableModel {
         return null;
     }
   }
+
+  public OrderModel getOrderAt(int rowIndex) {
+    return orderList.get(rowIndex);
+  }
 }

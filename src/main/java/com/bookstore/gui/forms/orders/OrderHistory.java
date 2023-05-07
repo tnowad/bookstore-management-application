@@ -9,6 +9,8 @@ import com.bookstore.models.UserModel;
 import com.bookstore.models.tables.OrderTableModel;
 import com.bookstore.services.Authentication;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
@@ -51,6 +53,7 @@ public class OrderHistory extends JPanel implements ISearchable {
 
     orderTableModel = new OrderTableModel();
     orderTable = new JTable(orderTableModel);
+    orderTable.addMouseListener(orderTableClickListener);
     orderTableScrollPane = new JScrollPane(orderTable);
     add(orderTableScrollPane, BorderLayout.CENTER);
   }
@@ -79,4 +82,18 @@ public class OrderHistory extends JPanel implements ISearchable {
     orderTableModel.setOrderList(searchResults);
     orderTableModel.fireTableDataChanged();
   }
+
+  private final MouseAdapter orderTableClickListener = new MouseAdapter() {
+    @Override
+    public void mouseClicked(MouseEvent e) {
+      if (e.getClickCount() == 1) {
+        JTable source = (JTable) e.getSource();
+        int row = source.rowAtPoint(e.getPoint());
+        if (row >= 0) {
+          OrderModel selectedOrder = orderTableModel.getOrderAt(row);
+          System.out.println(selectedOrder);
+        }
+      }
+    }
+  };
 }
