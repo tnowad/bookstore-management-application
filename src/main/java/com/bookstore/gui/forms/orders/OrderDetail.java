@@ -15,6 +15,7 @@ import com.bookstore.models.CartItemsModel;
 import com.bookstore.models.CartModel;
 import com.bookstore.models.OrderModel;
 import com.bookstore.models.UserModel;
+import com.bookstore.services.Authentication;
 import com.bookstore.util.PDF.PDFWriter;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -173,7 +174,7 @@ public class OrderDetail extends JPanel {
 
   private void updateData() {
     userBUS = UserBUS.getInstance();
-    if (customerId != 1) {
+    if (customerId != 0) {
       userModel = userBUS.getModelById(this.customerId);
       orderBUS = OrderBUS.getInstance();
       orderModel = OrderBUS.getInstance().getModelById(orderId);
@@ -276,11 +277,11 @@ public class OrderDetail extends JPanel {
 
     groupBottomPanel.add(totalPriceLabel);
 
-    if(userModel.getRole() != UserRole.CUSTOMER) {
-    acceptButton.setText("Accept");
-    groupBottomPanel.add(acceptButton);
-    rejectButton.setText("Reject");
-    groupBottomPanel.add(rejectButton);
+    if (Authentication.getCurrentUser().getRole() != UserRole.CUSTOMER) {
+      acceptButton.setText("Accept");
+      groupBottomPanel.add(acceptButton);
+      rejectButton.setText("Reject");
+      groupBottomPanel.add(rejectButton);
     }
 
     container.add(groupBottomPanel, BorderLayout.PAGE_END);
