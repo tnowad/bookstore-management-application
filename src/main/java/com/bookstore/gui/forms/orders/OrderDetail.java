@@ -14,6 +14,7 @@ import com.bookstore.models.CartItemsModel;
 import com.bookstore.models.CartModel;
 import com.bookstore.models.OrderModel;
 import com.bookstore.models.UserModel;
+import com.bookstore.util.PDF.PDFWriter;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -35,8 +36,10 @@ public class OrderDetail extends JPanel {
   private JLabel nameCustomerLabel;
   private JLabel emailCustomerLabel;
   private JLabel phoneCustomerLabel;
+  private JButton exportPdfButton;
 
   private int customerId;
+  private int orderId;
   private java.util.List<OrderModel> ordersList;
   private java.util.List<CartModel> cartList;
   private java.util.List<CartItemsModel> cartItemList;
@@ -48,9 +51,12 @@ public class OrderDetail extends JPanel {
   private BookBUS bookBUS;
   private UserBUS userBUS;
   private UserModel userModel;
+  private JPanel backToPreviousPanel;
+  private JButton backToPreviousButton;
 
-  public OrderDetail(int customerId) {
+  public OrderDetail(int customerId, int orderId) {
     this.customerId = customerId;
+    this.orderId = orderId;
     updateData();
     initComponents();
     listOrder();
@@ -68,7 +74,7 @@ public class OrderDetail extends JPanel {
   private ActionListener acceptButtonActionListener = e -> {
     int answer = JOptionPane.showConfirmDialog(
       this,
-      "Do you want to click accept this order?",
+      "Do you want to accept this order?",
       "Confirm",
       JOptionPane.YES_NO_OPTION
     );
@@ -81,6 +87,22 @@ public class OrderDetail extends JPanel {
         "Success",
         JOptionPane.INFORMATION_MESSAGE
       );
+
+      int printAnswer = JOptionPane.showConfirmDialog(
+        null,
+        "Do you want to print this order to PDF?",
+        "Print Order",
+        JOptionPane.YES_NO_OPTION
+      );
+      if (printAnswer == JOptionPane.YES_OPTION) {
+        JFileChooser fileChooser = new JFileChooser();
+        int result = fileChooser.showSaveDialog(null);
+        if (result == JFileChooser.APPROVE_OPTION) {
+          java.io.File selectedFile = fileChooser.getSelectedFile();
+          String filePath = selectedFile.getAbsolutePath();
+          PDFWriter.getInstance().exportReceiptToPDF(orderId, filePath);
+        }
+      }
     }
   };
 
@@ -88,7 +110,7 @@ public class OrderDetail extends JPanel {
     // The message says if you want to refuse this order?
     int answer = JOptionPane.showConfirmDialog(
       this,
-      "Do you want to click reject this order?",
+      "Do you want to reject this order?",
       "Confirm",
       JOptionPane.YES_NO_OPTION
     );
@@ -103,8 +125,6 @@ public class OrderDetail extends JPanel {
       );
     }
   };
-  private JPanel backToPreviousPanel;
-  private JButton backToPreviousButton;
 
   private void updateData() {
     userBUS = UserBUS.getInstance();
@@ -189,9 +209,11 @@ public class OrderDetail extends JPanel {
     rejectButton = new Button();
     backToPreviousPanel = new JPanel();
     backToPreviousButton = new JButton("Back to Previous");
+    exportPdfButton = new JButton("Export PDF");
 
     backToPreviousPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
     backToPreviousPanel.add(backToPreviousButton);
+    backToPreviousPanel.add(exportPdfButton);
 
     container.setLayout(new BorderLayout());
     groupHeaderPanel.setLayout(

@@ -1,7 +1,6 @@
 package com.bookstore.gui.forms.orders;
 
 import com.bookstore.bus.OrderBUS;
-import com.bookstore.enums.OrderStatus;
 import com.bookstore.gui.components.buttons.Button;
 import com.bookstore.gui.components.labels.Label;
 import com.bookstore.gui.components.panels.MainPanel;
@@ -39,11 +38,16 @@ public class OrderList extends JPanel {
       .addListSelectionListener(event -> {
         int selectedRowIndex = orderTableList.getSelectedRow();
         if (selectedRowIndex != -1) {
+          int orderId = Integer.parseInt(
+            orderTableList.getValueAt(selectedRowIndex, 0).toString()
+          );
           int customerId = Integer.parseInt(
             orderTableList.getValueAt(selectedRowIndex, 2).toString()
           );
           if (customerId != 0) {
-            MainPanel.getInstance().showFormStack(new OrderDetail(customerId));
+            MainPanel
+              .getInstance()
+              .showFormStack(new OrderDetail(customerId, orderId));
             OrderBUS.getInstance().refreshData();
             listOrder();
           }

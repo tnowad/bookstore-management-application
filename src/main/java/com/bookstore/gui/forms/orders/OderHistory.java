@@ -48,9 +48,9 @@ public class OderHistory extends JPanel{
       .addListSelectionListener(
         new ListSelectionListener() {
           public void valueChanged(ListSelectionEvent event) {
-              MainPanel
-                .getInstance()
-                .showFormStack(new OrderDetail(userModel.getId()));
+              // MainPanel
+              //   .getInstance()
+              //   .showFormStack(new OrderDetail(userModel.getId()));
 
               listOrder();
             } 
