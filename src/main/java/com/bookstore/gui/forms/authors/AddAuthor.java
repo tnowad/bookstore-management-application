@@ -112,12 +112,17 @@ public class AddAuthor extends JFrame {
           JOptionPane.showMessageDialog(null, "Author name cannot be empty!");
           return;
         }
+        if (setDescription.getText().trim().isEmpty()) {
+          JOptionPane.showMessageDialog(null, "Description cannot be empty!");
+          return;
+        }
 
         if (authorBUS.getModelByName(setName.getText().trim())!=null) {
           JOptionPane.showMessageDialog(null, "Author already exists!");
           return;
         }
-        authorBUS.addModel(new AuthorModel(9, setName.getText().trim(), setDescription.getText().trim()));
+        authorBUS.addModel(new AuthorModel(0, setName.getText().trim(), setDescription.getText().trim()));
+        authorBUS.refreshData();
         JOptionPane.showMessageDialog(null,"Complete");
         JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(buttonBack);
         frame.dispose();

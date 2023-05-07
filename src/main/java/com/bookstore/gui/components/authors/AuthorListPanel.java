@@ -1,8 +1,10 @@
 package com.bookstore.gui.components.authors;
 
 import com.bookstore.bus.AuthorBUS;
+import com.bookstore.bus.UserBUS;
 import com.bookstore.gui.forms.authors.AddAuthor;
 import com.bookstore.gui.forms.authors.AuthorPanel;
+import com.bookstore.interfaces.ISearchable;
 import com.bookstore.models.AuthorModel;
 import java.awt.BorderLayout;
 import java.awt.Container;
@@ -15,10 +17,11 @@ import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-public class AuthorListPanel extends JPanel {
+public class AuthorListPanel extends JPanel implements ISearchable{
 
   private static AuthorListPanel instance;
 
@@ -43,7 +46,7 @@ public class AuthorListPanel extends JPanel {
 
   public AuthorListPanel() {
     initComponents();
-    addTable();
+    addTable(listAuthor);
   }
 
   public static AuthorListPanel getInstance() {
@@ -122,7 +125,7 @@ public class AuthorListPanel extends JPanel {
     add(contend, BorderLayout.CENTER);
   }
 
-  public void addTable() {
+  public void addTable(List<AuthorModel> listAuthor) {
     contendTable.removeAll();
     contendTable.setLayout(new GridLayout(0, 1, 0, 15));
     int serial = 1;
@@ -144,4 +147,35 @@ public class AuthorListPanel extends JPanel {
     }
     
   };
+
+  @Override
+  public void search(String keyword) {
+    contendTable.removeAll();
+    if (keyword == null || keyword.isBlank()) {
+      JOptionPane.showMessageDialog(
+        null,
+        "Please enter your search information!"
+      );
+      addTable(listAuthor);
+      this.revalidate();
+      this.repaint();
+    } else {
+      List<AuthorModel> newList = AuthorBUS
+        .getInstance()
+        .searchModel(keyword, new String[] { "name" });
+      if (newList.isEmpty()) {
+        JOptionPane.showMessageDialog(
+          null,
+          "The information you entered could not be found!"
+        );
+        addTable(listAuthor);
+        this.revalidate();
+        this.repaint();
+      } else {
+        addTable(newList);
+        this.revalidate();
+        this.repaint();
+      }
+    }
+  }
 }

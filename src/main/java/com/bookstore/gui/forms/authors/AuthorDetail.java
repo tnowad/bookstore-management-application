@@ -1,12 +1,11 @@
 package com.bookstore.gui.forms.authors;
 
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
-
 import com.bookstore.bus.AuthorBUS;
 import com.bookstore.bus.BookBUS;
 import com.bookstore.models.AuthorModel;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
 
 public class AuthorDetail extends JFrame {
 
@@ -14,6 +13,7 @@ public class AuthorDetail extends JFrame {
   private JPanel buttonPanel;
   private JButton buttonBack;
   private JButton buttonSave;
+  private JButton buttonDelete;
   private JPanel contend;
   private JLabel descriptionText;
   private JLabel idText;
@@ -25,13 +25,8 @@ public class AuthorDetail extends JFrame {
   private JTextField setProducts;
   private JLabel title;
 
-
-
-
-
   private AuthorBUS authorBUS = AuthorBUS.getInstance();
   AuthorModel author;
-
 
   public AuthorDetail(AuthorModel author) {
     initComponents(author);
@@ -53,6 +48,7 @@ public class AuthorDetail extends JFrame {
     buttonPanel = new JPanel();
     buttonBack = new JButton();
     buttonSave = new JButton();
+    buttonDelete = new JButton();
     productsText = new JLabel();
     setProducts = new JTextField();
     title = new JLabel();
@@ -75,7 +71,7 @@ public class AuthorDetail extends JFrame {
     contend.add(idText);
 
     setId.setPreferredSize(new Dimension(200, 25));
-    setId.setText(""+author.getId());
+    setId.setText("" + author.getId());
     setId.setEditable(false);
     contend.add(setId);
 
@@ -97,7 +93,16 @@ public class AuthorDetail extends JFrame {
 
     setProducts.setPreferredSize(new Dimension(130, 25));
     setProducts.setEditable(false);
-    setProducts.setText(""+BookBUS.getInstance().searchModel(String.valueOf(author.getId()), new String[]{"author_id"}).size());
+    setProducts.setText(
+      "" +
+      BookBUS
+        .getInstance()
+        .searchModel(
+          String.valueOf(author.getId()),
+          new String[] { "author_id" }
+        )
+        .size()
+    );
     contend.add(setProducts);
 
     descriptionText.setFont(new Font("Segoe UI", 1, 14)); // NOI18N
@@ -129,6 +134,13 @@ public class AuthorDetail extends JFrame {
     buttonSave.addActionListener(actionSave);
     buttonPanel.add(buttonSave);
 
+    buttonDelete.setIcon(
+      new ImageIcon(getClass().getResource("/resources/icons/delete.png"))
+    );
+    buttonDelete.setPreferredSize(new Dimension(80, 30));
+    buttonDelete.addActionListener(actionDelete);
+    buttonPanel.add(buttonDelete);
+
     getContentPane().add(contend, BorderLayout.PAGE_START);
     getContentPane().add(scrollPane, BorderLayout.CENTER);
     getContentPane().add(buttonPanel, BorderLayout.SOUTH);
@@ -137,25 +149,64 @@ public class AuthorDetail extends JFrame {
   }
 
   public ActionListener actionSave = new ActionListener() {
-
     @Override
     public void actionPerformed(ActionEvent e) {
       if (setName.getText().trim().isEmpty()) {
         JOptionPane.showMessageDialog(null, "Author name cannot be empty!");
         return;
       }
-      authorBUS.updateModel(new AuthorModel(author.getId(), setName.getText().trim(), setDescription.getText().trim()));
-      JOptionPane.showMessageDialog(null,"Complete");
+      if (setDescription.getText().trim().isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Description cannot be empty!");
+        return;
+      }
+      int choice = JOptionPane.showConfirmDialog(
+        null,
+        "Do you want to add author?",
+        "Confirmation",
+        JOptionPane.YES_NO_OPTION
+      );
+      if (choice == JOptionPane.YES_OPTION) {
+        authorBUS.updateModel(
+          new AuthorModel(
+            author.getId(),
+            setName.getText().trim(),
+            setDescription.getText().trim()
+          )
+        );
+        JOptionPane.showMessageDialog(null, "Complete");
+      }
     }
-    
-  };{
+  };
 
-  }
   public ActionListener actionBack = new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
       JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(buttonBack);
       frame.dispose();
     }
+  };
+
+  public ActionListener actionDelete = new ActionListener() {
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+      int choice = JOptionPane.showConfirmDialog(
+        null,
+        "Do you want to delete author?",
+        "Confirmation",
+        JOptionPane.YES_NO_OPTION
+      );
+      if (choice == JOptionPane.YES_OPTION) {
+        if(BookBUS.getInstance().searchModel(String.valueOf(author.getId()),new String[] { "author_id" }).size()!=0){
+          JOptionPane.showMessageDialog(null, "You cannot delete this author because of product constraints!");
+          return;
+        }
+        else{
+          AuthorBUS.getInstance().deleteModel(author.getId());
+          JOptionPane.showMessageDialog(null, "Completed");
+        }
+      }
+    }
+    
   };
 }

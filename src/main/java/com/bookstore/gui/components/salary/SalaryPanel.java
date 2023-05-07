@@ -4,10 +4,14 @@ import com.bookstore.bus.UserBUS;
 import com.bookstore.models.EmployeeModel;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class SalaryPanel extends JPanel {
+public class SalaryPanel extends JPanel implements MouseListener{
 
   private JPanel panel;
   private JLabel setDescription;
@@ -17,8 +21,17 @@ public class SalaryPanel extends JPanel {
   private JLabel setType;
   private JLabel setSerial;
 
-  public SalaryPanel(int serial, EmployeeModel employee) {
+  public SalaryPanel(int serial, EmployeeModel employee){
     initComponents(serial, employee);
+    addMouseListener(
+      new MouseAdapter() {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+          EmployeeDetail employeeDetail = new EmployeeDetail(employee);
+          employeeDetail.setVisible(true);
+        }
+      }
+    );
   }
 
   private void initComponents(int serial, EmployeeModel employee) {
@@ -60,4 +73,19 @@ public class SalaryPanel extends JPanel {
     setDescription.setPreferredSize(new Dimension(50, 16));
     add(setDescription);
   }
+
+  @Override
+  public void mouseClicked(MouseEvent e) {}
+
+  @Override
+  public void mousePressed(MouseEvent e) {}
+
+  @Override
+  public void mouseReleased(MouseEvent e) {}
+
+  @Override
+  public void mouseEntered(MouseEvent e) {}
+
+  @Override
+  public void mouseExited(MouseEvent e) {}
 }

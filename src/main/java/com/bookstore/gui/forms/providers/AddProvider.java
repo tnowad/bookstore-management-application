@@ -103,6 +103,15 @@ public class AddProvider extends JFrame {
   public ActionListener actionSave = new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
+      if (setDescription.getText().trim().isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Description cannot be empty!");
+        return;
+      }
+      
+      if (setName.getText().trim().isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Provider name cannot be empty!");
+        return;
+      }
       int choice = JOptionPane.showConfirmDialog(
         null,
         "Do you want to add provider?",
@@ -110,10 +119,6 @@ public class AddProvider extends JFrame {
         JOptionPane.YES_NO_OPTION
       );
       if (choice == JOptionPane.YES_OPTION) {
-        if (setName.getText().trim().isEmpty()) {
-          JOptionPane.showMessageDialog(null, "Provider name cannot be empty!");
-          return;
-        }
 
         if (providerBUS.getModelByName(setName.getText().trim())!=null) {
           JOptionPane.showMessageDialog(null, "Provider already exists!");
@@ -121,6 +126,7 @@ public class AddProvider extends JFrame {
         }
         providerBUS.addModel(new ProviderModel(9, setName.getText().trim(), setDescription.getText().trim()));
         JOptionPane.showMessageDialog(null,"Complete");
+        providerBUS.refreshData();
         JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(buttonBack);
         frame.dispose();
       }

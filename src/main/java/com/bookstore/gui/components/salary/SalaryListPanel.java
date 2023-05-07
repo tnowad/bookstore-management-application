@@ -31,6 +31,7 @@ public class SalaryListPanel extends JPanel {
   private JLabel serialText;
   private JPanel table;
   private JLabel title;
+  private int sumSalary = 0;
 
   private static SalaryListPanel instance;
   EmployeeBUS employeeBUS = EmployeeBUS.getInstance();
@@ -122,8 +123,8 @@ public class SalaryListPanel extends JPanel {
     totalText.setPreferredSize(new Dimension(75, 30));
     sumSalaryPanel.add(totalText);
 
-    setSumSalary.setText("1000");
     setSumSalary.setPreferredSize(new Dimension(75, 30));
+    setSumSalary.setEditable(false);
     sumSalaryPanel.add(setSumSalary);
 
     contend.add(sumSalaryPanel, BorderLayout.SOUTH);
@@ -138,8 +139,10 @@ public class SalaryListPanel extends JPanel {
     for (EmployeeModel employee : listEmployee) {
       SalaryPanel salaryPanel = new SalaryPanel(serial, employee);
       contendTable.add(salaryPanel);
+      sumSalary = sumSalary+employee.getSalary();
       serial = serial + 1;
     }
+    setSumSalary.setText(""+sumSalary);
     contendTable.revalidate();
     contendTable.repaint();
   }

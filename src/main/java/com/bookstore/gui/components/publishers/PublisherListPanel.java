@@ -3,6 +3,7 @@ package com.bookstore.gui.components.publishers;
 import com.bookstore.bus.PublisherBUS;
 import com.bookstore.gui.forms.publishers.AddPublisher;
 import com.bookstore.gui.forms.publishers.PublisherPanel;
+import com.bookstore.interfaces.ISearchable;
 import com.bookstore.models.PublisherModel;
 import java.awt.*;
 import java.awt.event.*;
@@ -10,7 +11,7 @@ import java.util.List;
 import javax.swing.*;
 
 
-public class PublisherListPanel extends JPanel {
+public class PublisherListPanel extends JPanel implements ISearchable{
 
   private JButton buttonAdd;
   private JPanel buttonsPanel;
@@ -31,7 +32,7 @@ public class PublisherListPanel extends JPanel {
 
   public PublisherListPanel() {
     initComponents();
-    addTable();
+    addTable(listPublisher);
   }
 
   public static PublisherListPanel getInstance() {
@@ -110,7 +111,7 @@ public class PublisherListPanel extends JPanel {
     add(contend, BorderLayout.CENTER);
   }
 
-  public void addTable() {
+  public void addTable(List<PublisherModel> listPublisher) {
     contendTable.removeAll();
     contendTable.setLayout(new GridLayout(0, 1, 0, 15));
     int serial = 1;
@@ -132,5 +133,35 @@ public class PublisherListPanel extends JPanel {
     }
     
   };
+  @Override
+  public void search(String keyword) {
+    contendTable.removeAll();
+    if (keyword == null || keyword.isBlank()) {
+      JOptionPane.showMessageDialog(
+        null,
+        "Please enter your search information!"
+      );
+      addTable(listPublisher);
+      this.revalidate();
+      this.repaint();
+    } else {
+      List<PublisherModel> newList = PublisherBUS
+        .getInstance()
+        .searchModel(keyword, new String[] { "name" });
+      if (newList.isEmpty()) {
+        JOptionPane.showMessageDialog(
+          null,
+          "The information you entered could not be found!"
+        );
+        addTable(listPublisher);
+        this.revalidate();
+        this.repaint();
+      } else {
+        addTable(newList);
+        this.revalidate();
+        this.repaint();
+      }
+    }
+  }
 
 }
