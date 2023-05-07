@@ -16,12 +16,11 @@ import com.bookstore.gui.forms.accounts.AccountPasswordForm;
 import com.bookstore.gui.forms.accounts.AccountProfileForm;
 import com.bookstore.gui.forms.books.BookList;
 import com.bookstore.gui.forms.carts.CartCustomerPanel;
-import com.bookstore.gui.forms.customer.Order;
 import com.bookstore.gui.forms.general.AboutUs;
 import com.bookstore.gui.forms.general.ContactUs;
 import com.bookstore.gui.forms.imports.ImportList;
-import com.bookstore.gui.forms.orders.OrderList;
 import com.bookstore.gui.forms.orders.OrderHistory;
+import com.bookstore.gui.forms.orders.OrderList;
 import com.bookstore.gui.forms.shop.ShopCustomer;
 import com.bookstore.gui.forms.users.CustomerList;
 import com.bookstore.gui.forms.users.EmployeeList;
@@ -411,19 +410,35 @@ public class MenuFactory {
 
           add(
             new MenuItemModel(
-              "Customer management",
-              new ImageIcon(""),
-              showCustomerList,
-              null
-            )
-          );
+              "Management",
+              new ImageIcon("src/main/java/resources/icons/management.png"),
+              null,
+              new ArrayList<SubMenuItemModel>() {
+                {
+                  add(
+                    new SubMenuItemModel(
+                      "Customer management",
+                      new ImageIcon(""),
+                      showCustomerList
+                    )
+                  );
 
-          add(
-            new MenuItemModel(
-              "Order management",
-              new ImageIcon(""),
-              showOrderList,
-              null
+                  add(
+                    new SubMenuItemModel(
+                      "Order management",
+                      new ImageIcon(""),
+                      showOrderList
+                    )
+                  );
+                  add(
+                    new SubMenuItemModel(
+                      "Import management",
+                      new ImageIcon(""),
+                      showImportList
+                    )
+                  );
+                }
+              }
             )
           );
 
