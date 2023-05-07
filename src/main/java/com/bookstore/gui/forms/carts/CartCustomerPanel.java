@@ -6,7 +6,7 @@ import com.bookstore.bus.CartItemsBUS;
 import com.bookstore.gui.components.dialogs.Dialog;
 import com.bookstore.gui.components.panels.MainPanel;
 import com.bookstore.gui.forms.checkout.CheckoutCustomerPanel;
-import com.bookstore.gui.forms.nodata.NoData;
+import com.bookstore.gui.forms.others.NoDataPanel;
 import com.bookstore.models.BookModel;
 import com.bookstore.models.CartItemsModel;
 import com.bookstore.models.CartModel;
@@ -43,7 +43,7 @@ public class CartCustomerPanel extends JPanel {
     if (cartItemsList.size() > 0) {
       listCart();
     } else {
-      listCartPanel.add(new NoData("Don't have any cart"));
+      listCartPanel.add(new NoDataPanel("Don't have any cart"));
     }
     handleEvent();
   }
