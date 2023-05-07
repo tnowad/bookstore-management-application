@@ -1,6 +1,5 @@
 package com.bookstore.gui.forms.imports;
 
-import com.bookstore.bus.EmployeeBUS;
 import com.bookstore.bus.ImportBUS;
 import com.bookstore.bus.ProviderBUS;
 import com.bookstore.bus.UserBUS;
@@ -12,7 +11,6 @@ import java.awt.Insets;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -121,15 +119,6 @@ public class ImportDetailList extends JPanel {
     contentPane.add(deleteButton, constraints);
 
     add(contentPane);
-    // Edit Button Action Listener
-    editButton.addActionListener(e -> {
-      // TODO: Implement edit functionality
-    });
-
-    // Delete Button Action Listener
-    deleteButton.addActionListener(e -> {
-      // TODO: Implement delete functionality
-    });
   }
 
   private void loadData() {
