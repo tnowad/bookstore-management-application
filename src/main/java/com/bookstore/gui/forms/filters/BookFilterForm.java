@@ -5,6 +5,8 @@ import com.bookstore.bus.BookBUS;
 import com.bookstore.bus.BooksCategoryBUS;
 import com.bookstore.bus.CategoryBUS;
 import com.bookstore.gui.forms.shop.ShopCustomerPanel;
+import com.bookstore.interfaces.IFilterForm;
+import com.bookstore.interfaces.IListPanel;
 import com.bookstore.models.AuthorModel;
 import com.bookstore.models.BookModel;
 import com.bookstore.models.BooksCategoryModel;
@@ -29,9 +31,9 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 
-public class BookFilterForm extends JPanel {
+public class BookFilterForm extends JPanel implements IFilterForm {
 
-  private ShopCustomerPanel shopCustomerPanel;
+  private IListPanel<BookModel> shopCustomerPanel;
 
   private JPanel categoryPanel;
   private JTextField keywordField;
@@ -42,7 +44,7 @@ public class BookFilterForm extends JPanel {
 
   private List<CategoryModel> categoryList;
 
-  public BookFilterForm(ShopCustomerPanel shopCustomerPanel) {
+  public BookFilterForm(IListPanel<BookModel> shopCustomerPanel) {
     this.shopCustomerPanel = shopCustomerPanel;
     this.categoryList = CategoryBUS.getInstance().getAllModels();
 
@@ -241,6 +243,6 @@ public class BookFilterForm extends JPanel {
         return author1.getName().compareTo(author2.getName());
       });
     }
-    shopCustomerPanel.renderListProduct(filteredList);
+    shopCustomerPanel.updateList(filteredList);
   };
 }

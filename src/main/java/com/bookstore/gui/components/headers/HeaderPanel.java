@@ -3,7 +3,7 @@ package com.bookstore.gui.components.headers;
 import com.bookstore.gui.components.inputs.SearchTextField;
 import com.bookstore.gui.components.panels.MainPanel;
 import com.bookstore.gui.main.MainFrame;
-import com.bookstore.interfaces.IFilterAble;
+import com.bookstore.interfaces.IListPanel;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -56,8 +56,8 @@ public class HeaderPanel extends JPanel {
     searchLabel.addMouseListener(
       new java.awt.event.MouseAdapter() {
         public void mouseClicked(java.awt.event.MouseEvent evt) {
-          if (MainPanel.getInstance().getComponent(0) instanceof IFilterAble) {
-            ((IFilterAble) MainPanel.getInstance().getComponent(0)).filter();
+          if (MainPanel.getInstance().getComponent(0) instanceof IListPanel) {
+            ((IListPanel) MainPanel.getInstance().getComponent(0)).activateFilterPanel();
           }
         }
       }

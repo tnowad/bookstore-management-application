@@ -9,7 +9,7 @@ import com.bookstore.gui.components.panels.MainPanel;
 import com.bookstore.gui.forms.carts.CartCustomerPanel;
 import com.bookstore.gui.forms.filters.BookFilterForm;
 import com.bookstore.gui.forms.general.NoDataPanel;
-import com.bookstore.interfaces.IFilterAble;
+import com.bookstore.interfaces.IListPanel;
 import com.bookstore.interfaces.ISearchable;
 import com.bookstore.models.BookModel;
 import com.bookstore.models.BooksCategoryModel;
@@ -25,7 +25,7 @@ import javax.swing.*;
 
 public class ShopCustomerPanel
   extends JPanel
-  implements ISearchable, IFilterAble {
+  implements ISearchable, IListPanel<BookModel> {
 
   private JPanel bookListPanel;
   private JScrollPane bookListScrollPane;
@@ -44,7 +44,7 @@ public class ShopCustomerPanel
 
   public ShopCustomerPanel() {
     initComponents();
-    renderListProduct(bookList);
+    updateList(bookList);
     handleEvent();
   }
 
@@ -66,7 +66,7 @@ public class ShopCustomerPanel
           Comparator.comparingInt(BookModel::getPrice).reversed()
         );
       }
-      renderListProduct(modifiableBookList);
+      updateList(modifiableBookList);
       this.revalidate();
       this.repaint();
     });
@@ -76,7 +76,7 @@ public class ShopCustomerPanel
       String selectedCategory = (String) categoryListComboBox.getSelectedItem();
       List<BookModel> books = new ArrayList<BookModel>();
       if (selectedCategory.equals("All")) {
-        renderListProduct(bookList);
+        updateList(bookList);
         this.revalidate();
         this.repaint();
       } else {
@@ -99,30 +99,11 @@ public class ShopCustomerPanel
           }
         }
 
-        renderListProduct(books);
+        updateList(books);
         this.revalidate();
         this.repaint();
       }
     });
-  }
-
-  public void renderListProduct(List<BookModel> bookListRender) {
-    bookListPanel.removeAll();
-    if (bookListRender.size() <= 0) {
-      bookListPanel.setLayout(new GridLayout(0, 1));
-      bookListPanel.add(new NoDataPanel("Don't have data for product"));
-    } else {
-      int width = bookListPanel.getParent().getParent().getWidth();
-      int column = width / 250 > 0 ? width / 250 : 1;
-      bookListPanel.setLayout(new GridLayout(0, column, 10, 10));
-      for (BookModel bookModel : bookListRender) {
-        BookItemPanel bookItemPanel = new BookItemPanel(bookModel);
-        bookItemPanel.setPreferredSize(new Dimension(250, 400));
-        bookListPanel.add(bookItemPanel);
-      }
-    }
-    this.revalidate();
-    this.repaint();
   }
 
   private void initComponents() {
@@ -207,7 +188,7 @@ public class ShopCustomerPanel
   public void search(String keyword) {
     bookListPanel.removeAll();
     if (keyword == null || keyword.isBlank()) {
-      renderListProduct(bookList);
+      updateList(bookList);
       this.revalidate();
       this.repaint();
     } else {
@@ -220,14 +201,34 @@ public class ShopCustomerPanel
         }
       }
 
-      renderListProduct(books);
+      updateList(books);
       this.revalidate();
       this.repaint();
     }
   }
 
   @Override
-  public void filter() {
+  public void updateList(List<BookModel> filteredList) {
+    bookListPanel.removeAll();
+    if (filteredList.size() <= 0) {
+      bookListPanel.setLayout(new GridLayout(0, 1));
+      bookListPanel.add(new NoDataPanel("Don't have data for product"));
+    } else {
+      int width = bookListPanel.getParent().getParent().getWidth();
+      int column = width / 250 > 0 ? width / 250 : 1;
+      bookListPanel.setLayout(new GridLayout(0, column, 10, 10));
+      for (BookModel bookModel : filteredList) {
+        BookItemPanel bookItemPanel = new BookItemPanel(bookModel);
+        bookItemPanel.setPreferredSize(new Dimension(250, 400));
+        bookListPanel.add(bookItemPanel);
+      }
+    }
+    this.revalidate();
+    this.repaint();
+  }
+
+  @Override
+  public void activateFilterPanel() {
     new Dialog(new BookFilterForm(this));
   }
 }
