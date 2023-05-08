@@ -4,16 +4,21 @@ import com.bookstore.bus.BookBUS;
 import com.bookstore.bus.ImportBUS;
 import com.bookstore.bus.ImportItemsBUS;
 import com.bookstore.bus.ProviderBUS;
+import com.bookstore.bus.UserBUS;
 import com.bookstore.gui.components.buttons.Button;
 import com.bookstore.models.BookModel;
 import com.bookstore.models.ImportItemsModel;
 import com.bookstore.models.ImportModel;
 import com.bookstore.models.ProviderModel;
+import com.bookstore.models.UserModel;
 import com.bookstore.util.PDF.PDFWriter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.Collections;
+import java.util.List;
+
 import javax.swing.*;
 import javax.swing.JFileChooser;
 import javax.swing.table.DefaultTableModel;
@@ -30,7 +35,6 @@ public class ImportDetailPanel extends JPanel {
   private JLabel idLabel;
   private JTextField idTextField;
   private JLabel importDataLabel;
-  private Button importItemsLabel;
   private JPanel jPanel1;
   private JPanel tablePanel;
   private JPanel groupButtonPanel;
@@ -45,6 +49,7 @@ public class ImportDetailPanel extends JPanel {
   private JTextField totalPriceTextField;
   private Button updateButton;
   private ImportModel importModel;
+  private double totalPrice = 0;
 
   public ImportDetailPanel(ImportModel importModel) {
     this.importModel = importModel;
@@ -56,7 +61,6 @@ public class ImportDetailPanel extends JPanel {
     DefaultTableModel model = new DefaultTableModel(
         new String[] { "Book ISBN", "Title", "Quantity", "Price" },
         0);
-
     for (ImportItemsModel importItemsModel : ImportItemsBUS
         .getInstance()
         .getAllModels()) {
@@ -64,6 +68,8 @@ public class ImportDetailPanel extends JPanel {
         BookModel bookModel = BookBUS
             .getInstance()
             .getBookByIsbn(importItemsModel.getBookIsbn());
+        double itemsPrice = importItemsModel.getQuantity() * bookModel.getPrice();
+        totalPrice += itemsPrice;
         model.addRow(
             new Object[] {
                 bookModel.getIsbn(),
@@ -74,7 +80,16 @@ public class ImportDetailPanel extends JPanel {
         bookListTable.setModel(model);
       }
     }
-    // add(new JScrollPane(bookListTable), BorderLayout.CENTER);
+    // TODO: Finish adding new Book
+    JButton addButton = new JButton("Add Book");
+    addButton.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        // TODO: Popup bookdetail Panel/Frame or something. Fill in information and
+        // store data into row
+      }
+    });
+    add(addButton, BorderLayout.SOUTH);
   }
 
   private void initComponents() {
@@ -82,19 +97,35 @@ public class ImportDetailPanel extends JPanel {
     jPanel1 = new JPanel();
     importDataLabel = new JLabel();
     contentHeaderPanel = new JPanel();
+
     idLabel = new JLabel();
     idTextField = new JTextField();
+    idTextField.setText("" + importModel.getId());
+    idTextField.setEditable(false);
+
     providerLabel = new JLabel();
     providerTextField = new JTextField();
+    ProviderModel provider = ProviderBUS.getInstance().getModelById(importModel.getProviderId());
+    providerTextField.setText("" + provider.getName());
+
     employeeLabel = new JLabel();
+    UserModel user = UserBUS.getInstance().getModelById(importModel.getEmployeeId());
     employeeTextField = new JTextField();
+    employeeTextField.setText("" + user.getName());
+
     totalPriceLabel = new JLabel();
     totalPriceTextField = new JTextField();
+    totalPriceTextField.setText("" + totalPrice);
+    totalPriceTextField.setEditable(false);
+
     createdAtLabel = new JLabel();
     createdAtTextField = new JTextField();
+    createdAtTextField.setText("" + importModel.getCreatedAt());
+    createdAtTextField.setEditable(false);
+
     tablePanel = new JPanel();
     groupButtonPanel = new JPanel();
-    importItemsLabel = new Button("Import");
+
     exportToPDFButton = new Button();
     updateButton = new Button();
     resetButton = new Button();
@@ -162,8 +193,6 @@ public class ImportDetailPanel extends JPanel {
 
     groupButtonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
-    groupButtonPanel.add(importItemsLabel);
-
     exportToPDFButton.setText("Export (PDF)");
     exportToPDFButton.addActionListener(
         new ActionListener() {
@@ -173,29 +202,108 @@ public class ImportDetailPanel extends JPanel {
         });
     groupButtonPanel.add(exportToPDFButton);
 
+    // TODO: the update function works but needs logical error check!!! also check
+    // TODO: for new books if there are any.
     updateButton.setText("Update");
     updateButton.addActionListener(e -> {
-      int choice = JOptionPane.showConfirmDialog(
-          null,
-          "Do you want to update?");
-      if (choice == JOptionPane.YES_OPTION) {
-        ImportBUS.getInstance().getModelById(importModel.getId());
-        ProviderModel providerModel = ProviderBUS
-            .getInstance()
-            .getModelById(importModel.getProviderId());
-        providerModel.setName(providerTextField.getText());
-        ProviderBUS.getInstance().updateModel(providerModel);
+      String providerName = providerTextField.getText().trim();
+      String employeeName = employeeTextField.getText().trim();
+
+      if (employeeName.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Please enter an employee name.");
+        return;
+      }
+
+      List<UserModel> userModel = UserBUS.getInstance().searchModel(employeeName, new String[] { "name" });
+      // Remove if a user is customer:
+      userModel.removeIf(user1 -> user1.getRole().toString().equals("customer"));
+
+      if (userModel.size() == 0) {
+        JOptionPane.showMessageDialog(null, "Employee not found! Please try again.");
+        return;
+      } else if (userModel.size() > 1) {
+        // Show a list of users with employee role with same name and ask them to
+        // choose.
+        Object[] options = new Object[userModel.size()];
+        for (int i = 0; i < userModel.size(); i++) {
+          UserModel user2 = userModel.get(i);
+          String option = String.format("%s - %s - %s - %s", user2.getName(), user2.getEmail(), user2.getPhone(),
+              user2.getStatus());
+          options[i] = option;
+        }
+        int selectedOption = JOptionPane.showOptionDialog(null,
+            "Multiple employees found with the same name. Please select one:",
+            "Select Employee",
+            JOptionPane.DEFAULT_OPTION,
+            JOptionPane.PLAIN_MESSAGE,
+            null,
+            options,
+            options[0]);
+        if (selectedOption == -1) {
+          return;
+        }
+        userModel = Collections.singletonList(userModel.get(selectedOption));
+      }
+
+      UserModel employee = userModel.get(0);
+
+      List<ProviderModel> providers = ProviderBUS.getInstance().searchModel(providerName, new String[] { "name" });
+      ProviderModel providerModel = null;
+
+      if (providers.size() == 0) {
+        int choose = JOptionPane.showConfirmDialog(null,
+            "Provider is not found! Do you want to create new Provider?");
+        if (choose == JOptionPane.YES_OPTION) {
+          // Create new Provider:
+          ProviderModel newProvider = new ProviderModel();
+          newProvider.setName(providerName);
+          try {
+            ProviderBUS.getInstance().addModel(newProvider);
+            providerModel = newProvider;
+          } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Failed to create new provider: " + ex.getMessage());
+            return;
+          }
+        } else {
+          JOptionPane.showMessageDialog(null, "Update failed!");
+          return;
+        }
+      } else if (providers.size() == 1) {
+        providerModel = providers.get(0);
+      } else {
+        JOptionPane.showMessageDialog(null,
+            "Multiple providers found with the same name. Please enter a more specific name.");
+        return;
+      }
+
+      ImportModel importModel = new ImportModel();
+      importModel.setEmployeeId(employee.getId());
+      importModel.setProviderId(providerModel.getId());
+
+      try {
         ImportBUS.getInstance().updateModel(importModel);
         JOptionPane.showMessageDialog(null, "Updated successfully!");
-      } else if (choice == JOptionPane.NO_OPTION) {
+      } catch (Exception ex) {
+        JOptionPane.showMessageDialog(null, "Failed to update import receipt: " + ex.getMessage());
         return;
       }
     });
 
     groupButtonPanel.add(updateButton);
-
+    // TODO: Reset book row back to default as well.
     resetButton.setText("Reset");
+    resetButton.addActionListener(e -> {
+      int choice = JOptionPane.showConfirmDialog(null, "Do you want to reset?");
+      if (choice == JOptionPane.YES_OPTION) {
+        providerTextField.setText("" + provider.getName());
+        employeeTextField.setText("" + user.getName());
+      } else if (choice == JOptionPane.NO_OPTION) {
 
+      } else {
+        return;
+      }
+
+    });
     groupButtonPanel.add(resetButton);
 
     tablePanel.add(groupButtonPanel, BorderLayout.PAGE_START);
