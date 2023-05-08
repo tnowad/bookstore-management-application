@@ -1,5 +1,6 @@
 package com.bookstore.gui.forms.imports;
 
+import com.bookstore.gui.components.panels.MainPanel;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -33,9 +34,17 @@ public class ImportNewPanel extends JPanel {
   private JTextField titleBookTextfield;
   private JLabel titleLabel;
   private JLabel totalPriceLabel;
+  private JButton backToPreviousButton;
 
   public ImportNewPanel() {
     initComponents();
+    handleEvent();
+  }
+
+  private void handleEvent() {
+    backToPreviousButton.addActionListener(e -> {
+      MainPanel.getInstance().backToPreviousForm();
+    });
   }
 
   private void initComponents() {
@@ -68,11 +77,18 @@ public class ImportNewPanel extends JPanel {
     actionPanel = new JPanel();
     exitButton = new JButton();
     totalPriceLabel = new JLabel();
+    backToPreviousButton = new JButton("Back to previous");
 
     setLayout(new GridBagLayout());
 
-    titleLabel.setFont(new Font("Segoe UI", 0, 36)); // NOI18N
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 0;
+    gridBagConstraints.gridy = 0;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+    add(backToPreviousButton, gridBagConstraints);
+
     titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+    titleLabel.setFont(new Font("Segoe UI", 0, 36));
     titleLabel.setText("Book list import");
     gridBagConstraints = new GridBagConstraints();
     gridBagConstraints.gridx = 0;
@@ -82,7 +98,8 @@ public class ImportNewPanel extends JPanel {
     add(titleLabel, gridBagConstraints);
 
     importFormPanel.setBorder(
-        BorderFactory.createTitledBorder("Book Information"));
+      BorderFactory.createTitledBorder("Book Information")
+    );
     importFormPanel.setLayout(new GridLayout(2, 2, 2, 0));
 
     importIdLabel.setText("Import ID");
@@ -102,7 +119,8 @@ public class ImportNewPanel extends JPanel {
     add(importFormPanel, gridBagConstraints);
 
     bookFormPanel.setBorder(
-        BorderFactory.createTitledBorder("Book Information"));
+      BorderFactory.createTitledBorder("Book Information")
+    );
     bookFormPanel.setLayout(new BorderLayout());
 
     bookInformationPanel.setLayout(new GridLayout(6, 2));
@@ -150,14 +168,16 @@ public class ImportNewPanel extends JPanel {
     bookListPanel.setLayout(new BoxLayout(bookListPanel, BoxLayout.LINE_AXIS));
 
     bookListTable.setModel(
-        new DefaultTableModel(
-            new Object[][] {
-                { null, null, null, null },
-                { null, null, null, null },
-                { null, null, null, null },
-                { null, null, null, null },
-            },
-            new String[] { "Title 1", "Title 2", "Title 3", "Title 4" }));
+      new DefaultTableModel(
+        new Object[][] {
+          { null, null, null, null },
+          { null, null, null, null },
+          { null, null, null, null },
+          { null, null, null, null },
+        },
+        new String[] { "Title 1", "Title 2", "Title 3", "Title 4" }
+      )
+    );
     bookListScrollPane.setViewportView(bookListTable);
 
     bookListPanel.add(bookListScrollPane);

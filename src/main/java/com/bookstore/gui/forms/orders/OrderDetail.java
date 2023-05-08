@@ -81,6 +81,7 @@ public class OrderDetail extends JPanel {
         );
       }
     });
+
     backToPreviousButton.addActionListener(e -> {
       MainPanel.getInstance().backToPreviousForm();
     });

@@ -5,6 +5,7 @@ import com.bookstore.bus.ProviderBUS;
 import com.bookstore.gui.components.buttons.Button;
 import com.bookstore.gui.components.labels.Label;
 import com.bookstore.gui.components.panels.MainPanel;
+import com.bookstore.gui.theme.ThemeFont;
 import com.bookstore.interfaces.ISearchable;
 import com.bookstore.models.ImportModel;
 import com.bookstore.models.ProviderModel;
@@ -33,7 +34,7 @@ public class ImportList extends JPanel implements ISearchable {
   private Button importFromExcelButton;
   private Label importLabel;
   private JTable importTableList;
-  private JScrollPane jScrollPane1;
+  // private JScrollPane jScrollPane1;
   private JScrollPane scrollPaneTableList;
 
   private static ImportList instance;
@@ -50,6 +51,16 @@ public class ImportList extends JPanel implements ISearchable {
   }
 
   private void handleEvent() {
+    addReceiptButton.addActionListener(e -> {
+      int choice = JOptionPane.showConfirmDialog(
+        null,
+        "Do you want to add new import?"
+      );
+      if (choice == JOptionPane.YES_OPTION) {
+        MainPanel.getInstance().showForm(new ImportNewPanel());
+      }
+    });
+
     exportToExcelButton.addActionListener(e -> {
       try {
         ImportModelExcelUtil.writeImportsToExcel(importList);
@@ -84,7 +95,7 @@ public class ImportList extends JPanel implements ISearchable {
     importFromExcelButton = new Button("Import excel");
     exportToExcelButton = new Button("Export excel");
 
-    jScrollPane1 = new JScrollPane();
+    // jScrollPane1 = new JScrollPane();
     groupListImport = new JPanel();
     scrollPaneTableList = new JScrollPane();
     importTableList = new JTable();
@@ -95,10 +106,12 @@ public class ImportList extends JPanel implements ISearchable {
 
     headerPanel.setLayout(new GridLayout(2, 2));
 
+    importLabel.setFont(new ThemeFont().getMediumFont());
     headerPanel.add(importLabel);
 
     addPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
+    addReceiptButton.setPreferredSize(new Dimension(150, 30));
     addPanel.add(addReceiptButton);
 
     headerPanel.add(addPanel);
@@ -113,8 +126,10 @@ public class ImportList extends JPanel implements ISearchable {
     groupExcel.setPreferredSize(new Dimension(590, 30));
     groupExcel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
+    importFromExcelButton.setPreferredSize(new Dimension(150, 30));
     groupExcel.add(importFromExcelButton);
 
+    exportToExcelButton.setPreferredSize(new Dimension(150, 30));
     groupExcel.add(exportToExcelButton);
 
     headerPanel.add(groupExcel);
@@ -133,11 +148,11 @@ public class ImportList extends JPanel implements ISearchable {
     );
     scrollPaneTableList.setViewportView(importTableList);
 
-    groupListImport.add(scrollPaneTableList, BorderLayout.CENTER);
+    // groupListImport.add(scrollPaneTableList, BorderLayout.CENTER);
 
-    jScrollPane1.setViewportView(groupListImport);
+    // jScrollPane1.setViewportView(groupListImport);
 
-    add(jScrollPane1, BorderLayout.CENTER);
+    add(scrollPaneTableList, BorderLayout.CENTER);
   }
 
   private void listImport() {

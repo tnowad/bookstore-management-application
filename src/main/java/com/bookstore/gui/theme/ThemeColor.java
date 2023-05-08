@@ -6,7 +6,7 @@ public class ThemeColor {
 
     private Color background = new Color(250, 250, 250);
     private Color buttonBackground = new Color(250, 250, 250);
-    private Color buttonForeground = Color.BLUE;
+    private Color buttonForeground = Color.BLACK;
     private Color buttonHoverBackground = new Color(0, 119, 250);
     private Color buttonHoverForeground = new Color(250, 250, 250);
     private Color buttonPressedBackground;
