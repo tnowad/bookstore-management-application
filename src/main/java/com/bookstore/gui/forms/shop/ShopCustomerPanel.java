@@ -7,6 +7,7 @@ import com.bookstore.gui.components.books.BookItemPanel;
 import com.bookstore.gui.components.dialogs.Dialog;
 import com.bookstore.gui.components.panels.MainPanel;
 import com.bookstore.gui.forms.carts.CartCustomerPanel;
+import com.bookstore.gui.forms.filters.BookFilterForm;
 import com.bookstore.gui.forms.general.NoDataPanel;
 import com.bookstore.interfaces.IFilterAble;
 import com.bookstore.interfaces.ISearchable;
@@ -105,7 +106,7 @@ public class ShopCustomerPanel
     });
   }
 
-  void renderListProduct(List<BookModel> bookListRender) {
+  public void renderListProduct(List<BookModel> bookListRender) {
     bookListPanel.removeAll();
     if (bookListRender.size() <= 0) {
       bookListPanel.setLayout(new GridLayout(0, 1));
@@ -227,6 +228,6 @@ public class ShopCustomerPanel
 
   @Override
   public void filter() {
-    new Dialog(new BookFilterPanel(this));
+    new Dialog(new BookFilterForm(this));
   }
 }
