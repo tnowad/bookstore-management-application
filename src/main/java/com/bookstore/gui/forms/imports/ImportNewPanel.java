@@ -40,33 +40,9 @@ public class ImportNewPanel extends JPanel {
 
   public ImportNewPanel() {
     initComponents();
+    updateData();
+    bookListTable();
     handleEvent();
-  }
-
-  private void handleEvent() {
-    backToPreviousButton.addActionListener(e -> {
-      MainPanel.getInstance().backToPreviousForm();
-    });
-    bookIsbnTextField
-      .getDocument()
-      .addDocumentListener(
-        new DocumentListener() {
-          @Override
-          public void insertUpdate(DocumentEvent e) {
-            System.out.println("Insert");
-          }
-
-          @Override
-          public void removeUpdate(DocumentEvent e) {
-           System.out.println("Remove");
-          }
-
-          @Override
-          public void changedUpdate(DocumentEvent e) {
-            System.out.println("Change");
-          }
-        }
-      );
   }
 
   private void initComponents() {
@@ -225,5 +201,35 @@ public class ImportNewPanel extends JPanel {
     gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
     gridBagConstraints.weightx = 1.0;
     add(actionPanel, gridBagConstraints);
+  }
+
+  private void updateData() {}
+
+  private void bookListTable() {}
+
+  private void handleEvent() {
+    backToPreviousButton.addActionListener(e -> {
+      MainPanel.getInstance().backToPreviousForm();
+    });
+    bookIsbnTextField
+      .getDocument()
+      .addDocumentListener(
+        new DocumentListener() {
+          @Override
+          public void insertUpdate(DocumentEvent e) {
+            System.out.println("Insert");
+          }
+
+          @Override
+          public void removeUpdate(DocumentEvent e) {
+            System.out.println("Remove");
+          }
+
+          @Override
+          public void changedUpdate(DocumentEvent e) {
+            System.out.println("Change");
+          }
+        }
+      );
   }
 }

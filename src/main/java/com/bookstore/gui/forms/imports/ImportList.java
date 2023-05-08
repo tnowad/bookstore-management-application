@@ -46,7 +46,7 @@ public class ImportList extends JPanel implements ISearchable {
 
   public ImportList() {
     initComponents();
-    listImport();
+    listImportTable();
     handleEvent();
   }
 
@@ -155,7 +155,7 @@ public class ImportList extends JPanel implements ISearchable {
     add(scrollPaneTableList, BorderLayout.CENTER);
   }
 
-  private void listImport() {
+  private void listImportTable() {
     showTable();
   }
 
