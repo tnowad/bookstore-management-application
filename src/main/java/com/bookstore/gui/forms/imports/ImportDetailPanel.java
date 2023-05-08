@@ -16,9 +16,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
 import javax.swing.*;
 import javax.swing.JFileChooser;
 import javax.swing.table.DefaultTableModel;
@@ -59,36 +59,41 @@ public class ImportDetailPanel extends JPanel {
 
   private void bookListTable() {
     DefaultTableModel model = new DefaultTableModel(
-        new String[] { "Book ISBN", "Title", "Quantity", "Price" },
-        0);
+      new String[] { "Book ISBN", "Title", "Quantity", "Price" },
+      0
+    );
     for (ImportItemsModel importItemsModel : ImportItemsBUS
-        .getInstance()
-        .getAllModels()) {
+      .getInstance()
+      .getAllModels()) {
       if (importItemsModel.getImportId() == importModel.getId()) {
         BookModel bookModel = BookBUS
-            .getInstance()
-            .getBookByIsbn(importItemsModel.getBookIsbn());
-        double itemsPrice = importItemsModel.getQuantity() * bookModel.getPrice();
+          .getInstance()
+          .getBookByIsbn(importItemsModel.getBookIsbn());
+        double itemsPrice =
+          importItemsModel.getQuantity() * bookModel.getPrice();
         totalPrice += itemsPrice;
         model.addRow(
-            new Object[] {
-                bookModel.getIsbn(),
-                bookModel.getTitle(),
-                importItemsModel.getQuantity(),
-                importItemsModel.getPrice(),
-            });
+          new Object[] {
+            bookModel.getIsbn(),
+            bookModel.getTitle(),
+            importItemsModel.getQuantity(),
+            importItemsModel.getPrice(),
+          }
+        );
         bookListTable.setModel(model);
       }
     }
     // TODO: Finish adding new Book
     JButton addButton = new JButton("Add Book");
-    addButton.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        // TODO: Popup bookdetail Panel/Frame or something. Fill in information and
-        // store data into row
+    addButton.addActionListener(
+      new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+          // TODO: Popup bookdetail Panel/Frame or something. Fill in information and
+          // store data into row
+        }
       }
-    });
+    );
     add(addButton, BorderLayout.SOUTH);
   }
 
@@ -105,11 +110,15 @@ public class ImportDetailPanel extends JPanel {
 
     providerLabel = new JLabel();
     providerTextField = new JTextField();
-    ProviderModel provider = ProviderBUS.getInstance().getModelById(importModel.getProviderId());
+    ProviderModel provider = ProviderBUS
+      .getInstance()
+      .getModelById(importModel.getProviderId());
     providerTextField.setText("" + provider.getName());
 
     employeeLabel = new JLabel();
-    UserModel user = UserBUS.getInstance().getModelById(importModel.getEmployeeId());
+    UserModel user = UserBUS
+      .getInstance()
+      .getModelById(importModel.getEmployeeId());
     employeeTextField = new JTextField();
     employeeTextField.setText("" + user.getName());
 
@@ -195,11 +204,12 @@ public class ImportDetailPanel extends JPanel {
 
     exportToPDFButton.setText("Export (PDF)");
     exportToPDFButton.addActionListener(
-        new ActionListener() {
-          public void actionPerformed(ActionEvent evt) {
-            exportToPDFButtonActionPerformed(evt);
-          }
-        });
+      new ActionListener() {
+        public void actionPerformed(ActionEvent evt) {
+          exportToPDFButtonActionPerformed(evt);
+        }
+      }
+    );
     groupButtonPanel.add(exportToPDFButton);
 
     // TODO: the update function works but needs logical error check!!! also check
@@ -214,12 +224,18 @@ public class ImportDetailPanel extends JPanel {
         return;
       }
 
-      List<UserModel> userModel = UserBUS.getInstance().searchModel(employeeName, new String[] { "name" });
+      List<UserModel> userModel = UserBUS
+        .getInstance()
+        .searchModel(employeeName, new String[] { "name" });
       // Remove if a user is customer:
-      userModel.removeIf(user1 -> user1.getRole().toString().equals("customer"));
+      userModel.removeIf(user1 -> user1.getRole().toString().equals("customer")
+      );
 
       if (userModel.size() == 0) {
-        JOptionPane.showMessageDialog(null, "Employee not found! Please try again.");
+        JOptionPane.showMessageDialog(
+          null,
+          "Employee not found! Please try again."
+        );
         return;
       } else if (userModel.size() > 1) {
         // Show a list of users with employee role with same name and ask them to
@@ -227,18 +243,25 @@ public class ImportDetailPanel extends JPanel {
         Object[] options = new Object[userModel.size()];
         for (int i = 0; i < userModel.size(); i++) {
           UserModel user2 = userModel.get(i);
-          String option = String.format("%s - %s - %s - %s", user2.getName(), user2.getEmail(), user2.getPhone(),
-              user2.getStatus());
+          String option = String.format(
+            "%s - %s - %s - %s",
+            user2.getName(),
+            user2.getEmail(),
+            user2.getPhone(),
+            user2.getStatus()
+          );
           options[i] = option;
         }
-        int selectedOption = JOptionPane.showOptionDialog(null,
-            "Multiple employees found with the same name. Please select one:",
-            "Select Employee",
-            JOptionPane.DEFAULT_OPTION,
-            JOptionPane.PLAIN_MESSAGE,
-            null,
-            options,
-            options[0]);
+        int selectedOption = JOptionPane.showOptionDialog(
+          null,
+          "Multiple employees found with the same name. Please select one:",
+          "Select Employee",
+          JOptionPane.DEFAULT_OPTION,
+          JOptionPane.PLAIN_MESSAGE,
+          null,
+          options,
+          options[0]
+        );
         if (selectedOption == -1) {
           return;
         }
@@ -247,12 +270,22 @@ public class ImportDetailPanel extends JPanel {
 
       UserModel employee = userModel.get(0);
 
-      List<ProviderModel> providers = ProviderBUS.getInstance().searchModel(providerName, new String[] { "name" });
+      List<ProviderModel> providers;
+      try {
+        providers =
+          ProviderBUS
+            .getInstance()
+            .searchModel(providerName, new String[] { "name" });
+      } catch (Exception ex) {
+        providers = new ArrayList<>();
+      }
       ProviderModel providerModel = null;
 
       if (providers.size() == 0) {
-        int choose = JOptionPane.showConfirmDialog(null,
-            "Provider is not found! Do you want to create new Provider?");
+        int choose = JOptionPane.showConfirmDialog(
+          null,
+          "Provider is not found! Do you want to create new Provider?"
+        );
         if (choose == JOptionPane.YES_OPTION) {
           // Create new Provider:
           ProviderModel newProvider = new ProviderModel();
@@ -261,7 +294,10 @@ public class ImportDetailPanel extends JPanel {
             ProviderBUS.getInstance().addModel(newProvider);
             providerModel = newProvider;
           } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Failed to create new provider: " + ex.getMessage());
+            JOptionPane.showMessageDialog(
+              null,
+              "Failed to create new provider: " + ex.getMessage()
+            );
             return;
           }
         } else {
@@ -271,8 +307,10 @@ public class ImportDetailPanel extends JPanel {
       } else if (providers.size() == 1) {
         providerModel = providers.get(0);
       } else {
-        JOptionPane.showMessageDialog(null,
-            "Multiple providers found with the same name. Please enter a more specific name.");
+        JOptionPane.showMessageDialog(
+          null,
+          "Multiple providers found with the same name. Please enter a more specific name."
+        );
         return;
       }
 
@@ -284,7 +322,10 @@ public class ImportDetailPanel extends JPanel {
         ImportBUS.getInstance().updateModel(importModel);
         JOptionPane.showMessageDialog(null, "Updated successfully!");
       } catch (Exception ex) {
-        JOptionPane.showMessageDialog(null, "Failed to update import receipt: " + ex.getMessage());
+        JOptionPane.showMessageDialog(
+          null,
+          "Failed to update import receipt: " + ex.getMessage()
+        );
         return;
       }
     });
@@ -297,12 +338,9 @@ public class ImportDetailPanel extends JPanel {
       if (choice == JOptionPane.YES_OPTION) {
         providerTextField.setText("" + provider.getName());
         employeeTextField.setText("" + user.getName());
-      } else if (choice == JOptionPane.NO_OPTION) {
-
-      } else {
+      } else if (choice == JOptionPane.NO_OPTION) {} else {
         return;
       }
-
     });
     groupButtonPanel.add(resetButton);
 

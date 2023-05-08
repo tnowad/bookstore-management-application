@@ -21,6 +21,7 @@ import com.bookstore.gui.forms.general.ContactUs;
 import com.bookstore.gui.forms.imports.ImportList;
 import com.bookstore.gui.forms.orders.OrderHistory;
 import com.bookstore.gui.forms.orders.OrderList;
+import com.bookstore.gui.forms.reports.SalesReportPanel;
 import com.bookstore.gui.forms.shop.ShopCustomerPanel;
 import com.bookstore.gui.forms.users.CustomerList;
 import com.bookstore.gui.forms.users.EmployeeList;
@@ -77,34 +78,10 @@ public class MenuFactory {
 
           add(
             new MenuItemModel(
-              "Report",
+              "Sales Report",
               new ImageIcon("src/main/java/resources/icons/report.png"),
-              null,
-              new ArrayList<SubMenuItemModel>() {
-                {
-                  add(
-                    new SubMenuItemModel(
-                      "Sales report",
-                      new ImageIcon(""),
-                      null
-                    )
-                  );
-                  add(
-                    new SubMenuItemModel(
-                      "Import report",
-                      new ImageIcon(""),
-                      null
-                    )
-                  );
-                  add(
-                    new SubMenuItemModel(
-                      "Export report",
-                      new ImageIcon(""),
-                      null
-                    )
-                  );
-                }
-              }
+              showSalesReport,
+              null
             )
           );
 
@@ -194,14 +171,18 @@ public class MenuFactory {
                   add(
                     new SubMenuItemModel(
                       "Update Profile",
-                      new ImageIcon("src//main/java/resources/icons/profile.png"),
+                      new ImageIcon(
+                        "src//main/java/resources/icons/profile.png"
+                      ),
                       showAccountProfile
                     )
                   );
                   add(
                     new SubMenuItemModel(
                       "Update Password",
-                      new ImageIcon("src/main/java/resources/icons/password-reset.png"),
+                      new ImageIcon(
+                        "src/main/java/resources/icons/password-reset.png"
+                      ),
                       showAccountPassword
                     )
                   );
@@ -220,14 +201,18 @@ public class MenuFactory {
                   add(
                     new SubMenuItemModel(
                       "Contact us",
-                      new ImageIcon("src/main/java/resources/icons/contact_us.png"),
+                      new ImageIcon(
+                        "src/main/java/resources/icons/contact_us.png"
+                      ),
                       showContact
                     )
                   );
                   add(
                     new SubMenuItemModel(
                       "About us",
-                      new ImageIcon("src/main/java/resources/icons/about_us.png"),
+                      new ImageIcon(
+                        "src/main/java/resources/icons/about_us.png"
+                      ),
                       showAboutUs
                     )
                   );
@@ -288,7 +273,9 @@ public class MenuFactory {
                   add(
                     new SubMenuItemModel(
                       "Order History",
-                      new ImageIcon("src/main/java/resources/icons/order_icon.png"),
+                      new ImageIcon(
+                        "src/main/java/resources/icons/order_icon.png"
+                      ),
                       showMyOrderCustomer
                     )
                   );
@@ -307,14 +294,18 @@ public class MenuFactory {
                   add(
                     new SubMenuItemModel(
                       "Update Profile",
-                      new ImageIcon("src//main/java/resources/icons/profile.png"),
+                      new ImageIcon(
+                        "src//main/java/resources/icons/profile.png"
+                      ),
                       showAccountProfile
                     )
                   );
                   add(
                     new SubMenuItemModel(
                       "Update Password",
-                      new ImageIcon("src/main/java/resources/icons/password-reset.png"),
+                      new ImageIcon(
+                        "src/main/java/resources/icons/password-reset.png"
+                      ),
                       showAccountPassword
                     )
                   );
@@ -333,14 +324,18 @@ public class MenuFactory {
                   add(
                     new SubMenuItemModel(
                       "Contact us",
-                      new ImageIcon("src/main/java/resources/icons/contact_us.png"),
+                      new ImageIcon(
+                        "src/main/java/resources/icons/contact_us.png"
+                      ),
                       showContact
                     )
                   );
                   add(
                     new SubMenuItemModel(
                       "About us",
-                      new ImageIcon("src/main/java/resources/icons/about_us.png"),
+                      new ImageIcon(
+                        "src/main/java/resources/icons/about_us.png"
+                      ),
                       showAboutUs
                     )
                   );
@@ -399,7 +394,9 @@ public class MenuFactory {
                   add(
                     new SubMenuItemModel(
                       "Order History",
-                      new ImageIcon("src/main/java/resources/icons/order_icon.png"),
+                      new ImageIcon(
+                        "src/main/java/resources/icons/order_icon.png"
+                      ),
                       showMyOrderCustomer
                     )
                   );
@@ -418,7 +415,9 @@ public class MenuFactory {
                   add(
                     new SubMenuItemModel(
                       "Customer management",
-                      new ImageIcon("src/main/java/resources/icons/customer_icon.png"),
+                      new ImageIcon(
+                        "src/main/java/resources/icons/customer_icon.png"
+                      ),
                       showCustomerList
                     )
                   );
@@ -426,14 +425,18 @@ public class MenuFactory {
                   add(
                     new SubMenuItemModel(
                       "Order management",
-                      new ImageIcon("src/main/java/resources/icons/order_icon.png"),
+                      new ImageIcon(
+                        "src/main/java/resources/icons/order_icon.png"
+                      ),
                       showOrderList
                     )
                   );
                   add(
                     new SubMenuItemModel(
                       "Import management",
-                      new ImageIcon("src/main/java/resources/icons/import_icon.png"),
+                      new ImageIcon(
+                        "src/main/java/resources/icons/import_icon.png"
+                      ),
                       showImportList
                     )
                   );
@@ -452,14 +455,18 @@ public class MenuFactory {
                   add(
                     new SubMenuItemModel(
                       "Update Profile",
-                      new ImageIcon("src//main/java/resources/icons/profile.png"),
+                      new ImageIcon(
+                        "src//main/java/resources/icons/profile.png"
+                      ),
                       showAccountProfile
                     )
                   );
                   add(
                     new SubMenuItemModel(
                       "Change Password",
-                      new ImageIcon("src/main/java/resources/icons/password-reset.png"),
+                      new ImageIcon(
+                        "src/main/java/resources/icons/password-reset.png"
+                      ),
                       showAccountPassword
                     )
                   );
@@ -477,14 +484,18 @@ public class MenuFactory {
                   add(
                     new SubMenuItemModel(
                       "Contact us",
-                      new ImageIcon("src/main/java/resources/icons/contact_us.png"),
+                      new ImageIcon(
+                        "src/main/java/resources/icons/contact_us.png"
+                      ),
                       showContact
                     )
                   );
                   add(
                     new SubMenuItemModel(
                       "About us",
-                      new ImageIcon("src/main/java/resources/icons/about_us.png"),
+                      new ImageIcon(
+                        "src/main/java/resources/icons/about_us.png"
+                      ),
                       showAboutUs
                     )
                   );
@@ -576,14 +587,18 @@ public class MenuFactory {
                   add(
                     new SubMenuItemModel(
                       "Update Profile",
-                      new ImageIcon("src//main/java/resources/icons/profile.png"),
+                      new ImageIcon(
+                        "src//main/java/resources/icons/profile.png"
+                      ),
                       showAccountProfile
                     )
                   );
                   add(
                     new SubMenuItemModel(
                       "Update Password",
-                      new ImageIcon("src/main/java/resources/icons/password-reset.png"),
+                      new ImageIcon(
+                        "src/main/java/resources/icons/password-reset.png"
+                      ),
                       showAccountPassword
                     )
                   );
@@ -601,14 +616,18 @@ public class MenuFactory {
                   add(
                     new SubMenuItemModel(
                       "Contact us",
-                      new ImageIcon("src/main/java/resources/icons/contact_us.png"),
+                      new ImageIcon(
+                        "src/main/java/resources/icons/contact_us.png"
+                      ),
                       showContact
                     )
                   );
                   add(
                     new SubMenuItemModel(
                       "About us",
-                      new ImageIcon("src/main/java/resources/icons/about_us.png"),
+                      new ImageIcon(
+                        "src/main/java/resources/icons/about_us.png"
+                      ),
                       showAboutUs
                     )
                   );
@@ -709,5 +728,8 @@ public class MenuFactory {
   };
   private static ActionListener showAboutUs = e -> {
     MainPanel.getInstance().showForm(new AboutUs());
+  };
+  private static ActionListener showSalesReport = e -> {
+    MainPanel.getInstance().showForm(new SalesReportPanel());
   };
 }
