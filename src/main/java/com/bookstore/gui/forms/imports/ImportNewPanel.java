@@ -3,6 +3,8 @@ package com.bookstore.gui.forms.imports;
 import com.bookstore.gui.components.panels.MainPanel;
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 
 public class ImportNewPanel extends JPanel {
@@ -45,6 +47,26 @@ public class ImportNewPanel extends JPanel {
     backToPreviousButton.addActionListener(e -> {
       MainPanel.getInstance().backToPreviousForm();
     });
+    bookIsbnTextField
+      .getDocument()
+      .addDocumentListener(
+        new DocumentListener() {
+          @Override
+          public void insertUpdate(DocumentEvent e) {
+            System.out.println("Insert");
+          }
+
+          @Override
+          public void removeUpdate(DocumentEvent e) {
+           System.out.println("Remove");
+          }
+
+          @Override
+          public void changedUpdate(DocumentEvent e) {
+            System.out.println("Change");
+          }
+        }
+      );
   }
 
   private void initComponents() {
