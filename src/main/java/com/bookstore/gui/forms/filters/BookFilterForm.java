@@ -4,7 +4,6 @@ import com.bookstore.bus.AuthorBUS;
 import com.bookstore.bus.BookBUS;
 import com.bookstore.bus.BooksCategoryBUS;
 import com.bookstore.bus.CategoryBUS;
-import com.bookstore.gui.forms.shop.ShopCustomerPanel;
 import com.bookstore.interfaces.IFilterForm;
 import com.bookstore.interfaces.IListPanel;
 import com.bookstore.models.AuthorModel;

@@ -1,6 +1,8 @@
 package com.bookstore.gui.components.books;
 
 import com.bookstore.bus.BookBUS;
+import com.bookstore.gui.forms.filters.BookFilterForm;
+import com.bookstore.interfaces.IListPanel;
 import com.bookstore.interfaces.ISearchable;
 import com.bookstore.models.BookModel;
 import com.bookstore.util.Excel.BookExcelUtil;
@@ -12,7 +14,9 @@ import java.util.Comparator;
 import java.util.List;
 import javax.swing.*;
 
-public class BrowseProductPanel extends JPanel implements ISearchable {
+public class BrowseProductPanel
+  extends JPanel
+  implements ISearchable, IListPanel<BookModel> {
 
   private JButton buttonSortAz;
   private JButton buttonSortZa;
@@ -34,7 +38,7 @@ public class BrowseProductPanel extends JPanel implements ISearchable {
 
   public BrowseProductPanel() {
     initComponents();
-    addTable(modifiableBookList);
+    updateList(modifiableBookList);
   }
 
   private void initComponents() {
@@ -48,8 +52,6 @@ public class BrowseProductPanel extends JPanel implements ISearchable {
     buttonDelete = new JButton();
     buttonSortAz = new JButton();
     buttonSortZa = new JButton();
-    scrollPane = new JScrollPane();
-    table = new JPanel();
 
     setPreferredSize(new Dimension(702, 444));
     setLayout(new BorderLayout());
@@ -99,21 +101,20 @@ public class BrowseProductPanel extends JPanel implements ISearchable {
 
     contendPanel.add(panel, BorderLayout.PAGE_START);
 
-    scrollPane.setViewportView(table);
+    table = new JPanel();
+    JPanel tableWrapper = new JPanel();
+    tableWrapper.setLayout(new BorderLayout());
+    tableWrapper.add(table, BorderLayout.PAGE_START);
+    scrollPane =
+      new JScrollPane(
+        tableWrapper,
+        JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+        JScrollPane.HORIZONTAL_SCROLLBAR_NEVER
+      );
 
     contendPanel.add(scrollPane, BorderLayout.CENTER);
 
     add(contendPanel, BorderLayout.CENTER);
-  }
-
-  public void addTable(List<BookModel> listBook) {
-    table.setLayout(new GridLayout(0, cols, 10, 10));
-    for (BookModel book : listBook) {
-      if (!book.getStatus().toString().equals("DELETED")) {
-        BookProductPanel bookProductPanel = new BookProductPanel(book);
-        table.add(bookProductPanel);
-      }
-    }
   }
 
   public ActionListener actionAdd = new ActionListener() {
@@ -203,7 +204,7 @@ public class BrowseProductPanel extends JPanel implements ISearchable {
     public void actionPerformed(ActionEvent e) {
       table.removeAll();
       modifiableBookList.sort(Comparator.comparing(BookModel::getTitle));
-      addTable(modifiableBookList);
+      updateList(modifiableBookList);
       table.revalidate();
       table.repaint();
     }
@@ -215,7 +216,7 @@ public class BrowseProductPanel extends JPanel implements ISearchable {
       modifiableBookList.sort(
         Comparator.comparing(BookModel::getTitle).reversed()
       );
-      addTable(modifiableBookList);
+      updateList(modifiableBookList);
       table.revalidate();
       table.repaint();
     }
@@ -243,13 +244,7 @@ public class BrowseProductPanel extends JPanel implements ISearchable {
   public void search(String keyword) {
     table.removeAll();
     if (keyword == null || keyword.isBlank()) {
-      JOptionPane.showMessageDialog(
-        null,
-        "Please enter your search information!"
-      );
-      addTable(listBook);
-      this.revalidate();
-      this.repaint();
+      updateList(listBook);
     } else {
       List<BookModel> books = new ArrayList<BookModel>();
       for (BookModel bookModel : listBook) {
@@ -260,9 +255,27 @@ public class BrowseProductPanel extends JPanel implements ISearchable {
         }
       }
 
-      addTable(books);
-      this.revalidate();
-      this.repaint();
+      updateList(books);
     }
+  }
+
+  @Override
+  public void activateFilterPanel() {
+    BookFilterForm bookFilterForm = new BookFilterForm(this);
+    new com.bookstore.gui.components.dialogs.Dialog(bookFilterForm);
+  }
+
+  @Override
+  public void updateList(List<BookModel> filteredList) {
+    table.removeAll();
+    table.setLayout(new GridLayout(0, cols, 10, 10));
+    for (BookModel book : filteredList) {
+      if (!book.getStatus().toString().equals("DELETED")) {
+        BookProductPanel bookProductPanel = new BookProductPanel(book);
+        table.add(bookProductPanel);
+      }
+    }
+    this.revalidate();
+    this.repaint();
   }
 }
