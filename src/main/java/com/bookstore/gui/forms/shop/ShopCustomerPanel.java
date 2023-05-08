@@ -3,6 +3,7 @@ package com.bookstore.gui.forms.shop;
 import com.bookstore.bus.BookBUS;
 import com.bookstore.bus.BooksCategoryBUS;
 import com.bookstore.bus.CategoryBUS;
+import com.bookstore.enums.BookStatus;
 import com.bookstore.gui.components.books.BookItemPanel;
 import com.bookstore.gui.components.dialogs.Dialog;
 import com.bookstore.gui.components.panels.MainPanel;
@@ -209,6 +210,15 @@ public class ShopCustomerPanel
 
   @Override
   public void updateList(List<BookModel> filteredList) {
+    for (int i = 0; i < filteredList.size(); i++) {
+      if (
+        filteredList.get(i).getStatus() == BookStatus.DELETED ||
+        filteredList.get(i).getStatus() == BookStatus.UNAVAILABLE
+      ) {
+        filteredList.remove(i);
+        i--;
+      }
+    }
     bookListPanel.removeAll();
     if (filteredList.size() <= 0) {
       bookListPanel.setLayout(new GridLayout(0, 1));

@@ -254,7 +254,6 @@ public class BrowseProductPanel
           books.add(bookModel);
         }
       }
-
       updateList(books);
     }
   }
