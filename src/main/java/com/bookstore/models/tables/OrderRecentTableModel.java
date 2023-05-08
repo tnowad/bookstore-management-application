@@ -17,6 +17,11 @@ public class OrderRecentTableModel extends DefaultTableModel {
     "UpdatedAt",
   };
 
+  @Override
+  public String getColumnName(int column) {
+    return columnNames[column];
+  }
+
   public OrderRecentTableModel(List<OrderModel> orderList) {
     super(new Object[][] {}, columnNames);
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern(

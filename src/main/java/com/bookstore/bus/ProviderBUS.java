@@ -179,4 +179,19 @@ public class ProviderBUS implements IBUS<ProviderModel> {
     providerList.clear();
     providerList.addAll(ProviderDAO.getInstance().readDatabase());
   }
+
+  public List<ProviderModel> findByName(String providerName) {
+    List<ProviderModel> results = new ArrayList<>();
+    for (ProviderModel providerModel : providerList) {
+      if (
+        providerModel
+          .getName()
+          .toLowerCase()
+          .contains(providerName.toLowerCase())
+      ) {
+        results.add(providerModel);
+      }
+    }
+    return results;
+  }
 }

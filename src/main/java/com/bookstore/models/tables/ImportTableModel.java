@@ -23,6 +23,11 @@ public class ImportTableModel extends AbstractTableModel {
   }
 
   @Override
+  public String getColumnName(int column) {
+    return columnNames[column];
+  }
+
+  @Override
   public int getColumnCount() {
     return columnNames.length;
   }

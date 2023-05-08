@@ -1,7 +1,13 @@
 package com.bookstore.gui.forms.imports;
 
+import com.bookstore.gui.components.dialogs.Dialog;
 import com.bookstore.gui.components.panels.MainPanel;
+import com.bookstore.models.BookModel;
+import com.bookstore.models.ProviderModel;
+import com.bookstore.models.tables.BookTableModel;
 import java.awt.*;
+import java.awt.event.ActionListener;
+import java.util.List;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -9,39 +15,45 @@ import javax.swing.table.DefaultTableModel;
 
 public class ImportNewPanel extends JPanel {
 
-  private JPanel actionPanel;
   private JButton addBookButton;
-  private JLabel authorLabel;
-  private JTextField authorTextField;
-  private JPanel bookFormPanel;
-  private JPanel bookInformationPanel;
-  private JLabel bookIsbnLabel;
-  private JTextField bookIsbnTextField;
-  private JPanel bookListPanel;
-  private JScrollPane bookListScrollPane;
-  private JTable bookListTable;
-  private JLabel categoriesLabel;
-  private JTextField categoriesTextField;
+  private JButton backToPreviousButton;
   private JButton exitButton;
-  private JPanel importFormPanel;
+
+  private JButton findBookButton;
+  private JButton findProviderButton;
+
+  private JLabel authorLabel;
+  private JLabel bookIsbnLabel;
+  private JLabel categoriesLabel;
   private JLabel importIdLabel;
-  private JTextField importIdTextField;
   private JLabel priceLabel;
-  private JTextField priceTextField;
   private JLabel providerLabel;
-  private JTextField providerTextField;
   private JLabel quantityLabel;
-  private JTextField quantityTextField;
   private JLabel titleBookLabel;
-  private JTextField titleBookTextfield;
   private JLabel titleLabel;
   private JLabel totalPriceLabel;
-  private JButton backToPreviousButton;
+  private JPanel actionPanel;
+  private JPanel bookFormPanel;
+  private JPanel bookInformationPanel;
+  private JPanel bookListPanel;
+  private JPanel importFormPanel;
+  private JScrollPane bookListScrollPane;
+  private JTextField authorTextField;
+  private JTextField bookIsbnTextField;
+  private JTextField categoriesTextField;
+  private JTextField importIdTextField;
+  private JTextField priceTextField;
+  private JTextField providerTextField;
+  private JTextField quantityTextField;
+  private JTextField titleBookTextfield;
+
+  private JTable bookListTable;
+
+  private ProviderModel providerModel;
+  private BookTableModel bookTableModel;
 
   public ImportNewPanel() {
     initComponents();
-    updateData();
-    bookListTable();
     handleEvent();
   }
 
@@ -71,7 +83,7 @@ public class ImportNewPanel extends JPanel {
     addBookButton = new JButton();
     bookListPanel = new JPanel();
     bookListScrollPane = new JScrollPane();
-    bookListTable = new JTable();
+
     actionPanel = new JPanel();
     exitButton = new JButton();
     totalPriceLabel = new JLabel();
@@ -107,7 +119,12 @@ public class ImportNewPanel extends JPanel {
     providerLabel.setText("Provider ");
     importFormPanel.add(providerLabel);
 
-    importFormPanel.add(providerTextField);
+    findProviderButton = new JButton("Find provider");
+    findProviderButton.addActionListener(findProviderButtonActionListener);
+    JPanel providerPanel = new JPanel(new BorderLayout());
+    providerPanel.add(providerTextField, BorderLayout.CENTER);
+    providerPanel.add(findProviderButton, BorderLayout.LINE_END);
+    importFormPanel.add(providerPanel);
 
     gridBagConstraints = new GridBagConstraints();
     gridBagConstraints.gridx = 0;
@@ -165,17 +182,10 @@ public class ImportNewPanel extends JPanel {
     bookListPanel.setBorder(BorderFactory.createTitledBorder("Import detail"));
     bookListPanel.setLayout(new BoxLayout(bookListPanel, BoxLayout.LINE_AXIS));
 
-    bookListTable.setModel(
-      new DefaultTableModel(
-        new Object[][] {
-          { null, null, null, null },
-          { null, null, null, null },
-          { null, null, null, null },
-          { null, null, null, null },
-        },
-        new String[] { "Title 1", "Title 2", "Title 3", "Title 4" }
-      )
-    );
+    bookTableModel = new BookTableModel();
+
+    bookListTable = new JTable(bookTableModel);
+    bookListTable.setFillsViewportHeight(true);
     bookListScrollPane.setViewportView(bookListTable);
 
     bookListPanel.add(bookListScrollPane);
@@ -203,9 +213,10 @@ public class ImportNewPanel extends JPanel {
     add(actionPanel, gridBagConstraints);
   }
 
-  private void updateData() {}
-
-  private void bookListTable() {}
+  private void updateList(List<BookModel> bookList) {
+    bookTableModel.setBookList(bookList);
+    bookTableModel.fireTableDataChanged();
+  }
 
   private void handleEvent() {
     backToPreviousButton.addActionListener(e -> {
@@ -232,4 +243,29 @@ public class ImportNewPanel extends JPanel {
         }
       );
   }
+
+  private ActionListener findProviderButtonActionListener = e -> {
+    ProviderSearchForm providerSearchForm = new ProviderSearchForm();
+    new Dialog(providerSearchForm);
+
+    providerModel = providerSearchForm.find();
+
+    if (providerModel != null) {
+      providerTextField.setText(providerModel.getName());
+    }
+  };
+
+  private ActionListener addBookButtonActionListener = e -> {
+    BookSearchForm bookSearchForm = new BookSearchForm();
+    new Dialog(bookSearchForm);
+
+    BookModel bookModel = bookSearchForm.find();
+
+    if (bookModel != null) {
+      bookIsbnTextField.setText(bookModel.getIsbn());
+      titleBookTextfield.setText(bookModel.getTitle());
+      quantityTextField.setText(String.valueOf(bookModel.getQuantity()));
+      priceTextField.setText(String.valueOf(bookModel.getPrice()));
+    }
+  };
 }
