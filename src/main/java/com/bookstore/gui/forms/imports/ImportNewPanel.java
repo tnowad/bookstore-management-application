@@ -1,8 +1,10 @@
 package com.bookstore.gui.forms.imports;
 
+import com.bookstore.bus.BookBUS;
 import com.bookstore.gui.components.dialogs.Dialog;
 import com.bookstore.gui.components.panels.MainPanel;
 import com.bookstore.models.BookModel;
+import com.bookstore.models.ImportItemsModel;
 import com.bookstore.models.ProviderModel;
 import com.bookstore.models.tables.BookTableModel;
 import java.awt.*;
@@ -11,6 +13,7 @@ import java.util.List;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 public class ImportNewPanel extends JPanel {
@@ -51,10 +54,48 @@ public class ImportNewPanel extends JPanel {
 
   private ProviderModel providerModel;
   private BookTableModel bookTableModel;
+  private ImportItemsModel[] importItemsList;
 
   public ImportNewPanel() {
     initComponents();
     handleEvent();
+    bookImportListTable();
+  }
+
+  private void bookImportListTable() {
+    DefaultTableModel model = new DefaultTableModel();
+    model.addColumn("Isbn");
+    model.addColumn("Book name");
+    model.addColumn("Categories");
+    model.addColumn("Acthor");
+    model.addColumn("Quantity");
+    model.addColumn("Import price");
+    for (ImportItemsModel importItemsModel : importItemsList) {
+      BookModel bookModel = BookBUS
+        .getInstance()
+        .getBookByIsbn(importItemsModel.getBookIsbn());
+      model.addRow(
+        new Object[] {
+          importItemsModel.getBookIsbn(),
+          bookModel.getTitle(),
+          bookModel.getTitle(),
+          bookModel.getAuthorId(),
+          importItemsModel.getQuantity(),
+          importItemsModel.getPrice(),
+        }
+      );
+      bookListTable.setModel(model);
+    }
+    bookListTable.getTableHeader().setReorderingAllowed(false);
+    DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+    centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+    for (int i = 0; i < bookListTable.getColumnCount(); i++) {
+      bookListTable
+        .getColumnModel()
+        .getColumn(i)
+        .setCellRenderer(centerRenderer);
+    }
+    bookListScrollPane.setViewportView(bookListTable);
   }
 
   private void initComponents() {
