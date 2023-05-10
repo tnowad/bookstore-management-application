@@ -10,7 +10,7 @@ import java.awt.Image;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class BookProductPanel extends JPanel {
+public class BookItemDetailPanel extends JPanel {
 
   private JTextField isbnBook;
   private BookModel bookModel;
@@ -21,7 +21,7 @@ public class BookProductPanel extends JPanel {
   private JTextField setTitle;
   private JPanel titlePanel;
 
-  public BookProductPanel(BookModel book) {
+  public BookItemDetailPanel(BookModel book) {
     this.bookModel = book;
     initComponents(book);
     setImage(book.getImage());

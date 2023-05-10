@@ -3,20 +3,20 @@ package com.bookstore.gui.forms.general;
 import java.awt.*;
 import javax.swing.*;
 
-public class AboutUs extends JPanel {
+public class AboutUsForm extends JPanel {
 
-  private static AboutUs instance;
+  private static AboutUsForm instance;
   private JLabel titleLabel;
   private JTextArea descriptionArea;
 
-  public static AboutUs getInstance() {
+  public static AboutUsForm getInstance() {
     if (instance == null) {
-      instance = new AboutUs();
+      instance = new AboutUsForm();
     }
     return instance;
   }
 
-  public AboutUs() {
+  public AboutUsForm() {
     setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
     titleLabel = new JLabel("About Us");
