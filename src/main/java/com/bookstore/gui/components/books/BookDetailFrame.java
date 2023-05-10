@@ -4,6 +4,7 @@ import com.bookstore.bus.AuthorBUS;
 import com.bookstore.bus.BookBUS;
 import com.bookstore.bus.PublisherBUS;
 import com.bookstore.enums.BookStatus;
+import com.bookstore.gui.components.panels.MainPanel;
 import com.bookstore.models.BookModel;
 import com.bookstore.util.image.ImageUtils;
 import java.awt.*;
@@ -326,6 +327,7 @@ public class BookDetailFrame extends JFrame {
         BookBUS.getInstance().updateModel(newBook);
         BookBUS.getInstance().refreshData();
         JOptionPane.showMessageDialog(null, "Complete!");
+        MainPanel.getInstance().showForm(BrowseProductPanel.getInstance());
       }
     }
   };

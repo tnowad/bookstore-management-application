@@ -1,9 +1,11 @@
 package com.bookstore.gui.components.users;
 
 import com.bookstore.bus.UserBUS;
+import com.bookstore.gui.components.cards.CardPanel;
 import com.bookstore.gui.components.carts.CartUserAdmin;
 import com.bookstore.interfaces.ISearchable;
 import com.bookstore.models.UserModel;
+import com.bookstore.models.gui.StatisticCardModel;
 import com.bookstore.services.Authentication;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -55,7 +57,7 @@ public class UserListPanel extends JPanel implements ISearchable {
   private JButton buttonSortAz;
   private JButton buttonSortZa;
 
-  CartUserAdmin cartUserAdmin;
+  CardPanel cartUserAdmin;
 
   private UserBUS userBUS = UserBUS.getInstance();
   private List<UserModel> listUser = userBUS.getAllModels();
@@ -116,36 +118,40 @@ public class UserListPanel extends JPanel implements ISearchable {
     cartPanel.setLayout(new GridLayout(1, 0, 50, 0));
 
     cartUserAdmin =
-      new CartUserAdmin(
-        "/resources/icons/employeeCart.png",
-        "EMPLOYEE",
-        quantityEmployeeNew,
-        quantityEmployee,
-        "#72A7FF"
+      new CardPanel(
+        new StatisticCardModel(
+          new ImageIcon("src/main/java/resources/icons/employeeCart.png"),
+          "EMPLOYEE",
+          ""+quantityEmployee,
+          "New Employee: "+quantityEmployeeNew
+        )
       );
-
+    cartUserAdmin.setColor(Color.decode("#FFC107"));
     cartPanel.add(cartUserAdmin);
 
     cartUserAdmin =
-      new CartUserAdmin(
-        "/resources/icons/admin-cart.png",
+    new CardPanel(
+      new StatisticCardModel(
+        new ImageIcon("src/main/java/resources/icons/admin-cart.png"),
         "ADMIN",
-        quantityAdminNew,
-        quantityAdmin,
-        "#FFC107"
+        ""+quantityAdmin,
+        "New Employee: "+quantityAdminNew
+      )
       );
-
+    cartUserAdmin.setColor(Color.decode("#4CAF50"));
     cartPanel.add(cartUserAdmin);
 
     cartUserAdmin =
-      new CartUserAdmin(
-        "/resources/icons/customerCart.png",
+    new CardPanel(
+      new StatisticCardModel(
+        new ImageIcon("src/main/java/resources/icons/customerCart.png"),
         "CUSTOMER",
-        quantityCustomerNew,
-        quantityCustomer,
-        "#4CAF50"
+        ""+quantityCustomer,
+        "New Employee: "+quantityCustomerNew
+      )
       );
 
+    cartUserAdmin.setColor(Color.decode("#2196F3"));
     cartPanel.add(cartUserAdmin);
 
     contend.add(cartPanel, BorderLayout.PAGE_START);

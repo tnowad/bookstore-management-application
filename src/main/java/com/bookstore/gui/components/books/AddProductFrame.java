@@ -4,6 +4,7 @@ import com.bookstore.bus.AuthorBUS;
 import com.bookstore.bus.BookBUS;
 import com.bookstore.bus.PublisherBUS;
 import com.bookstore.enums.BookStatus;
+import com.bookstore.gui.components.panels.MainPanel;
 import com.bookstore.models.AuthorModel;
 import com.bookstore.models.BookModel;
 import com.bookstore.models.PublisherModel;
@@ -488,6 +489,8 @@ public class AddProductFrame extends JFrame {
       bookBUS.addModel(book);
       bookBUS.refreshData();
       JOptionPane.showMessageDialog(null, "Completed!");
+      MainPanel.getInstance().showForm(BrowseProductPanel.getInstance());
+      
     }
   };
 }
