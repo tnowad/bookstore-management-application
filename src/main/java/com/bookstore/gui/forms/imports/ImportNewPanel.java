@@ -1,9 +1,16 @@
 package com.bookstore.gui.forms.imports;
 
+import com.bookstore.bus.AuthorBUS;
 import com.bookstore.bus.BookBUS;
+import com.bookstore.bus.BooksCategoryBUS;
+import com.bookstore.bus.CategoryBUS;
+import com.bookstore.bus.PublisherBUS;
 import com.bookstore.gui.components.dialogs.Dialog;
 import com.bookstore.gui.components.panels.MainPanel;
+import com.bookstore.models.AuthorModel;
 import com.bookstore.models.BookModel;
+import com.bookstore.models.BooksCategoryModel;
+import com.bookstore.models.CategoryModel;
 import com.bookstore.models.ImportItemsModel;
 import com.bookstore.models.ProviderModel;
 import com.bookstore.models.PublisherModel;
@@ -11,6 +18,7 @@ import com.bookstore.models.tables.BookTableModel;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale.Category;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -126,6 +134,7 @@ public class ImportNewPanel extends JPanel {
     priceTextField = new JTextField();
     authorLabel = new JLabel();
     authorTextField = new JTextField();
+
     addBookButton = new JButton();
     findBookButton = new JButton();
     bookListPanel = new JPanel();
@@ -321,18 +330,67 @@ public class ImportNewPanel extends JPanel {
         publisherTextField.setText(publisherModel.getName());
       }
     });
-    
+
     findBookButton.addActionListener(e -> {
       BookSearchForm bookSearchForm = new BookSearchForm();
       new Dialog(bookSearchForm);
-
       BookModel bookModel = bookSearchForm.find();
-
       if (bookModel != null) {
         bookIsbnTextField.setText(bookModel.getIsbn());
+        List<BooksCategoryModel> booksCategoryListFilter = BooksCategoryBUS
+          .getInstance()
+          .getModelsByIsbn(bookIsbnTextField.getText());
+        StringBuilder categoryListFilter = new StringBuilder();
+        for (BooksCategoryModel bookModelFilter : booksCategoryListFilter) {
+          CategoryModel categoryModelFilter = CategoryBUS
+            .getInstance()
+            .getModelById(bookModelFilter.getCategoryId());
+          if (categoryListFilter.length() > 0) {
+            categoryListFilter.append(", ");
+          }
+          categoryListFilter.append(categoryModelFilter.getName());
+        }
+        String result = categoryListFilter.toString();
+        if (categoryListFilter.length() > 0) {
+          categoryListFilter.deleteCharAt(categoryListFilter.length() - 1);
+        }
+
         titleBookTextfield.setText(bookModel.getTitle());
         quantityTextField.setText(String.valueOf(bookModel.getQuantity()));
         priceTextField.setText(String.valueOf(bookModel.getPrice()));
+        categoriesTextField.setText(result);
+        AuthorModel authorModel = AuthorBUS
+          .getInstance()
+          .getModelById(bookModel.getAuthorId());
+        authorTextField.setText(authorModel.getName());
+        PublisherModel publisherModel = PublisherBUS
+          .getInstance()
+          .getModelById(bookModel.getPublisherId());
+        publisherTextField.setText(publisherModel.getName());
+      }
+    });
+
+    addBookButton.addActionListener(e -> {
+      int option = JOptionPane.showConfirmDialog(
+        null,
+        "Do you want to add it ?"
+      );
+      if (option == JOptionPane.YES_OPTION) {
+        BookModel book = BookBUS
+          .getInstance()
+          .getBookByIsbn(bookIsbnTextField.getText());
+        if (book == null) {
+          book = new BookModel();
+          book.setIsbn(bookIsbnTextField.getText());
+          book.setAuthorId(option);
+          book.setPublisherId(option);
+
+          // book.setDescription(TOOL_TIP_TEXT_KEY);
+          book.setPrice(option);
+          book.setQuantity(option);
+          BookBUS.getInstance().addModel(book);
+          BookBUS.getInstance().refreshData();
+        }
       }
     });
   }
