@@ -256,7 +256,6 @@ public class CheckoutCustomerForm extends JPanel {
         String expirationDate = InputValidator.validateExpirationDate(
           expirationDateTextField.getText()
         );
-        String cvv = InputValidator.validateCvv(cvvTextField.getText());
         PaymentMethodModel paymentMethodModel = new PaymentMethodModel();
         paymentMethodModel.setPaymentId(myPaymentModel.getId());
         paymentMethodModel.setCustomerId(customerId);

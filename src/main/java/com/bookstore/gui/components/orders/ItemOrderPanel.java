@@ -1,7 +1,6 @@
 package com.bookstore.gui.components.orders;
 
 import com.bookstore.bus.UserBUS;
-import com.bookstore.gui.forms.orders.OrderDetail;
 import com.bookstore.models.OrderModel;
 import java.awt.Dimension;
 import java.awt.Font;

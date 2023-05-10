@@ -83,7 +83,7 @@ public class CartCustomerForm extends JPanel {
     totalCostLabel.setFont(new Font("Arial", 0, 14));
 
     NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(
-      new Locale("vi", "VN")
+      Locale.of("vi", "VN")
     );
 
     totalCostLabel.setText(
