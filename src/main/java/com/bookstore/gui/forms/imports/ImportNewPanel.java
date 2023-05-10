@@ -6,9 +6,9 @@ import com.bookstore.gui.components.panels.MainPanel;
 import com.bookstore.models.BookModel;
 import com.bookstore.models.ImportItemsModel;
 import com.bookstore.models.ProviderModel;
+import com.bookstore.models.PublisherModel;
 import com.bookstore.models.tables.BookTableModel;
 import java.awt.*;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
@@ -25,11 +25,12 @@ public class ImportNewPanel extends JPanel {
 
   private JButton findBookButton;
   private JButton findProviderButton;
+  private JButton findPublisherButton;
 
   private JLabel authorLabel;
   private JLabel bookIsbnLabel;
   private JLabel categoriesLabel;
-  private JLabel importIdLabel;
+  private JLabel publisherLabel;
   private JLabel priceLabel;
   private JLabel providerLabel;
   private JLabel quantityLabel;
@@ -45,7 +46,7 @@ public class ImportNewPanel extends JPanel {
   private JTextField authorTextField;
   private JTextField bookIsbnTextField;
   private JTextField categoriesTextField;
-  private JTextField importIdTextField;
+  private JTextField publisherTextField;
   private JTextField priceTextField;
   private JTextField providerTextField;
   private JTextField quantityTextField;
@@ -54,15 +55,16 @@ public class ImportNewPanel extends JPanel {
   private JTable bookListTable;
 
   private ProviderModel providerModel;
+  private PublisherModel publisherModel;
   private BookTableModel bookTableModel;
   private List<ImportItemsModel> importItemsList = new ArrayList<ImportItemsModel>();
 
   public ImportNewPanel() {
     initComponents();
     handleEvent();
-    // if (importItemsList.size() > 0) {
-    //   bookImportListTable();
-    // }
+    if (importItemsList.size() > 0) {
+      bookImportListTable();
+    }
   }
 
   private void bookImportListTable() {
@@ -106,8 +108,8 @@ public class ImportNewPanel extends JPanel {
 
     titleLabel = new JLabel();
     importFormPanel = new JPanel();
-    importIdLabel = new JLabel();
-    importIdTextField = new JTextField();
+    publisherLabel = new JLabel();
+    publisherTextField = new JTextField();
     providerLabel = new JLabel();
     providerTextField = new JTextField();
     bookFormPanel = new JPanel();
@@ -156,15 +158,20 @@ public class ImportNewPanel extends JPanel {
     );
     importFormPanel.setLayout(new GridLayout(2, 2, 2, 0));
 
-    importIdLabel.setText("Import ID");
-    importFormPanel.add(importIdLabel);
-    importFormPanel.add(importIdTextField);
+    publisherLabel.setText("Publisher ");
+    importFormPanel.add(publisherLabel);
+    importFormPanel.add(publisherTextField);
 
     providerLabel.setText("Provider ");
     importFormPanel.add(providerLabel);
 
+    findPublisherButton = new JButton("Find publisher");
+    JPanel publisherPanel = new JPanel(new BorderLayout());
+    publisherPanel.add(publisherTextField, BorderLayout.CENTER);
+    publisherPanel.add(findPublisherButton, BorderLayout.LINE_END);
+    importFormPanel.add(publisherPanel);
+
     findProviderButton = new JButton("Find provider");
-    findProviderButton.addActionListener(findProviderButtonActionListener);
     JPanel providerPanel = new JPanel(new BorderLayout());
     providerPanel.add(providerTextField, BorderLayout.CENTER);
     providerPanel.add(findProviderButton, BorderLayout.LINE_END);
@@ -257,10 +264,10 @@ public class ImportNewPanel extends JPanel {
     add(actionPanel, gridBagConstraints);
   }
 
-  private void updateList(List<BookModel> bookList) {
-    bookTableModel.setBookList(bookList);
-    bookTableModel.fireTableDataChanged();
-  }
+  // private void updateList(List<BookModel> bookList) {
+  // bookTableModel.setBookList(bookList);
+  // bookTableModel.fireTableDataChanged();
+  // }
 
   private void handleEvent() {
     backToPreviousButton.addActionListener(e -> {
@@ -286,30 +293,40 @@ public class ImportNewPanel extends JPanel {
           }
         }
       );
+
+    findProviderButton.addActionListener(e -> {
+      ProviderSearchForm providerSearchForm = new ProviderSearchForm();
+      new Dialog(providerSearchForm);
+
+      providerModel = providerSearchForm.find();
+
+      if (providerModel != null) {
+        providerTextField.setText(providerModel.getName());
+      }
+    });
+
+    findPublisherButton.addActionListener(e -> {
+      PublisherSearchForm publisherSearchForm = new PublisherSearchForm();
+      new Dialog(publisherSearchForm);
+
+      publisherModel = publisherSearchForm.find();
+
+      if (publisherModel != null) {
+        publisherTextField.setText(publisherModel.getName());
+      }
+    });
   }
+  // private ActionListener addBookButtonActionListener = e -> {
+  // BookSearchForm bookSearchForm = new BookSearchForm();
+  // new Dialog(bookSearchForm);
 
-  private ActionListener findProviderButtonActionListener = e -> {
-    ProviderSearchForm providerSearchForm = new ProviderSearchForm();
-    new Dialog(providerSearchForm);
+  // BookModel bookModel = bookSearchForm.find();
 
-    providerModel = providerSearchForm.find();
-
-    if (providerModel != null) {
-      providerTextField.setText(providerModel.getName());
-    }
-  };
-
-  private ActionListener addBookButtonActionListener = e -> {
-    BookSearchForm bookSearchForm = new BookSearchForm();
-    new Dialog(bookSearchForm);
-
-    BookModel bookModel = bookSearchForm.find();
-
-    if (bookModel != null) {
-      bookIsbnTextField.setText(bookModel.getIsbn());
-      titleBookTextfield.setText(bookModel.getTitle());
-      quantityTextField.setText(String.valueOf(bookModel.getQuantity()));
-      priceTextField.setText(String.valueOf(bookModel.getPrice()));
-    }
-  };
+  // if (bookModel != null) {
+  // bookIsbnTextField.setText(bookModel.getIsbn());
+  // titleBookTextfield.setText(bookModel.getTitle());
+  // quantityTextField.setText(String.valueOf(bookModel.getQuantity()));
+  // priceTextField.setText(String.valueOf(bookModel.getPrice()));
+  // }
+  // };
 }

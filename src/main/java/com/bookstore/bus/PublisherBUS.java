@@ -46,8 +46,8 @@ public class PublisherBUS implements IBUS<PublisherModel> {
     }
 
     PublisherModel publisherModel = PublisherDAO
-      .getInstance()
-      .getUserByPublisherName(name);
+        .getInstance()
+        .getUserByPublisherName(name);
     if (publisherModel != null) {
       publisherList.add(publisherModel);
     }
@@ -67,10 +67,9 @@ public class PublisherBUS implements IBUS<PublisherModel> {
   }
 
   private boolean checkFilter(
-    PublisherModel publisherModel,
-    String value,
-    String[] columns
-  ) {
+      PublisherModel publisherModel,
+      String value,
+      String[] columns) {
     for (String column : columns) {
       switch (column.toLowerCase()) {
         case "id" -> {
@@ -79,19 +78,15 @@ public class PublisherBUS implements IBUS<PublisherModel> {
           }
         }
         case "name" -> {
-          if (
-            publisherModel.getName().toLowerCase().contains(value.toLowerCase())
-          ) {
+          if (publisherModel.getName().toLowerCase().contains(value.toLowerCase())) {
             return true;
           }
         }
         case "description" -> {
-          if (
-            publisherModel
+          if (publisherModel
               .getDescription()
               .toLowerCase()
-              .contains(value.toLowerCase())
-          ) {
+              .contains(value.toLowerCase())) {
             return true;
           }
         }
@@ -106,30 +101,23 @@ public class PublisherBUS implements IBUS<PublisherModel> {
   }
 
   private boolean checkAllColumns(PublisherModel publisherModel, String value) {
-    return (
-      publisherModel.getId() == Integer.parseInt(value) ||
-      publisherModel.getName().toLowerCase().contains(value.toLowerCase()) ||
-      publisherModel
-        .getDescription()
-        .toLowerCase()
-        .contains(value.toLowerCase())
-    );
+    return (publisherModel.getId() == Integer.parseInt(value) ||
+        publisherModel.getName().toLowerCase().contains(value.toLowerCase()) ||
+        publisherModel
+            .getDescription()
+            .toLowerCase()
+            .contains(value.toLowerCase()));
   }
 
   @Override
   public int addModel(PublisherModel publisherModel) {
-    if (
-      publisherModel.getName() == null || publisherModel.getName().isEmpty()
-    ) {
+    if (publisherModel.getName() == null || publisherModel.getName().isEmpty()) {
       throw new IllegalArgumentException("Name cannot be null or empty!");
     }
-    if (
-      publisherModel.getDescription() == null ||
-      publisherModel.getDescription().isEmpty()
-    ) {
+    if (publisherModel.getDescription() == null ||
+        publisherModel.getDescription().isEmpty()) {
       throw new IllegalArgumentException(
-        "Description cannot be null or empty!"
-      );
+          "Description cannot be null or empty!");
     }
 
     int id = PublisherDAO.getInstance().insert(mapToEntity(publisherModel));
@@ -157,8 +145,7 @@ public class PublisherBUS implements IBUS<PublisherModel> {
     PublisherModel publisherModel = getModelById(id);
     if (publisherModel == null) {
       throw new IllegalArgumentException(
-        "Publisher with ID " + id + " does not exist."
-      );
+          "Publisher with ID " + id + " does not exist.");
     }
     int deletedRows = PublisherDAO.getInstance().delete(id);
     if (deletedRows > 0) {
@@ -171,8 +158,8 @@ public class PublisherBUS implements IBUS<PublisherModel> {
   public List<PublisherModel> searchModel(String value, String[] columns) {
     List<PublisherModel> results = new ArrayList<>();
     List<PublisherModel> entities = PublisherDAO
-      .getInstance()
-      .search(value, columns);
+        .getInstance()
+        .search(value, columns);
     for (PublisherModel entity : entities) {
       PublisherModel model = mapToEntity(entity);
       if (checkFilter(model, value, columns)) {
@@ -180,6 +167,19 @@ public class PublisherBUS implements IBUS<PublisherModel> {
       }
     }
 
+    return results;
+  }
+
+  public List<PublisherModel> findByName(String publisherName) {
+    List<PublisherModel> results = new ArrayList<>();
+    for (PublisherModel PublisherModel : publisherList) {
+      if (PublisherModel
+          .getName()
+          .toLowerCase()
+          .contains(publisherName.toLowerCase())) {
+        results.add(PublisherModel);
+      }
+    }
     return results;
   }
 
