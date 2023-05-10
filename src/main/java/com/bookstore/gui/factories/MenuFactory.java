@@ -87,7 +87,7 @@ public class MenuFactory {
 
           add(
             new MenuItemModel(
-              "Book management",
+              "Book Management",
               new ImageIcon("src/main/java/resources/icons/book.png"),
               showBookListAdmin,
               null
@@ -96,7 +96,7 @@ public class MenuFactory {
 
           add(
             new MenuItemModel(
-              "Import management",
+              "Import Management",
               new ImageIcon("src/main/java/resources/icons/import.png"),
               showImportList,
               null
@@ -105,7 +105,7 @@ public class MenuFactory {
 
           add(
             new MenuItemModel(
-              "Order management",
+              "Order Management",
               new ImageIcon("src/main/java/resources/icons/cart.png"),
               showOrderListAdmin,
               null
@@ -114,7 +114,7 @@ public class MenuFactory {
 
           add(
             new MenuItemModel(
-              "User management",
+              "User Management",
               new ImageIcon("src/main/java/resources/icons/user.png"),
               showUserListAdmin,
               null
@@ -122,29 +122,33 @@ public class MenuFactory {
           );
           add(
             new MenuItemModel(
-              "Contact management",
+              "Contact Management",
               new ImageIcon("src/main/java/resources/icons/user.png"),
               null,
               new ArrayList<SubMenuItemModel>() {
                 {
                   add(
                     new SubMenuItemModel(
-                      "Publisher management",
-                      new ImageIcon(""),
+                      "Publisher Management",
+                      new ImageIcon(
+                        "src/main/java/resources/icons/publisher.png"
+                      ),
                       showPublisherListAdmin
                     )
                   );
                   add(
                     new SubMenuItemModel(
-                      "Author management",
-                      new ImageIcon(""),
+                      "Author Management",
+                      new ImageIcon("src/main/java/resources/icons/author.png"),
                       showAuthorListAdmin
                     )
                   );
                   add(
                     new SubMenuItemModel(
-                      "Provider management",
-                      new ImageIcon(""),
+                      "Provider Management",
+                      new ImageIcon(
+                        "src/main/java/resources/icons/provider.png"
+                      ),
                       showProviderListAdmin
                     )
                   );
@@ -154,7 +158,7 @@ public class MenuFactory {
           );
           add(
             new MenuItemModel(
-              "Salary management",
+              "Salary Management",
               new ImageIcon("src/main/java/resources/icons/user.png"),
               showSalaryListAdmin,
               null
@@ -414,7 +418,7 @@ public class MenuFactory {
                 {
                   add(
                     new SubMenuItemModel(
-                      "Customer management",
+                      "Customer Management",
                       new ImageIcon(
                         "src/main/java/resources/icons/customer_icon.png"
                       ),
@@ -424,7 +428,7 @@ public class MenuFactory {
 
                   add(
                     new SubMenuItemModel(
-                      "Order management",
+                      "Order Management",
                       new ImageIcon(
                         "src/main/java/resources/icons/order_icon.png"
                       ),
@@ -433,7 +437,7 @@ public class MenuFactory {
                   );
                   add(
                     new SubMenuItemModel(
-                      "Import management",
+                      "Import Management",
                       new ImageIcon(
                         "src/main/java/resources/icons/import_icon.png"
                       ),
@@ -530,16 +534,16 @@ public class MenuFactory {
         {
           add(
             new MenuItemModel(
-              "Employee management",
-              new ImageIcon(""),
+              "Employee Management",
+              new ImageIcon("src/main/java/resources/icons/profile.png"),
               showEmployeeList,
               null
             )
           );
           add(
             new MenuItemModel(
-              "Salary management",
-              new ImageIcon(""),
+              "Salary Management",
+              new ImageIcon("src/main/java/resources/icons/profit.png"),
               showSalaryList,
               null
             )
@@ -547,31 +551,31 @@ public class MenuFactory {
           add(
             new MenuItemModel(
               "Customer manager",
-              new ImageIcon(""),
+              new ImageIcon("src/main/java/resources/icons/customer_icon.png"),
               showCustomerList,
               null
             )
           );
           add(
             new MenuItemModel(
-              "Book management",
-              new ImageIcon(""),
+              "Book Management",
+              new ImageIcon("src/main/java/resources/icons/book.png"),
               showBookList,
               null
             )
           );
           add(
             new MenuItemModel(
-              "Import management",
-              new ImageIcon(""),
+              "Import Management",
+              new ImageIcon("src/main/java/resources/icons/import.png"),
               showImportList,
               null
             )
           );
           add(
             new MenuItemModel(
-              "Order management",
-              new ImageIcon(""),
+              "Order Management",
+              new ImageIcon("src/main/java/resources/icons/cart.png"),
               showOrderList,
               null
             )

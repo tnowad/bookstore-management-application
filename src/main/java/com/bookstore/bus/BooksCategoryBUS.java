@@ -6,6 +6,7 @@ import com.bookstore.models.BooksCategoryModel;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class BooksCategoryBUS implements IBUS<BooksCategoryModel> {
 
@@ -179,6 +180,37 @@ public class BooksCategoryBUS implements IBUS<BooksCategoryModel> {
       "Unimplemented method 'getModelById'"
     );
   }
+
+  // public BooksCategoryModel getModelByIsbn(String isbn) {
+  //   BooksCategoryModel booksCategoryModel = new BooksCategoryModel();
+  //   for (BooksCategoryModel booksCategoryModel2 : BooksCategoryBUS
+  //     .getInstance()
+  //     .getAllModels()) {
+  //     if (booksCategoryModel2.getBookIsbn().equals(isbn)) {
+  //       booksCategoryModel = booksCategoryModel2;
+  //     }
+  //   }
+  //   return booksCategoryModel;
+  // }
+
+  public List<BooksCategoryModel> getModelsByIsbn(String isbn) {
+    return BooksCategoryBUS
+      .getInstance()
+      .getAllModels()
+      .stream()
+      .filter(model -> model.getBookIsbn().equals(isbn))
+      .collect(Collectors.toList());
+  }
+
+  // public BooksCategoryModel getModelByIsbn(String isbn) {
+  //   return BooksCategoryBUS
+  //     .getInstance()
+  //     .getAllModels()
+  //     .stream()
+  //     .filter(model -> model.getBookIsbn().equals(isbn))
+  //     .findFirst()
+  //     .orElse(null);
+  // }
 
   public List<BooksCategoryModel> getModelsByBookId(String isbn) {
     List<BooksCategoryModel> results = new ArrayList<>();

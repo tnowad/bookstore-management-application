@@ -122,7 +122,7 @@ public class BookDetailPanel extends JPanel {
 
     priceLabel.setFont(new Font("Arial", 0, 14));
     priceLabel.setText("Price:");
-    priceLabel.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
+    priceLabel.setHorizontalTextPosition(SwingConstants.LEADING);
     priceLabel.setPreferredSize(new Dimension(50, 30));
     priceAndStatusField.add(priceLabel);
 
@@ -160,7 +160,7 @@ public class BookDetailPanel extends JPanel {
     isbnAndAuthorAndQuantityPanel.setLayout(new GridLayout(3, 2, 5, 5));
 
     isbnLabel.setFont(new Font("Arial", 0, 14));
-    isbnLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+    isbnLabel.setHorizontalAlignment(SwingConstants.CENTER);
     isbnLabel.setText("ISBN:");
     isbnAndAuthorAndQuantityPanel.add(isbnLabel);
 
@@ -177,7 +177,7 @@ public class BookDetailPanel extends JPanel {
     isbnAndAuthorAndQuantityPanel.add(bookIsbnTextField);
 
     authorLabel.setFont(new Font("Arial", 0, 14));
-    authorLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+    authorLabel.setHorizontalAlignment(SwingConstants.CENTER);
     authorLabel.setText("Author:");
     isbnAndAuthorAndQuantityPanel.add(authorLabel);
 
@@ -243,7 +243,7 @@ public class BookDetailPanel extends JPanel {
     bookDetailsPanel.add(bookInformationPanel, BorderLayout.CENTER);
 
     add(bookDetailsPanel, BorderLayout.CENTER);
-  } 
+  }
 
   private void bookTitleTextFieldActionPerformed(ActionEvent evt) {}
 

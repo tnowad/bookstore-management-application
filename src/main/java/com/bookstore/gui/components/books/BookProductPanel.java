@@ -40,7 +40,7 @@ public class BookProductPanel extends JPanel {
     add(isbnBook);
 
     setBackground(new Color(255, 255, 255));
-    setBorder(javax.swing.BorderFactory.createLineBorder(new Color(0, 0, 0)));
+    setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
     setPreferredSize(new Dimension(199, 333));
     setLayout(new BorderLayout());
 

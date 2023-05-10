@@ -64,7 +64,7 @@ public class BookItemPanel extends JPanel {
   private void initComponents() {
     setLayout(new BorderLayout());
     titleLabel = new JLabel(bookModel.getTitle());
-    titleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+    titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
     add(titleLabel, BorderLayout.CENTER);
 
     imageLabel = new Label();

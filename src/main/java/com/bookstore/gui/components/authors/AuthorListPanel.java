@@ -21,7 +21,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-public class AuthorListPanel extends JPanel implements ISearchable{
+public class AuthorListPanel extends JPanel implements ISearchable {
 
   private static AuthorListPanel instance;
 
@@ -41,8 +41,6 @@ public class AuthorListPanel extends JPanel implements ISearchable{
 
   AuthorBUS authorBUS = AuthorBUS.getInstance();
   List<AuthorModel> listAuthor = authorBUS.getAllModels();
-
- 
 
   public AuthorListPanel() {
     initComponents();
@@ -139,13 +137,11 @@ public class AuthorListPanel extends JPanel implements ISearchable{
   }
 
   public ActionListener actionAdd = new ActionListener() {
-
     @Override
     public void actionPerformed(ActionEvent e) {
       AddAuthor addAuthor = new AddAuthor();
       addAuthor.setVisible(true);
     }
-    
   };
 
   @Override
