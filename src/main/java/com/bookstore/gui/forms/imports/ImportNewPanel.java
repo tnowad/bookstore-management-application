@@ -398,6 +398,10 @@ public class ImportNewPanel extends JPanel {
           book.setQuantity(option);
           BookBUS.getInstance().addModel(book);
           BookBUS.getInstance().refreshData();
+        } else {
+          int quantity = Integer.parseInt(quantityTextField.getText());
+          book.setQuantity(book.getQuantity() + quantity);
+          
         }
       }
     });

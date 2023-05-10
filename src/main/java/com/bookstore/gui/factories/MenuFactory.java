@@ -671,7 +671,7 @@ public class MenuFactory {
     MainPanel.getInstance().showForm(new UserListPanel());
   };
   private static ActionListener showOrderListAdmin = e -> {
-    MainPanel.getInstance().showForm(new OrderListPanel());
+    MainPanel.getInstance().showForm(new OrderList());
   };
   private static ActionListener showPublisherListAdmin = e -> {
     MainPanel.getInstance().showForm(new PublisherListPanel());
