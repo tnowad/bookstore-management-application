@@ -253,11 +253,11 @@ public class OrderDetail extends JPanel {
 
     container.setLayout(new BorderLayout());
     groupHeaderPanel.setLayout(
-      new BoxLayout(groupHeaderPanel, javax.swing.BoxLayout.Y_AXIS)
+      new BoxLayout(groupHeaderPanel, BoxLayout.Y_AXIS)
     );
 
     groupHeaderPanel.add(backToPreviousPanel);
-    titleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+    titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
     titleLabel.setText("Order detail");
     groupHeaderPanel.add(titleLabel);
 

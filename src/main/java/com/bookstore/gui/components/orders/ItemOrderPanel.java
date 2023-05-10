@@ -17,7 +17,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.WindowConstants;
+import javax.swing.SwingConstants;
 
 public class ItemOrderPanel extends JPanel {
 
@@ -64,7 +64,7 @@ public class ItemOrderPanel extends JPanel {
     setLayout(layout);
 
     setSerial.setFont(new Font("Segoe UI", 0, 14));
-    setSerial.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+    setSerial.setHorizontalAlignment(SwingConstants.CENTER);
     setSerial.setText("" + serial);
     setSerial.setMaximumSize(new Dimension(12, 18));
     setSerial.setMinimumSize(new Dimension(12, 18));
@@ -124,7 +124,7 @@ public class ItemOrderPanel extends JPanel {
 
     setStatus.setEditable(false);
     setStatus.setFont(new Font("Segoe UI", 0, 14));
-    setStatus.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+    setStatus.setHorizontalAlignment(JTextField.CENTER);
     setStatus.setText("BANNED");
     setStatus.addActionListener(
       new ActionListener() {
@@ -151,7 +151,7 @@ public class ItemOrderPanel extends JPanel {
     gridBagConstraints.insets = new Insets(6, 0, 0, 0);
     add(checkBox, gridBagConstraints);
 
-    setTotal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+    setTotal.setHorizontalAlignment(SwingConstants.CENTER);
     setTotal.setText("ok");
     setTotal.setPreferredSize(new Dimension(20, 16));
     gridBagConstraints = new GridBagConstraints();

@@ -40,7 +40,7 @@ public class BookProductPanel extends JPanel {
     add(isbnBook);
 
     setBackground(new Color(255, 255, 255));
-    setBorder(javax.swing.BorderFactory.createLineBorder(new Color(0, 0, 0)));
+    setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
     setPreferredSize(new Dimension(199, 333));
     setLayout(new BorderLayout());
 
@@ -54,8 +54,8 @@ public class BookProductPanel extends JPanel {
     buttonDetail.addActionListener(actionDetail);
     contendPanel.add(buttonDetail, BorderLayout.PAGE_END);
 
-    setImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-    setImage.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+    setImage.setHorizontalAlignment(SwingConstants.CENTER);
+    setImage.setBorder(BorderFactory.createEtchedBorder());
     setImage.setPreferredSize(new Dimension(399, 260));
     contendPanel.add(setImage, BorderLayout.CENTER);
 

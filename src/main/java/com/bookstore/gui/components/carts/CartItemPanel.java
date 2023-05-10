@@ -16,7 +16,7 @@ import javax.swing.JSpinner;
 import javax.swing.JTextArea;
 import javax.swing.LayoutStyle;
 
-public class CartItemPanel extends javax.swing.JPanel {
+public class CartItemPanel extends JPanel {
 
   private JTextArea DescriptionTextArea;
   private JPanel bookImagePanel;
@@ -61,7 +61,7 @@ public class CartItemPanel extends javax.swing.JPanel {
     jPanel1.setLayout(jPanel1Layout);
     jPanel1Layout.setHorizontalGroup(
       jPanel1Layout
-        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .createParallelGroup(GroupLayout.Alignment.LEADING)
         .addComponent(
           jScrollPane1,
           GroupLayout.DEFAULT_SIZE,
@@ -71,7 +71,7 @@ public class CartItemPanel extends javax.swing.JPanel {
     );
     jPanel1Layout.setVerticalGroup(
       jPanel1Layout
-        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .createParallelGroup(GroupLayout.Alignment.LEADING)
         .addGroup(
           jPanel1Layout
             .createSequentialGroup()
@@ -97,12 +97,12 @@ public class CartItemPanel extends javax.swing.JPanel {
     bookImagePanel.setLayout(bookImagePanelLayout);
     bookImagePanelLayout.setHorizontalGroup(
       bookImagePanelLayout
-        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .createParallelGroup(GroupLayout.Alignment.LEADING)
         .addGap(0, 155, Short.MAX_VALUE)
     );
     bookImagePanelLayout.setVerticalGroup(
       bookImagePanelLayout
-        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .createParallelGroup(GroupLayout.Alignment.LEADING)
         .addGap(0, 0, Short.MAX_VALUE)
     );
 
@@ -114,7 +114,7 @@ public class CartItemPanel extends javax.swing.JPanel {
     this.setLayout(layout);
     layout.setHorizontalGroup(
       layout
-        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .createParallelGroup(GroupLayout.Alignment.LEADING)
         .addGroup(
           GroupLayout.Alignment.TRAILING,
           layout
@@ -126,17 +126,17 @@ public class CartItemPanel extends javax.swing.JPanel {
               19,
               GroupLayout.PREFERRED_SIZE
             )
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
             .addComponent(
               bookImagePanel,
               GroupLayout.PREFERRED_SIZE,
               GroupLayout.DEFAULT_SIZE,
               GroupLayout.PREFERRED_SIZE
             )
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
             .addGroup(
               layout
-                .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .createParallelGroup(GroupLayout.Alignment.LEADING)
                 .addComponent(
                   jPanel1,
                   GroupLayout.Alignment.TRAILING,
@@ -186,14 +186,14 @@ public class CartItemPanel extends javax.swing.JPanel {
     );
     layout.setVerticalGroup(
       layout
-        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .createParallelGroup(GroupLayout.Alignment.LEADING)
         .addGroup(
           layout
             .createSequentialGroup()
             .addContainerGap()
             .addGroup(
               layout
-                .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .createParallelGroup(GroupLayout.Alignment.LEADING)
                 .addGroup(
                   layout
                     .createSequentialGroup()

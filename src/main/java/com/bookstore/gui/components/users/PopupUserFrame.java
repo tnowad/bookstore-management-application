@@ -7,7 +7,6 @@ import com.bookstore.enums.UserStatus;
 import com.bookstore.models.AddressModel;
 import com.bookstore.models.UserModel;
 import com.bookstore.services.Authentication;
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -81,13 +80,13 @@ public class PopupUserFrame extends JFrame {
     buttonBack = new JButton();
     buttonSave = new JButton();
 
-    setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+    setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     setMinimumSize(new Dimension(610, 26));
     setPreferredSize(new Dimension(610, 410));
     getContentPane().setLayout(new FlowLayout(FlowLayout.LEFT, 5, 10));
 
     setName.setFont(new Font("Segoe UI", 1, 14));
-    setName.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+    setName.setHorizontalAlignment(JTextField.CENTER);
     setName.setText(user.getName());
     setName.setMaximumSize(new Dimension(642, 26));
     setName.setMinimumSize(new Dimension(642, 26));
@@ -95,7 +94,7 @@ public class PopupUserFrame extends JFrame {
     getContentPane().add(setName);
 
     idText.setFont(new Font("Segoe UI", 0, 18));
-    idText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+    idText.setHorizontalAlignment(SwingConstants.CENTER);
     idText.setText("ID");
     idText.setPreferredSize(new Dimension(86, 25));
     getContentPane().add(idText);
@@ -108,7 +107,7 @@ public class PopupUserFrame extends JFrame {
     getContentPane().add(setId);
 
     userNameText.setFont(new Font("Segoe UI", 0, 18));
-    userNameText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+    userNameText.setHorizontalAlignment(SwingConstants.CENTER);
     userNameText.setText("UserName");
     userNameText.setPreferredSize(new Dimension(125, 25));
     getContentPane().add(userNameText);
@@ -121,7 +120,7 @@ public class PopupUserFrame extends JFrame {
     getContentPane().add(setUserName);
 
     addressText.setFont(new Font("Segoe UI", 0, 18));
-    addressText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+    addressText.setHorizontalAlignment(SwingConstants.RIGHT);
     addressText.setText("Address");
     addressText.setPreferredSize(new Dimension(200, 25));
     getContentPane().add(addressText);
@@ -132,7 +131,7 @@ public class PopupUserFrame extends JFrame {
     getContentPane().add(setAddress);
 
     phoneText.setFont(new Font("Segoe UI", 0, 18));
-    phoneText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+    phoneText.setHorizontalAlignment(SwingConstants.RIGHT);
     phoneText.setText("Phone");
     phoneText.setPreferredSize(new Dimension(200, 25));
     getContentPane().add(phoneText);
@@ -144,7 +143,7 @@ public class PopupUserFrame extends JFrame {
     getContentPane().add(setPhone);
 
     emailText.setFont(new Font("Segoe UI", 0, 18));
-    emailText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+    emailText.setHorizontalAlignment(SwingConstants.RIGHT);
     emailText.setText("Email");
     emailText.setPreferredSize(new Dimension(200, 25));
     getContentPane().add(emailText);
@@ -156,7 +155,7 @@ public class PopupUserFrame extends JFrame {
     getContentPane().add(setEmail);
 
     statusText.setFont(new Font("Segoe UI", 0, 18));
-    statusText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+    statusText.setHorizontalAlignment(SwingConstants.RIGHT);
     statusText.setText("Status");
     statusText.setPreferredSize(new Dimension(190, 25));
     getContentPane().add(statusText);
@@ -170,7 +169,7 @@ public class PopupUserFrame extends JFrame {
     getContentPane().add(setStatus);
 
     roleText.setFont(new Font("Segoe UI", 0, 18));
-    roleText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+    roleText.setHorizontalAlignment(SwingConstants.RIGHT);
     roleText.setText("Role");
     roleText.setPreferredSize(new Dimension(100, 25));
     getContentPane().add(roleText);
@@ -184,7 +183,7 @@ public class PopupUserFrame extends JFrame {
     getContentPane().add(setRole);
 
     dateCreatedText.setFont(new Font("Segoe UI", 0, 18));
-    dateCreatedText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+    dateCreatedText.setHorizontalAlignment(SwingConstants.RIGHT);
     dateCreatedText.setText("Date Created");
     dateCreatedText.setPreferredSize(new Dimension(350, 25));
     getContentPane().add(dateCreatedText);
@@ -196,7 +195,7 @@ public class PopupUserFrame extends JFrame {
     getContentPane().add(getDateCreated);
 
     dateUpdatedText.setFont(new Font("Segoe UI", 0, 18));
-    dateUpdatedText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+    dateUpdatedText.setHorizontalAlignment(SwingConstants.RIGHT);
     dateUpdatedText.setText("Date Updated");
     dateUpdatedText.setPreferredSize(new Dimension(350, 25));
     getContentPane().add(dateUpdatedText);
@@ -296,15 +295,16 @@ public class PopupUserFrame extends JFrame {
         JOptionPane.showMessageDialog(null, "Name cannot be empty!");
         return;
       }
-      if(user.getId()==currentUser.getId() && newStatus == UserStatus.BANNED){
+      if (
+        user.getId() == currentUser.getId() && newStatus == UserStatus.BANNED
+      ) {
         JOptionPane.showMessageDialog(null, "You can't lock yourself here!");
         return;
       }
-      if(user.getId()==currentUser.getId() && newRole != UserRole.ADMIN){
+      if (user.getId() == currentUser.getId() && newRole != UserRole.ADMIN) {
         JOptionPane.showMessageDialog(null, "you can't change your role!");
         return;
       }
-
 
       LocalDateTime timeNow = LocalDateTime.now();
       timeNow.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));

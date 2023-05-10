@@ -6,6 +6,7 @@ import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 public class BookProductPanel extends JPanel {
 
@@ -25,7 +26,7 @@ public class BookProductPanel extends JPanel {
     setLayout(new BorderLayout());
 
     bookTitleLabel.setFont(new Font("Segoe UI", 0, 14));
-    bookTitleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+    bookTitleLabel.setHorizontalAlignment(SwingConstants.CENTER);
     bookTitleLabel.setText("Name book");
     add(bookTitleLabel, BorderLayout.PAGE_START);
     bookTitleLabel.getAccessibleContext().setAccessibleDescription("");
@@ -34,12 +35,12 @@ public class BookProductPanel extends JPanel {
     bookImagePanel.setLayout(bookImagePanelLayout);
     bookImagePanelLayout.setHorizontalGroup(
       bookImagePanelLayout
-        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .createParallelGroup(GroupLayout.Alignment.LEADING)
         .addGap(0, 220, Short.MAX_VALUE)
     );
     bookImagePanelLayout.setVerticalGroup(
       bookImagePanelLayout
-        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .createParallelGroup(GroupLayout.Alignment.LEADING)
         .addGap(0, 207, Short.MAX_VALUE)
     );
 
