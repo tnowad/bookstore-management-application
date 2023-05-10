@@ -228,6 +228,8 @@ public class BookDetailFrame extends JFrame {
     setDescription.setText(book.getDescription());
     scrollPane.setViewportView(setDescription);
 
+    scrollPane.getVerticalScrollBar().setUnitIncrement(16);
+
     descriptionContend.add(scrollPane, BorderLayout.CENTER);
 
     descriptionPanel.add(descriptionContend, BorderLayout.CENTER);

@@ -255,6 +255,8 @@ public class UserListPanel extends JPanel implements ISearchable {
 
     scrollPane.setViewportView(table);
 
+    scrollPane.getVerticalScrollBar().setUnitIncrement(16);
+
     tablePanel.add(scrollPane, BorderLayout.CENTER);
 
     contendTable.add(tablePanel, BorderLayout.CENTER);

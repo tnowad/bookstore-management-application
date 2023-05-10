@@ -389,6 +389,7 @@ public class CheckoutCustomerForm extends JPanel {
 
     booksTable = new JTable();
     booksTableScrollPane = new JScrollPane(booksTable);
+    booksTableScrollPane.getVerticalScrollBar().setUnitIncrement(16);
 
     JPanel mainPanel = new JPanel(new GridBagLayout());
 

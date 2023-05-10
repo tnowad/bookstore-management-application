@@ -10,8 +10,7 @@ import java.awt.event.*;
 import java.util.List;
 import javax.swing.*;
 
-
-public class PublisherListPanel extends JPanel implements ISearchable{
+public class PublisherListPanel extends JPanel implements ISearchable {
 
   private JButton buttonAdd;
   private JPanel buttonsPanel;
@@ -104,6 +103,8 @@ public class PublisherListPanel extends JPanel implements ISearchable{
 
     scrollPane.setViewportView(contendTable);
 
+    scrollPane.getVerticalScrollBar().setUnitIncrement(16);
+
     table.add(scrollPane, BorderLayout.CENTER);
 
     contend.add(table, BorderLayout.CENTER);
@@ -125,14 +126,13 @@ public class PublisherListPanel extends JPanel implements ISearchable{
   }
 
   public ActionListener actionAdd = new ActionListener() {
-
     @Override
     public void actionPerformed(ActionEvent e) {
       AddPublisher addPublisher = new AddPublisher();
       addPublisher.setVisible(true);
     }
-    
   };
+
   @Override
   public void search(String keyword) {
     contendTable.removeAll();
@@ -163,5 +163,4 @@ public class PublisherListPanel extends JPanel implements ISearchable{
       }
     }
   }
-
 }

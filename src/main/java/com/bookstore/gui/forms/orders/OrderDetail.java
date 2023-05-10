@@ -227,6 +227,8 @@ public class OrderDetail extends JPanel {
     container = new JPanel();
     titleLabel = new Label("Order Details");
     tableListScrollPane = new JScrollPane();
+    tableListScrollPane.getVerticalScrollBar().setUnitIncrement(16);
+
     productListTable = new JTable();
     groupHeaderPanel = new JPanel();
     groupBottomPanel = new JPanel();

@@ -137,6 +137,7 @@ public class AccountProfileForm extends JPanel {
 
     scrollPane.setBorder(null);
     scrollPane.setBackground(Color.WHITE);
+    scrollPane.getVerticalScrollBar().setUnitIncrement(16);
     add(scrollPane, BorderLayout.CENTER);
 
     actionPanel = new JPanel();

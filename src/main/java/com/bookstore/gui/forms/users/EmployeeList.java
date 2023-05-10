@@ -174,6 +174,7 @@ public class EmployeeList extends JPanel {
     tableContainerPanel.add(jScrollPane2, BorderLayout.CENTER);
 
     jScrollPane1.setViewportView(tableContainerPanel);
+    jScrollPane1.getVerticalScrollBar().setUnitIncrement(16);
 
     add(jScrollPane1, BorderLayout.CENTER);
   }

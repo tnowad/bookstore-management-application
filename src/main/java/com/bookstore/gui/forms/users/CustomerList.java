@@ -162,10 +162,12 @@ public class CustomerList extends JPanel {
     customerTableList.getTableHeader().setReorderingAllowed(false);
 
     jScrollPane2.setViewportView(customerTableList);
+    jScrollPane2.getVerticalScrollBar().setUnitIncrement(16);
 
     tableContainerPanel.add(jScrollPane2, BorderLayout.CENTER);
 
     jScrollPane1.setViewportView(tableContainerPanel);
+    jScrollPane1.getVerticalScrollBar().setUnitIncrement(16);
 
     add(jScrollPane1, BorderLayout.CENTER);
   }

@@ -71,8 +71,10 @@ public class BookListForm extends JPanel {
     importFromExcelButton = new Button("Import from Excel file");
     exportToExcelButton = new Button("Export to Excel file");
     jScrollPane1 = new JScrollPane();
+    jScrollPane1.getVerticalScrollBar().setUnitIncrement(16);
     jPanel6 = new JPanel();
     jScrollPane = new JScrollPane();
+    jScrollPane.getVerticalScrollBar().setUnitIncrement(16);
     bookListTable = new JTable();
 
     setPreferredSize(new Dimension(1180, 620));

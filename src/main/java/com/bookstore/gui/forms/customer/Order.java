@@ -41,6 +41,7 @@ public class Order extends JPanel {
 
     viewBooksPanel.setLayout(new GridLayout(3, 1, 0, 5));
     viewBooksJScrollPane.setViewportView(viewBooksPanel);
+    viewBooksJScrollPane.getVerticalScrollBar().setUnitIncrement(16);
 
     add(viewBooksJScrollPane, BorderLayout.CENTER);
 

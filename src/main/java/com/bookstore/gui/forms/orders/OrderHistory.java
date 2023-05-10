@@ -56,6 +56,7 @@ public class OrderHistory extends JPanel implements ISearchable {
     orderTable = new JTable(orderTableModel);
     orderTable.addMouseListener(orderTableClickListener);
     orderTableScrollPane = new JScrollPane(orderTable);
+    orderTableScrollPane.getVerticalScrollBar().setUnitIncrement(16);
     add(orderTableScrollPane, BorderLayout.CENTER);
   }
 
