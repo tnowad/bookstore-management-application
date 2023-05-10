@@ -18,7 +18,6 @@ import com.bookstore.models.tables.BookTableModel;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale.Category;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -66,6 +65,8 @@ public class ImportNewPanel extends JPanel {
   private PublisherModel publisherModel;
   private BookTableModel bookTableModel;
   private List<ImportItemsModel> importItemsList = new ArrayList<ImportItemsModel>();
+  private JLabel descriptionBookLabel;
+  private JTextField descriptionBookTextfield;
 
   public ImportNewPanel() {
     initComponents();
@@ -126,6 +127,8 @@ public class ImportNewPanel extends JPanel {
     bookIsbnTextField = new JTextField();
     titleBookLabel = new JLabel();
     titleBookTextfield = new JTextField();
+    descriptionBookLabel = new JLabel();
+    descriptionBookTextfield = new JTextField();
     quantityLabel = new JLabel();
     quantityTextField = new JTextField();
     categoriesLabel = new JLabel();
@@ -199,7 +202,7 @@ public class ImportNewPanel extends JPanel {
     );
     bookFormPanel.setLayout(new BorderLayout());
 
-    bookInformationPanel.setLayout(new GridLayout(6, 2));
+    bookInformationPanel.setLayout(new GridLayout(7, 2));
 
     bookIsbnLabel.setText("Book ISBN");
     bookInformationPanel.add(bookIsbnLabel);
@@ -209,6 +212,11 @@ public class ImportNewPanel extends JPanel {
     bookInformationPanel.add(titleBookLabel);
 
     bookInformationPanel.add(titleBookTextfield);
+
+    descriptionBookLabel.setText("Description");
+    bookInformationPanel.add(descriptionBookLabel);
+
+    bookInformationPanel.add(descriptionBookTextfield);
 
     quantityLabel.setText("Quantity");
     bookInformationPanel.add(quantityLabel);
@@ -356,6 +364,7 @@ public class ImportNewPanel extends JPanel {
         }
 
         titleBookTextfield.setText(bookModel.getTitle());
+        descriptionBookTextfield.setText(bookModel.getDescription());
         quantityTextField.setText(String.valueOf(bookModel.getQuantity()));
         priceTextField.setText(String.valueOf(bookModel.getPrice()));
         categoriesTextField.setText(result);
@@ -385,7 +394,6 @@ public class ImportNewPanel extends JPanel {
           book.setAuthorId(option);
           book.setPublisherId(option);
 
-          // book.setDescription(TOOL_TIP_TEXT_KEY);
           book.setPrice(option);
           book.setQuantity(option);
           BookBUS.getInstance().addModel(book);
