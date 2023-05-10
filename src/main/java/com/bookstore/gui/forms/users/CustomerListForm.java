@@ -11,7 +11,7 @@ import java.util.List;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-public class CustomerList extends JPanel {
+public class CustomerListForm extends JPanel {
 
   private Button searchButton;
   private Button addCustomerButton;
@@ -27,20 +27,20 @@ public class CustomerList extends JPanel {
   private JScrollPane jScrollPane2;
   private JTextField searchCustomerTxtFld;
 
-  private static CustomerList instance;
+  private static CustomerListForm instance;
 
   UserBUS userBus = UserBUS.getInstance();
   List<UserModel> customersList = userBus.getAllModels();
 
-  public CustomerList() {
+  public CustomerListForm() {
     initComponents();
     listCustomer();
     search();
   }
 
-  public static CustomerList getInstance() {
+  public static CustomerListForm getInstance() {
     if (instance == null) {
-      instance = new CustomerList();
+      instance = new CustomerListForm();
     }
     return instance;
   }

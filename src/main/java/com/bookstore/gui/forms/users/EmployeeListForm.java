@@ -14,7 +14,7 @@ import java.util.List;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-public class EmployeeList extends JPanel {
+public class EmployeeListForm extends JPanel {
 
   private Button searchButton;
   private Button addEmployeeButton;
@@ -29,20 +29,20 @@ public class EmployeeList extends JPanel {
   private JScrollPane jScrollPane1;
   private JScrollPane jScrollPane2;
   private JTextField searchEmployeeTxtField;
-  private static EmployeeList instance;
+  private static EmployeeListForm instance;
 
   UserBUS userBus = UserBUS.getInstance();
   List<UserModel> employeeList = userBus.getAllModels();
 
-  public EmployeeList() {
+  public EmployeeListForm() {
     initComponents();
     listCustomer();
     search();
   }
 
-  public static EmployeeList getInstance() {
+  public static EmployeeListForm getInstance() {
     if (instance == null) {
-      instance = new EmployeeList();
+      instance = new EmployeeListForm();
     }
     return instance;
   }
