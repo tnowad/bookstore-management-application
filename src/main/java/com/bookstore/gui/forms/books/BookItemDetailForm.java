@@ -75,6 +75,7 @@ public class BookItemDetailForm extends JPanel {
     descriptionTextArea = new JTextArea();
     descriptionLabel = new Label("Description");
     jScrollPane1 = new JScrollPane();
+    jScrollPane1.getVerticalScrollBar().setUnitIncrement(16);
     priceLabel = new Label("Price");
     bookPriceTextField = new JTextField();
     statusLabel = new Label("Status");

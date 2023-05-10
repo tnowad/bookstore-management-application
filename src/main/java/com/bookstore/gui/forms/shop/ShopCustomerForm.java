@@ -24,7 +24,7 @@ import java.util.Comparator;
 import java.util.List;
 import javax.swing.*;
 
-public class ShopCustomerPanel
+public class ShopCustomerForm
   extends JPanel
   implements ISearchable, IListPanel<BookModel> {
 
@@ -43,7 +43,7 @@ public class ShopCustomerPanel
     .getInstance()
     .getAllModels();
 
-  public ShopCustomerPanel() {
+  public ShopCustomerForm() {
     initComponents();
     updateList(bookList);
     handleEvent();
@@ -180,7 +180,7 @@ public class ShopCustomerPanel
     JPanel bookListWrapper = new JPanel();
     bookListWrapper.add(bookListPanel);
     bookListScrollPane.setViewportView(bookListWrapper);
-    bookListScrollPane.getVerticalScrollBar().setUnitIncrement(50);
+    bookListScrollPane.getVerticalScrollBar().setUnitIncrement(16);
 
     add(bookListScrollPane, BorderLayout.CENTER);
   }

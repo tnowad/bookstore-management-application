@@ -2,7 +2,7 @@ package com.bookstore.gui.forms.checkout;
 
 import com.bookstore.bus.CartBUS;
 import com.bookstore.gui.components.panels.MainPanel;
-import com.bookstore.gui.forms.shop.ShopCustomerPanel;
+import com.bookstore.gui.forms.shop.ShopCustomerForm;
 import com.bookstore.models.CartModel;
 import java.awt.*;
 import javax.swing.*;
@@ -59,7 +59,7 @@ public class CompletedOrderForm extends JPanel {
 
     JButton continueButton = new JButton("Continue Shopping");
     continueButton.addActionListener(e -> {
-      MainPanel.getInstance().showForm(new ShopCustomerPanel());
+      MainPanel.getInstance().showForm(new ShopCustomerForm());
     });
     continueButton.setPreferredSize(new Dimension(200, 50));
     continueButton.setAlignmentX(Component.CENTER_ALIGNMENT);

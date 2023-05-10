@@ -263,6 +263,7 @@ public class ImportNewPanel extends JPanel {
     bookListTable = new JTable(bookTableModel);
     bookListTable.setFillsViewportHeight(true);
     bookListScrollPane.setViewportView(bookListTable);
+    bookListScrollPane.getVerticalScrollBar().setUnitIncrement(16);
 
     bookListPanel.add(bookListScrollPane);
 

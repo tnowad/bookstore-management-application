@@ -113,6 +113,7 @@ public class AuthorListPanel extends JPanel implements ISearchable {
     table.add(headerTable, BorderLayout.NORTH);
 
     scrollPane.setViewportView(contendTable);
+    scrollPane.getVerticalScrollBar().setUnitIncrement(16);
 
     table.add(scrollPane, BorderLayout.CENTER);
 

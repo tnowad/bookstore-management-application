@@ -73,6 +73,7 @@ public class AddAuthorForm extends JFrame {
     setDescription.setText("Description here!");
     scrollPane.setViewportView(setDescription);
     scrollPane.getVerticalScrollBar().setValue(0);
+    scrollPane.getVerticalScrollBar().setUnitIncrement(16);
 
     buttonPanel.setPreferredSize(new Dimension(50, 50));
     buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 30, 5));

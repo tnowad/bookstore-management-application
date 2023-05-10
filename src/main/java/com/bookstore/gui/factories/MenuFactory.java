@@ -20,10 +20,10 @@ import com.bookstore.gui.forms.general.ContactUs;
 import com.bookstore.gui.forms.imports.ImportList;
 import com.bookstore.gui.forms.orders.OrderHistory;
 import com.bookstore.gui.forms.orders.OrderList;
-import com.bookstore.gui.forms.reports.SalesReportPanel;
-import com.bookstore.gui.forms.shop.ShopCustomerPanel;
-import com.bookstore.gui.forms.users.CustomerList;
-import com.bookstore.gui.forms.users.EmployeeList;
+import com.bookstore.gui.forms.reports.SalesReportForm;
+import com.bookstore.gui.forms.shop.ShopCustomerForm;
+import com.bookstore.gui.forms.users.CustomerListForm;
+import com.bookstore.gui.forms.users.EmployeeListForm;
 import com.bookstore.models.EmployeeModel;
 import com.bookstore.models.UserModel;
 import com.bookstore.models.gui.MenuItemModel;
@@ -686,7 +686,7 @@ public class MenuFactory {
 
   // employee and manager
   private static ActionListener showCustomerList = e -> {
-    MainPanel.getInstance().showForm(new CustomerList());
+    MainPanel.getInstance().showForm(new CustomerListForm());
   };
   private static ActionListener showBookList = e -> {
     MainPanel.getInstance().showForm(new BookListForm());
@@ -700,7 +700,7 @@ public class MenuFactory {
 
   // manager
   private static ActionListener showEmployeeList = e -> {
-    MainPanel.getInstance().showForm(new EmployeeList());
+    MainPanel.getInstance().showForm(new EmployeeListForm());
   };
 
   private static ActionListener showSalaryList = e -> {
@@ -709,7 +709,7 @@ public class MenuFactory {
 
   // customer
   private static ActionListener showShop = e -> {
-    MainPanel.getInstance().showForm(new ShopCustomerPanel());
+    MainPanel.getInstance().showForm(new ShopCustomerForm());
   };
   private static ActionListener showCartCustomer = e -> {
     MainPanel.getInstance().showForm(new CartCustomerForm());
@@ -732,6 +732,6 @@ public class MenuFactory {
     MainPanel.getInstance().showForm(new AboutUs());
   };
   private static ActionListener showSalesReport = e -> {
-    MainPanel.getInstance().showForm(new SalesReportPanel());
+    MainPanel.getInstance().showForm(new SalesReportForm());
   };
 }

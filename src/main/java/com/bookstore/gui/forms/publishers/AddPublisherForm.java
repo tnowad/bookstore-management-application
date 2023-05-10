@@ -2,13 +2,12 @@ package com.bookstore.gui.forms.publishers;
 
 import com.bookstore.bus.PublisherBUS;
 import com.bookstore.models.PublisherModel;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
-public class AddPublisher extends JFrame {
+public class AddPublisherForm extends JFrame {
 
   private JLabel title;
   private JPanel contend;
@@ -23,7 +22,7 @@ public class AddPublisher extends JFrame {
 
   private PublisherBUS publisherBUS = PublisherBUS.getInstance();
 
-  public AddPublisher() {
+  public AddPublisherForm() {
     initComponents();
     setLocationRelativeTo(null);
     setResizable(false);
@@ -73,6 +72,7 @@ public class AddPublisher extends JFrame {
     setDescription.setRows(5);
     setDescription.setText("Description here!");
     scrollPane.setViewportView(setDescription);
+    scrollPane.getVerticalScrollBar().setUnitIncrement(16);
     scrollPane.getVerticalScrollBar().setValue(0);
 
     buttonPanel.setPreferredSize(new Dimension(50, 50));
@@ -105,7 +105,7 @@ public class AddPublisher extends JFrame {
         JOptionPane.showMessageDialog(null, "Description cannot be empty!");
         return;
       }
-      
+
       if (setName.getText().trim().isEmpty()) {
         JOptionPane.showMessageDialog(null, "Publisher name cannot be empty!");
         return;
@@ -117,13 +117,20 @@ public class AddPublisher extends JFrame {
         JOptionPane.YES_NO_OPTION
       );
       if (choice == JOptionPane.YES_OPTION) {
-
-        if (publisherBUS.getModelByPublisherName(setName.getText().trim())!=null) {
+        if (
+          publisherBUS.getModelByPublisherName(setName.getText().trim()) != null
+        ) {
           JOptionPane.showMessageDialog(null, "Publisher already exists!");
           return;
         }
-        publisherBUS.addModel(new PublisherModel(9, setName.getText().trim(), setDescription.getText().trim()));
-        JOptionPane.showMessageDialog(null,"Complete");
+        publisherBUS.addModel(
+          new PublisherModel(
+            9,
+            setName.getText().trim(),
+            setDescription.getText().trim()
+          )
+        );
+        JOptionPane.showMessageDialog(null, "Complete");
         publisherBUS.refreshData();
         JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(buttonBack);
         frame.dispose();

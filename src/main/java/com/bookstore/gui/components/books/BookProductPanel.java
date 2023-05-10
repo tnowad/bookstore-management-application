@@ -48,15 +48,13 @@ public class BookProductPanel extends JPanel {
     add(checkBox, BorderLayout.PAGE_END);
 
     contendPanel.setLayout(new BorderLayout());
-
     buttonDetail.setFont(new Font("Segoe UI", 1, 14));
     buttonDetail.setText("Detail");
     buttonDetail.addActionListener(actionDetail);
     contendPanel.add(buttonDetail, BorderLayout.PAGE_END);
 
-    setImage.setHorizontalAlignment(SwingConstants.CENTER);
-    setImage.setBorder(BorderFactory.createEtchedBorder());
-    setImage.setPreferredSize(new Dimension(399, 260));
+    setImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+    setImage.setBorder(javax.swing.BorderFactory.createEtchedBorder());
     contendPanel.add(setImage, BorderLayout.CENTER);
 
     titlePanel.setMinimumSize(new Dimension(30, 30));

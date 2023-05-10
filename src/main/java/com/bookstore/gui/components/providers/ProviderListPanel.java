@@ -10,7 +10,7 @@ import java.awt.event.*;
 import java.util.List;
 import javax.swing.*;
 
-public class ProviderListPanel extends JPanel implements ISearchable{
+public class ProviderListPanel extends JPanel implements ISearchable {
 
   private static ProviderListPanel instance;
 
@@ -104,6 +104,7 @@ public class ProviderListPanel extends JPanel implements ISearchable{
     table.add(headerTable, BorderLayout.NORTH);
 
     scrollPane.setViewportView(contendTable);
+    scrollPane.getVerticalScrollBar().setUnitIncrement(16);
 
     table.add(scrollPane, BorderLayout.CENTER);
 
@@ -124,14 +125,13 @@ public class ProviderListPanel extends JPanel implements ISearchable{
     contendTable.revalidate();
     contendTable.repaint();
   }
-  public ActionListener actionAdd = new ActionListener() {
 
+  public ActionListener actionAdd = new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
       AddProvider addProvider = new AddProvider();
       addProvider.setVisible(true);
     }
-    
   };
 
   @Override
@@ -164,5 +164,4 @@ public class ProviderListPanel extends JPanel implements ISearchable{
       }
     }
   }
-
 }

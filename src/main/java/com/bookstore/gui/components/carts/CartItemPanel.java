@@ -56,6 +56,7 @@ public class CartItemPanel extends JPanel {
     DescriptionTextArea.setColumns(20);
     DescriptionTextArea.setRows(5);
     jScrollPane1.setViewportView(DescriptionTextArea);
+    jScrollPane1.getVerticalScrollBar().setUnitIncrement(16);
 
     GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
     jPanel1.setLayout(jPanel1Layout);

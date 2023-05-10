@@ -112,6 +112,8 @@ public class BrowseProductPanel
         JScrollPane.HORIZONTAL_SCROLLBAR_NEVER
       );
 
+    scrollPane.getVerticalScrollBar().setUnitIncrement(16);
+
     contendPanel.add(scrollPane, BorderLayout.CENTER);
 
     add(contendPanel, BorderLayout.CENTER);
@@ -176,6 +178,7 @@ public class BrowseProductPanel
     public void actionPerformed(ActionEvent evt) {
       try {
         List<BookModel> listBooks = BookExcelUtil.readBooksFromExcel();
+        if (listBooks == null) return;
         for (BookModel book : listBooks) {
           if (book.getStatus().toString().equals("deleted")) {
             listBooks.remove(book);

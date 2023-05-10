@@ -112,6 +112,8 @@ public class SalaryListPanel extends JPanel {
 
     scrollPane.setViewportView(contendTable);
 
+    scrollPane.getVerticalScrollBar().setUnitIncrement(16);
+
     table.add(scrollPane, BorderLayout.CENTER);
 
     contend.add(table, BorderLayout.CENTER);
@@ -139,10 +141,10 @@ public class SalaryListPanel extends JPanel {
     for (EmployeeModel employee : listEmployee) {
       SalaryPanel salaryPanel = new SalaryPanel(serial, employee);
       contendTable.add(salaryPanel);
-      sumSalary = sumSalary+employee.getSalary();
+      sumSalary = sumSalary + employee.getSalary();
       serial = serial + 1;
     }
-    setSumSalary.setText(""+sumSalary);
+    setSumSalary.setText("" + sumSalary);
     contendTable.revalidate();
     contendTable.repaint();
   }

@@ -7,11 +7,15 @@ import com.bookstore.enums.BookStatus;
 import com.bookstore.models.BookModel;
 import com.bookstore.util.image.ImageUtils;
 import java.awt.*;
+import java.awt.datatransfer.StringSelection;
 import java.awt.event.*;
+import java.io.File;
+import java.io.IOException;
 import javax.swing.*;
 
 public class BookDetailFrame extends JFrame {
 
+  private String stringImage = null;
   private JLabel authorText;
   private JButton buttonBack;
   private JPanel buttonPanel;
@@ -36,6 +40,8 @@ public class BookDetailFrame extends JFrame {
   private JComboBox<String> setStatus;
   private JTextField setTitle;
   private JLabel statusText;
+  private JButton chooseLink;
+  private String base64;
 
   private BookModel bookModel;
 
@@ -73,6 +79,7 @@ public class BookDetailFrame extends JFrame {
     buttonPanel = new JPanel();
     buttonBack = new JButton();
     buttonSave = new JButton();
+    chooseLink = new JButton();
     scrollPane = new JScrollPane();
     setDescription = new JTextArea();
 
@@ -83,16 +90,26 @@ public class BookDetailFrame extends JFrame {
     contendPanel.setLayout(new BorderLayout());
 
     setImage.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
-    setImage.setPreferredSize(new Dimension(200, 100));
-    contendPanel.add(setImage, BorderLayout.LINE_START);
+    setImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+    setImage.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+    setImage.setPreferredSize(new Dimension(200, 280));
+    contendPanel.add(setImage, BorderLayout.WEST);
 
     informationPanel.setPreferredSize(new Dimension(655, 300));
     informationPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
 
+    chooseLink.setIcon(
+      new ImageIcon(getClass().getResource("/resources/icons/categories.png"))
+    );
+    chooseLink.setActionCommand("+");
+    chooseLink.setPreferredSize(new Dimension(40, 23));
+    chooseLink.addActionListener(actionAddLinkImage);
+    informationPanel.add(chooseLink);
+
     setTitle.setEditable(false);
     setTitle.setFont(new Font("Segoe UI", 1, 14));
     setTitle.setText(book.getTitle());
-    setTitle.setPreferredSize(new Dimension(600, 26));
+    setTitle.setPreferredSize(new Dimension(550, 26));
     informationPanel.add(setTitle);
 
     priceText.setFont(new Font("Segoe UI", 0, 18));
@@ -210,6 +227,8 @@ public class BookDetailFrame extends JFrame {
     setDescription.setText(book.getDescription());
     scrollPane.setViewportView(setDescription);
 
+    scrollPane.getVerticalScrollBar().setUnitIncrement(16);
+
     descriptionContend.add(scrollPane, BorderLayout.CENTER);
 
     descriptionPanel.add(descriptionContend, BorderLayout.CENTER);
@@ -287,7 +306,11 @@ public class BookDetailFrame extends JFrame {
       newBook.setIsbn(bookModel.getIsbn());
       newBook.setTitle(bookModel.getTitle());
       newBook.setDescription(newDescription);
-      newBook.setImage(bookModel.getImage());
+      if (stringImage != null) {
+        newBook.setImage(stringImage);
+      } else {
+        newBook.setImage(newBook.getImage());
+      }
       newBook.setPrice(newPrice);
       newBook.setQuantity(newQuantity);
       newBook.setStatus(newStatus);
@@ -312,6 +335,33 @@ public class BookDetailFrame extends JFrame {
     public void actionPerformed(ActionEvent e) {
       JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(buttonBack);
       frame.dispose();
+    }
+  };
+
+  public ActionListener actionAddLinkImage = new ActionListener() {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+      JFileChooser fileChooser = new JFileChooser();
+      int returnValue = fileChooser.showOpenDialog(null);
+      if (returnValue == JFileChooser.APPROVE_OPTION) {
+        File selectedFile = fileChooser.getSelectedFile();
+        String filePath = selectedFile.getAbsolutePath();
+
+        // get image from file path
+        base64 = null;
+        try {
+          base64 = ImageUtils.toBase64(ImageUtils.loadImage(filePath));
+          Toolkit
+            .getDefaultToolkit()
+            .getSystemClipboard()
+            .setContents(new StringSelection(base64), null);
+          stringImage = base64;
+          setImage.removeAll();
+          setImage(base64);
+        } catch (IOException ex) {
+          ex.printStackTrace();
+        }
+      }
     }
   };
 }

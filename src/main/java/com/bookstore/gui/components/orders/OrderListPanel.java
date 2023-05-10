@@ -146,6 +146,7 @@ public class OrderListPanel extends JPanel {
       table.setModel(model);
     }
     scrollPane.setViewportView(table);
+    scrollPane.getVerticalScrollBar().setUnitIncrement(16);
   }
 
   public void receiveValue(String value) {
