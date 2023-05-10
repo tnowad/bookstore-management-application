@@ -130,12 +130,16 @@ public class DashboardPanel extends JPanel implements ISearchable {
 
     for (OrderModel order : orders) {
       if (
-        UserBUS
-          .getInstance()
-          .getModelById(order.getCustomerId())
-          .getEmail()
-          .toLowerCase()
-          .contains(keyword.toLowerCase()) ||
+        (
+          (UserBUS.getInstance().getModelById(order.getCustomerId()) != null)
+            ? UserBUS
+              .getInstance()
+              .getModelById(order.getCustomerId())
+              .getEmail()
+              .toLowerCase()
+              .contains(keyword.toLowerCase())
+            : false
+        ) ||
         UserBUS
           .getInstance()
           .getModelById(order.getEmployeeId())

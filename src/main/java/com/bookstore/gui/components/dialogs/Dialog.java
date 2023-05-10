@@ -1,6 +1,5 @@
 package com.bookstore.gui.components.dialogs;
 
-import java.awt.BorderLayout;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;

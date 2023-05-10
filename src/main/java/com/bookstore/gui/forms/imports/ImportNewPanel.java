@@ -5,6 +5,7 @@ import com.bookstore.bus.BookBUS;
 import com.bookstore.bus.BooksCategoryBUS;
 import com.bookstore.bus.CategoryBUS;
 import com.bookstore.bus.PublisherBUS;
+import com.bookstore.enums.BookStatus;
 import com.bookstore.gui.components.dialogs.Dialog;
 import com.bookstore.gui.components.panels.MainPanel;
 import com.bookstore.models.AuthorModel;
@@ -388,20 +389,44 @@ public class ImportNewPanel extends JPanel {
         BookModel book = BookBUS
           .getInstance()
           .getBookByIsbn(bookIsbnTextField.getText());
-        if (book == null) {
-          book = new BookModel();
-          book.setIsbn(bookIsbnTextField.getText());
-          book.setAuthorId(option);
-          book.setPublisherId(option);
+        int quantity = Integer.parseInt(quantityTextField.getText());
+        int price = Integer.parseInt(priceTextField.getText());
+        // AuthorModel 
 
-          book.setPrice(option);
-          book.setQuantity(option);
-          BookBUS.getInstance().addModel(book);
-          BookBUS.getInstance().refreshData();
+        for (AuthorModel author : AuthorBUS.getInstance().getAllModels()) {
+          if (author.getName().equals(authorTextField.getText())) {
+            book.setAuthorId(author.getId());
+            break;
+          }
+        }
+
+        for (PublisherModel publisherModel : PublisherBUS
+          .getInstance()
+          .getAllModels()) {
+          if (publisherModel.getName().equals(publisherTextField.getText())) {
+            book.setPublisherId(publisherModel.getId());
+            break;
+          }
+        }
+        if (quantity == 0 || price == 0) {
+          JOptionPane.showMessageDialog(null, "Quantity or price must than 0");
         } else {
-          int quantity = Integer.parseInt(quantityTextField.getText());
-          book.setQuantity(book.getQuantity() + quantity);
-          
+          if (book == null) {
+            book = new BookModel();
+            book.setIsbn(bookIsbnTextField.getText());
+            book.setAuthorId(option);
+            book.setPublisherId(option);
+            book.setPrice(price);
+            book.setQuantity(quantity);
+            BookBUS.getInstance().addModel(book);
+            BookBUS.getInstance().refreshData();
+          } else {
+            book.setQuantity(book.getQuantity() + quantity);
+
+            book.setStatus(BookStatus.AVAILABLE);
+            BookBUS.getInstance().updateModel(book);
+            BookBUS.getInstance().refreshData();
+          }
         }
       }
     });
