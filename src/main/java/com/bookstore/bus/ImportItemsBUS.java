@@ -107,9 +107,9 @@ public class ImportItemsBUS implements IBUS<ImportItemsModel> {
     double price = importItemsModel.getPrice();
     int quantity = importItemsModel.getQuantity();
 
-    if (importId == 0) {
-      throw new IllegalArgumentException("Import ID cannot be zero!");
-    }
+    // if (importId == 0) {
+    //   throw new IllegalArgumentException("Import ID cannot be zero!");
+    // }
     if (bookIsbn == null || bookIsbn.isEmpty()) {
       throw new IllegalArgumentException("Book ISBN cannot be null or empty!");
     }

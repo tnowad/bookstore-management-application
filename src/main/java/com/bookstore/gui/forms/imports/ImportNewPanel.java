@@ -4,7 +4,11 @@ import com.bookstore.bus.AuthorBUS;
 import com.bookstore.bus.BookBUS;
 import com.bookstore.bus.BooksCategoryBUS;
 import com.bookstore.bus.CategoryBUS;
+import com.bookstore.bus.ImportBUS;
+import com.bookstore.bus.ImportItemsBUS;
+import com.bookstore.bus.ProviderBUS;
 import com.bookstore.bus.PublisherBUS;
+import com.bookstore.dao.DatabaseConnection;
 import com.bookstore.enums.BookStatus;
 import com.bookstore.gui.components.dialogs.Dialog;
 import com.bookstore.gui.components.panels.MainPanel;
@@ -13,24 +17,27 @@ import com.bookstore.models.BookModel;
 import com.bookstore.models.BooksCategoryModel;
 import com.bookstore.models.CategoryModel;
 import com.bookstore.models.ImportItemsModel;
+import com.bookstore.models.ImportModel;
 import com.bookstore.models.ProviderModel;
 import com.bookstore.models.PublisherModel;
+import com.bookstore.models.UserModel;
 import com.bookstore.models.tables.BookTableModel;
+import com.bookstore.services.Authentication;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Flow.Publisher;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import org.apache.xmlbeans.impl.xb.xsdschema.ImportDocument.Import;
 
 public class ImportNewPanel extends JPanel {
 
   private JButton addBookButton;
   private JButton backToPreviousButton;
-  private JButton exitButton;
+  private JButton saveButton;
 
   private JButton findBookButton;
   private JButton findProviderButton;
@@ -62,13 +69,14 @@ public class ImportNewPanel extends JPanel {
   private JTextField titleBookTextfield;
 
   private JTable bookListTable;
-
+  private ImportModel importModel ;
   private ProviderModel providerModel;
   private PublisherModel publisherModel;
   private BookTableModel bookTableModel;
   private List<ImportItemsModel> importItemsList = new ArrayList<ImportItemsModel>();
   private JLabel descriptionBookLabel;
   private JTextField descriptionBookTextfield;
+  private UserModel userModel = Authentication.getCurrentUser();
 
   public ImportNewPanel() {
     initComponents();
@@ -82,10 +90,12 @@ public class ImportNewPanel extends JPanel {
     DefaultTableModel model = new DefaultTableModel();
     model.addColumn("Isbn");
     model.addColumn("Book name");
-    model.addColumn("Categories");
+    model.addColumn("Description");
+    model.addColumn("Price");
     model.addColumn("Acthor");
+    model.addColumn("Publisher");
     model.addColumn("Quantity");
-    model.addColumn("Import price");
+    model.addColumn("Total price");
     for (ImportItemsModel importItemsModel : importItemsList) {
       BookModel bookModel = BookBUS
         .getInstance()
@@ -146,7 +156,7 @@ public class ImportNewPanel extends JPanel {
     bookListScrollPane = new JScrollPane();
 
     actionPanel = new JPanel();
-    exitButton = new JButton();
+    saveButton = new JButton();
     totalPriceLabel = new JLabel();
     backToPreviousButton = new JButton("Back to previous");
 
@@ -260,7 +270,7 @@ public class ImportNewPanel extends JPanel {
 
     bookTableModel = new BookTableModel();
 
-    bookListTable = new JTable(bookTableModel);
+    bookListTable = new JTable();
     bookListTable.setFillsViewportHeight(true);
     bookListScrollPane.setViewportView(bookListTable);
     bookListScrollPane.getVerticalScrollBar().setUnitIncrement(16);
@@ -276,8 +286,8 @@ public class ImportNewPanel extends JPanel {
 
     actionPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 50, 5));
 
-    exitButton.setText("Exit");
-    actionPanel.add(exitButton);
+    saveButton.setText("Save");
+    actionPanel.add(saveButton);
 
     totalPriceLabel.setText("Total price");
     actionPanel.add(totalPriceLabel);
@@ -400,8 +410,52 @@ public class ImportNewPanel extends JPanel {
         }
         AuthorModel updateAuthorModel = null;
         PublisherModel updatePublisherModel = null;
+        ProviderModel updateProviderModel = null;
 
         try {
+          // create import
+          for (ProviderModel providerModel : ProviderBUS
+            .getInstance()
+            .getAllModels()) {
+            if (providerModel.getName().equals(providerTextField.getText())) {
+              updateProviderModel = providerModel;
+            }
+          }
+
+          if (updateProviderModel == null) {
+            updateProviderModel = new ProviderModel();
+            updateProviderModel.setName(authorTextField.getText());
+            updateProviderModel.setDescription("");
+            ProviderBUS.getInstance().addModel(updateProviderModel);
+            ProviderBUS.getInstance().refreshData();
+          }
+
+          for (ProviderModel providerModel : ProviderBUS
+            .getInstance()
+            .getAllModels()) {
+            if (providerModel.getName().equals(authorTextField.getText())) {
+              updateProviderModel = providerModel;
+              break;
+            }
+          }
+          if (importModel == null) {
+            importModel = new ImportModel();
+            System.out.println(importModel.getId());
+            importModel.setEmployeeId(userModel.getId());
+            importModel.setProviderId(updateProviderModel.getId());
+            importModel.setTotalPrice((double) price * quantity);
+            ImportBUS.getInstance().addModel(importModel);
+            ImportBUS.getInstance().refreshData();
+          } else {
+            // importModel.setEmployeeId(userModel.getId());
+            // importModel.setProviderId(updateProviderModel.getId());
+            importModel.setTotalPrice(
+              importModel.getTotalPrice() + (double) price * quantity
+            );
+            ImportBUS.getInstance().updateModel(importModel);
+          }
+
+          DatabaseConnection.getInstance().beginTransaction();
           if (book == null) {
             for (AuthorModel authorModel : AuthorBUS
               .getInstance()
@@ -478,10 +532,23 @@ public class ImportNewPanel extends JPanel {
             BookBUS.getInstance().updateModel(book);
             BookBUS.getInstance().refreshData();
           }
+          // create import
+          ImportItemsModel importItemsModel = new ImportItemsModel();
+          importItemsModel.setBookIsbn(book.getIsbn());
+          importItemsModel.setImportId(option);
+          importItemsModel.setPrice(price);
+          importItemsModel.setQuantity(quantity);
+          importItemsModel.setImportId(importModel.getId());
+          ImportItemsBUS.getInstance().addModel(importItemsModel);
+          importItemsList.add(importItemsModel);
+          bookImportListTable();
         } catch (Exception e1) {
           JOptionPane.showMessageDialog(null, e1);
         }
       }
     });
+    // saveButton.addActionListener(e -> {
+    //   ImportBUS.getInstance().addModel(importModel);
+    // });
   }
 }
