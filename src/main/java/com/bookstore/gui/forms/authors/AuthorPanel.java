@@ -3,9 +3,7 @@ package com.bookstore.gui.forms.authors;
 import com.bookstore.models.AuthorModel;
 import java.awt.*;
 import java.awt.event.*;
-
 import javax.swing.*;
-
 
 public class AuthorPanel extends JPanel implements MouseListener {
 
@@ -21,7 +19,7 @@ public class AuthorPanel extends JPanel implements MouseListener {
       new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {
-          AuthorDetail authorDetail = new AuthorDetail(author);
+          AuthorDetailForm authorDetail = new AuthorDetailForm(author);
           authorDetail.setVisible(true);
         }
       }
@@ -56,28 +54,17 @@ public class AuthorPanel extends JPanel implements MouseListener {
   }
 
   @Override
-  public void mouseClicked(MouseEvent e) {
-    
-  }
+  public void mouseClicked(MouseEvent e) {}
 
   @Override
-  public void mousePressed(MouseEvent e) {
-    
-  }
+  public void mousePressed(MouseEvent e) {}
 
   @Override
-  public void mouseReleased(MouseEvent e) {
-    
-  }
+  public void mouseReleased(MouseEvent e) {}
 
   @Override
-  public void mouseEntered(MouseEvent e) {
-    
-  }
+  public void mouseEntered(MouseEvent e) {}
 
   @Override
-  public void mouseExited(MouseEvent e) {
-    
-  }
-
+  public void mouseExited(MouseEvent e) {}
 }

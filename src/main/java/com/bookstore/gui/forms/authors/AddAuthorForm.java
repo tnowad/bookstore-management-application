@@ -2,13 +2,12 @@ package com.bookstore.gui.forms.authors;
 
 import com.bookstore.bus.AuthorBUS;
 import com.bookstore.models.AuthorModel;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
-public class AddAuthor extends JFrame {
+public class AddAuthorForm extends JFrame {
 
   private JLabel title;
   private JPanel contend;
@@ -23,7 +22,7 @@ public class AddAuthor extends JFrame {
 
   private AuthorBUS authorBUS = AuthorBUS.getInstance();
 
-  public AddAuthor() {
+  public AddAuthorForm() {
     initComponents();
     setLocationRelativeTo(null);
     setResizable(false);
@@ -117,13 +116,19 @@ public class AddAuthor extends JFrame {
           return;
         }
 
-        if (authorBUS.getModelByName(setName.getText().trim())!=null) {
+        if (authorBUS.getModelByName(setName.getText().trim()) != null) {
           JOptionPane.showMessageDialog(null, "Author already exists!");
           return;
         }
-        authorBUS.addModel(new AuthorModel(0, setName.getText().trim(), setDescription.getText().trim()));
+        authorBUS.addModel(
+          new AuthorModel(
+            0,
+            setName.getText().trim(),
+            setDescription.getText().trim()
+          )
+        );
         authorBUS.refreshData();
-        JOptionPane.showMessageDialog(null,"Complete");
+        JOptionPane.showMessageDialog(null, "Complete");
         JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(buttonBack);
         frame.dispose();
       }

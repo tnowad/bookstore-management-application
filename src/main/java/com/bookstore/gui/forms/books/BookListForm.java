@@ -22,7 +22,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-public class BookList extends JPanel {
+public class BookListForm extends JPanel {
 
   private Button addBookButton;
   private Label bookListLabel;
@@ -40,20 +40,20 @@ public class BookList extends JPanel {
   private JScrollPane jScrollPane;
   private Button searchButton;
   private JTextField searchTextField;
-  private static BookList instance;
+  private static BookListForm instance;
 
   BookBUS bookBus = BookBUS.getInstance();
   List<BookModel> bookList = bookBus.getAllModels();
 
-  public BookList() {
+  public BookListForm() {
     initComponents();
     listBooks();
     search();
   }
 
-  public static BookList getInstance() {
+  public static BookListForm getInstance() {
     if (instance == null) {
-      instance = new BookList();
+      instance = new BookListForm();
     }
     return instance;
   }

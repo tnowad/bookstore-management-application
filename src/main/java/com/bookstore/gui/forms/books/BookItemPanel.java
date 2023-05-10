@@ -8,13 +8,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-public class BookProductPanel extends JPanel {
+public class BookItemPanel extends JPanel {
 
   private JButton bookDetailButton;
   private JPanel bookImagePanel;
   private JLabel bookTitleLabel;
 
-  public BookProductPanel() {
+  public BookItemPanel() {
     initComponents();
   }
 

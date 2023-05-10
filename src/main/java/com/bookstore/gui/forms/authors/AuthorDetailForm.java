@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class AuthorDetail extends JFrame {
+public class AuthorDetailForm extends JFrame {
 
   private JTextArea setDescription;
   private JPanel buttonPanel;
@@ -28,7 +28,7 @@ public class AuthorDetail extends JFrame {
   private AuthorBUS authorBUS = AuthorBUS.getInstance();
   AuthorModel author;
 
-  public AuthorDetail(AuthorModel author) {
+  public AuthorDetailForm(AuthorModel author) {
     initComponents(author);
     this.author = author;
     setLocationRelativeTo(null);
@@ -187,7 +187,6 @@ public class AuthorDetail extends JFrame {
   };
 
   public ActionListener actionDelete = new ActionListener() {
-
     @Override
     public void actionPerformed(ActionEvent e) {
       int choice = JOptionPane.showConfirmDialog(
@@ -197,16 +196,26 @@ public class AuthorDetail extends JFrame {
         JOptionPane.YES_NO_OPTION
       );
       if (choice == JOptionPane.YES_OPTION) {
-        if(BookBUS.getInstance().searchModel(String.valueOf(author.getId()),new String[] { "author_id" }).size()!=0){
-          JOptionPane.showMessageDialog(null, "You cannot delete this author because of product constraints!");
+        if (
+          BookBUS
+            .getInstance()
+            .searchModel(
+              String.valueOf(author.getId()),
+              new String[] { "author_id" }
+            )
+            .size() !=
+          0
+        ) {
+          JOptionPane.showMessageDialog(
+            null,
+            "You cannot delete this author because of product constraints!"
+          );
           return;
-        }
-        else{
+        } else {
           AuthorBUS.getInstance().deleteModel(author.getId());
           JOptionPane.showMessageDialog(null, "Completed");
         }
       }
     }
-    
   };
 }
