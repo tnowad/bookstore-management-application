@@ -706,7 +706,7 @@ public class MenuFactory {
   };
 
   private static ActionListener showSalaryList = e -> {
-    MainPanel.getInstance().showForm(new SalaryList());
+    MainPanel.getInstance().showForm(new SalaryListPanel());
   };
 
   // customer
