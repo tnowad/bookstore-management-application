@@ -148,7 +148,7 @@ public class BookBUS implements IBUS<BookModel> {
       throw new IllegalArgumentException(
           "Description cannot be null or empty!");
     }
-    if (bookModel.getImage() == null || bookModel.getImage().isEmpty()) {
+    if (bookModel.getImage() == null ) {
       throw new IllegalArgumentException("Image cannot be null or empty!");
     }
     if (bookModel.getPrice() <= 0) {

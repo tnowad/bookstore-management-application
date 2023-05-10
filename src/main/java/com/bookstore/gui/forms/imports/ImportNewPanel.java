@@ -19,6 +19,7 @@ import com.bookstore.models.tables.BookTableModel;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Flow.Publisher;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -366,7 +367,6 @@ public class ImportNewPanel extends JPanel {
 
         titleBookTextfield.setText(bookModel.getTitle());
         descriptionBookTextfield.setText(bookModel.getDescription());
-        quantityTextField.setText(String.valueOf(bookModel.getQuantity()));
         priceTextField.setText(String.valueOf(bookModel.getPrice()));
         categoriesTextField.setText(result);
         AuthorModel authorModel = AuthorBUS
@@ -389,44 +389,96 @@ public class ImportNewPanel extends JPanel {
         BookModel book = BookBUS
           .getInstance()
           .getBookByIsbn(bookIsbnTextField.getText());
-        int quantity = Integer.parseInt(quantityTextField.getText());
-        int price = Integer.parseInt(priceTextField.getText());
-        // AuthorModel 
-
-        for (AuthorModel author : AuthorBUS.getInstance().getAllModels()) {
-          if (author.getName().equals(authorTextField.getText())) {
-            book.setAuthorId(author.getId());
-            break;
-          }
-        }
-
-        for (PublisherModel publisherModel : PublisherBUS
-          .getInstance()
-          .getAllModels()) {
-          if (publisherModel.getName().equals(publisherTextField.getText())) {
-            book.setPublisherId(publisherModel.getId());
-            break;
-          }
-        }
-        if (quantity == 0 || price == 0) {
+        int quantity = 0;
+        int price = 0;
+        try {
+          price = Integer.parseInt(quantityTextField.getText());
+          quantity = Integer.parseInt(priceTextField.getText());
+        } catch (Exception e2) {
           JOptionPane.showMessageDialog(null, "Quantity or price must than 0");
-        } else {
+        }
+        AuthorModel updateAuthorModel = null;
+        PublisherModel updatePublisherModel = null;
+
+        try {
           if (book == null) {
+            for (AuthorModel authorModel : AuthorBUS
+              .getInstance()
+              .getAllModels()) {
+              if (authorModel.getName().equals(authorTextField.getText())) {
+                updateAuthorModel = authorModel;
+                break;
+              }
+            }
+
+            if (updateAuthorModel == null) {
+              updateAuthorModel = new AuthorModel();
+              updateAuthorModel.setName(authorTextField.getText());
+              updateAuthorModel.setDescription("");
+              AuthorBUS.getInstance().addModel(updateAuthorModel);
+              AuthorBUS.getInstance().refreshData();
+            }
+
+            for (PublisherModel publisherModel : PublisherBUS
+              .getInstance()
+              .getAllModels()) {
+              if (
+                publisherModel.getName().equals(publisherTextField.getText())
+              ) {
+                updatePublisherModel = publisherModel;
+                break;
+              }
+            }
+
+            if (updatePublisherModel == null) {
+              updatePublisherModel = new PublisherModel();
+              updatePublisherModel.setName(publisherTextField.getText());
+              updatePublisherModel.setDescription("");
+              PublisherBUS.getInstance().addModel(updatePublisherModel);
+              PublisherBUS.getInstance().refreshData();
+            }
+
+            // 2 dòng for này là để cập nhật lại updateAuthorModel và updatePublisherModel sau khi thêm
+            for (AuthorModel authorModel : AuthorBUS
+              .getInstance()
+              .getAllModels()) {
+              if (authorModel.getName().equals(authorTextField.getText())) {
+                updateAuthorModel = authorModel;
+                break;
+              }
+            }
+
+            for (PublisherModel publisherModel : PublisherBUS
+              .getInstance()
+              .getAllModels()) {
+              if (
+                publisherModel.getName().equals(publisherTextField.getText())
+              ) {
+                updatePublisherModel = publisherModel;
+                break;
+              }
+            }
+
             book = new BookModel();
             book.setIsbn(bookIsbnTextField.getText());
-            book.setAuthorId(option);
-            book.setPublisherId(option);
             book.setPrice(price);
+            book.setTitle(titleBookTextfield.getText());
+            book.setDescription(descriptionBookTextfield.getText());
+            book.setAuthorId(updateAuthorModel.getId());
+            book.setImage("");
+            book.setPublisherId(updatePublisherModel.getId());
             book.setQuantity(quantity);
             BookBUS.getInstance().addModel(book);
             BookBUS.getInstance().refreshData();
           } else {
+            book.setPrice(price);
             book.setQuantity(book.getQuantity() + quantity);
-
             book.setStatus(BookStatus.AVAILABLE);
             BookBUS.getInstance().updateModel(book);
             BookBUS.getInstance().refreshData();
           }
+        } catch (Exception e1) {
+          JOptionPane.showMessageDialog(null, e1);
         }
       }
     });
