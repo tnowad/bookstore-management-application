@@ -127,6 +127,7 @@ public class ImportNewPanel extends JPanel {
     authorLabel = new JLabel();
     authorTextField = new JTextField();
     addBookButton = new JButton();
+    findBookButton = new JButton();
     bookListPanel = new JPanel();
     bookListScrollPane = new JScrollPane();
 
@@ -221,7 +222,12 @@ public class ImportNewPanel extends JPanel {
     bookFormPanel.add(bookInformationPanel, BorderLayout.CENTER);
 
     addBookButton.setText("Add book");
-    bookFormPanel.add(addBookButton, BorderLayout.PAGE_END);
+    findBookButton.setText("Find Book");
+    JPanel groupButtonPanel = new JPanel();
+    groupButtonPanel.setLayout(new FlowLayout());
+    groupButtonPanel.add(addBookButton);
+    groupButtonPanel.add(findBookButton);
+    bookFormPanel.add(groupButtonPanel, BorderLayout.PAGE_END);
 
     gridBagConstraints = new GridBagConstraints();
     gridBagConstraints.gridx = 0;
@@ -315,18 +321,19 @@ public class ImportNewPanel extends JPanel {
         publisherTextField.setText(publisherModel.getName());
       }
     });
+    
+    findBookButton.addActionListener(e -> {
+      BookSearchForm bookSearchForm = new BookSearchForm();
+      new Dialog(bookSearchForm);
+
+      BookModel bookModel = bookSearchForm.find();
+
+      if (bookModel != null) {
+        bookIsbnTextField.setText(bookModel.getIsbn());
+        titleBookTextfield.setText(bookModel.getTitle());
+        quantityTextField.setText(String.valueOf(bookModel.getQuantity()));
+        priceTextField.setText(String.valueOf(bookModel.getPrice()));
+      }
+    });
   }
-  // private ActionListener addBookButtonActionListener = e -> {
-  // BookSearchForm bookSearchForm = new BookSearchForm();
-  // new Dialog(bookSearchForm);
-
-  // BookModel bookModel = bookSearchForm.find();
-
-  // if (bookModel != null) {
-  // bookIsbnTextField.setText(bookModel.getIsbn());
-  // titleBookTextfield.setText(bookModel.getTitle());
-  // quantityTextField.setText(String.valueOf(bookModel.getQuantity()));
-  // priceTextField.setText(String.valueOf(bookModel.getPrice()));
-  // }
-  // };
 }
