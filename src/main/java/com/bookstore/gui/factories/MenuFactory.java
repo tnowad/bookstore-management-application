@@ -21,7 +21,7 @@ import com.bookstore.gui.forms.imports.ImportList;
 import com.bookstore.gui.forms.orders.OrderHistory;
 import com.bookstore.gui.forms.orders.OrderList;
 import com.bookstore.gui.forms.reports.SalesReportForm;
-import com.bookstore.gui.forms.shop.ShopCustomerPanel;
+import com.bookstore.gui.forms.shop.ShopCustomerForm;
 import com.bookstore.gui.forms.users.CustomerListForm;
 import com.bookstore.gui.forms.users.EmployeeListForm;
 import com.bookstore.models.EmployeeModel;
@@ -709,7 +709,7 @@ public class MenuFactory {
 
   // customer
   private static ActionListener showShop = e -> {
-    MainPanel.getInstance().showForm(new ShopCustomerPanel());
+    MainPanel.getInstance().showForm(new ShopCustomerForm());
   };
   private static ActionListener showCartCustomer = e -> {
     MainPanel.getInstance().showForm(new CartCustomerForm());

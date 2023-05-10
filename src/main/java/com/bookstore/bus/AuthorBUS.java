@@ -105,8 +105,7 @@ public class AuthorBUS implements IBUS<AuthorModel> {
     if (authorModel.getName() == null || authorModel.getName().isEmpty()) {
       throw new IllegalArgumentException("Name cannot be null or empty!");
     }
-    if (authorModel.getDescription() == null ||
-        authorModel.getDescription().isEmpty()) {
+    if (authorModel.getDescription() == null) {
       throw new IllegalArgumentException(
           "Description cannot be null or empty!");
     }
