@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class PublisherDetail extends JFrame {
+public class PublisherItemDetailForm extends JFrame {
 
   private JTextArea setDescription;
   private JPanel buttonPanel;
@@ -26,7 +26,7 @@ public class PublisherDetail extends JFrame {
   PublisherBUS publisherBUS = PublisherBUS.getInstance();
   PublisherModel publisher;
 
-  public PublisherDetail(PublisherModel publisher) {
+  public PublisherItemDetailForm(PublisherModel publisher) {
     initComponents(publisher);
     this.publisher = publisher;
     setLocationRelativeTo(null);
@@ -93,6 +93,8 @@ public class PublisherDetail extends JFrame {
     setDescription.setText(publisher.getDescription());
     scrollPane.setViewportView(setDescription);
     scrollPane.getVerticalScrollBar().setValue(0);
+    scrollPane.getVerticalScrollBar().setUnitIncrement(16);
+    scrollPane.getVerticalScrollBar().setUnitIncrement(16);
 
     buttonPanel.setPreferredSize(new Dimension(50, 50));
     buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 30, 5));
@@ -164,7 +166,6 @@ public class PublisherDetail extends JFrame {
     }
   };
   public ActionListener actionDelete = new ActionListener() {
-
     @Override
     public void actionPerformed(ActionEvent e) {
       int choice = JOptionPane.showConfirmDialog(
@@ -174,16 +175,26 @@ public class PublisherDetail extends JFrame {
         JOptionPane.YES_NO_OPTION
       );
       if (choice == JOptionPane.YES_OPTION) {
-        if(BookBUS.getInstance().searchModel(String.valueOf(publisher.getId()),new String[] { "publisher_id" }).size()!=0){
-          JOptionPane.showMessageDialog(null, "You cannot delete this author because of product constraints!");
+        if (
+          BookBUS
+            .getInstance()
+            .searchModel(
+              String.valueOf(publisher.getId()),
+              new String[] { "publisher_id" }
+            )
+            .size() !=
+          0
+        ) {
+          JOptionPane.showMessageDialog(
+            null,
+            "You cannot delete this author because of product constraints!"
+          );
           return;
-        }
-        else{
+        } else {
           PublisherBUS.getInstance().deleteModel(publisher.getId());
           JOptionPane.showMessageDialog(null, "Completed");
         }
       }
     }
-    
   };
 }

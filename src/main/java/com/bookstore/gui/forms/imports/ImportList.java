@@ -98,6 +98,8 @@ public class ImportList extends JPanel implements ISearchable {
     // jScrollPane1 = new JScrollPane();
     groupListImport = new JPanel();
     scrollPaneTableList = new JScrollPane();
+    scrollPaneTableList.getVerticalScrollBar().setUnitIncrement(16);
+
     importTableList = new JTable();
 
     setMinimumSize(new Dimension(1180, 620));

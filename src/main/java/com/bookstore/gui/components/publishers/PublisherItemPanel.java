@@ -1,13 +1,12 @@
-package com.bookstore.gui.forms.publishers;
+package com.bookstore.gui.components.publishers;
 
+import com.bookstore.gui.forms.publishers.PublisherItemDetailForm;
 import com.bookstore.models.PublisherModel;
 import java.awt.*;
 import java.awt.event.*;
-
 import javax.swing.*;
 
-
-public class PublisherPanel extends JPanel implements MouseListener{
+public class PublisherItemPanel extends JPanel {
 
   private JPanel panel;
   private JLabel setDescription;
@@ -15,13 +14,15 @@ public class PublisherPanel extends JPanel implements MouseListener{
   private JLabel setName;
   private JLabel setSerial;
 
-  public PublisherPanel(int serial, PublisherModel publisher) {
+  public PublisherItemPanel(int serial, PublisherModel publisher) {
     initComponents(serial, publisher);
     addMouseListener(
       new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {
-          PublisherDetail publisherDetail = new PublisherDetail(publisher);
+          PublisherItemDetailForm publisherDetail = new PublisherItemDetailForm(
+            publisher
+          );
           publisherDetail.setVisible(true);
         }
       }
@@ -53,30 +54,5 @@ public class PublisherPanel extends JPanel implements MouseListener{
     setDescription.setText(publisher.getDescription());
     setDescription.setPreferredSize(new Dimension(100, 16));
     add(setDescription);
-  }
-
-  @Override
-  public void mouseClicked(MouseEvent e) {
-    
-  }
-
-  @Override
-  public void mousePressed(MouseEvent e) {
-   
-  }
-
-  @Override
-  public void mouseReleased(MouseEvent e) {
-    
-  }
-
-  @Override
-  public void mouseEntered(MouseEvent e) {
-    
-  }
-
-  @Override
-  public void mouseExited(MouseEvent e) {
-    
   }
 }

@@ -139,6 +139,7 @@ public class ImportDetailPanel extends JPanel {
     updateButton = new Button();
     resetButton = new Button();
     tableScrollPane = new JScrollPane();
+    tableScrollPane.getVerticalScrollBar().setUnitIncrement(16);
     // jPanel5 = new JPanel();
     // jScrollPane1 = new JScrollPane();
     bookListTable = new JTable();

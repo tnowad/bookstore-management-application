@@ -143,6 +143,7 @@ public class CartCustomerForm extends JPanel {
     }
     listCartTable.setModel(model);
     listCartScrollPane.setViewportView(listCartTable);
+    listCartScrollPane.getVerticalScrollBar().setUnitIncrement(16);
     listCartPanel.add(listCartScrollPane, BorderLayout.CENTER);
     try {
       NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(

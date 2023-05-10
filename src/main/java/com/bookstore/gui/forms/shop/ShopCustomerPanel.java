@@ -180,7 +180,7 @@ public class ShopCustomerPanel
     JPanel bookListWrapper = new JPanel();
     bookListWrapper.add(bookListPanel);
     bookListScrollPane.setViewportView(bookListWrapper);
-    bookListScrollPane.getVerticalScrollBar().setUnitIncrement(50);
+    bookListScrollPane.getVerticalScrollBar().setUnitIncrement(16);
 
     add(bookListScrollPane, BorderLayout.CENTER);
   }

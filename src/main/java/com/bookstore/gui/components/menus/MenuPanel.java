@@ -2,7 +2,6 @@ package com.bookstore.gui.components.menus;
 
 import com.bookstore.models.gui.MenuItemModel;
 import com.bookstore.models.gui.MenuModel;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -49,6 +48,7 @@ public class MenuPanel extends JPanel {
     scrollPane.setViewport(null);
     scrollPane.getVerticalScrollBar().setUnitIncrement(16);
     scrollPane.setViewportView(menuItemsPanel);
+    scrollPane.getVerticalScrollBar().setUnitIncrement(16);
     setLayout(new BorderLayout());
     add(scrollPane, BorderLayout.CENTER);
     setPreferredSize(new Dimension(400, 400));

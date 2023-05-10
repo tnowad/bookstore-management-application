@@ -21,7 +21,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 
-public class SalesReportPanel extends JPanel implements ISearchable {
+public class SalesReportForm extends JPanel implements ISearchable {
 
   private JPanel headerPanel;
   private JPanel contentPanel;
@@ -33,7 +33,7 @@ public class SalesReportPanel extends JPanel implements ISearchable {
 
   private Table table;
 
-  public SalesReportPanel() {
+  public SalesReportForm() {
     initComponents();
     updateTable();
   }
@@ -113,6 +113,7 @@ public class SalesReportPanel extends JPanel implements ISearchable {
     contentPanel.add(label, BorderLayout.NORTH);
     contentPanel.add(table, BorderLayout.CENTER);
     JScrollPane scrollPane = new JScrollPane(table);
+    scrollPane.getVerticalScrollBar().setUnitIncrement(16);
     contentPanel.add(scrollPane, BorderLayout.CENTER);
     add(contentPanel, BorderLayout.CENTER);
   }

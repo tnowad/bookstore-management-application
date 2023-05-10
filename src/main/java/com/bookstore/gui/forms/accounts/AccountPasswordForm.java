@@ -59,6 +59,7 @@ public class AccountPasswordForm extends JPanel {
     );
 
     scrollPane.setBorder(null);
+    scrollPane.getVerticalScrollBar().setUnitIncrement(16);
     add(scrollPane, BorderLayout.CENTER);
 
     JPanel actionPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));

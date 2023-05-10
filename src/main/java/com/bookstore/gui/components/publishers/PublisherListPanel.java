@@ -1,8 +1,7 @@
 package com.bookstore.gui.components.publishers;
 
 import com.bookstore.bus.PublisherBUS;
-import com.bookstore.gui.forms.publishers.AddPublisher;
-import com.bookstore.gui.forms.publishers.PublisherPanel;
+import com.bookstore.gui.forms.publishers.AddPublisherForm;
 import com.bookstore.interfaces.ISearchable;
 import com.bookstore.models.PublisherModel;
 import java.awt.*;
@@ -10,8 +9,7 @@ import java.awt.event.*;
 import java.util.List;
 import javax.swing.*;
 
-
-public class PublisherListPanel extends JPanel implements ISearchable{
+public class PublisherListPanel extends JPanel implements ISearchable {
 
   private JButton buttonAdd;
   private JPanel buttonsPanel;
@@ -104,6 +102,8 @@ public class PublisherListPanel extends JPanel implements ISearchable{
 
     scrollPane.setViewportView(contendTable);
 
+    scrollPane.getVerticalScrollBar().setUnitIncrement(16);
+
     table.add(scrollPane, BorderLayout.CENTER);
 
     contend.add(table, BorderLayout.CENTER);
@@ -116,7 +116,10 @@ public class PublisherListPanel extends JPanel implements ISearchable{
     contendTable.setLayout(new GridLayout(0, 1, 0, 15));
     int serial = 1;
     for (PublisherModel publisher : listPublisher) {
-      PublisherPanel publisherPanel = new PublisherPanel(serial, publisher);
+      PublisherItemPanel publisherPanel = new PublisherItemPanel(
+        serial,
+        publisher
+      );
       contendTable.add(publisherPanel);
       serial = serial + 1;
     }
@@ -125,14 +128,13 @@ public class PublisherListPanel extends JPanel implements ISearchable{
   }
 
   public ActionListener actionAdd = new ActionListener() {
-
     @Override
     public void actionPerformed(ActionEvent e) {
-      AddPublisher addPublisher = new AddPublisher();
+      AddPublisherForm addPublisher = new AddPublisherForm();
       addPublisher.setVisible(true);
     }
-    
   };
+
   @Override
   public void search(String keyword) {
     contendTable.removeAll();
@@ -163,5 +165,4 @@ public class PublisherListPanel extends JPanel implements ISearchable{
       }
     }
   }
-
 }

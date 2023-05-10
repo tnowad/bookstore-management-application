@@ -113,6 +113,7 @@ public class DashboardPanel extends JPanel implements ISearchable {
     contentPanel.add(label, BorderLayout.NORTH);
     contentPanel.add(table, BorderLayout.CENTER);
     JScrollPane scrollPane = new JScrollPane(table);
+    scrollPane.getVerticalScrollBar().setUnitIncrement(16);
     contentPanel.add(scrollPane, BorderLayout.CENTER);
     add(contentPanel, BorderLayout.CENTER);
   }

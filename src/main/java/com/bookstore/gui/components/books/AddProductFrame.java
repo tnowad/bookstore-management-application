@@ -189,6 +189,8 @@ public class AddProductFrame extends JFrame {
     setDescription.setText("description ?");
     scrollPane.setViewportView(setDescription);
 
+    scrollPane.getVerticalScrollBar().setUnitIncrement(16);
+
     getContentPane().add(scrollPane);
 
     buttonPanel.setPreferredSize(new Dimension(300, 50));

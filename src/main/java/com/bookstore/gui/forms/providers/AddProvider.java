@@ -73,17 +73,20 @@ public class AddProvider extends JFrame {
     setDescription.setText("Description here!");
     scrollPane.setViewportView(setDescription);
     scrollPane.getVerticalScrollBar().setValue(0);
+    scrollPane.getVerticalScrollBar().setUnitIncrement(16);
 
     buttonPanel.setPreferredSize(new Dimension(50, 50));
     buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 30, 5));
     buttonBack.setIcon(
-        new ImageIcon(getClass().getResource("/resources/icons/back.png")));
+      new ImageIcon(getClass().getResource("/resources/icons/back.png"))
+    );
     buttonBack.setPreferredSize(new Dimension(80, 30));
     buttonBack.addActionListener(actionBack);
     buttonPanel.add(buttonBack);
 
     buttonSave.setIcon(
-        new ImageIcon(getClass().getResource("/resources/icons/save.png")));
+      new ImageIcon(getClass().getResource("/resources/icons/save.png"))
+    );
     buttonSave.setPreferredSize(new Dimension(80, 30));
     buttonSave.addActionListener(actionSave);
     buttonPanel.add(buttonSave);
@@ -108,17 +111,23 @@ public class AddProvider extends JFrame {
         return;
       }
       int choice = JOptionPane.showConfirmDialog(
-          null,
-          "Do you want to add provider?",
-          "Confirmation",
-          JOptionPane.YES_NO_OPTION);
+        null,
+        "Do you want to add provider?",
+        "Confirmation",
+        JOptionPane.YES_NO_OPTION
+      );
       if (choice == JOptionPane.YES_OPTION) {
-
         if (providerBUS.getModelByName(setName.getText().trim()) != null) {
           JOptionPane.showMessageDialog(null, "Provider already exists!");
           return;
         }
-        providerBUS.addModel(new ProviderModel(9, setName.getText().trim(), setDescription.getText().trim()));
+        providerBUS.addModel(
+          new ProviderModel(
+            9,
+            setName.getText().trim(),
+            setDescription.getText().trim()
+          )
+        );
         JOptionPane.showMessageDialog(null, "Complete");
         providerBUS.refreshData();
         JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(buttonBack);

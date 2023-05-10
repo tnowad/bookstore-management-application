@@ -112,6 +112,8 @@ public class BrowseProductPanel
         JScrollPane.HORIZONTAL_SCROLLBAR_NEVER
       );
 
+    scrollPane.getVerticalScrollBar().setUnitIncrement(16);
+
     contendPanel.add(scrollPane, BorderLayout.CENTER);
 
     add(contendPanel, BorderLayout.CENTER);

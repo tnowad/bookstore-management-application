@@ -116,6 +116,7 @@ public class AuthorDetailForm extends JFrame {
     setDescription.setRows(5);
     setDescription.setText(author.getDescription());
     scrollPane.setViewportView(setDescription);
+    scrollPane.getVerticalScrollBar().setUnitIncrement(16);
     scrollPane.getVerticalScrollBar().setValue(0);
 
     buttonPanel.setPreferredSize(new Dimension(50, 50));

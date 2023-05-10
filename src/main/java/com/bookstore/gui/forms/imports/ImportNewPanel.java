@@ -262,6 +262,7 @@ public class ImportNewPanel extends JPanel {
     bookListTable = new JTable(bookTableModel);
     bookListTable.setFillsViewportHeight(true);
     bookListScrollPane.setViewportView(bookListTable);
+    bookListScrollPane.getVerticalScrollBar().setUnitIncrement(16);
 
     bookListPanel.add(bookListScrollPane);
 
@@ -391,7 +392,7 @@ public class ImportNewPanel extends JPanel {
           .getBookByIsbn(bookIsbnTextField.getText());
         int quantity = Integer.parseInt(quantityTextField.getText());
         int price = Integer.parseInt(priceTextField.getText());
-        // AuthorModel 
+        // AuthorModel
 
         for (AuthorModel author : AuthorBUS.getInstance().getAllModels()) {
           if (author.getName().equals(authorTextField.getText())) {
