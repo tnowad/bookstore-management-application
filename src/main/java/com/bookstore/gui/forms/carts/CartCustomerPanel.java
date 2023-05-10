@@ -43,7 +43,7 @@ public class CartCustomerPanel extends JPanel {
     if (cartItemsList.size() > 0) {
       listCart();
     } else {
-      listCartPanel.add(new NoDataPanel("Don't have any cart"));
+      listCartPanel.add(new NoDataPanel("Cart is empty"));
     }
     handleEvent();
   }

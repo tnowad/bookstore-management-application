@@ -9,6 +9,7 @@ import com.bookstore.models.ProviderModel;
 import com.bookstore.models.tables.BookTableModel;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -54,12 +55,14 @@ public class ImportNewPanel extends JPanel {
 
   private ProviderModel providerModel;
   private BookTableModel bookTableModel;
-  private ImportItemsModel[] importItemsList;
+  private List<ImportItemsModel> importItemsList = new ArrayList<ImportItemsModel>();
 
   public ImportNewPanel() {
     initComponents();
     handleEvent();
-    bookImportListTable();
+    // if (importItemsList.size() > 0) {
+    //   bookImportListTable();
+    // }
   }
 
   private void bookImportListTable() {
