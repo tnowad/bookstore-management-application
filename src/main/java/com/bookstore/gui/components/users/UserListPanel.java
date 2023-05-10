@@ -1,6 +1,7 @@
 package com.bookstore.gui.components.users;
 
 import com.bookstore.bus.UserBUS;
+import com.bookstore.enums.UserRole;
 import com.bookstore.gui.components.cards.CardPanel;
 import com.bookstore.gui.components.carts.CartUserAdmin;
 import com.bookstore.interfaces.ISearchable;
@@ -62,6 +63,8 @@ public class UserListPanel extends JPanel implements ISearchable {
   private UserBUS userBUS = UserBUS.getInstance();
   private List<UserModel> listUser = userBUS.getAllModels();
   private List<UserModel> modifiableUserList = new ArrayList<>(listUser);
+
+  UserModel userModel = Authentication.getCurrentUser();
 
   public UserListPanel() {
     actionCard();
@@ -129,6 +132,8 @@ public class UserListPanel extends JPanel implements ISearchable {
     cartUserAdmin.setColor(Color.decode("#FFC107"));
     cartPanel.add(cartUserAdmin);
 
+    if(userModel.getRole() == UserRole.ADMIN) {
+
     cartUserAdmin =
     new CardPanel(
       new StatisticCardModel(
@@ -141,6 +146,7 @@ public class UserListPanel extends JPanel implements ISearchable {
     cartUserAdmin.setColor(Color.decode("#4CAF50"));
     cartPanel.add(cartUserAdmin);
 
+    }
     cartUserAdmin =
     new CardPanel(
       new StatisticCardModel(

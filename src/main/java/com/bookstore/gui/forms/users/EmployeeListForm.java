@@ -122,9 +122,11 @@ public class EmployeeListForm extends JPanel {
   private void initComponents() {
     headerPanel = new JPanel();
     groupTopHeaderPanel = new JPanel();
-    employeeListLabel = new Label("Customer List");
+    employeeListLabel = new Label("Employee_sales List");
+    employeeListLabel.setFont(new Font("Arial", Font.BOLD, 16));
     addEmployeePanel = new JPanel();
-    addEmployeeButton = new Button("Add Customer");
+    addEmployeeButton = new Button("Add sales");
+    addEmployeeButton.setFont(new Font("Arial", Font.BOLD, 16));
     addEmployeeButton.setPreferredSize(new Dimension(200, 40));
     groupBottomHeaderPanel = new JPanel();
     searchEmployeeTxtField = new JTextField();
