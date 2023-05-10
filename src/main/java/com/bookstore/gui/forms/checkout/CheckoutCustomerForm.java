@@ -38,7 +38,7 @@ import java.util.List;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-public class CheckoutCustomerPanel extends JPanel {
+public class CheckoutCustomerForm extends JPanel {
 
   private JLabel addressLabel;
   private JTextField addressTextField;
@@ -72,7 +72,7 @@ public class CheckoutCustomerPanel extends JPanel {
   private List<CartItemsModel> myCartItemList;
   private JTextField cardHolderTextField;
 
-  public CheckoutCustomerPanel(CartModel cartModel) {
+  public CheckoutCustomerForm(CartModel cartModel) {
     this.cartModel = cartModel;
     userModel = Authentication.getCurrentUser();
     addressModel = AddressBUS.getInstance().getModelById(userModel.getId());

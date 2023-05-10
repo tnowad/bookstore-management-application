@@ -57,14 +57,15 @@ public class OrderListPanel extends JPanel {
                 // .getInstance()
                 // .showFormStack(new OrderDetail(customerId));
               addTable();
-            } else {
-              JOptionPane.showMessageDialog(
-                null,
-                "No row selected!",
-                "Warning",
-                JOptionPane.WARNING_MESSAGE
-              );
             }
+            //  else {
+            //   JOptionPane.showMessageDialog(
+            //     null,
+            //     "No row selected!",
+            //     "Warning",
+            //     JOptionPane.WARNING_MESSAGE
+            //   );
+            // }
           }
         }
       );

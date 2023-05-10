@@ -7,7 +7,7 @@ import com.bookstore.enums.BookStatus;
 import com.bookstore.gui.components.books.BookItemPanel;
 import com.bookstore.gui.components.dialogs.Dialog;
 import com.bookstore.gui.components.panels.MainPanel;
-import com.bookstore.gui.forms.carts.CartCustomerPanel;
+import com.bookstore.gui.forms.carts.CartCustomerForm;
 import com.bookstore.gui.forms.filters.BookFilterForm;
 import com.bookstore.gui.forms.general.NoDataPanel;
 import com.bookstore.interfaces.IListPanel;
@@ -51,7 +51,7 @@ public class ShopCustomerPanel
 
   private void handleEvent() {
     cartButtonTextField.addActionListener(arg0 -> {
-      MainPanel.getInstance().showForm(new CartCustomerPanel());
+      MainPanel.getInstance().showForm(new CartCustomerForm());
     });
     sortByConditionComboBox.addActionListener(e -> {
       bookListPanel.removeAll();
@@ -210,6 +210,7 @@ public class ShopCustomerPanel
 
   @Override
   public void updateList(List<BookModel> filteredList) {
+    filteredList = new ArrayList<>(filteredList);
     for (int i = 0; i < filteredList.size(); i++) {
       if (
         filteredList.get(i).getStatus() == BookStatus.DELETED ||

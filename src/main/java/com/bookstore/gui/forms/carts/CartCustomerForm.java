@@ -5,7 +5,7 @@ import com.bookstore.bus.CartBUS;
 import com.bookstore.bus.CartItemsBUS;
 import com.bookstore.gui.components.dialogs.Dialog;
 import com.bookstore.gui.components.panels.MainPanel;
-import com.bookstore.gui.forms.checkout.CheckoutCustomerPanel;
+import com.bookstore.gui.forms.checkout.CheckoutCustomerForm;
 import com.bookstore.gui.forms.general.NoDataPanel;
 import com.bookstore.models.BookModel;
 import com.bookstore.models.CartItemsModel;
@@ -21,7 +21,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
-public class CartCustomerPanel extends JPanel {
+public class CartCustomerForm extends JPanel {
 
   private JButton deleteAllProductsButton;
   private JButton proceedToCheckoutButton;
@@ -37,7 +37,7 @@ public class CartCustomerPanel extends JPanel {
   private List<CartItemsModel> cartItemsList;
   private UserModel userModel;
 
-  public CartCustomerPanel() {
+  public CartCustomerForm() {
     updateData();
     initComponents();
     if (cartItemsList.size() > 0) {
@@ -196,7 +196,7 @@ public class CartCustomerPanel extends JPanel {
         if (option == JOptionPane.YES_OPTION) {
           MainPanel
             .getInstance()
-            .showFormStack(new CheckoutCustomerPanel(cartModel));
+            .showFormStack(new CheckoutCustomerForm(cartModel));
         }
       }
     });

@@ -1,4 +1,4 @@
-package com.bookstore.gui.components.dashboards;
+package com.bookstore.gui.forms.dashboards;
 
 import com.bookstore.bus.BookBUS;
 import com.bookstore.bus.OrderBUS;

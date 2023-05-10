@@ -20,7 +20,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-public class BookListSale extends JPanel {
+public class BookListSaleForm extends JPanel {
 
   private Button addBookButton;
   private Label bookListLabel;
@@ -41,7 +41,7 @@ public class BookListSale extends JPanel {
   BookBUS bookBus = BookBUS.getInstance();
   List<BookModel> bookList = bookBus.getAllModels();
 
-  public BookListSale() {
+  public BookListSaleForm() {
     initComponents();
     listBooks();
     search();
