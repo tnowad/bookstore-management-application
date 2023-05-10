@@ -3,8 +3,6 @@ package com.bookstore.gui.factories;
 import com.bookstore.dao.EmployeeDAO;
 import com.bookstore.gui.components.authors.AuthorListPanel;
 import com.bookstore.gui.components.books.BrowseProductPanel;
-import com.bookstore.gui.components.dashboards.DashboardPanel;
-import com.bookstore.gui.components.orders.OrderListPanel;
 import com.bookstore.gui.components.panels.MainPanel;
 import com.bookstore.gui.components.providers.ProviderListPanel;
 import com.bookstore.gui.components.publishers.PublisherListPanel;
@@ -16,6 +14,7 @@ import com.bookstore.gui.forms.accounts.AccountPasswordForm;
 import com.bookstore.gui.forms.accounts.AccountProfileForm;
 import com.bookstore.gui.forms.books.BookListForm;
 import com.bookstore.gui.forms.carts.CartCustomerForm;
+import com.bookstore.gui.forms.dashboards.DashboardPanel;
 import com.bookstore.gui.forms.general.AboutUs;
 import com.bookstore.gui.forms.general.ContactUs;
 import com.bookstore.gui.forms.imports.ImportList;
@@ -25,7 +24,6 @@ import com.bookstore.gui.forms.reports.SalesReportPanel;
 import com.bookstore.gui.forms.shop.ShopCustomerPanel;
 import com.bookstore.gui.forms.users.CustomerList;
 import com.bookstore.gui.forms.users.EmployeeList;
-import com.bookstore.gui.forms.users.SalaryList;
 import com.bookstore.models.EmployeeModel;
 import com.bookstore.models.UserModel;
 import com.bookstore.models.gui.MenuItemModel;
@@ -706,7 +704,7 @@ public class MenuFactory {
   };
 
   private static ActionListener showSalaryList = e -> {
-    MainPanel.getInstance().showForm(new SalaryList());
+    MainPanel.getInstance().showForm(new SalaryListPanel());
   };
 
   // customer

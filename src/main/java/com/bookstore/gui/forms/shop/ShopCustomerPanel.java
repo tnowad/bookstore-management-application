@@ -210,6 +210,7 @@ public class ShopCustomerPanel
 
   @Override
   public void updateList(List<BookModel> filteredList) {
+    filteredList = new ArrayList<>(filteredList);
     for (int i = 0; i < filteredList.size(); i++) {
       if (
         filteredList.get(i).getStatus() == BookStatus.DELETED ||

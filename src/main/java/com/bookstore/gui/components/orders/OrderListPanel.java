@@ -3,9 +3,6 @@ package com.bookstore.gui.components.orders;
 import com.bookstore.bus.OrderBUS;
 import com.bookstore.bus.UserBUS;
 import com.bookstore.enums.OrderStatus;
-import com.bookstore.gui.components.dialogs.Dialog;
-import com.bookstore.gui.components.panels.MainPanel;
-import com.bookstore.gui.forms.orders.OrderDetail;
 import com.bookstore.models.OrderModel;
 import com.bookstore.models.UserModel;
 import java.awt.BorderLayout;
@@ -16,7 +13,6 @@ import java.awt.GridLayout;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -50,12 +46,12 @@ public class OrderListPanel extends JPanel {
           public void valueChanged(ListSelectionEvent event) {
             int selectedRowIndex = table.getSelectedRow();
             if (selectedRowIndex != -1) {
-              int customerId = Integer.parseInt(
-                table.getValueAt(selectedRowIndex, 2).toString()
-              );
+              // int customerId = Integer.parseInt(
+              //   table.getValueAt(selectedRowIndex, 2).toString()
+              // );
               // MainPanel
-                // .getInstance()
-                // .showFormStack(new OrderDetail(customerId));
+              // .getInstance()
+              // .showFormStack(new OrderDetail(customerId));
               addTable();
             }
             //  else {
@@ -98,11 +94,11 @@ public class OrderListPanel extends JPanel {
 
     jPanel3.setLayout(new GridLayout(1, 0, 5, 0));
 
-    exportButton.setText("Xuất File");
+    exportButton.setText("Export");
     exportButton.setToolTipText("");
     jPanel3.add(exportButton);
 
-    importButton.setText("Nhập File");
+    importButton.setText("Import");
     jPanel3.add(importButton);
 
     createButton.setText("Create");

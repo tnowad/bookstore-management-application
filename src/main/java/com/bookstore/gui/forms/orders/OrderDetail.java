@@ -231,7 +231,7 @@ public class OrderDetail extends JPanel {
     groupHeaderPanel = new JPanel();
     groupBottomPanel = new JPanel();
     NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(
-      new Locale("vi", "VN")
+      Locale.of("vi", "VN")
     );
     totalPriceLabel =
       new Label(

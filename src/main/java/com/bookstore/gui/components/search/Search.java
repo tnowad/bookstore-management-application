@@ -9,11 +9,9 @@ import java.util.List;
 public class Search {
 
   private List<BookModel> bookList;
-  private List<UserModel> userList;
 
   public Search(List<BookModel> bookList, List<UserModel> userList) {
     this.bookList = bookList;
-    this.userList = userList;
   }
 
   public List<BookModel> BookModels(String searchText) {
@@ -29,6 +27,8 @@ public class Search {
   }
 
   public List<UserModel> searchUsers(String searchText) {
-    return UserBUS.getInstance().searchModel(searchText, new String[]{"name"});
+    return UserBUS
+      .getInstance()
+      .searchModel(searchText, new String[] { "name" });
   }
 }

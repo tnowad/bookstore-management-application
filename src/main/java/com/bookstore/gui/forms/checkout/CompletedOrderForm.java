@@ -37,7 +37,9 @@ public class CompletedOrderForm extends JPanel {
     messagePanel.setLayout(new BoxLayout(messagePanel, BoxLayout.Y_AXIS));
     messagePanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-    JLabel titleLabel = new JLabel("Your order is completed!");
+    JLabel titleLabel = new JLabel(
+      "Your order #" + cartModel.getId() + " is completed!"
+    );
     titleLabel.setFont(new Font("Serif", Font.BOLD, 24));
     titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
