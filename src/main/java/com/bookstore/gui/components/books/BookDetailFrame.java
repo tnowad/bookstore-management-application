@@ -11,7 +11,6 @@ import java.awt.datatransfer.StringSelection;
 import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
-
 import javax.swing.*;
 
 public class BookDetailFrame extends JFrame {
@@ -43,7 +42,6 @@ public class BookDetailFrame extends JFrame {
   private JLabel statusText;
   private JButton chooseLink;
   private String base64;
-
 
   private BookModel bookModel;
 
@@ -101,7 +99,8 @@ public class BookDetailFrame extends JFrame {
     informationPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
 
     chooseLink.setIcon(
-        new ImageIcon(getClass().getResource("/resources/icons/categories.png")));
+      new ImageIcon(getClass().getResource("/resources/icons/categories.png"))
+    );
     chooseLink.setActionCommand("+");
     chooseLink.setPreferredSize(new Dimension(40, 23));
     chooseLink.addActionListener(actionAddLinkImage);
@@ -305,10 +304,9 @@ public class BookDetailFrame extends JFrame {
       newBook.setIsbn(bookModel.getIsbn());
       newBook.setTitle(bookModel.getTitle());
       newBook.setDescription(newDescription);
-      if(stringImage != null){
+      if (stringImage != null) {
         newBook.setImage(stringImage);
-      }
-      else{
+      } else {
         newBook.setImage(newBook.getImage());
       }
       newBook.setPrice(newPrice);
@@ -339,7 +337,6 @@ public class BookDetailFrame extends JFrame {
   };
 
   public ActionListener actionAddLinkImage = new ActionListener() {
-
     @Override
     public void actionPerformed(ActionEvent e) {
       JFileChooser fileChooser = new JFileChooser();
@@ -347,22 +344,22 @@ public class BookDetailFrame extends JFrame {
       if (returnValue == JFileChooser.APPROVE_OPTION) {
         File selectedFile = fileChooser.getSelectedFile();
         String filePath = selectedFile.getAbsolutePath();
-        setImage.setText(filePath);
 
         // get image from file path
         base64 = null;
         try {
           base64 = ImageUtils.toBase64(ImageUtils.loadImage(filePath));
           Toolkit
-              .getDefaultToolkit()
-              .getSystemClipboard()
-              .setContents(new StringSelection(base64), null);
+            .getDefaultToolkit()
+            .getSystemClipboard()
+            .setContents(new StringSelection(base64), null);
           stringImage = base64;
+          setImage.removeAll();
+          setImage(base64);
         } catch (IOException ex) {
           ex.printStackTrace();
         }
       }
     }
-    
   };
 }
