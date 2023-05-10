@@ -120,7 +120,7 @@ public class UserListPanel extends JPanel implements ISearchable {
     cartUserAdmin =
       new CardPanel(
         new StatisticCardModel(
-          new ImageIcon("src/main/java/resources/icons/employeeCart"),
+          new ImageIcon("src/main/java/resources/icons/employeeCart.png"),
           "EMPLOYEE",
           ""+quantityEmployee,
           "New Employee: "+quantityEmployeeNew
@@ -132,7 +132,7 @@ public class UserListPanel extends JPanel implements ISearchable {
     cartUserAdmin =
     new CardPanel(
       new StatisticCardModel(
-        new ImageIcon("src/main/java/resources/icons/admin-cart"),
+        new ImageIcon("src/main/java/resources/icons/admin-cart.png"),
         "ADMIN",
         ""+quantityAdmin,
         "New Employee: "+quantityAdminNew
@@ -144,7 +144,7 @@ public class UserListPanel extends JPanel implements ISearchable {
     cartUserAdmin =
     new CardPanel(
       new StatisticCardModel(
-        new ImageIcon("src/main/java/resources/icons/customerCart"),
+        new ImageIcon("src/main/java/resources/icons/customerCart.png"),
         "CUSTOMER",
         ""+quantityCustomer,
         "New Employee: "+quantityCustomerNew

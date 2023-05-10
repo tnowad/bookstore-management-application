@@ -166,7 +166,7 @@ public class PopupUserFrame extends JFrame {
         new String[] { "INACTIVE", "ACTIVE", "BANNED" }
       )
     );
-    setStatus.setPreferredSize(new Dimension(90, 25));
+    setStatus.setPreferredSize(new Dimension(95, 25));
     getContentPane().add(setStatus);
 
     roleText.setFont(new Font("Segoe UI", 0, 18));
@@ -180,7 +180,7 @@ public class PopupUserFrame extends JFrame {
         new String[] { "ADMIN", "CUSTOMER", "EMPLOYEE" }
       )
     );
-    setRole.setPreferredSize(new Dimension(95, 25));
+    setRole.setPreferredSize(new Dimension(100, 25));
     getContentPane().add(setRole);
 
     dateCreatedText.setFont(new Font("Segoe UI", 0, 18));
