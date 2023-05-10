@@ -6,7 +6,6 @@ import com.bookstore.bus.PublisherBUS;
 import com.bookstore.enums.BookStatus;
 import com.bookstore.models.BookModel;
 import com.bookstore.util.image.ImageUtils;
-
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -97,7 +96,7 @@ public class BookDetailFrame extends JFrame {
     informationPanel.add(setTitle);
 
     priceText.setFont(new Font("Segoe UI", 0, 18));
-    priceText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+    priceText.setHorizontalAlignment(SwingConstants.RIGHT);
     priceText.setText("Price:");
     priceText.setPreferredSize(new Dimension(100, 25));
     informationPanel.add(priceText);
@@ -108,7 +107,7 @@ public class BookDetailFrame extends JFrame {
     informationPanel.add(setPrice);
 
     statusText.setFont(new Font("Segoe UI", 0, 18));
-    statusText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+    statusText.setHorizontalAlignment(SwingConstants.RIGHT);
     statusText.setText("Status:");
     statusText.setPreferredSize(new Dimension(290, 25));
     informationPanel.add(statusText);
@@ -122,7 +121,7 @@ public class BookDetailFrame extends JFrame {
     informationPanel.add(setStatus);
 
     isbnText.setFont(new Font("Segoe UI", 0, 18));
-    isbnText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+    isbnText.setHorizontalAlignment(SwingConstants.RIGHT);
     isbnText.setText("ISBN");
     isbnText.setPreferredSize(new Dimension(150, 25));
     informationPanel.add(isbnText);
@@ -134,7 +133,7 @@ public class BookDetailFrame extends JFrame {
     informationPanel.add(setIsbn);
 
     quantityText.setFont(new Font("Segoe UI", 0, 18));
-    quantityText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+    quantityText.setHorizontalAlignment(SwingConstants.RIGHT);
     quantityText.setText("Available Quantity");
     quantityText.setPreferredSize(new Dimension(230, 25));
     informationPanel.add(quantityText);
@@ -145,7 +144,7 @@ public class BookDetailFrame extends JFrame {
     informationPanel.add(setAvailableQuantity);
 
     authorText.setFont(new Font("Segoe UI", 0, 18));
-    authorText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+    authorText.setHorizontalAlignment(SwingConstants.RIGHT);
     authorText.setText("Author");
     authorText.setPreferredSize(new Dimension(230, 25));
     informationPanel.add(authorText);
@@ -159,7 +158,7 @@ public class BookDetailFrame extends JFrame {
     informationPanel.add(setAuthorName);
 
     publisherText.setFont(new Font("Segoe UI", 0, 18));
-    publisherText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+    publisherText.setHorizontalAlignment(SwingConstants.RIGHT);
     publisherText.setText("Publisher");
     publisherText.setPreferredSize(new Dimension(230, 25));
     informationPanel.add(publisherText);
@@ -250,6 +249,7 @@ public class BookDetailFrame extends JFrame {
   public ActionListener actionSave = new ActionListener() {
     final String INVALID_PRICE_ERROR = "Price is not valid!";
     final String INVALID_QUANTITY_ERROR = "Quantity is not valid!";
+
     @Override
     public void actionPerformed(ActionEvent evt) {
       if (setDescription.getText().isEmpty()) {
@@ -277,7 +277,6 @@ public class BookDetailFrame extends JFrame {
         return;
       }
 
-
       Object selectedStatusItem = setStatus.getSelectedItem();
       String statusString = selectedStatusItem.toString().toUpperCase();
       BookStatus newStatus = BookStatus.valueOf(statusString);
@@ -303,10 +302,7 @@ public class BookDetailFrame extends JFrame {
       if (confirm == JOptionPane.YES_OPTION) {
         BookBUS.getInstance().updateModel(newBook);
         BookBUS.getInstance().refreshData();
-        JOptionPane.showMessageDialog(
-        null,
-        "Complete!"
-      );
+        JOptionPane.showMessageDialog(null, "Complete!");
       }
     }
   };

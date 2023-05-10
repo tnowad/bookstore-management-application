@@ -212,7 +212,7 @@ public class UserListPanel extends JPanel implements ISearchable {
 
     tablePanel.setLayout(new BorderLayout());
 
-    headerTable.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+    headerTable.setBorder(BorderFactory.createEtchedBorder());
 
     headerTable.setLayout(new GridLayout());
 

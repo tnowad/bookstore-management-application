@@ -63,20 +63,20 @@ public class CreateUserFrame extends JFrame {
     buttonBack = new JButton();
     buttonSave = new JButton();
 
-    setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+    setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     setMinimumSize(new Dimension(590, 394));
     setPreferredSize(new Dimension(590, 394));
     getContentPane().setLayout(new FlowLayout(FlowLayout.LEFT, 25, 15));
 
     titlePanel.setFont(new Font("Segoe UI", 1, 18));
     titlePanel.setForeground(new Color(255, 51, 0));
-    titlePanel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+    titlePanel.setHorizontalAlignment(SwingConstants.CENTER);
     titlePanel.setText("New User");
     titlePanel.setPreferredSize(new Dimension(530, 25));
     getContentPane().add(titlePanel);
 
     nameText.setFont(new Font("Segoe UI", 1, 15));
-    nameText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+    nameText.setHorizontalAlignment(SwingConstants.RIGHT);
     nameText.setText("Name");
     nameText.setPreferredSize(new Dimension(180, 20));
     getContentPane().add(nameText);
@@ -85,7 +85,7 @@ public class CreateUserFrame extends JFrame {
     getContentPane().add(setName);
 
     usernameText.setFont(new Font("Segoe UI", 1, 15));
-    usernameText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+    usernameText.setHorizontalAlignment(SwingConstants.RIGHT);
     usernameText.setText("UserName:");
     usernameText.setPreferredSize(new Dimension(180, 20));
     getContentPane().add(usernameText);
@@ -94,7 +94,7 @@ public class CreateUserFrame extends JFrame {
     getContentPane().add(setUserName);
 
     passwordText.setFont(new Font("Segoe UI", 1, 15));
-    passwordText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+    passwordText.setHorizontalAlignment(SwingConstants.RIGHT);
     passwordText.setText("Password");
     passwordText.setPreferredSize(new Dimension(180, 20));
     getContentPane().add(passwordText);
@@ -103,7 +103,7 @@ public class CreateUserFrame extends JFrame {
     getContentPane().add(setPassword);
 
     phoneText.setFont(new Font("Segoe UI", 1, 15));
-    phoneText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+    phoneText.setHorizontalAlignment(SwingConstants.RIGHT);
     phoneText.setText("Phone");
     phoneText.setPreferredSize(new Dimension(180, 20));
     getContentPane().add(phoneText);
@@ -112,7 +112,7 @@ public class CreateUserFrame extends JFrame {
     getContentPane().add(setPhone);
 
     emailText.setFont(new Font("Segoe UI", 1, 15));
-    emailText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+    emailText.setHorizontalAlignment(SwingConstants.RIGHT);
     emailText.setText("Email");
     emailText.setPreferredSize(new Dimension(180, 20));
     getContentPane().add(emailText);
@@ -121,7 +121,7 @@ public class CreateUserFrame extends JFrame {
     getContentPane().add(setEmail);
 
     roleText.setFont(new Font("Segoe UI", 1, 15));
-    roleText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+    roleText.setHorizontalAlignment(SwingConstants.RIGHT);
     roleText.setText("Role");
     roleText.setPreferredSize(new Dimension(170, 20));
     getContentPane().add(roleText);
@@ -269,7 +269,7 @@ public class CreateUserFrame extends JFrame {
         JOptionPane.YES_NO_OPTION
       );
       if (confirm == JOptionPane.YES_OPTION) {
-        Object selectedRoleItem = setRole.getSelectedItem();      
+        Object selectedRoleItem = setRole.getSelectedItem();
         UserRole role = UserRole.valueOf(
           selectedRoleItem.toString().toUpperCase()
         );
