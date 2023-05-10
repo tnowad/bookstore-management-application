@@ -57,7 +57,9 @@ public class HeaderPanel extends JPanel {
       new java.awt.event.MouseAdapter() {
         public void mouseClicked(java.awt.event.MouseEvent evt) {
           if (MainPanel.getInstance().getComponent(0) instanceof IListPanel) {
-            ((IListPanel) MainPanel.getInstance().getComponent(0)).activateFilterPanel();
+            (
+              (IListPanel<?>) MainPanel.getInstance().getComponent(0)
+            ).activateFilterPanel();
           }
         }
       }

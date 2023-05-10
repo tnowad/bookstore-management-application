@@ -146,7 +146,7 @@ public class CartCustomerForm extends JPanel {
     listCartPanel.add(listCartScrollPane, BorderLayout.CENTER);
     try {
       NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(
-        new Locale("vi", "VN")
+        Locale.of("vi", "VN")
       );
 
       totalCostLabel.setText(

@@ -2,6 +2,8 @@
 
 DROP DATABASE IF EXISTS bookstore;
 
+SET GLOBAL max_allowed_packet=16777216;
+
 CREATE DATABASE
     bookstore CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
