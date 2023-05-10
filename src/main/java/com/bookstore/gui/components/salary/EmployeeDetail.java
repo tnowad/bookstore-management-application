@@ -3,6 +3,7 @@ package com.bookstore.gui.components.salary;
 
 import com.bookstore.bus.EmployeeBUS;
 import com.bookstore.bus.UserBUS;
+import com.bookstore.gui.components.panels.MainPanel;
 import com.bookstore.models.EmployeeModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -185,6 +186,7 @@ public class EmployeeDetail extends JFrame {
         EmployeeBUS.getInstance().updateSalary(employee.getUserId(),salary);
         EmployeeBUS.getInstance().refreshData();
         JOptionPane.showMessageDialog(null, "Complete");
+        MainPanel.getInstance().showForm(SalaryListPanel.getInstance());
       }
     }
   };

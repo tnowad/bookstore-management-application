@@ -1,6 +1,7 @@
 package com.bookstore.gui.components.books;
 
 import com.bookstore.bus.BookBUS;
+import com.bookstore.gui.components.panels.MainPanel;
 import com.bookstore.gui.forms.filters.BookFilterForm;
 import com.bookstore.interfaces.IListPanel;
 import com.bookstore.interfaces.ISearchable;
@@ -31,6 +32,7 @@ public class BrowseProductPanel
   private JPanel table;
   private JLabel title;
   private int cols = 3;
+  private static BrowseProductPanel instance;
 
   private BookBUS bookBUS = BookBUS.getInstance();
   private List<BookModel> listBook = bookBUS.getAllModels();
@@ -39,6 +41,12 @@ public class BrowseProductPanel
   public BrowseProductPanel() {
     initComponents();
     updateList(modifiableBookList);
+  }
+  public static BrowseProductPanel getInstance() {
+    if (instance == null) {
+      instance = new BrowseProductPanel();
+    }
+    return instance;
   }
 
   private void initComponents() {
@@ -157,6 +165,7 @@ public class BrowseProductPanel
                       null,
                       "You've successfully locked an products!"
                     );
+                    MainPanel.getInstance().showForm(BrowseProductPanel.getInstance());
                   }
                 }
               }

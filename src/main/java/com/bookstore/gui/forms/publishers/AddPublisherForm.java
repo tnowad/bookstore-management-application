@@ -1,6 +1,8 @@
 package com.bookstore.gui.forms.publishers;
 
 import com.bookstore.bus.PublisherBUS;
+import com.bookstore.gui.components.panels.MainPanel;
+import com.bookstore.gui.components.publishers.PublisherListPanel;
 import com.bookstore.models.PublisherModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -132,8 +134,8 @@ public class AddPublisherForm extends JFrame {
         );
         JOptionPane.showMessageDialog(null, "Complete");
         publisherBUS.refreshData();
-        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(buttonBack);
-        frame.dispose();
+        MainPanel.getInstance().showForm(PublisherListPanel.getInstance());
+
       }
     }
   };

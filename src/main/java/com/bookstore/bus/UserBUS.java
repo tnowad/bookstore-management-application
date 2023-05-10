@@ -340,7 +340,7 @@ public class UserBUS implements IBUS<UserModel> {
 
   @Override
   public void refreshData() {
-    throw new UnsupportedOperationException(
-        "Unimplemented method 'refreshData'");
+    userList.clear();
+    userList.addAll(UserDAO.getInstance().readDatabase());
   }
 }

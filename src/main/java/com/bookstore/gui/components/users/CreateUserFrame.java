@@ -3,6 +3,7 @@ package com.bookstore.gui.components.users;
 import com.bookstore.bus.UserBUS;
 import com.bookstore.enums.UserRole;
 import com.bookstore.enums.UserStatus;
+import com.bookstore.gui.components.panels.MainPanel;
 import com.bookstore.models.UserModel;
 import com.bookstore.util.PasswordUtils;
 import java.awt.Color;
@@ -298,6 +299,8 @@ public class CreateUserFrame extends JFrame {
 
         UserBUS.getInstance().addModel(newUser);
         JOptionPane.showMessageDialog(null, "Complete!");
+        UserBUS.getInstance().refreshData();
+        MainPanel.getInstance().showForm(UserListPanel.getInstance());
       }
     }
   };
