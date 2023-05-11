@@ -46,7 +46,7 @@ public class UserListPanel extends JPanel implements ISearchable {
   private JLabel statusText;
   private JPanel table;
   private JPanel tablePanel;
-  private JLabel titlePanel;
+  private JLabel titleLabel;
   private JPanel panelHeader;
   private JPanel panelEnd;
   private JLabel label;
@@ -86,21 +86,30 @@ public class UserListPanel extends JPanel implements ISearchable {
   }
 
   private void initComponents() {
-    titlePanel = new JLabel();
+    setBackground(Color.WHITE);
+    titleLabel = new JLabel();
     contend = new JPanel();
+    contend.setBackground(Color.WHITE);
     cartPanel = new JPanel();
+    cartPanel.setBackground(Color.WHITE);
     contendTable = new JPanel();
+    contendTable.setBackground(Color.WHITE);
     buttonPanel = new JPanel();
+    buttonPanel.setBackground(Color.WHITE);
     buttonFilter = new JPanel();
+    buttonFilter.setBackground(Color.WHITE);
     filterAll = new JButton();
     filterAdmin = new JButton();
     filterEmployee = new JButton();
     filterCustomer = new JButton();
     buttonAction = new JPanel();
+    buttonAction.setBackground(Color.WHITE);
     buttonCreate = new JButton();
     buttonBanned = new JButton();
     tablePanel = new JPanel();
+    tablePanel.setBackground(Color.WHITE);
     headerTable = new JPanel();
+    headerTable.setBackground(Color.WHITE);
     serialText = new JLabel();
     nameText = new JLabel();
     phoneText = new JLabel();
@@ -109,18 +118,22 @@ public class UserListPanel extends JPanel implements ISearchable {
     statusText = new JLabel();
     scrollPane = new JScrollPane();
     panelHeader = new JPanel();
+    panelHeader.setBackground(Color.WHITE);
     panelEnd = new JPanel();
+    panelEnd.setBackground(Color.WHITE);
     buttonSortAz = new JButton();
     buttonSortZa = new JButton();
 
     table = new JPanel();
+    table.setBackground(Color.WHITE);
     label = new JLabel();
 
     setLayout(new BorderLayout());
 
-    titlePanel.setFont(new Font("Segoe UI", 3, 14));
-    titlePanel.setText("User List");
-    add(titlePanel, BorderLayout.NORTH);
+    titleLabel.setText("User List");
+    titleLabel.setFont(new Font("Segoe UI", 3, 18));
+    titleLabel.setForeground(new Color(255, 0, 51));
+    add(titleLabel, BorderLayout.NORTH);
 
     contend.setLayout(new BorderLayout(0, 5));
 

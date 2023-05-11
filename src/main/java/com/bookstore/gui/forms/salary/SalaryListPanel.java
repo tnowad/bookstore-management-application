@@ -4,6 +4,7 @@ import com.bookstore.bus.EmployeeBUS;
 import com.bookstore.gui.components.salary.SalaryPanel;
 import com.bookstore.models.EmployeeModel;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -71,7 +72,8 @@ public class SalaryListPanel extends JPanel {
     setPreferredSize(new Dimension(720, 444));
     setLayout(new BorderLayout());
 
-    title.setFont(new Font("Segoe UI", 1, 18));
+    title.setFont(new Font("Segoe UI", 3, 18));
+    title.setForeground(new Color(255, 0, 51));
     title.setText("List Salary");
     add(title, BorderLayout.PAGE_START);
 

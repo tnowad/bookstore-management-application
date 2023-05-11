@@ -14,6 +14,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -113,6 +114,8 @@ public class ImportList extends JPanel implements ISearchable {
 
     headerPanel.setLayout(new GridLayout(2, 2));
 
+    importLabel.setFont(new Font("Segoe UI", 3, 18));
+    importLabel.setForeground(new Color(255, 0, 51));
     headerPanel.add(importLabel);
 
     addPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));

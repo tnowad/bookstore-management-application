@@ -3,11 +3,9 @@ package com.bookstore.gui.forms.providers;
 import com.bookstore.models.ProviderModel;
 import java.awt.*;
 import java.awt.event.*;
-
-
 import javax.swing.*;
 
-public class ProviderPanel extends JPanel implements MouseListener{
+public class ProviderPanel extends JPanel implements MouseListener {
 
   private JPanel panel;
   private JLabel setDescription;
@@ -29,7 +27,9 @@ public class ProviderPanel extends JPanel implements MouseListener{
   }
 
   private void initComponents(int serial, ProviderModel providerModel) {
+    setBackground(Color.WHITE);
     panel = new JPanel();
+    panel.setBackground(Color.WHITE);
     setSerial = new JLabel();
     setId = new JLabel();
     setName = new JLabel();
@@ -57,27 +57,17 @@ public class ProviderPanel extends JPanel implements MouseListener{
   }
 
   @Override
-  public void mouseClicked(MouseEvent e) {
-    
-  }
+  public void mouseClicked(MouseEvent e) {}
 
   @Override
-  public void mousePressed(MouseEvent e) {
-    
-  }
+  public void mousePressed(MouseEvent e) {}
 
   @Override
-  public void mouseReleased(MouseEvent e) {
-    
-  }
+  public void mouseReleased(MouseEvent e) {}
 
   @Override
-  public void mouseEntered(MouseEvent e) {
-    
-  }
+  public void mouseEntered(MouseEvent e) {}
 
   @Override
-  public void mouseExited(MouseEvent e) {
-    
-  }
+  public void mouseExited(MouseEvent e) {}
 }

@@ -4,6 +4,7 @@ import com.bookstore.bus.AuthorBUS;
 import com.bookstore.interfaces.ISearchable;
 import com.bookstore.models.AuthorModel;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -51,24 +52,32 @@ public class AuthorListPanel extends JPanel implements ISearchable {
   }
 
   private void initComponents() {
+    setBackground(Color.WHITE);
     title = new JLabel();
     contend = new JPanel();
+    contend.setBackground(Color.WHITE);
     buttonsPanel = new JPanel();
+    buttonsPanel.setBackground(Color.WHITE);
     buttonAdd = new JButton();
     table = new JPanel();
+    table.setBackground(Color.WHITE);
     headerTable = new JPanel();
+    headerTable.setBackground(Color.WHITE);
     serialText = new JLabel();
     idText = new JLabel();
     nameText = new JLabel();
     descriptionText = new JLabel();
     scrollPane = new JScrollPane();
     contendTable = new JPanel();
+    contendTable.setBackground(Color.WHITE);
     panel = new JPanel();
+    panel.setBackground(Color.WHITE);
 
     setPreferredSize(new Dimension(720, 444));
     setLayout(new BorderLayout());
 
-    title.setFont(new Font("Segoe UI", 1, 18));
+    title.setFont(new Font("Segoe UI", 3, 18));
+    title.setForeground(new Color(255, 0, 51));
     title.setText("List Author");
     add(title, BorderLayout.PAGE_START);
 
