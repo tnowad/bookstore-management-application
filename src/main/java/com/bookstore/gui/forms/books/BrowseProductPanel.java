@@ -118,6 +118,7 @@ public class BrowseProductPanel
     table = new JPanel();
     table.setBackground(Color.WHITE);
     JPanel tableWrapper = new JPanel();
+    tableWrapper.setBackground(Color.WHITE);
     tableWrapper.setLayout(new BorderLayout());
     tableWrapper.add(table, BorderLayout.PAGE_START);
     scrollPane =
