@@ -145,12 +145,15 @@ public class ImportNewPanel extends JPanel {
 
     titleLabel = new JLabel();
     importFormPanel = new JPanel();
+    importFormPanel.setBackground(Color.WHITE);
     publisherLabel = new JLabel();
     publisherTextField = new JTextField();
     providerLabel = new JLabel();
     providerTextField = new JTextField();
     bookFormPanel = new JPanel();
+    bookFormPanel.setBackground(Color.WHITE);
     bookInformationPanel = new JPanel();
+    bookInformationPanel.setBackground(Color.WHITE);
     bookIsbnLabel = new JLabel();
     bookIsbnTextField = new JTextField();
     titleBookLabel = new JLabel();
@@ -169,9 +172,11 @@ public class ImportNewPanel extends JPanel {
     addBookButton = new JButton();
     findBookButton = new JButton();
     bookListPanel = new JPanel();
+    bookListPanel.setBackground(Color.WHITE);
     bookListScrollPane = new JScrollPane();
 
     actionPanel = new JPanel();
+    actionPanel.setBackground(Color.WHITE);
     saveButton = new JButton();
     totalPriceLabel = new JLabel();
     backToPreviousButton = new JButton("Back to previous");
@@ -208,12 +213,14 @@ public class ImportNewPanel extends JPanel {
 
     findPublisherButton = new JButton("Find publisher");
     JPanel publisherPanel = new JPanel(new BorderLayout());
+    publisherPanel.setBackground(Color.WHITE);
     publisherPanel.add(publisherTextField, BorderLayout.CENTER);
     publisherPanel.add(findPublisherButton, BorderLayout.LINE_END);
     importFormPanel.add(publisherPanel);
 
     findProviderButton = new JButton("Find provider");
     JPanel providerPanel = new JPanel(new BorderLayout());
+    providerPanel.setBackground(Color.WHITE);
     providerPanel.add(providerTextField, BorderLayout.CENTER);
     providerPanel.add(findProviderButton, BorderLayout.LINE_END);
     importFormPanel.add(providerPanel);
@@ -269,6 +276,7 @@ public class ImportNewPanel extends JPanel {
     addBookButton.setText("Add book");
     findBookButton.setText("Find Book");
     JPanel groupButtonPanel = new JPanel();
+    groupButtonPanel.setBackground(Color.WHITE);
     groupButtonPanel.setLayout(new FlowLayout());
     groupButtonPanel.add(addBookButton);
     groupButtonPanel.add(findBookButton);
@@ -588,8 +596,9 @@ public class ImportNewPanel extends JPanel {
     });
     saveButton.addActionListener(e -> {
       int option = JOptionPane.showConfirmDialog(
-          null,
-          "Do you want to save import ? ");
+        null,
+        "Do you want to save import ? "
+      );
       if (option == JOptionPane.YES_OPTION) {
         ImportBUS.getInstance().addModel(importModel);
         for (ImportItemsModel importItemsModel : importItemsList) {
@@ -606,15 +615,18 @@ public class ImportNewPanel extends JPanel {
         authorTextField.setText("");
         JOptionPane.showMessageDialog(null, "Save import successfully");
         int choice = JOptionPane.showConfirmDialog(
-            null,
-            "Do you want to print the import to PDF?");
+          null,
+          "Do you want to print the import to PDF?"
+        );
         if (choice == JOptionPane.YES_OPTION) {
           JFileChooser fileChooser = new JFileChooser();
           int result = fileChooser.showSaveDialog(null);
           if (result == JFileChooser.APPROVE_OPTION) {
             java.io.File selectedFile = fileChooser.getSelectedFile();
             String filePath = selectedFile.getAbsolutePath();
-            PDFWriter.getInstance().exportImportsToPDF(importModel.getId(), filePath);
+            PDFWriter
+              .getInstance()
+              .exportImportsToPDF(importModel.getId(), filePath);
           }
         }
       }
