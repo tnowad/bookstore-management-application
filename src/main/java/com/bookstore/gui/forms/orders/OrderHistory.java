@@ -46,8 +46,10 @@ public class OrderHistory extends JPanel implements ISearchable {
   }
 
   private void initComponents() {
+    setBackground(Color.WHITE);
     setLayout(new BorderLayout());
     headerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+    headerPanel.setBackground(Color.WHITE);
     orderLabel = new Label("Order History");
     headerPanel.add(orderLabel);
     add(headerPanel, BorderLayout.NORTH);
