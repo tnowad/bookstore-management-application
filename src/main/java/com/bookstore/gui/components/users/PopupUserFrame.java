@@ -46,7 +46,6 @@ public class PopupUserFrame extends JFrame {
   private JLabel userNameText;
   UserModel userModel = Authentication.getCurrentUser();
 
-
   public PopupUserFrame(UserModel user) {
     initComponents(user);
     this.user = user;
@@ -177,18 +176,15 @@ public class PopupUserFrame extends JFrame {
     roleText.setPreferredSize(new Dimension(100, 25));
     getContentPane().add(roleText);
 
-    if(userModel.getRole()==UserRole.ADMIN){
+    if (userModel.getRole() == UserRole.ADMIN) {
       setRole.setModel(
         new DefaultComboBoxModel<>(
           new String[] { "ADMIN", "CUSTOMER", "EMPLOYEE" }
         )
       );
-    }
-    else{
+    } else {
       setRole.setModel(
-        new DefaultComboBoxModel<>(
-          new String[] {"CUSTOMER", "EMPLOYEE" }
-        )
+        new DefaultComboBoxModel<>(new String[] { "CUSTOMER", "EMPLOYEE" })
       );
     }
     setRole.setPreferredSize(new Dimension(100, 25));
@@ -266,15 +262,26 @@ public class PopupUserFrame extends JFrame {
 
   public void setRole(UserRole role) {
     int index = -1;
-    switch (role.toString()) {
-      case "ADMIN" -> {
-        index = 0;
+    if (userModel.getRole() == UserRole.ADMIN) {
+      switch (role.toString()) {
+        case "ADMIN" -> {
+          index = 0;
+        }
+        case "CUSTOMER" -> {
+          index = 1;
+        }
+        case "EMPLOYEE" -> {
+          index = 2;
+        }
       }
-      case "CUSTOMER" -> {
-        index = 1;
-      }
-      case "EMPLOYEE" -> {
-        index = 2;
+    } else {
+      switch (role.toString()) {
+        case "CUSTOMER" -> {
+          index = 0;
+        }
+        case "EMPLOYEE" -> {
+          index = 1;
+        }
       }
     }
     setRole.setSelectedIndex(index);

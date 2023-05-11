@@ -2,7 +2,6 @@ package com.bookstore.gui.forms.providers;
 
 import com.bookstore.bus.ProviderBUS;
 import com.bookstore.gui.components.panels.MainPanel;
-import com.bookstore.gui.components.providers.ProviderListPanel;
 import com.bookstore.models.ProviderModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -133,7 +132,6 @@ public class AddProvider extends JFrame {
         JOptionPane.showMessageDialog(null, "Complete");
         providerBUS.refreshData();
         MainPanel.getInstance().showForm(ProviderListPanel.getInstance());
- 
       }
     }
   };

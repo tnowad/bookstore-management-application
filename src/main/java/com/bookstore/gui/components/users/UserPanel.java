@@ -8,7 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class UserPanel extends JPanel implements MouseListener {
+public class UserPanel extends JPanel {
 
   private JCheckBox checkBox;
   private JLabel setEmail;
@@ -81,19 +81,4 @@ public class UserPanel extends JPanel implements MouseListener {
 
     add(panelItemHeader_2);
   }
-
-  @Override
-  public void mouseClicked(MouseEvent e) {}
-
-  @Override
-  public void mousePressed(MouseEvent e) {}
-
-  @Override
-  public void mouseReleased(MouseEvent e) {}
-
-  @Override
-  public void mouseEntered(MouseEvent e) {}
-
-  @Override
-  public void mouseExited(MouseEvent e) {}
 }

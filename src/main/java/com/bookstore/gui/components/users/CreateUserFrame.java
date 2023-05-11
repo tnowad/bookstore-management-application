@@ -11,6 +11,7 @@ import com.bookstore.models.EmployeeModel;
 import com.bookstore.models.UserModel;
 import com.bookstore.services.Authentication;
 import com.bookstore.util.PasswordUtils;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -25,7 +26,7 @@ import javax.swing.*;
 public class CreateUserFrame extends JFrame {
 
   private JButton buttonBack;
-  private JPanel buttonPanel;
+  private JPanel actionPanel;
   private JButton buttonSave;
   private JLabel emailText;
   private JLabel nameText;
@@ -71,7 +72,7 @@ public class CreateUserFrame extends JFrame {
     statusText = new JLabel();
     roleText = new JLabel();
     setStatus = new JComboBox<>();
-    buttonPanel = new JPanel();
+    actionPanel = new JPanel();
     buttonBack = new JButton();
     buttonSave = new JButton();
 
@@ -79,63 +80,65 @@ public class CreateUserFrame extends JFrame {
     setMinimumSize(new Dimension(590, 394));
     setPreferredSize(new Dimension(590, 394));
     // getContentPane().setLayout(new FlowLayout(FlowLayout.LEFT, 25, 15));
+    getContentPane().setLayout(new BorderLayout(10, 10));
+
+    JPanel contentPanel = new JPanel(new GridLayout(0, 2));
     titlePanel.setFont(new Font("Segoe UI", 1, 18));
     titlePanel.setForeground(new Color(255, 51, 0));
-    titlePanel.setHorizontalAlignment(SwingConstants.CENTER);
     titlePanel.setText("New User");
-    titlePanel.setPreferredSize(new Dimension(530, 25));
-    getContentPane().add(titlePanel);
-
+    // getContentPane().add(titlePanel);
+    contentPanel.add(titlePanel);
+    contentPanel.add(new JLabel());
     nameText.setFont(new Font("Segoe UI", 1, 15));
     nameText.setHorizontalAlignment(SwingConstants.RIGHT);
     nameText.setText("Name");
     nameText.setPreferredSize(new Dimension(180, 20));
-    getContentPane().add(nameText);
+    contentPanel.add(nameText);
 
     setName.setPreferredSize(new Dimension(250, 22));
-    getContentPane().add(setName);
+    contentPanel.add(setName);
 
     usernameText.setFont(new Font("Segoe UI", 1, 15));
     usernameText.setHorizontalAlignment(SwingConstants.RIGHT);
     usernameText.setText("UserName:");
     usernameText.setPreferredSize(new Dimension(180, 20));
-    getContentPane().add(usernameText);
+    contentPanel.add(usernameText);
 
     setUserName.setPreferredSize(new Dimension(240, 22));
-    getContentPane().add(setUserName);
+    contentPanel.add(setUserName);
 
     passwordText.setFont(new Font("Segoe UI", 1, 15));
     passwordText.setHorizontalAlignment(SwingConstants.RIGHT);
     passwordText.setText("Password");
     passwordText.setPreferredSize(new Dimension(180, 20));
-    getContentPane().add(passwordText);
+    contentPanel.add(passwordText);
 
     setPassword.setPreferredSize(new Dimension(200, 22));
-    getContentPane().add(setPassword);
+    contentPanel.add(setPassword);
 
     phoneText.setFont(new Font("Segoe UI", 1, 15));
     phoneText.setHorizontalAlignment(SwingConstants.RIGHT);
     phoneText.setText("Phone");
     phoneText.setPreferredSize(new Dimension(180, 20));
-    getContentPane().add(phoneText);
+    contentPanel.add(phoneText);
 
     setPhone.setPreferredSize(new Dimension(230, 22));
-    getContentPane().add(setPhone);
+    contentPanel.add(setPhone);
 
     emailText.setFont(new Font("Segoe UI", 1, 15));
     emailText.setHorizontalAlignment(SwingConstants.RIGHT);
     emailText.setText("Email");
     emailText.setPreferredSize(new Dimension(180, 20));
-    getContentPane().add(emailText);
+    contentPanel.add(emailText);
 
     setEmail.setPreferredSize(new Dimension(280, 22));
-    getContentPane().add(setEmail);
+    contentPanel.add(setEmail);
 
     roleText.setFont(new Font("Segoe UI", 1, 15));
     roleText.setHorizontalAlignment(SwingConstants.RIGHT);
     roleText.setText("Role");
-    roleText.setPreferredSize(new Dimension(170, 20));
-    getContentPane().add(roleText);
+    roleText.setPreferredSize(new Dimension(70, 20));
+    contentPanel.add(roleText);
 
     if (userModel.getRole() == UserRole.ADMIN) {
       userRoleComboBox.setModel(
@@ -155,39 +158,44 @@ public class CreateUserFrame extends JFrame {
       )
     );
     userRoleComboBox.addActionListener(changeRoleCombo);
-    getContentPane().add(userRoleComboBox);
+    contentPanel.add(userRoleComboBox);
     employeeTypeLabel = new JLabel("Employee Type");
-    getContentPane().add(employeeTypeLabel);
-    getContentPane().add(employeeTypeComboBox);
+    employeeTypeLabel.setFont(new Font("Segoe UI", 1, 15));
+    employeeTypeLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+    employeeTypeLabel.setPreferredSize(new Dimension(120, 20));
+    contentPanel.add(employeeTypeLabel);
+    contentPanel.add(employeeTypeComboBox);
 
     statusText.setFont(new Font("Segoe UI", 1, 15));
+    statusText.setHorizontalAlignment(SwingConstants.RIGHT);
+    statusText.setPreferredSize(new Dimension(230, 20));
     statusText.setText("Status");
-    getContentPane().add(statusText);
-
+    contentPanel.add(statusText);
+    getContentPane().add(contentPanel, BorderLayout.CENTER);
     setStatus.setModel(
       new DefaultComboBoxModel<>(new String[] { "ACTIVE", "INACTIVE" })
     );
-    getContentPane().add(setStatus);
 
-    buttonPanel.setPreferredSize(new Dimension(530, 30));
-    buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 30, 5));
+    contentPanel.add(setStatus);
+
+    actionPanel.setPreferredSize(new Dimension(530, 30));
+    actionPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 30, 5));
 
     buttonBack.setIcon(
       new ImageIcon(getClass().getResource("/resources/icons/back.png"))
     );
     buttonBack.setPreferredSize(new Dimension(70, 23));
     buttonBack.addActionListener(actionBack);
-    buttonPanel.add(buttonBack);
+    actionPanel.add(buttonBack);
 
     buttonSave.setIcon(
       new ImageIcon(getClass().getResource("/resources/icons/save.png"))
     );
     buttonSave.setPreferredSize(new Dimension(70, 23));
     buttonSave.addActionListener(actionSave);
-    buttonPanel.add(buttonSave);
+    actionPanel.add(buttonSave);
 
-    getContentPane().add(buttonPanel);
-
+    getContentPane().add(actionPanel, BorderLayout.SOUTH);
     pack();
   }
 
@@ -355,11 +363,9 @@ public class CreateUserFrame extends JFrame {
     UserRole role = UserRole.valueOf(selectedRoleItem.toString().toUpperCase());
 
     if (role == UserRole.EMPLOYEE) {
-      employeeTypeLabel.setVisible(true);
-      employeeTypeComboBox.setVisible(true);
+      employeeTypeComboBox.setEnabled(true);
     } else {
-      employeeTypeLabel.setVisible(false);
-      employeeTypeComboBox.setVisible(false);
+      employeeTypeComboBox.setEnabled(false);
     }
   };
 }

@@ -26,7 +26,6 @@ import com.bookstore.models.tables.BookTableModel;
 import com.bookstore.services.Authentication;
 import com.bookstore.util.PDF.PDFWriter;
 import java.awt.*;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
@@ -587,56 +586,38 @@ public class ImportNewPanel extends JPanel {
       priceTextField.setText("");
       authorTextField.setText("");
     });
-   saveButton.addActionListener(e -> {
-       int option = JOptionPane.showConfirmDialog(
-           null,
-           "Do you want to save import ? "
-       );
-       if (option == JOptionPane.YES_OPTION) {
-           //Set the ID of the import model and add it to ImportBUS
-           importModel.setId(count);
-           ImportBUS.getInstance().addModel(importModel);
-           //Refresh the data in ImportBUS
-           ImportBUS.getInstance().refreshData();
-           //For each item in the import items list, add the model to ImportItemsBUS
-           for (ImportItemsModel importItemsModel : importItemsList) {
-               ImportItemsBUS.getInstance().addModel(importItemsModel);
-           }
-           //Clear the text fields
-           publisherTextField.setText("");
-           providerTextField.setText("");
-           bookIsbnTextField.setText("");
-           titleBookTextfield.setText("");
-           descriptionBookTextfield.setText("");
-           quantityTextField.setText("");
-           categoriesTextField.setText("");
-           priceTextField.setText("");
-           authorTextField.setText("");
-           //Create a new empty ArrayList for importItemsList
-           importItemsList = new ArrayList<ImportItemsModel>();
-           //Call the bookImportListTable method to display the updated list of imports
-           bookImportListTable();
-           //Show a success message using a JOptionPane dialog
-           JOptionPane.showMessageDialog(null, "Save import successfully");
-           //Prompt the user to ask if they want to print the import to PDF
-           int choice = JOptionPane.showConfirmDialog(
-               null,
-               "Do you want to print the import to PDF?"
-           );
-           if (choice == JOptionPane.YES_OPTION) {
-               //Open a file chooser to allow the user to select a location to save the PDF
-               JFileChooser fileChooser = new JFileChooser();
-               int result = fileChooser.showOpenDialog(null);
-               if (result == JFileChooser.APPROVE_OPTION) {
-                   File selectedFile = fileChooser.getSelectedFile();
-                   String url = selectedFile.toURI().toString();
-                   //Export the import data to the selected location using the PDFWriter
-                   PDFWriter.getInstance().exportImportsToPDF(importModel.getId(), url);
-                   System.out.println("Selected file URL: " + url);
-               }
-           }
-       }
-   });
-   
+    saveButton.addActionListener(e -> {
+      int option = JOptionPane.showConfirmDialog(
+          null,
+          "Do you want to save import ? ");
+      if (option == JOptionPane.YES_OPTION) {
+        ImportBUS.getInstance().addModel(importModel);
+        for (ImportItemsModel importItemsModel : importItemsList) {
+          ImportItemsBUS.getInstance().addModel(importItemsModel);
+        }
+        publisherTextField.setText("");
+        providerTextField.setText("");
+        bookIsbnTextField.setText("");
+        titleBookTextfield.setText("");
+        descriptionBookTextfield.setText("");
+        quantityTextField.setText("");
+        categoriesTextField.setText("");
+        priceTextField.setText("");
+        authorTextField.setText("");
+        JOptionPane.showMessageDialog(null, "Save import successfully");
+        int choice = JOptionPane.showConfirmDialog(
+            null,
+            "Do you want to print the import to PDF?");
+        if (choice == JOptionPane.YES_OPTION) {
+          JFileChooser fileChooser = new JFileChooser();
+          int result = fileChooser.showSaveDialog(null);
+          if (result == JFileChooser.APPROVE_OPTION) {
+            java.io.File selectedFile = fileChooser.getSelectedFile();
+            String filePath = selectedFile.getAbsolutePath();
+            PDFWriter.getInstance().exportImportsToPDF(importModel.getId(), filePath);
+          }
+        }
+      }
+    });
   }
 }

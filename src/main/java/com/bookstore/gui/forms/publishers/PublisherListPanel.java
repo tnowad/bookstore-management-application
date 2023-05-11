@@ -1,18 +1,15 @@
-package com.bookstore.gui.components.providers;
+package com.bookstore.gui.forms.publishers;
 
-import com.bookstore.bus.ProviderBUS;
-import com.bookstore.gui.forms.providers.AddProvider;
-import com.bookstore.gui.forms.providers.ProviderPanel;
+import com.bookstore.bus.PublisherBUS;
+import com.bookstore.gui.components.publishers.PublisherItemPanel;
 import com.bookstore.interfaces.ISearchable;
-import com.bookstore.models.ProviderModel;
+import com.bookstore.models.PublisherModel;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.List;
 import javax.swing.*;
 
-public class ProviderListPanel extends JPanel implements ISearchable {
-
-  private static ProviderListPanel instance;
+public class PublisherListPanel extends JPanel implements ISearchable {
 
   private JButton buttonAdd;
   private JPanel buttonsPanel;
@@ -27,18 +24,18 @@ public class ProviderListPanel extends JPanel implements ISearchable {
   private JLabel serialText;
   private JPanel table;
   private JLabel title;
+  private static PublisherListPanel instance;
+  PublisherBUS publisherBUS = PublisherBUS.getInstance();
+  List<PublisherModel> listPublisher = publisherBUS.getAllModels();
 
-  ProviderBUS providerBUS = ProviderBUS.getInstance();
-  List<ProviderModel> listProvider = providerBUS.getAllModels();
-
-  public ProviderListPanel() {
+  public PublisherListPanel() {
     initComponents();
-    addTable(listProvider);
+    addTable(listPublisher);
   }
 
-  public static ProviderListPanel getInstance() {
+  public static PublisherListPanel getInstance() {
     if (instance == null) {
-      instance = new ProviderListPanel();
+      instance = new PublisherListPanel();
     }
     return instance;
   }
@@ -62,7 +59,7 @@ public class ProviderListPanel extends JPanel implements ISearchable {
     setLayout(new BorderLayout());
 
     title.setFont(new Font("Segoe UI", 1, 18));
-    title.setText("List Provider");
+    title.setText("List Publisher");
     add(title, BorderLayout.PAGE_START);
 
     contend.setLayout(new BorderLayout());
@@ -104,6 +101,7 @@ public class ProviderListPanel extends JPanel implements ISearchable {
     table.add(headerTable, BorderLayout.NORTH);
 
     scrollPane.setViewportView(contendTable);
+
     scrollPane.getVerticalScrollBar().setUnitIncrement(16);
 
     table.add(scrollPane, BorderLayout.CENTER);
@@ -113,13 +111,16 @@ public class ProviderListPanel extends JPanel implements ISearchable {
     add(contend, BorderLayout.CENTER);
   }
 
-  public void addTable(List<ProviderModel> listProvider) {
+  public void addTable(List<PublisherModel> listPublisher) {
     contendTable.removeAll();
     contendTable.setLayout(new GridLayout(0, 1, 0, 15));
-    int serial = 0;
-    for (ProviderModel provider : listProvider) {
-      ProviderPanel providerPanel = new ProviderPanel(serial, provider);
-      contendTable.add(providerPanel);
+    int serial = 1;
+    for (PublisherModel publisher : listPublisher) {
+      PublisherItemPanel publisherPanel = new PublisherItemPanel(
+        serial,
+        publisher
+      );
+      contendTable.add(publisherPanel);
       serial = serial + 1;
     }
     contendTable.revalidate();
@@ -129,8 +130,8 @@ public class ProviderListPanel extends JPanel implements ISearchable {
   public ActionListener actionAdd = new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
-      AddProvider addProvider = new AddProvider();
-      addProvider.setVisible(true);
+      AddPublisherForm addPublisher = new AddPublisherForm();
+      addPublisher.setVisible(true);
     }
   };
 
@@ -142,11 +143,11 @@ public class ProviderListPanel extends JPanel implements ISearchable {
         null,
         "Please enter your search information!"
       );
-      addTable(listProvider);
+      addTable(listPublisher);
       this.revalidate();
       this.repaint();
     } else {
-      List<ProviderModel> newList = ProviderBUS
+      List<PublisherModel> newList = PublisherBUS
         .getInstance()
         .searchModel(keyword, new String[] { "name" });
       if (newList.isEmpty()) {
@@ -154,7 +155,7 @@ public class ProviderListPanel extends JPanel implements ISearchable {
           null,
           "The information you entered could not be found!"
         );
-        addTable(listProvider);
+        addTable(listPublisher);
         this.revalidate();
         this.repaint();
       } else {

@@ -1,6 +1,7 @@
-package com.bookstore.gui.components.salary;
+package com.bookstore.gui.forms.salary;
 
 import com.bookstore.bus.EmployeeBUS;
+import com.bookstore.gui.components.salary.SalaryPanel;
 import com.bookstore.models.EmployeeModel;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -19,7 +20,7 @@ public class SalaryListPanel extends JPanel {
   private JTextField setSumSalary;
   private JPanel sumSalaryPanel;
   private JPanel contend;
-  private JPanel contendTable;
+  private JPanel contentTable;
   private JLabel contactText;
   private JPanel headerTable;
   private JLabel idText;
@@ -65,7 +66,7 @@ public class SalaryListPanel extends JPanel {
     typeText = new JLabel();
     contactText = new JLabel();
     scrollPane = new JScrollPane();
-    contendTable = new JPanel();
+    contentTable = new JPanel();
 
     setPreferredSize(new Dimension(720, 444));
     setLayout(new BorderLayout());
@@ -110,7 +111,7 @@ public class SalaryListPanel extends JPanel {
 
     table.add(headerTable, BorderLayout.NORTH);
 
-    scrollPane.setViewportView(contendTable);
+    scrollPane.setViewportView(contentTable);
 
     scrollPane.getVerticalScrollBar().setUnitIncrement(16);
 
@@ -135,17 +136,17 @@ public class SalaryListPanel extends JPanel {
   }
 
   public void addTable() {
-    contendTable.removeAll();
-    contendTable.setLayout(new GridLayout(0, 1, 0, 15));
+    contentTable.removeAll();
+    contentTable.setLayout(new GridLayout(0, 1, 0, 15));
     int serial = 0;
     for (EmployeeModel employee : listEmployee) {
       SalaryPanel salaryPanel = new SalaryPanel(serial, employee);
-      contendTable.add(salaryPanel);
+      contentTable.add(salaryPanel);
       sumSalary = sumSalary + employee.getSalary();
       serial = serial + 1;
     }
     setSumSalary.setText("" + sumSalary);
-    contendTable.revalidate();
-    contendTable.repaint();
+    contentTable.revalidate();
+    contentTable.repaint();
   }
 }

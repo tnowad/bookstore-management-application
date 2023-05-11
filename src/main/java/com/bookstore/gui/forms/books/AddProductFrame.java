@@ -1,4 +1,4 @@
-package com.bookstore.gui.components.books;
+package com.bookstore.gui.forms.books;
 
 import com.bookstore.bus.AuthorBUS;
 import com.bookstore.bus.BookBUS;
@@ -490,7 +490,6 @@ public class AddProductFrame extends JFrame {
       bookBUS.refreshData();
       JOptionPane.showMessageDialog(null, "Completed!");
       MainPanel.getInstance().showForm(BrowseProductPanel.getInstance());
-      
     }
   };
 }
