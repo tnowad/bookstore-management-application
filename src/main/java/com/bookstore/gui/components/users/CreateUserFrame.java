@@ -5,6 +5,7 @@ import com.bookstore.enums.UserRole;
 import com.bookstore.enums.UserStatus;
 import com.bookstore.gui.components.panels.MainPanel;
 import com.bookstore.models.UserModel;
+import com.bookstore.services.Authentication;
 import com.bookstore.util.PasswordUtils;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -37,6 +38,7 @@ public class CreateUserFrame extends JFrame {
   private JLabel titlePanel;
   private JLabel usernameText;
 
+  UserModel userModel = Authentication.getCurrentUser();
   public CreateUserFrame() {
     initComponents();
     setLocationRelativeTo(null);
@@ -127,11 +129,18 @@ public class CreateUserFrame extends JFrame {
     roleText.setPreferredSize(new Dimension(170, 20));
     getContentPane().add(roleText);
 
+    if(userModel.getRole()==UserRole.ADMIN) {
     setRole.setModel(
       new DefaultComboBoxModel<>(
         new String[] { "ADMIN", "CUSTOMER", "EMPLOYEE" }
       )
+    );} else {
+      setRole.setModel(
+      new DefaultComboBoxModel<>(
+        new String[] {"CUSTOMER", "EMPLOYEE" }
+      )
     );
+    }
     getContentPane().add(setRole);
 
     statusText.setFont(new Font("Segoe UI", 1, 15));
