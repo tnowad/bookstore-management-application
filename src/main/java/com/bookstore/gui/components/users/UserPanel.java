@@ -1,6 +1,7 @@
 package com.bookstore.gui.components.users;
 
 import com.bookstore.models.UserModel;
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.*;
 import javax.swing.JCheckBox;
@@ -36,6 +37,7 @@ public class UserPanel extends JPanel {
   }
 
   private void initComponents(int serial, UserModel user) {
+    setBackground(Color.WHITE);
     checkBox = new JCheckBox();
     setName = new JLabel();
     setPhone = new JLabel();
@@ -44,7 +46,9 @@ public class UserPanel extends JPanel {
     setRole = new JLabel();
     setStatus = new JLabel();
     panelItemHeader_1 = new JPanel();
+    panelItemHeader_1.setBackground(Color.WHITE);
     panelItemHeader_2 = new JPanel();
+    panelItemHeader_2.setBackground(Color.WHITE);
     setId = new JTextField();
 
     setId.setText("" + user.getId());

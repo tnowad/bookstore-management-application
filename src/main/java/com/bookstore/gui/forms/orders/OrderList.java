@@ -101,6 +101,8 @@ public class OrderList extends JPanel implements ISearchable {
 
   private void initComponents() {
     JPanel headerPanel = new JPanel();
+    headerPanel.setBackground(Color.WHITE);
+    setBackground(Color.WHITE);
     Label orderLabel = new Label("Order");
     orderTableList = new JTable();
 
