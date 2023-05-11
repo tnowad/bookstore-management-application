@@ -104,6 +104,8 @@ public class OrderList extends JPanel implements ISearchable {
     headerPanel.setBackground(Color.WHITE);
     setBackground(Color.WHITE);
     Label orderLabel = new Label("Order");
+    orderLabel.setFont(new Font("Segoe UI", 3, 18));
+    orderLabel.setForeground(new Color(255, 0, 51));
     orderTableList = new JTable();
 
     setMinimumSize(new Dimension(1180, 620));
