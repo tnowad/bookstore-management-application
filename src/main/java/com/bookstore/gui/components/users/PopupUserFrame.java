@@ -44,6 +44,8 @@ public class PopupUserFrame extends JFrame {
   private JTextField setUserName;
   private JLabel statusText;
   private JLabel userNameText;
+  UserModel userModel = Authentication.getCurrentUser();
+
 
   public PopupUserFrame(UserModel user) {
     initComponents(user);
@@ -175,11 +177,20 @@ public class PopupUserFrame extends JFrame {
     roleText.setPreferredSize(new Dimension(100, 25));
     getContentPane().add(roleText);
 
-    setRole.setModel(
-      new DefaultComboBoxModel<>(
-        new String[] { "ADMIN", "CUSTOMER", "EMPLOYEE" }
-      )
-    );
+    if(userModel.getRole()==UserRole.ADMIN){
+      setRole.setModel(
+        new DefaultComboBoxModel<>(
+          new String[] { "ADMIN", "CUSTOMER", "EMPLOYEE" }
+        )
+      );
+    }
+    else{
+      setRole.setModel(
+        new DefaultComboBoxModel<>(
+          new String[] {"CUSTOMER", "EMPLOYEE" }
+        )
+      );
+    }
     setRole.setPreferredSize(new Dimension(100, 25));
     getContentPane().add(setRole);
 

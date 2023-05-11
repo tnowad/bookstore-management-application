@@ -365,22 +365,22 @@ public class UserListPanel extends JPanel implements ISearchable {
     table.setLayout(new GridLayout(0, 1, 0, 20));
     int serial = 1;
     if(userModel.getRole()== UserRole.ADMIN) {
-    for (UserModel user : userList) {
-      if (!user.getStatus().toString().equals("BANNED")) {
-        UserPanel userForm = new UserPanel(serial, user);
-        table.add(userForm);
-        serial++;
-      }
-    }
-    } else {
       for (UserModel user : userList) {
-        if (user.getRole() != UserRole.ADMIN) {
+        if (!user.getStatus().toString().equals("BANNED")) {
           UserPanel userForm = new UserPanel(serial, user);
           table.add(userForm);
           serial++;
         }
       }
-    }
+      } else {
+        for (UserModel user : userList) {
+          if (user.getRole() != UserRole.ADMIN) {
+            UserPanel userForm = new UserPanel(serial, user);
+            table.add(userForm);
+            serial++;
+          }
+        }
+      }
   
     table.revalidate();
     table.repaint();
