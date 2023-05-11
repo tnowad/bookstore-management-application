@@ -97,8 +97,8 @@ public class OrderList extends JPanel implements ISearchable {
     setMinimumSize(new Dimension(1180, 620));
     setLayout(new BorderLayout());
 
-    headerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 5));
-    orderLabel.setPreferredSize(new Dimension(300, 50));
+    headerPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 5));
+    orderLabel.setPreferredSize(new Dimension(50, 50));
     headerPanel.add(orderLabel);
 
     add(headerPanel, BorderLayout.PAGE_START);
