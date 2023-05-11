@@ -52,7 +52,9 @@ public class ContactUs extends JPanel {
   }
 
   private void initPhone() {
+    setBackground(Color.WHITE);
     titlePanel = new JPanel();
+    titlePanel.setBackground(Color.WHITE);
     titlePanel.setLayout(new BorderLayout());
     titlePanel.setPreferredSize(new Dimension(1500, 200));
     title = new JLabel("Contact Us");
@@ -61,6 +63,7 @@ public class ContactUs extends JPanel {
     titlePanel.add(title, BorderLayout.CENTER);
 
     contactPhone = new JPanel();
+    contactPhone.setBackground(Color.WHITE);
     contactPhone.setPreferredSize(new Dimension(250, ABORT));
     JLabel titlePhone = new JLabel("BY PHONE");
     titlePhone.setFont(new Font("Arial", Font.BOLD, 16));
@@ -145,8 +148,10 @@ public class ContactUs extends JPanel {
 
   private void initFormNewCase() {
     formNewCase = new JPanel();
+    formNewCase.setBackground(Color.WHITE);
     formNewCase.setPreferredSize(new Dimension(ABORT, 400));
     JPanel formPanel = new JPanel();
+    formPanel.setBackground(Color.WHITE);
     nameLabel = new JLabel("Name");
     emailLabel = new JLabel("Email");
     messageLabel = new JLabel("Message");

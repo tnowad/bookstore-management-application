@@ -52,14 +52,19 @@ public class SalaryListPanel extends JPanel {
   }
 
   private void initComponents() {
+    setBackground(Color.WHITE);
     title = new JLabel();
     contend = new JPanel();
+    contend.setBackground(Color.WHITE);
     sumSalaryPanel = new JPanel();
     totalText = new JLabel();
     setSumSalary = new JTextField();
     table = new JPanel();
+    table.setBackground(Color.WHITE);
     headerTable = new JPanel();
+    headerTable.setBackground(Color.WHITE);
     panel = new JPanel();
+    panel.setBackground(Color.WHITE);
     serialText = new JLabel();
     idText = new JLabel();
     nameText = new JLabel();
@@ -68,6 +73,7 @@ public class SalaryListPanel extends JPanel {
     contactText = new JLabel();
     scrollPane = new JScrollPane();
     contentTable = new JPanel();
+    contentTable.setBackground(Color.WHITE);
 
     setPreferredSize(new Dimension(720, 444));
     setLayout(new BorderLayout());

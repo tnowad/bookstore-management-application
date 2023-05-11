@@ -2,16 +2,16 @@ package com.bookstore.gui.components.salary;
 
 import com.bookstore.bus.UserBUS;
 import com.bookstore.models.EmployeeModel;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class SalaryPanel extends JPanel implements MouseListener{
+public class SalaryPanel extends JPanel implements MouseListener {
 
   private JPanel panel;
   private JLabel setDescription;
@@ -21,7 +21,7 @@ public class SalaryPanel extends JPanel implements MouseListener{
   private JLabel setType;
   private JLabel setSerial;
 
-  public SalaryPanel(int serial, EmployeeModel employee){
+  public SalaryPanel(int serial, EmployeeModel employee) {
     initComponents(serial, employee);
     addMouseListener(
       new MouseAdapter() {
@@ -35,7 +35,9 @@ public class SalaryPanel extends JPanel implements MouseListener{
   }
 
   private void initComponents(int serial, EmployeeModel employee) {
+    setBackground(Color.WHITE);
     panel = new JPanel();
+    panel.setBackground(Color.WHITE);
     setSerial = new JLabel();
     setId = new JLabel();
     setName = new JLabel();
