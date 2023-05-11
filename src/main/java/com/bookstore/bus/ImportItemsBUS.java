@@ -175,8 +175,8 @@ public class ImportItemsBUS implements IBUS<ImportItemsModel> {
 
   @Override
   public void refreshData() {
-    throw new UnsupportedOperationException(
-      "Unimplemented method 'refreshData'"
-    );
+  importItemsList.clear();
+    importItemsList.addAll(ImportItemsDAO
+    .getInstance().readDatabase());
   }
 }
