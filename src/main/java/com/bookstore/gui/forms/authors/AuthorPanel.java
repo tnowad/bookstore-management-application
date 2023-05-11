@@ -27,11 +27,13 @@ public class AuthorPanel extends JPanel implements MouseListener {
   }
 
   private void initComponents(int serial, AuthorModel author) {
+    setBackground(Color.WHITE);
     setSerial = new JLabel();
     setId = new JLabel();
     setName = new JLabel();
     setDescription = new JLabel();
     panel = new JPanel();
+    panel.setBackground(Color.WHITE);
 
     setLayout(new GridLayout(1, 3));
     panel.setLayout(new GridLayout());
