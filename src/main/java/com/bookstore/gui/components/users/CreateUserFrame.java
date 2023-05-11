@@ -140,12 +140,12 @@ public class CreateUserFrame extends JFrame {
     if (userModel.getRole() == UserRole.ADMIN) {
       userRoleComboBox.setModel(
         new DefaultComboBoxModel<>(
-          new String[] { "ADMIN", "CUSTOMER", "EMPLOYEE" }
+          new String[] { "EMPLOYEE", "ADMIN", "CUSTOMER" }
         )
       );
     } else {
       userRoleComboBox.setModel(
-        new DefaultComboBoxModel<>(new String[] { "CUSTOMER", "EMPLOYEE" })
+        new DefaultComboBoxModel<>(new String[] { "EMPLOYEE", "CUSTOMER" })
       );
     }
 
