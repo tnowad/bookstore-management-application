@@ -8,6 +8,7 @@ import com.bookstore.models.OrderModel;
 import java.awt.*;
 import java.util.List;
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 public class OrderList extends JPanel implements ISearchable {
@@ -84,6 +85,15 @@ public class OrderList extends JPanel implements ISearchable {
         }
       );
       orderTableList.setModel(model);
+    }
+    orderTableList.getTableHeader().setReorderingAllowed(false);
+    DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+    centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+    for (int i = 0; i < orderTableList.getColumnCount(); i++) {
+      orderTableList
+        .getColumnModel()
+        .getColumn(i)
+        .setCellRenderer(centerRenderer);
     }
 
     add(new JScrollPane(orderTableList), BorderLayout.CENTER);

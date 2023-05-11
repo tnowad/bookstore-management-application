@@ -23,6 +23,7 @@ import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 public class OrderDetail extends JPanel {
@@ -216,6 +217,15 @@ public class OrderDetail extends JPanel {
           }
         }
       }
+    }
+    productListTable.getTableHeader().setReorderingAllowed(false);
+    DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+    centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+    for (int i = 0; i < productListTable.getColumnCount(); i++) {
+      productListTable
+        .getColumnModel()
+        .getColumn(i)
+        .setCellRenderer(centerRenderer);
     }
     tableListScrollPane.setViewportView(productListTable);
 
