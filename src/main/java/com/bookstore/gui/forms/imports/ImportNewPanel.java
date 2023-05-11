@@ -69,7 +69,7 @@ public class ImportNewPanel extends JPanel {
   private JTextField titleBookTextfield;
 
   private JTable bookListTable;
-  private ImportModel importModel ;
+  private ImportModel importModel;
   private ProviderModel providerModel;
   private PublisherModel publisherModel;
   private BookTableModel bookTableModel;
@@ -104,8 +104,10 @@ public class ImportNewPanel extends JPanel {
         new Object[] {
           importItemsModel.getBookIsbn(),
           bookModel.getTitle(),
+          bookModel.getDescription(),
           bookModel.getTitle(),
           bookModel.getAuthorId(),
+          bookModel.getPublisherId(),
           importItemsModel.getQuantity(),
           importItemsModel.getPrice(),
         }
@@ -122,6 +124,7 @@ public class ImportNewPanel extends JPanel {
         .setCellRenderer(centerRenderer);
     }
     bookListScrollPane.setViewportView(bookListTable);
+    bookListPanel.add(bookListScrollPane);
   }
 
   private void initComponents() {
@@ -267,16 +270,15 @@ public class ImportNewPanel extends JPanel {
 
     bookListPanel.setBorder(BorderFactory.createTitledBorder("Import detail"));
     bookListPanel.setLayout(new BoxLayout(bookListPanel, BoxLayout.LINE_AXIS));
-
+    
     bookTableModel = new BookTableModel();
-
+    
     bookListTable = new JTable();
     bookListTable.setFillsViewportHeight(true);
-    bookListScrollPane.setViewportView(bookListTable);
-    bookListScrollPane.getVerticalScrollBar().setUnitIncrement(16);
-
-    bookListPanel.add(bookListScrollPane);
-
+    // bookListScrollPane.setViewportView(bookListTable);
+    // bookListScrollPane.getVerticalScrollBar().setUnitIncrement(16);
+    
+    bookListPanel.setPreferredSize(new Dimension(1000, 500));
     gridBagConstraints = new GridBagConstraints();
     gridBagConstraints.gridx = 0;
     gridBagConstraints.gridy = 4;
@@ -440,20 +442,21 @@ public class ImportNewPanel extends JPanel {
           }
           if (importModel == null) {
             importModel = new ImportModel();
-            System.out.println(importModel.getId());
+            int count = 1;
+            for (ImportModel importModel : ImportBUS
+              .getInstance()
+              .getAllModels()) {
+              if (importModel.getId() == count) count++; else break;
+            }
+            importModel.setId(count);
             importModel.setEmployeeId(userModel.getId());
             importModel.setProviderId(updateProviderModel.getId());
-            importModel.setTotalPrice((double) price * quantity);
-            ImportBUS.getInstance().addModel(importModel);
-            ImportBUS.getInstance().refreshData();
-          } else {
-            // importModel.setEmployeeId(userModel.getId());
-            // importModel.setProviderId(updateProviderModel.getId());
-            importModel.setTotalPrice(
-              importModel.getTotalPrice() + (double) price * quantity
-            );
-            ImportBUS.getInstance().updateModel(importModel);
+            importModel.setTotalPrice((double) 0);
           }
+          importModel.setTotalPrice(
+            importModel.getTotalPrice() + (double) price * quantity
+          );
+          ImportBUS.getInstance().updateModel(importModel);
 
           DatabaseConnection.getInstance().beginTransaction();
           if (book == null) {
@@ -539,7 +542,7 @@ public class ImportNewPanel extends JPanel {
           importItemsModel.setPrice(price);
           importItemsModel.setQuantity(quantity);
           importItemsModel.setImportId(importModel.getId());
-          ImportItemsBUS.getInstance().addModel(importItemsModel);
+          // ImportItemsBUS.getInstance().addModel(importItemsModel);
           importItemsList.add(importItemsModel);
           bookImportListTable();
         } catch (Exception e1) {
@@ -547,8 +550,8 @@ public class ImportNewPanel extends JPanel {
         }
       }
     });
-    // saveButton.addActionListener(e -> {
-    //   ImportBUS.getInstance().addModel(importModel);
-    // });
+    saveButton.addActionListener(e -> {
+      ImportBUS.getInstance().addModel(importModel);
+    });
   }
 }
