@@ -38,8 +38,6 @@ public class ImportDetailPanel extends JPanel {
   private JPanel jPanel1;
   private JPanel tablePanel;
   private JPanel groupButtonPanel;
-  // private JPanel jPanel5;
-  // private JScrollPane jScrollPane1;
   private JScrollPane tableScrollPane;
   private JTable bookListTable;
   private JLabel providerLabel;
@@ -99,9 +97,12 @@ public class ImportDetailPanel extends JPanel {
 
   private void initComponents() {
     headerPanel = new JPanel();
+    headerPanel.setBackground(Color.WHITE);
     jPanel1 = new JPanel();
+    jPanel1.setBackground(Color.WHITE);
     importDataLabel = new JLabel();
     contentHeaderPanel = new JPanel();
+    contentHeaderPanel.setBackground(Color.WHITE);
 
     idLabel = new JLabel();
     idTextField = new JTextField();
@@ -133,7 +134,9 @@ public class ImportDetailPanel extends JPanel {
     createdAtTextField.setEditable(false);
 
     tablePanel = new JPanel();
+    tablePanel.setBackground(Color.WHITE);
     groupButtonPanel = new JPanel();
+    groupButtonPanel.setBackground(Color.WHITE);
 
     exportToPDFButton = new Button();
     updateButton = new Button();
