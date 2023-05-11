@@ -185,5 +185,6 @@ public class CustomerListForm extends JPanel {
     int row = customerTableList.getSelectedRow();
     int id = Integer.parseInt(customerTableList.getValueAt(row, 0).toString());
     UserModel customer = UserBUS.getInstance().getModelById(id);
+    System.out.println(customer);
   };
 }
