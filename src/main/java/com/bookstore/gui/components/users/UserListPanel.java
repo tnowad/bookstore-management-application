@@ -1,10 +1,13 @@
 package com.bookstore.gui.components.users;
 
+import com.bookstore.bus.EmployeeBUS;
 import com.bookstore.bus.UserBUS;
+import com.bookstore.enums.EmployeeType;
 import com.bookstore.enums.UserRole;
 import com.bookstore.gui.components.cards.CardPanel;
 import com.bookstore.gui.components.carts.CartUserAdmin;
 import com.bookstore.interfaces.ISearchable;
+import com.bookstore.models.EmployeeModel;
 import com.bookstore.models.UserModel;
 import com.bookstore.models.gui.StatisticCardModel;
 import com.bookstore.services.Authentication;
@@ -55,12 +58,15 @@ public class UserListPanel extends JPanel implements ISearchable {
   private int quantityAdminNew = 0;
   private int quantityCustomerNew = 0;
   private int quantityEmployeeNew = 0;
+  private int quantitySales = 0;
+  private int quantitySalesNew = 0;
   private JButton buttonSortAz;
   private JButton buttonSortZa;
 
   CardPanel cartUserAdmin;
 
   private UserBUS userBUS = UserBUS.getInstance();
+  private EmployeeBUS employeeBUS = EmployeeBUS.getInstance();
   private List<UserModel> listUser = userBUS.getAllModels();
   private List<UserModel> modifiableUserList = new ArrayList<>(listUser);
 
@@ -120,45 +126,74 @@ public class UserListPanel extends JPanel implements ISearchable {
 
     cartPanel.setLayout(new GridLayout(1, 0, 50, 0));
 
-    cartUserAdmin =
-      new CardPanel(
-        new StatisticCardModel(
-          new ImageIcon("src/main/java/resources/icons/employeeCart.png"),
-          "EMPLOYEE",
-          ""+quantityEmployee,
-          "New Employee: "+quantityEmployeeNew
-        )
-      );
-    cartUserAdmin.setColor(Color.decode("#FFC107"));
-    cartPanel.add(cartUserAdmin);
-
     if(userModel.getRole() == UserRole.ADMIN) {
 
-    cartUserAdmin =
-    new CardPanel(
-      new StatisticCardModel(
-        new ImageIcon("src/main/java/resources/icons/admin-cart.png"),
-        "ADMIN",
-        ""+quantityAdmin,
-        "New Employee: "+quantityAdminNew
-      )
-      );
-    cartUserAdmin.setColor(Color.decode("#4CAF50"));
-    cartPanel.add(cartUserAdmin);
-
-    }
-    cartUserAdmin =
-    new CardPanel(
-      new StatisticCardModel(
-        new ImageIcon("src/main/java/resources/icons/customerCart.png"),
-        "CUSTOMER",
-        ""+quantityCustomer,
-        "New Employee: "+quantityCustomerNew
-      )
-      );
-
-    cartUserAdmin.setColor(Color.decode("#2196F3"));
-    cartPanel.add(cartUserAdmin);
+      cartUserAdmin =
+        new CardPanel(
+          new StatisticCardModel(
+            new ImageIcon("src/main/java/resources/icons/employeeCart.png"),
+            "EMPLOYEE",
+            ""+quantityEmployee,
+            "New Employee: "+quantityEmployeeNew
+          )
+        );
+      cartUserAdmin.setColor(Color.decode("#FFC107"));
+      cartPanel.add(cartUserAdmin);
+  
+      cartUserAdmin =
+      new CardPanel(
+        new StatisticCardModel(
+          new ImageIcon("src/main/java/resources/icons/admin-cart.png"),
+          "ADMIN",
+          ""+quantityAdmin,
+          "New Employee: "+quantityAdminNew
+        )
+        );
+      cartUserAdmin.setColor(Color.decode("#4CAF50"));
+      cartPanel.add(cartUserAdmin);
+  
+      cartUserAdmin =
+      new CardPanel(
+        new StatisticCardModel(
+          new ImageIcon("src/main/java/resources/icons/customerCart.png"),
+          "CUSTOMER",
+          ""+quantityCustomer,
+          "New Employee: "+quantityCustomerNew
+        )
+        );
+        cartUserAdmin.setColor(Color.decode("#2196F3"));
+        cartPanel.add(cartUserAdmin);
+      }
+  
+      else {
+    
+        cartUserAdmin =
+        new CardPanel(
+          new StatisticCardModel(
+            new ImageIcon("src/main/java/resources/icons/employeeCart.png"),
+            "SALESMAN",
+            ""+quantitySales,
+            "New Employee: "+0
+          )
+        );
+      cartUserAdmin.setColor(Color.decode("#FFC107"));
+      cartPanel.add(cartUserAdmin);
+  
+      cartUserAdmin =
+      new CardPanel(
+        new StatisticCardModel(
+          new ImageIcon("src/main/java/resources/icons/customerCart.png"),
+          "CUSTOMER",
+          ""+quantityCustomer,
+          "New Employee: "+quantityCustomerNew
+        )
+        );
+        cartUserAdmin.setColor(Color.decode("#2196F3"));
+        cartPanel.add(cartUserAdmin);
+  
+      }
+  
+  
 
     contend.add(cartPanel, BorderLayout.PAGE_START);
 
@@ -283,6 +318,7 @@ public class UserListPanel extends JPanel implements ISearchable {
     quantityCustomer = 0;
     quantityEmployee = 0;
     quantityUser = 0;
+    quantitySales =0;
     List<UserModel> userList = userBUS.getAllModels();
     for (UserModel user : userList) {
       LocalDateTime getTime = user.getCreatedAt();
@@ -314,12 +350,19 @@ public class UserListPanel extends JPanel implements ISearchable {
         }
       }
     }
+    List<EmployeeModel> employeeList = employeeBUS.getAllModels();
+    for(EmployeeModel employee : employeeList) {
+      if (employee.getEmployeeType() == EmployeeType.EMPLOYEE_SALES) {
+          quantitySales++;
+      }    
+     }
   }
 
   public void addTable(List<UserModel> userList) {
     table.removeAll();
     table.setLayout(new GridLayout(0, 1, 0, 20));
     int serial = 1;
+    if(userModel.getRole()== UserRole.ADMIN) {
     for (UserModel user : userList) {
       if (!user.getStatus().toString().equals("BANNED")) {
         UserPanel userForm = new UserPanel(serial, user);
@@ -327,6 +370,16 @@ public class UserListPanel extends JPanel implements ISearchable {
         serial++;
       }
     }
+    } else {
+      for (UserModel user : userList) {
+        if (user.getRole() != UserRole.ADMIN) {
+          UserPanel userForm = new UserPanel(serial, user);
+          table.add(userForm);
+          serial++;
+        }
+      }
+    }
+  
     table.revalidate();
     table.repaint();
   }
