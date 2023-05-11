@@ -27,6 +27,7 @@ import com.bookstore.models.UserModel;
 import com.bookstore.services.Authentication;
 import com.bookstore.util.InputValidator;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
@@ -313,8 +314,10 @@ public class CheckoutCustomerForm extends JPanel {
   }
 
   private void initComponents() {
+    setBackground(Color.WHITE);
     setLayout(new BorderLayout());
     JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+    topPanel.setBackground(Color.WHITE);
     backPreviousButton = new JButton("Back Previous");
     topPanel.add(backPreviousButton);
     add(topPanel, BorderLayout.NORTH);
@@ -354,6 +357,7 @@ public class CheckoutCustomerForm extends JPanel {
     paymentMethodLabel.setLabelFor(paymentMethodComboBox);
 
     JPanel checkoutDetailPanel = new JPanel(new GridLayout(0, 2));
+    checkoutDetailPanel.setBackground(Color.WHITE);
     checkoutDetailPanel.add(nameLabel);
     checkoutDetailPanel.add(nameTextField);
     checkoutDetailPanel.add(emailLabel);
@@ -377,6 +381,7 @@ public class CheckoutCustomerForm extends JPanel {
     cvvTextField = new JTextField();
 
     JPanel creditDetailPanel = new JPanel(new GridLayout(0, 2));
+    creditDetailPanel.setBackground(Color.WHITE);
 
     creditDetailPanel.add(cardNumberLabel);
     creditDetailPanel.add(cardNumberTextField);
@@ -392,6 +397,7 @@ public class CheckoutCustomerForm extends JPanel {
     booksTableScrollPane.getVerticalScrollBar().setUnitIncrement(16);
 
     JPanel mainPanel = new JPanel(new GridBagLayout());
+    mainPanel.setBackground(Color.WHITE);
 
     GridBagConstraints gridBagConstraints = new GridBagConstraints();
     gridBagConstraints.insets = new Insets(10, 10, 10, 10);
@@ -411,7 +417,12 @@ public class CheckoutCustomerForm extends JPanel {
     mainPanel.add(booksTableScrollPane, gridBagConstraints);
     add(mainPanel, BorderLayout.CENTER);
 
-    actionPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+    actionPanel =
+      new JPanel(new FlowLayout(FlowLayout.RIGHT)) {
+        {
+          setBackground(Color.WHITE);
+        }
+      };
 
     checkoutButton = new JButton("Checkout");
     cancelButton = new JButton("Cancel");

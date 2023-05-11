@@ -108,7 +108,9 @@ public class ShopCustomerForm
   }
 
   private void initComponents() {
+    setBackground(Color.WHITE);
     headerPanel = new JPanel();
+    headerPanel.setBackground(Color.WHITE);
     sortByLabel = new JLabel();
     sortByConditionComboBox = new JComboBox<>();
     categoryLabel = new JLabel();
@@ -116,6 +118,7 @@ public class ShopCustomerForm
     cartButtonTextField = new JButton();
     bookListScrollPane = new JScrollPane();
     bookListPanel = new JPanel();
+    bookListPanel.setBackground(Color.WHITE);
 
     setLayout(new BorderLayout());
 
@@ -178,6 +181,7 @@ public class ShopCustomerForm
       JScrollPane.HORIZONTAL_SCROLLBAR_NEVER
     );
     JPanel bookListWrapper = new JPanel();
+    bookListWrapper.setBackground(Color.WHITE);
     bookListWrapper.add(bookListPanel);
     bookListScrollPane.setViewportView(bookListWrapper);
     bookListScrollPane.getVerticalScrollBar().setUnitIncrement(16);

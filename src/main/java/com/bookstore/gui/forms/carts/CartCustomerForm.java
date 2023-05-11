@@ -57,14 +57,19 @@ public class CartCustomerForm extends JPanel {
   }
 
   private void initComponents() {
+    setBackground(Color.WHITE);
     listCartPanel = new JPanel();
+    listCartPanel.setBackground(Color.WHITE);
     listCartScrollPane = new JScrollPane();
     listCartTable = new JTable();
     groupBottomPanel = new JPanel();
+    groupBottomPanel.setBackground(Color.WHITE);
     groupTotalCostPanel = new JPanel();
+    groupTotalCostPanel.setBackground(Color.WHITE);
     totalCostLabel = new JLabel();
 
     groupActionPanel = new JPanel();
+    groupActionPanel.setBackground(Color.WHITE);
     deleteAllProductsButton = new JButton();
     proceedToCheckoutButton = new JButton();
 

@@ -2,6 +2,7 @@ package com.bookstore.gui.forms.general;
 
 import com.bookstore.gui.components.labels.Label;
 import com.bookstore.gui.theme.ThemeFont;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;
@@ -21,10 +22,12 @@ public class NoDataPanel extends JPanel {
   }
 
   private void initComponents(String name) {
+    setBackground(Color.WHITE);
     noDataIconLabel = new JLabel();
     try {
       BufferedImage logoImage = ImageIO.read(
-          getClass().getResource("/resources/images/logo.png"));
+        getClass().getResource("/resources/images/logo.png")
+      );
       noDataIconLabel.setIcon(new ImageIcon(logoImage));
       noDataIconLabel.setPreferredSize(new Dimension(600, 400));
     } catch (Exception ex) {

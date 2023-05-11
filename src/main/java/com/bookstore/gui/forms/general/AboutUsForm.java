@@ -17,6 +17,7 @@ public class AboutUsForm extends JPanel {
   }
 
   public AboutUsForm() {
+    setBackground(Color.WHITE);
     setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
     titleLabel = new JLabel("About Us");
@@ -24,6 +25,7 @@ public class AboutUsForm extends JPanel {
     add(titleLabel);
 
     descriptionArea = new JTextArea();
+    descriptionArea.setBackground(Color.WHITE);
     descriptionArea.setLineWrap(true);
     descriptionArea.setWrapStyleWord(true);
     descriptionArea.setEditable(false);

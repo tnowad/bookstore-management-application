@@ -8,6 +8,7 @@ import com.bookstore.gui.forms.books.BookItemDetailForm;
 import com.bookstore.models.BookModel;
 import com.bookstore.util.image.ImageUtils;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -53,6 +54,7 @@ public class BookItemPanel extends JPanel {
   }
 
   private void initComponents() {
+    setBackground(Color.WHITE);
     setLayout(new BorderLayout());
     titleLabel = new JLabel(bookModel.getTitle());
     titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -81,6 +83,7 @@ public class BookItemPanel extends JPanel {
       Locale.of("vi", "VN")
     );
     JPanel footerPanel = new JPanel(new BorderLayout());
+    footerPanel.setBackground(Color.WHITE);
     priceLabel = new Label();
     priceLabel.setText(currencyFormatter.format(bookModel.getPrice()));
     priceLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -89,6 +92,7 @@ public class BookItemPanel extends JPanel {
     footerPanel.add(priceLabel, BorderLayout.NORTH);
 
     JPanel actionPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
+    actionPanel.setBackground(Color.WHITE);
     actionPanel.add(addToCartButton);
     actionPanel.add(detailButton);
     footerPanel.add(actionPanel, BorderLayout.CENTER);

@@ -88,6 +88,7 @@ public class ContactUs extends JPanel {
 
   private void initChat() {
     contactChat = new JPanel();
+    contactChat.setBackground(Color.WHITE);
     contactChat.setPreferredSize(new Dimension(250, ABORT));
     JLabel titleChat = new JLabel("CHAT");
     titleChat.setFont(new Font("Arial", Font.BOLD, 16));
@@ -112,6 +113,7 @@ public class ContactUs extends JPanel {
 
   private void initNewCase() {
     contactNewCase = new JPanel();
+    contactNewCase.setBackground(Color.WHITE);
     JLabel titleNewCase = new JLabel("START A NEW CASE");
     titleNewCase.setFont(new Font("Arial", Font.BOLD, 16));
     titleNewCase.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -147,6 +149,7 @@ public class ContactUs extends JPanel {
   }
 
   private void initFormNewCase() {
+    setBackground(Color.WHITE);
     formNewCase = new JPanel();
     formNewCase.setBackground(Color.WHITE);
     formNewCase.setPreferredSize(new Dimension(ABORT, 400));
