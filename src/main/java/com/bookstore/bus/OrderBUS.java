@@ -178,7 +178,6 @@ public class OrderBUS implements IBUS<OrderModel> {
     );
 
     int id = OrderDAO.getInstance().insert(mapToEntity(orderModel));
-    System.out.println(id);
     orderModel.setId(id);
     orderList.add(orderModel);
     return id;
