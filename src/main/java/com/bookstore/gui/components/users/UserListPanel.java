@@ -211,12 +211,14 @@ public class UserListPanel extends JPanel implements ISearchable {
     filterAll.addActionListener(findAllUser);
     buttonFilter.add(filterAll);
 
+    if(userModel.getRole() == UserRole.ADMIN) {
     filterAdmin.setText("Admin");
     filterAdmin.setToolTipText("");
     filterAdmin.setBorder(null);
     filterAdmin.addActionListener(findAdmin);
     buttonFilter.add(filterAdmin);
-
+    }
+    
     filterEmployee.setText("Employee");
     filterEmployee.setBorder(null);
     filterEmployee.addActionListener(findEmployee);
