@@ -1,8 +1,6 @@
-package com.bookstore.gui.components.authors;
+package com.bookstore.gui.forms.authors;
 
 import com.bookstore.bus.AuthorBUS;
-import com.bookstore.gui.forms.authors.AddAuthorForm;
-import com.bookstore.gui.forms.authors.AuthorPanel;
 import com.bookstore.interfaces.ISearchable;
 import com.bookstore.models.AuthorModel;
 import java.awt.BorderLayout;
