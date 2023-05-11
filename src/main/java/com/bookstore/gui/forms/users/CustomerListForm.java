@@ -115,8 +115,10 @@ public class CustomerListForm extends JPanel {
     headerPanel = new JPanel();
     groupTopHeaderPanel = new JPanel();
     customerListLabel = new Label("Customer List");
+    customerListLabel.setFont(new Font("Arial", Font.BOLD, 16));
     addCustomerPanel = new JPanel();
     addCustomerButton = new Button("Add Customer");
+    addCustomerButton.setFont(new Font("Arial", Font.BOLD, 16));
     addCustomerButton.setPreferredSize(new Dimension(200, 40));
     groupBottomHeaderPanel = new JPanel();
     searchCustomerTxtFld = new JTextField();

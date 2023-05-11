@@ -4,13 +4,14 @@ import com.bookstore.bus.OrderBUS;
 import com.bookstore.gui.components.buttons.Button;
 import com.bookstore.gui.components.labels.Label;
 import com.bookstore.gui.components.panels.MainPanel;
+import com.bookstore.interfaces.ISearchable;
 import com.bookstore.models.OrderModel;
 import java.awt.*;
 import java.util.List;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-public class OrderList extends JPanel {
+public class OrderList extends JPanel implements ISearchable {
 
   private JTable orderTableList;
 
@@ -108,4 +109,7 @@ public class OrderList extends JPanel {
 
     add(headerPanel, BorderLayout.PAGE_START);
   }
+
+  @Override
+  public void search(String keyword) {}
 }

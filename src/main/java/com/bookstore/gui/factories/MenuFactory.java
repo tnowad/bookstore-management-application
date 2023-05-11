@@ -15,7 +15,7 @@ import com.bookstore.gui.forms.accounts.AccountProfileForm;
 import com.bookstore.gui.forms.books.BookListForm;
 import com.bookstore.gui.forms.carts.CartCustomerForm;
 import com.bookstore.gui.forms.dashboards.DashboardPanel;
-import com.bookstore.gui.forms.general.AboutUs;
+import com.bookstore.gui.forms.general.AboutUsForm;
 import com.bookstore.gui.forms.general.ContactUs;
 import com.bookstore.gui.forms.imports.ImportList;
 import com.bookstore.gui.forms.orders.OrderHistory;
@@ -530,38 +530,16 @@ public class MenuFactory {
     return new MenuModel(
       new ArrayList<MenuItemModel>() {
         {
-          add(
-            new MenuItemModel(
-              "Employee Management",
-              new ImageIcon("src/main/java/resources/icons/profile.png"),
-              showEmployeeList,
-              null
-            )
-          );
-          add(
-            new MenuItemModel(
-              "Salary Management",
-              new ImageIcon("src/main/java/resources/icons/profit.png"),
-              showSalaryList,
-              null
-            )
-          );
-          add(
-            new MenuItemModel(
-              "Customer manager",
-              new ImageIcon("src/main/java/resources/icons/customer_icon.png"),
-              showCustomerList,
-              null
-            )
-          );
+ 
           add(
             new MenuItemModel(
               "Book Management",
               new ImageIcon("src/main/java/resources/icons/book.png"),
-              showBookList,
+              showBookListAdmin,
               null
             )
           );
+
           add(
             new MenuItemModel(
               "Import Management",
@@ -570,11 +548,65 @@ public class MenuFactory {
               null
             )
           );
+
           add(
             new MenuItemModel(
               "Order Management",
               new ImageIcon("src/main/java/resources/icons/cart.png"),
-              showOrderList,
+              showOrderListAdmin,
+              null
+            )
+          );
+
+          add(
+            new MenuItemModel(
+              "User Management",
+              new ImageIcon("src/main/java/resources/icons/user.png"),
+              showUserListAdmin,
+              null
+            )
+          );
+          add(
+            new MenuItemModel(
+              "Contact Management",
+              new ImageIcon("src/main/java/resources/icons/user.png"),
+              null,
+              new ArrayList<SubMenuItemModel>() {
+                {
+                  add(
+                    new SubMenuItemModel(
+                      "Publisher Management",
+                      new ImageIcon(
+                        "src/main/java/resources/icons/publisher.png"
+                      ),
+                      showPublisherListAdmin
+                    )
+                  );
+                  add(
+                    new SubMenuItemModel(
+                      "Author Management",
+                      new ImageIcon("src/main/java/resources/icons/author.png"),
+                      showAuthorListAdmin
+                    )
+                  );
+                  add(
+                    new SubMenuItemModel(
+                      "Provider Management",
+                      new ImageIcon(
+                        "src/main/java/resources/icons/provider.png"
+                      ),
+                      showProviderListAdmin
+                    )
+                  );
+                }
+              }
+            )
+          );
+          add(
+            new MenuItemModel(
+              "Salary Management",
+              new ImageIcon("src/main/java/resources/icons/user.png"),
+              showSalaryListAdmin,
               null
             )
           );
@@ -608,6 +640,7 @@ public class MenuFactory {
               }
             )
           );
+
           add(
             new MenuItemModel(
               "Others",
@@ -637,6 +670,7 @@ public class MenuFactory {
               }
             )
           );
+
           add(
             new MenuItemModel(
               "Logout",
@@ -645,6 +679,7 @@ public class MenuFactory {
               null
             )
           );
+
           add(
             new MenuItemModel(
               "Exit",
@@ -729,7 +764,7 @@ public class MenuFactory {
     MainPanel.getInstance().showForm(new ContactUs());
   };
   private static ActionListener showAboutUs = e -> {
-    MainPanel.getInstance().showForm(new AboutUs());
+    MainPanel.getInstance().showForm(new AboutUsForm());
   };
   private static ActionListener showSalesReport = e -> {
     MainPanel.getInstance().showForm(new SalesReportForm());

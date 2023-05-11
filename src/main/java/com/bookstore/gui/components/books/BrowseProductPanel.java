@@ -282,7 +282,7 @@ public class BrowseProductPanel
     table.setLayout(new GridLayout(0, cols, 10, 10));
     for (BookModel book : filteredList) {
       if (!book.getStatus().toString().equals("DELETED")) {
-        BookProductPanel bookProductPanel = new BookProductPanel(book);
+        BookItemDetailPanel bookProductPanel = new BookItemDetailPanel(book);
         table.add(bookProductPanel);
       }
     }
