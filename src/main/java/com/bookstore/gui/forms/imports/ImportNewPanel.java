@@ -111,7 +111,7 @@ public class ImportNewPanel extends JPanel {
             bookModel.getTitle(),
             bookModel.getAuthorId(),
             bookModel.getPublisherId(),
-            importItemsModel.getQuantity(), 
+            importItemsModel.getQuantity(),
             importItemsModel.getPrice(),
           }
         );
@@ -561,12 +561,6 @@ public class ImportNewPanel extends JPanel {
           JOptionPane.showMessageDialog(null, e1);
         }
       }
-    });
-    saveButton.addActionListener(e -> {
-      ImportBUS.getInstance().addModel(importModel);
-      for (ImportItemsModel importItemsModel : importItemsList) {
-        ImportItemsBUS.getInstance().addModel(importItemsModel);
-      }
       publisherTextField.setText("");
       providerTextField.setText("");
       bookIsbnTextField.setText("");
@@ -576,6 +570,33 @@ public class ImportNewPanel extends JPanel {
       categoriesTextField.setText("");
       priceTextField.setText("");
       authorTextField.setText("");
+    });
+    saveButton.addActionListener(e -> {
+      int option = JOptionPane.showConfirmDialog(
+        null,
+        "Do you want to save import ? "
+      );
+      if (option == JOptionPane.YES_OPTION) {
+        ImportBUS.getInstance().addModel(importModel);
+        for (ImportItemsModel importItemsModel : importItemsList) {
+          ImportItemsBUS.getInstance().addModel(importItemsModel);
+        }
+        publisherTextField.setText("");
+        providerTextField.setText("");
+        bookIsbnTextField.setText("");
+        titleBookTextfield.setText("");
+        descriptionBookTextfield.setText("");
+        quantityTextField.setText("");
+        categoriesTextField.setText("");
+        priceTextField.setText("");
+        authorTextField.setText("");
+        JOptionPane.showMessageDialog(null, "Save import successfully");
+        int choice = JOptionPane.showConfirmDialog(
+          null,
+          "Do you want to print the import to pdf"
+        );
+        if (choice == JOptionPane.YES_OPTION) {}
+      }
     });
   }
 }
