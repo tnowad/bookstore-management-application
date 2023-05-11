@@ -31,17 +31,20 @@ public class BookItemDetailPanel extends JPanel {
   private void initComponents(BookModel book) {
     checkBox = new JCheckBox();
     contendPanel = new JPanel();
+    contendPanel.setBackground(Color.WHITE);
     buttonDetail = new JButton();
     setImage = new JLabel();
     titlePanel = new JPanel();
+    titlePanel.setBackground(Color.WHITE);
     setTitle = new JTextField();
+    setTitle.setBackground(Color.WHITE);
 
     isbnBook = new JTextField();
     isbnBook.setText("" + book.getIsbn());
     add(isbnBook);
 
     setBackground(new Color(255, 255, 255));
-    setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
+    // setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
     setPreferredSize(new Dimension(199, 333));
     setLayout(new BorderLayout());
 
