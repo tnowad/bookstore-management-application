@@ -112,10 +112,7 @@ public class ProviderBUS implements IBUS<ProviderModel> {
     if (providerModel.getName() == null || providerModel.getName().isEmpty()) {
       throw new IllegalArgumentException("Name cannot be null or empty!");
     }
-    if (
-      providerModel.getDescription() == null ||
-      providerModel.getDescription().isEmpty()
-    ) {
+    if (providerModel.getDescription() == null) {
       throw new IllegalArgumentException(
         "Description cannot be null or empty!"
       );

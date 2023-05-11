@@ -5,7 +5,7 @@ import java.awt.Font;
 public class ThemeFont {
     private String fontStyle = "Segoe UI";
     private int fontFamily = Font.PLAIN;
-    private int largeFontSize = 48;
+    private int largeFontSize = 40;
     private int mediumFontSize = 24;
     private int smallFontSize = 14;
     private Font largeFont = new Font(fontStyle, fontFamily, largeFontSize);

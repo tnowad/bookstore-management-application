@@ -26,6 +26,7 @@ public class NoDataPanel extends JPanel {
       BufferedImage logoImage = ImageIO.read(
           getClass().getResource("/resources/images/logo.png"));
       noDataIconLabel.setIcon(new ImageIcon(logoImage));
+      noDataIconLabel.setPreferredSize(new Dimension(600, 400));
     } catch (Exception ex) {
       ex.printStackTrace();
     }
@@ -35,7 +36,7 @@ public class NoDataPanel extends JPanel {
     noDataLabel = new Label();
     noDataLabel.setFont(new ThemeFont().getLargeFont());
     noDataLabel.setText(name);
-    noDataLabel.setPreferredSize(new Dimension(400, 100));
+    noDataLabel.setPreferredSize(new Dimension(600, 100));
     noDataLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
     add(noDataLabel);
 

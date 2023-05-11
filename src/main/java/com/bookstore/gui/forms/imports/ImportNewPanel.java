@@ -12,6 +12,7 @@ import com.bookstore.dao.DatabaseConnection;
 import com.bookstore.enums.BookStatus;
 import com.bookstore.gui.components.dialogs.Dialog;
 import com.bookstore.gui.components.panels.MainPanel;
+import com.bookstore.gui.forms.general.NoDataPanel;
 import com.bookstore.models.AuthorModel;
 import com.bookstore.models.BookModel;
 import com.bookstore.models.BooksCategoryModel;
@@ -81,50 +82,61 @@ public class ImportNewPanel extends JPanel {
   public ImportNewPanel() {
     initComponents();
     handleEvent();
-    if (importItemsList.size() > 0) {
-      bookImportListTable();
-    }
+    // if (importItemsList.size() > 0) {
+    bookImportListTable();
+    // }
   }
 
   private void bookImportListTable() {
-    DefaultTableModel model = new DefaultTableModel();
-    model.addColumn("Isbn");
-    model.addColumn("Book name");
-    model.addColumn("Description");
-    model.addColumn("Price");
-    model.addColumn("Acthor");
-    model.addColumn("Publisher");
-    model.addColumn("Quantity");
-    model.addColumn("Total price");
-    for (ImportItemsModel importItemsModel : importItemsList) {
-      BookModel bookModel = BookBUS
-        .getInstance()
-        .getBookByIsbn(importItemsModel.getBookIsbn());
-      model.addRow(
-        new Object[] {
-          importItemsModel.getBookIsbn(),
-          bookModel.getTitle(),
-          bookModel.getDescription(),
-          bookModel.getTitle(),
-          bookModel.getAuthorId(),
-          bookModel.getPublisherId(),
-          importItemsModel.getQuantity(),
-          importItemsModel.getPrice(),
-        }
-      );
-      bookListTable.setModel(model);
+    if (importItemsList.size() > 0) {
+      bookListPanel.removeAll();
+      DefaultTableModel model = new DefaultTableModel();
+      model.addColumn("Isbn");
+      model.addColumn("Book name");
+      model.addColumn("Description");
+      model.addColumn("Price");
+      model.addColumn("Acthor");
+      model.addColumn("Publisher");
+      model.addColumn("Quantity");
+      model.addColumn("Total price");
+      for (ImportItemsModel importItemsModel : importItemsList) {
+        BookModel bookModel = BookBUS
+          .getInstance()
+          .getBookByIsbn(importItemsModel.getBookIsbn());
+        model.addRow(
+          new Object[] {
+            importItemsModel.getBookIsbn(),
+            bookModel.getTitle(),
+            bookModel.getDescription(),
+            bookModel.getTitle(),
+            bookModel.getAuthorId(),
+            bookModel.getPublisherId(),
+            importItemsModel.getQuantity(), 
+            importItemsModel.getPrice(),
+          }
+        );
+        bookListTable.setModel(model);
+      }
+      bookListTable.getTableHeader().setReorderingAllowed(false);
+      DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+      centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+      for (int i = 0; i < bookListTable.getColumnCount(); i++) {
+        bookListTable
+          .getColumnModel()
+          .getColumn(i)
+          .setCellRenderer(centerRenderer);
+      }
+      bookListScrollPane.setViewportView(bookListTable);
+      bookListPanel.add(bookListScrollPane);
+      bookListPanel.revalidate();
+      bookListPanel.repaint();
+    } else {
+      bookListPanel.removeAll();
+      bookListPanel.setLayout(new FlowLayout());
+      bookListPanel.add(new NoDataPanel("Don't have import items"));
+      bookListPanel.revalidate();
+      bookListPanel.repaint();
     }
-    bookListTable.getTableHeader().setReorderingAllowed(false);
-    DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-    centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-    for (int i = 0; i < bookListTable.getColumnCount(); i++) {
-      bookListTable
-        .getColumnModel()
-        .getColumn(i)
-        .setCellRenderer(centerRenderer);
-    }
-    bookListScrollPane.setViewportView(bookListTable);
-    bookListPanel.add(bookListScrollPane);
   }
 
   private void initComponents() {
@@ -268,22 +280,23 @@ public class ImportNewPanel extends JPanel {
     gridBagConstraints.weightx = 1.0;
     add(bookFormPanel, gridBagConstraints);
 
+    bookListPanel.setPreferredSize(new Dimension(1000, 500));
     bookListPanel.setBorder(BorderFactory.createTitledBorder("Import detail"));
     bookListPanel.setLayout(new BoxLayout(bookListPanel, BoxLayout.LINE_AXIS));
-    
+
     bookTableModel = new BookTableModel();
-    
+
     bookListTable = new JTable();
     bookListTable.setFillsViewportHeight(true);
-    // bookListScrollPane.setViewportView(bookListTable);
+    bookListScrollPane.setViewportView(bookListTable);
     // bookListScrollPane.getVerticalScrollBar().setUnitIncrement(16);
-    
-    bookListPanel.setPreferredSize(new Dimension(1000, 500));
+
     gridBagConstraints = new GridBagConstraints();
     gridBagConstraints.gridx = 0;
     gridBagConstraints.gridy = 4;
-    gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+    gridBagConstraints.fill = GridBagConstraints.BOTH;
     gridBagConstraints.weightx = 1.0;
+    gridBagConstraints.weighty = 1.0;
     add(bookListPanel, gridBagConstraints);
 
     actionPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 50, 5));
@@ -538,11 +551,10 @@ public class ImportNewPanel extends JPanel {
           // create import
           ImportItemsModel importItemsModel = new ImportItemsModel();
           importItemsModel.setBookIsbn(book.getIsbn());
-          importItemsModel.setImportId(option);
+          importItemsModel.setImportId(importModel.getId());
           importItemsModel.setPrice(price);
           importItemsModel.setQuantity(quantity);
           importItemsModel.setImportId(importModel.getId());
-          // ImportItemsBUS.getInstance().addModel(importItemsModel);
           importItemsList.add(importItemsModel);
           bookImportListTable();
         } catch (Exception e1) {
@@ -552,6 +564,18 @@ public class ImportNewPanel extends JPanel {
     });
     saveButton.addActionListener(e -> {
       ImportBUS.getInstance().addModel(importModel);
+      for (ImportItemsModel importItemsModel : importItemsList) {
+        ImportItemsBUS.getInstance().addModel(importItemsModel);
+      }
+      publisherTextField.setText("");
+      providerTextField.setText("");
+      bookIsbnTextField.setText("");
+      titleBookTextfield.setText("");
+      descriptionBookTextfield.setText("");
+      quantityTextField.setText("");
+      categoriesTextField.setText("");
+      priceTextField.setText("");
+      authorTextField.setText("");
     });
   }
 }
