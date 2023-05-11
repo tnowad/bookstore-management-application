@@ -58,9 +58,12 @@ public class BookDetailFrame extends JFrame {
   }
 
   private void initComponents(BookModel book) {
+    setBackground(Color.WHITE);
     contendPanel = new JPanel();
+    contendPanel.setBackground(Color.WHITE);
     setImage = new JLabel();
     informationPanel = new JPanel();
+    informationPanel.setBackground(Color.WHITE);
     setTitle = new JTextField();
     priceText = new JLabel();
     setPrice = new JTextField();
@@ -75,9 +78,12 @@ public class BookDetailFrame extends JFrame {
     publisherText = new JLabel();
     setPublisherName = new JTextField();
     descriptionPanel = new JPanel();
+    descriptionPanel.setBackground(Color.WHITE);
     descriptionText = new JLabel();
     descriptionContend = new JPanel();
+    descriptionContend.setBackground(Color.WHITE);
     buttonPanel = new JPanel();
+    buttonPanel.setBackground(Color.WHITE);
     buttonBack = new JButton();
     buttonSave = new JButton();
     chooseLink = new JButton();

@@ -95,7 +95,6 @@ public class ImportList extends JPanel implements ISearchable {
     importFromExcelButton = new Button("Import excel");
     exportToExcelButton = new Button("Export excel");
 
-    // jScrollPane1 = new JScrollPane();
     groupListImport = new JPanel();
     scrollPaneTableList = new JScrollPane();
     scrollPaneTableList.getVerticalScrollBar().setUnitIncrement(16);
