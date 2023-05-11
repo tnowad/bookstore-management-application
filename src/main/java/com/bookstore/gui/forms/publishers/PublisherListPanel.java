@@ -42,10 +42,14 @@ public class PublisherListPanel extends JPanel implements ISearchable {
 
   private void initComponents() {
     title = new JLabel();
+    setBackground(Color.WHITE);
     contend = new JPanel();
+    contend.setBackground(Color.WHITE);
     buttonsPanel = new JPanel();
+    buttonsPanel.setBackground(Color.WHITE);
     buttonAdd = new JButton();
     table = new JPanel();
+    table.setBackground(Color.WHITE);
     headerTable = new JPanel();
     serialText = new JLabel();
     idText = new JLabel();
@@ -53,7 +57,9 @@ public class PublisherListPanel extends JPanel implements ISearchable {
     descriptionText = new JLabel();
     scrollPane = new JScrollPane();
     contendTable = new JPanel();
+    contendTable.setBackground(Color.WHITE);
     panel = new JPanel();
+    panel.setBackground(Color.WHITE);
 
     setPreferredSize(new Dimension(720, 444));
     setLayout(new BorderLayout());
