@@ -59,7 +59,8 @@ public class ProviderListPanel extends JPanel implements ISearchable {
     setPreferredSize(new Dimension(720, 444));
     setLayout(new BorderLayout());
 
-    title.setFont(new Font("Segoe UI", 1, 18));
+    title.setFont(new Font("Segoe UI", 3, 18));
+    title.setForeground(new Color(255, 0, 51));    
     title.setText("List Provider");
     add(title, BorderLayout.PAGE_START);
 
