@@ -1,7 +1,6 @@
 package com.bookstore.gui.forms.orders;
 
 import com.bookstore.bus.OrderBUS;
-import com.bookstore.gui.components.buttons.Button;
 import com.bookstore.gui.components.labels.Label;
 import com.bookstore.gui.components.panels.MainPanel;
 import com.bookstore.interfaces.ISearchable;
@@ -101,7 +100,6 @@ public class OrderList extends JPanel implements ISearchable {
     headerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 5));
     orderLabel.setPreferredSize(new Dimension(300, 50));
     headerPanel.add(orderLabel);
-  
 
     add(headerPanel, BorderLayout.PAGE_START);
   }
