@@ -93,8 +93,6 @@ public class OrderList extends JPanel implements ISearchable {
   private void initComponents() {
     JPanel headerPanel = new JPanel();
     Label orderLabel = new Label("Order");
-    TextField searchTextField = new TextField();
-    Button searchButton = new Button("Search");
     orderTableList = new JTable();
 
     setMinimumSize(new Dimension(1180, 620));
@@ -102,10 +100,8 @@ public class OrderList extends JPanel implements ISearchable {
 
     headerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 5));
     orderLabel.setPreferredSize(new Dimension(300, 50));
-    searchTextField.setPreferredSize(new Dimension(500, 30));
     headerPanel.add(orderLabel);
-    headerPanel.add(searchTextField);
-    headerPanel.add(searchButton);
+  
 
     add(headerPanel, BorderLayout.PAGE_START);
   }
