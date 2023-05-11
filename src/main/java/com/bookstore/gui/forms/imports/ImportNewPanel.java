@@ -27,7 +27,6 @@ import com.bookstore.services.Authentication;
 import com.bookstore.util.PDF.PDFWriter;
 
 import java.awt.*;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
@@ -591,12 +590,11 @@ public class ImportNewPanel extends JPanel {
             "Do you want to print the import to PDF?");
         if (choice == JOptionPane.YES_OPTION) {
           JFileChooser fileChooser = new JFileChooser();
-          int result = fileChooser.showOpenDialog(null);
+          int result = fileChooser.showSaveDialog(null);
           if (result == JFileChooser.APPROVE_OPTION) {
-            File selectedFile = fileChooser.getSelectedFile();
-            String url = selectedFile.toURI().toString();
-            PDFWriter.getInstance().exportImportsToPDF(importModel.getId(), url);
-            System.out.println("Selected file URL: " + url);
+            java.io.File selectedFile = fileChooser.getSelectedFile();
+            String filePath = selectedFile.getAbsolutePath();
+            PDFWriter.getInstance().exportImportsToPDF(importModel.getId(), filePath);
           }
         }
       }
