@@ -24,7 +24,10 @@ import com.bookstore.models.PublisherModel;
 import com.bookstore.models.UserModel;
 import com.bookstore.models.tables.BookTableModel;
 import com.bookstore.services.Authentication;
+import com.bookstore.util.PDF.PDFWriter;
+
 import java.awt.*;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
@@ -32,7 +35,6 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import org.apache.xmlbeans.impl.xb.xsdschema.ImportDocument.Import;
 
 public class ImportNewPanel extends JPanel {
 
@@ -101,20 +103,19 @@ public class ImportNewPanel extends JPanel {
       model.addColumn("Total price");
       for (ImportItemsModel importItemsModel : importItemsList) {
         BookModel bookModel = BookBUS
-          .getInstance()
-          .getBookByIsbn(importItemsModel.getBookIsbn());
+            .getInstance()
+            .getBookByIsbn(importItemsModel.getBookIsbn());
         model.addRow(
-          new Object[] {
-            importItemsModel.getBookIsbn(),
-            bookModel.getTitle(),
-            bookModel.getDescription(),
-            bookModel.getTitle(),
-            bookModel.getAuthorId(),
-            bookModel.getPublisherId(),
-            importItemsModel.getQuantity(),
-            importItemsModel.getPrice(),
-          }
-        );
+            new Object[] {
+                importItemsModel.getBookIsbn(),
+                bookModel.getTitle(),
+                bookModel.getDescription(),
+                bookModel.getTitle(),
+                bookModel.getAuthorId(),
+                bookModel.getPublisherId(),
+                importItemsModel.getQuantity(),
+                importItemsModel.getPrice(),
+            });
         bookListTable.setModel(model);
       }
       bookListTable.getTableHeader().setReorderingAllowed(false);
@@ -122,9 +123,9 @@ public class ImportNewPanel extends JPanel {
       centerRenderer.setHorizontalAlignment(JLabel.CENTER);
       for (int i = 0; i < bookListTable.getColumnCount(); i++) {
         bookListTable
-          .getColumnModel()
-          .getColumn(i)
-          .setCellRenderer(centerRenderer);
+            .getColumnModel()
+            .getColumn(i)
+            .setCellRenderer(centerRenderer);
       }
       bookListScrollPane.setViewportView(bookListTable);
       bookListPanel.add(bookListScrollPane);
@@ -194,8 +195,7 @@ public class ImportNewPanel extends JPanel {
     add(titleLabel, gridBagConstraints);
 
     importFormPanel.setBorder(
-      BorderFactory.createTitledBorder("Book Information")
-    );
+        BorderFactory.createTitledBorder("Book Information"));
     importFormPanel.setLayout(new GridLayout(2, 2, 2, 0));
 
     publisherLabel.setText("Publisher ");
@@ -225,8 +225,7 @@ public class ImportNewPanel extends JPanel {
     add(importFormPanel, gridBagConstraints);
 
     bookFormPanel.setBorder(
-      BorderFactory.createTitledBorder("Book Information")
-    );
+        BorderFactory.createTitledBorder("Book Information"));
     bookFormPanel.setLayout(new BorderLayout());
 
     bookInformationPanel.setLayout(new GridLayout(7, 2));
@@ -325,25 +324,24 @@ public class ImportNewPanel extends JPanel {
       MainPanel.getInstance().backToPreviousForm();
     });
     bookIsbnTextField
-      .getDocument()
-      .addDocumentListener(
-        new DocumentListener() {
-          @Override
-          public void insertUpdate(DocumentEvent e) {
-            System.out.println("Insert");
-          }
+        .getDocument()
+        .addDocumentListener(
+            new DocumentListener() {
+              @Override
+              public void insertUpdate(DocumentEvent e) {
+                System.out.println("Insert");
+              }
 
-          @Override
-          public void removeUpdate(DocumentEvent e) {
-            System.out.println("Remove");
-          }
+              @Override
+              public void removeUpdate(DocumentEvent e) {
+                System.out.println("Remove");
+              }
 
-          @Override
-          public void changedUpdate(DocumentEvent e) {
-            System.out.println("Change");
-          }
-        }
-      );
+              @Override
+              public void changedUpdate(DocumentEvent e) {
+                System.out.println("Change");
+              }
+            });
 
     findProviderButton.addActionListener(e -> {
       ProviderSearchForm providerSearchForm = new ProviderSearchForm();
@@ -374,13 +372,13 @@ public class ImportNewPanel extends JPanel {
       if (bookModel != null) {
         bookIsbnTextField.setText(bookModel.getIsbn());
         List<BooksCategoryModel> booksCategoryListFilter = BooksCategoryBUS
-          .getInstance()
-          .getModelsByIsbn(bookIsbnTextField.getText());
+            .getInstance()
+            .getModelsByIsbn(bookIsbnTextField.getText());
         StringBuilder categoryListFilter = new StringBuilder();
         for (BooksCategoryModel bookModelFilter : booksCategoryListFilter) {
           CategoryModel categoryModelFilter = CategoryBUS
-            .getInstance()
-            .getModelById(bookModelFilter.getCategoryId());
+              .getInstance()
+              .getModelById(bookModelFilter.getCategoryId());
           if (categoryListFilter.length() > 0) {
             categoryListFilter.append(", ");
           }
@@ -396,25 +394,24 @@ public class ImportNewPanel extends JPanel {
         priceTextField.setText(String.valueOf(bookModel.getPrice()));
         categoriesTextField.setText(result);
         AuthorModel authorModel = AuthorBUS
-          .getInstance()
-          .getModelById(bookModel.getAuthorId());
+            .getInstance()
+            .getModelById(bookModel.getAuthorId());
         authorTextField.setText(authorModel.getName());
         PublisherModel publisherModel = PublisherBUS
-          .getInstance()
-          .getModelById(bookModel.getPublisherId());
+            .getInstance()
+            .getModelById(bookModel.getPublisherId());
         publisherTextField.setText(publisherModel.getName());
       }
     });
 
     addBookButton.addActionListener(e -> {
       int option = JOptionPane.showConfirmDialog(
-        null,
-        "Do you want to add it ?"
-      );
+          null,
+          "Do you want to add it ?");
       if (option == JOptionPane.YES_OPTION) {
         BookModel book = BookBUS
-          .getInstance()
-          .getBookByIsbn(bookIsbnTextField.getText());
+            .getInstance()
+            .getBookByIsbn(bookIsbnTextField.getText());
         int quantity = 0;
         int price = 0;
         try {
@@ -430,8 +427,8 @@ public class ImportNewPanel extends JPanel {
         try {
           // create import
           for (ProviderModel providerModel : ProviderBUS
-            .getInstance()
-            .getAllModels()) {
+              .getInstance()
+              .getAllModels()) {
             if (providerModel.getName().equals(providerTextField.getText())) {
               updateProviderModel = providerModel;
             }
@@ -446,8 +443,8 @@ public class ImportNewPanel extends JPanel {
           }
 
           for (ProviderModel providerModel : ProviderBUS
-            .getInstance()
-            .getAllModels()) {
+              .getInstance()
+              .getAllModels()) {
             if (providerModel.getName().equals(authorTextField.getText())) {
               updateProviderModel = providerModel;
               break;
@@ -457,9 +454,12 @@ public class ImportNewPanel extends JPanel {
             importModel = new ImportModel();
             int count = 1;
             for (ImportModel importModel : ImportBUS
-              .getInstance()
-              .getAllModels()) {
-              if (importModel.getId() == count) count++; else break;
+                .getInstance()
+                .getAllModels()) {
+              if (importModel.getId() == count)
+                count++;
+              else
+                break;
             }
             importModel.setId(count);
             importModel.setEmployeeId(userModel.getId());
@@ -467,15 +467,14 @@ public class ImportNewPanel extends JPanel {
             importModel.setTotalPrice((double) 0);
           }
           importModel.setTotalPrice(
-            importModel.getTotalPrice() + (double) price * quantity
-          );
+              importModel.getTotalPrice() + (double) price * quantity);
           ImportBUS.getInstance().updateModel(importModel);
 
           DatabaseConnection.getInstance().beginTransaction();
           if (book == null) {
             for (AuthorModel authorModel : AuthorBUS
-              .getInstance()
-              .getAllModels()) {
+                .getInstance()
+                .getAllModels()) {
               if (authorModel.getName().equals(authorTextField.getText())) {
                 updateAuthorModel = authorModel;
                 break;
@@ -491,11 +490,9 @@ public class ImportNewPanel extends JPanel {
             }
 
             for (PublisherModel publisherModel : PublisherBUS
-              .getInstance()
-              .getAllModels()) {
-              if (
-                publisherModel.getName().equals(publisherTextField.getText())
-              ) {
+                .getInstance()
+                .getAllModels()) {
+              if (publisherModel.getName().equals(publisherTextField.getText())) {
                 updatePublisherModel = publisherModel;
                 break;
               }
@@ -509,10 +506,11 @@ public class ImportNewPanel extends JPanel {
               PublisherBUS.getInstance().refreshData();
             }
 
-            // 2 dòng for này là để cập nhật lại updateAuthorModel và updatePublisherModel sau khi thêm
+            // 2 dòng for này là để cập nhật lại updateAuthorModel và updatePublisherModel
+            // sau khi thêm
             for (AuthorModel authorModel : AuthorBUS
-              .getInstance()
-              .getAllModels()) {
+                .getInstance()
+                .getAllModels()) {
               if (authorModel.getName().equals(authorTextField.getText())) {
                 updateAuthorModel = authorModel;
                 break;
@@ -520,11 +518,9 @@ public class ImportNewPanel extends JPanel {
             }
 
             for (PublisherModel publisherModel : PublisherBUS
-              .getInstance()
-              .getAllModels()) {
-              if (
-                publisherModel.getName().equals(publisherTextField.getText())
-              ) {
+                .getInstance()
+                .getAllModels()) {
+              if (publisherModel.getName().equals(publisherTextField.getText())) {
                 updatePublisherModel = publisherModel;
                 break;
               }
@@ -573,9 +569,8 @@ public class ImportNewPanel extends JPanel {
     });
     saveButton.addActionListener(e -> {
       int option = JOptionPane.showConfirmDialog(
-        null,
-        "Do you want to save import ? "
-      );
+          null,
+          "Do you want to save import ? ");
       if (option == JOptionPane.YES_OPTION) {
         ImportBUS.getInstance().addModel(importModel);
         for (ImportItemsModel importItemsModel : importItemsList) {
@@ -592,10 +587,18 @@ public class ImportNewPanel extends JPanel {
         authorTextField.setText("");
         JOptionPane.showMessageDialog(null, "Save import successfully");
         int choice = JOptionPane.showConfirmDialog(
-          null,
-          "Do you want to print the import to pdf"
-        );
-        if (choice == JOptionPane.YES_OPTION) {}
+            null,
+            "Do you want to print the import to PDF?");
+        if (choice == JOptionPane.YES_OPTION) {
+          JFileChooser fileChooser = new JFileChooser();
+          int result = fileChooser.showOpenDialog(null);
+          if (result == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+            String url = selectedFile.toURI().toString();
+            PDFWriter.getInstance().exportImportsToPDF(importModel.getId(), url);
+            System.out.println("Selected file URL: " + url);
+          }
+        }
       }
     });
   }
