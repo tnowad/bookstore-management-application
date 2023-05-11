@@ -1,7 +1,7 @@
-package com.bookstore.gui.components.publishers;
+package com.bookstore.gui.forms.publishers;
 
 import com.bookstore.bus.PublisherBUS;
-import com.bookstore.gui.forms.publishers.AddPublisherForm;
+import com.bookstore.gui.components.publishers.PublisherItemPanel;
 import com.bookstore.interfaces.ISearchable;
 import com.bookstore.models.PublisherModel;
 import java.awt.*;

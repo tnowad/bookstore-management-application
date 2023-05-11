@@ -7,6 +7,7 @@ import com.bookstore.gui.components.labels.Label;
 import com.bookstore.gui.theme.ThemeFont;
 import com.bookstore.models.UserModel;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -27,8 +28,6 @@ public class CustomerListForm extends JPanel {
   private JScrollPane jScrollPane2;
   private JTextField searchCustomerTxtFld;
 
-  private static CustomerListForm instance;
-
   UserBUS userBus = UserBUS.getInstance();
   List<UserModel> customersList = userBus.getAllModels();
 
@@ -36,13 +35,6 @@ public class CustomerListForm extends JPanel {
     initComponents();
     listCustomer();
     search();
-  }
-
-  public static CustomerListForm getInstance() {
-    if (instance == null) {
-      instance = new CustomerListForm();
-    }
-    return instance;
   }
 
   private void search() {
@@ -162,6 +154,21 @@ public class CustomerListForm extends JPanel {
     tableContainerPanel.setLayout(new BorderLayout());
 
     customerTableList.getTableHeader().setReorderingAllowed(false);
+    // add event click row
+    customerTableList.addMouseListener(
+      new java.awt.event.MouseAdapter() {
+        @Override
+        public void mouseClicked(java.awt.event.MouseEvent evt) {
+          customerTableActionListener.actionPerformed(
+            new java.awt.event.ActionEvent(
+              evt,
+              0,
+              "customerTableActionListener"
+            )
+          );
+        }
+      }
+    );
 
     jScrollPane2.setViewportView(customerTableList);
     jScrollPane2.getVerticalScrollBar().setUnitIncrement(16);
@@ -173,4 +180,10 @@ public class CustomerListForm extends JPanel {
 
     add(jScrollPane1, BorderLayout.CENTER);
   }
+
+  private ActionListener customerTableActionListener = e -> {
+    int row = customerTableList.getSelectedRow();
+    int id = Integer.parseInt(customerTableList.getValueAt(row, 0).toString());
+    UserModel customer = UserBUS.getInstance().getModelById(id);
+  };
 }
