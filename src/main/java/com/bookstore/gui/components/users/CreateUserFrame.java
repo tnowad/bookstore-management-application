@@ -28,23 +28,23 @@ public class CreateUserFrame extends JFrame {
   private JButton buttonBack;
   private JPanel actionPanel;
   private JButton buttonSave;
-  private JLabel emailText;
-  private JLabel nameText;
-  private JLabel passwordText;
-  private JLabel phoneText;
-  private JLabel roleText;
-  private JTextField setEmail;
-  private JTextField setName;
-  private JPasswordField setPassword;
-  private JTextField setPhone;
+  private JLabel emailLabel;
+  private JLabel nameLabel;
+  private JLabel passwordLabel;
+  private JLabel phoneLabel;
+  private JLabel roleLabel;
+  private JTextField emailTextField;
+  private JTextField nameTextField;
+  private JPasswordField passwordField;
+  private JTextField phoneTextField;
   private JComboBox<String> userRoleComboBox;
   private JComboBox<String> employeeTypeComboBox;
-  private JComboBox<String> setStatus;
+  private JComboBox<String> statusComboBox;
   JLabel employeeTypeLabel;
-  private JTextField setUserName;
-  private JLabel statusText;
+  private JTextField usernameTextField;
+  private JLabel statusLabel;
   private JLabel titlePanel;
-  private JLabel usernameText;
+  private JLabel usernameLabel;
 
   UserModel userModel = Authentication.getCurrentUser();
 
@@ -57,21 +57,21 @@ public class CreateUserFrame extends JFrame {
 
   private void initComponents() {
     titlePanel = new JLabel();
-    nameText = new JLabel();
-    setName = new JTextField();
-    usernameText = new JLabel();
-    setUserName = new JTextField();
-    passwordText = new JLabel();
-    setPassword = new JPasswordField();
-    phoneText = new JLabel();
-    setPhone = new JTextField();
-    emailText = new JLabel();
-    setEmail = new JTextField();
+    nameLabel = new JLabel();
+    nameTextField = new JTextField();
+    usernameLabel = new JLabel();
+    usernameTextField = new JTextField();
+    passwordLabel = new JLabel();
+    passwordField = new JPasswordField();
+    phoneLabel = new JLabel();
+    phoneTextField = new JTextField();
+    emailLabel = new JLabel();
+    emailTextField = new JTextField();
     userRoleComboBox = new JComboBox<>();
     employeeTypeComboBox = new JComboBox<>();
-    statusText = new JLabel();
-    roleText = new JLabel();
-    setStatus = new JComboBox<>();
+    statusLabel = new JLabel();
+    roleLabel = new JLabel();
+    statusComboBox = new JComboBox<>();
     actionPanel = new JPanel();
     buttonBack = new JButton();
     buttonSave = new JButton();
@@ -82,63 +82,35 @@ public class CreateUserFrame extends JFrame {
     // getContentPane().setLayout(new FlowLayout(FlowLayout.LEFT, 25, 15));
     getContentPane().setLayout(new BorderLayout(10, 10));
 
-    JPanel contentPanel = new JPanel(new GridLayout(0, 2));
     titlePanel.setFont(new Font("Segoe UI", 1, 18));
     titlePanel.setForeground(new Color(255, 51, 0));
     titlePanel.setText("New User");
     // getContentPane().add(titlePanel);
-    contentPanel.add(titlePanel);
-    contentPanel.add(new JLabel());
-    nameText.setFont(new Font("Segoe UI", 1, 15));
-    nameText.setHorizontalAlignment(SwingConstants.RIGHT);
-    nameText.setText("Name");
-    nameText.setPreferredSize(new Dimension(180, 20));
-    contentPanel.add(nameText);
+    nameLabel.setFont(new Font("Segoe UI", 1, 15));
+    nameLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+    nameLabel.setText("Name");
 
-    setName.setPreferredSize(new Dimension(250, 22));
-    contentPanel.add(setName);
+    usernameLabel.setFont(new Font("Segoe UI", 1, 15));
+    usernameLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+    usernameLabel.setText("UserName:");
 
-    usernameText.setFont(new Font("Segoe UI", 1, 15));
-    usernameText.setHorizontalAlignment(SwingConstants.RIGHT);
-    usernameText.setText("UserName:");
-    usernameText.setPreferredSize(new Dimension(180, 20));
-    contentPanel.add(usernameText);
+    usernameTextField.setPreferredSize(new Dimension(240, 22));
 
-    setUserName.setPreferredSize(new Dimension(240, 22));
-    contentPanel.add(setUserName);
+    passwordLabel.setFont(new Font("Segoe UI", 1, 15));
+    passwordLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+    passwordLabel.setText("Password");
 
-    passwordText.setFont(new Font("Segoe UI", 1, 15));
-    passwordText.setHorizontalAlignment(SwingConstants.RIGHT);
-    passwordText.setText("Password");
-    passwordText.setPreferredSize(new Dimension(180, 20));
-    contentPanel.add(passwordText);
+    phoneLabel.setFont(new Font("Segoe UI", 1, 15));
+    phoneLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+    phoneLabel.setText("Phone");
 
-    setPassword.setPreferredSize(new Dimension(200, 22));
-    contentPanel.add(setPassword);
+    emailLabel.setFont(new Font("Segoe UI", 1, 15));
+    emailLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+    emailLabel.setText("Email");
 
-    phoneText.setFont(new Font("Segoe UI", 1, 15));
-    phoneText.setHorizontalAlignment(SwingConstants.RIGHT);
-    phoneText.setText("Phone");
-    phoneText.setPreferredSize(new Dimension(180, 20));
-    contentPanel.add(phoneText);
-
-    setPhone.setPreferredSize(new Dimension(230, 22));
-    contentPanel.add(setPhone);
-
-    emailText.setFont(new Font("Segoe UI", 1, 15));
-    emailText.setHorizontalAlignment(SwingConstants.RIGHT);
-    emailText.setText("Email");
-    emailText.setPreferredSize(new Dimension(180, 20));
-    contentPanel.add(emailText);
-
-    setEmail.setPreferredSize(new Dimension(280, 22));
-    contentPanel.add(setEmail);
-
-    roleText.setFont(new Font("Segoe UI", 1, 15));
-    roleText.setHorizontalAlignment(SwingConstants.RIGHT);
-    roleText.setText("Role");
-    roleText.setPreferredSize(new Dimension(70, 20));
-    contentPanel.add(roleText);
+    roleLabel.setFont(new Font("Segoe UI", 1, 15));
+    roleLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+    roleLabel.setText("Role");
 
     if (userModel.getRole() == UserRole.ADMIN) {
       userRoleComboBox.setModel(
@@ -158,25 +130,40 @@ public class CreateUserFrame extends JFrame {
       )
     );
     userRoleComboBox.addActionListener(changeRoleCombo);
-    contentPanel.add(userRoleComboBox);
     employeeTypeLabel = new JLabel("Employee Type");
     employeeTypeLabel.setFont(new Font("Segoe UI", 1, 15));
     employeeTypeLabel.setHorizontalAlignment(SwingConstants.RIGHT);
     employeeTypeLabel.setPreferredSize(new Dimension(120, 20));
-    contentPanel.add(employeeTypeLabel);
-    contentPanel.add(employeeTypeComboBox);
 
-    statusText.setFont(new Font("Segoe UI", 1, 15));
-    statusText.setHorizontalAlignment(SwingConstants.RIGHT);
-    statusText.setPreferredSize(new Dimension(230, 20));
-    statusText.setText("Status");
-    contentPanel.add(statusText);
-    getContentPane().add(contentPanel, BorderLayout.CENTER);
-    setStatus.setModel(
+    statusLabel.setFont(new Font("Segoe UI", 1, 15));
+    statusLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+    statusLabel.setPreferredSize(new Dimension(230, 20));
+    statusLabel.setText("Status");
+    statusComboBox.setModel(
       new DefaultComboBoxModel<>(new String[] { "ACTIVE", "INACTIVE" })
     );
 
-    contentPanel.add(setStatus);
+    JPanel contentPanel = new JPanel(new GridLayout(0, 2));
+
+    contentPanel.add(titlePanel);
+    contentPanel.add(new JLabel());
+    contentPanel.add(usernameLabel);
+    contentPanel.add(usernameTextField);
+    contentPanel.add(nameLabel);
+    contentPanel.add(nameTextField);
+    contentPanel.add(emailLabel);
+    contentPanel.add(emailTextField);
+    contentPanel.add(passwordLabel);
+    contentPanel.add(passwordField);
+    contentPanel.add(phoneLabel);
+    contentPanel.add(phoneTextField);
+    contentPanel.add(roleLabel);
+    contentPanel.add(userRoleComboBox);
+    contentPanel.add(employeeTypeLabel);
+    contentPanel.add(employeeTypeComboBox);
+    contentPanel.add(statusLabel);
+    contentPanel.add(statusComboBox);
+    getContentPane().add(contentPanel, BorderLayout.CENTER);
 
     actionPanel.setPreferredSize(new Dimension(530, 30));
     actionPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 30, 5));
@@ -231,32 +218,32 @@ public class CreateUserFrame extends JFrame {
       final String INVALID_ERROR = " is not valid!";
       final String DUPLICATE_ERROR = " already exists!";
 
-      if (setName.getText().trim().isEmpty()) {
+      if (nameTextField.getText().trim().isEmpty()) {
         JOptionPane.showMessageDialog(null, "Name" + EMPTY_FIELD_ERROR);
         return;
       }
 
-      if (setUserName.getText().trim().isEmpty()) {
+      if (usernameTextField.getText().trim().isEmpty()) {
         JOptionPane.showMessageDialog(null, "User Name" + EMPTY_FIELD_ERROR);
         return;
       }
 
-      if (String.valueOf(setPassword.getPassword()).isEmpty()) {
+      if (String.valueOf(passwordField.getPassword()).isEmpty()) {
         JOptionPane.showMessageDialog(null, "Password" + EMPTY_FIELD_ERROR);
         return;
       }
 
       if (
-        setPhone.getText().trim().isEmpty() ||
-        !isValidPhoneNumber(setPhone.getText().trim())
+        phoneTextField.getText().trim().isEmpty() ||
+        !isValidPhoneNumber(phoneTextField.getText().trim())
       ) {
         JOptionPane.showMessageDialog(null, "Phone" + INVALID_ERROR);
         return;
       }
 
       if (
-        setEmail.getText().trim().isEmpty() ||
-        !isValidEmailAddress(setEmail.getText().trim())
+        emailTextField.getText().trim().isEmpty() ||
+        !isValidEmailAddress(emailTextField.getText().trim())
       ) {
         JOptionPane.showMessageDialog(null, "Email" + INVALID_ERROR);
         return;
@@ -266,7 +253,7 @@ public class CreateUserFrame extends JFrame {
         UserBUS
           .getInstance()
           .checkForDuplicate(
-            Arrays.asList(setUserName.getText()),
+            Arrays.asList(usernameTextField.getText()),
             new String[] { "username" }
           )
       ) {
@@ -278,7 +265,7 @@ public class CreateUserFrame extends JFrame {
         UserBUS
           .getInstance()
           .checkForDuplicate(
-            Arrays.asList(setPhone.getText()),
+            Arrays.asList(phoneTextField.getText()),
             new String[] { "phone" }
           )
       ) {
@@ -289,7 +276,7 @@ public class CreateUserFrame extends JFrame {
         UserBUS
           .getInstance()
           .checkForDuplicate(
-            Arrays.asList(setEmail.getText()),
+            Arrays.asList(emailTextField.getText()),
             new String[] { "email" }
           )
       ) {
@@ -309,23 +296,23 @@ public class CreateUserFrame extends JFrame {
           selectedRoleItem.toString().toUpperCase()
         );
 
-        Object selectedStatusItem = setStatus.getSelectedItem();
+        Object selectedStatusItem = statusComboBox.getSelectedItem();
         UserStatus status = UserStatus.valueOf(
           selectedStatusItem.toString().toUpperCase()
         );
 
-        String password = new String(setPassword.getPassword());
+        String password = new String(passwordField.getPassword());
 
         LocalDateTime timeNow = LocalDateTime.now();
 
         UserModel newUser = new UserModel(
           0,
-          setUserName.getText().trim(),
+          usernameTextField.getText().trim(),
           PasswordUtils.hashPassword(password),
           status,
-          setName.getText().trim(),
-          setEmail.getText().trim(),
-          setPhone.getText().trim(),
+          nameTextField.getText().trim(),
+          emailTextField.getText().trim(),
+          phoneTextField.getText().trim(),
           timeNow,
           timeNow,
           role

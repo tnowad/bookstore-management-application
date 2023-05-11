@@ -108,7 +108,6 @@ public class ImportList extends JPanel implements ISearchable {
 
     headerPanel.setLayout(new GridLayout(2, 2));
 
-    importLabel.setFont(new ThemeFont().getMediumFont());
     headerPanel.add(importLabel);
 
     addPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));

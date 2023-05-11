@@ -56,6 +56,9 @@ public class BrowseProductPanel
     contendPanel = new JPanel();
     panel = new JPanel();
     panelButton = new JPanel();
+    contendPanel.setBackground(Color.WHITE);
+    panel.setBackground(Color.WHITE);
+    panelButton.setBackground(Color.WHITE);
     buttonExport = new JButton();
     buttonImport = new JButton();
     buttonCreate = new JButton();
@@ -72,6 +75,7 @@ public class BrowseProductPanel
     title.setForeground(new Color(255, 0, 51));
     title.setText("List Book");
     add(title, BorderLayout.NORTH);
+    setBackground(Color.WHITE);
 
     contendPanel.setLayout(new BorderLayout());
 
@@ -112,6 +116,7 @@ public class BrowseProductPanel
     contendPanel.add(panel, BorderLayout.PAGE_START);
 
     table = new JPanel();
+    table.setBackground(Color.WHITE);
     JPanel tableWrapper = new JPanel();
     tableWrapper.setLayout(new BorderLayout());
     tableWrapper.add(table, BorderLayout.PAGE_START);
