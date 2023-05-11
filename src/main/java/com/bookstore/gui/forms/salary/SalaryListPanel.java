@@ -1,6 +1,7 @@
-package com.bookstore.gui.components.salary;
+package com.bookstore.gui.forms.salary;
 
 import com.bookstore.bus.EmployeeBUS;
+import com.bookstore.gui.components.salary.SalaryPanel;
 import com.bookstore.models.EmployeeModel;
 import java.awt.BorderLayout;
 import java.awt.Dimension;

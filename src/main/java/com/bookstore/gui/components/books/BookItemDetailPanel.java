@@ -1,5 +1,6 @@
 package com.bookstore.gui.components.books;
 
+import com.bookstore.gui.forms.books.BookDetailFrame;
 import com.bookstore.models.BookModel;
 import com.bookstore.util.image.ImageUtils;
 import java.awt.BorderLayout;

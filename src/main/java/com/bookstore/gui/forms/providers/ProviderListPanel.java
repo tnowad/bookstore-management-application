@@ -1,8 +1,6 @@
-package com.bookstore.gui.components.providers;
+package com.bookstore.gui.forms.providers;
 
 import com.bookstore.bus.ProviderBUS;
-import com.bookstore.gui.forms.providers.AddProvider;
-import com.bookstore.gui.forms.providers.ProviderPanel;
 import com.bookstore.interfaces.ISearchable;
 import com.bookstore.models.ProviderModel;
 import java.awt.*;

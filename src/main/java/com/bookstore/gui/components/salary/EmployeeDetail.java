@@ -1,14 +1,13 @@
 package com.bookstore.gui.components.salary;
 
-
 import com.bookstore.bus.EmployeeBUS;
 import com.bookstore.bus.UserBUS;
 import com.bookstore.gui.components.panels.MainPanel;
+import com.bookstore.gui.forms.salary.SalaryListPanel;
 import com.bookstore.models.EmployeeModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.*;
 
 public class EmployeeDetail extends JFrame {
@@ -80,7 +79,7 @@ public class EmployeeDetail extends JFrame {
 
     setId.setPreferredSize(new Dimension(200, 25));
     setId.setEditable(false);
-    setId.setText(""+employee.getUserId());
+    setId.setText("" + employee.getUserId());
     contend.add(setId);
 
     nameText.setFont(new Font("Segoe UI", 1, 14)); // NOI18N
@@ -91,7 +90,9 @@ public class EmployeeDetail extends JFrame {
 
     setName.setPreferredSize(new Dimension(200, 25));
     setName.setEditable(false);
-    setName.setText(UserBUS.getInstance().getModelById(employee.getUserId()).getName());
+    setName.setText(
+      UserBUS.getInstance().getModelById(employee.getUserId()).getName()
+    );
     contend.add(setName);
 
     typeText.setFont(new Font("Segoe UI", 1, 14)); // NOI18N
@@ -102,32 +103,33 @@ public class EmployeeDetail extends JFrame {
 
     setType.setPreferredSize(new Dimension(200, 25));
     setType.setEditable(false);
-    setType.setText(""+employee.getEmployeeType());
+    setType.setText("" + employee.getEmployeeType());
     contend.add(setType);
 
-    
     contactText.setFont(new Font("Segoe UI", 1, 14)); // NOI18N
     contactText.setHorizontalAlignment(SwingConstants.RIGHT);
     contactText.setText("Contact:");
     contactText.setPreferredSize(new Dimension(130, 16));
     contend.add(contactText);
-    
+
     setContact.setPreferredSize(new Dimension(200, 25));
     setContact.setEditable(false);
     setContact.setText(employee.getContactInformation());
     contend.add(setContact);
-    
+
     statusText.setFont(new Font("Segoe UI", 1, 14)); // NOI18N
     statusText.setHorizontalAlignment(SwingConstants.RIGHT);
     statusText.setText("Status:");
     statusText.setPreferredSize(new Dimension(130, 16));
     contend.add(statusText);
-    
+
     setStatus.setPreferredSize(new Dimension(200, 25));
     setStatus.setEditable(false);
-    setStatus.setText(""+UserBUS.getInstance().getModelById(employee.getUserId()).getStatus());
+    setStatus.setText(
+      "" + UserBUS.getInstance().getModelById(employee.getUserId()).getStatus()
+    );
     contend.add(setStatus);
-    
+
     salaryText.setFont(new Font("Segoe UI", 1, 17)); // NOI18N
     salaryText.setForeground(Color.YELLOW);
     salaryText.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -136,9 +138,8 @@ public class EmployeeDetail extends JFrame {
     contend.add(salaryText);
 
     setSalary.setPreferredSize(new Dimension(200, 25));
-    setSalary.setText(""+employee.getSalary());
+    setSalary.setText("" + employee.getSalary());
     contend.add(setSalary);
-
 
     buttonPanel.setPreferredSize(new Dimension(50, 50));
     buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 30, 5));
@@ -163,7 +164,6 @@ public class EmployeeDetail extends JFrame {
   }
 
   public ActionListener actionSave = new ActionListener() {
-
     @Override
     public void actionPerformed(ActionEvent evt) {
       int salary;
@@ -183,7 +183,7 @@ public class EmployeeDetail extends JFrame {
         JOptionPane.YES_NO_OPTION
       );
       if (choice == JOptionPane.YES_OPTION) {
-        EmployeeBUS.getInstance().updateSalary(employee.getUserId(),salary);
+        EmployeeBUS.getInstance().updateSalary(employee.getUserId(), salary);
         EmployeeBUS.getInstance().refreshData();
         JOptionPane.showMessageDialog(null, "Complete");
         MainPanel.getInstance().showForm(SalaryListPanel.getInstance());
@@ -197,5 +197,4 @@ public class EmployeeDetail extends JFrame {
       frame.dispose();
     }
   };
-
 }

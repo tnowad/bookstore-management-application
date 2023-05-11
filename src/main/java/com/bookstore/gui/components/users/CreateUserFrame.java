@@ -78,7 +78,7 @@ public class CreateUserFrame extends JFrame {
     setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     setMinimumSize(new Dimension(590, 394));
     setPreferredSize(new Dimension(590, 394));
-    // getContentPane().setLayout(new FlowLayout(FlowLayout.LEFT, 25, 15));
+    getContentPane().setLayout(new FlowLayout(FlowLayout.LEFT, 25, 15));
     titlePanel.setFont(new Font("Segoe UI", 1, 18));
     titlePanel.setForeground(new Color(255, 51, 0));
     titlePanel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -134,7 +134,7 @@ public class CreateUserFrame extends JFrame {
     roleText.setFont(new Font("Segoe UI", 1, 15));
     roleText.setHorizontalAlignment(SwingConstants.RIGHT);
     roleText.setText("Role");
-    roleText.setPreferredSize(new Dimension(170, 20));
+    roleText.setPreferredSize(new Dimension(100, 20));
     getContentPane().add(roleText);
 
     if (userModel.getRole() == UserRole.ADMIN) {
@@ -157,10 +157,15 @@ public class CreateUserFrame extends JFrame {
     userRoleComboBox.addActionListener(changeRoleCombo);
     getContentPane().add(userRoleComboBox);
     employeeTypeLabel = new JLabel("Employee Type");
+    employeeTypeLabel.setFont(new Font("Segoe UI", 1, 15));
+    employeeTypeLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+    employeeTypeLabel.setPreferredSize(new Dimension(120, 20));
     getContentPane().add(employeeTypeLabel);
     getContentPane().add(employeeTypeComboBox);
 
     statusText.setFont(new Font("Segoe UI", 1, 15));
+    statusText.setHorizontalAlignment(SwingConstants.RIGHT);
+    statusText.setPreferredSize(new Dimension(230, 20));
     statusText.setText("Status");
     getContentPane().add(statusText);
 

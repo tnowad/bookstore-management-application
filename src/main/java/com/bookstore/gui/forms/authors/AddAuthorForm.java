@@ -1,7 +1,6 @@
 package com.bookstore.gui.forms.authors;
 
 import com.bookstore.bus.AuthorBUS;
-import com.bookstore.gui.components.authors.AuthorListPanel;
 import com.bookstore.gui.components.panels.MainPanel;
 import com.bookstore.models.AuthorModel;
 import java.awt.*;
@@ -133,7 +132,6 @@ public class AddAuthorForm extends JFrame {
         authorBUS.refreshData();
         JOptionPane.showMessageDialog(null, "Complete");
         MainPanel.getInstance().showForm(AuthorListPanel.getInstance());
-
       }
     }
   };

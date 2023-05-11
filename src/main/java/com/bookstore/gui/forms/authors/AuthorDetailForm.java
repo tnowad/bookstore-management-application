@@ -2,7 +2,6 @@ package com.bookstore.gui.forms.authors;
 
 import com.bookstore.bus.AuthorBUS;
 import com.bookstore.bus.BookBUS;
-import com.bookstore.gui.components.authors.AuthorListPanel;
 import com.bookstore.gui.components.panels.MainPanel;
 import com.bookstore.models.AuthorModel;
 import java.awt.*;
