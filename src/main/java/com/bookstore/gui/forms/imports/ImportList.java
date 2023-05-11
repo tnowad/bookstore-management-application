@@ -11,6 +11,7 @@ import com.bookstore.models.ImportModel;
 import com.bookstore.models.ProviderModel;
 import com.bookstore.util.Excel.ImportModelExcelUtil;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -87,15 +88,20 @@ public class ImportList extends JPanel implements ISearchable {
 
   private void initComponents() {
     headerPanel = new JPanel();
+    headerPanel.setBackground(Color.WHITE);
     importLabel = new Label("Import list");
     addPanel = new JPanel();
+    addPanel.setBackground(Color.WHITE);
     addReceiptButton = new Button("Add import");
     groupSearchPanel = new JPanel();
+    groupSearchPanel.setBackground(Color.WHITE);
     groupExcel = new JPanel();
+    groupExcel.setBackground(Color.WHITE);
     importFromExcelButton = new Button("Import excel");
     exportToExcelButton = new Button("Export excel");
 
     groupListImport = new JPanel();
+    groupListImport.setBackground(Color.WHITE);
     scrollPaneTableList = new JScrollPane();
     scrollPaneTableList.getVerticalScrollBar().setUnitIncrement(16);
 
