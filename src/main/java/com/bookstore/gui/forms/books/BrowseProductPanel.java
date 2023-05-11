@@ -75,6 +75,7 @@ public class BrowseProductPanel
     title.setForeground(new Color(255, 0, 51));
     title.setText("List Book");
     add(title, BorderLayout.NORTH);
+    setBackground(Color.WHITE);
 
     contendPanel.setLayout(new BorderLayout());
 

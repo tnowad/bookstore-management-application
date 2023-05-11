@@ -4,6 +4,8 @@ import com.bookstore.bus.UserBUS;
 import com.bookstore.enums.UserRole;
 import com.bookstore.enums.UserStatus;
 import com.bookstore.models.UserModel;
+import com.bookstore.util.InputValidator;
+import com.bookstore.util.PasswordUtils;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -287,9 +289,22 @@ public class CreateUserFrame extends JFrame {
       UserStatus status = UserStatus.valueOf(
         selectedStatusItem.toString().toUpperCase()
       );
-
-      String password = new String(setPassword.getPassword());
-
+      String password;
+      try {
+        password =
+          InputValidator.validatePassword(
+            new String(setPassword.getPassword())
+          );
+        password = PasswordUtils.hashPassword(password);
+      } catch (Exception e) {
+        JOptionPane.showMessageDialog(
+          null,
+          e.getMessage(),
+          "Error",
+          JOptionPane.ERROR_MESSAGE
+        );
+        return;
+      }
       LocalDateTime timeNow = LocalDateTime.now();
 
       UserModel newUser = new UserModel(
