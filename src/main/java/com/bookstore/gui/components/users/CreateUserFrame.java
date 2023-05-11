@@ -1,9 +1,13 @@
 package com.bookstore.gui.components.users;
 
+import com.bookstore.bus.EmployeeBUS;
 import com.bookstore.bus.UserBUS;
+import com.bookstore.dao.DatabaseConnection;
+import com.bookstore.enums.EmployeeType;
 import com.bookstore.enums.UserRole;
 import com.bookstore.enums.UserStatus;
 import com.bookstore.gui.components.panels.MainPanel;
+import com.bookstore.models.EmployeeModel;
 import com.bookstore.models.UserModel;
 import com.bookstore.services.Authentication;
 import com.bookstore.util.PasswordUtils;
@@ -11,6 +15,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.*;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -31,14 +36,17 @@ public class CreateUserFrame extends JFrame {
   private JTextField setName;
   private JPasswordField setPassword;
   private JTextField setPhone;
-  private JComboBox<String> setRole;
+  private JComboBox<String> userRoleComboBox;
+  private JComboBox<String> employeeTypeComboBox;
   private JComboBox<String> setStatus;
+  JLabel employeeTypeLabel;
   private JTextField setUserName;
   private JLabel statusText;
   private JLabel titlePanel;
   private JLabel usernameText;
 
   UserModel userModel = Authentication.getCurrentUser();
+
   public CreateUserFrame() {
     initComponents();
     setLocationRelativeTo(null);
@@ -58,7 +66,8 @@ public class CreateUserFrame extends JFrame {
     setPhone = new JTextField();
     emailText = new JLabel();
     setEmail = new JTextField();
-    setRole = new JComboBox<>();
+    userRoleComboBox = new JComboBox<>();
+    employeeTypeComboBox = new JComboBox<>();
     statusText = new JLabel();
     roleText = new JLabel();
     setStatus = new JComboBox<>();
@@ -69,8 +78,7 @@ public class CreateUserFrame extends JFrame {
     setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     setMinimumSize(new Dimension(590, 394));
     setPreferredSize(new Dimension(590, 394));
-    getContentPane().setLayout(new FlowLayout(FlowLayout.LEFT, 25, 15));
-
+    // getContentPane().setLayout(new FlowLayout(FlowLayout.LEFT, 25, 15));
     titlePanel.setFont(new Font("Segoe UI", 1, 18));
     titlePanel.setForeground(new Color(255, 51, 0));
     titlePanel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -129,19 +137,28 @@ public class CreateUserFrame extends JFrame {
     roleText.setPreferredSize(new Dimension(170, 20));
     getContentPane().add(roleText);
 
-    if(userModel.getRole()==UserRole.ADMIN) {
-    setRole.setModel(
+    if (userModel.getRole() == UserRole.ADMIN) {
+      userRoleComboBox.setModel(
+        new DefaultComboBoxModel<>(
+          new String[] { "ADMIN", "CUSTOMER", "EMPLOYEE" }
+        )
+      );
+    } else {
+      userRoleComboBox.setModel(
+        new DefaultComboBoxModel<>(new String[] { "CUSTOMER", "EMPLOYEE" })
+      );
+    }
+
+    employeeTypeComboBox.setModel(
       new DefaultComboBoxModel<>(
-        new String[] { "ADMIN", "CUSTOMER", "EMPLOYEE" }
-      )
-    );} else {
-      setRole.setModel(
-      new DefaultComboBoxModel<>(
-        new String[] {"CUSTOMER", "EMPLOYEE" }
+        new String[] { "EMPLOYEE_MANAGER", "EMPLOYEE_SALES" }
       )
     );
-    }
-    getContentPane().add(setRole);
+    userRoleComboBox.addActionListener(changeRoleCombo);
+    getContentPane().add(userRoleComboBox);
+    employeeTypeLabel = new JLabel("Employee Type");
+    getContentPane().add(employeeTypeLabel);
+    getContentPane().add(employeeTypeComboBox);
 
     statusText.setFont(new Font("Segoe UI", 1, 15));
     statusText.setText("Status");
@@ -279,7 +296,7 @@ public class CreateUserFrame extends JFrame {
         JOptionPane.YES_NO_OPTION
       );
       if (confirm == JOptionPane.YES_OPTION) {
-        Object selectedRoleItem = setRole.getSelectedItem();
+        Object selectedRoleItem = userRoleComboBox.getSelectedItem();
         UserRole role = UserRole.valueOf(
           selectedRoleItem.toString().toUpperCase()
         );
@@ -305,12 +322,44 @@ public class CreateUserFrame extends JFrame {
           timeNow,
           role
         );
-
+        //
+        DatabaseConnection.getInstance().beginTransaction();
         UserBUS.getInstance().addModel(newUser);
+        if (newUser.getRole() == UserRole.EMPLOYEE) {
+          EmployeeType type = EmployeeType.valueOf(
+            employeeTypeComboBox.getSelectedItem().toString().toUpperCase()
+          );
+          EmployeeModel newEmployee = new EmployeeModel(
+            newUser.getId(),
+            0,
+            type,
+            "Empty"
+          );
+          EmployeeBUS.getInstance().addModel(newEmployee);
+        }
+        if (EmployeeBUS.getInstance().getModelById(newUser.getId()) == null) {
+          DatabaseConnection.getInstance().rollbackTransaction();
+        }
+
+        DatabaseConnection.getInstance().endTransaction();
+
         JOptionPane.showMessageDialog(null, "Complete!");
         UserBUS.getInstance().refreshData();
         MainPanel.getInstance().showForm(UserListPanel.getInstance());
       }
+    }
+  };
+
+  public ActionListener changeRoleCombo = e -> {
+    Object selectedRoleItem = userRoleComboBox.getSelectedItem();
+    UserRole role = UserRole.valueOf(selectedRoleItem.toString().toUpperCase());
+
+    if (role == UserRole.EMPLOYEE) {
+      employeeTypeLabel.setVisible(true);
+      employeeTypeComboBox.setVisible(true);
+    } else {
+      employeeTypeLabel.setVisible(false);
+      employeeTypeComboBox.setVisible(false);
     }
   };
 }
