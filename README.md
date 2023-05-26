@@ -1,58 +1,35 @@
-# Bookstore Management System
+# Bookstore Management Application
 
-## Table of Contents
+This project is a bookstore management application built using Java Swing for the user interface, MySQL for the database, and Docker for containerization.
 
-- Introduction
-- Requirements
-- Installation
-- Usage
-- Conclusion
+## Setup Instructions
 
-## Introduction
+To set up the application, follow these steps:
 
-The Bookstore Management System is a Java Swing-based application that provides an interface for bookstore owners to manage their day-to-day operations. The system is designed to handle inventory, customer and order management, billing and invoicing, and other tasks related to running a bookstore. The system utilizes MongoDB as the database and Docker-Compose for easy deployment and management of the database.
+1. Make sure you have Docker installed on your system.
+2. Clone the project repository.
+3. Open a terminal and navigate to the project directory.
+4. Run the following command to set up the database using Docker Compose:
 
-## Requirements
-
-Before you begin, make sure you have the following installed:
-
-- Docker-Compose (version 3.8 or higher)
-- Java 8 or higher
-- Java Swing library
-- MongoDB Java Driver
-
-## Installation
-
-- Clone the repository to your local machine
-
-  ```shell
-  git clone https://github.com/tnowad/bookstore-management-application.git
-  ```           
-
-- Change into the project directory
-
-  ```shell
-  cd bookstore-management-application
-  ```
-
-- Run Docker-Compose to start the MySQL container
-
-  ```shell
-  docker-compose up -d
-  ```
-
-- Build and run the Java project using your preferred method (e.g. using an IDE or the command line)
-
-## Usage
-
-Upon starting the application, you will be prompted to login using a username and password. Once logged in, you will be able to access the various functionalities of the system, such as managing inventory, customers, orders, and invoices.
-
-```yml
-default user:
-  username: admin
-  password: admin
+```
+docker-compose up
 ```
 
-## Conclusion
+This command will start a MySQL container and set up the necessary database and tables.
+5. Once the database is up and running, you can run the application.
+6. In the terminal, run the following command to start the application:
 
-The Bookstore Management System provides an easy-to-use interface for bookstore owners to manage their operations, and the use of MongoDB and Docker-Compose makes deployment and maintenance a breeze. Whether you are running a small or large bookstore, this system can help you streamline your operations and improve your bottom line.
+```
+java -classpath <path-to-jar-file> com.bookstore.App
+```
+
+Replace `<path-to-jar-file>` with the path to the compiled JAR file of the application.
+7. The application will launch, and you can now use it to manage your bookstore.
+
+## Additional Notes
+
+- The application utilizes Java Swing for the graphical user interface, providing a user-friendly experience.
+- MySQL is used as the database management system to store and retrieve bookstore-related information.
+- Docker Compose is employed to simplify the setup process by encapsulating the database in a container.
+
+Feel free to customize the application as per your requirements and preferences. Enjoy managing your bookstore!
