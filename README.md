@@ -24,6 +24,7 @@ java -classpath <path-to-jar-file> com.bookstore.App
 ```
 
 Replace `<path-to-jar-file>` with the path to the compiled JAR file of the application.
+
 7. The application will launch, and you can now use it to manage your bookstore.
 
 ## Additional Notes
